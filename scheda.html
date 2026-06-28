@@ -33,6 +33,7 @@
     <div class="tabs">
       <button class="tab-btn active" onclick="mostraSezione('individuale', this)">Individuale</button>
       <button class="tab-btn" onclick="mostraSezione('sedute', this)">Sedute</button>
+      <button class="tab-btn" onclick="mostraSezione('profilo', this)">Profilo</button>
     </div>
 
     <!-- SEZIONE INDIVIDUALE -->
@@ -40,6 +41,9 @@
 
     <!-- SEZIONE SEDUTE -->
     <div id="sedute" class="sezione"></div>
+
+    <!-- SEZIONE PROFILO -->
+    <div id="profilo" class="sezione"></div>
 
   </div><!-- fine contenuto -->
 
@@ -250,6 +254,9 @@ async function caricaScheda() {
       divSed.innerHTML += html;
     });
 
+    /* PROFILO */
+    document.getElementById('profilo').innerHTML = buildProfilo(resE, resP);
+
     /* mostra contenuto */
     document.getElementById('loading').style.display  = 'none';
     document.getElementById('contenuto').style.display = '';
@@ -349,6 +356,98 @@ async function salvaLog(inputId, btn) {
       btn.disabled         = false;
     }, 2000);
   }
+}
+
+function buildProfilo(resE, resP) {
+  /* peso corporeo — ultima voce salvata */
+  const pesoLogs = resP.dati
+    .filter(p => String(p.ID_Giocatrice) === String(id) && p.Esercizio === 'Peso-corporeo')
+    .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+  const ultimoPeso = pesoLogs.length ? pesoLogs[pesoLogs.length - 1].Valore : '';
+
+  /* log esercizi, raggruppati per nome */
+  const logPerEserc = {};
+  resP.dati
+    .filter(p => String(p.ID_Giocatrice) === String(id) && p.Valore &&
+                 p.Esercizio !== 'Peso-corporeo' &&
+                 p.Esercizio !== 'RPE-seduta' &&
+                 p.Esercizio !== 'Fatica-seduta')
+    .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
+    .forEach(p => {
+      if (!logPerEserc[p.Esercizio]) logPerEserc[p.Esercizio] = [];
+      logPerEserc[p.Esercizio].push(p);
+    });
+
+  /* ordine esercizi come da scheda */
+  const ordine = [];
+  const seen = new Set();
+  resE.dati
+    .filter(e => String(e.ID_Giocatrice) === String(id))
+    .sort((a, b) =>
+      (Number(a.N_Seduta)   - Number(b.N_Seduta))   ||
+      (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) ||
+      (Number(a.Ord_Eserc)  - Number(b.Ord_Eserc)))
+    .forEach(e => {
+      if (!seen.has(e.Esercizio) && logPerEserc[e.Esercizio]) {
+        seen.add(e.Esercizio);
+        ordine.push(e.Esercizio);
+      }
+    });
+
+  let html = `
+    <div class="profilo-card">
+      <div class="profilo-header">Peso corporeo</div>
+      <div class="peso-input-row">
+        <input type="number" id="peso-input" placeholder="es. 65" min="30" max="150" step="0.5" value="${ultimoPeso}">
+        <span class="peso-unit">kg</span>
+        <button onclick="salvaPeso(this)">Salva</button>
+      </div>
+      <div class="log-salvato" id="ok-peso" style="padding:0 16px 10px">✓ Salvato!</div>
+    </div>`;
+
+  if (ordine.length === 0) {
+    html += `<p class="loading-msg" style="padding:20px 0">Nessun carico registrato ancora.</p>`;
+    return html;
+  }
+
+  html += `<div class="profilo-card"><div class="profilo-header">Storico carichi</div>`;
+  ordine.forEach(nome => {
+    const chips = logPerEserc[nome].map(p => {
+      const rm = p.RM_Stimato ? ` · ~${Math.round(Number(p.RM_Stimato))} kg` : '';
+      return `<span class="storico-chip">${p.Data || '—'}<br><strong>${p.Valore}</strong>${rm}</span>`;
+    }).join('');
+    html += `
+      <div class="storico-eserc">
+        <div class="storico-nome">${nome}</div>
+        <div class="storico-chips">${chips}</div>
+      </div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+
+async function salvaPeso(btn) {
+  const input = document.getElementById('peso-input');
+  const val   = parseFloat(input.value);
+  if (!val || val < 30 || val > 150) return;
+  btn.textContent = '...';
+  btn.disabled    = true;
+  try {
+    await fetch(API, {
+      method:  'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        token: TOKEN, azione: 'log_progressi',
+        id_giocatrice: id, n_seduta: '0', esercizio: 'Peso-corporeo',
+        data: new Date().toLocaleDateString('it-IT'),
+        valore: String(val), note: '',
+        kg_usati: '', reps_fatte: '', rm_stimato: '',
+      }),
+    });
+    const okEl = document.getElementById('ok-peso');
+    if (okEl) { okEl.style.display = 'block'; setTimeout(() => okEl.style.display = 'none', 1500); }
+  } catch {}
+  setTimeout(() => { btn.textContent = 'Salva'; btn.disabled = false; }, 2000);
 }
 
 function htmlFeedbackSeduta(nSeduta, prev) {
