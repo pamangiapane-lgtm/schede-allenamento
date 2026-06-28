@@ -97,3 +97,37 @@ function risposta(obj) {
     .createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
 }
+
+// Esegui una volta dall'editor per aggiungere colonne + dropdown
+function setupValidazione() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+
+  function aggiungiColonnaSeAssente(foglio, nomeCol) {
+    const headers = foglio.getRange(1, 1, 1, foglio.getLastColumn()).getValues()[0];
+    if (headers.includes(nomeCol)) return headers.indexOf(nomeCol) + 1;
+    const col = foglio.getLastColumn() + 1;
+    foglio.getRange(1, col).setValue(nomeCol);
+    return col;
+  }
+
+  function setDropdown(foglio, col, valori) {
+    const lastRow = Math.max(foglio.getLastRow(), 2);
+    const range = foglio.getRange(2, col, lastRow - 1, 1);
+    const rule = SpreadsheetApp.newDataValidation()
+      .requireValueInList(valori, true)
+      .setAllowInvalid(false)
+      .build();
+    range.setDataValidation(rule);
+  }
+
+  ['Esercizi', 'LibreriaIndividuale'].forEach(nome => {
+    const f = ss.getSheetByName(nome);
+    if (!f) return;
+    const colLog    = aggiungiColonnaSeAssente(f, 'Log_Libero');
+    const colCatena = aggiungiColonnaSeAssente(f, 'Catena');
+    setDropdown(f, colLog,    ['SI', 'NO']);
+    setDropdown(f, colCatena, ['upper', 'lower']);
+  });
+
+  Logger.log('setupValidazione completato');
+}

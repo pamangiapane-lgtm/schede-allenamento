@@ -110,17 +110,60 @@ function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
     </div>`;
 }
 
+/* ---------- media helpers ---------- */
+function ytId(url) {
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+function isImage(url) {
+  return /\.(jpe?g|png|gif|webp|svg)(\?|$)/i.test(url);
+}
+
+function mediaBlock(url, uid) {
+  if (!url) return '';
+  const id = 'media-' + uid;
+  let content;
+  const yt = ytId(url);
+  if (yt) {
+    content = `<div class="video-wrap"><iframe src="https://www.youtube.com/embed/${yt}?playsinline=1" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>`;
+  } else if (isImage(url)) {
+    content = `<img src="${url}" alt="Istruzione" class="media-img">`;
+  } else {
+    content = `<a href="${url}" target="_blank" class="media-link">▶ Apri risorsa esterna</a>`;
+  }
+  return `
+    <button class="media-toggle" onclick="toggleMedia('${id}')" aria-label="Mostra/nascondi video">
+      <span class="media-toggle-icon">▶</span> Video / Istruzione
+    </button>
+    <div class="media-panel" id="${id}" style="display:none">${content}</div>`;
+}
+
+function toggleMedia(id) {
+  const panel = document.getElementById(id);
+  if (!panel) return;
+  const open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  const btn = panel.previousElementSibling;
+  if (btn) btn.classList.toggle('media-toggle-open', !open);
+  // Stop video on close
+  if (open) {
+    const iframe = panel.querySelector('iframe');
+    if (iframe) { const s = iframe.src; iframe.src = ''; iframe.src = s; }
+  }
+}
+
 function htmlStandard(e, logId) {
   let h = `<div class="esercizio">`;
-  h += `<div class="eserc-nome">${e.Esercizio}`;
-  if (e.VideoURL) h += ` <a href="${e.VideoURL}" target="_blank">▶ Video</a>`;
-  h += `</div><div class="eserc-params">`;
-  if (e.Serie)       h += param('Serie', e.Serie);
-  if (e.Reps)        h += param('Reps', e.Reps);
+  h += `<div class="eserc-nome">${e.Esercizio}</div>`;
+  h += `<div class="eserc-params">`;
+  if (e.Serie)        h += param('Serie', e.Serie);
+  if (e.Reps)         h += param('Reps', e.Reps);
   if (e['Intensità']) h += param('Intensità', e['Intensità']);
-  if (e.Recupero)    h += param('Recupero', e.Recupero);
+  if (e.Recupero)     h += param('Recupero', e.Recupero);
   h += `</div>`;
   if (e.Note)               h += `<div class="eserc-note">${e.Note}</div>`;
+  if (e.VideoURL)            h += mediaBlock(e.VideoURL, logId);
   if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
   h += `</div>`;
   return h;
@@ -148,6 +191,7 @@ function htmlBicarico(e, logId) {
   if (e.RecuperoB)       h += param('Recupero', e.RecuperoB);
   h += `</div></div>`;
 
+  if (e.VideoURL)            h += `<div style="padding:0 16px;">${mediaBlock(e.VideoURL, logId + '-b')}</div>`;
   if (e.Log_Libero === 'SI') h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps)}</div>`;
   h += `</div>`;
   return h;
@@ -156,15 +200,15 @@ function htmlBicarico(e, logId) {
 function htmlIndividuale(e) {
   const logId = `log-ind-${id}-${e.Codice}-${e.Ordine}`;
   let h = `<div class="esercizio">`;
-  h += `<div class="eserc-nome">${e.Esercizio}`;
-  if (e.VideoURL) h += ` <a href="${e.VideoURL}" target="_blank">▶ Video</a>`;
-  h += `</div><div class="eserc-params">`;
+  h += `<div class="eserc-nome">${e.Esercizio}</div>`;
+  h += `<div class="eserc-params">`;
   if (e.Serie)     h += param('Serie', e.Serie);
   if (e.Reps)      h += param('Reps', e.Reps);
   if (e.Intensita) h += param('Intensità', e.Intensita);
   if (e.Recupero)  h += param('Recupero', e.Recupero);
   h += `</div>`;
   if (e.Note)               h += `<div class="eserc-note">${e.Note}</div>`;
+  if (e.VideoURL)            h += mediaBlock(e.VideoURL, logId + '-v');
   if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, 'ind', e.Intensita, e.Catena, e.Reps);
   h += `</div>`;
   return h;
