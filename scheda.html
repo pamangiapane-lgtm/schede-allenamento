@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scheda Giocatrice</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a3a6b">
+  <link rel="apple-touch-icon" href="icon.svg">
 </head>
 <body>
 
@@ -593,6 +596,10 @@ async function salvaRating(btn, groupId, val, esercizio, nSeduta) {
 }
 
 caricaScheda();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+}
 </script>
 
 </body>
