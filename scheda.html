@@ -154,6 +154,7 @@ function htmlBicarico(e, logId) {
 }
 
 function htmlIndividuale(e) {
+  const logId = `log-ind-${id}-${e.Codice}-${e.Ordine}`;
   let h = `<div class="esercizio">`;
   h += `<div class="eserc-nome">${e.Esercizio}`;
   if (e.VideoURL) h += ` <a href="${e.VideoURL}" target="_blank">▶ Video</a>`;
@@ -163,7 +164,8 @@ function htmlIndividuale(e) {
   if (e.Intensita) h += param('Intensità', e.Intensita);
   if (e.Recupero)  h += param('Recupero', e.Recupero);
   h += `</div>`;
-  if (e.Note) h += `<div class="eserc-note">${e.Note}</div>`;
+  if (e.Note)               h += `<div class="eserc-note">${e.Note}</div>`;
+  if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, 'ind', e.Intensita, e.Catena, e.Reps);
   h += `</div>`;
   return h;
 }
