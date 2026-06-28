@@ -1,0 +1,416 @@
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blu:       #1a3a6b;
+  --blu-medio: #2d5fa6;
+  --blu-light: #e8f0fb;
+  --bianco:    #ffffff;
+  --grigio:    #f5f6f8;
+  --testo:     #1c1c1e;
+  --testo-sec: #555e6d;
+  --bordo:     #dce3ef;
+  --verde:     #2a7d4f;
+  --radius:    12px;
+  --shadow:    0 2px 12px rgba(26,58,107,0.10);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--grigio);
+  color: var(--testo);
+  min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+header {
+  background: var(--blu);
+  color: var(--bianco);
+  padding: 20px 16px 16px;
+  text-align: center;
+}
+header h1 { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px; }
+header p  { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
+
+/* ===== CONTENITORE ===== */
+.container { max-width: 680px; margin: 0 auto; padding: 20px 16px 40px; }
+
+/* ===== LANDING — LISTA GIOCATRICI ===== */
+.squadra-titolo {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--testo-sec);
+  margin-bottom: 12px;
+}
+
+.giocatrice-card {
+  display: flex;
+  align-items: center;
+  background: var(--bianco);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: var(--testo);
+  transition: transform 0.15s, box-shadow 0.15s;
+  border-left: 4px solid var(--blu-medio);
+}
+.giocatrice-card:active { transform: scale(0.98); }
+
+.numero-maglia {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--blu-medio);
+  width: 42px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.giocatrice-info { margin-left: 12px; }
+.giocatrice-info strong { font-size: 1rem; display: block; }
+.giocatrice-info span  { font-size: 0.82rem; color: var(--testo-sec); }
+.arrow { margin-left: auto; color: var(--blu-medio); font-size: 1.2rem; }
+
+/* ===== SCHEDA — BACK LINK ===== */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--blu-medio);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ===== SCHEDA — HERO GIOCATRICE ===== */
+.scheda-hero {
+  background: var(--blu);
+  color: var(--bianco);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.hero-numero {
+  font-size: 2.4rem;
+  font-weight: 900;
+  opacity: 0.3;
+  line-height: 1;
+}
+.hero-info h2 { font-size: 1.3rem; font-weight: 700; }
+.hero-info p  { font-size: 0.85rem; opacity: 0.75; margin-top: 2px; }
+
+/* ===== TAB SEZIONI (Individuale / Sedute) ===== */
+.tabs {
+  display: flex;
+  background: var(--bianco);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.tab-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: transparent;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--testo-sec);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.tab-btn.active {
+  background: var(--blu);
+  color: var(--bianco);
+}
+
+/* ===== SEZIONE INDIVIDUALE ===== */
+.sezione { display: none; }
+.sezione.active { display: block; }
+
+.modulo-card {
+  background: var(--bianco);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+.modulo-header {
+  background: var(--blu-light);
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--blu);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ===== SEDUTE — ACCORDION ===== */
+.seduta-accordion {
+  background: var(--bianco);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.seduta-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  background: var(--bianco);
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+.seduta-header h3 { font-size: 1rem; font-weight: 700; color: var(--blu); }
+.seduta-header .chevron { color: var(--blu-medio); font-size: 1rem; transition: transform 0.2s; }
+.seduta-accordion.open .chevron { transform: rotate(180deg); }
+.seduta-body { display: none; padding: 0 0 12px; }
+.seduta-accordion.open .seduta-body { display: block; }
+
+/* ===== BLOCCO METODO ===== */
+.metodo-block { margin-bottom: 4px; }
+.metodo-titolo {
+  background: var(--blu);
+  color: var(--bianco);
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.metodo-desc {
+  background: var(--blu-medio);
+  color: rgba(255,255,255,0.85);
+  padding: 6px 16px;
+  font-size: 0.78rem;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* ===== ESERCIZIO ===== */
+.esercizio {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--bordo);
+}
+.esercizio:last-child { border-bottom: none; }
+
+.eserc-nome {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.eserc-nome a {
+  font-size: 0.75rem;
+  color: var(--blu-medio);
+  text-decoration: none;
+  background: var(--blu-light);
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.eserc-params {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.param {
+  background: var(--grigio);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+.param-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--testo-sec);
+}
+.param-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--testo);
+  margin-top: 1px;
+}
+
+.eserc-note {
+  font-size: 0.8rem;
+  color: var(--testo-sec);
+  font-style: italic;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background: #fffbea;
+  border-left: 3px solid #f0c040;
+  border-radius: 0 6px 6px 0;
+}
+
+/* ===== CAMPO LOG RPE ===== */
+.log-rpe {
+  background: var(--blu-light);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 6px;
+}
+.log-rpe label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--blu);
+  margin-bottom: 6px;
+}
+.log-rpe-input {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.log-rpe input {
+  flex: 1;
+  border: 2px solid var(--blu-medio);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--testo);
+  outline: none;
+  background: var(--bianco);
+}
+.log-rpe input:focus { border-color: var(--blu); }
+.log-rpe button {
+  background: var(--blu);
+  color: var(--bianco);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.log-rpe button:active { opacity: 0.85; }
+/* ===== BICARICO ===== */
+.bicarico-header {
+  padding: 10px 16px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.bicarico-header strong { font-size: 0.95rem; }
+.ripeti-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: var(--blu-light);
+  color: var(--blu);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.carico-block {
+  margin: 0 12px 6px;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.carico-block.a { background: var(--blu-light); }
+.carico-block.b { background: var(--bordo); }
+.carico-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--blu);
+  margin-bottom: 6px;
+}
+.carico-params {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+.carico-params .p { }
+.carico-params .p-label {
+  font-size: 0.68rem;
+  color: var(--testo-sec);
+  text-transform: uppercase;
+}
+.carico-params .p-val {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--testo);
+}
+.bicarico-arrow {
+  text-align: center;
+  color: var(--blu-medio);
+  font-size: 1rem;
+  line-height: 1;
+  margin: 2px 0;
+}
+
+.log-hint {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--blu-medio);
+  font-style: italic;
+}
+.log-salvato {
+  font-size: 0.78rem;
+  color: var(--verde);
+  font-weight: 600;
+  margin-top: 4px;
+  display: none;
+}
+
+/* ===== ULTIMA SEDUTA + STIMA RM ===== */
+.ultima-seduta {
+  font-size: 0.76rem;
+  color: var(--testo-sec);
+  margin-bottom: 6px;
+}
+.ultima-seduta em {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--testo);
+}
+.rm-estimator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  color: var(--testo-sec);
+  flex-wrap: wrap;
+}
+.rm-estimator input {
+  width: 58px;
+  padding: 4px 8px;
+  border: 1px solid var(--bordo);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  background: var(--grigio);
+}
+.rm-result {
+  font-weight: 700;
+  color: var(--blu-medio);
+}
+
+/* ===== LOADING / ERRORE ===== */
+.loading-msg {
+  text-align: center;
+  color: var(--testo-sec);
+  padding: 40px 16px;
+  font-size: 0.95rem;
+}
+.errore-msg {
+  text-align: center;
+  color: #b33;
+  padding: 32px 16px;
+  font-size: 0.95rem;
+}

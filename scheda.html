@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scheda Giocatrice</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Schede Allenamento</h1>
+</header>
+
+<div class="container">
+
+  <a class="back-link" href="index.html">← Tutte le giocatrici</a>
+
+  <div id="loading" class="loading-msg">Caricamento scheda...</div>
+
+  <div id="contenuto" style="display:none">
+
+    <!-- HERO -->
+    <div class="scheda-hero">
+      <div class="hero-numero" id="hero-numero">#</div>
+      <div class="hero-info">
+        <h2 id="hero-nome"></h2>
+        <p id="hero-ruolo"></p>
+      </div>
+    </div>
+
+    <!-- TAB -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="mostraSezione('individuale', this)">Individuale</button>
+      <button class="tab-btn" onclick="mostraSezione('sedute', this)">Sedute</button>
+    </div>
+
+    <!-- SEZIONE INDIVIDUALE -->
+    <div id="individuale" class="sezione active"></div>
+
+    <!-- SEZIONE SEDUTE -->
+    <div id="sedute" class="sezione"></div>
+
+  </div><!-- fine contenuto -->
+
+</div><!-- fine container -->
+
+<script>
+const API      = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const TOKEN    = 'squadra2026';
+const id       = new URLSearchParams(window.location.search).get('id');
+let   ultimiLog = {}; // { esercizio: { valore, rm } }
+
+/* ---------- helpers HTML ---------- */
+function param(label, val) {
+  return `<div class="param"><div class="param-label">${label}</div><div class="param-value">${val}</div></div>`;
+}
+
+function logField(logId, esercizio, nSeduta) {
+  const ultima = ultimiLog[esercizio];
+  const ultimaHtml = ultima
+    ? `<div class="ultima-seduta">Ultima: <em>${ultima.valore}</em>${ultima.rm ? ` · RM ~${ultima.rm} kg` : ''}</div>`
+    : '';
+  return `
+    <div class="log-rpe">
+      ${ultimaHtml}
+      <label>Quanto hai caricato oggi? <span class="log-hint">scrivi liberamente</span></label>
+      <div class="log-rpe-input">
+        <input type="text" placeholder="es. 62 kg · leggero · pesante" id="${logId}"
+               data-esercizio="${esercizio}" data-seduta="${nSeduta}">
+        <button onclick="salvaLog('${logId}', this)">Salva</button>
+      </div>
+      <div class="log-salvato" id="ok-${logId}">✓ Salvato!</div>
+      <div class="rm-estimator">
+        <span>Stima RM:</span>
+        <input type="number" class="rm-kg" placeholder="kg" min="1" oninput="stimaRM(this, '${logId}')">
+        <span>×</span>
+        <input type="number" class="rm-reps" placeholder="reps" min="1" max="30" oninput="stimaRM(this, '${logId}')">
+        <span class="rm-result" id="rm-${logId}">→ ?</span>
+      </div>
+    </div>`;
+}
+
+function htmlStandard(e, logId) {
+  let h = `<div class="esercizio">`;
+  h += `<div class="eserc-nome">${e.Esercizio}`;
+  if (e.VideoURL) h += ` <a href="${e.VideoURL}" target="_blank">▶ Video</a>`;
+  h += `</div><div class="eserc-params">`;
+  if (e.Serie)       h += param('Serie', e.Serie);
+  if (e.Reps)        h += param('Reps', e.Reps);
+  if (e['Intensità']) h += param('Intensità', e['Intensità']);
+  if (e.Recupero)    h += param('Recupero', e.Recupero);
+  h += `</div>`;
+  if (e.Note)               h += `<div class="eserc-note">${e.Note}</div>`;
+  if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, e.N_Seduta);
+  h += `</div>`;
+  return h;
+}
+
+function htmlBicarico(e, logId) {
+  let h = `<div class="esercizio" style="padding:0 0 12px;">`;
+  h += `<div class="bicarico-header"><strong>${e.Esercizio}</strong>`;
+  if (e.Num_Ripetizioni) h += `<span class="ripeti-badge">Ripeti ${e.Num_Ripetizioni}×</span>`;
+  h += `</div>`;
+
+  h += `<div class="carico-block a"><div class="carico-label">Carico A</div><div class="carico-params">`;
+  if (e.Serie)        h += param('Serie', e.Serie);
+  if (e.Reps)         h += param('Reps', e.Reps);
+  if (e['Intensità']) h += param('Intensità', e['Intensità']);
+  if (e.Recupero)     h += param('Recupero', e.Recupero);
+  h += `</div></div>`;
+
+  h += `<div class="bicarico-arrow">↓</div>`;
+
+  h += `<div class="carico-block b"><div class="carico-label">Carico B</div><div class="carico-params">`;
+  if (e.SerieB)          h += param('Serie', e.SerieB);
+  if (e.RepsB)           h += param('Reps', e.RepsB);
+  if (e['IntensitàB'])   h += param('Intensità', e['IntensitàB']);
+  if (e.RecuperoB)       h += param('Recupero', e.RecuperoB);
+  h += `</div></div>`;
+
+  if (e.Log_Libero === 'SI') h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta)}</div>`;
+  h += `</div>`;
+  return h;
+}
+
+function htmlIndividuale(e) {
+  let h = `<div class="esercizio">`;
+  h += `<div class="eserc-nome">${e.Esercizio}`;
+  if (e.VideoURL) h += ` <a href="${e.VideoURL}" target="_blank">▶ Video</a>`;
+  h += `</div><div class="eserc-params">`;
+  if (e.Serie)     h += param('Serie', e.Serie);
+  if (e.Reps)      h += param('Reps', e.Reps);
+  if (e.Intensita) h += param('Intensità', e.Intensita);
+  if (e.Recupero)  h += param('Recupero', e.Recupero);
+  h += `</div>`;
+  if (e.Note) h += `<div class="eserc-note">${e.Note}</div>`;
+  h += `</div>`;
+  return h;
+}
+
+/* ---------- caricamento ---------- */
+async function caricaScheda() {
+  if (!id) { window.location.href = 'index.html'; return; }
+
+  try {
+    const [resG, resL, resS, resE, resP] = await Promise.all([
+      fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Giocatrici`).then(r => r.json()),
+      fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=LibreriaIndividuale`).then(r => r.json()),
+      fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Sedute`).then(r => r.json()),
+      fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Esercizi`).then(r => r.json()),
+      fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Progressi`).then(r => r.json()),
+    ]);
+
+    /* costruisce mappa ultimo log per esercizio (ordinati per Timestamp) */
+    resP.dati
+      .filter(p => String(p.ID_Giocatrice) === String(id))
+      .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
+      .forEach(p => {
+        if (p.Valore) ultimiLog[p.Esercizio] = {
+          valore: p.Valore,
+          rm: p.RM_Stimato ? Math.round(Number(p.RM_Stimato)) : null,
+        };
+      });
+
+    const g = resG.dati.find(x => String(x.ID) === String(id));
+    if (!g) { mostraErrore('Giocatrice non trovata.'); return; }
+
+    /* HERO */
+    document.getElementById('hero-numero').textContent = '#' + g.Numero;
+    document.getElementById('hero-nome').textContent   = g.Nome;
+    document.getElementById('hero-ruolo').textContent  = g.Ruolo || '';
+    document.title = g.Nome + ' — Scheda';
+
+    /* INDIVIDUALE */
+    const codici = (g.Colonne_Individuali || '').split(',').map(c => c.trim()).filter(Boolean);
+    const libMap  = {};
+    resL.dati.forEach(e => {
+      if (!libMap[e.Codice]) libMap[e.Codice] = { titolo: e.Titolo_Colonna, esercizi: [] };
+      libMap[e.Codice].esercizi.push(e);
+    });
+
+    const divInd = document.getElementById('individuale');
+    divInd.innerHTML = '';
+    codici.forEach(cod => {
+      const col = libMap[cod];
+      if (!col) return;
+      col.esercizi.sort((a, b) => Number(a.Ordine) - Number(b.Ordine));
+      let html = `<div class="modulo-card"><div class="modulo-header">${cod} — ${col.titolo}</div>`;
+      col.esercizi.forEach(e => { html += htmlIndividuale(e); });
+      html += `</div>`;
+      divInd.innerHTML += html;
+    });
+
+    /* SEDUTE */
+    const seduteGioc = resS.dati
+      .filter(s => String(s.ID_Giocatrice) === String(id))
+      .sort((a, b) => Number(a.Numero_Seduta) - Number(b.Numero_Seduta));
+
+    const eserciziGioc = resE.dati.filter(e => String(e.ID_Giocatrice) === String(id));
+
+    const divSed = document.getElementById('sedute');
+    divSed.innerHTML = '';
+
+    seduteGioc.forEach(sed => {
+      const esercSed = eserciziGioc
+        .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta))
+        .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
+
+      /* raggruppa per metodo mantenendo l'ordine di prima comparsa */
+      const metodiOrd = [];
+      const metodiMap = {};
+      esercSed.forEach(e => {
+        if (!metodiMap[e.Metodo]) {
+          metodiMap[e.Metodo] = { nome: e.Metodo, desc: e.Desc_Metodo, esercizi: [] };
+          metodiOrd.push(e.Metodo);
+        }
+        metodiMap[e.Metodo].esercizi.push(e);
+      });
+
+      const accId = `acc-${sed.Numero_Seduta}`;
+      let html = `
+        <div class="seduta-accordion" id="${accId}">
+          <button class="seduta-header" onclick="toggleSeduta('${accId}')">
+            <h3>${sed.Nome_Seduta}</h3>
+            <span class="chevron">▾</span>
+          </button>
+          <div class="seduta-body">`;
+
+      metodiOrd.forEach(key => {
+        const m = metodiMap[key];
+        html += `<div class="metodo-block">`;
+        html += `<div class="metodo-titolo">${m.nome}</div>`;
+        if (m.desc) html += `<div class="metodo-desc">${m.desc}</div>`;
+        m.esercizi.forEach(e => {
+          const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
+          html += e.Tipo_Esercizio === 'bicarico' ? htmlBicarico(e, logId) : htmlStandard(e, logId);
+        });
+        html += `</div>`;
+      });
+
+      html += `</div></div>`;
+      divSed.innerHTML += html;
+    });
+
+    /* mostra contenuto */
+    document.getElementById('loading').style.display  = 'none';
+    document.getElementById('contenuto').style.display = '';
+
+  } catch (err) {
+    mostraErrore('Errore nel caricamento. Riprova.');
+  }
+}
+
+function mostraErrore(msg) {
+  document.getElementById('loading').innerHTML = `<p class="errore-msg">${msg}</p>`;
+}
+
+/* ---------- interazioni ---------- */
+function mostraSezione(id, btn) {
+  document.querySelectorAll('.sezione').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggleSeduta(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function stimaRM(input, logId) {
+  const row  = input.closest('.rm-estimator');
+  const kg   = parseFloat(row.querySelector('.rm-kg').value);
+  const reps = parseFloat(row.querySelector('.rm-reps').value);
+  const el   = document.getElementById('rm-' + logId);
+  if (kg > 0 && reps > 0 && reps <= 30) {
+    el.textContent = `→ ~${Math.round(kg * (1 + reps / 30))} kg`;
+  } else {
+    el.textContent = '→ ?';
+  }
+}
+
+async function salvaLog(inputId, btn) {
+  const input = document.getElementById(inputId);
+  const val   = input.value.trim();
+  if (!val) return;
+
+  const esercizio = input.dataset.esercizio;
+  const nSeduta   = input.dataset.seduta;
+
+  const row   = input.closest('.log-rpe');
+  const kgEl  = row ? row.querySelector('.rm-kg')   : null;
+  const rpEl  = row ? row.querySelector('.rm-reps')  : null;
+  const kg    = kgEl  ? parseFloat(kgEl.value)  : NaN;
+  const reps  = rpEl  ? parseFloat(rpEl.value)  : NaN;
+  const rm    = (kg > 0 && reps > 0) ? Math.round(kg * (1 + reps / 30)) : null;
+
+  btn.textContent = '...';
+  btn.disabled    = true;
+
+  try {
+    await fetch(API, {
+      method:  'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        token:         TOKEN,
+        azione:        'log_progressi',
+        id_giocatrice: id,
+        n_seduta:      nSeduta,
+        esercizio:     esercizio,
+        data:          new Date().toLocaleDateString('it-IT'),
+        valore:        val,
+        note:          '',
+        kg_usati:      isNaN(kg)   ? '' : kg,
+        reps_fatte:    isNaN(reps) ? '' : reps,
+        rm_stimato:    rm || '',
+      }),
+    });
+
+    /* aggiorna "ultima seduta" senza ricaricare la pagina */
+    ultimiLog[esercizio] = { valore: val, rm };
+    const ultimaEl = row ? row.querySelector('.ultima-seduta') : null;
+    if (ultimaEl) {
+      ultimaEl.innerHTML = `Ultima: <em>${val}</em>${rm ? ` · RM ~${rm} kg` : ''}`;
+    } else if (row) {
+      const div = document.createElement('div');
+      div.className = 'ultima-seduta';
+      div.innerHTML = `Ultima: <em>${val}</em>${rm ? ` · RM ~${rm} kg` : ''}`;
+      row.prepend(div);
+    }
+
+    const okEl = document.getElementById('ok-' + inputId);
+    btn.textContent      = '✓';
+    btn.style.background = 'var(--verde)';
+    if (okEl) okEl.style.display = 'block';
+  } catch {
+    btn.textContent = 'Errore';
+  } finally {
+    setTimeout(() => {
+      btn.textContent      = 'Salva';
+      btn.style.background = '';
+      btn.disabled         = false;
+    }, 2000);
+  }
+}
+
+caricaScheda();
+</script>
+
+</body>
+</html>

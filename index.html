@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Squadra — Schede Allenamento</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Schede Allenamento</h1>
+  <p>Clicca sul tuo nome per aprire la tua scheda</p>
+</header>
+
+<div class="container">
+  <p class="squadra-titolo">Giocatrici</p>
+  <div id="lista-giocatrici">
+    <p class="loading-msg">Caricamento...</p>
+  </div>
+</div>
+
+<script>
+const API   = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const TOKEN = 'squadra2026';
+
+async function caricaGiocatrici() {
+  const lista = document.getElementById('lista-giocatrici');
+  try {
+    const res  = await fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Giocatrici`);
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.errore);
+    lista.innerHTML = '';
+    json.dati.forEach(g => {
+      const a = document.createElement('a');
+      a.className = 'giocatrice-card';
+      a.href = `scheda.html?id=${g.ID}`;
+      a.innerHTML = `
+        <span class="numero-maglia">${g.Numero}</span>
+        <div class="giocatrice-info">
+          <strong>${g.Nome}</strong>
+          ${g.Ruolo ? `<span>${g.Ruolo}</span>` : ''}
+        </div>
+        <span class="arrow">›</span>
+      `;
+      lista.appendChild(a);
+    });
+  } catch (err) {
+    lista.innerHTML = `<p class="errore-msg">Errore nel caricamento dati. Riprova.</p>`;
+  }
+}
+
+caricaGiocatrici();
+</script>
+
+</body>
+</html>
