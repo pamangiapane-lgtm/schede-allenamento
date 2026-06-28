@@ -46,10 +46,11 @@
 </div><!-- fine container -->
 
 <script>
-const API      = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
-const TOKEN    = 'squadra2026';
-const id       = new URLSearchParams(window.location.search).get('id');
-let   ultimiLog = {}; // { esercizio: { valore, rm } }
+const API        = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const TOKEN      = 'squadra2026';
+const id         = new URLSearchParams(window.location.search).get('id');
+let   ultimiLog  = {}; // { esercizio: { valore, rm } }
+let   feedbackLog = {}; // { nSeduta: { 'RPE-seduta': val, 'Fatica-seduta': val } }
 
 /* ---------- helpers HTML ---------- */
 function param(label, val) {
@@ -152,15 +153,20 @@ async function caricaScheda() {
       fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Progressi`).then(r => r.json()),
     ]);
 
-    /* costruisce mappa ultimo log per esercizio (ordinati per Timestamp) */
+    /* costruisce mappa ultimo log e feedback per seduta */
     resP.dati
       .filter(p => String(p.ID_Giocatrice) === String(id))
       .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
       .forEach(p => {
-        if (p.Valore) ultimiLog[p.Esercizio] = {
-          valore: p.Valore,
-          rm: p.RM_Stimato ? Math.round(Number(p.RM_Stimato)) : null,
-        };
+        if (p.Esercizio === 'RPE-seduta' || p.Esercizio === 'Fatica-seduta') {
+          if (!feedbackLog[p.N_Seduta]) feedbackLog[p.N_Seduta] = {};
+          feedbackLog[p.N_Seduta][p.Esercizio] = Number(p.Valore);
+        } else if (p.Valore) {
+          ultimiLog[p.Esercizio] = {
+            valore: p.Valore,
+            rm: p.RM_Stimato ? Math.round(Number(p.RM_Stimato)) : null,
+          };
+        }
       });
 
     const g = resG.dati.find(x => String(x.ID) === String(id));
@@ -239,6 +245,7 @@ async function caricaScheda() {
         html += `</div>`;
       });
 
+      html += htmlFeedbackSeduta(sed.Numero_Seduta, feedbackLog[sed.Numero_Seduta] || {});
       html += `</div></div>`;
       divSed.innerHTML += html;
     });
@@ -342,6 +349,61 @@ async function salvaLog(inputId, btn) {
       btn.disabled         = false;
     }, 2000);
   }
+}
+
+function htmlFeedbackSeduta(nSeduta, prev) {
+  const rpeId = `rpe-${id}-${nSeduta}`;
+  const fatId = `fat-${id}-${nSeduta}`;
+  const prevRpe = prev['RPE-seduta'] || null;
+  const prevFat = prev['Fatica-seduta'] || null;
+
+  let rpeBtn = '', fatBtn = '';
+  for (let i = 1; i <= 10; i++) {
+    const sel = i === prevRpe ? ' selected' : '';
+    rpeBtn += `<button class="rating-btn${sel}" onclick="salvaRating(this,'${rpeId}',${i},'RPE-seduta','${nSeduta}')">${i}</button>`;
+  }
+  for (let i = 1; i <= 5; i++) {
+    const sel = i === prevFat ? ' selected' : '';
+    fatBtn += `<button class="rating-btn${sel}" onclick="salvaRating(this,'${fatId}',${i},'Fatica-seduta','${nSeduta}')">${i}</button>`;
+  }
+
+  return `
+    <div class="feedback-seduta">
+      <div class="feedback-row">
+        <span class="feedback-label">Intensità seduta <span class="feedback-hint">1 facile · 10 al limite</span></span>
+        <div class="rating-group" id="${rpeId}">${rpeBtn}</div>
+      </div>
+      <div class="feedback-row">
+        <span class="feedback-label">Come ti senti <span class="feedback-hint">1 esausta · 5 perfetta</span></span>
+        <div class="rating-group" id="${fatId}">${fatBtn}</div>
+      </div>
+      <div class="feedback-salvato" id="ok-fb-${nSeduta}">✓ Salvato!</div>
+    </div>`;
+}
+
+async function salvaRating(btn, groupId, val, esercizio, nSeduta) {
+  const group = document.getElementById(groupId);
+  group.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  if (!feedbackLog[nSeduta]) feedbackLog[nSeduta] = {};
+  feedbackLog[nSeduta][esercizio] = val;
+
+  try {
+    await fetch(API, {
+      method:  'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        token: TOKEN, azione: 'log_progressi',
+        id_giocatrice: id, n_seduta: nSeduta, esercizio: esercizio,
+        data: new Date().toLocaleDateString('it-IT'),
+        valore: String(val), note: '',
+        kg_usati: '', reps_fatte: '', rm_stimato: '',
+      }),
+    });
+    const okEl = document.getElementById(`ok-fb-${nSeduta}`);
+    if (okEl) { okEl.style.display = 'block'; setTimeout(() => okEl.style.display = 'none', 1500); }
+  } catch {}
 }
 
 caricaScheda();

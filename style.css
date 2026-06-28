@@ -401,6 +401,61 @@ header p  { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
   color: var(--blu-medio);
 }
 
+/* ===== FEEDBACK SEDUTA ===== */
+.feedback-seduta {
+  margin: 12px 12px 0;
+  padding: 14px 14px 10px;
+  background: var(--grigio);
+  border-radius: 10px;
+  border-top: 3px solid var(--bordo);
+}
+.feedback-row { margin-bottom: 10px; }
+.feedback-row:last-of-type { margin-bottom: 4px; }
+.feedback-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--testo-sec);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 7px;
+}
+.feedback-hint {
+  font-weight: 400;
+  text-transform: none;
+  font-size: 0.72rem;
+  letter-spacing: 0;
+  margin-left: 4px;
+}
+.rating-group {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.rating-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 2px solid var(--bordo);
+  background: var(--bianco);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--testo-sec);
+  cursor: pointer;
+}
+.rating-btn.selected {
+  background: var(--blu);
+  border-color: var(--blu);
+  color: var(--bianco);
+}
+.feedback-salvato {
+  font-size: 0.76rem;
+  color: var(--verde);
+  font-weight: 600;
+  display: none;
+  margin-top: 6px;
+}
+
 /* ===== LOADING / ERRORE ===== */
 .loading-msg {
   text-align: center;
