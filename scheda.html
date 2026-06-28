@@ -56,33 +56,62 @@ const id         = new URLSearchParams(window.location.search).get('id');
 let   ultimiLog  = {}; // { esercizio: { valore, rm } }
 let   feedbackLog = {}; // { nSeduta: { 'RPE-seduta': val, 'Fatica-seduta': val } }
 
-/* ---------- helpers HTML ---------- */
+/* ---------- helpers ---------- */
 function param(label, val) {
   return `<div class="param"><div class="param-label">${label}</div><div class="param-value">${val}</div></div>`;
 }
 
-function logField(logId, esercizio, nSeduta) {
-  const ultima = ultimiLog[esercizio];
+function parseIntensita(s) {
+  if (!s) return null;
+  const m = String(s).match(/(\d+(?:\.\d+)?)\s*%/);
+  return m ? parseFloat(m[1]) / 100 : null;
+}
+
+function formatData(s) {
+  if (!s) return '—';
+  const mesi = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+  let d, mo;
+  if (typeof s === 'string' && s.includes('/')) {
+    const p = s.split('/'); d = +p[0]; mo = +p[1] - 1;
+  } else {
+    const dt = new Date(s); d = dt.getDate(); mo = dt.getMonth();
+  }
+  return isNaN(d) ? String(s) : `${d} ${mesi[mo] || ''}`;
+}
+
+function logField(logId, esercizio, nSeduta, intensita, catena) {
+  const ultima       = ultimiLog[esercizio];
+  const intensitaPct = parseIntensita(intensita);
+
   const ultimaHtml = ultima
     ? `<div class="ultima-seduta">Ultima: <em>${ultima.valore}</em>${ultima.rm ? ` · RM ~${ultima.rm} kg` : ''}</div>`
     : '';
+
+  const caricoHtml = intensitaPct
+    ? `<div class="carico-prescritto">Carico oggi (${Math.round(intensitaPct * 100)}%): <strong id="carico-val-${logId}">—</strong></div>`
+    : '';
+
   return `
     <div class="log-rpe">
       ${ultimaHtml}
-      <label>Quanto hai caricato oggi? <span class="log-hint">scrivi liberamente</span></label>
-      <div class="log-rpe-input">
-        <input type="text" placeholder="es. 62 kg · leggero · pesante" id="${logId}"
-               data-esercizio="${esercizio}" data-seduta="${nSeduta}">
+      <div class="rm-block">
+        <div class="rm-block-label">Massimale <span class="rm-block-hint">kg × reps</span></div>
+        <div class="rm-block-inputs">
+          <input type="number" class="rm-kg" placeholder="kg" min="1" oninput="calcolaLive('${logId}')">
+          <span class="rm-sep">×</span>
+          <input type="number" class="rm-reps" placeholder="reps" min="1" max="30" oninput="calcolaLive('${logId}')">
+          <span class="rm-result" id="rm-${logId}">→ ?</span>
+        </div>
+        ${caricoHtml}
+      </div>
+      <div class="log-nota-row">
+        <input type="text" placeholder="nota (es. leggero, pesante...)" id="${logId}"
+               data-esercizio="${esercizio}" data-seduta="${nSeduta}"
+               data-intensita="${intensitaPct || ''}" data-catena="${catena || ''}"
+               data-rm="" data-carico="">
         <button onclick="salvaLog('${logId}', this)">Salva</button>
       </div>
       <div class="log-salvato" id="ok-${logId}">✓ Salvato!</div>
-      <div class="rm-estimator">
-        <span>Stima RM:</span>
-        <input type="number" class="rm-kg" placeholder="kg" min="1" oninput="stimaRM(this, '${logId}')">
-        <span>×</span>
-        <input type="number" class="rm-reps" placeholder="reps" min="1" max="30" oninput="stimaRM(this, '${logId}')">
-        <span class="rm-result" id="rm-${logId}">→ ?</span>
-      </div>
     </div>`;
 }
 
@@ -97,7 +126,7 @@ function htmlStandard(e, logId) {
   if (e.Recupero)    h += param('Recupero', e.Recupero);
   h += `</div>`;
   if (e.Note)               h += `<div class="eserc-note">${e.Note}</div>`;
-  if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, e.N_Seduta);
+  if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena);
   h += `</div>`;
   return h;
 }
@@ -124,7 +153,7 @@ function htmlBicarico(e, logId) {
   if (e.RecuperoB)       h += param('Recupero', e.RecuperoB);
   h += `</div></div>`;
 
-  if (e.Log_Libero === 'SI') h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta)}</div>`;
+  if (e.Log_Libero === 'SI') h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena)}</div>`;
   h += `</div>`;
   return h;
 }
@@ -282,32 +311,61 @@ function toggleSeduta(id) {
   document.getElementById(id).classList.toggle('open');
 }
 
-function stimaRM(input, logId) {
-  const row  = input.closest('.rm-estimator');
-  const kg   = parseFloat(row.querySelector('.rm-kg').value);
-  const reps = parseFloat(row.querySelector('.rm-reps').value);
-  const el   = document.getElementById('rm-' + logId);
-  if (kg > 0 && reps > 0 && reps <= 30) {
-    el.textContent = `→ ~${Math.round(kg * (1 + reps / 30))} kg`;
-  } else {
-    el.textContent = '→ ?';
+function calcolaLive(logId) {
+  const nota  = document.getElementById(logId);
+  const row   = nota ? nota.closest('.log-rpe') : null;
+  if (!row) return;
+  const kgEl  = row.querySelector('.rm-kg');
+  const rpEl  = row.querySelector('.rm-reps');
+  const kg    = parseFloat(kgEl.value);
+  const reps  = parseFloat(rpEl.value);
+  const rmEl  = document.getElementById('rm-' + logId);
+  const cvEl  = document.getElementById('carico-val-' + logId);
+
+  if (!(kg > 0 && reps >= 1 && reps <= 30)) {
+    if (rmEl) rmEl.textContent = '→ ?';
+    if (cvEl) cvEl.textContent = '—';
+    nota.dataset.rm = ''; nota.dataset.carico = '';
+    return;
+  }
+
+  const catena       = nota.dataset.catena;
+  const intensitaPct = parseFloat(nota.dataset.intensita) || 0;
+  const bw           = parseFloat(document.getElementById('peso-input')?.value) || 0;
+
+  const rm = catena === 'lower' && bw > 0
+    ? Math.round((kg + bw) * (1 + reps / 30))
+    : Math.round(kg * (1 + reps / 30));
+
+  if (rmEl) rmEl.textContent = `→ ~${rm} kg`;
+  nota.dataset.rm = rm;
+
+  if (cvEl && intensitaPct > 0) {
+    const carico = catena === 'lower' && bw > 0
+      ? Math.round((rm * intensitaPct - bw) * 2) / 2
+      : Math.round(rm * intensitaPct * 2) / 2;
+    cvEl.textContent = carico > 0 ? `${carico} kg` : '—';
+    nota.dataset.carico = carico > 0 ? carico : '';
   }
 }
 
 async function salvaLog(inputId, btn) {
   const input = document.getElementById(inputId);
-  const val   = input.value.trim();
-  if (!val) return;
+  const rm    = parseInt(input.dataset.rm) || null;
+  if (!rm) {
+    const rmBlock = input.closest('.log-rpe')?.querySelector('.rm-block');
+    if (rmBlock) { rmBlock.style.outline = '2px solid #c33'; setTimeout(() => rmBlock.style.outline = '', 1500); }
+    return;
+  }
 
+  const nota      = input.value.trim();
+  const carico    = parseFloat(input.dataset.carico) || null;
   const esercizio = input.dataset.esercizio;
   const nSeduta   = input.dataset.seduta;
-
-  const row   = input.closest('.log-rpe');
-  const kgEl  = row ? row.querySelector('.rm-kg')   : null;
-  const rpEl  = row ? row.querySelector('.rm-reps')  : null;
-  const kg    = kgEl  ? parseFloat(kgEl.value)  : NaN;
-  const reps  = rpEl  ? parseFloat(rpEl.value)  : NaN;
-  const rm    = (kg > 0 && reps > 0) ? Math.round(kg * (1 + reps / 30)) : null;
+  const row       = input.closest('.log-rpe');
+  const kg        = parseFloat(row?.querySelector('.rm-kg')?.value) || NaN;
+  const reps      = parseFloat(row?.querySelector('.rm-reps')?.value) || NaN;
+  const valore    = carico != null ? `${carico} kg` : `RM ${rm} kg`;
 
   btn.textContent = '...';
   btn.disabled    = true;
@@ -317,44 +375,35 @@ async function salvaLog(inputId, btn) {
       method:  'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
-        token:         TOKEN,
-        azione:        'log_progressi',
-        id_giocatrice: id,
-        n_seduta:      nSeduta,
-        esercizio:     esercizio,
-        data:          new Date().toLocaleDateString('it-IT'),
-        valore:        val,
-        note:          '',
-        kg_usati:      isNaN(kg)   ? '' : kg,
-        reps_fatte:    isNaN(reps) ? '' : reps,
-        rm_stimato:    rm || '',
+        token: TOKEN, azione: 'log_progressi',
+        id_giocatrice: id, n_seduta: nSeduta, esercizio: esercizio,
+        data: new Date().toLocaleDateString('it-IT'),
+        valore, note: nota,
+        kg_usati: isNaN(kg) ? '' : kg,
+        reps_fatte: isNaN(reps) ? '' : reps,
+        rm_stimato: rm,
       }),
     });
 
-    /* aggiorna "ultima seduta" senza ricaricare la pagina */
-    ultimiLog[esercizio] = { valore: val, rm };
-    const ultimaEl = row ? row.querySelector('.ultima-seduta') : null;
+    ultimiLog[esercizio] = { valore, rm };
+    const ultimaEl = row?.querySelector('.ultima-seduta');
     if (ultimaEl) {
-      ultimaEl.innerHTML = `Ultima: <em>${val}</em>${rm ? ` · RM ~${rm} kg` : ''}`;
+      ultimaEl.innerHTML = `Ultima: <em>${valore}</em> · RM ~${rm} kg`;
     } else if (row) {
       const div = document.createElement('div');
       div.className = 'ultima-seduta';
-      div.innerHTML = `Ultima: <em>${val}</em>${rm ? ` · RM ~${rm} kg` : ''}`;
+      div.innerHTML = `Ultima: <em>${valore}</em> · RM ~${rm} kg`;
       row.prepend(div);
     }
 
-    const okEl = document.getElementById('ok-' + inputId);
-    btn.textContent      = '✓';
+    btn.textContent = '✓';
     btn.style.background = 'var(--verde)';
+    const okEl = document.getElementById('ok-' + inputId);
     if (okEl) okEl.style.display = 'block';
   } catch {
     btn.textContent = 'Errore';
   } finally {
-    setTimeout(() => {
-      btn.textContent      = 'Salva';
-      btn.style.background = '';
-      btn.disabled         = false;
-    }, 2000);
+    setTimeout(() => { btn.textContent = 'Salva'; btn.style.background = ''; btn.disabled = false; }, 2000);
   }
 }
 
@@ -413,8 +462,8 @@ function buildProfilo(resE, resP) {
   html += `<div class="profilo-card"><div class="profilo-header">Storico carichi</div>`;
   ordine.forEach(nome => {
     const chips = logPerEserc[nome].map(p => {
-      const rm = p.RM_Stimato ? ` · ~${Math.round(Number(p.RM_Stimato))} kg` : '';
-      return `<span class="storico-chip">${p.Data || '—'}<br><strong>${p.Valore}</strong>${rm}</span>`;
+      const nota = p.Note ? `<em>${p.Note}</em>` : '';
+      return `<span class="storico-chip">${formatData(p.Data)}<br><strong>${p.Valore}</strong>${nota ? `<br>${nota}` : ''}</span>`;
     }).join('');
     html += `
       <div class="storico-eserc">
