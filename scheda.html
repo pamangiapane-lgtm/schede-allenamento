@@ -67,6 +67,12 @@ function parseIntensita(s) {
   return m ? parseFloat(m[1]) / 100 : null;
 }
 
+function parseReps(s) {
+  if (!s) return null;
+  const m = String(s).match(/\d+/);
+  return m ? parseInt(m[0]) : null;
+}
+
 function formatData(s) {
   if (!s) return '—';
   const mesi = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
@@ -79,37 +85,26 @@ function formatData(s) {
   return isNaN(d) ? String(s) : `${d} ${mesi[mo] || ''}`;
 }
 
-function logField(logId, esercizio, nSeduta, intensita, catena) {
+function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
   const ultima       = ultimiLog[esercizio];
   const intensitaPct = parseIntensita(intensita);
+  const reps         = parseReps(repsStr);
 
   const ultimaHtml = ultima
     ? `<div class="ultima-seduta">Ultima: <em>${ultima.valore}</em>${ultima.rm ? ` · RM ~${ultima.rm} kg` : ''}</div>`
     : '';
 
-  const caricoHtml = intensitaPct
-    ? `<div class="carico-prescritto">Carico oggi (${Math.round(intensitaPct * 100)}%): <strong id="carico-val-${logId}">—</strong></div>`
-    : '';
-
   return `
-    <div class="log-rpe">
+    <div class="log-compact">
       ${ultimaHtml}
-      <div class="rm-block">
-        <div class="rm-block-label">Massimale <span class="rm-block-hint">kg × reps</span></div>
-        <div class="rm-block-inputs">
-          <input type="number" class="rm-kg" placeholder="kg" min="1" oninput="calcolaLive('${logId}')">
-          <span class="rm-sep">×</span>
-          <input type="number" class="rm-reps" placeholder="reps" min="1" max="30" oninput="calcolaLive('${logId}')">
-          <span class="rm-result" id="rm-${logId}">→ ?</span>
-        </div>
-        ${caricoHtml}
-      </div>
-      <div class="log-nota-row">
-        <input type="text" placeholder="nota (es. leggero, pesante...)" id="${logId}"
+      <div class="log-compact-row">
+        <input type="number" id="${logId}" class="log-kg-input" placeholder="kg"
+               min="1" step="0.5" oninput="calcolaLive('${logId}')"
                data-esercizio="${esercizio}" data-seduta="${nSeduta}"
                data-intensita="${intensitaPct || ''}" data-catena="${catena || ''}"
-               data-rm="" data-carico="">
-        <button onclick="salvaLog('${logId}', this)">Salva</button>
+               data-reps="${reps || ''}" data-rm="" data-carico="">
+        <span class="log-calc-result" id="rm-${logId}">—</span>
+        <button class="log-save-btn" onclick="salvaLog('${logId}', this)">Salva</button>
       </div>
       <div class="log-salvato" id="ok-${logId}">✓ Salvato!</div>
     </div>`;
@@ -126,7 +121,7 @@ function htmlStandard(e, logId) {
   if (e.Recupero)    h += param('Recupero', e.Recupero);
   h += `</div>`;
   if (e.Note)               h += `<div class="eserc-note">${e.Note}</div>`;
-  if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena);
+  if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
   h += `</div>`;
   return h;
 }
@@ -153,7 +148,7 @@ function htmlBicarico(e, logId) {
   if (e.RecuperoB)       h += param('Recupero', e.RecuperoB);
   h += `</div></div>`;
 
-  if (e.Log_Libero === 'SI') h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena)}</div>`;
+  if (e.Log_Libero === 'SI') h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps)}</div>`;
   h += `</div>`;
   return h;
 }
@@ -312,59 +307,56 @@ function toggleSeduta(id) {
 }
 
 function calcolaLive(logId) {
-  const nota  = document.getElementById(logId);
-  const row   = nota ? nota.closest('.log-rpe') : null;
-  if (!row) return;
-  const kgEl  = row.querySelector('.rm-kg');
-  const rpEl  = row.querySelector('.rm-reps');
-  const kg    = parseFloat(kgEl.value);
-  const reps  = parseFloat(rpEl.value);
-  const rmEl  = document.getElementById('rm-' + logId);
-  const cvEl  = document.getElementById('carico-val-' + logId);
+  const input = document.getElementById(logId);
+  if (!input) return;
+  const kg   = parseFloat(input.value);
+  const reps = parseInt(input.dataset.reps) || 0;
+  const rmEl = document.getElementById('rm-' + logId);
 
-  if (!(kg > 0 && reps >= 1 && reps <= 30)) {
-    if (rmEl) rmEl.textContent = '→ ?';
-    if (cvEl) cvEl.textContent = '—';
-    nota.dataset.rm = ''; nota.dataset.carico = '';
+  if (!(kg > 0 && reps > 0)) {
+    if (rmEl) rmEl.innerHTML = '—';
+    input.dataset.rm = ''; input.dataset.carico = '';
     return;
   }
 
-  const catena       = nota.dataset.catena;
-  const intensitaPct = parseFloat(nota.dataset.intensita) || 0;
+  const catena       = input.dataset.catena;
+  const intensitaPct = parseFloat(input.dataset.intensita) || 0;
   const bw           = parseFloat(document.getElementById('peso-input')?.value) || 0;
 
   const rm = catena === 'lower' && bw > 0
     ? Math.round((kg + bw) * (1 + reps / 30))
     : Math.round(kg * (1 + reps / 30));
 
-  if (rmEl) rmEl.textContent = `→ ~${rm} kg`;
-  nota.dataset.rm = rm;
+  input.dataset.rm = rm;
 
-  if (cvEl && intensitaPct > 0) {
+  let html = `RM <em>~${rm} kg</em>`;
+  if (intensitaPct > 0) {
     const carico = catena === 'lower' && bw > 0
       ? Math.round((rm * intensitaPct - bw) * 2) / 2
       : Math.round(rm * intensitaPct * 2) / 2;
-    cvEl.textContent = carico > 0 ? `${carico} kg` : '—';
-    nota.dataset.carico = carico > 0 ? carico : '';
+    if (carico > 0) {
+      input.dataset.carico = carico;
+      html += ` · <em>${carico} kg</em>`;
+    }
   }
+  if (rmEl) rmEl.innerHTML = html;
 }
 
 async function salvaLog(inputId, btn) {
   const input = document.getElementById(inputId);
+  const kg    = parseFloat(input.value);
   const rm    = parseInt(input.dataset.rm) || null;
-  if (!rm) {
-    const rmBlock = input.closest('.log-rpe')?.querySelector('.rm-block');
-    if (rmBlock) { rmBlock.style.outline = '2px solid #c33'; setTimeout(() => rmBlock.style.outline = '', 1500); }
+
+  if (!kg || !rm) {
+    input.style.outline = '2px solid #c33';
+    setTimeout(() => input.style.outline = '', 1500);
     return;
   }
 
-  const nota      = input.value.trim();
   const carico    = parseFloat(input.dataset.carico) || null;
+  const reps      = parseInt(input.dataset.reps) || null;
   const esercizio = input.dataset.esercizio;
   const nSeduta   = input.dataset.seduta;
-  const row       = input.closest('.log-rpe');
-  const kg        = parseFloat(row?.querySelector('.rm-kg')?.value) || NaN;
-  const reps      = parseFloat(row?.querySelector('.rm-reps')?.value) || NaN;
   const valore    = carico != null ? `${carico} kg` : `RM ${rm} kg`;
 
   btn.textContent = '...';
@@ -378,14 +370,13 @@ async function salvaLog(inputId, btn) {
         token: TOKEN, azione: 'log_progressi',
         id_giocatrice: id, n_seduta: nSeduta, esercizio: esercizio,
         data: new Date().toLocaleDateString('it-IT'),
-        valore, note: nota,
-        kg_usati: isNaN(kg) ? '' : kg,
-        reps_fatte: isNaN(reps) ? '' : reps,
-        rm_stimato: rm,
+        valore, note: '',
+        kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
       }),
     });
 
     ultimiLog[esercizio] = { valore, rm };
+    const row     = input.closest('.log-compact');
     const ultimaEl = row?.querySelector('.ultima-seduta');
     if (ultimaEl) {
       ultimaEl.innerHTML = `Ultima: <em>${valore}</em> · RM ~${rm} kg`;

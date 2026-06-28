@@ -257,96 +257,59 @@ header p  { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
   border-radius: 0 6px 6px 0;
 }
 
-/* ===== CAMPO LOG RPE ===== */
-.log-rpe {
+/* ===== CAMPO LOG COMPATTO ===== */
+.log-compact {
   background: var(--blu-light);
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 7px 10px;
   margin-top: 6px;
 }
-/* blocco massimale obbligatorio */
-.rm-block {
-  background: var(--bianco);
-  border-radius: 8px;
-  padding: 10px 12px;
-  margin-bottom: 8px;
-}
-.rm-block-label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--blu);
-  margin-bottom: 7px;
-}
-.rm-block-hint {
-  font-weight: 400;
-  color: var(--blu-medio);
-  font-size: 0.72rem;
-}
-.rm-block-inputs {
+.log-compact-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+  gap: 8px;
 }
-.rm-block-inputs input {
+.log-kg-input {
   width: 68px;
-  padding: 7px 8px;
+  flex-shrink: 0;
+  padding: 6px 8px;
   border: 2px solid var(--bordo);
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 700;
   color: var(--testo);
-  background: var(--grigio);
-  outline: none;
-  -moz-appearance: textfield;
-}
-.rm-block-inputs input:focus { border-color: var(--blu-medio); }
-.rm-block-inputs input::-webkit-outer-spin-button,
-.rm-block-inputs input::-webkit-inner-spin-button { -webkit-appearance: none; }
-.rm-sep { color: var(--testo-sec); font-size: 1rem; }
-.carico-prescritto {
-  margin-top: 10px;
-  font-size: 0.8rem;
-  color: var(--testo-sec);
-  padding-top: 8px;
-  border-top: 1px solid var(--bordo);
-}
-.carico-prescritto strong {
-  color: var(--blu);
-  font-size: 1.1rem;
-  font-weight: 800;
-}
-/* riga nota + salva */
-.log-nota-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.log-nota-row input {
-  flex: 1;
-  border: 1px solid var(--bordo);
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 0.88rem;
-  color: var(--testo);
   background: var(--bianco);
   outline: none;
-  min-width: 0;
+  -moz-appearance: textfield;
+  text-align: center;
 }
-.log-nota-row input:focus { border-color: var(--blu-medio); }
-.log-nota-row button {
+.log-kg-input::-webkit-outer-spin-button,
+.log-kg-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.log-kg-input:focus { border-color: var(--blu-medio); }
+.log-calc-result {
+  flex: 1;
+  font-size: 0.76rem;
+  color: var(--testo-sec);
+  min-width: 0;
+  line-height: 1.4;
+}
+.log-calc-result em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--blu);
+}
+.log-save-btn {
+  flex-shrink: 0;
   background: var(--blu);
   color: var(--bianco);
   border: none;
   border-radius: 8px;
-  padding: 9px 16px;
+  padding: 7px 14px;
   font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
 }
-.log-nota-row button:active { opacity: 0.85; }
+.log-save-btn:active { opacity: 0.85; }
 /* ===== BICARICO ===== */
 .bicarico-header {
   padding: 10px 16px 6px;
