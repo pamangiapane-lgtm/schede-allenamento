@@ -217,6 +217,7 @@ function htmlIndividuale(e) {
 /* ---------- caricamento ---------- */
 async function caricaScheda() {
   if (!id) { window.location.href = 'index.html'; return; }
+  if (!sessionStorage.getItem('auth_' + id)) { window.location.href = 'index.html'; return; }
 
   try {
     const [resG, resL, resS, resE, resP] = await Promise.all([
