@@ -60,14 +60,6 @@ header p  { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
 }
 .giocatrice-card:active { transform: scale(0.98); }
 
-.numero-maglia {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--blu-medio);
-  width: 42px;
-  text-align: center;
-  flex-shrink: 0;
-}
 .giocatrice-info { margin-left: 12px; }
 .giocatrice-info strong { font-size: 1rem; display: block; }
 .giocatrice-info span  { font-size: 0.82rem; color: var(--testo-sec); }
@@ -95,12 +87,6 @@ header p  { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
   display: flex;
   align-items: center;
   gap: 16px;
-}
-.hero-numero {
-  font-size: 2.4rem;
-  font-weight: 900;
-  opacity: 0.3;
-  line-height: 1;
 }
 .hero-info h2 { font-size: 1.3rem; font-weight: 700; }
 .hero-info p  { font-size: 0.85rem; opacity: 0.75; margin-top: 2px; }
@@ -638,102 +624,5 @@ header p  { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
   text-decoration: none;
 }
 
-/* ===== PIN MODAL ===== */
-.pin-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(10, 24, 54, 0.60);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(3px);
-}
-.pin-modal {
-  background: var(--bianco);
-  border-radius: 24px 24px 0 0;
-  padding: 28px 24px 36px;
-  width: 100%;
-  max-width: 420px;
-  position: relative;
-}
-.pin-close {
-  position: absolute;
-  top: 16px; right: 18px;
-  background: var(--grigio);
-  border: none;
-  border-radius: 50%;
-  width: 32px; height: 32px;
-  font-size: 1rem;
-  color: var(--testo-sec);
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-}
-.pin-nome {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--blu);
-  text-align: center;
-  margin-bottom: 20px;
-}
-.pin-dots {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 10px;
-}
-.pin-dots span {
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  border: 2px solid var(--blu-medio);
-  background: transparent;
-  transition: background 0.15s;
-}
-.pin-dots span.filled {
-  background: var(--blu-medio);
-}
-.pin-errore {
-  text-align: center;
-  color: #c0392b;
-  font-size: 0.82rem;
-  font-weight: 600;
-  min-height: 20px;
-  margin-bottom: 16px;
-}
-.pin-tastiera {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 280px;
-  margin: 0 auto;
-}
-.pin-tastiera button {
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: none;
-  background: var(--grigio);
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--testo);
-  cursor: pointer;
-  transition: background 0.1s, transform 0.1s;
-  display: flex; align-items: center; justify-content: center;
-}
-.pin-tastiera button:active {
-  background: var(--blu-light);
-  transform: scale(0.93);
-}
-.pin-empty { background: transparent !important; cursor: default !important; }
-.pin-del   { font-size: 1.1rem !important; color: var(--testo-sec) !important; }
-
 /* giocatrice-card come div cliccabile (non <a>) */
 .giocatrice-card { cursor: pointer; }
-
-@keyframes pinShake {
-  0%,100% { transform: translateX(0); }
-  20%      { transform: translateX(-8px); }
-  40%      { transform: translateX(8px); }
-  60%      { transform: translateX(-6px); }
-  80%      { transform: translateX(6px); }
-}
-.pin-shake { animation: pinShake 0.45s ease; }
