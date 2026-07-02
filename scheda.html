@@ -129,9 +129,7 @@ function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
                data-intensita="${intensitaPct || ''}" data-catena="${catena || ''}"
                data-reps="${reps || ''}" data-rm="" data-carico="">
         <span class="log-calc-result" id="rm-${logId}">—</span>
-        <button class="log-save-btn" onclick="salvaLog('${logId}', this)">Salva</button>
       </div>
-      <div class="log-salvato" id="ok-${logId}">✓ Salvato!</div>
     </div>`;
 }
 
@@ -368,6 +366,7 @@ async function caricaScheda() {
       });
 
       html += htmlFeedbackSeduta(sed.Numero_Seduta, feedbackLog[sed.Numero_Seduta] || {});
+      html += htmlFineSeduta(sed.Numero_Seduta);
       html += `</div></div>`;
       divSed.innerHTML += html;
     });
@@ -490,6 +489,145 @@ async function salvaLog(inputId, btn) {
     btn.textContent = 'Errore';
   } finally {
     setTimeout(() => { btn.textContent = 'Salva'; btn.style.background = ''; btn.disabled = false; }, 2000);
+  }
+}
+
+/* ---------- Fine Seduta ---------- */
+function htmlFineSeduta(nSeduta) {
+  return `
+    <div class="fine-seduta-wrap">
+      <button class="fine-seduta-btn" onclick="fineSeduta('${nSeduta}', this)">
+        Fine Seduta — Salva tutto
+      </button>
+      <div class="fine-seduta-report" id="report-${nSeduta}" style="display:none"></div>
+    </div>`;
+}
+
+async function fineSeduta(nSeduta, btn) {
+  btn.disabled    = true;
+  btn.textContent = 'Salvataggio…';
+
+  const ora      = new Date();
+  const data     = ora.toLocaleDateString('it-IT');
+  const orario   = ora.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  const bw       = parseFloat(document.getElementById('peso-input')?.value) || 0;
+
+  const salvati  = [];
+  const mancanti = [];
+  const promises = [];
+
+  /* esercizi con campo kg */
+  document.querySelectorAll(`.log-kg-input[data-seduta="${nSeduta}"]`).forEach(input => {
+    const nome  = input.dataset.esercizio;
+    const kg    = parseFloat(input.value);
+    const rm    = parseInt(input.dataset.rm)    || null;
+    const reps  = parseInt(input.dataset.reps)  || null;
+    const catena = input.dataset.catena;
+
+    if (kg > 0 && rm) {
+      const carico = parseFloat(input.dataset.carico) || null;
+      const valore = carico != null ? `${carico} kg` : `RM ~${rm} kg`;
+      salvati.push({ label: nome, detail: valore });
+      promises.push(fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          token: TOKEN, azione: 'log_progressi',
+          id_giocatrice: id, n_seduta: nSeduta,
+          esercizio: nome, data, valore, note: '',
+          kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
+        }),
+      }));
+      ultimiLog[nome] = { valore, rm };
+    } else if (kg > 0) {
+      /* ha messo il peso ma non le reps — salva solo il kg */
+      salvati.push({ label: nome, detail: `${kg} kg` });
+      promises.push(fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          token: TOKEN, azione: 'log_progressi',
+          id_giocatrice: id, n_seduta: nSeduta,
+          esercizio: nome, data, valore: `${kg} kg`, note: '',
+          kg_usati: kg, reps_fatte: '', rm_stimato: '',
+        }),
+      }));
+    } else {
+      mancanti.push(nome);
+    }
+  });
+
+  /* RPE */
+  const rpeBtn = document.querySelector(`#rpe-${id}-${nSeduta} .rating-btn.selected`);
+  if (rpeBtn) {
+    const val = rpeBtn.textContent.trim();
+    salvati.push({ label: 'Intensità seduta', detail: `${val}/10` });
+    promises.push(fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        token: TOKEN, azione: 'log_progressi',
+        id_giocatrice: id, n_seduta: nSeduta, esercizio: 'RPE-seduta',
+        data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
+      }),
+    }));
+  } else {
+    mancanti.push('Intensità seduta');
+  }
+
+  /* Fatica */
+  const fatBtn = document.querySelector(`#fat-${id}-${nSeduta} .rating-btn.selected`);
+  if (fatBtn) {
+    const val = fatBtn.textContent.trim();
+    salvati.push({ label: 'Come ti senti', detail: `${val}/5` });
+    promises.push(fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        token: TOKEN, azione: 'log_progressi',
+        id_giocatrice: id, n_seduta: nSeduta, esercizio: 'Fatica-seduta',
+        data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
+      }),
+    }));
+  } else {
+    mancanti.push('Come ti senti');
+  }
+
+  try {
+    await Promise.all(promises);
+
+    let report = `<div class="report-ts">✓ Salvato — ${data} ore ${orario}</div>`;
+
+    if (salvati.length) {
+      report += `<div class="report-section">`;
+      report += `<div class="report-label report-ok-label">Compilati (${salvati.length})</div>`;
+      salvati.forEach(s => {
+        report += `<div class="report-item">✓ ${s.label} <em>${s.detail}</em></div>`;
+      });
+      report += `</div>`;
+    }
+
+    if (mancanti.length) {
+      report += `<div class="report-section">`;
+      report += `<div class="report-label report-miss-label">Non compilati (${mancanti.length})</div>`;
+      mancanti.forEach(m => {
+        report += `<div class="report-item report-miss">— ${m}</div>`;
+      });
+      report += `</div>`;
+    }
+
+    const reportEl = document.getElementById(`report-${nSeduta}`);
+    if (reportEl) { reportEl.innerHTML = report; reportEl.style.display = 'block'; }
+
+    btn.textContent      = '✓ Salvato!';
+    btn.style.background = 'var(--verde)';
+    btn.style.color      = '#fff';
+    _datiModificati      = false;
+
+  } catch {
+    btn.textContent      = 'Errore — riprova';
+    btn.style.background = '#c33';
+    btn.disabled         = false;
   }
 }
 
@@ -716,33 +854,16 @@ function htmlFeedbackSeduta(nSeduta, prev) {
         <span class="feedback-label">Come ti senti <span class="feedback-hint">1 esausta · 5 perfetta</span></span>
         <div class="rating-group" id="${fatId}">${fatBtn}</div>
       </div>
-      <div class="feedback-salvato" id="ok-fb-${nSeduta}">✓ Salvato!</div>
     </div>`;
 }
 
-async function salvaRating(btn, groupId, val, esercizio, nSeduta) {
+function salvaRating(btn, groupId, val, esercizio, nSeduta) {
   const group = document.getElementById(groupId);
   group.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
-
   if (!feedbackLog[nSeduta]) feedbackLog[nSeduta] = {};
   feedbackLog[nSeduta][esercizio] = val;
-
-  try {
-    await fetch(API, {
-      method:  'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta, esercizio: esercizio,
-        data: new Date().toLocaleDateString('it-IT'),
-        valore: String(val), note: '',
-        kg_usati: '', reps_fatte: '', rm_stimato: '',
-      }),
-    });
-    const okEl = document.getElementById(`ok-fb-${nSeduta}`);
-    if (okEl) { okEl.style.display = 'block'; setTimeout(() => okEl.style.display = 'none', 1500); }
-  } catch {}
+  _datiModificati = true;
 }
 
 /* ---------- avviso dati non salvati ---------- */
