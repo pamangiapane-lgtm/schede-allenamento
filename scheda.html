@@ -267,7 +267,7 @@ async function caricaScheda() {
       const col = libMap[cod];
       if (!col) return;
       col.esercizi.sort((a, b) => Number(a.Ordine) - Number(b.Ordine));
-      let html = `<div class="modulo-card"><div class="modulo-header">${cod} — ${col.titolo}</div>`;
+      let html = `<div class="modulo-card"><div class="modulo-header">${col.titolo}</div>`;
       col.esercizi.forEach(e => { html += htmlIndividuale(e); });
       html += `</div>`;
       divInd.innerHTML += html;
