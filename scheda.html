@@ -25,7 +25,6 @@
 
     <!-- HERO -->
     <div class="scheda-hero">
-      <div class="hero-numero" id="hero-numero">#</div>
       <div class="hero-info">
         <h2 id="hero-nome"></h2>
         <p id="hero-ruolo"></p>
@@ -220,7 +219,6 @@ function htmlIndividuale(e) {
 /* ---------- caricamento ---------- */
 async function caricaScheda() {
   if (!id) { window.location.href = 'index.html'; return; }
-  if (!sessionStorage.getItem('auth_' + id)) { window.location.href = 'index.html'; return; }
 
   try {
     const [resG, resL, resS, resE, resP] = await Promise.all([
@@ -251,7 +249,6 @@ async function caricaScheda() {
     if (!g) { mostraErrore('Giocatrice non trovata.'); return; }
 
     /* HERO */
-    document.getElementById('hero-numero').textContent = '#' + g.Numero;
     document.getElementById('hero-nome').textContent   = g.Nome;
     document.getElementById('hero-ruolo').textContent  = g.Ruolo || '';
     document.title = g.Nome + ' — Scheda';
