@@ -33,30 +33,26 @@
 
     <!-- TAB -->
     <div class="tabs">
-      <button class="tab-btn active" onclick="mostraSezione('individuale', this)">Individuale</button>
+      <button class="tab-btn active" onclick="mostraSezione('profilo', this)">Profilo</button>
       <button class="tab-btn" onclick="mostraSezione('sedute', this)">Sedute</button>
-      <button class="tab-btn" onclick="mostraSezione('profilo', this)">Profilo</button>
     </div>
 
-    <!-- SEZIONE INDIVIDUALE -->
-    <div id="individuale" class="sezione active"></div>
+    <!-- SEZIONE PROFILO -->
+    <div id="profilo" class="sezione active"></div>
 
     <!-- SEZIONE SEDUTE -->
     <div id="sedute" class="sezione"></div>
-
-    <!-- SEZIONE PROFILO -->
-    <div id="profilo" class="sezione"></div>
 
   </div><!-- fine contenuto -->
 
 </div><!-- fine container -->
 
 <script>
-const API        = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
-const TOKEN      = 'squadra2026';
-const id         = new URLSearchParams(window.location.search).get('id');
-let   ultimiLog  = {}; // { esercizio: { valore, rm } }
-let   feedbackLog = {}; // { nSeduta: { 'RPE-seduta': val, 'Fatica-seduta': val } }
+const API   = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const TOKEN = 'squadra2026';
+const id    = new URLSearchParams(window.location.search).get('id');
+let ultimiLog   = {};
+let feedbackLog = {};
 
 /* ---------- helpers ---------- */
 function param(label, val) {
@@ -85,6 +81,33 @@ function formatData(s) {
     const dt = new Date(s); d = dt.getDate(); mo = dt.getMonth();
   }
   return isNaN(d) ? String(s) : `${d} ${mesi[mo] || ''}`;
+}
+
+function parseLato(note) {
+  if (!note) return '';
+  const m = String(note).match(/^Lato:\s*([^.]+)/);
+  return m ? m[1].trim() : '';
+}
+
+function parseEcc(note) {
+  if (!note) return '';
+  const m = String(note).match(/Ecc:\s*([^."]+)/);
+  return m ? m[1].trim() : '';
+}
+
+function noteToggle(note, uid) {
+  if (!note) return '';
+  return `<button class="note-toggle" onclick="toggleNote('nt-${uid}')">Note ▸</button>
+    <div class="note-panel" id="nt-${uid}" style="display:none">${note}</div>`;
+}
+
+function toggleNote(noteId) {
+  const el = document.getElementById(noteId);
+  if (!el) return;
+  const open = el.style.display !== 'none';
+  el.style.display = open ? 'none' : 'block';
+  const btn = el.previousElementSibling;
+  if (btn) btn.textContent = open ? 'Note ▸' : 'Note ▾';
 }
 
 function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
@@ -124,7 +147,7 @@ function isImage(url) {
 
 function mediaBlock(url, uid) {
   if (!url) return '';
-  const id = 'media-' + uid;
+  const panelId = 'media-' + uid;
   let content;
   const yt = ytId(url);
   if (yt) {
@@ -132,85 +155,100 @@ function mediaBlock(url, uid) {
   } else if (isImage(url)) {
     content = `<img src="${url}" alt="Istruzione" class="media-img">`;
   } else {
-    content = `<a href="${url}" target="_blank" class="media-link">▶ Apri risorsa esterna</a>`;
+    content = `<div class="video-wrap"><iframe src="${url}" frameborder="0" allowfullscreen allow="autoplay"></iframe></div>`;
   }
   return `
-    <button class="media-toggle" onclick="toggleMedia('${id}')" aria-label="Mostra/nascondi video">
+    <button class="media-toggle" onclick="toggleMedia('${panelId}')" aria-label="Video">
       <span class="media-toggle-icon">▶</span> Video / Istruzione
     </button>
-    <div class="media-panel" id="${id}" style="display:none">${content}</div>`;
+    <div class="media-panel" id="${panelId}" style="display:none">${content}</div>`;
 }
 
-function toggleMedia(id) {
-  const panel = document.getElementById(id);
+function toggleMedia(panelId) {
+  const panel = document.getElementById(panelId);
   if (!panel) return;
   const open = panel.style.display !== 'none';
   panel.style.display = open ? 'none' : 'block';
   const btn = panel.previousElementSibling;
   if (btn) btn.classList.toggle('media-toggle-open', !open);
-  // Stop video on close
   if (open) {
     const iframe = panel.querySelector('iframe');
     if (iframe) { const s = iframe.src; iframe.src = ''; iframe.src = s; }
   }
 }
 
+/* ---------- exercise rendering ---------- */
+function repsConTempo(reps, note) {
+  const lato = parseLato(note);
+  const ecc  = parseEcc(note);
+  let display = reps || '';
+  if (lato) display += ` · ${lato}`;
+  if (ecc && ecc !== '—') display += ` · ${ecc}`;
+  return display;
+}
+
 function htmlStandard(e, logId) {
+  const repsDisplay = repsConTempo(e.Reps, e.Note);
   let h = `<div class="esercizio">`;
   h += `<div class="eserc-nome">${e.Esercizio}</div>`;
   h += `<div class="eserc-params">`;
   if (e.Serie)        h += param('Serie', e.Serie);
-  if (e.Reps)         h += param('Reps', e.Reps);
+  if (repsDisplay)    h += param('Reps', repsDisplay);
   if (e['Intensità']) h += param('Intensità', e['Intensità']);
   if (e.Recupero)     h += param('Recupero', e.Recupero);
   h += `</div>`;
-  if (e.Note)               h += `<div class="eserc-note">${e.Note}</div>`;
-  if (e.VideoURL)            h += mediaBlock(e.VideoURL, logId);
+  if (e.Note)                h += noteToggle(e.Note, logId + '-n');
+  if (e.VideoURL)             h += mediaBlock(e.VideoURL, logId);
   if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
   h += `</div>`;
   return h;
 }
 
 function htmlBicarico(e, logId) {
-  let h = `<div class="esercizio" style="padding:0 0 12px;">`;
-  h += `<div class="bicarico-header"><strong>${e.Esercizio}</strong>`;
-  if (e.Num_Ripetizioni) h += `<span class="ripeti-badge">Ripeti ${e.Num_Ripetizioni}×</span>`;
+  let h = `<div class="esercizio">`;
+  h += `<div class="eserc-nome">${e.Esercizio}`;
+  if (e.Num_Ripetizioni) h += ` <span class="ripeti-badge">Ripeti ${e.Num_Ripetizioni}×</span>`;
   h += `</div>`;
 
-  h += `<div class="carico-block a"><div class="carico-label">Carico A</div><div class="carico-params">`;
-  if (e.Serie)        h += param('Serie', e.Serie);
-  if (e.Reps)         h += param('Reps', e.Reps);
-  if (e['Intensità']) h += param('Intensità', e['Intensità']);
-  if (e.Recupero)     h += param('Recupero', e.Recupero);
-  h += `</div></div>`;
+  /* layout compatto su una riga: A → B */
+  const partsA = [];
+  if (e.Serie)        partsA.push(`${e.Serie}×`);
+  if (e.Reps)         partsA.push(e.Reps);
+  if (e['Intensità']) partsA.push(e['Intensità']);
+  if (e.Recupero)     partsA.push(`rec ${e.Recupero}`);
 
-  h += `<div class="bicarico-arrow">↓</div>`;
+  const partsB = [];
+  if (e.SerieB)          partsB.push(`${e.SerieB}×`);
+  if (e.RepsB)           partsB.push(e.RepsB);
+  if (e['IntensitàB'])   partsB.push(e['IntensitàB']);
+  if (e.RecuperoB)       partsB.push(`rec ${e.RecuperoB}`);
 
-  h += `<div class="carico-block b"><div class="carico-label">Carico B</div><div class="carico-params">`;
-  if (e.SerieB)          h += param('Serie', e.SerieB);
-  if (e.RepsB)           h += param('Reps', e.RepsB);
-  if (e['IntensitàB'])   h += param('Intensità', e['IntensitàB']);
-  if (e.RecuperoB)       h += param('Recupero', e.RecuperoB);
-  h += `</div></div>`;
+  h += `<div class="bicarico-compact">`;
+  h += `<span class="bc-badge">A</span><span class="bc-val">${partsA.join(' · ')}</span>`;
+  h += `<span class="bc-sep">→</span>`;
+  h += `<span class="bc-badge bc-b">B</span><span class="bc-val">${partsB.join(' · ')}</span>`;
+  h += `</div>`;
 
-  if (e.VideoURL)            h += `<div style="padding:0 16px;">${mediaBlock(e.VideoURL, logId + '-b')}</div>`;
+  if (e.Note)                h += noteToggle(e.Note, logId + '-n');
+  if (e.VideoURL)             h += `<div style="padding:0 16px;">${mediaBlock(e.VideoURL, logId + '-v')}</div>`;
   if (e.Log_Libero === 'SI') h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps)}</div>`;
   h += `</div>`;
   return h;
 }
 
 function htmlIndividuale(e) {
-  const logId = `log-ind-${id}-${e.Codice}-${e.Ordine}`;
+  const logId      = `log-ind-${id}-${e.Codice}-${e.Ordine}`;
+  const repsDisplay = repsConTempo(e.Reps, e.Note);
   let h = `<div class="esercizio">`;
   h += `<div class="eserc-nome">${e.Esercizio}</div>`;
   h += `<div class="eserc-params">`;
-  if (e.Serie)     h += param('Serie', e.Serie);
-  if (e.Reps)      h += param('Reps', e.Reps);
-  if (e.Intensita) h += param('Intensità', e.Intensita);
-  if (e.Recupero)  h += param('Recupero', e.Recupero);
+  if (e.Serie)      h += param('Serie', e.Serie);
+  if (repsDisplay)  h += param('Reps', repsDisplay);
+  if (e.Intensita)  h += param('Intensità', e.Intensita);
+  if (e.Recupero)   h += param('Recupero', e.Recupero);
   h += `</div>`;
-  if (e.Note)               h += `<div class="eserc-note">${e.Note}</div>`;
-  if (e.VideoURL)            h += mediaBlock(e.VideoURL, logId + '-v');
+  if (e.Note)                h += noteToggle(e.Note, logId + '-n');
+  if (e.VideoURL)             h += mediaBlock(e.VideoURL, logId + '-v');
   if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, 'ind', e.Intensita, e.Catena, e.Reps);
   h += `</div>`;
   return h;
@@ -230,7 +268,7 @@ async function caricaScheda() {
     ]);
 
     /* costruisce mappa ultimo log e feedback per seduta */
-    resP.dati
+    (resP.dati || [])
       .filter(p => String(p.ID_Giocatrice) === String(id))
       .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
       .forEach(p => {
@@ -245,40 +283,42 @@ async function caricaScheda() {
         }
       });
 
-    const g = resG.dati.find(x => String(x.ID) === String(id));
+    const g = (resG.dati || []).find(x => String(x.ID) === String(id));
     if (!g) { mostraErrore('Giocatrice non trovata.'); return; }
 
     /* HERO */
-    document.getElementById('hero-nome').textContent   = g.Nome;
-    document.getElementById('hero-ruolo').textContent  = g.Ruolo || '';
+    document.getElementById('hero-nome').textContent  = g.Nome;
+    document.getElementById('hero-ruolo').textContent = g.Ruolo || '';
     document.title = g.Nome + ' — Scheda';
 
-    /* INDIVIDUALE */
-    const codici = (g.Colonne_Individuali || '').split(',').map(c => c.trim()).filter(Boolean);
-    const libMap  = {};
-    resL.dati.forEach(e => {
+    /* LIBRERIA INDIVIDUALE: mappa codice → { titolo, esercizi[] } */
+    const libMap = {};
+    (resL.dati || []).forEach(e => {
       if (!libMap[e.Codice]) libMap[e.Codice] = { titolo: e.Titolo_Colonna, esercizi: [] };
       libMap[e.Codice].esercizi.push(e);
     });
 
-    const divInd = document.getElementById('individuale');
-    divInd.innerHTML = '';
-    codici.forEach(cod => {
-      const col = libMap[cod];
-      if (!col) return;
-      col.esercizi.sort((a, b) => Number(a.Ordine) - Number(b.Ordine));
-      let html = `<div class="modulo-card"><div class="modulo-header">${col.titolo}</div>`;
-      col.esercizi.forEach(e => { html += htmlIndividuale(e); });
-      html += `</div>`;
-      divInd.innerHTML += html;
-    });
+    /* Fase prehab attiva (config manuale nel Sheet) */
+    const fasePrehab = g.Fase_Prehab || 'F1';
+    const codici     = (g.Colonne_Individuali || '').split(',').map(c => c.trim()).filter(Boolean);
+    const faseCodice = codici.find(c => c.endsWith(fasePrehab)) || codici[0] || null;
+    const faseAttiva = faseCodice && libMap[faseCodice] ? libMap[faseCodice] : null;
+    if (faseAttiva) {
+      faseAttiva.esercizi.sort((a, b) => Number(a.Ordine) - Number(b.Ordine));
+    }
 
     /* SEDUTE */
-    const seduteGioc = resS.dati
+    const seduteGioc = (resS.dati || [])
       .filter(s => String(s.ID_Giocatrice) === String(id) || String(s.ID_Giocatrice) === '0')
-      .sort((a, b) => Number(a.Numero_Seduta) - Number(b.Numero_Seduta));
+      .sort((a, b) => {
+        /* OS1-S1/S2/S3 → ordina per numero dopo il prefisso */
+        const an = String(a.Numero_Seduta), bn = String(b.Numero_Seduta);
+        return an.localeCompare(bn, undefined, { numeric: true });
+      });
 
-    const eserciziGioc = resE.dati.filter(e => String(e.ID_Giocatrice) === String(id) || String(e.ID_Giocatrice) === '0');
+    const eserciziGioc = (resE.dati || []).filter(e =>
+      String(e.ID_Giocatrice) === String(id) || String(e.ID_Giocatrice) === '0'
+    );
 
     const divSed = document.getElementById('sedute');
     divSed.innerHTML = '';
@@ -288,7 +328,6 @@ async function caricaScheda() {
         .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta))
         .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
 
-      /* raggruppa per metodo mantenendo l'ordine di prima comparsa */
       const metodiOrd = [];
       const metodiMap = {};
       esercSed.forEach(e => {
@@ -312,11 +351,19 @@ async function caricaScheda() {
         const m = metodiMap[key];
         html += `<div class="metodo-block">`;
         html += `<div class="metodo-titolo">${m.nome}</div>`;
-        if (m.desc) html += `<div class="metodo-desc">${m.desc}</div>`;
-        m.esercizi.forEach(e => {
-          const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
-          html += e.Tipo_Esercizio === 'bicarico' ? htmlBicarico(e, logId) : htmlStandard(e, logId);
-        });
+
+        if (m.nome === 'Prehab individuale' && faseAttiva) {
+          /* Inietta gli esercizi della fase attiva */
+          html += `<div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
+          faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e); });
+        } else {
+          if (m.desc) html += `<div class="metodo-desc">${m.desc}</div>`;
+          m.esercizi.forEach(e => {
+            const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
+            html += e.Tipo_Esercizio === 'bicarico' ? htmlBicarico(e, logId) : htmlStandard(e, logId);
+          });
+        }
+
         html += `</div>`;
       });
 
@@ -342,15 +389,15 @@ function mostraErrore(msg) {
 }
 
 /* ---------- interazioni ---------- */
-function mostraSezione(id, btn) {
+function mostraSezione(sezioneId, btn) {
   document.querySelectorAll('.sezione').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  document.getElementById(sezioneId).classList.add('active');
   btn.classList.add('active');
 }
 
-function toggleSeduta(id) {
-  document.getElementById(id).classList.toggle('open');
+function toggleSeduta(accId) {
+  document.getElementById(accId).classList.toggle('open');
 }
 
 function calcolaLive(logId) {
@@ -423,7 +470,7 @@ async function salvaLog(inputId, btn) {
     });
 
     ultimiLog[esercizio] = { valore, rm };
-    const row     = input.closest('.log-compact');
+    const row      = input.closest('.log-compact');
     const ultimaEl = row?.querySelector('.ultima-seduta');
     if (ultimaEl) {
       ultimaEl.innerHTML = `Ultima: <em>${valore}</em> · RM ~${rm} kg`;
@@ -438,6 +485,7 @@ async function salvaLog(inputId, btn) {
     btn.style.background = 'var(--verde)';
     const okEl = document.getElementById('ok-' + inputId);
     if (okEl) okEl.style.display = 'block';
+    _datiModificati = false;
   } catch {
     btn.textContent = 'Errore';
   } finally {
@@ -446,15 +494,13 @@ async function salvaLog(inputId, btn) {
 }
 
 function buildProfilo(resE, resP) {
-  /* peso corporeo — ultima voce salvata */
-  const pesoLogs = resP.dati
+  const pesoLogs = (resP.dati || [])
     .filter(p => String(p.ID_Giocatrice) === String(id) && p.Esercizio === 'Peso-corporeo')
     .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
   const ultimoPeso = pesoLogs.length ? pesoLogs[pesoLogs.length - 1].Valore : '';
 
-  /* log esercizi, raggruppati per nome */
   const logPerEserc = {};
-  resP.dati
+  (resP.dati || [])
     .filter(p => String(p.ID_Giocatrice) === String(id) && p.Valore &&
                  p.Esercizio !== 'Peso-corporeo' &&
                  p.Esercizio !== 'RPE-seduta' &&
@@ -465,21 +511,24 @@ function buildProfilo(resE, resP) {
       logPerEserc[p.Esercizio].push(p);
     });
 
-  /* ordine esercizi come da scheda */
+  /* ordine esercizi seguendo le sedute (include esercizi squadra ID=0) */
   const ordine = [];
-  const seen = new Set();
-  resE.dati
-    .filter(e => String(e.ID_Giocatrice) === String(id))
+  const seen   = new Set();
+  (resE.dati || [])
+    .filter(e => String(e.ID_Giocatrice) === String(id) || String(e.ID_Giocatrice) === '0')
     .sort((a, b) =>
-      (Number(a.N_Seduta)   - Number(b.N_Seduta))   ||
+      String(a.N_Seduta).localeCompare(String(b.N_Seduta), undefined, { numeric: true }) ||
       (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) ||
       (Number(a.Ord_Eserc)  - Number(b.Ord_Eserc)))
     .forEach(e => {
-      if (!seen.has(e.Esercizio) && logPerEserc[e.Esercizio]) {
+      if (logPerEserc[e.Esercizio] && !seen.has(e.Esercizio)) {
         seen.add(e.Esercizio);
         ordine.push(e.Esercizio);
       }
     });
+  Object.keys(logPerEserc).forEach(nome => {
+    if (!seen.has(nome)) ordine.push(nome);
+  });
 
   let html = `
     <div class="profilo-card">
@@ -538,9 +587,9 @@ async function salvaPeso(btn) {
 }
 
 function htmlFeedbackSeduta(nSeduta, prev) {
-  const rpeId = `rpe-${id}-${nSeduta}`;
-  const fatId = `fat-${id}-${nSeduta}`;
-  const prevRpe = prev['RPE-seduta'] || null;
+  const rpeId   = `rpe-${id}-${nSeduta}`;
+  const fatId   = `fat-${id}-${nSeduta}`;
+  const prevRpe = prev['RPE-seduta']    || null;
   const prevFat = prev['Fatica-seduta'] || null;
 
   let rpeBtn = '', fatBtn = '';
@@ -591,6 +640,13 @@ async function salvaRating(btn, groupId, val, esercizio, nSeduta) {
     if (okEl) { okEl.style.display = 'block'; setTimeout(() => okEl.style.display = 'none', 1500); }
   } catch {}
 }
+
+/* ---------- avviso dati non salvati ---------- */
+let _datiModificati = false;
+document.addEventListener('input',  () => { _datiModificati = true; });
+window.addEventListener('beforeunload', e => {
+  if (_datiModificati) { e.preventDefault(); e.returnValue = ''; }
+});
 
 caricaScheda();
 

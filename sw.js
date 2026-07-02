@@ -1,4 +1,4 @@
-const CACHE = 'schede-v2';
+const CACHE = 'schede-v3';
 const STATIC = ['/', '/index.html', '/scheda.html', '/style.css', '/icon.svg', '/manifest.json'];
 
 self.addEventListener('install', e => {
