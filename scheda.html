@@ -785,12 +785,16 @@ function buildProfilo(g, resE, resP, sedute) {
   });
   html += `</div>`;
 
-  /* 5. ANALISI FUNZIONALE */
+  /* 5. ANALISI FUNZIONALE + STRATEGIA */
   if (g.Analisi_Funzionale) {
+    const stratHtml = g.Strategia
+      ? `<div class="af-subheader">Strategia</div><div class="af-content">${g.Strategia}</div>`
+      : '';
     html += `
       <div class="profilo-card">
         <div class="profilo-header">Analisi Funzionale</div>
         <div class="af-content">${g.Analisi_Funzionale}</div>
+        ${stratHtml}
       </div>`;
   }
 
