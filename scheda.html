@@ -275,10 +275,10 @@ async function caricaScheda() {
 
     /* SEDUTE */
     const seduteGioc = resS.dati
-      .filter(s => String(s.ID_Giocatrice) === String(id))
+      .filter(s => String(s.ID_Giocatrice) === String(id) || String(s.ID_Giocatrice) === '0')
       .sort((a, b) => Number(a.Numero_Seduta) - Number(b.Numero_Seduta));
 
-    const eserciziGioc = resE.dati.filter(e => String(e.ID_Giocatrice) === String(id));
+    const eserciziGioc = resE.dati.filter(e => String(e.ID_Giocatrice) === String(id) || String(e.ID_Giocatrice) === '0');
 
     const divSed = document.getElementById('sedute');
     divSed.innerHTML = '';
