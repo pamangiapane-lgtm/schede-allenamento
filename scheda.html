@@ -373,7 +373,7 @@ async function caricaScheda() {
     });
 
     /* PROFILO */
-    document.getElementById('profilo').innerHTML = buildProfilo(resE, resP);
+    document.getElementById('profilo').innerHTML = buildProfilo(g, resE, resP, seduteGioc);
 
     /* mostra contenuto */
     document.getElementById('loading').style.display  = 'none';
@@ -493,73 +493,177 @@ async function salvaLog(inputId, btn) {
   }
 }
 
-function buildProfilo(resE, resP) {
-  const pesoLogs = (resP.dati || [])
-    .filter(p => String(p.ID_Giocatrice) === String(id) && p.Esercizio === 'Peso-corporeo')
+const MASSIMALI = [
+  { id: 'squat',    nome: 'Squat',          catena: 'lower', alias: ['squat'] },
+  { id: 'lat',      nome: 'Lat Machine',    catena: 'upper', alias: ['lat', 'pullup', 'pull-up', 'trazioni'] },
+  { id: 'military', nome: 'Military Press', catena: 'upper', alias: ['military', 'lento avanti'] },
+  { id: 'rowbb',    nome: 'Row BB',         catena: 'upper', alias: ['row bb', 'rematore'] },
+  { id: 'bench',    nome: 'Bench Press',    catena: 'upper', alias: ['bench', 'panca'] },
+  { id: 'clean',    nome: 'Clean',          catena: 'upper', alias: ['clean'] },
+  { id: 'rdl',      nome: 'Stacchi Rumeni', catena: 'upper', alias: ['stacchi', 'rdl'] },
+];
+
+function calcolaTabellaHtml(rm, catena) {
+  const bw   = parseFloat(document.getElementById('peso-input')?.value) || 0;
+  const PCTS = [50, 60, 65, 70, 75, 80, 85, 90];
+  return PCTS.map(pct => {
+    let carico;
+    if (catena === 'lower' && bw > 0) {
+      carico = Math.round((pct / 100 * rm - bw) * 2) / 2;
+    } else {
+      carico = Math.round(pct / 100 * rm * 2) / 2;
+    }
+    const cls = pct >= 80 ? ' pct-high' : '';
+    const val = carico > 0 ? carico + ' kg' : '—';
+    return `<div class="pct-cell${cls}"><span class="pct-label">${pct}%</span><span class="pct-val">${val}</span></div>`;
+  }).join('');
+}
+
+function calcolaMassimale(mId, catena) {
+  const rm    = parseFloat(document.getElementById('rm-' + mId)?.value) || 0;
+  const table = document.getElementById('table-' + mId);
+  if (!table) return;
+  table.innerHTML = rm
+    ? calcolaTabellaHtml(rm, catena)
+    : '<span class="mass-empty">Inserisci il tuo RM</span>';
+}
+
+function toggleIstruzioni(btn) {
+  const panel = btn.nextElementSibling;
+  const open  = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  const ch = btn.querySelector('.istr-chevron');
+  if (ch) ch.textContent = open ? '▸' : '▾';
+}
+
+function buildProfilo(g, resE, resP, sedute) {
+  const progressi = (resP.dati || []).filter(p => String(p.ID_Giocatrice) === String(id));
+
+  /* peso */
+  const pesoLogs  = progressi
+    .filter(p => p.Esercizio === 'Peso-corporeo')
     .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
   const ultimoPeso = pesoLogs.length ? pesoLogs[pesoLogs.length - 1].Valore : '';
 
-  const logPerEserc = {};
-  (resP.dati || [])
-    .filter(p => String(p.ID_Giocatrice) === String(id) && p.Valore &&
-                 p.Esercizio !== 'Peso-corporeo' &&
-                 p.Esercizio !== 'RPE-seduta' &&
-                 p.Esercizio !== 'Fatica-seduta')
+  /* storico per seduta */
+  const seduteMap = {};
+  (sedute || []).forEach(s => { seduteMap[s.Numero_Seduta] = s.Nome_Seduta; });
+
+  const SKIP = new Set(['Peso-corporeo', 'RPE-seduta', 'Fatica-seduta']);
+  const logPerSeduta = {};
+  progressi
+    .filter(p => p.Valore && !SKIP.has(p.Esercizio))
     .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
     .forEach(p => {
-      if (!logPerEserc[p.Esercizio]) logPerEserc[p.Esercizio] = [];
-      logPerEserc[p.Esercizio].push(p);
+      const sed = p.N_Seduta || '—';
+      if (!logPerSeduta[sed]) logPerSeduta[sed] = [];
+      logPerSeduta[sed].push(p);
     });
 
-  /* ordine esercizi seguendo le sedute (include esercizi squadra ID=0) */
-  const ordine = [];
-  const seen   = new Set();
-  (resE.dati || [])
-    .filter(e => String(e.ID_Giocatrice) === String(id) || String(e.ID_Giocatrice) === '0')
-    .sort((a, b) =>
-      String(a.N_Seduta).localeCompare(String(b.N_Seduta), undefined, { numeric: true }) ||
-      (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) ||
-      (Number(a.Ord_Eserc)  - Number(b.Ord_Eserc)))
-    .forEach(e => {
-      if (logPerEserc[e.Esercizio] && !seen.has(e.Esercizio)) {
-        seen.add(e.Esercizio);
-        ordine.push(e.Esercizio);
-      }
-    });
-  Object.keys(logPerEserc).forEach(nome => {
-    if (!seen.has(nome)) ordine.push(nome);
-  });
+  /* RM lookup (ultima stima per esercizio) */
+  const rmMap = {};
+  progressi
+    .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio))
+    .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
+    .forEach(p => { rmMap[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
 
-  let html = `
+  /* ---- HTML ---- */
+  let html = '';
+
+  /* 1. ISTRUZIONI */
+  html += `
+    <div class="profilo-card istr-card">
+      <button class="istr-toggle" onclick="toggleIstruzioni(this)">
+        <span>Istruzioni</span><span class="istr-chevron">▸</span>
+      </button>
+      <div class="istr-panel" style="display:none">
+        <p>Compila i kg nella sezione <strong>Sedute</strong> dopo ogni allenamento e premi <strong>Salva</strong>.</p>
+        <p>Il tuo storico e i massimali si aggiornano ad ogni seduta registrata.</p>
+        <p>Inserisci il peso corporeo qui sotto per calcolare i carichi corretti negli esercizi con sovraccarico + corpo libero.</p>
+      </div>
+    </div>`;
+
+  /* 2. PESO */
+  html += `
     <div class="profilo-card">
       <div class="profilo-header">Peso corporeo</div>
       <div class="peso-input-row">
-        <input type="number" id="peso-input" placeholder="es. 65" min="30" max="150" step="0.5" value="${ultimoPeso}">
+        <input type="number" id="peso-input" placeholder="es. 65" min="30" max="150" step="0.5" value="${ultimoPeso}"
+               oninput="aggiornaTabelleMassimali()">
         <span class="peso-unit">kg</span>
         <button onclick="salvaPeso(this)">Salva</button>
       </div>
       <div class="log-salvato" id="ok-peso" style="padding:0 16px 10px">✓ Salvato!</div>
     </div>`;
 
-  if (ordine.length === 0) {
-    html += `<p class="loading-msg" style="padding:20px 0">Nessun carico registrato ancora.</p>`;
-    return html;
+  /* 3. STORICO PER SEDUTA */
+  const sedKeys = Object.keys(logPerSeduta)
+    .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
+
+  if (sedKeys.length > 0) {
+    html += `<div class="profilo-card"><div class="profilo-header">Storico carichi</div>`;
+    sedKeys.forEach(sed => {
+      const nomeSed = seduteMap[sed] || `Seduta ${sed}`;
+      const byEserc = {};
+      logPerSeduta[sed].forEach(p => {
+        if (!byEserc[p.Esercizio]) byEserc[p.Esercizio] = [];
+        byEserc[p.Esercizio].push(p);
+      });
+      html += `<div class="storico-sed-header">${nomeSed}</div>`;
+      Object.entries(byEserc).forEach(([nome, voci]) => {
+        const chips = voci.map(p =>
+          `<span class="storico-chip">${formatData(p.Data)}<br><strong>${p.Valore}</strong></span>`
+        ).join('');
+        html += `
+          <div class="storico-eserc">
+            <div class="storico-nome">${nome}</div>
+            <div class="storico-chips">${chips}</div>
+          </div>`;
+      });
+    });
+    html += `</div>`;
   }
 
-  html += `<div class="profilo-card"><div class="profilo-header">Storico carichi</div>`;
-  ordine.forEach(nome => {
-    const chips = logPerEserc[nome].map(p => {
-      const nota = p.Note ? `<em>${p.Note}</em>` : '';
-      return `<span class="storico-chip">${formatData(p.Data)}<br><strong>${p.Valore}</strong>${nota ? `<br>${nota}` : ''}</span>`;
-    }).join('');
+  /* 4. MASSIMALI */
+  html += `<div class="profilo-card"><div class="profilo-header">Massimali</div>`;
+  MASSIMALI.forEach(m => {
+    const rmKey = Object.keys(rmMap).find(k => m.alias.some(a => k.includes(a)));
+    const rmVal = rmKey ? rmMap[rmKey] : '';
+    const badge = m.catena === 'lower' ? ' <span class="catena-badge">+ BW</span>' : '';
     html += `
-      <div class="storico-eserc">
-        <div class="storico-nome">${nome}</div>
-        <div class="storico-chips">${chips}</div>
+      <div class="massimale-row">
+        <div class="mass-nome">${m.nome}${badge}</div>
+        <div class="mass-rm-row">
+          <span class="mass-rm-label">RM</span>
+          <input type="number" class="mass-rm-input" id="rm-${m.id}"
+                 placeholder="—" value="${rmVal}" min="1" step="0.5"
+                 oninput="calcolaMassimale('${m.id}','${m.catena}')">
+          <span class="mass-rm-unit">kg</span>
+        </div>
+        <div class="mass-pct-table" id="table-${m.id}">
+          ${rmVal ? calcolaTabellaHtml(Number(rmVal), m.catena) : '<span class="mass-empty">Inserisci il tuo RM</span>'}
+        </div>
       </div>`;
   });
   html += `</div>`;
+
+  /* 5. ANALISI FUNZIONALE */
+  if (g.Analisi_Funzionale) {
+    html += `
+      <div class="profilo-card">
+        <div class="profilo-header">Analisi Funzionale</div>
+        <div class="af-content">${g.Analisi_Funzionale}</div>
+      </div>`;
+  }
+
   return html;
+}
+
+function aggiornaTabelleMassimali() {
+  MASSIMALI.forEach(m => {
+    const rm = parseFloat(document.getElementById('rm-' + m.id)?.value) || 0;
+    if (rm) calcolaMassimale(m.id, m.catena);
+  });
 }
 
 async function salvaPeso(btn) {
