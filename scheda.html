@@ -152,6 +152,8 @@ function mediaBlock(url, uid) {
     content = `<div class="video-wrap"><iframe data-src="https://www.youtube.com/embed/${yt}?playsinline=1" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>`;
   } else if (isImage(url)) {
     content = `<img src="${url}" alt="Istruzione" class="media-img">`;
+  } else if (url.includes('mediadelivery.net')) {
+    content = `<a href="${url}" target="_blank" rel="noopener" class="media-link">▶ Apri video esercizio</a>`;
   } else {
     content = `<div class="video-wrap"><iframe data-src="${url}" frameborder="0" allowfullscreen allow="autoplay"></iframe></div>`;
   }
@@ -200,7 +202,7 @@ function htmlStandard(e, logId) {
   h += `</div>`;
   if (e.Note)                h += noteToggle(e.Note, logId + '-n');
   if (e.VideoURL)             h += mediaBlock(e.VideoURL, logId);
-  if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
+  if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
   h += `</div>`;
   return h;
 }
@@ -232,7 +234,7 @@ function htmlBicarico(e, logId) {
 
   if (e.Note)                h += noteToggle(e.Note, logId + '-n');
   if (e.VideoURL)             h += `<div style="padding:0 16px;">${mediaBlock(e.VideoURL, logId + '-v')}</div>`;
-  if (e.Log_Libero === 'SI') h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps)}</div>`;
+  if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps)}</div>`;
   h += `</div>`;
   return h;
 }
@@ -650,7 +652,7 @@ function calcolaTabellaHtml(rm, catena) {
   return PCTS.map(pct => {
     let carico;
     if (catena === 'lower' && bw > 0) {
-      carico = Math.round((pct / 100 * rm - bw) * 2) / 2;
+      carico = Math.round((pct / 100 * (rm + bw) - bw) * 2) / 2;
     } else {
       carico = Math.round(pct / 100 * rm * 2) / 2;
     }
