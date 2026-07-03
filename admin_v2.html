@@ -146,7 +146,7 @@ function cardHtml(m, confirmed) {
   if (b.a) desc.push('<strong>Evitare:</strong> ' + esc(b.a.slice(0,120)));
   const safeIt = m.it.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
   return '<div class="'+cls+'" id="card-'+encodeURIComponent(m.it)+'">'
-    + '<img class="thumb" src="'+(b.t?esc(b.t):'')+'" onerror="this.style.opacity=0" alt="">'
+    + '<img class="thumb" src="'+(b.t?esc(b.t):'')+'" loading="lazy" onerror="this.style.opacity=0" alt="">'
     + '<div class="body">'
     + '<div class="name-it">'+esc(m.it)+badge+'<span class="score">'+m.sc+'</span></div>'
     + '<div class="name-en" id="en-'+encodeURIComponent(m.it)+'">'+(b.n?esc(b.n):'<em style="color:#f85149">nessun match automatico</em>')+'</div>'
