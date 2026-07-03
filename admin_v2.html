@@ -132,7 +132,7 @@ const MATCHES = [{"it":"Spinta d'anca monopodalica","c":"yellow","sc":0.7,"b":{"
 
 let libData=null, approvals={}, curIt=null, selEntry=null, filteredLib=[];
 const $=id=>document.getElementById(id);
-const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 
 function cardHtml(m, confirmed) {
   const b = m.b || {};
@@ -144,18 +144,18 @@ function cardHtml(m, confirmed) {
   if (b.h) desc.push('<strong>Come:</strong> ' + esc(b.h.slice(0,220)));
   if (b.f) desc.push('<strong>Sensazione:</strong> ' + esc(b.f.slice(0,160)));
   if (b.a) desc.push('<strong>Evitare:</strong> ' + esc(b.a.slice(0,120)));
-  const safeIt = m.it.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-  return '<div class="'+cls+'" id="card-'+encodeURIComponent(m.it)+'">'
+  const idx = MATCHES.indexOf(m);
+  return '<div class="'+cls+'">'
     + '<img class="thumb" src="'+(b.t?esc(b.t):'')+'" loading="lazy" onerror="this.style.opacity=0" alt="">'
     + '<div class="body">'
     + '<div class="name-it">'+esc(m.it)+badge+'<span class="score">'+m.sc+'</span></div>'
-    + '<div class="name-en" id="en-'+encodeURIComponent(m.it)+'">'+(b.n?esc(b.n):'<em style="color:#f85149">nessun match automatico</em>')+'</div>'
+    + '<div class="name-en">'+(b.n?esc(b.n):'<em style="color:#f85149">nessun match automatico</em>')+'</div>'
     + (desc.length ? '<div class="desc">'+desc.join(' &nbsp;·&nbsp; ')+'</div>' : '')
     + '<div class="actions">'
     + (confirmed
         ? '<span class="ok-lbl">&#10003; Confermato</span>'
-        : '<button class="btn btn-green btn-sm" onclick='approvaCard('+JSON.stringify(m.it)+')'>&#10003; Va bene</button>')
-    + '<button class="btn btn-blue btn-sm" onclick='apriRicerca('+JSON.stringify(m.it)+')'>&#128269; Cerca alternativa</button>'
+        : '<button class="btn btn-green btn-sm" data-idx="'+idx+'" onclick="approvaCard(this.dataset.idx)">&#10003; Va bene</button>')
+    + '<button class="btn btn-blue btn-sm" data-idx="'+idx+'" onclick="apriRicerca(this.dataset.idx)">&#128269; Cerca alternativa</button>'
     + '</div>'
     + '</div></div>';
 }
@@ -185,10 +185,10 @@ function filtra(q) {
   renderAll();
 }
 
-function approvaCard(nomeIt) {
-  const m = MATCHES.find(x => x.it === nomeIt);
+function approvaCard(idx) {
+  const m = MATCHES[+idx];
   if (!m) return;
-  approvals[nomeIt] = m.b || {n:'',t:'',h:'',f:'',a:''};
+  approvals[m.it] = m.b || {n:'',t:'',h:'',f:'',a:''};
   renderAll();
 }
 
@@ -206,9 +206,11 @@ function updateSave() {
   $('bar').style.width = Math.round(n / MATCHES.length * 100) + '%';
 }
 
-function apriRicerca(nomeIt) {
-  curIt = nomeIt; selEntry = null;
-  $('modal-title').textContent = nomeIt;
+function apriRicerca(idx) {
+  const m = MATCHES[+idx];
+  if (!m) return;
+  curIt = m.it; selEntry = null;
+  $('modal-title').textContent = m.it;
   $('btn-ok').disabled = true;
   $('modal-prev').classList.remove('show');
   $('q').value = '';
