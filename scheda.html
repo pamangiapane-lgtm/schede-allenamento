@@ -101,6 +101,19 @@ function noteToggle(note, uid) {
     <div class="note-panel" id="nt-${uid}" style="display:none">${note}</div>`;
 }
 
+function descBlock(istruzione, uid) {
+  if (!istruzione) return '';
+  let desc;
+  try { desc = JSON.parse(istruzione); } catch { return ''; }
+  const parts = [];
+  if (desc.h) parts.push(`<div class="desc-section"><span class="desc-label">Come fare</span> ${desc.h}</div>`);
+  if (desc.f) parts.push(`<div class="desc-section"><span class="desc-label">Sensazione</span> ${desc.f}</div>`);
+  if (desc.a) parts.push(`<div class="desc-section"><span class="desc-label">Evitare</span> ${desc.a}</div>`);
+  if (!parts.length) return '';
+  return `<button class="note-toggle" onclick="toggleNote('desc-${uid}')">ℹ️ Istruzioni ▸</button>
+    <div class="note-panel desc-panel" id="desc-${uid}" style="display:none">${parts.join('')}</div>`;
+}
+
 function toggleNote(noteId) {
   const el = document.getElementById(noteId);
   if (!el) return;
@@ -264,6 +277,7 @@ function htmlIndividuale(e) {
   if (e.Recupero)   h += param('Recupero', e.Recupero);
   h += `</div>`;
   if (e.Note)                h += noteToggle(e.Note, logId + '-n');
+  if (e.Istruzione)          h += descBlock(e.Istruzione, logId + '-d');
   if (e.VideoURL)             h += mediaBlock(e.VideoURL, logId + '-v');
   if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, 'ind', e.Intensita, e.Catena, e.Reps);
   h += `</div>`;
