@@ -149,11 +149,11 @@ function mediaBlock(url, uid) {
   let content;
   const yt = ytId(url);
   if (yt) {
-    content = `<div class="video-wrap"><iframe src="https://www.youtube.com/embed/${yt}?playsinline=1" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>`;
+    content = `<div class="video-wrap"><iframe data-src="https://www.youtube.com/embed/${yt}?playsinline=1" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>`;
   } else if (isImage(url)) {
     content = `<img src="${url}" alt="Istruzione" class="media-img">`;
   } else {
-    content = `<div class="video-wrap"><iframe src="${url}" frameborder="0" allowfullscreen allow="autoplay"></iframe></div>`;
+    content = `<div class="video-wrap"><iframe data-src="${url}" frameborder="0" allowfullscreen allow="autoplay"></iframe></div>`;
   }
   return `
     <button class="media-toggle" onclick="toggleMedia('${panelId}')" aria-label="Video">
@@ -169,9 +169,12 @@ function toggleMedia(panelId) {
   panel.style.display = open ? 'none' : 'block';
   const btn = panel.previousElementSibling;
   if (btn) btn.classList.toggle('media-toggle-open', !open);
-  if (open) {
+  if (!open) {
+    const iframe = panel.querySelector('iframe[data-src]');
+    if (iframe && !iframe.src) iframe.src = iframe.dataset.src;
+  } else {
     const iframe = panel.querySelector('iframe');
-    if (iframe) { const s = iframe.src; iframe.src = ''; iframe.src = s; }
+    if (iframe) iframe.src = '';
   }
 }
 
