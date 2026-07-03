@@ -54,6 +54,57 @@ const id    = new URLSearchParams(window.location.search).get('id');
 let ultimiLog   = {};
 let feedbackLog = {};
 
+/* ---------- i18n ---------- */
+const IT = {
+  loading:'Caricamento scheda...', back:'← Tutte le giocatrici',
+  tabProfile:'Profilo', tabSessions:'Sedute', appTitle:'Schede Allenamento',
+  notes:'Note', noteOpen:'Note ▾', noteClose:'Note ▸',
+  instructions:'ℹ️ Istruzioni ▸', instrOpen:'ℹ️ Istruzioni ▾',
+  howTo:'Come fare', feel:'Sensazione', avoid:'Evitare',
+  videoBtn:'▶ Video / Istruzione', openVideo:'▶ Apri video esercizio',
+  repeat: n=>`Ripeti ${n}×`, endSession:'Fine Seduta — Salva tutto',
+  saving:'Salvataggio…', saved:'✓ Salvato!', errorBtn:'Errore — riprova',
+  savedAt:(d,t)=>`✓ Salvato — ${d} ore ${t}`,
+  loggedN: n=>`Compilati (${n})`, missedN: n=>`Non compilati (${n})`,
+  rpeLabel:'Intensità seduta', rpeHint:'1 facile · 10 al limite',
+  fatLabel:'Come ti senti', fatHint:'1 esausta · 5 perfetta',
+  last:'Ultima: ', instrSection:'Istruzioni',
+  instrP1:'Compila i kg nella sezione <strong>Sedute</strong> dopo ogni allenamento e premi <strong>Salva</strong>.',
+  instrP2:'Il tuo storico e i massimali si aggiornano ad ogni seduta registrata.',
+  instrP3:'Inserisci il peso corporeo qui sotto per calcolare i carichi corretti negli esercizi con sovraccarico + corpo libero.',
+  bwTitle:'Peso corporeo', bwPlaceholder:'es. 65', saveBtn:'Salva', savedOk:'✓ Salvato!',
+  histTitle:'Storico carichi', sessionFallback: n=>`Seduta ${n}`,
+  maxTitle:'Massimali', enterRM:'Inserisci il tuo RM',
+  afTitle:'Analisi Funzionale', stratTitle:'Strategia',
+  notFound:'Giocatrice non trovata.', loadError:'Errore nel caricamento. Riprova.',
+  months:['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'],
+};
+const EN = {
+  loading:'Loading...', back:'← All athletes',
+  tabProfile:'Profile', tabSessions:'Sessions', appTitle:'Training Program',
+  notes:'Notes', noteOpen:'Notes ▾', noteClose:'Notes ▸',
+  instructions:'ℹ️ Instructions ▸', instrOpen:'ℹ️ Instructions ▾',
+  howTo:'How to', feel:'Feel', avoid:'Avoid',
+  videoBtn:'▶ Video / Instructions', openVideo:'▶ Open exercise video',
+  repeat: n=>`Repeat ${n}×`, endSession:'End Session — Save all',
+  saving:'Saving…', saved:'✓ Saved!', errorBtn:'Error — try again',
+  savedAt:(d,t)=>`✓ Saved — ${d} at ${t}`,
+  loggedN: n=>`Logged (${n})`, missedN: n=>`Not logged (${n})`,
+  rpeLabel:'Session intensity', rpeHint:'1 easy · 10 max effort',
+  fatLabel:'How do you feel', fatHint:'1 exhausted · 5 great',
+  last:'Last: ', instrSection:'Instructions',
+  instrP1:'Enter your kg in the <strong>Sessions</strong> tab after each workout and press <strong>Save</strong>.',
+  instrP2:'Your history and 1RM values update after each logged session.',
+  instrP3:'Enter your body weight below to calculate the correct loads for barbell + bodyweight exercises.',
+  bwTitle:'Body weight', bwPlaceholder:'e.g. 65', saveBtn:'Save', savedOk:'✓ Saved!',
+  histTitle:'Load History', sessionFallback: n=>`Session ${n}`,
+  maxTitle:'1RM Maxes', enterRM:'Enter your 1RM',
+  afTitle:'Functional Assessment', stratTitle:'Strategy',
+  notFound:'Player not found.', loadError:'Loading error. Try again.',
+  months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+};
+let L = IT;
+
 /* ---------- helpers ---------- */
 function param(label, val) {
   return `<div class="param"><div class="param-label">${label}</div><div class="param-value">${val}</div></div>`;
@@ -73,7 +124,7 @@ function parseReps(s) {
 
 function formatData(s) {
   if (!s) return '—';
-  const mesi = ['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'];
+  const mesi = L.months;
   let d, mo;
   if (typeof s === 'string' && s.includes('/')) {
     const p = s.split('/'); d = +p[0]; mo = +p[1] - 1;
@@ -97,7 +148,7 @@ function parseEcc(note) {
 
 function noteToggle(note, uid) {
   if (!note) return '';
-  return `<button class="note-toggle" onclick="toggleNote('nt-${uid}')">Note ▸</button>
+  return `<button class="note-toggle" onclick="toggleNote('nt-${uid}')">${L.noteClose}</button>
     <div class="note-panel" id="nt-${uid}" style="display:none">${note}</div>`;
 }
 
@@ -106,11 +157,11 @@ function descBlock(istruzione, uid) {
   let desc;
   try { desc = JSON.parse(istruzione); } catch { return ''; }
   const parts = [];
-  if (desc.h) parts.push(`<div class="desc-section"><span class="desc-label">Come fare</span> ${desc.h}</div>`);
-  if (desc.f) parts.push(`<div class="desc-section"><span class="desc-label">Sensazione</span> ${desc.f}</div>`);
-  if (desc.a) parts.push(`<div class="desc-section"><span class="desc-label">Evitare</span> ${desc.a}</div>`);
+  if (desc.h) parts.push(`<div class="desc-section"><span class="desc-label">${L.howTo}</span> ${desc.h}</div>`);
+  if (desc.f) parts.push(`<div class="desc-section"><span class="desc-label">${L.feel}</span> ${desc.f}</div>`);
+  if (desc.a) parts.push(`<div class="desc-section"><span class="desc-label">${L.avoid}</span> ${desc.a}</div>`);
   if (!parts.length) return '';
-  return `<button class="note-toggle" onclick="toggleNote('desc-${uid}')">ℹ️ Istruzioni ▸</button>
+  return `<button class="note-toggle" onclick="toggleNote('desc-${uid}')">${L.instructions}</button>
     <div class="note-panel desc-panel" id="desc-${uid}" style="display:none">${parts.join('')}</div>`;
 }
 
@@ -120,7 +171,10 @@ function toggleNote(noteId) {
   const open = el.style.display !== 'none';
   el.style.display = open ? 'none' : 'block';
   const btn = el.previousElementSibling;
-  if (btn) btn.textContent = open ? 'Note ▸' : 'Note ▾';
+  if (btn) {
+    const t = btn.textContent;
+    btn.textContent = open ? t.replace('▾','▸') : t.replace('▸','▾');
+  }
 }
 
 function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
@@ -129,7 +183,7 @@ function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
   const reps         = parseReps(repsStr);
 
   const ultimaHtml = ultima
-    ? `<div class="ultima-seduta">Ultima: <em>${ultima.valore}</em>${ultima.rm ? ` · RM ~${ultima.rm} kg` : ''}</div>`
+    ? `<div class="ultima-seduta">${L.last}<em>${ultima.valore}</em>${ultima.rm ? ` · RM ~${ultima.rm} kg` : ''}</div>`
     : '';
 
   return `
@@ -164,15 +218,15 @@ function mediaBlock(url, uid) {
   if (yt) {
     content = `<div class="video-wrap"><iframe data-src="https://www.youtube.com/embed/${yt}?playsinline=1" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>`;
   } else if (isImage(url)) {
-    content = `<img src="${url}" alt="Istruzione" class="media-img" onclick="zoomImg(this)">`;
+    content = `<img src="${url}" alt="Exercise" class="media-img" onclick="zoomImg(this)">`;
   } else if (url.includes('mediadelivery.net')) {
-    content = `<a href="${url}" target="_blank" rel="noopener" class="media-link">▶ Apri video esercizio</a>`;
+    content = `<a href="${url}" target="_blank" rel="noopener" class="media-link">${L.openVideo}</a>`;
   } else {
     content = `<div class="video-wrap"><iframe data-src="${url}" frameborder="0" allowfullscreen allow="autoplay"></iframe></div>`;
   }
   return `
     <button class="media-toggle" onclick="toggleMedia('${panelId}')" aria-label="Video">
-      <span class="media-toggle-icon">▶</span> Video / Istruzione
+      <span class="media-toggle-icon">▶</span> ${L.videoBtn}
     </button>
     <div class="media-panel" id="${panelId}" style="display:none">${content}</div>`;
 }
@@ -236,7 +290,7 @@ function htmlStandard(e, logId) {
 function htmlBicarico(e, logId) {
   let h = `<div class="esercizio">`;
   h += `<div class="eserc-nome">${e.Esercizio}`;
-  if (e.Num_Ripetizioni) h += ` <span class="ripeti-badge">Ripeti ${e.Num_Ripetizioni}×</span>`;
+  if (e.Num_Ripetizioni) h += ` <span class="ripeti-badge">${L.repeat(e.Num_Ripetizioni)}</span>`;
   h += `</div>`;
 
   /* layout compatto su una riga: A → B */
@@ -314,12 +368,21 @@ async function caricaScheda() {
       });
 
     const g = (resG.dati || []).find(x => String(x.ID) === String(id));
-    if (!g) { mostraErrore('Giocatrice non trovata.'); return; }
+    if (!g) { mostraErrore(L.notFound); return; }
+
+    /* LINGUA */
+    L = (g.Lingua === 'EN') ? EN : IT;
+    document.querySelector('h1').textContent = L.appTitle;
+    document.querySelector('.back-link').textContent = L.back;
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    if (tabBtns[0]) tabBtns[0].textContent = L.tabProfile;
+    if (tabBtns[1]) tabBtns[1].textContent = L.tabSessions;
+    document.documentElement.lang = (L === EN) ? 'en' : 'it';
 
     /* HERO */
     document.getElementById('hero-nome').textContent  = g.Nome;
     document.getElementById('hero-ruolo').textContent = g.Ruolo || '';
-    document.title = g.Nome + ' — Scheda';
+    document.title = g.Nome + ' — ' + L.appTitle;
 
     /* LIBRERIA INDIVIDUALE: mappa codice → { titolo, esercizi[] } */
     const libMap = {};
@@ -411,7 +474,7 @@ async function caricaScheda() {
     document.getElementById('contenuto').style.display = '';
 
   } catch (err) {
-    mostraErrore('Errore nel caricamento. Riprova.');
+    mostraErrore(L.loadError);
   }
 }
 
@@ -529,7 +592,7 @@ function htmlFineSeduta(nSeduta) {
   return `
     <div class="fine-seduta-wrap">
       <button class="fine-seduta-btn" onclick="fineSeduta('${nSeduta}', this)">
-        Fine Seduta — Salva tutto
+        ${L.endSession}
       </button>
       <div class="fine-seduta-report" id="report-${nSeduta}" style="display:none"></div>
     </div>`;
@@ -537,11 +600,12 @@ function htmlFineSeduta(nSeduta) {
 
 async function fineSeduta(nSeduta, btn) {
   btn.disabled    = true;
-  btn.textContent = 'Salvataggio…';
+  btn.textContent = L.saving;
 
   const ora      = new Date();
-  const data     = ora.toLocaleDateString('it-IT');
-  const orario   = ora.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  const locale   = L === EN ? 'en-GB' : 'it-IT';
+  const data     = ora.toLocaleDateString(locale);
+  const orario   = ora.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
   const bw       = parseFloat(document.getElementById('peso-input')?.value) || 0;
 
   const salvati  = [];
@@ -593,7 +657,7 @@ async function fineSeduta(nSeduta, btn) {
   const rpeBtn = document.querySelector(`#rpe-${id}-${nSeduta} .rating-btn.selected`);
   if (rpeBtn) {
     const val = rpeBtn.textContent.trim();
-    salvati.push({ label: 'Intensità seduta', detail: `${val}/10` });
+    salvati.push({ label: L.rpeLabel, detail: `${val}/10` });
     promises.push(fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -604,14 +668,14 @@ async function fineSeduta(nSeduta, btn) {
       }),
     }));
   } else {
-    mancanti.push('Intensità seduta');
+    mancanti.push(L.rpeLabel);
   }
 
   /* Fatica */
   const fatBtn = document.querySelector(`#fat-${id}-${nSeduta} .rating-btn.selected`);
   if (fatBtn) {
     const val = fatBtn.textContent.trim();
-    salvati.push({ label: 'Come ti senti', detail: `${val}/5` });
+    salvati.push({ label: L.fatLabel, detail: `${val}/5` });
     promises.push(fetch(API, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -622,17 +686,17 @@ async function fineSeduta(nSeduta, btn) {
       }),
     }));
   } else {
-    mancanti.push('Come ti senti');
+    mancanti.push(L.fatLabel);
   }
 
   try {
     await Promise.all(promises);
 
-    let report = `<div class="report-ts">✓ Salvato — ${data} ore ${orario}</div>`;
+    let report = `<div class="report-ts">${L.savedAt(data, orario)}</div>`;
 
     if (salvati.length) {
       report += `<div class="report-section">`;
-      report += `<div class="report-label report-ok-label">Compilati (${salvati.length})</div>`;
+      report += `<div class="report-label report-ok-label">${L.loggedN(salvati.length)}</div>`;
       salvati.forEach(s => {
         report += `<div class="report-item">✓ ${s.label} <em>${s.detail}</em></div>`;
       });
@@ -641,7 +705,7 @@ async function fineSeduta(nSeduta, btn) {
 
     if (mancanti.length) {
       report += `<div class="report-section">`;
-      report += `<div class="report-label report-miss-label">Non compilati (${mancanti.length})</div>`;
+      report += `<div class="report-label report-miss-label">${L.missedN(mancanti.length)}</div>`;
       mancanti.forEach(m => {
         report += `<div class="report-item report-miss">— ${m}</div>`;
       });
@@ -651,13 +715,13 @@ async function fineSeduta(nSeduta, btn) {
     const reportEl = document.getElementById(`report-${nSeduta}`);
     if (reportEl) { reportEl.innerHTML = report; reportEl.style.display = 'block'; }
 
-    btn.textContent      = '✓ Salvato!';
+    btn.textContent      = L.saved;
     btn.style.background = 'var(--verde)';
     btn.style.color      = '#fff';
     _datiModificati      = false;
 
   } catch {
-    btn.textContent      = 'Errore — riprova';
+    btn.textContent      = L.errorBtn;
     btn.style.background = '#c33';
     btn.disabled         = false;
   }
@@ -695,7 +759,7 @@ function calcolaMassimale(mId, catena) {
   if (!table) return;
   table.innerHTML = rm
     ? calcolaTabellaHtml(rm, catena)
-    : '<span class="mass-empty">Inserisci il tuo RM</span>';
+    : `<span class="mass-empty">${L.enterRM}</span>`;
 }
 
 function toggleIstruzioni(btn) {
@@ -744,26 +808,26 @@ function buildProfilo(g, resE, resP, sedute) {
   html += `
     <div class="profilo-card istr-card">
       <button class="istr-toggle" onclick="toggleIstruzioni(this)">
-        <span>Istruzioni</span><span class="istr-chevron">▸</span>
+        <span>${L.instrSection}</span><span class="istr-chevron">▸</span>
       </button>
       <div class="istr-panel" style="display:none">
-        <p>Compila i kg nella sezione <strong>Sedute</strong> dopo ogni allenamento e premi <strong>Salva</strong>.</p>
-        <p>Il tuo storico e i massimali si aggiornano ad ogni seduta registrata.</p>
-        <p>Inserisci il peso corporeo qui sotto per calcolare i carichi corretti negli esercizi con sovraccarico + corpo libero.</p>
+        <p>${L.instrP1}</p>
+        <p>${L.instrP2}</p>
+        <p>${L.instrP3}</p>
       </div>
     </div>`;
 
   /* 2. PESO */
   html += `
     <div class="profilo-card">
-      <div class="profilo-header">Peso corporeo</div>
+      <div class="profilo-header">${L.bwTitle}</div>
       <div class="peso-input-row">
-        <input type="number" id="peso-input" placeholder="es. 65" min="30" max="150" step="0.5" value="${ultimoPeso}"
+        <input type="number" id="peso-input" placeholder="${L.bwPlaceholder}" min="30" max="150" step="0.5" value="${ultimoPeso}"
                oninput="aggiornaTabelleMassimali()">
         <span class="peso-unit">kg</span>
-        <button onclick="salvaPeso(this)">Salva</button>
+        <button onclick="salvaPeso(this)">${L.saveBtn}</button>
       </div>
-      <div class="log-salvato" id="ok-peso" style="padding:0 16px 10px">✓ Salvato!</div>
+      <div class="log-salvato" id="ok-peso" style="padding:0 16px 10px">${L.savedOk}</div>
     </div>`;
 
   /* 3. STORICO PER SEDUTA */
@@ -771,9 +835,9 @@ function buildProfilo(g, resE, resP, sedute) {
     .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
 
   if (sedKeys.length > 0) {
-    html += `<div class="profilo-card"><div class="profilo-header">Storico carichi</div>`;
+    html += `<div class="profilo-card"><div class="profilo-header">${L.histTitle}</div>`;
     sedKeys.forEach(sed => {
-      const nomeSed = seduteMap[sed] || `Seduta ${sed}`;
+      const nomeSed = seduteMap[sed] || L.sessionFallback(sed);
       const byEserc = {};
       logPerSeduta[sed].forEach(p => {
         if (!byEserc[p.Esercizio]) byEserc[p.Esercizio] = [];
@@ -795,7 +859,7 @@ function buildProfilo(g, resE, resP, sedute) {
   }
 
   /* 4. MASSIMALI */
-  html += `<div class="profilo-card"><div class="profilo-header">Massimali</div>`;
+  html += `<div class="profilo-card"><div class="profilo-header">${L.maxTitle}</div>`;
   MASSIMALI.forEach(m => {
     const rmKey = Object.keys(rmMap).find(k => m.alias.some(a => k.includes(a)));
     const rmVal = rmKey ? rmMap[rmKey] : '';
@@ -811,7 +875,7 @@ function buildProfilo(g, resE, resP, sedute) {
           <span class="mass-rm-unit">kg</span>
         </div>
         <div class="mass-pct-table" id="table-${m.id}">
-          ${rmVal ? calcolaTabellaHtml(Number(rmVal), m.catena) : '<span class="mass-empty">Inserisci il tuo RM</span>'}
+          ${rmVal ? calcolaTabellaHtml(Number(rmVal), m.catena) : `<span class="mass-empty">${L.enterRM}</span>`}
         </div>
       </div>`;
   });
@@ -820,11 +884,11 @@ function buildProfilo(g, resE, resP, sedute) {
   /* 5. ANALISI FUNZIONALE + STRATEGIA */
   if (g.Analisi_Funzionale) {
     const stratHtml = g.Strategia
-      ? `<div class="af-subheader">Strategia</div><div class="af-content">${g.Strategia}</div>`
+      ? `<div class="af-subheader">${L.stratTitle}</div><div class="af-content">${g.Strategia}</div>`
       : '';
     html += `
       <div class="profilo-card">
-        <div class="profilo-header">Analisi Funzionale</div>
+        <div class="profilo-header">${L.afTitle}</div>
         <div class="af-content">${g.Analisi_Funzionale}</div>
         ${stratHtml}
       </div>`;
@@ -861,7 +925,7 @@ async function salvaPeso(btn) {
     const okEl = document.getElementById('ok-peso');
     if (okEl) { okEl.style.display = 'block'; setTimeout(() => okEl.style.display = 'none', 1500); }
   } catch {}
-  setTimeout(() => { btn.textContent = 'Salva'; btn.disabled = false; }, 2000);
+  setTimeout(() => { btn.textContent = L.saveBtn; btn.disabled = false; }, 2000);
 }
 
 function htmlFeedbackSeduta(nSeduta, prev) {
@@ -883,11 +947,11 @@ function htmlFeedbackSeduta(nSeduta, prev) {
   return `
     <div class="feedback-seduta">
       <div class="feedback-row">
-        <span class="feedback-label">Intensità seduta <span class="feedback-hint">1 facile · 10 al limite</span></span>
+        <span class="feedback-label">${L.rpeLabel} <span class="feedback-hint">${L.rpeHint}</span></span>
         <div class="rating-group" id="${rpeId}">${rpeBtn}</div>
       </div>
       <div class="feedback-row">
-        <span class="feedback-label">Come ti senti <span class="feedback-hint">1 esausta · 5 perfetta</span></span>
+        <span class="feedback-label">${L.fatLabel} <span class="feedback-hint">${L.fatHint}</span></span>
         <div class="rating-group" id="${fatId}">${fatBtn}</div>
       </div>
     </div>`;
