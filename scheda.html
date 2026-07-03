@@ -265,8 +265,8 @@ function htmlBicarico(e, logId) {
   return h;
 }
 
-function htmlIndividuale(e) {
-  const logId      = `log-ind-${id}-${e.Codice}-${e.Ordine}`;
+function htmlIndividuale(e, sedSuffix) {
+  const logId      = `log-ind-${id}-${e.Codice}-${e.Ordine}${sedSuffix ? '-' + sedSuffix : ''}`;
   const repsDisplay = repsConTempo(e.Reps, e.Note);
   let h = `<div class="esercizio">`;
   h += `<div class="eserc-nome">${e.Esercizio}</div>`;
@@ -385,7 +385,7 @@ async function caricaScheda() {
         if (m.nome === 'Prehab individuale' && faseAttiva) {
           /* Inietta gli esercizi della fase attiva */
           html += `<div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
-          faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e); });
+          faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
         } else {
           if (m.desc) html += `<div class="metodo-desc">${m.desc}</div>`;
           m.esercizi.forEach(e => {
