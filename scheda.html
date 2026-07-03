@@ -151,7 +151,7 @@ function mediaBlock(url, uid) {
   if (yt) {
     content = `<div class="video-wrap"><iframe data-src="https://www.youtube.com/embed/${yt}?playsinline=1" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>`;
   } else if (isImage(url)) {
-    content = `<img src="${url}" alt="Istruzione" class="media-img">`;
+    content = `<img src="${url}" alt="Istruzione" class="media-img" onclick="zoomImg(this)">`;
   } else if (url.includes('mediadelivery.net')) {
     content = `<a href="${url}" target="_blank" rel="noopener" class="media-link">▶ Apri video esercizio</a>`;
   } else {
@@ -162,6 +162,19 @@ function mediaBlock(url, uid) {
       <span class="media-toggle-icon">▶</span> Video / Istruzione
     </button>
     <div class="media-panel" id="${panelId}" style="display:none">${content}</div>`;
+}
+
+function zoomImg(img) {
+  let ov = document.getElementById('img-overlay');
+  if (!ov) {
+    ov = document.createElement('div');
+    ov.id = 'img-overlay';
+    ov.onclick = () => ov.style.display = 'none';
+    ov.appendChild(document.createElement('img'));
+    document.body.appendChild(ov);
+  }
+  ov.querySelector('img').src = img.src;
+  ov.style.display = 'flex';
 }
 
 function toggleMedia(panelId) {
