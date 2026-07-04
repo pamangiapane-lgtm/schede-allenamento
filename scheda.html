@@ -146,23 +146,20 @@ function parseEcc(note) {
   return m ? m[1].trim() : '';
 }
 
-function noteToggle(note, uid) {
-  if (!note) return '';
-  return `<button class="note-toggle" onclick="toggleNote('nt-${uid}')">${L.noteClose}</button>
-    <div class="note-panel" id="nt-${uid}" style="display:none">${note}</div>`;
-}
-
-function descBlock(istruzione, uid) {
-  if (!istruzione) return '';
-  let desc;
-  try { desc = JSON.parse(istruzione); } catch { return ''; }
-  const parts = [];
-  if (desc.h) parts.push(`<div class="desc-section"><span class="desc-label">${L.howTo}</span> ${desc.h}</div>`);
-  if (desc.f) parts.push(`<div class="desc-section"><span class="desc-label">${L.feel}</span> ${desc.f}</div>`);
-  if (desc.a) parts.push(`<div class="desc-section"><span class="desc-label">${L.avoid}</span> ${desc.a}</div>`);
-  if (!parts.length) return '';
-  return `<button class="note-toggle" onclick="toggleNote('desc-${uid}')">${L.instructions}</button>
-    <div class="note-panel desc-panel" id="desc-${uid}" style="display:none">${parts.join('')}</div>`;
+function noteBlock(note, istruzione, uid) {
+  let desc = null;
+  if (istruzione) { try { desc = JSON.parse(istruzione); } catch {} }
+  const hasDesc = desc && (desc.h || desc.f || desc.a);
+  if (!hasDesc && !note) return '';
+  let content = '';
+  if (hasDesc) {
+    if (desc.h) content += `<div class="nb-row"><span class="nb-badge nb-how">${L.howTo}</span><span class="nb-text">${desc.h}</span></div>`;
+    if (desc.f) content += `<div class="nb-row"><span class="nb-badge nb-feel">${L.feel}</span><span class="nb-text">${desc.f}</span></div>`;
+    if (desc.a) content += `<div class="nb-row"><span class="nb-badge nb-avoid">${L.avoid}</span><span class="nb-text">${desc.a}</span></div>`;
+  }
+  if (note) content += `<div class="nb-coach">${note}</div>`;
+  return `<button class="nb-toggle" onclick="toggleNote('nb-${uid}')">${L.noteClose}</button>
+    <div class="nb-panel" id="nb-${uid}" style="display:none">${content}</div>`;
 }
 
 function toggleNote(noteId) {
@@ -280,7 +277,7 @@ function htmlStandard(e, logId) {
   if (e['Intensità']) h += param('Intensità', e['Intensità']);
   if (e.Recupero)     h += param('Recupero', e.Recupero);
   h += `</div>`;
-  if (e.Note)                h += noteToggle(e.Note, logId + '-n');
+  h += noteBlock(e.Note || '', e.Istruzione || null, logId);
   if (e.VideoURL)             h += mediaBlock(e.VideoURL, logId);
   if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
   h += `</div>`;
@@ -312,7 +309,7 @@ function htmlBicarico(e, logId) {
   h += `<span class="bc-badge bc-b">B</span><span class="bc-val">${partsB.join(' · ')}</span>`;
   h += `</div>`;
 
-  if (e.Note)                h += noteToggle(e.Note, logId + '-n');
+  h += noteBlock(e.Note || '', e.Istruzione || null, logId + '-n');
   if (e.VideoURL)             h += `<div style="padding:0 16px;">${mediaBlock(e.VideoURL, logId + '-v')}</div>`;
   if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps)}</div>`;
   h += `</div>`;
@@ -330,8 +327,7 @@ function htmlIndividuale(e, sedSuffix) {
   if (e.Intensita)  h += param('Intensità', e.Intensita);
   if (e.Recupero)   h += param('Recupero', e.Recupero);
   h += `</div>`;
-  if (e.Note)                h += noteToggle(e.Note, logId + '-n');
-  if (e.Istruzione)          h += descBlock(e.Istruzione, logId + '-d');
+  h += noteBlock(e.Note || '', e.Istruzione, logId);
   if (e.VideoURL)             h += mediaBlock(e.VideoURL, logId + '-v');
   if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, 'ind', e.Intensita, e.Catena, e.Reps);
   h += `</div>`;
