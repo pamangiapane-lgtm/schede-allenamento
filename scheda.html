@@ -465,8 +465,15 @@ async function caricaScheda() {
         html += `<div class="metodo-block">`;
         html += `<div class="metodo-titolo">${m.nome}</div>`;
 
-        if (m.nome === 'Prehab individuale' && faseAttiva) {
-          /* Inietta gli esercizi della fase attiva */
+        if (m.nome === 'Prehab individuale' && g.Link_Prehab) {
+          /* Bottone link programma Prehab personale */
+          html += `<a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
+            <span class="prehab-link-dot"></span>
+            ${L.prehabBtn}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>`;
+        } else if (m.nome === 'Prehab individuale' && faseAttiva) {
+          /* Fallback: esercizi della fase attiva */
           html += `<div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
           faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
         } else {
@@ -916,16 +923,6 @@ function buildProfilo(g, resE, resP, sedute) {
         <div class="af-content">${g.Analisi_Funzionale}</div>
         ${stratHtml}
       </div>`;
-  }
-
-  /* 6. LINK PREHAB PERSONALE */
-  if (g.Link_Prehab) {
-    html += `
-      <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
-        <span class="prehab-link-dot"></span>
-        ${L.prehabBtn}
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-      </a>`;
   }
 
   return html;
