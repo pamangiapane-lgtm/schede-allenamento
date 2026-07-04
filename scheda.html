@@ -77,6 +77,9 @@ const IT = {
   maxTitle:'Massimali', enterRM:'Inserisci il tuo RM',
   afTitle:'Analisi Funzionale', stratTitle:'Strategia',
   prehabTitle:'Programma Prehab', prehabBtn:'Apri il programma personale',
+  prehabFreq:'5× / sett.',
+  serie:'Serie', intensity:'Intensità', rest:'Recupero', rec:'rec',
+  retry:'↺ Riprova',
   notFound:'Giocatrice non trovata.', loadError:'Errore nel caricamento. Riprova.',
   months:['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'],
 };
@@ -102,6 +105,9 @@ const EN = {
   maxTitle:'1RM Maxes', enterRM:'Enter your 1RM',
   afTitle:'Functional Assessment', stratTitle:'Strategy',
   prehabTitle:'Prehab Program', prehabBtn:'Open personal program',
+  prehabFreq:'5× / week',
+  serie:'Sets', intensity:'Intensity', rest:'Rest', rec:'Rest',
+  retry:'↺ Retry',
   notFound:'Player not found.', loadError:'Loading error. Try again.',
   months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
 };
@@ -280,10 +286,10 @@ function htmlStandard(e, logId) {
   let h = `<div class="esercizio">`;
   h += `<div class="eserc-nome">${e.Esercizio}</div>`;
   h += `<div class="eserc-params">`;
-  if (e.Serie)        h += param('Serie', e.Serie);
+  if (e.Serie)        h += param(L.serie, e.Serie);
   if (repsDisplay)    h += param('Reps', repsDisplay);
-  if (e['Intensità']) h += param('Intensità', e['Intensità']);
-  if (e.Recupero)     h += param('Recupero', e.Recupero);
+  if (e['Intensità']) h += param(L.intensity, e['Intensità']);
+  if (e.Recupero)     h += param(L.rest, e.Recupero);
   h += `</div>`;
   h += noteBlock(e.Note || '', e.Istruzione || null, logId, e.VideoURL || '');
   if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
@@ -302,13 +308,13 @@ function htmlBicarico(e, logId) {
   if (e.Serie)        partsA.push(`${e.Serie}×`);
   if (e.Reps)         partsA.push(e.Reps);
   if (e['Intensità']) partsA.push(e['Intensità']);
-  if (e.Recupero)     partsA.push(`rec ${e.Recupero}`);
+  if (e.Recupero)     partsA.push(`${L.rec} ${e.Recupero}`);
 
   const partsB = [];
   if (e.SerieB)          partsB.push(`${e.SerieB}×`);
   if (e.RepsB)           partsB.push(e.RepsB);
   if (e['IntensitàB'])   partsB.push(e['IntensitàB']);
-  if (e.RecuperoB)       partsB.push(`rec ${e.RecuperoB}`);
+  if (e.RecuperoB)       partsB.push(`${L.rec} ${e.RecuperoB}`);
 
   h += `<div class="bicarico-compact">`;
   h += `<span class="bc-badge">A</span><span class="bc-val">${partsA.join(' · ')}</span>`;
@@ -328,10 +334,10 @@ function htmlIndividuale(e, sedSuffix) {
   let h = `<div class="esercizio">`;
   h += `<div class="eserc-nome">${e.Esercizio}</div>`;
   h += `<div class="eserc-params">`;
-  if (e.Serie)      h += param('Serie', e.Serie);
+  if (e.Serie)      h += param(L.serie, e.Serie);
   if (repsDisplay)  h += param('Reps', repsDisplay);
-  if (e.Intensita)  h += param('Intensità', e.Intensita);
-  if (e.Recupero)   h += param('Recupero', e.Recupero);
+  if (e.Intensita)  h += param(L.intensity, e.Intensita);
+  if (e.Recupero)   h += param(L.rest, e.Recupero);
   h += `</div>`;
   h += noteBlock(e.Note || '', e.Istruzione, logId, e.VideoURL || '');
   if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, 'ind', e.Intensita, e.Catena, e.Reps);
@@ -464,7 +470,7 @@ async function caricaScheda() {
         const m = metodiMap[key];
         html += `<div class="metodo-block">`;
         if (m.nome === 'Prehab individuale' && g.Link_Prehab) {
-          html += `<div class="metodo-titolo">${m.nome} <span class="prehab-freq-badge">5× / sett.</span></div>`;
+          html += `<div class="metodo-titolo">${m.nome} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>`;
           /* Obiettivo fase corrente */
           let obiettivoHtml = '';
           if (g.Obiettivi_Prehab) {
@@ -516,7 +522,7 @@ async function caricaScheda() {
   } catch (err) {
     document.getElementById('loading').innerHTML = `
       <p class="errore-msg">${L.loadError}</p>
-      <button onclick="location.reload()" class="retry-btn">↺ Riprova</button>`;
+      <button onclick="location.reload()" class="retry-btn">${L.retry}</button>`;
   }
 }
 
@@ -611,11 +617,11 @@ async function salvaLog(inputId, btn) {
     const row      = input.closest('.log-compact');
     const ultimaEl = row?.querySelector('.ultima-seduta');
     if (ultimaEl) {
-      ultimaEl.innerHTML = `Ultima: <em>${valore}</em> · RM ~${rm} kg`;
+      ultimaEl.innerHTML = `${L.last}<em>${valore}</em> · RM ~${rm} kg`;
     } else if (row) {
       const div = document.createElement('div');
       div.className = 'ultima-seduta';
-      div.innerHTML = `Ultima: <em>${valore}</em> · RM ~${rm} kg`;
+      div.innerHTML = `${L.last}<em>${valore}</em> · RM ~${rm} kg`;
       row.prepend(div);
     }
 
@@ -625,9 +631,9 @@ async function salvaLog(inputId, btn) {
     if (okEl) okEl.style.display = 'block';
     _datiModificati = false;
   } catch {
-    btn.textContent = 'Errore';
+    btn.textContent = L.errorBtn;
   } finally {
-    setTimeout(() => { btn.textContent = 'Salva'; btn.style.background = ''; btn.disabled = false; }, 2000);
+    setTimeout(() => { btn.textContent = L.saveBtn; btn.style.background = ''; btn.disabled = false; }, 2000);
   }
 }
 
