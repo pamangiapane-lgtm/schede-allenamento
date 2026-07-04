@@ -334,16 +334,35 @@ function htmlIndividuale(e, sedSuffix) {
 }
 
 /* ---------- caricamento ---------- */
+async function fetchSheet(foglio, tentativo = 0) {
+  const TIMEOUT = 28000;
+  const ctrl = new AbortController();
+  const tid = setTimeout(() => ctrl.abort(), TIMEOUT);
+  try {
+    const r = await fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=${foglio}`, { signal: ctrl.signal });
+    const text = await r.text();
+    clearTimeout(tid);
+    return JSON.parse(text);
+  } catch (err) {
+    clearTimeout(tid);
+    if (tentativo < 2) {
+      await new Promise(res => setTimeout(res, 1500 * (tentativo + 1)));
+      return fetchSheet(foglio, tentativo + 1);
+    }
+    throw err;
+  }
+}
+
 async function caricaScheda() {
   if (!id) { window.location.href = 'index.html'; return; }
 
   try {
     const [resG, resL, resS, resE, resP] = await Promise.all([
-      fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Giocatrici`).then(r => r.json()),
-      fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=LibreriaIndividuale`).then(r => r.json()),
-      fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Sedute`).then(r => r.json()),
-      fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Esercizi`).then(r => r.json()),
-      fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Progressi`).then(r => r.json()),
+      fetchSheet('Giocatrici'),
+      fetchSheet('LibreriaIndividuale'),
+      fetchSheet('Sedute'),
+      fetchSheet('Esercizi'),
+      fetchSheet('Progressi'),
     ]);
 
     /* costruisce mappa ultimo log e feedback per seduta */
@@ -469,12 +488,16 @@ async function caricaScheda() {
     document.getElementById('contenuto').style.display = '';
 
   } catch (err) {
-    mostraErrore(L.loadError);
+    document.getElementById('loading').innerHTML = `
+      <p class="errore-msg">${L.loadError}</p>
+      <button onclick="location.reload()" class="retry-btn">↺ Riprova</button>`;
   }
 }
 
 function mostraErrore(msg) {
-  document.getElementById('loading').innerHTML = `<p class="errore-msg">${msg}</p>`;
+  document.getElementById('loading').innerHTML = `
+    <p class="errore-msg">${msg}</p>
+    <button onclick="location.reload()" class="retry-btn">↺ Riprova</button>`;
 }
 
 /* ---------- interazioni ---------- */

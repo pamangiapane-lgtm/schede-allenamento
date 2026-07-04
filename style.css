@@ -555,9 +555,22 @@ header p  { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
 .errore-msg {
   text-align: center;
   color: #b33;
-  padding: 32px 16px;
+  padding: 32px 16px 12px;
   font-size: 0.95rem;
 }
+.retry-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 28px;
+  background: var(--primario);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.retry-btn:active { opacity: 0.8; }
 
 /* ===== VIDEO / MEDIA ===== */
 .media-toggle {
