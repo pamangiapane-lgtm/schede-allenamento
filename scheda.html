@@ -76,6 +76,7 @@ const IT = {
   histTitle:'Storico carichi', sessionFallback: n=>`Seduta ${n}`,
   maxTitle:'Massimali', enterRM:'Inserisci il tuo RM',
   afTitle:'Analisi Funzionale', stratTitle:'Strategia',
+  prehabTitle:'Programma Prehab', prehabBtn:'Apri il programma personale',
   notFound:'Giocatrice non trovata.', loadError:'Errore nel caricamento. Riprova.',
   months:['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'],
 };
@@ -100,6 +101,7 @@ const EN = {
   histTitle:'Load History', sessionFallback: n=>`Session ${n}`,
   maxTitle:'1RM Maxes', enterRM:'Enter your 1RM',
   afTitle:'Functional Assessment', stratTitle:'Strategy',
+  prehabTitle:'Prehab Program', prehabBtn:'Open personal program',
   notFound:'Player not found.', loadError:'Loading error. Try again.',
   months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
 };
@@ -914,6 +916,16 @@ function buildProfilo(g, resE, resP, sedute) {
         <div class="af-content">${g.Analisi_Funzionale}</div>
         ${stratHtml}
       </div>`;
+  }
+
+  /* 6. LINK PREHAB PERSONALE */
+  if (g.Link_Prehab) {
+    html += `
+      <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
+        <span class="prehab-link-dot"></span>
+        ${L.prehabBtn}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>`;
   }
 
   return html;

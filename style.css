@@ -454,6 +454,31 @@ header p  { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
 }
 
 /* ===== PROFILO ===== */
+.prehab-link-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 16px;
+  background: var(--bianco);
+  color: var(--blu);
+  border: 2px solid var(--blu);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow);
+}
+.prehab-link-btn svg { margin-left: auto; flex-shrink: 0; }
+.prehab-link-btn:active { opacity: 0.75; }
+.prehab-link-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+}
 .profilo-card {
   background: var(--bianco);
   border-radius: var(--radius);
