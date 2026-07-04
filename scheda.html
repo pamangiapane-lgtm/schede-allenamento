@@ -466,12 +466,25 @@ async function caricaScheda() {
         html += `<div class="metodo-titolo">${m.nome}</div>`;
 
         if (m.nome === 'Prehab individuale' && g.Link_Prehab) {
-          /* Bottone link programma Prehab personale */
-          html += `<a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
-            <span class="prehab-link-dot"></span>
-            ${L.prehabBtn}
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>`;
+          /* Obiettivo fase corrente */
+          let obiettivoHtml = '';
+          if (g.Obiettivi_Prehab) {
+            try {
+              const obv = JSON.parse(g.Obiettivi_Prehab);
+              const fase = g.Fase_Prehab || 'F1';
+              const testo = obv[fase] || '';
+              if (testo) obiettivoHtml = `<div class="prehab-obiettivo">${testo}</div>`;
+            } catch(e) {}
+          }
+          html += `<div class="prehab-wrap">
+            <div class="prehab-freq">5x / settimana</div>
+            ${obiettivoHtml}
+            <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
+              <span class="prehab-link-dot"></span>
+              ${L.prehabBtn}
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </div>`;
         } else if (m.nome === 'Prehab individuale' && faseAttiva) {
           /* Fallback: esercizi della fase attiva */
           html += `<div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
