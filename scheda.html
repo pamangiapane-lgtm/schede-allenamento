@@ -154,9 +154,13 @@ function noteBlock(note, istruzione, uid, mediaUrl) {
   if (!hasDesc && !note && !hasImg) return '';
   let content = '';
   if (hasDesc) {
-    if (desc.h) content += `<div class="nb-row"><span class="nb-badge nb-how">${L.howTo}</span><span class="nb-text">${desc.h}</span></div>`;
-    if (desc.f) content += `<div class="nb-row"><span class="nb-badge nb-feel">${L.feel}</span><span class="nb-text">${desc.f}</span></div>`;
-    if (desc.a) content += `<div class="nb-row"><span class="nb-badge nb-avoid">${L.avoid}</span><span class="nb-text">${desc.a}</span></div>`;
+    const isEN = (L === EN);
+    const dh = (isEN && desc.h_en) ? desc.h_en : desc.h;
+    const df = (isEN && desc.f_en) ? desc.f_en : desc.f;
+    const da = (isEN && desc.a_en) ? desc.a_en : desc.a;
+    if (dh) content += `<div class="nb-row"><span class="nb-badge nb-how">${L.howTo}</span><span class="nb-text">${dh}</span></div>`;
+    if (df) content += `<div class="nb-row"><span class="nb-badge nb-feel">${L.feel}</span><span class="nb-text">${df}</span></div>`;
+    if (da) content += `<div class="nb-row"><span class="nb-badge nb-avoid">${L.avoid}</span><span class="nb-text">${da}</span></div>`;
   }
   if (hasImg)  content += `<img src="${mediaUrl}" alt="Exercise" class="nb-img" onclick="zoomImg(this)">`;
   if (note)    content += `<div class="nb-coach">${note}</div>`;
