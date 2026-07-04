@@ -463,9 +463,8 @@ async function caricaScheda() {
       metodiOrd.forEach(key => {
         const m = metodiMap[key];
         html += `<div class="metodo-block">`;
-        html += `<div class="metodo-titolo">${m.nome}</div>`;
-
         if (m.nome === 'Prehab individuale' && g.Link_Prehab) {
+          html += `<div class="metodo-titolo">${m.nome} <span class="prehab-freq-badge">5× / sett.</span></div>`;
           /* Obiettivo fase corrente */
           let obiettivoHtml = '';
           if (g.Obiettivi_Prehab) {
@@ -477,7 +476,6 @@ async function caricaScheda() {
             } catch(e) {}
           }
           html += `<div class="prehab-wrap">
-            <div class="prehab-freq">5x / settimana</div>
             ${obiettivoHtml}
             <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
               <span class="prehab-link-dot"></span>
@@ -487,9 +485,11 @@ async function caricaScheda() {
           </div>`;
         } else if (m.nome === 'Prehab individuale' && faseAttiva) {
           /* Fallback: esercizi della fase attiva */
+          html += `<div class="metodo-titolo">${m.nome}</div>`;
           html += `<div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
           faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
         } else {
+          html += `<div class="metodo-titolo">${m.nome}</div>`;
           if (m.desc) html += `<div class="metodo-desc">${m.desc}</div>`;
           m.esercizi.forEach(e => {
             const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;

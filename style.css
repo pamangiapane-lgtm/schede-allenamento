@@ -454,21 +454,23 @@ header p  { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
 }
 
 /* ===== PROFILO ===== */
-.prehab-wrap { margin-bottom: 14px; }
-.prehab-freq {
-  font-size: 0.7rem;
+.prehab-freq-badge {
+  font-size: 0.65rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  color: var(--blu);
-  margin-bottom: 4px;
+  background: var(--blu);
+  color: #fff;
+  padding: 2px 7px;
+  border-radius: 20px;
+  vertical-align: middle;
+  letter-spacing: 0.3px;
 }
+.prehab-wrap { padding: 12px 14px 14px; }
 .prehab-obiettivo {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: #6b7280;
   font-style: italic;
-  line-height: 1.4;
-  margin-bottom: 8px;
+  line-height: 1.45;
+  margin-bottom: 10px;
 }
 .prehab-link-btn {
   display: flex;
