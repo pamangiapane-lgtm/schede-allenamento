@@ -146,18 +146,20 @@ function parseEcc(note) {
   return m ? m[1].trim() : '';
 }
 
-function noteBlock(note, istruzione, uid) {
+function noteBlock(note, istruzione, uid, mediaUrl) {
   let desc = null;
   if (istruzione) { try { desc = JSON.parse(istruzione); } catch {} }
   const hasDesc = desc && (desc.h || desc.f || desc.a);
-  if (!hasDesc && !note) return '';
+  const hasImg  = mediaUrl && isImage(mediaUrl);
+  if (!hasDesc && !note && !hasImg) return '';
   let content = '';
   if (hasDesc) {
     if (desc.h) content += `<div class="nb-row"><span class="nb-badge nb-how">${L.howTo}</span><span class="nb-text">${desc.h}</span></div>`;
     if (desc.f) content += `<div class="nb-row"><span class="nb-badge nb-feel">${L.feel}</span><span class="nb-text">${desc.f}</span></div>`;
     if (desc.a) content += `<div class="nb-row"><span class="nb-badge nb-avoid">${L.avoid}</span><span class="nb-text">${desc.a}</span></div>`;
   }
-  if (note) content += `<div class="nb-coach">${note}</div>`;
+  if (hasImg)  content += `<img src="${mediaUrl}" alt="Exercise" class="nb-img" onclick="zoomImg(this)">`;
+  if (note)    content += `<div class="nb-coach">${note}</div>`;
   return `<button class="nb-toggle" onclick="toggleNote('nb-${uid}')">${L.noteClose}</button>
     <div class="nb-panel" id="nb-${uid}" style="display:none">${content}</div>`;
 }
@@ -277,8 +279,7 @@ function htmlStandard(e, logId) {
   if (e['Intensità']) h += param('Intensità', e['Intensità']);
   if (e.Recupero)     h += param('Recupero', e.Recupero);
   h += `</div>`;
-  h += noteBlock(e.Note || '', e.Istruzione || null, logId);
-  if (e.VideoURL)             h += mediaBlock(e.VideoURL, logId);
+  h += noteBlock(e.Note || '', e.Istruzione || null, logId, e.VideoURL || '');
   if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
   h += `</div>`;
   return h;
@@ -309,8 +310,7 @@ function htmlBicarico(e, logId) {
   h += `<span class="bc-badge bc-b">B</span><span class="bc-val">${partsB.join(' · ')}</span>`;
   h += `</div>`;
 
-  h += noteBlock(e.Note || '', e.Istruzione || null, logId + '-n');
-  if (e.VideoURL)             h += `<div style="padding:0 16px;">${mediaBlock(e.VideoURL, logId + '-v')}</div>`;
+  h += noteBlock(e.Note || '', e.Istruzione || null, logId + '-n', e.VideoURL || '');
   if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps)}</div>`;
   h += `</div>`;
   return h;
@@ -327,8 +327,7 @@ function htmlIndividuale(e, sedSuffix) {
   if (e.Intensita)  h += param('Intensità', e.Intensita);
   if (e.Recupero)   h += param('Recupero', e.Recupero);
   h += `</div>`;
-  h += noteBlock(e.Note || '', e.Istruzione, logId);
-  if (e.VideoURL)             h += mediaBlock(e.VideoURL, logId + '-v');
+  h += noteBlock(e.Note || '', e.Istruzione, logId, e.VideoURL || '');
   if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, 'ind', e.Intensita, e.Catena, e.Reps);
   h += `</div>`;
   return h;
