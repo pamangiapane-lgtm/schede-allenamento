@@ -142,6 +142,12 @@ const DESC_METODO_EN = {
     'Move the load at maximum speed. If you cannot complete the set, switch exercises.',
   'Circuito — rispetta l\'ampiezza di movimento su tutti gli esercizi.':
     'Circuit — full range of motion on every exercise.',
+  'Ripeti il circuito 4 volte.':
+    'Repeat the circuit 4 times.',
+  'Rispetta le note nelle esecuzioni.':
+    'Follow the coaching notes for each exercise.',
+  'Se è la prima volta fai una prova massimale (max 2 rep per carico). Se non hai mai fatto girate scrivimi.':
+    'If this is your first time, do a max test (max 2 reps per load). If you\'ve never done power cleans, message me.',
 };
 function traduciDescMetodo(desc) {
   if (L !== EN || !desc) return desc;
@@ -822,7 +828,7 @@ const MASSIMALI = [
   { id: 'rowbb',    nome: 'Row BB',         catena: 'upper', alias: ['row bb', 'rematore'] },
   { id: 'bench',    nome: 'Bench Press',    catena: 'upper', alias: ['bench', 'panca'] },
   { id: 'clean',    nome: 'Clean',          catena: 'upper', alias: ['clean'] },
-  { id: 'rdl',      nome: 'Stacchi Rumeni', catena: 'upper', alias: ['stacchi', 'rdl'] },
+  { id: 'rdl',      nome: 'Stacchi Rumeni', nomeEN: 'Romanian Deadlifts', catena: 'upper', alias: ['stacchi', 'rdl'] },
 ];
 
 function calcolaTabellaHtml(rm, catena) {
@@ -954,7 +960,7 @@ function buildProfilo(g, resE, resP, sedute) {
     const badge = m.catena === 'lower' ? ' <span class="catena-badge">+ BW</span>' : '';
     html += `
       <div class="massimale-row">
-        <div class="mass-nome">${m.nome}${badge}</div>
+        <div class="mass-nome">${(L === EN && m.nomeEN) ? m.nomeEN : m.nome}${badge}</div>
         <div class="mass-rm-row">
           <span class="mass-rm-label">RM</span>
           <input type="number" class="mass-rm-input" id="rm-${m.id}"
