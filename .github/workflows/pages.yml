@@ -5,21 +5,15 @@ on:
     branches: [main, dev]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout main (produzione)
         uses: actions/checkout@v4
@@ -36,13 +30,19 @@ jobs:
       - name: Copia staging in /dev/
         run: |
           mkdir -p site/dev
-          rsync -av --exclude='.github' --exclude='backup_locale' --exclude='*.py' --exclude='*.js.map' dev-build/ site/dev/
+          rsync -av \
+            --exclude='.github' \
+            --exclude='backup_locale' \
+            --exclude='apps_script_prod_project' \
+            --exclude='apps_script_dev_project' \
+            --exclude='_strumenti' \
+            --exclude='*.py' \
+            --exclude='*.md' \
+            dev-build/ site/dev/
 
-      - uses: actions/configure-pages@v5
-
-      - uses: actions/upload-pages-artifact@v3
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: site
-
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          exclude_assets: '.github,backup_locale,apps_script_prod_project,apps_script_dev_project,_strumenti'
