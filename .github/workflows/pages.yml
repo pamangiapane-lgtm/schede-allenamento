@@ -15,34 +15,33 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout main (produzione)
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
           ref: main
-          path: site
+          path: main-build
 
-      - name: Checkout dev (staging)
+      - name: Checkout dev
         uses: actions/checkout@v4
         with:
           ref: dev
           path: dev-build
 
-      - name: Copia staging in /dev/
+      - name: Prepara cartella pubblicazione
         run: |
+          cp -r main-build site
+          rm -rf site/.github site/backup_locale site/apps_script_prod_project site/apps_script_dev_project site/_strumenti
           mkdir -p site/dev
-          rsync -av \
-            --exclude='.github' \
-            --exclude='backup_locale' \
-            --exclude='apps_script_prod_project' \
-            --exclude='apps_script_dev_project' \
-            --exclude='_strumenti' \
-            --exclude='*.py' \
-            --exclude='*.md' \
-            dev-build/ site/dev/
+          cp dev-build/index.html   site/dev/index.html
+          cp dev-build/scheda.html  site/dev/scheda.html
+          cp dev-build/style.css    site/dev/style.css
+          cp dev-build/sw.js        site/dev/sw.js
+          cp dev-build/manifest.json site/dev/manifest.json
+          cp dev-build/offline.html  site/dev/offline.html 2>/dev/null || true
+          cp dev-build/icon.svg      site/dev/icon.svg     2>/dev/null || true
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy su gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
-          exclude_assets: '.github,backup_locale,apps_script_prod_project,apps_script_dev_project,_strumenti'
