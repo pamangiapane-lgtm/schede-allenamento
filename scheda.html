@@ -386,7 +386,9 @@ function htmlEsercizio(e, logId) {
   h += `</tbody></table></div>`;
 
   h += noteBlock(e.Note || '', e.Istruzione || null, logId, e.VideoURL || '');
-  if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) {
+  const _isFunz    = ['Funzionale','Circuito Funzionale'].includes(e.Metodo);
+  const _hasCardio = e['Intensità'] && (e['Intensità'].includes('BPM') || e['Intensità'].includes('RPE'));
+  if ((e.Log_Libero === 'SI' || _isFunz) && !parseIntensita(e['Intensità']) && !_hasCardio) {
     h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
   }
   h += `</div>`;
@@ -501,9 +503,14 @@ async function caricaScheda() {
         return an.localeCompare(bn, undefined, { numeric: true });
       });
 
-    const eserciziGioc = (resE.dati || []).filter(e =>
-      String(e.ID_Giocatrice) === String(id) || String(e.ID_Giocatrice) === '0'
-    );
+    const eserciziGioc = (resE.dati || []).filter(e => {
+      if (String(e.ID_Giocatrice) === String(id)) return true;
+      if (String(e.ID_Giocatrice) === '0') {
+        const excl = e.Escludi_ID ? String(e.Escludi_ID).split(',').map(x => x.trim()) : [];
+        return !excl.includes(String(id));
+      }
+      return false;
+    });
 
     const divSed = document.getElementById('sedute');
     divSed.innerHTML = '';
