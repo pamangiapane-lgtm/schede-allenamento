@@ -776,6 +776,46 @@ header p  { font-size: 0.85rem; opacity: 0.75; margin-top: 4px; }
 .bc-val { color: var(--testo); font-weight: 600; }
 .bc-sep { color: var(--blu-medio); font-size: 1rem; font-weight: 700; flex-shrink: 0; }
 
+/* ===== MINI TABLE ESERCIZIO ===== */
+.mini-tbl-wrap {
+  overflow-x: auto;
+  margin: 4px 0 8px;
+  -webkit-overflow-scrolling: touch;
+}
+.mini-tbl {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.8rem;
+}
+.mini-tbl thead th {
+  padding: 4px 12px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--testo-sec);
+  background: var(--grigio);
+  text-align: center;
+}
+.mini-tbl thead th:first-child { text-align: left; border-radius: 6px 0 0 6px; }
+.mini-tbl thead th:last-child  { border-radius: 0 6px 6px 0; }
+.mini-tbl tbody td { padding: 5px 12px; border-top: 1px solid var(--bordo); }
+.mini-tbl-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--testo-sec);
+  white-space: nowrap;
+}
+.mini-tbl-val {
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--testo);
+  min-width: 52px;
+}
+
 /* ===== PREHAB FASE LABEL ===== */
 .prehab-fase-label {
   background: #2a7d4f;

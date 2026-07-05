@@ -322,51 +322,64 @@ function repsConTempo(reps, note) {
   return display;
 }
 
-function htmlStandard(e, logId) {
-  const nome = (L === EN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
-  const repsDisplay = repsConTempo(e.Reps, e.Note);
-  let h = `<div class="esercizio">`;
-  h += `<div class="eserc-nome">${nome}</div>`;
-  h += `<div class="eserc-params">`;
-  if (e.Serie)        h += param(L.serie, e.Serie);
-  if (repsDisplay)    h += param('Reps', repsDisplay);
-  if (e['Intensità']) h += param(L.intensity, e['Intensità']);
-  if (e.Recupero)     h += param(L.rest, e.Recupero);
-  h += `</div>`;
-  h += noteBlock(e.Note || '', e.Istruzione || null, logId, e.VideoURL || '');
-  if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
-  h += `</div>`;
-  return h;
+function parseBlocchi(e) {
+  const hasPipe = s => s && String(s).includes('|');
+  const split   = s => s ? String(s).split('|').map(v => v.trim()) : [];
+  if (hasPipe(e.Serie) || hasPipe(e.Reps) || hasPipe(e['Intensità']) || hasPipe(e.Recupero)) {
+    const sr = split(e.Serie), rp = split(e.Reps);
+    const it = split(e['Intensità']), rc = split(e.Recupero);
+    const n  = Math.max(sr.length, rp.length, it.length, rc.length);
+    return Array.from({ length: n }, (_, i) => ({
+      serie: sr[i] || '', reps: rp[i] || '', intensita: it[i] || '', recupero: rc[i] || '',
+    }));
+  }
+  if (e.Tipo_Esercizio === 'bicarico') {
+    return [
+      { serie: e.Serie  || '', reps: e.Reps  || '', intensita: e['Intensità']  || '', recupero: e.Recupero  || '' },
+      { serie: e.SerieB || '', reps: e.RepsB || '', intensita: e['IntensitàB'] || '', recupero: e.RecuperoB || '' },
+    ];
+  }
+  return [{ serie: e.Serie || '', reps: e.Reps || '', intensita: e['Intensità'] || '', recupero: e.Recupero || '' }];
 }
 
-function htmlBicarico(e, logId) {
-  const nome = (L === EN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
+function htmlEsercizio(e, logId) {
+  const nome    = (L === EN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
+  const blocchi = parseBlocchi(e);
+  const multi   = blocchi.length > 1;
+  const ROWS    = [
+    { label: L.serie,     key: 'serie'     },
+    { label: 'Reps',      key: 'reps'      },
+    { label: L.intensity, key: 'intensita' },
+    { label: L.rest,      key: 'recupero'  },
+  ];
+
   let h = `<div class="esercizio">`;
   h += `<div class="eserc-nome">${nome}`;
   if (e.Num_Ripetizioni) h += ` <span class="ripeti-badge">${L.repeat(e.Num_Ripetizioni)}</span>`;
   h += `</div>`;
 
-  /* layout compatto su una riga: A → B */
-  const partsA = [];
-  if (e.Serie)        partsA.push(`${e.Serie}×`);
-  if (e.Reps)         partsA.push(e.Reps);
-  if (e['Intensità']) partsA.push(e['Intensità']);
-  if (e.Recupero)     partsA.push(`${L.rec} ${e.Recupero}`);
+  h += `<div class="mini-tbl-wrap"><table class="mini-tbl">`;
+  if (multi) {
+    h += `<thead><tr><th></th>`;
+    blocchi.forEach((_, i) => { h += `<th>${String.fromCharCode(65 + i)}</th>`; });
+    h += `</tr></thead>`;
+  }
+  h += `<tbody>`;
+  ROWS.forEach((row, idx) => {
+    const vals = multi
+      ? blocchi.map(b => b[row.key])
+      : [idx === 1 ? repsConTempo(e.Reps, e.Note) : blocchi[0][row.key]];
+    if (vals.every(v => !v)) return;
+    h += `<tr><td class="mini-tbl-label">${row.label}</td>`;
+    vals.forEach(v => { h += `<td class="mini-tbl-val">${v || '—'}</td>`; });
+    h += `</tr>`;
+  });
+  h += `</tbody></table></div>`;
 
-  const partsB = [];
-  if (e.SerieB)          partsB.push(`${e.SerieB}×`);
-  if (e.RepsB)           partsB.push(e.RepsB);
-  if (e['IntensitàB'])   partsB.push(e['IntensitàB']);
-  if (e.RecuperoB)       partsB.push(`${L.rec} ${e.RecuperoB}`);
-
-  h += `<div class="bicarico-compact">`;
-  h += `<span class="bc-badge">A</span><span class="bc-val">${partsA.join(' · ')}</span>`;
-  h += `<span class="bc-sep">→</span>`;
-  h += `<span class="bc-badge bc-b">B</span><span class="bc-val">${partsB.join(' · ')}</span>`;
-  h += `</div>`;
-
-  h += noteBlock(e.Note || '', e.Istruzione || null, logId + '-n', e.VideoURL || '');
-  if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) h += `<div style="padding:0 16px;margin-top:8px;">${logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps)}</div>`;
+  h += noteBlock(e.Note || '', e.Istruzione || null, logId, e.VideoURL || '');
+  if (e.Log_Libero === 'SI' && !parseIntensita(e['Intensità'])) {
+    h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
+  }
   h += `</div>`;
   return h;
 }
@@ -543,7 +556,7 @@ async function caricaScheda() {
           if (m.desc) html += `<div class="metodo-desc">${traduciDescMetodo(m.desc)}</div>`;
           m.esercizi.forEach(e => {
             const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
-            html += e.Tipo_Esercizio === 'bicarico' ? htmlBicarico(e, logId) : htmlStandard(e, logId);
+            html += htmlEsercizio(e, logId);
           });
         }
 
