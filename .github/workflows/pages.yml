@@ -5,15 +5,21 @@ on:
     branches: [main, dev]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -32,16 +38,19 @@ jobs:
           cp -r main-build site
           rm -rf site/.github site/backup_locale site/apps_script_prod_project site/apps_script_dev_project site/_strumenti
           mkdir -p site/dev
-          cp dev-build/index.html   site/dev/index.html
-          cp dev-build/scheda.html  site/dev/scheda.html
-          cp dev-build/style.css    site/dev/style.css
-          cp dev-build/sw.js        site/dev/sw.js
+          cp dev-build/index.html    site/dev/index.html
+          cp dev-build/scheda.html   site/dev/scheda.html
+          cp dev-build/style.css     site/dev/style.css
+          cp dev-build/sw.js         site/dev/sw.js
           cp dev-build/manifest.json site/dev/manifest.json
           cp dev-build/offline.html  site/dev/offline.html 2>/dev/null || true
           cp dev-build/icon.svg      site/dev/icon.svg     2>/dev/null || true
 
-      - name: Deploy su gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+          path: site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
