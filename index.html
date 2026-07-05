@@ -19,6 +19,11 @@
   <p>Tocca il tuo nome per accedere</p>
 </header>
 
+<div id="install-banner" class="install-banner" style="display:none">
+  <span>Aggiungi alla schermata Home per un accesso rapido</span>
+  <button id="install-btn">Installa</button>
+</div>
+
 <div class="container">
   <p class="squadra-titolo">Giocatrici</p>
   <div id="lista-giocatrici">
@@ -61,6 +66,26 @@ caricaGiocatrici();
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js');
 }
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('install-banner').style.display = 'flex';
+});
+
+document.getElementById('install-btn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('install-banner').style.display = 'none';
+});
+
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  document.getElementById('install-banner').style.display = 'none';
+});
 </script>
 
 </body>
