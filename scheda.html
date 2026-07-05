@@ -322,9 +322,15 @@ function repsConTempo(reps, note) {
   return display;
 }
 
+function sanitizeVal(v) {
+  if (!v) return v;
+  const s = String(v);
+  return /^\d{4}-\d{2}-\d{2}T/.test(s) ? '' : s;
+}
+
 function parseBlocchi(e) {
   const hasPipe = s => s && String(s).includes('|');
-  const split   = s => s ? String(s).split('|').map(v => v.trim()) : [];
+  const split   = s => s ? String(sanitizeVal(s)).split('|').map(v => v.trim()) : [];
   if (hasPipe(e.Serie) || hasPipe(e.Reps) || hasPipe(e['Intensità']) || hasPipe(e.Recupero)) {
     const sr = split(e.Serie), rp = split(e.Reps);
     const it = split(e['Intensità']), rc = split(e.Recupero);
