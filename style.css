@@ -50,34 +50,45 @@ header p  { font-size: 0.82rem; opacity: 0.70; margin-top: 3px; }
 .container { max-width: 680px; margin: 0 auto; padding: 20px 16px 40px; }
 
 /* ===== INSTALL BANNER ===== */
-.install-banner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding-top: 4px;
-  padding-bottom: 8px;
-}
+.install-banner { display: block; }
 .install-divider {
-  width: 100%;
   border: none;
   border-top: 1px solid var(--bordo);
-  margin: 0;
+  margin: 0 0 20px;
 }
-.install-banner span {
-  font-size: 0.80rem;
-  color: var(--testo-sec);
+.install-card {
+  background: var(--bianco);
+  border: 1px solid var(--bordo);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 16px;
   text-align: center;
+  margin-bottom: 8px;
 }
-.install-banner button {
+.install-icon { font-size: 2rem; margin-bottom: 8px; }
+.install-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--testo);
+  margin-bottom: 4px;
+}
+.install-sub {
+  font-size: 0.82rem;
+  color: var(--testo-sec);
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+.install-card button {
+  width: 100%;
   background: var(--blu);
   color: var(--bianco);
   border: none;
   border-radius: 10px;
-  padding: 9px 24px;
-  font-size: 0.88rem;
+  padding: 12px;
+  font-size: 0.92rem;
   font-weight: 600;
   cursor: pointer;
+  letter-spacing: 0.2px;
 }
 
 /* ===== LANDING — LISTA GIOCATRICI ===== */
