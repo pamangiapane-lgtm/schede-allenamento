@@ -69,9 +69,9 @@ const IT = {
   rpeLabel:'Intensità seduta', rpeHint:'1 facile · 10 al limite',
   fatLabel:'Come ti senti', fatHint:'1 esausta · 5 perfetta',
   last:'Ultima: ', instrSection:'Istruzioni',
-  instrP1:'Compila i kg nella sezione <strong>Sedute</strong> dopo ogni allenamento e premi <strong>Salva</strong>.',
-  instrP2:'Il tuo storico e i massimali si aggiornano ad ogni seduta registrata.',
-  instrP3:'Inserisci il peso corporeo qui sotto per calcolare i carichi corretti negli esercizi con sovraccarico + corpo libero.',
+  instrP1:'Inserisci il tuo <strong>peso corporeo</strong> qui sotto e tienilo aggiornato quando cambia — serve a calcolare i carichi per gli esercizi con sovraccarico.',
+  instrP2:'Dopo ogni seduta <strong>aggiorna il massimale (1RM)</strong> nella sezione qui sotto in base a come hai sentito l\'esercizio. I carichi in scheda si calcolano da quel valore.',
+  instrP3:'Compila i <strong>kg usati</strong> per ogni esercizio nella sezione Sedute e premi <strong>Salva</strong> per tenere lo storico aggiornato.',
   bwTitle:'Peso corporeo', bwPlaceholder:'es. 65', saveBtn:'Salva', savedOk:'✓ Salvato!',
   histTitle:'Storico carichi', sessionFallback: n=>`Seduta ${n}`,
   maxTitle:'Massimali', enterRM:'Inserisci il tuo RM',
@@ -97,9 +97,9 @@ const EN = {
   rpeLabel:'Session intensity', rpeHint:'1 easy · 10 max effort',
   fatLabel:'How do you feel', fatHint:'1 exhausted · 5 great',
   last:'Last: ', instrSection:'Instructions',
-  instrP1:'Enter your kg in the <strong>Sessions</strong> tab after each workout and press <strong>Save</strong>.',
-  instrP2:'Your history and 1RM values update after each logged session.',
-  instrP3:'Enter your body weight below to calculate the correct loads for barbell + bodyweight exercises.',
+  instrP1:'Enter your <strong>body weight</strong> below and keep it updated whenever it changes — it\'s used to calculate loads for barbell exercises.',
+  instrP2:'After each session, <strong>update your 1RM</strong> in the section below based on how the exercise felt. Your program loads are calculated from that value.',
+  instrP3:'Fill in the <strong>kg used</strong> for each exercise in the Sessions tab and press <strong>Save</strong> to keep your history up to date.',
   bwTitle:'Body weight', bwPlaceholder:'e.g. 65', saveBtn:'Save', savedOk:'✓ Saved!',
   histTitle:'Load History', sessionFallback: n=>`Session ${n}`,
   maxTitle:'1RM Maxes', enterRM:'Enter your 1RM',
@@ -131,6 +131,21 @@ function traduciMetodo(nome) {
 function traduciSeduta(nome) {
   if (L !== EN) return nome;
   return nome.replace(/\bSeduta\b/g, 'Session');
+}
+
+const DESC_METODO_EN = {
+  'Bilanciere — Metabolico':            'Barbell — Conditioning',
+  'Fine seduta':                        'End of session',
+  'Esecuzione massima velocità concentrica — mantieni la velocità per tutta la serie.':
+    'Maximum concentric speed — maintain velocity throughout the set.',
+  'Sposta il carico alla massima velocità possibile. Se non riesci a terminare la serie, cambia esercizio.':
+    'Move the load at maximum speed. If you cannot complete the set, switch exercises.',
+  'Circuito — rispetta l\'ampiezza di movimento su tutti gli esercizi.':
+    'Circuit — full range of motion on every exercise.',
+};
+function traduciDescMetodo(desc) {
+  if (L !== EN || !desc) return desc;
+  return DESC_METODO_EN[desc] || desc;
 }
 
 /* ---------- helpers ---------- */
@@ -302,9 +317,10 @@ function repsConTempo(reps, note) {
 }
 
 function htmlStandard(e, logId) {
+  const nome = (L === EN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
   const repsDisplay = repsConTempo(e.Reps, e.Note);
   let h = `<div class="esercizio">`;
-  h += `<div class="eserc-nome">${e.Esercizio}</div>`;
+  h += `<div class="eserc-nome">${nome}</div>`;
   h += `<div class="eserc-params">`;
   if (e.Serie)        h += param(L.serie, e.Serie);
   if (repsDisplay)    h += param('Reps', repsDisplay);
@@ -318,8 +334,9 @@ function htmlStandard(e, logId) {
 }
 
 function htmlBicarico(e, logId) {
+  const nome = (L === EN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
   let h = `<div class="esercizio">`;
-  h += `<div class="eserc-nome">${e.Esercizio}`;
+  h += `<div class="eserc-nome">${nome}`;
   if (e.Num_Ripetizioni) h += ` <span class="ripeti-badge">${L.repeat(e.Num_Ripetizioni)}</span>`;
   h += `</div>`;
 
@@ -349,10 +366,11 @@ function htmlBicarico(e, logId) {
 }
 
 function htmlIndividuale(e, sedSuffix) {
+  const nome = (L === EN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
   const logId      = `log-ind-${id}-${e.Codice}-${e.Ordine}${sedSuffix ? '-' + sedSuffix : ''}`;
   const repsDisplay = repsConTempo(e.Reps, e.Note);
   let h = `<div class="esercizio">`;
-  h += `<div class="eserc-nome">${e.Esercizio}</div>`;
+  h += `<div class="eserc-nome">${nome}</div>`;
   h += `<div class="eserc-params">`;
   if (e.Serie)      h += param(L.serie, e.Serie);
   if (repsDisplay)  h += param('Reps', repsDisplay);
@@ -516,7 +534,7 @@ async function caricaScheda() {
           faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
         } else {
           html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
-          if (m.desc) html += `<div class="metodo-desc">${m.desc}</div>`;
+          if (m.desc) html += `<div class="metodo-desc">${traduciDescMetodo(m.desc)}</div>`;
           m.esercizi.forEach(e => {
             const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
             html += e.Tipo_Esercizio === 'bicarico' ? htmlBicarico(e, logId) : htmlStandard(e, logId);
@@ -878,9 +896,9 @@ function buildProfilo(g, resE, resP, sedute) {
   html += `
     <div class="profilo-card istr-card">
       <button class="istr-toggle" onclick="toggleIstruzioni(this)">
-        <span>${L.instrSection}</span><span class="istr-chevron">▸</span>
+        <span>${L.instrSection}</span><span class="istr-chevron">▾</span>
       </button>
-      <div class="istr-panel" style="display:none">
+      <div class="istr-panel">
         <p>${L.instrP1}</p>
         <p>${L.instrP2}</p>
         <p>${L.instrP3}</p>
