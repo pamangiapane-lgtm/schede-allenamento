@@ -113,6 +113,26 @@ const EN = {
 };
 let L = IT;
 
+const METODO_EN = {
+  'Riscaldamento':      'Warm-up',
+  'Prehab individuale': 'Individual Prehab',
+  'Metabolico':         'Conditioning',
+  'Circuito Funzionale':'Functional Circuit',
+  'Funzionale':         'Functional',
+  'FDM':                'FDM',
+  'FM':                 'FM',
+  'Weightlifting':      'Weightlifting',
+  'Lanci (shot put)':   'Shot Put Throws',
+};
+function traduciMetodo(nome) {
+  if (L !== EN) return nome;
+  return METODO_EN[nome] || nome;
+}
+function traduciSeduta(nome) {
+  if (L !== EN) return nome;
+  return nome.replace(/\bSeduta\b/g, 'Session');
+}
+
 /* ---------- helpers ---------- */
 function param(label, val) {
   return `<div class="param"><div class="param-label">${label}</div><div class="param-value">${val}</div></div>`;
@@ -461,7 +481,7 @@ async function caricaScheda() {
       let html = `
         <div class="seduta-accordion" id="${accId}">
           <button class="seduta-header" onclick="toggleSeduta('${accId}')">
-            <h3>${sed.Nome_Seduta}</h3>
+            <h3>${traduciSeduta(sed.Nome_Seduta)}</h3>
             <span class="chevron">▾</span>
           </button>
           <div class="seduta-body">`;
@@ -470,7 +490,7 @@ async function caricaScheda() {
         const m = metodiMap[key];
         html += `<div class="metodo-block">`;
         if (m.nome === 'Prehab individuale' && g.Link_Prehab) {
-          html += `<div class="metodo-titolo">${m.nome} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>`;
+          html += `<div class="metodo-titolo">${traduciMetodo(m.nome)} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>`;
           /* Obiettivo fase corrente */
           let obiettivoHtml = '';
           if (g.Obiettivi_Prehab) {
@@ -491,11 +511,11 @@ async function caricaScheda() {
           </div>`;
         } else if (m.nome === 'Prehab individuale' && faseAttiva) {
           /* Fallback: esercizi della fase attiva */
-          html += `<div class="metodo-titolo">${m.nome}</div>`;
+          html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
           html += `<div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
           faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
         } else {
-          html += `<div class="metodo-titolo">${m.nome}</div>`;
+          html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
           if (m.desc) html += `<div class="metodo-desc">${m.desc}</div>`;
           m.esercizi.forEach(e => {
             const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
