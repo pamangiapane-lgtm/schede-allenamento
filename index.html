@@ -36,7 +36,7 @@ async function caricaGiocatrici() {
     const json = await res.json();
     if (!json.ok) throw new Error(json.errore);
     lista.innerHTML = '';
-    json.dati.filter(g => !isNaN(parseInt(g.ID))).forEach(g => {
+    json.dati.filter(g => !isNaN(parseInt(g.ID))).sort((a, b) => a.Nome.localeCompare(b.Nome, 'it', {sensitivity:'base'})).forEach(g => {
       const div = document.createElement('div');
       div.className = 'giocatrice-card';
       div.innerHTML = `
