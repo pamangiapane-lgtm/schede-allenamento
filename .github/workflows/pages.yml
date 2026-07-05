@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   workflow_dispatch:
 
 permissions:
@@ -21,10 +21,28 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout main (produzione)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: site
+
+      - name: Checkout dev (staging)
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          path: dev-build
+
+      - name: Copia staging in /dev/
+        run: |
+          mkdir -p site/dev
+          rsync -av --exclude='.github' --exclude='backup_locale' --exclude='*.py' --exclude='*.js.map' dev-build/ site/dev/
+
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: site
+
       - id: deployment
         uses: actions/deploy-pages@v4

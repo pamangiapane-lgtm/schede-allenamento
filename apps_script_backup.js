@@ -3,7 +3,7 @@
 // esistente (Extensions → Apps Script nel foglio di produzione)
 // ═══════════════════════════════════════════════════════════════
 
-const BACKUP_FOLDER_ID = '1jRbhDZoSOV8o6BGusaVYJhw4Em_I428S';
+const BACKUP_FOLDER_ID = '1iiM7V2CislN971wXZsOmnncGGj1lS1sG'; // Marsala 26/27 → Backup Schede Allenamento
 
 function backupGiornaliero() {
   const ss     = SpreadsheetApp.getActiveSpreadsheet();
