@@ -21,6 +21,11 @@
 </header>
 
 <div class="container">
+  <div class="link-app-card" onclick="copiaLink(this)">
+    <div class="link-app-label">Link web app</div>
+    <div class="link-app-url">pamangiapane-lgtm.github.io/schede-allenamento/</div>
+    <div class="link-app-cta" id="link-cta">Tocca per copiare</div>
+  </div>
   <p class="squadra-titolo">Giocatrici</p>
   <div id="lista-giocatrici">
     <p class="loading-msg">Caricamento...</p>
@@ -64,6 +69,17 @@ async function caricaGiocatrici() {
   } catch (err) {
     lista.innerHTML = `<p class="errore-msg">Errore nel caricamento dati. Riprova.</p>`;
   }
+}
+
+function copiaLink(el) {
+  const url = 'https://pamangiapane-lgtm.github.io/schede-allenamento/';
+  const cta = el.querySelector('#link-cta');
+  navigator.clipboard.writeText(url).then(() => {
+    cta.textContent = '✓ Link copiato!';
+    setTimeout(() => { cta.textContent = 'Tocca per copiare'; }, 2000);
+  }).catch(() => {
+    cta.textContent = url;
+  });
 }
 
 caricaGiocatrici();
