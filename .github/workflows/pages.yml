@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   workflow_dispatch:
 
 permissions:
@@ -21,10 +21,31 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-build
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          path: dev-build
+      - name: Prepara cartella pubblicazione
+        run: |
+          cp -r main-build site
+          rm -rf site/.github site/backup_locale site/apps_script_prod_project site/apps_script_dev_project site/_strumenti
+          mkdir -p site/dev
+          cp dev-build/index.html    site/dev/index.html
+          cp dev-build/scheda.html   site/dev/scheda.html
+          cp dev-build/style.css     site/dev/style.css
+          cp dev-build/sw.js         site/dev/sw.js
+          cp dev-build/manifest.json site/dev/manifest.json
+          cp dev-build/offline.html  site/dev/offline.html  2>/dev/null || true
+          cp dev-build/icon.svg      site/dev/icon.svg      2>/dev/null || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: site
       - id: deployment
         uses: actions/deploy-pages@v4
