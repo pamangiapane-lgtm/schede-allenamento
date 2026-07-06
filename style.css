@@ -91,40 +91,6 @@ header p  { font-size: 0.82rem; opacity: 0.70; margin-top: 3px; }
   letter-spacing: 0.2px;
 }
 
-/* ===== LINK APP CARD ===== */
-.link-app-card {
-  background: var(--blu);
-  color: #fff;
-  border-radius: 12px;
-  padding: 14px 18px;
-  margin-bottom: 20px;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transition: opacity 0.15s;
-}
-.link-app-card:active { opacity: 0.8; }
-.link-app-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  opacity: 0.7;
-}
-.link-app-url {
-  font-size: 0.88rem;
-  font-weight: 600;
-  word-break: break-all;
-}
-.link-app-cta {
-  font-size: 0.75rem;
-  opacity: 0.65;
-  margin-top: 2px;
-}
-
 /* ===== LANDING — LISTA GIOCATRICI ===== */
 .squadra-titolo {
   font-size: 0.78rem;

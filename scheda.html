@@ -74,7 +74,7 @@ const IT = {
   fatLabel:'Come ti senti', fatHint:'1 esausta · 5 perfetta',
   last:'Ultima: ', instrSection:'Istruzioni',
   instrP1:'Inserisci il tuo <strong>peso corporeo</strong> qui sotto e tienilo aggiornato quando cambia — serve a calcolare i carichi per gli esercizi con sovraccarico.',
-  instrP2:'Dopo ogni seduta <strong>aggiorna il massimale (1RM)</strong> nella sezione qui sotto in base a come hai sentito l\'esercizio. I carichi in scheda si calcolano da quel valore.',
+  instrP2:'Dopo ogni seduta <strong>aggiorna il massimale (1RM)</strong> nella sezione qui sotto in base al carico spostato durante la seduta. I carichi in scheda si calcolano da quel valore.',
   instrP3:'Compila i <strong>kg usati</strong> per ogni esercizio nella sezione Sedute e premi <strong>Salva</strong> per tenere lo storico aggiornato.',
   bwTitle:'Peso corporeo', bwPlaceholder:'es. 65', saveBtn:'Salva', savedOk:'✓ Salvato!',
   histTitle:'Storico carichi', sessionFallback: n=>`Seduta ${n}`,
@@ -499,7 +499,10 @@ async function caricaScheda() {
     const seduteGioc = (resS.dati || [])
       .filter(s => String(s.ID_Giocatrice) === String(id) || String(s.ID_Giocatrice) === '0')
       .sort((a, b) => {
-        /* OS1-S1/S2/S3 → ordina per numero dopo il prefisso */
+        const ao = Number(a.Ordine) || 0, bo = Number(b.Ordine) || 0;
+        if (ao && bo) return ao - bo;
+        if (ao) return -1;
+        if (bo) return 1;
         const an = String(a.Numero_Seduta), bn = String(b.Numero_Seduta);
         return an.localeCompare(bn, undefined, { numeric: true });
       });
