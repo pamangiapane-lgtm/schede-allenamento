@@ -502,7 +502,10 @@ async function caricaScheda() {
     const seduteGioc = (resS.dati || [])
       .filter(s => String(s.ID_Giocatrice) === String(id) || String(s.ID_Giocatrice) === '0')
       .sort((a, b) => {
-        /* OS1-S1/S2/S3 → ordina per numero dopo il prefisso */
+        const ao = Number(a.Ordine) || 0, bo = Number(b.Ordine) || 0;
+        if (ao && bo) return ao - bo;
+        if (ao) return -1;
+        if (bo) return 1;
         const an = String(a.Numero_Seduta), bn = String(b.Numero_Seduta);
         return an.localeCompare(bn, undefined, { numeric: true });
       });
