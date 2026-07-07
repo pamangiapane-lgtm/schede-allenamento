@@ -975,16 +975,18 @@ header p  { font-size: 0.82rem; opacity: 0.70; margin-top: 3px; }
 .mass-rm-input:focus { border-color: var(--blu); }
 .mass-rm-unit { font-size: 0.85rem; color: var(--testo-sec); }
 .mass-save-btn {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 7px;
+  flex-shrink: 0;
   background: var(--blu);
-  color: #fff;
-  font-size: 0.8rem;
+  color: var(--bianco);
+  border: none;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
   font-weight: 700;
   cursor: pointer;
   margin-left: 4px;
 }
+.mass-save-btn:active { opacity: 0.85; }
 
 .mass-pct-table {
   display: grid;
