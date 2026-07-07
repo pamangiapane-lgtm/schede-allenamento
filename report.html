@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[DEV] Report Progressi — Coach</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#1a3a6b">
+  <link rel="apple-touch-icon" href="logo.jpg">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    .report-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      background: var(--surface, #f5f7fa);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+    .report-controls select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border, #dde1e9);
+      font-size: 0.9rem;
+      background: #fff;
+      color: var(--text, #1a1a2e);
+      flex: 1;
+      min-width: 140px;
+    }
+    .pdf-btn {
+      padding: 9px 20px;
+      border-radius: 8px;
+      border: none;
+      background: var(--primary, #1a3a6b);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .pdf-btn:active { opacity: 0.85; }
+
+    .summary-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .summary-chip {
+      background: var(--surface, #f5f7fa);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      color: var(--text-light, #555);
+    }
+    .summary-chip strong {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary, #1a3a6b);
+      line-height: 1.1;
+    }
+
+    .player-section { margin-bottom: 32px; }
+    .player-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary, #1a3a6b);
+      border-bottom: 2px solid var(--primary, #1a3a6b);
+      padding-bottom: 6px;
+      margin-bottom: 14px;
+    }
+
+    .exercise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .exercise-card {
+      background: var(--surface, #f5f7fa);
+      border-radius: 10px;
+      padding: 14px;
+    }
+    .ex-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text, #1a1a2e);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .ex-last {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary, #1a3a6b);
+      line-height: 1;
+    }
+    .ex-trend {
+      font-size: 0.78rem;
+      margin-top: 3px;
+    }
+    .trend-up { color: #2a9d3a; }
+    .trend-dn { color: #c33; }
+    .trend-eq { color: var(--text-light, #888); }
+    .ex-chart { margin-top: 10px; height: 72px; position: relative; }
+    .ex-count {
+      font-size: 0.72rem;
+      color: var(--text-light, #888);
+      margin-top: 5px;
+    }
+
+    .no-data {
+      color: var(--text-light, #888);
+      font-style: italic;
+      font-size: 0.9rem;
+      padding: 12px 0;
+    }
+
+    .feedback-summary {
+      margin-top: 16px;
+      padding: 12px 14px;
+      background: var(--surface, #f5f7fa);
+      border-radius: 10px;
+    }
+    .feedback-summary-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-light, #555);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .feedback-row-report {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+    .feedback-val { font-weight: 700; }
+
+    @media print {
+      header, .report-controls, .back-link, .install-banner { display: none !important; }
+      .summary-bar { margin-bottom: 12px; }
+      .exercise-grid { grid-template-columns: repeat(3, 1fr); }
+      .exercise-card { break-inside: avoid; border: 1px solid #ddd; background: #fff !important; }
+      .player-section { break-inside: avoid; }
+      body, .container { background: #fff !important; }
+      .summary-chip { border: 1px solid #ddd; background: #fff !important; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
+    <h1>Report Progressi</h1>
+  </div>
+  <div style="background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
+</header>
+
+<div class="container">
+  <a class="back-link" href="index.html">← Tutte le giocatrici</a>
+
+  <div id="access-denied" style="display:none">
+    <p class="errore-msg" style="margin-top:32px;">Accesso non autorizzato.<br><small>Questo report è riservato allo staff tecnico.</small></p>
+  </div>
+
+  <div id="loading" class="loading-msg">Caricamento dati...</div>
+
+  <div id="contenuto" style="display:none">
+    <div class="report-controls">
+      <select id="sel-giocatrice" onchange="renderReport()">
+        <option value="all">Tutte le giocatrici</option>
+      </select>
+      <select id="sel-periodo" onchange="renderReport()">
+        <option value="all">Tutto il periodo</option>
+        <option value="30">Ultimo mese</option>
+        <option value="7">Ultima settimana</option>
+      </select>
+      <button class="pdf-btn" onclick="window.print()">⬇ Esporta PDF</button>
+    </div>
+
+    <div id="summary-bar" class="summary-bar"></div>
+    <div id="report-content"></div>
+  </div>
+</div>
+
+<script>
+const API       = 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec';
+const TOKEN     = 'squadra2026-dev';
+const COACH_KEY = 'coach2026';
+const SKIP      = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
+
+let allGiocatrici = [];
+let allProgressi  = [];
+let chartInstances = [];
+
+const params = new URLSearchParams(window.location.search);
+if (params.get('coach') !== COACH_KEY) {
+  document.getElementById('loading').style.display      = 'none';
+  document.getElementById('access-denied').style.display = 'block';
+} else {
+  init();
+}
+
+async function fetchSheet(foglio) {
+  const r = await fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=${foglio}`);
+  return r.json();
+}
+
+async function init() {
+  try {
+    const [resG, resP] = await Promise.all([
+      fetchSheet('Giocatrici'),
+      fetchSheet('Progressi'),
+    ]);
+
+    allGiocatrici = (resG.dati || []).filter(g => !isNaN(parseInt(g.ID)));
+    allProgressi  = (resP.dati || []);
+
+    const sel = document.getElementById('sel-giocatrice');
+    allGiocatrici
+      .sort((a, b) => a.Nome.localeCompare(b.Nome, 'it'))
+      .forEach(g => {
+        const opt = document.createElement('option');
+        opt.value = g.ID;
+        opt.textContent = g.Nome;
+        sel.appendChild(opt);
+      });
+
+    document.getElementById('loading').style.display   = 'none';
+    document.getElementById('contenuto').style.display = '';
+    renderReport();
+  } catch {
+    document.getElementById('loading').innerHTML =
+      `<p class="errore-msg">Errore nel caricamento. Riprova.</p>`;
+  }
+}
+
+function filterByPeriodo(progressi) {
+  const days = parseInt(document.getElementById('sel-periodo').value) || 0;
+  if (!days) return progressi;
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - days);
+  return progressi.filter(p => {
+    const ts = p.Timestamp ? new Date(p.Timestamp) : null;
+    return ts && ts >= cutoff;
+  });
+}
+
+function parseKg(valore) {
+  const m = String(valore || '').match(/(\d+(?:\.\d+)?)\s*kg/i);
+  return m ? parseFloat(m[1]) : null;
+}
+
+function formatData(raw) {
+  if (!raw) return '';
+  if (typeof raw === 'string' && raw.includes('/')) return raw;
+  const d = new Date(raw);
+  if (isNaN(d)) return String(raw);
+  return `${d.getDate()}/${d.getMonth() + 1}`;
+}
+
+function renderReport() {
+  chartInstances.forEach(c => c.destroy());
+  chartInstances = [];
+
+  const selId = document.getElementById('sel-giocatrice').value;
+  const giocatrici = selId === 'all'
+    ? allGiocatrici
+    : allGiocatrici.filter(g => String(g.ID) === selId);
+
+  const progressi = filterByPeriodo(allProgressi);
+
+  /* summary */
+  const attivi = new Set(progressi.filter(p => !SKIP.has(p.Esercizio) && p.Valore).map(p => p.ID_Giocatrice));
+  const totLog = progressi.filter(p => !SKIP.has(p.Esercizio) && p.Valore).length;
+  const ultime = progressi.filter(p => !SKIP.has(p.Esercizio) && p.Valore);
+  const dataMin = ultime.length
+    ? formatData(ultime.reduce((a, b) => new Date(a.Timestamp) < new Date(b.Timestamp) ? a : b).Timestamp)
+    : '—';
+
+  document.getElementById('summary-bar').innerHTML = `
+    <div class="summary-chip"><strong>${totLog}</strong>log totali</div>
+    <div class="summary-chip"><strong>${attivi.size}</strong>atlete attive</div>
+    ${totLog ? `<div class="summary-chip"><strong>${dataMin}</strong>primo log</div>` : ''}
+  `;
+
+  const content = document.getElementById('report-content');
+  content.innerHTML = '';
+
+  giocatrici.forEach(g => {
+    const pGioc = progressi
+      .filter(p => String(p.ID_Giocatrice) === String(g.ID))
+      .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+
+    const section = document.createElement('div');
+    section.className = 'player-section';
+
+    /* esercizi con kg */
+    const byEserc = {};
+    pGioc.filter(p => !SKIP.has(p.Esercizio) && p.Valore).forEach(p => {
+      if (!byEserc[p.Esercizio]) byEserc[p.Esercizio] = [];
+      byEserc[p.Esercizio].push(p);
+    });
+
+    /* RPE e fatica */
+    const rpeVals  = pGioc.filter(p => p.Esercizio === 'RPE-seduta'    && p.Valore).map(p => Number(p.Valore));
+    const fatVals  = pGioc.filter(p => p.Esercizio === 'Fatica-seduta' && p.Valore).map(p => Number(p.Valore));
+    const rpeMedia = rpeVals.length ? (rpeVals.reduce((a, b) => a + b, 0) / rpeVals.length).toFixed(1) : null;
+    const fatMedia = fatVals.length ? (fatVals.reduce((a, b) => a + b, 0) / fatVals.length).toFixed(1) : null;
+
+    let html = `<div class="player-title">${g.Nome}${g.Ruolo ? ' <span style="font-weight:400;font-size:0.85rem;opacity:0.7">— ' + g.Ruolo + '</span>' : ''}</div>`;
+
+    if (Object.keys(byEserc).length === 0 && !rpeMedia && !fatMedia) {
+      html += `<div class="no-data">Nessun dato registrato nel periodo selezionato.</div>`;
+      section.innerHTML = html;
+      content.appendChild(section);
+      return;
+    }
+
+    /* griglia esercizi */
+    if (Object.keys(byEserc).length > 0) {
+      html += `<div class="exercise-grid" id="grid-${g.ID}">`;
+      Object.entries(byEserc).forEach(([nome, voci], idx) => {
+        const kgVals = voci
+          .map(v => ({ label: v.Data || formatData(v.Timestamp), kg: parseKg(v.Valore) }))
+          .filter(v => v.kg !== null);
+
+        const last = voci[voci.length - 1];
+        const lastKg = kgVals.length ? kgVals[kgVals.length - 1].kg : null;
+        const prevKg = kgVals.length > 1 ? kgVals[kgVals.length - 2].kg : null;
+
+        let trendHtml = '';
+        if (lastKg !== null && prevKg !== null) {
+          const diff = Math.round((lastKg - prevKg) * 10) / 10;
+          if (diff > 0)      trendHtml = `<div class="ex-trend trend-up">↑ +${diff} kg</div>`;
+          else if (diff < 0) trendHtml = `<div class="ex-trend trend-dn">↓ ${diff} kg</div>`;
+          else               trendHtml = `<div class="ex-trend trend-eq">= invariato</div>`;
+        }
+
+        const chartId = `chart-${g.ID}-${idx}`;
+        html += `
+          <div class="exercise-card">
+            <div class="ex-name">${nome}</div>
+            <div class="ex-last">${last.Valore || '—'}</div>
+            ${trendHtml}
+            ${kgVals.length > 1 ? `<div class="ex-chart"><canvas id="${chartId}"></canvas></div>` : ''}
+            <div class="ex-count">${voci.length} ${voci.length !== 1 ? 'registrazioni' : 'registrazione'}</div>
+          </div>`;
+      });
+      html += `</div>`;
+    }
+
+    /* feedback RPE / fatica */
+    if (rpeMedia || fatMedia) {
+      html += `<div class="feedback-summary">
+        <div class="feedback-summary-title">Feedback sedute (media)</div>`;
+      if (rpeMedia) html += `<div class="feedback-row-report"><span>Intensità (RPE)</span><span class="feedback-val">${rpeMedia} / 10</span></div>`;
+      if (fatMedia) html += `<div class="feedback-row-report"><span>Sensazione</span><span class="feedback-val">${fatMedia} / 5</span></div>`;
+      html += `</div>`;
+    }
+
+    section.innerHTML = html;
+    content.appendChild(section);
+
+    /* disegna grafici */
+    Object.entries(byEserc).forEach(([, voci], idx) => {
+      const kgVals = voci
+        .map(v => ({ label: v.Data || formatData(v.Timestamp), kg: parseKg(v.Valore) }))
+        .filter(v => v.kg !== null);
+      if (kgVals.length < 2) return;
+      const canvas = document.getElementById(`chart-${g.ID}-${idx}`);
+      if (!canvas) return;
+      const chart = new Chart(canvas, {
+        type: 'line',
+        data: {
+          labels: kgVals.map(v => v.label),
+          datasets: [{
+            data: kgVals.map(v => v.kg),
+            borderColor: '#1a3a6b',
+            backgroundColor: 'rgba(26,58,107,0.08)',
+            tension: 0.35,
+            pointRadius: 3,
+            pointBackgroundColor: '#1a3a6b',
+            fill: true,
+            borderWidth: 2,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          plugins: { legend: { display: false }, tooltip: { callbacks: {
+            label: ctx => `${ctx.parsed.y} kg`,
+          }}},
+          scales: {
+            x: { display: false },
+            y: {
+              display: true,
+              ticks: { font: { size: 9 }, maxTicksLimit: 3 },
+              grid: { color: 'rgba(0,0,0,0.05)' },
+            },
+          },
+        },
+      });
+      chartInstances.push(chart);
+    });
+  });
+}
+</script>
+
+</body>
+</html>
