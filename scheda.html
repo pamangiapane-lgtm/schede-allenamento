@@ -238,7 +238,7 @@ function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
   const reps         = parseReps(repsStr);
 
   const ultimaHtml = ultima
-    ? `<div class="ultima-seduta">${L.last}<em>${ultima.valore}</em>${ultima.rm ? ` · RM ~${ultima.rm} kg` : ''}</div>`
+    ? `<div class="ultima-seduta">${L.last}<em>${ultima.valore}</em></div>`
     : '';
 
   return `
