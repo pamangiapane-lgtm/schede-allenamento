@@ -321,7 +321,11 @@ function repsConTempo(reps, note) {
   const lato = parseLato(note);
   const ecc  = parseEcc(note);
   let display = reps || '';
-  if (lato) display += ` · ${lato}`;
+  if (lato === 'Alt' && /^\d+$/.test(String(reps))) {
+    display = `${reps}+${reps}`;
+  } else if (lato && lato !== 'Bil' && lato !== 'Alt') {
+    display += ` · ${lato}`;
+  }
   if (ecc && ecc !== '—') display += ` · ${ecc}`;
   return display;
 }
