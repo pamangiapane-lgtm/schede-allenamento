@@ -433,8 +433,17 @@ function htmlIndividuale(e, sedSuffix) {
   return h;
 }
 
+/* ---------- cache ---------- */
+const CACHE_V = 'v1';
+function leggiCache(f) {
+  try { const r = localStorage.getItem(`sch_${CACHE_V}_${f}`); return r ? JSON.parse(r) : null; } catch { return null; }
+}
+function scriviCache(f, dati) {
+  try { localStorage.setItem(`sch_${CACHE_V}_${f}`, JSON.stringify(dati)); } catch {}
+}
+
 /* ---------- caricamento ---------- */
-async function fetchSheet(foglio, tentativo = 0) {
+async function fetchApi(foglio, tentativo = 0) {
   const TIMEOUT = 28000;
   const ctrl = new AbortController();
   const tid = setTimeout(() => ctrl.abort(), TIMEOUT);
@@ -447,10 +456,21 @@ async function fetchSheet(foglio, tentativo = 0) {
     clearTimeout(tid);
     if (tentativo < 2) {
       await new Promise(res => setTimeout(res, 1500 * (tentativo + 1)));
-      return fetchSheet(foglio, tentativo + 1);
+      return fetchApi(foglio, tentativo + 1);
     }
     throw err;
   }
+}
+
+async function fetchSheet(foglio) {
+  const cached = leggiCache(foglio);
+  if (cached) {
+    fetchApi(foglio).then(j => { if (j.ok) scriviCache(foglio, j.dati); }).catch(() => {});
+    return { ok: true, dati: cached };
+  }
+  const j = await fetchApi(foglio);
+  if (j.ok) scriviCache(foglio, j.dati);
+  return j;
 }
 
 async function caricaScheda() {
