@@ -43,8 +43,9 @@ jobs:
           cp dev-build/style.css     site/dev/style.css
           cp dev-build/sw.js         site/dev/sw.js
           cp dev-build/manifest.json site/dev/manifest.json
-          cp dev-build/offline.html  site/dev/offline.html 2>/dev/null || true
-          cp dev-build/icon.svg      site/dev/icon.svg     2>/dev/null || true
+          cp dev-build/offline.html  site/dev/offline.html  2>/dev/null || true
+          cp dev-build/icon.svg      site/dev/icon.svg      2>/dev/null || true
+          cp dev-build/report.html   site/dev/report.html   2>/dev/null || true
 
       - uses: actions/configure-pages@v5
 
