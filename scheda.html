@@ -1003,6 +1003,7 @@ function buildProfilo(g, resE, resP, sedute) {
                  placeholder="—" value="${rmVal}" min="1" step="0.5"
                  oninput="calcolaMassimale('${m.id}','${m.catena}')">
           <span class="mass-rm-unit">kg</span>
+          <button class="mass-save-btn" onclick="salvaMassimale('${m.id}','${m.nome}',this)">${L.saveBtn}</button>
         </div>
         <div class="mass-pct-table" id="table-${m.id}">
           ${rmVal ? calcolaTabellaHtml(Number(rmVal), m.catena) : `<span class="mass-empty">${L.enterRM}</span>`}
@@ -1027,6 +1028,33 @@ function buildProfilo(g, resE, resP, sedute) {
   }
 
   return html;
+}
+
+async function salvaMassimale(mId, nome, btn) {
+  const input = document.getElementById('rm-' + mId);
+  const rm = parseFloat(input.value);
+  if (!rm || rm < 1) { input.style.outline = '2px solid #c33'; setTimeout(() => input.style.outline = '', 1500); return; }
+  btn.textContent = '...';
+  btn.disabled = true;
+  try {
+    await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        token: TOKEN, azione: 'log_progressi',
+        id_giocatrice: id, n_seduta: '0', esercizio: nome,
+        data: new Date().toLocaleDateString('it-IT'),
+        valore: `RM ${rm} kg`, note: '',
+        kg_usati: '', reps_fatte: '', rm_stimato: rm,
+      }),
+    });
+    btn.textContent = '✓';
+    btn.style.background = 'var(--verde)';
+  } catch {
+    btn.textContent = L.errorBtn;
+  } finally {
+    setTimeout(() => { btn.textContent = L.saveBtn; btn.style.background = ''; btn.disabled = false; }, 2000);
+  }
 }
 
 function aggiornaTabelleMassimali() {
