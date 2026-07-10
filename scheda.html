@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scheda Giocatrice</title>
+  <title>[DEV] Scheda Giocatrice</title>
   <link rel="stylesheet" href="style.css">
   <style>
     .mass-save-btn {
@@ -31,6 +31,7 @@
     <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
     <h1>Schede Allenamento</h1>
   </div>
+  <div style="background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
 </header>
 
 <div class="container">
@@ -88,7 +89,7 @@ const IT = {
   fatLabel:'Come ti senti', fatHint:'1 esausta · 5 perfetta',
   last:'Ultima: ', instrSection:'Istruzioni',
   instrP1:'Inserisci il tuo <strong>peso corporeo</strong> qui sotto e tienilo aggiornato quando cambia — serve a calcolare i carichi per gli esercizi con sovraccarico.',
-  instrP2:'Dopo ogni seduta <strong>aggiorna il massimale (1RM)</strong> nella sezione qui sotto in base a come hai sentito l\'esercizio. I carichi in scheda si calcolano da quel valore.',
+  instrP2:'Dopo ogni seduta <strong>aggiorna il massimale (1RM)</strong> nella sezione qui sotto in base al carico spostato durante la seduta. I carichi in scheda si calcolano da quel valore.',
   instrP3:'Compila i <strong>kg usati</strong> per ogni esercizio nella sezione Sedute e premi <strong>Salva</strong> per tenere lo storico aggiornato.',
   bwTitle:'Peso corporeo', bwPlaceholder:'es. 65', saveBtn:'Salva', savedOk:'✓ Salvato!',
   histTitle:'Storico carichi', sessionFallback: n=>`Seduta ${n}`,
@@ -156,12 +157,18 @@ const DESC_METODO_EN = {
   'Fine seduta':                        'End of session',
   'Esecuzione massima velocità concentrica — mantieni la velocità per tutta la serie.':
     'Maximum concentric speed — maintain velocity throughout the set.',
+  'Esecuzione massima velocità concentrica - mantieni la velocità per tutta la serie.':
+    'Maximum concentric speed — maintain velocity throughout the set.',
   'Sposta il carico alla massima velocità possibile. Se non riesci a terminare la serie, cambia esercizio.':
     'Move the load at maximum speed. If you cannot complete the set, switch exercises.',
+  'Metabolico - tapis roulant, bike o step.':
+    'Conditioning – treadmill, bike or step machine.',
   'Circuito — rispetta l\'ampiezza di movimento su tutti gli esercizi.':
     'Circuit — full range of motion on every exercise.',
   'Ripeti il circuito 4 volte.':
     'Repeat the circuit 4 times.',
+  'Rispetta l\'ampiezza di movimento su tutti gli esercizi.':
+    'Full range of motion on every exercise.',
   'Rispetta le note nelle esecuzioni.':
     'Follow the coaching notes for each exercise.',
   'Se non conosci il tuo massimale incrementa gradualmente i carichi, aggiorna il tab RM nelle info, se non hai mai fatto clean scrivimi.':
@@ -252,8 +259,9 @@ function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
   const intensitaPct = parseIntensita(intensita);
   const reps         = parseReps(repsStr);
 
+  const ultimaKg   = ultima?.kg != null ? `${ultima.kg} kg` : null;
   const ultimaHtml = ultima
-    ? `<div class="ultima-seduta">${L.last}<em>${ultima.valore}</em></div>`
+    ? `<div class="ultima-seduta">${L.last}<em>${ultimaKg ?? ultima.valore}</em></div>`
     : '';
 
   return `
@@ -496,6 +504,7 @@ async function caricaScheda() {
           ultimiLog[p.Esercizio] = {
             valore: p.Valore,
             rm: p.RM_Stimato ? Math.round(Number(p.RM_Stimato)) : null,
+            kg: p.Kg_Usati ? Number(p.Kg_Usati) : null,
           };
         }
       });
@@ -588,9 +597,10 @@ async function caricaScheda() {
           html += `<div class="metodo-titolo">${traduciMetodo(m.nome)} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>`;
           /* Obiettivo fase corrente */
           let obiettivoHtml = '';
-          if (g.Obiettivi_Prehab) {
+          const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
+          if (_obvSrc) {
             try {
-              const obv = JSON.parse(g.Obiettivi_Prehab);
+              const obv = JSON.parse(_obvSrc);
               const fase = g.Fase_Prehab || 'F1';
               const testo = obv[fase] || '';
               if (testo) obiettivoHtml = `<div class="prehab-obiettivo">${testo}</div>`;
@@ -728,15 +738,16 @@ async function salvaLog(inputId, btn) {
       }),
     });
 
-    ultimiLog[esercizio] = { valore, rm };
+    ultimiLog[esercizio] = { valore, rm, kg };
     const row      = input.closest('.log-compact');
     const ultimaEl = row?.querySelector('.ultima-seduta');
+    const dispKg   = `${kg} kg`;
     if (ultimaEl) {
-      ultimaEl.innerHTML = `${L.last}<em>${valore}</em> · RM ~${rm} kg`;
+      ultimaEl.innerHTML = `${L.last}<em>${dispKg}</em>`;
     } else if (row) {
       const div = document.createElement('div');
       div.className = 'ultima-seduta';
-      div.innerHTML = `${L.last}<em>${valore}</em> · RM ~${rm} kg`;
+      div.innerHTML = `${L.last}<em>${dispKg}</em>`;
       row.prepend(div);
     }
 
@@ -799,7 +810,7 @@ async function fineSeduta(nSeduta, btn) {
           kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
         }),
       }));
-      ultimiLog[nome] = { valore, rm };
+      ultimiLog[nome] = { valore, rm, kg };
     } else if (kg > 0) {
       /* ha messo il peso ma non le reps — salva solo il kg */
       salvati.push({ label: nome, detail: `${kg} kg` });
@@ -879,6 +890,9 @@ async function fineSeduta(nSeduta, btn) {
 
     const reportEl = document.getElementById(`report-${nSeduta}`);
     if (reportEl) { reportEl.innerHTML = report; reportEl.style.display = 'block'; }
+
+    btn.closest('.seduta-accordion')?.querySelectorAll('.rating-btn')
+      .forEach(b => b.classList.remove('selected'));
 
     btn.textContent      = L.saved;
     btn.style.background = 'var(--verde)';
