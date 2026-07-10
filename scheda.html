@@ -886,7 +886,7 @@ async function fineSeduta(nSeduta, btn) {
     const reportEl = document.getElementById(`report-${nSeduta}`);
     if (reportEl) { reportEl.innerHTML = report; reportEl.style.display = 'block'; }
 
-    document.querySelectorAll(`#rpe-${id}-${nSeduta} .rating-btn, #fat-${id}-${nSeduta} .rating-btn`)
+    btn.closest('.seduta-accordion')?.querySelectorAll('.rating-btn')
       .forEach(b => b.classList.remove('selected'));
 
     btn.textContent      = L.saved;
