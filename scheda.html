@@ -157,8 +157,12 @@ const DESC_METODO_EN = {
   'Fine seduta':                        'End of session',
   'Esecuzione massima velocità concentrica — mantieni la velocità per tutta la serie.':
     'Maximum concentric speed — maintain velocity throughout the set.',
+  'Esecuzione massima velocità concentrica - mantieni la velocità per tutta la serie.':
+    'Maximum concentric speed — maintain velocity throughout the set.',
   'Sposta il carico alla massima velocità possibile. Se non riesci a terminare la serie, cambia esercizio.':
     'Move the load at maximum speed. If you cannot complete the set, switch exercises.',
+  'Metabolico - tapis roulant, bike o step.':
+    'Conditioning – treadmill, bike or step machine.',
   'Circuito — rispetta l\'ampiezza di movimento su tutti gli esercizi.':
     'Circuit — full range of motion on every exercise.',
   'Ripeti il circuito 4 volte.':
@@ -593,9 +597,10 @@ async function caricaScheda() {
           html += `<div class="metodo-titolo">${traduciMetodo(m.nome)} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>`;
           /* Obiettivo fase corrente */
           let obiettivoHtml = '';
-          if (g.Obiettivi_Prehab) {
+          const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
+          if (_obvSrc) {
             try {
-              const obv = JSON.parse(g.Obiettivi_Prehab);
+              const obv = JSON.parse(_obvSrc);
               const fase = g.Fase_Prehab || 'F1';
               const testo = obv[fase] || '';
               if (testo) obiettivoHtml = `<div class="prehab-obiettivo">${testo}</div>`;
