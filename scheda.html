@@ -255,8 +255,9 @@ function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
   const intensitaPct = parseIntensita(intensita);
   const reps         = parseReps(repsStr);
 
+  const ultimaKg   = ultima?.kg != null ? `${ultima.kg} kg` : null;
   const ultimaHtml = ultima
-    ? `<div class="ultima-seduta">${L.last}<em>${ultima.valore}</em></div>`
+    ? `<div class="ultima-seduta">${L.last}<em>${ultimaKg ?? ultima.valore}</em></div>`
     : '';
 
   return `
@@ -499,6 +500,7 @@ async function caricaScheda() {
           ultimiLog[p.Esercizio] = {
             valore: p.Valore,
             rm: p.RM_Stimato ? Math.round(Number(p.RM_Stimato)) : null,
+            kg: p.Kg_Usati ? Number(p.Kg_Usati) : null,
           };
         }
       });
@@ -731,15 +733,16 @@ async function salvaLog(inputId, btn) {
       }),
     });
 
-    ultimiLog[esercizio] = { valore, rm };
+    ultimiLog[esercizio] = { valore, rm, kg };
     const row      = input.closest('.log-compact');
     const ultimaEl = row?.querySelector('.ultima-seduta');
+    const dispKg   = `${kg} kg`;
     if (ultimaEl) {
-      ultimaEl.innerHTML = `${L.last}<em>${valore}</em> · RM ~${rm} kg`;
+      ultimaEl.innerHTML = `${L.last}<em>${dispKg}</em>`;
     } else if (row) {
       const div = document.createElement('div');
       div.className = 'ultima-seduta';
-      div.innerHTML = `${L.last}<em>${valore}</em> · RM ~${rm} kg`;
+      div.innerHTML = `${L.last}<em>${dispKg}</em>`;
       row.prepend(div);
     }
 
@@ -802,7 +805,7 @@ async function fineSeduta(nSeduta, btn) {
           kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
         }),
       }));
-      ultimiLog[nome] = { valore, rm };
+      ultimiLog[nome] = { valore, rm, kg };
     } else if (kg > 0) {
       /* ha messo il peso ma non le reps — salva solo il kg */
       salvati.push({ label: nome, detail: `${kg} kg` });
@@ -882,6 +885,9 @@ async function fineSeduta(nSeduta, btn) {
 
     const reportEl = document.getElementById(`report-${nSeduta}`);
     if (reportEl) { reportEl.innerHTML = report; reportEl.style.display = 'block'; }
+
+    document.querySelectorAll(`#rpe-${id}-${nSeduta} .rating-btn, #fat-${id}-${nSeduta} .rating-btn`)
+      .forEach(b => b.classList.remove('selected'));
 
     btn.textContent      = L.saved;
     btn.style.background = 'var(--verde)';
