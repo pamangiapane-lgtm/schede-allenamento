@@ -19,6 +19,89 @@
       margin-left: 4px;
     }
     .mass-save-btn:active { opacity: 0.85; }
+  /* ── WELLNESS MODAL ── */
+  #wellness-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  #wellness-overlay.open { display: flex; }
+  .wellness-card {
+    background: var(--bg, #fff);
+    border-radius: 18px;
+    padding: 28px 24px 20px;
+    max-width: 360px;
+    width: 90%;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+  }
+  .wellness-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary, #1a3a6b);
+    margin: 0 0 4px;
+  }
+  .wellness-sub {
+    font-size: 0.8rem;
+    color: var(--text-light, #888);
+    margin: 0 0 20px;
+  }
+  .wellness-q { margin-bottom: 18px; }
+  .wellness-q-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text, #1a1a2e);
+    margin-bottom: 8px;
+  }
+  .wellness-stars {
+    display: flex;
+    gap: 8px;
+  }
+  .wellness-stars button {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--border, #dde1e9);
+    background: var(--surface, #f5f7fa);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-light, #888);
+    cursor: pointer;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .wellness-stars button.sel {
+    background: var(--primary, #1a3a6b);
+    border-color: var(--primary, #1a3a6b);
+    color: #fff;
+  }
+  .wellness-confirm {
+    width: 100%;
+    padding: 13px;
+    border-radius: 12px;
+    border: none;
+    background: var(--primary, #1a3a6b);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+  .wellness-confirm:disabled { opacity: 0.4; cursor: default; }
+  .wellness-skip {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+    background: none;
+    border: none;
+    color: var(--text-light, #aaa);
+    font-size: 0.82rem;
+    cursor: pointer;
+    text-align: center;
+  }
   </style>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1a3a6b">
@@ -666,7 +749,12 @@ function mostraSezione(sezioneId, btn) {
 }
 
 function toggleSeduta(accId) {
-  document.getElementById(accId).classList.toggle('open');
+  const isOpen = document.getElementById(accId).classList.contains('open');
+  if (isOpen) {
+    document.getElementById(accId).classList.remove('open');
+  } else {
+    mostraWellness(accId);
+  }
 }
 
 function calcolaLive(logId) {
@@ -1187,7 +1275,152 @@ caricaScheda();
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js');
 }
+
+// ── WELLNESS ──────────────────────────────────────────────────────────────────
+
+let _wellnessPendingAcc = null;
+
+const WL = {
+  it: {
+    title: 'Come stai oggi?',
+    sub: 'Rispondi prima di iniziare la seduta',
+    q1: '🌙 Com\'hai dormito?',
+    q2: '💢 Dolori o fastidi?',
+    q3: '⚡ Energia oggi?',
+    confirm: 'Inizia seduta',
+    skip: 'Salta'
+  },
+  en: {
+    title: 'How are you feeling today?',
+    sub: 'Answer before starting your session',
+    q1: '🌙 How did you sleep?',
+    q2: '💢 Any pain or discomfort?',
+    q3: '⚡ Energy level today?',
+    confirm: 'Start session',
+    skip: 'Skip'
+  }
+};
+
+function wellnessKey() {
+  const d = new Date();
+  return `wellness_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}_${id}`;
+}
+
+function mostraWellness(accId) {
+  if (localStorage.getItem(wellnessKey())) {
+    // Già risposto oggi → apri seduta direttamente
+    document.getElementById(accId).classList.toggle('open');
+    return;
+  }
+  _wellnessPendingAcc = accId;
+  const wl = (L === EN) ? WL.en : WL.it;
+  const overlay = document.getElementById('wellness-overlay');
+  overlay.querySelector('.wellness-title').textContent = wl.title;
+  overlay.querySelector('.wellness-sub').textContent   = wl.sub;
+  const labels = overlay.querySelectorAll('.wellness-q-label');
+  labels[0].textContent = wl.q1;
+  labels[1].textContent = wl.q2;
+  labels[2].textContent = wl.q3;
+  overlay.querySelector('.wellness-confirm').textContent = wl.confirm;
+  overlay.querySelector('.wellness-skip').textContent    = wl.skip;
+  // Reset selezioni
+  overlay.querySelectorAll('.wellness-stars button').forEach(b => b.classList.remove('sel'));
+  overlay.querySelector('.wellness-confirm').disabled = true;
+  overlay.classList.add('open');
+}
+
+function wellnessSeleziona(btn, gruppo) {
+  document.querySelectorAll(`.wellness-stars[data-gruppo="${gruppo}"] button`)
+    .forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  // Abilita conferma se tutte e 3 selezionate
+  const ok = [1,2,3].every(g =>
+    document.querySelector(`.wellness-stars[data-gruppo="${g}"] button.sel`)
+  );
+  document.querySelector('.wellness-confirm').disabled = !ok;
+}
+
+function confermaWellness() {
+  const val = g => parseInt(
+    document.querySelector(`.wellness-stars[data-gruppo="${g}"] button.sel`)?.dataset.val || '0'
+  );
+  const sonno  = val(1);
+  const dolori = val(2);
+  const energia = val(3);
+
+  // Salva localmente per non chiedere più oggi
+  localStorage.setItem(wellnessKey(), '1');
+  document.getElementById('wellness-overlay').classList.remove('open');
+
+  // Apri la seduta
+  if (_wellnessPendingAcc) {
+    document.getElementById(_wellnessPendingAcc).classList.toggle('open');
+    _wellnessPendingAcc = null;
+  }
+
+  // Invia in background (fire-and-forget)
+  const oggi = new Date();
+  const dataStr = `${oggi.getFullYear()}-${String(oggi.getMonth()+1).padStart(2,'0')}-${String(oggi.getDate()).padStart(2,'0')}`;
+  fetch(API, {
+    method: 'POST',
+    body: JSON.stringify({
+      token: TOKEN, azione: 'log_wellness',
+      id_giocatrice: id, data: dataStr,
+      qualita_sonno: sonno, dolori: dolori, energia: energia
+    })
+  }).catch(() => {}); // silenzioso — non blocca l'atleta
+}
+
+function saltaWellness() {
+  localStorage.setItem(wellnessKey(), '1');
+  document.getElementById('wellness-overlay').classList.remove('open');
+  if (_wellnessPendingAcc) {
+    document.getElementById(_wellnessPendingAcc).classList.toggle('open');
+    _wellnessPendingAcc = null;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 </script>
+
+<div id="wellness-overlay">
+  <div class="wellness-card">
+    <p class="wellness-title"></p>
+    <p class="wellness-sub"></p>
+    <div class="wellness-q">
+      <div class="wellness-q-label"></div>
+      <div class="wellness-stars" data-gruppo="1">
+        <button data-val="1" onclick="wellnessSeleziona(this,1)">1</button>
+        <button data-val="2" onclick="wellnessSeleziona(this,1)">2</button>
+        <button data-val="3" onclick="wellnessSeleziona(this,1)">3</button>
+        <button data-val="4" onclick="wellnessSeleziona(this,1)">4</button>
+        <button data-val="5" onclick="wellnessSeleziona(this,1)">5</button>
+      </div>
+    </div>
+    <div class="wellness-q">
+      <div class="wellness-q-label"></div>
+      <div class="wellness-stars" data-gruppo="2">
+        <button data-val="1" onclick="wellnessSeleziona(this,2)">1</button>
+        <button data-val="2" onclick="wellnessSeleziona(this,2)">2</button>
+        <button data-val="3" onclick="wellnessSeleziona(this,2)">3</button>
+        <button data-val="4" onclick="wellnessSeleziona(this,2)">4</button>
+        <button data-val="5" onclick="wellnessSeleziona(this,2)">5</button>
+      </div>
+    </div>
+    <div class="wellness-q">
+      <div class="wellness-q-label"></div>
+      <div class="wellness-stars" data-gruppo="3">
+        <button data-val="1" onclick="wellnessSeleziona(this,3)">1</button>
+        <button data-val="2" onclick="wellnessSeleziona(this,3)">2</button>
+        <button data-val="3" onclick="wellnessSeleziona(this,3)">3</button>
+        <button data-val="4" onclick="wellnessSeleziona(this,3)">4</button>
+        <button data-val="5" onclick="wellnessSeleziona(this,3)">5</button>
+      </div>
+    </div>
+    <button class="wellness-confirm" onclick="confermaWellness()" disabled></button>
+    <button class="wellness-skip" onclick="saltaWellness()"></button>
+  </div>
+</div>
 
 </body>
 </html>
