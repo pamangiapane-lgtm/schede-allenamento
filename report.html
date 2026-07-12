@@ -351,9 +351,10 @@ function renderCompliance() {
   startOfLastWeek.setDate(startOfWeek.getDate() - 7);
 
   const rows = allGiocatrici.map(g => {
-    const logs = allProgressi.filter(p =>
-      String(p.ID_Giocatrice) === String(g.ID) && !SKIP.has(p.Esercizio) && p.Valore
+    const allLogs = allProgressi.filter(p =>
+      String(p.ID_Giocatrice) === String(g.ID) && p.Valore
     );
+    const logs = allLogs.filter(p => !SKIP.has(p.Esercizio));
 
     let lastTs = null;
     logs.forEach(p => {
@@ -381,8 +382,8 @@ function renderCompliance() {
       }).map(p => p.N_Seduta)
     ).size;
 
-    // RPE medio settimana corrente
-    const rpeWeek = logs.filter(p =>
+    // RPE medio settimana corrente (usa allLogs per includere RPE-seduta che è in SKIP)
+    const rpeWeek = allLogs.filter(p =>
       p.Esercizio === 'RPE-seduta' && p.Valore &&
       (() => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; return ts && ts >= startOfWeek; })()
     ).map(p => Number(p.Valore)).filter(v => !isNaN(v));
