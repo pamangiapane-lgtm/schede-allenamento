@@ -139,6 +139,80 @@
     }
     .feedback-val { font-weight: 700; }
 
+    /* ── COMPLIANCE SECTION ── */
+    .compliance-wrap {
+      background: var(--surface, #f5f7fa);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .compliance-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 16px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .compliance-hdr h3 {
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-light, #555);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cmp-urgenti {
+      background: #fee2e2;
+      color: #c33;
+      border-radius: 4px;
+      padding: 1px 8px;
+      font-size: 0.73rem;
+      font-weight: 700;
+    }
+    .compliance-toggle { font-size: 0.78rem; color: var(--text-light, #888); }
+    .compliance-body { padding: 0 16px 12px; }
+    .cmp-head-row {
+      display: flex;
+      gap: 8px;
+      padding: 0 0 6px;
+      font-size: 0.72rem;
+      color: var(--text-light, #888);
+      border-bottom: 1px solid var(--border, #dde1e9);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .cmp-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border, #dde1e9);
+      font-size: 0.83rem;
+    }
+    .cmp-row:last-child { border: none; }
+    .cmp-dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .cmp-ok   .cmp-dot { background: #2a9d3a; }
+    .cmp-warn .cmp-dot { background: #e6a817; }
+    .cmp-red  .cmp-dot { background: #c33; }
+    .cmp-mai  .cmp-dot { background: #bbb; }
+    .cmp-name { flex: 1; font-weight: 600; color: var(--text, #1a1a2e); }
+    .cmp-days { width: 75px; text-align: right; color: var(--text-light, #888); font-size: 0.8rem; }
+    .cmp-days.rd { color: #c33; font-weight: 700; }
+    .cmp-days.wn { color: #e6a817; font-weight: 700; }
+    .cmp-sed  { width: 65px; text-align: right; font-size: 0.78rem; color: var(--text-light, #888); }
+    .cmp-rpe  { width: 58px; text-align: right; font-size: 0.78rem; color: var(--text-light, #888); }
+    .cmp-rpe.hi  { color: #c33; font-weight: 700; }
+    .cmp-rpe.med { color: #e6a817; font-weight: 600; }
+
     @media print {
       header, .report-controls, .back-link, .install-banner { display: none !important; }
       .summary-bar { margin-bottom: 12px; }
@@ -183,6 +257,7 @@
     </div>
 
     <div id="summary-bar" class="summary-bar"></div>
+    <div id="compliance-section"></div>
     <div id="report-content"></div>
   </div>
 </div>
@@ -263,9 +338,124 @@ function formatData(raw) {
   return `${d.getDate()}/${d.getMonth() + 1}`;
 }
 
+function renderCompliance() {
+  const wrap = document.getElementById('compliance-section');
+  const selId = document.getElementById('sel-giocatrice').value;
+  if (selId !== 'all') { wrap.innerHTML = ''; return; }
+
+  const now = new Date();
+  const dayOfWeek = now.getDay(); // 0=dom, 1=lun...
+  const startOfWeek = new Date(now);
+  startOfWeek.setDate(now.getDate() - ((dayOfWeek === 0 ? 7 : dayOfWeek) - 1));
+  startOfWeek.setHours(0, 0, 0, 0);
+  const startOfLastWeek = new Date(startOfWeek);
+  startOfLastWeek.setDate(startOfWeek.getDate() - 7);
+
+  const rows = allGiocatrici.map(g => {
+    const logs = allProgressi.filter(p =>
+      String(p.ID_Giocatrice) === String(g.ID) && !SKIP.has(p.Esercizio) && p.Valore
+    );
+
+    let lastTs = null;
+    logs.forEach(p => {
+      const ts = p.Timestamp ? new Date(p.Timestamp) : null;
+      if (ts && (!lastTs || ts > lastTs)) lastTs = ts;
+    });
+
+    const daysSince = lastTs
+      ? Math.floor((now - lastTs) / 86400000)
+      : null;
+
+    // Sedute settimana corrente (lunedì → oggi)
+    const sedWeek = new Set(
+      logs.filter(p => {
+        const ts = p.Timestamp ? new Date(p.Timestamp) : null;
+        return ts && ts >= startOfWeek;
+      }).map(p => p.N_Seduta)
+    ).size;
+
+    // Sedute settimana scorsa
+    const sedLastWeek = new Set(
+      logs.filter(p => {
+        const ts = p.Timestamp ? new Date(p.Timestamp) : null;
+        return ts && ts >= startOfLastWeek && ts < startOfWeek;
+      }).map(p => p.N_Seduta)
+    ).size;
+
+    // RPE medio settimana corrente
+    const rpeWeek = logs.filter(p =>
+      p.Esercizio === 'RPE-seduta' && p.Valore &&
+      (() => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; return ts && ts >= startOfWeek; })()
+    ).map(p => Number(p.Valore)).filter(v => !isNaN(v));
+    const rpeMedia = rpeWeek.length
+      ? (rpeWeek.reduce((a, b) => a + b, 0) / rpeWeek.length).toFixed(1)
+      : null;
+
+    let status;
+    if (daysSince === null)    status = 'mai';
+    else if (daysSince > 7)    status = 'red';
+    else if (daysSince > 3)    status = 'warn';
+    else                       status = 'ok';
+
+    let lastLabel;
+    if (daysSince === null)    lastLabel = 'mai';
+    else if (daysSince === 0)  lastLabel = 'oggi';
+    else if (daysSince === 1)  lastLabel = 'ieri';
+    else                       lastLabel = `${daysSince}gg fa`;
+
+    return { g, status, lastLabel, daysSince, sedWeek, sedLastWeek, rpeMedia };
+  });
+
+  const order = { mai: 0, red: 1, warn: 2, ok: 3 };
+  rows.sort((a, b) => order[a.status] - order[b.status]);
+
+  const urgenti = rows.filter(r => r.status === 'mai' || r.status === 'red').length;
+  const open = urgenti > 0;
+
+  const urgBadge = urgenti > 0
+    ? `<span class="cmp-urgenti">${urgenti} urgenti</span>`
+    : `<span style="color:#2a9d3a;font-size:0.75rem;font-weight:700">✓ tutte nei tempi</span>`;
+
+  let rowsHtml = rows.map(r => {
+    const dc = r.status === 'red' ? 'rd' : r.status === 'warn' ? 'wn' : '';
+    const sedDiff = r.sedWeek - r.sedLastWeek;
+    const sedArrow = sedDiff > 0 ? ` <span style="color:#2a9d3a">↑</span>`
+                   : sedDiff < 0 ? ` <span style="color:#c33">↓</span>` : '';
+    const rpeClass = r.rpeMedia >= 8 ? 'hi' : r.rpeMedia >= 6 ? 'med' : '';
+    return `
+      <div class="cmp-row cmp-${r.status}">
+        <span class="cmp-dot"></span>
+        <span class="cmp-name">${r.g.Nome}</span>
+        <span class="cmp-days ${dc}">${r.lastLabel}</span>
+        <span class="cmp-sed">${r.sedWeek}${sedArrow}</span>
+        <span class="cmp-rpe ${rpeClass}">${r.rpeMedia !== null ? r.rpeMedia : '—'}</span>
+      </div>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="compliance-wrap">
+      <div class="compliance-hdr" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.compliance-toggle').textContent=this.nextElementSibling.style.display==='none'?'▼ espandi':'▲ chiudi'">
+        <h3>📋 Compliance settimanale ${urgBadge}</h3>
+        <span class="compliance-toggle">${open ? '▲ chiudi' : '▼ espandi'}</span>
+      </div>
+      <div class="compliance-body" style="display:${open ? 'block' : 'none'}">
+        <div class="cmp-head-row">
+          <span style="width:9px;flex-shrink:0"></span>
+          <span style="flex:1">Atleta</span>
+          <span style="width:75px;text-align:right">Ultimo log</span>
+          <span style="width:65px;text-align:right">Sed. (sett.)</span>
+          <span style="width:58px;text-align:right">RPE medio</span>
+        </div>
+        ${rowsHtml}
+      </div>
+    </div>`;
+}
+
 function renderReport() {
   chartInstances.forEach(c => c.destroy());
   chartInstances = [];
+
+  renderCompliance();
 
   const selId = document.getElementById('sel-giocatrice').value;
   const giocatrici = selId === 'all'
