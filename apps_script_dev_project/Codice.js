@@ -343,11 +343,11 @@ function leggiRighe_(sheet) {
   });
 }
 
-// ── REPORT SETTIMANALE STAFF ──────────────────────────────────────────────────
+// ── REPORT SETTIMANALE STAFF (Google Slides) ─────────────────────────────────
 
 const FOLDER_STAFF_ID = '1H8NcBNeUi1Jr7b-fx3blaPB8vRKfTrT2';
 
-function creaReportSettimanale() {
+function creaSlideSettimanale() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheetG = ss.getSheetByName('Giocatrici');
   const sheetP = ss.getSheetByName('Progressi');
@@ -373,6 +373,9 @@ function creaReportSettimanale() {
   const avg     = arr => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1) : null;
   const SKIP_SET = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
 
+  const avgN = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
+  const f1   = n   => n !== null ? n.toFixed(1) : '—';
+
   const atletaData = giocatrici.map(g => {
     const pAll   = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
     const pEserc = pAll.filter(p => !SKIP_SET.has(p.Esercizio));
@@ -384,7 +387,8 @@ function creaReportSettimanale() {
     const rpeVals = pAll
       .filter(p => p.Esercizio === 'RPE-seduta' && p.Timestamp && inRange(p.Timestamp))
       .map(p => Number(p.Valore)).filter(v => !isNaN(v));
-    const rpeMedia = avg(rpeVals);
+    const rpeMedia = avgN(rpeVals);
+    const volPercepito = rpeMedia !== null ? rpeMedia * sedSett : null;
 
     let ultimoTs = null;
     pEserc.forEach(p => {
@@ -393,121 +397,197 @@ function creaReportSettimanale() {
     });
     const giorniSilenzio = ultimoTs ? Math.floor((ora - ultimoTs) / 86400000) : null;
 
-    const wSett   = wellness.filter(w => String(w.ID_Giocatrice) === String(g.ID) && w.Timestamp && inRange(w.Timestamp));
-    const sonno   = avg(wSett.map(w => Number(w.Qualita_Sonno)).filter(v => !isNaN(v) && v));
-    const dolori  = avg(wSett.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v));
-    const energia = avg(wSett.map(w => Number(w.Energia)).filter(v => !isNaN(v) && v));
-    const note    = wSett.filter(w => w.Note).map(w => String(w.Note).trim()).filter(Boolean);
+    const wSett    = wellness.filter(w => String(w.ID_Giocatrice) === String(g.ID) && w.Timestamp && inRange(w.Timestamp));
+    const sonno    = avgN(wSett.map(w => Number(w.Qualita_Sonno)).filter(v => !isNaN(v) && v));
+    const dolori   = avgN(wSett.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v));
+    const energia  = avgN(wSett.map(w => Number(w.Energia)).filter(v => !isNaN(v) && v));
+    const note     = wSett.filter(w => w.Note).map(w => String(w.Note).trim()).filter(Boolean);
     const anomalia = wSett.some(w => Number(w.Qualita_Sonno) <= 2 || Number(w.Dolori) >= 4 || Number(w.Energia) <= 2);
 
+    let statoCat;
+    if (giorniSilenzio === null) statoCat = 'mai';
+    else if (giorniSilenzio > 7) statoCat = 'rosso';
+    else if (giorniSilenzio > 3) statoCat = 'giallo';
+    else                          statoCat = 'verde';
+
     let ultimoLabel;
-    if (giorniSilenzio === null)     ultimoLabel = 'mai';
-    else if (giorniSilenzio === 0)   ultimoLabel = 'oggi';
-    else if (giorniSilenzio === 1)   ultimoLabel = 'ieri';
-    else                             ultimoLabel = giorniSilenzio + 'gg fa';
+    if (giorniSilenzio === null)   ultimoLabel = 'mai';
+    else if (giorniSilenzio === 0) ultimoLabel = 'oggi';
+    else if (giorniSilenzio === 1) ultimoLabel = 'ieri';
+    else                           ultimoLabel = giorniSilenzio + 'gg fa';
 
-    let stato;
-    if (giorniSilenzio === null)     stato = '⚫ Mai';
-    else if (giorniSilenzio > 7)     stato = '🔴 >7gg';
-    else if (giorniSilenzio > 3)     stato = '🟡 >3gg';
-    else                             stato = '🟢 OK';
-
-    return { nome: g.Nome, sedSett, rpeMedia, giorniSilenzio, ultimoLabel, stato, sonno, dolori, energia, note, anomalia };
+    return { nome: g.Nome, statoCat, sedSett, rpeMedia, volPercepito,
+             giorniSilenzio, ultimoLabel, sonno, dolori, energia, note, anomalia };
   });
 
-  // ── Crea il Google Doc ─────────────────────────────────────────────────────
-  const titolo = 'Report Settimanale — ' + fmt(luneScorso) + '→' + fmt(domScorso) + ' ' + domScorso.getFullYear();
-  const doc  = DocumentApp.create(titolo);
-  const body = doc.getBody();
-  body.setMarginTop(36).setMarginBottom(36).setMarginLeft(54).setMarginRight(54);
+  // ── Medie squadra ──────────────────────────────────────────────────────────
+  const tot       = atletaData.length;
+  const allenate  = atletaData.filter(d => d.statoCat !== 'mai').length;
+  const compPct   = Math.round((allenate / tot) * 100);
+  const urgenti   = atletaData.filter(d => d.statoCat === 'mai' || d.statoCat === 'rosso').length;
+  const allRpe    = atletaData.filter(d => d.rpeMedia !== null).map(d => d.rpeMedia);
+  const rpeSquadra  = f1(avgN(allRpe));
+  const sonnoSq   = f1(avgN(atletaData.filter(d => d.sonno   !== null).map(d => d.sonno)));
+  const doloriSq  = f1(avgN(atletaData.filter(d => d.dolori  !== null).map(d => d.dolori)));
+  const energiaSq = f1(avgN(atletaData.filter(d => d.energia !== null).map(d => d.energia)));
 
-  // Intestazione
-  body.appendParagraph('Marsala Volley — Report Settimanale')
-    .setHeading(DocumentApp.ParagraphHeading.HEADING1);
-  body.appendParagraph('Settimana: ' + fmt(luneScorso) + ' – ' + fmt(domScorso) + ' ' + domScorso.getFullYear())
-    .setHeading(DocumentApp.ParagraphHeading.HEADING2);
-  body.appendParagraph('Generato automaticamente il: ' + ora.toLocaleDateString('it-IT') + ' ore ' + ora.getHours() + ':00');
-  body.appendParagraph('');
+  const ordCat = { mai: 0, rosso: 1, giallo: 2, verde: 3 };
+  const sorted = [...atletaData].sort((a, b) => ordCat[a.statoCat] - ordCat[b.statoCat]);
 
-  // ── Sezione 1: Compliance ──────────────────────────────────────────────────
-  body.appendParagraph('1. Compliance Allenamenti').setHeading(DocumentApp.ParagraphHeading.HEADING2);
-  const sorted = [...atletaData].sort((a, b) => {
-    const ord = { '⚫ Mai': 0, '🔴 >7gg': 1, '🟡 >3gg': 2, '🟢 OK': 3 };
-    return (ord[a.stato] || 0) - (ord[b.stato] || 0);
-  });
+  // ── Crea Google Slides ─────────────────────────────────────────────────────
+  const BLU = '#1a3a6b';
+  const titolo = 'Report Staff — ' + fmt(luneScorso) + '->' + fmt(domScorso) + ' ' + domScorso.getFullYear();
+  const pres = SlidesApp.create(titolo);
 
-  const tComp = body.appendTable();
-  const hComp = tComp.appendTableRow();
-  ['Atleta', 'Sedute (sett.)', 'RPE medio', 'Ultimo log', 'Stato'].forEach(h => {
-    hComp.appendTableCell(h).editAsText().setBold(true);
-  });
-  sorted.forEach(d => {
-    const row = tComp.appendTableRow();
-    row.appendTableCell(d.nome);
-    row.appendTableCell(String(d.sedSett));
-    row.appendTableCell(d.rpeMedia !== null ? d.rpeMedia + ' / 10' : '—');
-    row.appendTableCell(d.ultimoLabel);
-    row.appendTableCell(d.stato);
-  });
-  body.appendParagraph('');
-
-  // ── Sezione 2: Wellness ────────────────────────────────────────────────────
-  const wPresenti = atletaData.filter(d => d.sonno !== null || d.dolori !== null || d.energia !== null);
-  body.appendParagraph('2. Wellness Squadra').setHeading(DocumentApp.ParagraphHeading.HEADING2);
-  if (wPresenti.length) {
-    body.appendParagraph('Media settimanale (scala 1–5). Dolori: 1=nessuno, 5=insopportabile. ⚠️ = almeno un valore anomalo.');
-    const tW = body.appendTable();
-    const hW = tW.appendTableRow();
-    ['Atleta', 'Sonno', 'Dolori', 'Energia', 'Anomalia'].forEach(h => {
-      hW.appendTableCell(h).editAsText().setBold(true);
-    });
-    wPresenti.forEach(d => {
-      const row = tW.appendTableRow();
-      row.appendTableCell(d.nome);
-      row.appendTableCell(d.sonno   !== null ? String(d.sonno)   : '—');
-      row.appendTableCell(d.dolori  !== null ? String(d.dolori)  : '—');
-      row.appendTableCell(d.energia !== null ? String(d.energia) : '—');
-      row.appendTableCell(d.anomalia ? '⚠️ sì' : '✓');
-    });
-  } else {
-    body.appendParagraph('Nessun dato wellness registrato questa settimana.');
-  }
-  body.appendParagraph('');
-
-  // ── Sezione 3: Note giocatrici ─────────────────────────────────────────────
-  const notePresenti = atletaData.filter(d => d.note.length > 0);
-  body.appendParagraph('3. Note Giocatrici').setHeading(DocumentApp.ParagraphHeading.HEADING2);
-  if (notePresenti.length) {
-    notePresenti.forEach(d => {
-      body.appendParagraph(d.nome + ':').editAsText().setBold(true);
-      d.note.forEach(n => body.appendListItem(n));
-    });
-  } else {
-    body.appendParagraph('Nessuna nota registrata questa settimana.');
+  function txt_(slide, content, x, y, w, h, sz, bold, hex) {
+    const box = slide.insertTextBox(String(content), x, y, w, h);
+    box.getFill().setTransparent();
+    const style = box.getText().getTextStyle();
+    if (sz)   style.setFontSize(sz);
+    if (bold) style.setBold(true);
+    if (hex)  style.setForegroundColor(hex);
+    return box;
   }
 
-  doc.saveAndClose();
+  function rect_(slide, x, y, w, h, fillHex, borderHex) {
+    const s = slide.insertShape(SlidesApp.ShapeType.ROUNDED_RECTANGLE, x, y, w, h);
+    s.getFill().setSolidFill(fillHex);
+    if (borderHex) s.getBorder().getLineFill().setSolidFill(borderHex);
+    else s.getBorder().getLineFill().setTransparent();
+    return s;
+  }
 
-  // Sposta nel folder staff (rimuovi da My Drive)
-  const docFile = DriveApp.getFileById(doc.getId());
-  DriveApp.getFolderById(FOLDER_STAFF_ID).addFile(docFile);
-  DriveApp.getRootFolder().removeFile(docFile);
+  // ── Slide 1: Panoramica squadra ────────────────────────────────────────────
+  const s1 = pres.getSlides()[0];
+  s1.getBackground().setSolidFill(BLU);
+  s1.getPlaceholders().forEach(p => p.remove());
 
-  // Email al coach con link diretto
-  const urgenti  = atletaData.filter(d => d.giorniSilenzio === null || d.giorniSilenzio > 7).length;
-  const anomalie = atletaData.filter(d => d.anomalia).length;
-  const oggetto  = 'Report settimanale Marsala Volley — ' + fmt(luneScorso) + '→' + fmt(domScorso);
+  txt_(s1, 'Marsala Volley', 28, 20, 500, 38, 26, true, '#FFFFFF');
+  txt_(s1, 'Report Staff — Settimana ' + fmt(luneScorso) + '-' + fmt(domScorso) + ' ' + domScorso.getFullYear(), 28, 55, 500, 24, 12, false, '#8899BB');
+
+  // KPI cards
+  const kpis = [
+    { val: allenate + '/' + tot, sub: 'hanno allenato', bg: allenate >= tot * 0.8 ? '#d4edda' : '#f8d7da' },
+    { val: compPct + '%',        sub: 'compliance',     bg: compPct >= 80 ? '#d4edda' : '#fff3cd' },
+    { val: rpeSquadra,           sub: 'RPE medio sett', bg: '#fff8e1' },
+    { val: String(urgenti),      sub: urgenti > 0 ? 'atlete urgenti' : 'tutte ok', bg: urgenti > 0 ? '#f8d7da' : '#d4edda' },
+  ];
+  kpis.forEach((k, i) => {
+    const x = 28 + i * 162;
+    const card = rect_(s1, x, 100, 154, 82, k.bg, null);
+    txt_(s1, k.val, x + 8, 108, 140, 40, k.val.length > 5 ? 20 : 26, true, BLU);
+    txt_(s1, k.sub, x + 8, 150, 140, 18, 10, false, '#555555');
+  });
+
+  // Wellness media squadra
+  txt_(s1, 'WELLNESS MEDIA SQUADRA', 28, 200, 320, 18, 9, true, '#6688AA');
+  [['Sonno', sonnoSq], ['Dolori', doloriSq], ['Energia', energiaSq]].forEach(([lbl, val], i) => {
+    const x = 28 + i * 112;
+    txt_(s1, val, x, 220, 100, 34, 22, true, '#FFFFFF');
+    txt_(s1, lbl, x, 253, 100, 16, 10, false, '#6688AA');
+  });
+
+  // Dot grid atleti
+  txt_(s1, 'STATO ATLETI', 418, 98, 280, 18, 9, true, '#6688AA');
+  const dotColor = { verde: '#2a9d3a', giallo: '#e6a817', rosso: '#cc3333', mai: '#888888' };
+  sorted.forEach((d, i) => {
+    const col = i % 4, row = Math.floor(i / 4);
+    const x = 418 + col * 75, y = 118 + row * 34;
+    const dot = s1.insertShape(SlidesApp.ShapeType.ELLIPSE, x, y, 14, 14);
+    dot.getFill().setSolidFill(dotColor[d.statoCat]);
+    dot.getBorder().getLineFill().setTransparent();
+    txt_(s1, d.nome.split(' ')[0], x + 18, y - 1, 54, 17, 9, false, '#FFFFFF');
+  });
+
+  // ── Slide 2: Dati individuali ──────────────────────────────────────────────
+  const s2 = pres.appendSlide();
+  s2.getPlaceholders().forEach(p => p.remove());
+  s2.getBackground().setSolidFill('#FFFFFF');
+
+  txt_(s2, 'Compliance · Carico · Wellness — individuale', 20, 14, 680, 32, 17, true, BLU);
+  txt_(s2, 'Settimana ' + fmt(luneScorso) + '-' + fmt(domScorso) + '  |  Volume percepito = RPE x sedute', 20, 43, 680, 18, 9, false, '#888888');
+
+  const hY = 62;
+  const hBar = s2.insertShape(SlidesApp.ShapeType.RECTANGLE, 18, hY, 690, 19);
+  hBar.getFill().setSolidFill(BLU);
+  hBar.getBorder().getLineFill().setTransparent();
+
+  const cols = [
+    { l:'Atleta',   x:20,  w:92 }, { l:'Stato',   x:115, w:58 },
+    { l:'Sed.',     x:176, w:34 }, { l:'RPE',      x:213, w:38 },
+    { l:'Vol.',     x:254, w:38 }, { l:'Sonno',    x:295, w:50 },
+    { l:'Dolori',   x:348, w:50 }, { l:'Energia',  x:401, w:52 },
+    { l:'Note wellness', x:456, w:250 },
+  ];
+  cols.forEach(c => txt_(s2, c.l, c.x, hY + 3, c.w, 14, 8, true, '#FFFFFF'));
+
+  const rowBg  = { verde: '#f0faf2', giallo: '#fffbea', rosso: '#fff0f0', mai: '#f7f7f7' };
+  const statoL = { verde: 'ok', giallo: '> 3gg', rosso: '> 7gg', mai: 'mai' };
+
+  sorted.forEach((d, i) => {
+    const rY = hY + 19 + i * 18;
+    if (rY + 18 > 400) return;
+    const bg = s2.insertShape(SlidesApp.ShapeType.RECTANGLE, 18, rY, 690, 17);
+    bg.getFill().setSolidFill(i % 2 === 0 ? rowBg[d.statoCat] : '#FAFAFA');
+    bg.getBorder().getLineFill().setTransparent();
+
+    const cells = [
+      { v: d.nome.split(' ')[0],     x:20,  w:92  },
+      { v: statoL[d.statoCat],       x:115, w:58  },
+      { v: String(d.sedSett),        x:176, w:34  },
+      { v: f1(d.rpeMedia),           x:213, w:38  },
+      { v: f1(d.volPercepito),       x:254, w:38  },
+      { v: f1(d.sonno),              x:295, w:50  },
+      { v: f1(d.dolori),             x:348, w:50  },
+      { v: f1(d.energia),            x:401, w:52  },
+      { v: d.note.length ? d.note[0].substring(0, 40) : '', x:456, w:250 },
+    ];
+    cells.forEach(c => txt_(s2, c.v, c.x, rY + 3, c.w, 13, 9, false, '#333333'));
+  });
+
+  // ── Slide 3: Note del coach ────────────────────────────────────────────────
+  const s3 = pres.appendSlide();
+  s3.getPlaceholders().forEach(p => p.remove());
+  s3.getBackground().setSolidFill('#FFFFFF');
+
+  txt_(s3, 'Note del coach', 40, 26, 640, 40, 24, true, BLU);
+  txt_(s3, 'Completa questa slide prima di condividere con lo staff — poi cancella questo testo', 40, 66, 640, 22, 11, false, '#888888');
+
+  const noteCard = rect_(s3, 40, 98, 640, 272, '#F8F9FA', '#DDDDDD');
+  const noteTxt = noteCard.getText();
+  noteTxt.setText(
+    'Note generali squadra\n\n\n\n' +
+    'Atlete da monitorare\n\n\n\n' +
+    'Obiettivi settimana prossima\n\n'
+  );
+  noteTxt.getTextStyle().setFontSize(13).setForegroundColor('#AAAAAA');
+  [0, 4, 8].forEach(idx => {
+    const paras = noteTxt.getParagraphs();
+    if (paras[idx]) {
+      paras[idx].getRange().getTextStyle()
+        .setBold(true).setForegroundColor('#555555').setFontSize(14);
+    }
+  });
+
+  // Sposta nel folder staff
+  pres.saveAndClose();
+  const presFile = DriveApp.getFileById(pres.getId());
+  DriveApp.getFolderById(FOLDER_STAFF_ID).addFile(presFile);
+  DriveApp.getRootFolder().removeFile(presFile);
+
+  // Email coach con link
+  const oggetto = 'Report Staff Marsala Volley — ' + fmt(luneScorso) + '->' + fmt(domScorso);
   const emailHtml = `
 <div style="font-family:Arial,sans-serif;max-width:560px">
   <div style="background:#1a3a6b;color:#fff;padding:14px 20px;border-radius:8px 8px 0 0">
-    <h2 style="margin:0;font-size:1rem">📊 Report Settimanale Marsala Volley</h2>
+    <h2 style="margin:0;font-size:1rem">📊 Report Staff — Marsala Volley</h2>
     <p style="margin:4px 0 0;font-size:0.82rem;opacity:0.8">Settimana ${fmt(luneScorso)} – ${fmt(domScorso)} ${domScorso.getFullYear()}</p>
   </div>
   <div style="border:1px solid #ddd;border-top:none;padding:16px 20px;border-radius:0 0 8px 8px">
-    ${urgenti  ? `<p style="color:#c33">⚠️ ${urgenti} atlete non si allenano da &gt;7gg</p>` : '<p style="color:#2a9d3a">✓ Compliance OK</p>'}
-    ${anomalie ? `<p style="color:#e6a817">⚠️ ${anomalie} atlete con anomalie wellness</p>` : '<p style="color:#2a9d3a">✓ Nessuna anomalia wellness</p>'}
-    <p><a href="${doc.getUrl()}" style="color:#1a3a6b;font-weight:bold">→ Apri il report completo (Google Doc)</a></p>
-    <p style="font-size:0.8rem;color:#888">Generato automaticamente ogni lunedì alle 8:00</p>
+    <p><strong>${allenate}/${tot}</strong> atlete (${compPct}%) · RPE medio: <strong>${rpeSquadra}</strong></p>
+    ${urgenti ? `<p style="color:#c33">⚠️ ${urgenti} atlete urgenti</p>` : '<p style="color:#2a9d3a">✓ Compliance OK</p>'}
+    <p><a href="${pres.getUrl()}" style="color:#1a3a6b;font-weight:bold">→ Apri le slides, aggiungi le note e condividi con lo staff</a></p>
+    <p style="font-size:0.8rem;color:#888">Generato ogni lunedi alle 8:00</p>
   </div>
 </div>`;
   MailApp.sendEmail({ to: EMAIL_COACH, subject: oggetto, htmlBody: emailHtml });
@@ -516,10 +596,10 @@ function creaReportSettimanale() {
 // Esegui UNA VOLTA per installare il trigger del report settimanale
 function installaReportTrigger() {
   ScriptApp.getProjectTriggers()
-    .filter(t => t.getHandlerFunction() === 'creaReportSettimanale')
+    .filter(t => t.getHandlerFunction() === 'creaSlideSettimanale')
     .forEach(t => ScriptApp.deleteTrigger(t));
 
-  ScriptApp.newTrigger('creaReportSettimanale')
+  ScriptApp.newTrigger('creaSlideSettimanale')
     .timeBased()
     .onWeekDay(ScriptApp.WeekDay.MONDAY)
     .atHour(8)
