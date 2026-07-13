@@ -7,6 +7,7 @@ function doGet(e) {
   if (token !== TOKEN) return errore('Token non valido');
   try {
     if (azione === 'leggi') return leggi(foglio);
+    if (azione === 'leggi_note') return leggiNote(e.parameter.id, e.parameter.n_seduta);
     return errore('Azione GET non valida: ' + azione);
   } catch (ex) { return errore(ex.toString()); }
 }
@@ -135,6 +136,49 @@ function logWellness(body) {
   sheet.appendRow(riga);
   SpreadsheetApp.flush();
   return risposta({ ok: true, logged: 1 });
+}
+
+function leggiNote(idGiocatrice, nSeduta) {
+  if (!idGiocatrice) return errore('id mancante');
+  const ss    = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName('Note_Coach');
+  if (!sheet) return risposta({ ok: true, note: [] });
+
+  const rows  = leggiRighe_(sheet);
+  const oggi  = new Date(); oggi.setHours(0, 0, 0, 0);
+
+  const attive = rows.filter(r => {
+    if (String(r.ID_Giocatrice) !== String(idGiocatrice)) return false;
+    const inizio = r.Data_Inizio ? new Date(r.Data_Inizio) : null;
+    const fine   = r.Data_Fine   ? new Date(r.Data_Fine)   : null;
+    if (inizio) inizio.setHours(0, 0, 0, 0);
+    if (fine)   fine.setHours(23, 59, 59, 999);
+    if (inizio && oggi < inizio) return false;
+    if (fine   && oggi > fine)   return false;
+    return true;
+  }).map(r => ({
+    tipo:      r.Tipo || 'generale',
+    n_seduta:  r.N_Seduta || '',
+    testo:     r.Testo || '',
+    timestamp: r.Timestamp || ''
+  }));
+
+  return risposta({ ok: true, note: attive });
+}
+
+// Esegui UNA VOLTA dall'editor per creare il foglio Note_Coach
+function creaFoglioNoteCoach() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName('Note_Coach');
+  if (sheet) { Logger.log('Foglio Note_Coach esiste già.'); return; }
+  sheet = ss.insertSheet('Note_Coach');
+  const heads = ['Timestamp','ID_Giocatrice','Tipo','N_Seduta','Testo','Data_Inizio','Data_Fine'];
+  sheet.appendRow(heads);
+  sheet.setFrozenRows(1);
+  sheet.getRange(1, 1, 1, heads.length).setFontWeight('bold').setBackground('#1a3a6b').setFontColor('#ffffff');
+  sheet.setColumnWidth(5, 300);
+  SpreadsheetApp.flush();
+  Logger.log('Foglio Note_Coach creato.');
 }
 
 // Esegui UNA VOLTA per creare il foglio Wellness con le intestazioni
@@ -368,6 +412,18 @@ function creaSlideSettimanale_() {
   const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)));
   const progressi  = leggiRighe_(sheetP);
   const wellness   = sheetW ? leggiRighe_(sheetW) : [];
+  const sheetN     = ss.getSheetByName('Note_Coach');
+  const noteCoach  = sheetN ? leggiRighe_(sheetN) : [];
+  const oggi       = new Date(); oggi.setHours(0, 0, 0, 0);
+  const noteAttive = noteCoach.filter(n => {
+    const ini = n.Data_Inizio ? new Date(n.Data_Inizio) : null;
+    const fin = n.Data_Fine   ? new Date(n.Data_Fine)   : null;
+    if (ini) ini.setHours(0, 0, 0, 0);
+    if (fin) fin.setHours(23, 59, 59, 999);
+    if (ini && oggi < ini) return false;
+    if (fin && oggi > fin) return false;
+    return true;
+  });
   const SKIP_SET   = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
 
   // ── Date boundaries ───────────────────────────────────────────────────────
@@ -412,12 +468,14 @@ function creaSlideSettimanale_() {
     const dolori  = avgN(wSett.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v));
     const energia = avgN(wSett.map(w => Number(w.Energia)).filter(v => !isNaN(v) && v));
     const note    = wSett.filter(w => w.Note).map(w => String(w.Note).trim()).filter(Boolean);
+    const noteC   = noteAttive.filter(n => String(n.ID_Giocatrice) === String(g.ID))
+                              .map(n => String(n.Testo).trim()).filter(Boolean);
     let statoCat;
     if (giorniSilenzio === null)   statoCat = 'mai';
     else if (giorniSilenzio > 7)   statoCat = 'rosso';
     else if (giorniSilenzio > 3)   statoCat = 'giallo';
     else                            statoCat = 'verde';
-    return { nome: g.Nome, statoCat, sedSett, rpeMedia, volPercepito, sonno, dolori, energia, note };
+    return { nome: g.Nome, statoCat, sedSett, rpeMedia, volPercepito, sonno, dolori, energia, note, noteC };
   });
   const ordCat = { mai: 0, rosso: 1, giallo: 2, verde: 3 };
   const sorted = [...atletaData].sort((a, b) => ordCat[a.statoCat] - ordCat[b.statoCat]);
@@ -609,8 +667,8 @@ function creaSlideSettimanale_() {
       { v:f1(d.sonno),                                      x:270, w:44  },
       { v:f1(d.dolori),                                     x:317, w:44  },
       { v:f1(d.energia),                                    x:364, w:44  },
-      { v:d.note.length ? d.note[0].substring(0, 30) : '', x:411, w:150 },
-      { v:'',                                               x:564, w:141 },
+      { v:d.note.length  ? d.note[0].substring(0, 30)  : '', x:411, w:150 },
+      { v:d.noteC.length ? d.noteC[0].substring(0, 35) : '', x:564, w:141 },
     ].forEach(c => txt_(s2, c.v, c.x, ry + 2, c.w, 11, 7.5, false, '#333333'));
   });
 

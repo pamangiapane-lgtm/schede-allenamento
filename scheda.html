@@ -190,7 +190,7 @@ let feedbackLog = {};
 const IT = {
   loading:'Caricamento scheda...', back:'← Tutte le giocatrici',
   tabProfile:'Profilo', tabSessions:'Sedute', appTitle:'Schede Allenamento',
-  notes:'Note', noteOpen:'Note ▾', noteClose:'Note ▸',
+  notes:'Note', noteOpen:'Note ▾', noteClose:'Note ▸', noteCoach:'Messaggio del coach',
   instructions:'ℹ️ Istruzioni ▸', instrOpen:'ℹ️ Istruzioni ▾',
   howTo:'Come fare', feel:'Sensazione', avoid:'Evitare',
   videoBtn:'▶ Video / Istruzione', openVideo:'▶ Apri video esercizio',
@@ -218,7 +218,7 @@ const IT = {
 const EN = {
   loading:'Loading...', back:'← All athletes',
   tabProfile:'Profile', tabSessions:'Sessions', appTitle:'Training Program',
-  notes:'Notes', noteOpen:'Notes ▾', noteClose:'Notes ▸',
+  notes:'Notes', noteOpen:'Notes ▾', noteClose:'Notes ▸', noteCoach:'Coach message',
   instructions:'ℹ️ Instructions ▸', instrOpen:'ℹ️ Instructions ▾',
   howTo:'How to', feel:'Feel', avoid:'Avoid',
   videoBtn:'▶ Video / Instructions', openVideo:'▶ Open exercise video',
@@ -701,7 +701,8 @@ async function caricaScheda() {
             <h3>${traduciSeduta(sed.Nome_Seduta)}</h3>
             <span class="chevron">▾</span>
           </button>
-          <div class="seduta-body">`;
+          <div class="seduta-body">
+          <div class="coach-notes-area" id="notes-${sed.Numero_Seduta}"></div>`;
 
       metodiOrd.forEach(key => {
         const m = metodiMap[key];
@@ -1346,10 +1347,33 @@ function wellnessKey() {
   return `wellness_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}_${id}`;
 }
 
+const _noteCaricate = new Set();
+
+async function apriSedutaConNote(accId) {
+  document.getElementById(accId).classList.add('open');
+  if (_noteCaricate.has(accId)) return;
+  _noteCaricate.add(accId);
+  const nSeduta = accId.replace('acc-', '');
+  const areaId  = 'notes-' + nSeduta;
+  const area    = document.getElementById(areaId);
+  if (!area) return;
+  try {
+    const res  = await fetch(`${API}?token=${TOKEN}&azione=leggi_note&id=${id}&n_seduta=${nSeduta}`);
+    const json = await res.json();
+    if (!json.ok || !json.note.length) return;
+    const banners = json.note.map(n => `
+      <div class="coach-note-banner">
+        <div class="cnb-label">📋 ${L.noteCoach || 'Messaggio del coach'}</div>
+        <div class="cnb-text">${n.testo.replace(/</g,'&lt;')}</div>
+      </div>`).join('');
+    area.innerHTML = banners;
+  } catch (_) {}
+}
+
 function mostraWellness(accId) {
   if (localStorage.getItem(wellnessKey())) {
     // Già risposto oggi → apri seduta direttamente
-    document.getElementById(accId).classList.toggle('open');
+    apriSedutaConNote(accId);
     return;
   }
   _wellnessPendingAcc = accId;
@@ -1405,7 +1429,7 @@ function confermaWellness() {
 
   // Apri la seduta
   if (_wellnessPendingAcc) {
-    document.getElementById(_wellnessPendingAcc).classList.toggle('open');
+    apriSedutaConNote(_wellnessPendingAcc);
     _wellnessPendingAcc = null;
   }
 
@@ -1426,7 +1450,7 @@ function saltaWellness() {
   localStorage.setItem(wellnessKey(), '1');
   document.getElementById('wellness-overlay').classList.remove('open');
   if (_wellnessPendingAcc) {
-    document.getElementById(_wellnessPendingAcc).classList.toggle('open');
+    apriSedutaConNote(_wellnessPendingAcc);
     _wellnessPendingAcc = null;
   }
 }
