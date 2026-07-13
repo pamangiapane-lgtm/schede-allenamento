@@ -213,6 +213,13 @@
     .cmp-rpe.hi  { color: #c33; font-weight: 700; }
     .cmp-rpe.med { color: #e6a817; font-weight: 600; }
 
+    /* ── WELLNESS SECTION ── */
+    .wl-val { width: 58px; text-align: right; font-size: 0.78rem; color: var(--text-light, #888); }
+    .wl-val.ok   { color: #2a9d3a; font-weight: 600; }
+    .wl-val.warn { color: #e6a817; font-weight: 600; }
+    .wl-val.bad  { color: #c33;    font-weight: 700; }
+    .wl-note { flex: 2; font-size: 0.75rem; color: var(--text-light, #888); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-left: 6px; }
+
     @media print {
       header, .report-controls, .back-link, .install-banner { display: none !important; }
       .summary-bar { margin-bottom: 12px; }
@@ -258,6 +265,7 @@
 
     <div id="summary-bar" class="summary-bar"></div>
     <div id="compliance-section"></div>
+    <div id="wellness-section"></div>
     <div id="report-content"></div>
   </div>
 </div>
@@ -270,6 +278,7 @@ const SKIP      = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
 
 let allGiocatrici = [];
 let allProgressi  = [];
+let allWellness   = [];
 let chartInstances = [];
 
 const params = new URLSearchParams(window.location.search);
@@ -287,13 +296,15 @@ async function fetchSheet(foglio) {
 
 async function init() {
   try {
-    const [resG, resP] = await Promise.all([
+    const [resG, resP, resW] = await Promise.all([
       fetchSheet('Giocatrici'),
       fetchSheet('Progressi'),
+      fetchSheet('Wellness'),
     ]);
 
     allGiocatrici = (resG.dati || []).filter(g => !isNaN(parseInt(g.ID)));
     allProgressi  = (resP.dati || []);
+    allWellness   = (resW.dati || []);
 
     const sel = document.getElementById('sel-giocatrice');
     allGiocatrici
@@ -452,11 +463,115 @@ function renderCompliance() {
     </div>`;
 }
 
+function renderWellness() {
+  const wrap = document.getElementById('wellness-section');
+  if (!allWellness.length) { wrap.innerHTML = ''; return; }
+
+  const selId = document.getElementById('sel-giocatrice').value;
+  const days = parseInt(document.getElementById('sel-periodo').value) || 0;
+  const cutoff = days ? new Date(new Date().setDate(new Date().getDate() - days)) : null;
+  const wData = cutoff
+    ? allWellness.filter(w => { const ts = w.Timestamp ? new Date(w.Timestamp) : null; return ts && ts >= cutoff; })
+    : allWellness;
+
+  const sonnoClass  = v => !v ? '' : v >= 4 ? 'ok' : v >= 3 ? 'warn' : 'bad';
+  const doloriClass = v => !v ? '' : v <= 2 ? 'ok' : v <= 3 ? 'warn' : 'bad';
+  const avg = arr => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1) : null;
+
+  if (selId === 'all') {
+    const rows = allGiocatrici.map(g => {
+      const entries = wData.filter(w => String(w.ID_Giocatrice) === String(g.ID));
+      if (!entries.length) return null;
+      const sonno   = avg(entries.map(e => Number(e.Qualita_Sonno)).filter(v => !isNaN(v) && v));
+      const dolori  = avg(entries.map(e => Number(e.Dolori)).filter(v => !isNaN(v) && v));
+      const energia = avg(entries.map(e => Number(e.Energia)).filter(v => !isNaN(v) && v));
+      const lastNote = [...entries].reverse().find(e => e.Note)?.Note || '';
+      const anomalia = entries.some(e => Number(e.Qualita_Sonno) <= 2 || Number(e.Dolori) >= 4 || Number(e.Energia) <= 2);
+      return { g, count: entries.length, sonno, dolori, energia, note: lastNote, anomalia };
+    }).filter(Boolean);
+
+    if (!rows.length) { wrap.innerHTML = ''; return; }
+
+    const totAnom = rows.filter(r => r.anomalia).length;
+    const badge = totAnom > 0
+      ? `<span class="cmp-urgenti">${totAnom} con anomalie</span>`
+      : `<span style="color:#2a9d3a;font-size:0.75rem;font-weight:700">✓ nessuna anomalia</span>`;
+    const open = totAnom > 0;
+
+    const rowsHtml = rows.map(r => `
+      <div class="cmp-row">
+        <span class="cmp-name">${r.g.Nome}</span>
+        <span class="wl-val ${sonnoClass(parseFloat(r.sonno))}">${r.sonno ?? '—'}</span>
+        <span class="wl-val ${doloriClass(parseFloat(r.dolori))}">${r.dolori ?? '—'}</span>
+        <span class="wl-val ${sonnoClass(parseFloat(r.energia))}">${r.energia ?? '—'}</span>
+        <span class="wl-note">${r.note ? '📝 ' + r.note : ''}</span>
+      </div>`).join('');
+
+    wrap.innerHTML = `
+      <div class="compliance-wrap">
+        <div class="compliance-hdr" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.compliance-toggle').textContent=this.nextElementSibling.style.display==='none'?'▼ espandi':'▲ chiudi'">
+          <h3>💚 Wellness squadra ${badge}</h3>
+          <span class="compliance-toggle">${open ? '▲ chiudi' : '▼ espandi'}</span>
+        </div>
+        <div class="compliance-body" style="display:${open ? 'block' : 'none'}">
+          <div class="cmp-head-row">
+            <span style="flex:1">Atleta</span>
+            <span style="width:58px;text-align:right">🌙 Sonno</span>
+            <span style="width:58px;text-align:right">💢 Dolori</span>
+            <span style="width:58px;text-align:right">⚡ Energia</span>
+            <span style="flex:2;padding-left:6px">Ultima nota</span>
+          </div>
+          ${rowsHtml}
+        </div>
+      </div>`;
+  } else {
+    const entries = wData
+      .filter(w => String(w.ID_Giocatrice) === selId)
+      .sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
+      .slice(0, 10);
+
+    if (!entries.length) { wrap.innerHTML = ''; return; }
+
+    const fmtDate = ts => { const d = new Date(ts); return `${d.getDate()}/${d.getMonth()+1}`; };
+
+    const rowsHtml = entries.map(e => {
+      const s = Number(e.Qualita_Sonno), dl = Number(e.Dolori), en = Number(e.Energia);
+      return `
+        <div class="cmp-row">
+          <span style="width:38px;font-size:0.78rem;color:var(--text-light)">${e.Data || fmtDate(e.Timestamp)}</span>
+          <span class="wl-val ${sonnoClass(s)}">${s || '—'}</span>
+          <span class="wl-val ${doloriClass(dl)}">${dl || '—'}</span>
+          <span class="wl-val ${sonnoClass(en)}">${en || '—'}</span>
+          <span class="wl-note">${e.Note ? '📝 ' + e.Note : ''}</span>
+        </div>`;
+    }).join('');
+
+    wrap.innerHTML = `
+      <div class="compliance-wrap">
+        <div class="compliance-hdr" style="cursor:default">
+          <h3>💚 Wellness personale</h3>
+          <span></span>
+        </div>
+        <div class="compliance-body">
+          <div class="cmp-head-row">
+            <span style="width:38px">Data</span>
+            <span style="width:58px;text-align:right">🌙 Sonno</span>
+            <span style="width:58px;text-align:right">💢 Dolori</span>
+            <span style="width:58px;text-align:right">⚡ Energia</span>
+            <span style="flex:2;padding-left:6px">Note</span>
+          </div>
+          ${rowsHtml}
+        </div>
+      </div>`;
+  }
+}
+
 function renderReport() {
   chartInstances.forEach(c => c.destroy());
   chartInstances = [];
 
   renderCompliance();
+  renderWellness();
 
   const selId = document.getElementById('sel-giocatrice').value;
   const giocatrici = selId === 'all'
