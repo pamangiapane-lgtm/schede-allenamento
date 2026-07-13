@@ -1,4 +1,4 @@
-const TOKEN = 'squadra2026-dev';
+const TOKEN = 'mv26-dev-9kR4tLqB';
 
 function doGet(e) {
   const token  = e.parameter.token;
@@ -60,9 +60,15 @@ function logProgressi(body) {
   return risposta({ ok: true, logged: 1 });
 }
 
+const FOGLIO_WHITELIST = new Set([
+  'INFO', 'Giocatrici', 'Sedute', 'Esercizi', 'LibreriaIndividuale'
+]);
+
 function scriviFoglio(body) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
   const nomeFoglio = body.foglio;
+  if (!FOGLIO_WHITELIST.has(nomeFoglio))
+    return errore('Foglio non consentito: ' + nomeFoglio);
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName(nomeFoglio);
   if (!sheet) sheet = ss.insertSheet(nomeFoglio);
   sheet.clearContents();
@@ -348,6 +354,19 @@ function leggiRighe_(sheet) {
 const FOLDER_STAFF_ID = '1H8NcBNeUi1Jr7b-fx3blaPB8vRKfTrT2';
 
 function creaSlideSettimanale() {
+  try {
+    creaSlideSettimanale_();
+  } catch (ex) {
+    MailApp.sendEmail({
+      to: EMAIL_COACH,
+      subject: '⚠ ERRORE report settimanale Marsala Volley',
+      body: 'La generazione automatica del report è fallita.\n\nErrore:\n' + ex.toString()
+        + '\n\nStack:\n' + (ex.stack || '—')
+    });
+  }
+}
+
+function creaSlideSettimanale_() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheetG = ss.getSheetByName('Giocatrici');
   const sheetP = ss.getSheetByName('Progressi');
@@ -808,6 +827,30 @@ function drawBubbleChart_(slide, vals, labels, startX, startY, chartW, chartH, t
       .setParagraphAlignment(SlidesApp.ParagraphAlignment.CENTER);
   });
 }
+
+// ── BACKUP AUTOMATICO ────────────────────────────────────────────────────────
+
+function creaBackup() {
+  const ss   = SpreadsheetApp.getActiveSpreadsheet();
+  const file = DriveApp.getFileById(ss.getId());
+  const ts   = Utilities.formatDate(new Date(), 'Europe/Rome', 'yyyy-MM-dd_HH-mm');
+  const nome = 'BACKUP_' + ts + '_' + ss.getName();
+  const copy = file.makeCopy(nome, DriveApp.getFolderById(FOLDER_STAFF_ID));
+  Logger.log('Backup creato: ' + copy.getUrl());
+}
+
+function installaBackupTrigger() {
+  ScriptApp.getProjectTriggers()
+    .filter(t => t.getHandlerFunction() === 'creaBackup')
+    .forEach(t => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger('creaBackup')
+    .timeBased()
+    .everyDays(1)
+    .atHour(3)
+    .create();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 function risposta(data) {
   return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
