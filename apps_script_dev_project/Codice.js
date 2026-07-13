@@ -391,15 +391,16 @@ function creaSlideSettimanale_() {
   const avgN = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
   const f1   = n   => n !== null ? n.toFixed(1) : '—';
 
-  // ── 4 settimane di dati team ──────────────────────────────────────────────
-  // weekData[0] = 3 settimane fa, weekData[3] = settimana scorsa
-  const weekData = [];
-  for (let w = 3; w >= 0; w--) {
+  // ── Ultime 4 settimane con dati (max 8 settimane indietro) ───────────────
+  const allWeeks = [];
+  for (let w = 7; w >= 0; w--) {
     const wL = new Date(luneScorso); wL.setDate(luneScorso.getDate() - w * 7);
     const wD = new Date(wL); wD.setDate(wL.getDate() + 7); wD.setMilliseconds(-1);
-    weekData.push({ lune: wL, dom: wD,
+    allWeeks.push({ lune: wL, dom: wD,
       ...computeTeamWeek_(progressi, wellness, giocatrici, wL, wD, SKIP_SET, avgN) });
   }
+  const weekData = allWeeks.filter(w => w.allenate > 0 || w.sonno !== null).slice(-4);
+  if (!weekData.length) weekData.push(allWeeks[allWeeks.length - 1]);
 
   // ── Dati per-atleta ultima settimana (slide 2) ────────────────────────────
   const inRange = ts => { const d = new Date(ts); return d >= luneScorso && d < luneCorrente; };
@@ -773,7 +774,7 @@ function drawBubbleChart_(slide, vals, labels, startX, startY, chartW, chartH, t
   const lo = mn - pad, rng = (mx + pad) - lo;
   const pL = 14, pR = 14, pT = 18, pB = 20;
   const cW = chartW - pL - pR, cH = chartH - pT - pB;
-  const px = i => startX + pL + (i / (N - 1)) * cW;
+  const px = i => startX + pL + (N > 1 ? (i / (N - 1)) * cW : cW / 2);
   const py = v => startY + pT + cH - ((v - lo) / rng) * cH;
 
   // Titolo grafico
