@@ -102,6 +102,36 @@
     cursor: pointer;
     text-align: center;
   }
+  .wellness-guide {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    font-size: 0.7rem;
+    color: var(--text-light, #aaa);
+    padding: 0 2px;
+  }
+  .wellness-note-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text, #1a1a2e);
+    margin: 4px 0 6px;
+  }
+  .wellness-note textarea {
+    width: 100%;
+    border: 1px solid var(--border, #dde1e9);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    color: var(--text, #1a1a2e);
+    background: var(--surface, #f5f7fa);
+    resize: none;
+    box-sizing: border-box;
+  }
+  .wellness-note textarea:focus {
+    outline: none;
+    border-color: var(--primary, #1a3a6b);
+  }
   </style>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1a3a6b">
@@ -1287,6 +1317,11 @@ const WL = {
     q1: '🌙 Com\'hai dormito?',
     q2: '💢 Dolori o fastidi?',
     q3: '⚡ Energia oggi?',
+    g1: ['Pessimo', 'Ottimo'],
+    g2: ['Nessuno', 'Insopportabile'],
+    g3: ['Esaurita', 'Ottima'],
+    noteLabel: '📝 Note (opzionale)',
+    notePlaceholder: 'Es. dolore al ginocchio sinistro, mal di testa...',
     confirm: 'Inizia seduta',
     skip: 'Salta'
   },
@@ -1296,6 +1331,11 @@ const WL = {
     q1: '🌙 How did you sleep?',
     q2: '💢 Any pain or discomfort?',
     q3: '⚡ Energy level today?',
+    g1: ['Very poor', 'Excellent'],
+    g2: ['None', 'Severe'],
+    g3: ['Drained', 'Excellent'],
+    noteLabel: '📝 Notes (optional)',
+    notePlaceholder: 'E.g. left knee pain, headache...',
     confirm: 'Start session',
     skip: 'Skip'
   }
@@ -1321,6 +1361,16 @@ function mostraWellness(accId) {
   labels[0].textContent = wl.q1;
   labels[1].textContent = wl.q2;
   labels[2].textContent = wl.q3;
+  // Guide valori
+  const guides = overlay.querySelectorAll('.wellness-guide');
+  [[wl.g1],[wl.g2],[wl.g3]].forEach(([g], i) => {
+    guides[i].children[0].textContent = `1 = ${g[0]}`;
+    guides[i].children[1].textContent = `5 = ${g[1]}`;
+  });
+  // Label e placeholder note
+  overlay.querySelector('.wellness-note-label').textContent    = wl.noteLabel;
+  overlay.querySelector('.wellness-note textarea').placeholder = wl.notePlaceholder;
+  overlay.querySelector('.wellness-note textarea').value       = '';
   overlay.querySelector('.wellness-confirm').textContent = wl.confirm;
   overlay.querySelector('.wellness-skip').textContent    = wl.skip;
   // Reset selezioni
@@ -1344,9 +1394,10 @@ function confermaWellness() {
   const val = g => parseInt(
     document.querySelector(`.wellness-stars[data-gruppo="${g}"] button.sel`)?.dataset.val || '0'
   );
-  const sonno  = val(1);
-  const dolori = val(2);
+  const sonno   = val(1);
+  const dolori  = val(2);
   const energia = val(3);
+  const note    = document.querySelector('.wellness-note textarea')?.value.trim() || '';
 
   // Salva localmente per non chiedere più oggi
   localStorage.setItem(wellnessKey(), '1');
@@ -1366,7 +1417,7 @@ function confermaWellness() {
     body: JSON.stringify({
       token: TOKEN, azione: 'log_wellness',
       id_giocatrice: id, data: dataStr,
-      qualita_sonno: sonno, dolori: dolori, energia: energia
+      qualita_sonno: sonno, dolori: dolori, energia: energia, note
     })
   }).catch(() => {}); // silenzioso — non blocca l'atleta
 }
@@ -1396,6 +1447,7 @@ function saltaWellness() {
         <button data-val="4" onclick="wellnessSeleziona(this,1)">4</button>
         <button data-val="5" onclick="wellnessSeleziona(this,1)">5</button>
       </div>
+      <div class="wellness-guide"><span></span><span></span></div>
     </div>
     <div class="wellness-q">
       <div class="wellness-q-label"></div>
@@ -1406,6 +1458,7 @@ function saltaWellness() {
         <button data-val="4" onclick="wellnessSeleziona(this,2)">4</button>
         <button data-val="5" onclick="wellnessSeleziona(this,2)">5</button>
       </div>
+      <div class="wellness-guide"><span></span><span></span></div>
     </div>
     <div class="wellness-q">
       <div class="wellness-q-label"></div>
@@ -1416,6 +1469,11 @@ function saltaWellness() {
         <button data-val="4" onclick="wellnessSeleziona(this,3)">4</button>
         <button data-val="5" onclick="wellnessSeleziona(this,3)">5</button>
       </div>
+      <div class="wellness-guide"><span></span><span></span></div>
+    </div>
+    <div class="wellness-note">
+      <div class="wellness-note-label"></div>
+      <textarea rows="2" placeholder=""></textarea>
     </div>
     <button class="wellness-confirm" onclick="confermaWellness()" disabled></button>
     <button class="wellness-skip" onclick="saltaWellness()"></button>
