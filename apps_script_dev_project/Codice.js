@@ -354,16 +354,8 @@ function leggiRighe_(sheet) {
 const FOLDER_STAFF_ID = '1H8NcBNeUi1Jr7b-fx3blaPB8vRKfTrT2';
 
 function creaSlideSettimanale() {
-  try {
-    creaSlideSettimanale_();
-  } catch (ex) {
-    MailApp.sendEmail({
-      to: EMAIL_COACH,
-      subject: '⚠ ERRORE report settimanale Marsala Volley',
-      body: 'La generazione automatica del report è fallita.\n\nErrore:\n' + ex.toString()
-        + '\n\nStack:\n' + (ex.stack || '—')
-    });
-  }
+  // DEV: non crea slide né manda email — usa PROD per il report reale
+  Logger.log('[DEV] creaSlideSettimanale — disabilitata in ambiente di test');
 }
 
 function creaSlideSettimanale_() {
