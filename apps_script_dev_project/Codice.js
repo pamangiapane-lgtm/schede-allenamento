@@ -630,21 +630,8 @@ function creaSlideSettimanale_() {
   DriveApp.getFolderById(FOLDER_STAFF_ID).addFile(presFile);
   DriveApp.getRootFolder().removeFile(presFile);
 
-  // Email al coach
-  const oggetto = 'Report Staff Marsala Volley — ' + fmt(luneScorso) + '->' + fmt(domScorso);
-  MailApp.sendEmail({ to: EMAIL_COACH, subject: oggetto, htmlBody: `
-<div style="font-family:Arial,sans-serif;max-width:560px">
-  <div style="background:#1a3a6b;color:#fff;padding:14px 20px;border-radius:8px 8px 0 0">
-    <h2 style="margin:0;font-size:1rem">Report Staff — Marsala Volley</h2>
-    <p style="margin:4px 0 0;font-size:.82rem;opacity:.8">Settimana ${fmt(luneScorso)} – ${fmt(domScorso)} ${domScorso.getFullYear()}</p>
-  </div>
-  <div style="border:1px solid #ddd;border-top:none;padding:16px 20px;border-radius:0 0 8px 8px">
-    <p><strong>${lastWk.allenate}/${lastWk.tot}</strong> allenate · Carico medio: <strong>${f1(lastWk.caricoMedio)}</strong> · RPE: <strong>${f1(lastWk.rpe)}/10</strong></p>
-    ${lastWk.urgenti ? `<p style="color:#c33">⚠ ${lastWk.urgenti} atlete urgenti</p>` : '<p style="color:#2a9d3a">✓ Nessuna atleta urgente</p>'}
-    <p><a href="${presUrl}" style="color:#1a3a6b;font-weight:bold">→ Apri le slides, aggiungi le note coach e condividi con lo staff</a></p>
-    <p style="font-size:.8rem;color:#888">Generato automaticamente ogni lunedì alle 8:00</p>
-  </div>
-</div>` });
+  // Email disabilitata in DEV — slide disponibile su Drive
+  Logger.log('[DEV] Report creato: ' + presUrl);
 }
 
 function inviaEmailEsempio() {
