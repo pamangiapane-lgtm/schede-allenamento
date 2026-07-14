@@ -729,7 +729,7 @@ function renderReport() {
       <td><span class="stat-num">${sedTot}</span></td>
       <td><span class="stat-num" style="color:${rpeCol}">${rpe ?? '—'}</span></td>
       <td><span class="stat-num">${fat ?? '—'}</span></td>
-      <td style="white-space:nowrap"><span style="color:${sCol};font-weight:700">🌙${sonno ?? '—'}</span> <span style="color:${dCol};font-weight:700">💢${dolori ?? '—'}</span> <span style="color:${eCol};font-weight:700">⚡${energia ?? '—'}</span></td>
+      <td style="white-space:nowrap;font-size:0.78rem"><span style="color:${sCol};font-weight:700">🌙 Sonno ${sonno ?? '—'}</span> &nbsp; <span style="color:${dCol};font-weight:700">💢 Dolori ${dolori ?? '—'}</span> &nbsp; <span style="color:${eCol};font-weight:700">⚡ Energia ${energia ?? '—'}</span></td>
       <td class="td-note"><input class="note-input pos" id="note-pos-${id}" value="${(nota.positivo || '').replace(/"/g, '&quot;')}" placeholder="Cosa va..."></td>
       <td class="td-note"><input class="note-input crit" id="note-crit-${id}" value="${(nota.critico || '').replace(/"/g, '&quot;')}" placeholder="Da lavorare..."></td>
       <td><button class="note-staff-save-btn" onclick="salvaNota('${id}')">Salva</button><span class="note-staff-feedback" id="note-fb-${id}">✓</span></td>`;
