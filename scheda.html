@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[DEV] Scheda Giocatrice</title>
+  <title>Scheda Giocatrice</title>
   <link rel="stylesheet" href="style.css">
   <style>
     .mass-save-btn {
@@ -144,7 +144,7 @@
     <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
     <h1>Schede Allenamento</h1>
   </div>
-  <div style="background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
+  <div id="dev-banner" style="display:none;background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
 </header>
 
 <div class="container">
@@ -180,8 +180,15 @@
 </div><!-- fine container -->
 
 <script>
-const API   = 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec';
-const TOKEN = 'mv26-dev-9kR4tLqB'; // ← staging token (foglio DEV)
+const IS_DEV = window.location.pathname.includes('/dev/');
+const API   = IS_DEV
+  ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
+  : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const TOKEN = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
+if (IS_DEV) {
+  document.title = '[DEV] ' + document.title;
+  document.getElementById('dev-banner').style.display = '';
+}
 const id    = new URLSearchParams(window.location.search).get('id');
 let ultimiLog   = {};
 let feedbackLog = {};
