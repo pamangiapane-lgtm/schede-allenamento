@@ -8,6 +8,7 @@ function doGet(e) {
   try {
     if (azione === 'leggi') return leggi(foglio);
     if (azione === 'leggi_note') return leggiNote(e.parameter.id, e.parameter.n_seduta);
+    if (azione === 'leggi_tutte_note') return leggiTutteNote_();
     return errore('Azione GET non valida: ' + azione);
   } catch (ex) { return errore(ex.toString()); }
 }
@@ -22,6 +23,8 @@ function doPost(e) {
     if (azione === 'log_wellness')      return logWellness(body);
     if (azione === 'scrivi_foglio')     return scriviFoglio(body);
     if (azione === 'crea_foglio_info')  return creaFoglioInfo();
+    if (azione === 'scrivi_nota_coach') return scriviNotaCoach_(body);
+    if (azione === 'elimina_nota_coach') return eliminaNotaCoach_(body);
     return errore('Azione POST non valida: ' + azione);
   } catch (ex) { return errore(ex.toString()); }
 }
@@ -136,6 +139,55 @@ function logWellness(body) {
   sheet.appendRow(riga);
   SpreadsheetApp.flush();
   return risposta({ ok: true, logged: 1 });
+}
+
+function leggiTutteNote_() {
+  const ss    = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName('Note_Coach');
+  if (!sheet) return risposta({ ok: true, note: [] });
+  const rows = leggiRighe_(sheet);
+  return risposta({ ok: true, note: rows.reverse().map(r => ({
+    timestamp:     String(r.Timestamp   || ''),
+    id_giocatrice: String(r.ID_Giocatrice || ''),
+    tipo:          r.Tipo      || 'generale',
+    n_seduta:      r.N_Seduta  || '',
+    testo:         r.Testo     || '',
+    data_inizio:   r.Data_Inizio ? new Date(r.Data_Inizio).toISOString().split('T')[0] : '',
+    data_fine:     r.Data_Fine   ? new Date(r.Data_Fine).toISOString().split('T')[0]   : ''
+  })) });
+}
+
+function scriviNotaCoach_(body) {
+  const ss    = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName('Note_Coach');
+  if (!sheet) return errore('Foglio Note_Coach non trovato');
+  const ts = new Date().toISOString();
+  sheet.appendRow([
+    ts,
+    body.id_giocatrice || 'TUTTE',
+    body.tipo          || 'generale',
+    body.n_seduta      || '',
+    body.testo         || '',
+    body.data_inizio   || '',
+    body.data_fine     || ''
+  ]);
+  SpreadsheetApp.flush();
+  return risposta({ ok: true, timestamp: ts });
+}
+
+function eliminaNotaCoach_(body) {
+  const ss    = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName('Note_Coach');
+  if (!sheet) return errore('Foglio Note_Coach non trovato');
+  const vals = sheet.getDataRange().getValues();
+  for (let i = vals.length - 1; i >= 1; i--) {
+    if (String(vals[i][0]) === String(body.timestamp)) {
+      sheet.deleteRow(i + 1);
+      SpreadsheetApp.flush();
+      return risposta({ ok: true });
+    }
+  }
+  return errore('Nota non trovata');
 }
 
 function leggiNote(idGiocatrice, nSeduta) {
