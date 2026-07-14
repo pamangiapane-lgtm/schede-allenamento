@@ -17,6 +17,7 @@
     <h1>Schede Allenamento</h1>
   </div>
   <p>Tocca il tuo nome per accedere</p>
+  <div id="dev-banner" style="display:none;background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
 </header>
 
 <div class="container">
@@ -37,8 +38,15 @@
 
 
 <script>
-const API   = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
-const TOKEN = 'mv26-prd-3xF7wNqK';
+const IS_DEV = window.location.pathname.includes('/dev/');
+const API   = IS_DEV
+  ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
+  : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const TOKEN = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
+if (IS_DEV) {
+  document.title = '[DEV] ' + document.title;
+  document.getElementById('dev-banner').style.display = '';
+}
 
 async function caricaGiocatrici() {
   const lista = document.getElementById('lista-giocatrici');
