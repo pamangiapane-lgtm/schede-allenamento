@@ -213,117 +213,76 @@
     .cmp-rpe.hi  { color: #c33; font-weight: 700; }
     .cmp-rpe.med { color: #e6a817; font-weight: 600; }
 
-    #report-content {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+    /* ── TABELLA ATLETE ── */
+    #report-content { overflow-x: auto; }
+    .atleta-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
     }
-    @media (max-width: 680px) { #report-content { grid-template-columns: 1fr; } }
-
-    /* ── ATLETA CARD ── */
-    .atleta-card {
-      background: var(--surface, #f5f7fa);
-      border-radius: 14px;
-      padding: 12px 14px;
-    }
-    .atleta-hdr {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .atleta-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-    .atleta-nome { flex: 1; font-weight: 700; font-size: 0.95rem; color: var(--text, #1a1a2e); }
-    .atleta-ruolo { font-weight: 400; font-size: 0.78rem; opacity: 0.65; }
-    .atleta-last { font-size: 0.78rem; font-weight: 700; }
-    .atleta-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .atleta-stat-group {
-      background: var(--bg, #fff);
-      border-radius: 8px;
-      padding: 8px 10px;
-    }
-    .stat-label {
-      font-size: 0.6rem;
+    .atleta-table thead th {
+      font-size: 0.62rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.5px;
       color: var(--text-light, #888);
-      margin-bottom: 6px;
+      padding: 6px 10px;
+      text-align: left;
+      border-bottom: 2px solid var(--border, #dde1e9);
+      white-space: nowrap;
     }
-    .stat-row { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
-    .stat-row:last-child { margin-bottom: 0; }
-    .stat-num { font-size: 1rem; font-weight: 700; color: var(--primary, #1a3a6b); line-height: 1; }
-    .stat-sub { font-size: 0.62rem; color: var(--text-light, #999); }
-
-    .note-staff-wrap {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 10px;
+    .atleta-table tbody tr {
+      border-bottom: 1px solid var(--border, #dde1e9);
     }
-    .note-staff-field {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
+    .atleta-table tbody tr:last-child { border-bottom: none; }
+    .atleta-table td {
+      padding: 7px 10px;
+      vertical-align: middle;
+      white-space: nowrap;
     }
-    .note-staff-label {
-      font-size: 0.85rem;
-      line-height: 1;
-    }
-    .note-staff-label.pos { color: #2a9d3a; }
-    .note-staff-label.crit { color: #c33; }
-    .note-staff-textarea {
+    .atleta-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; flex-shrink: 0; vertical-align: middle; }
+    .atleta-nome { font-weight: 700; color: var(--text, #1a1a2e); }
+    .atleta-ruolo { font-weight: 400; font-size: 0.75rem; opacity: 0.55; margin-left: 4px; }
+    .atleta-last { font-size: 0.75rem; font-weight: 700; }
+    .stat-num { font-weight: 700; color: var(--primary, #1a3a6b); }
+    .stat-sub { font-size: 0.65rem; color: var(--text-light, #999); margin-left: 2px; }
+    .td-note { width: 180px; }
+    .note-input {
       width: 100%;
-      min-height: 44px;
-      padding: 6px 8px;
-      border-radius: 7px;
+      padding: 5px 8px;
+      border-radius: 6px;
       border: 1.5px solid var(--border, #dde1e9);
       background: var(--surface, #f5f7fa);
       color: var(--text, #1a1a2e);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-family: inherit;
-      resize: vertical;
       box-sizing: border-box;
       transition: border-color 0.15s;
     }
-    .note-staff-textarea:focus { outline: none; border-color: var(--primary, #1a3a6b); }
-    .note-staff-textarea.pos:focus  { border-color: #2a9d3a; }
-    .note-staff-textarea.crit:focus { border-color: #c33; }
-    .note-staff-save-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 4px;
-      grid-column: 1 / -1;
-    }
+    .note-input:focus { outline: none; }
+    .note-input.pos:focus  { border-color: #2a9d3a; }
+    .note-input.crit:focus { border-color: #c33; }
     .note-staff-save-btn {
-      padding: 6px 16px;
-      border-radius: 7px;
+      padding: 5px 12px;
+      border-radius: 6px;
       border: none;
       background: var(--primary, #1a3a6b);
       color: #fff;
-      font-size: 0.82rem;
+      font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
+      white-space: nowrap;
     }
     .note-staff-save-btn:active { opacity: 0.8; }
     .note-staff-feedback {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       color: #2a9d3a;
       font-weight: 600;
       opacity: 0;
       transition: opacity 0.3s;
+      display: block;
     }
     .note-staff-feedback.visible { opacity: 1; }
-
-    @media (max-width: 500px) {
-      .note-staff-wrap { grid-template-columns: 1fr; }
-    }
 
     @media print {
       header, .report-controls, .back-link, .install-banner { display: none !important; }
@@ -710,6 +669,22 @@ function renderReport() {
   const content = document.getElementById('report-content');
   content.innerHTML = '';
 
+  const table = document.createElement('table');
+  table.className = 'atleta-table';
+  table.innerHTML = `<thead><tr>
+    <th>Atleta</th>
+    <th>Ultima</th>
+    <th>Sed. sett.</th>
+    <th>Sed. tot.</th>
+    <th>RPE</th>
+    <th>Fatica</th>
+    <th>🌙</th><th>💢</th><th>⚡</th>
+    <th>✅</th>
+    <th>⚠️</th>
+    <th></th>
+  </tr></thead>`;
+  const tbody = document.createElement('tbody');
+
   giocatrici.forEach(g => {
     const id = String(g.ID);
 
@@ -740,7 +715,6 @@ function renderReport() {
     const sonno   = avg(wG.map(w => Number(w.Qualita_Sonno)).filter(v => !isNaN(v) && v));
     const dolori  = avg(wG.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v));
     const energia = avg(wG.map(w => Number(w.Energia)).filter(v => !isNaN(v) && v));
-    const anomalia = wG.some(w => Number(w.Qualita_Sonno) <= 2 || Number(w.Dolori) >= 4 || Number(w.Energia) <= 2);
     const sCol = !sonno  ? '#aaa' : parseFloat(sonno)  >= 4 ? '#2a9d3a' : parseFloat(sonno)  >= 3 ? '#e6a817' : '#c33';
     const dCol = !dolori ? '#aaa' : parseFloat(dolori) <= 2 ? '#2a9d3a' : parseFloat(dolori) <= 3 ? '#e6a817' : '#c33';
     const eCol = !energia? '#aaa' : parseFloat(energia) >= 4 ? '#2a9d3a' : parseFloat(energia)>= 3 ? '#e6a817' : '#c33';
@@ -748,48 +722,25 @@ function renderReport() {
     /* note staff */
     const nota = allNoteStaff[id] || {};
 
-    const card = document.createElement('div');
-    card.className = 'atleta-card';
-    card.innerHTML = `
-      <div class="atleta-hdr">
-        <span class="atleta-dot" style="background:${dotColor}"></span>
-        <span class="atleta-nome">${g.Nome}${g.Ruolo ? ` <span class="atleta-ruolo">— ${g.Ruolo}</span>` : ''}</span>
-        <span class="atleta-last" style="color:${lastColor}">${lastLabel}</span>
-      </div>
-      <div class="atleta-stats">
-        <div class="atleta-stat-group">
-          <div class="stat-label">LAVORO</div>
-          <div class="stat-row"><span class="stat-num">${sedWeek}</span><span class="stat-sub">sed. questa sett.</span></div>
-          <div class="stat-row"><span class="stat-num">${sedTot}</span><span class="stat-sub">sed. nel periodo</span></div>
-        </div>
-        <div class="atleta-stat-group">
-          <div class="stat-label">INTENSITÀ</div>
-          <div class="stat-row"><span class="stat-num" style="color:${rpeCol}">${rpe ?? '—'}</span><span class="stat-sub">RPE medio / 10</span></div>
-          <div class="stat-row"><span class="stat-num">${fat ?? '—'}</span><span class="stat-sub">sensazione / 5</span></div>
-        </div>
-        <div class="atleta-stat-group">
-          <div class="stat-label">WELLNESS${anomalia ? ' <span style="color:#c33;font-size:0.85em">⚠</span>' : ''}</div>
-          <div class="stat-row"><span class="stat-num" style="color:${sCol}">🌙 ${sonno ?? '—'}</span><span class="stat-sub">sonno / 5</span></div>
-          <div class="stat-row"><span class="stat-num" style="color:${dCol}">💢 ${dolori ?? '—'}</span><span class="stat-sub">dolori / 5</span></div>
-          <div class="stat-row"><span class="stat-num" style="color:${eCol}">⚡ ${energia ?? '—'}</span><span class="stat-sub">energia / 5</span></div>
-        </div>
-      </div>
-      <div class="note-staff-wrap">
-        <div class="note-staff-field">
-          <div class="note-staff-label pos">✅</div>
-          <textarea class="note-staff-textarea pos" id="note-pos-${id}" placeholder="Cosa va...">${nota.positivo || ''}</textarea>
-        </div>
-        <div class="note-staff-field">
-          <div class="note-staff-label crit">⚠️</div>
-          <textarea class="note-staff-textarea crit" id="note-crit-${id}" placeholder="Da lavorare...">${nota.critico || ''}</textarea>
-        </div>
-        <div class="note-staff-save-row">
-          <button class="note-staff-save-btn" onclick="salvaNota('${id}')">Salva</button>
-          <span class="note-staff-feedback" id="note-fb-${id}">✓ Salvato</span>
-        </div>
-      </div>`;
-    content.appendChild(card);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="atleta-dot" style="background:${dotColor}"></span><span class="atleta-nome">${g.Nome}${g.Ruolo ? `<span class="atleta-ruolo">${g.Ruolo}</span>` : ''}</span></td>
+      <td><span class="atleta-last" style="color:${lastColor}">${lastLabel}</span></td>
+      <td><span class="stat-num">${sedWeek}</span></td>
+      <td><span class="stat-num">${sedTot}</span></td>
+      <td><span class="stat-num" style="color:${rpeCol}">${rpe ?? '—'}</span></td>
+      <td><span class="stat-num">${fat ?? '—'}</span></td>
+      <td><span class="stat-num" style="color:${sCol}">${sonno ?? '—'}</span></td>
+      <td><span class="stat-num" style="color:${dCol}">${dolori ?? '—'}</span></td>
+      <td><span class="stat-num" style="color:${eCol}">${energia ?? '—'}</span></td>
+      <td class="td-note"><input class="note-input pos" id="note-pos-${id}" value="${(nota.positivo || '').replace(/"/g, '&quot;')}" placeholder="Cosa va..."></td>
+      <td class="td-note"><input class="note-input crit" id="note-crit-${id}" value="${(nota.critico || '').replace(/"/g, '&quot;')}" placeholder="Da lavorare..."></td>
+      <td><button class="note-staff-save-btn" onclick="salvaNota('${id}')">Salva</button><span class="note-staff-feedback" id="note-fb-${id}">✓</span></td>`;
+    tbody.appendChild(tr);
   });
+
+  table.appendChild(tbody);
+  content.appendChild(table);
 }
 
 async function salvaNota(id) {
