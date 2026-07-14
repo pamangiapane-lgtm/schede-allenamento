@@ -213,6 +213,80 @@
     .cmp-rpe.hi  { color: #c33; font-weight: 700; }
     .cmp-rpe.med { color: #e6a817; font-weight: 600; }
 
+    /* ── WELLNESS SECTION ── */
+    .wl-val { width: 58px; text-align: right; font-size: 0.78rem; color: var(--text-light, #888); }
+    .wl-val.ok   { color: #2a9d3a; font-weight: 600; }
+    .wl-val.warn { color: #e6a817; font-weight: 600; }
+    .wl-val.bad  { color: #c33;    font-weight: 700; }
+    .wl-note { flex: 2; font-size: 0.75rem; color: var(--text-light, #888); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-left: 6px; }
+
+    .note-staff-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .note-staff-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .note-staff-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .note-staff-label.pos { color: #2a9d3a; }
+    .note-staff-label.crit { color: #c33; }
+    .note-staff-textarea {
+      width: 100%;
+      min-height: 64px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border, #dde1e9);
+      background: var(--surface, #f5f7fa);
+      color: var(--text, #1a1a2e);
+      font-size: 0.83rem;
+      font-family: inherit;
+      resize: vertical;
+      box-sizing: border-box;
+      transition: border-color 0.15s;
+    }
+    .note-staff-textarea:focus { outline: none; border-color: var(--primary, #1a3a6b); }
+    .note-staff-textarea.pos:focus  { border-color: #2a9d3a; }
+    .note-staff-textarea.crit:focus { border-color: #c33; }
+    .note-staff-save-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+      grid-column: 1 / -1;
+    }
+    .note-staff-save-btn {
+      padding: 6px 16px;
+      border-radius: 7px;
+      border: none;
+      background: var(--primary, #1a3a6b);
+      color: #fff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .note-staff-save-btn:active { opacity: 0.8; }
+    .note-staff-feedback {
+      font-size: 0.78rem;
+      color: #2a9d3a;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .note-staff-feedback.visible { opacity: 1; }
+
+    @media (max-width: 500px) {
+      .note-staff-wrap { grid-template-columns: 1fr; }
+    }
+
     @media print {
       header, .report-controls, .back-link, .install-banner { display: none !important; }
       .summary-bar { margin-bottom: 12px; }
@@ -221,6 +295,7 @@
       .player-section { break-inside: avoid; }
       body, .container { background: #fff !important; }
       .summary-chip { border: 1px solid #ddd; background: #fff !important; }
+      .note-staff-save-row { display: none !important; }
     }
   </style>
 </head>
@@ -231,6 +306,7 @@
     <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
     <h1>Report Progressi</h1>
   </div>
+  <div style="background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
 </header>
 
 <div class="container">
@@ -257,6 +333,7 @@
 
     <div id="summary-bar" class="summary-bar"></div>
     <div id="compliance-section"></div>
+    <div id="wellness-section"></div>
     <div id="report-content"></div>
   </div>
 </div>
@@ -267,8 +344,10 @@ const TOKEN     = 'mv26-prd-3xF7wNqK';
 const COACH_KEY = 'mv26-coach-8pL2wK';
 const SKIP      = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
 
-let allGiocatrici = [];
-let allProgressi  = [];
+let allGiocatrici  = [];
+let allProgressi   = [];
+let allWellness    = [];
+let allNoteStaff   = {};
 let chartInstances = [];
 
 const params = new URLSearchParams(window.location.search);
@@ -286,13 +365,18 @@ async function fetchSheet(foglio) {
 
 async function init() {
   try {
-    const [resG, resP] = await Promise.all([
+    const [resG, resP, resW, resNS] = await Promise.all([
       fetchSheet('Giocatrici'),
       fetchSheet('Progressi'),
+      fetchSheet('Wellness'),
+      fetch(`${API}?token=${TOKEN}&azione=leggi_note_staff`).then(r => r.json()).catch(() => ({note:[]})),
     ]);
 
     allGiocatrici = (resG.dati || []).filter(g => !isNaN(parseInt(g.ID)));
     allProgressi  = (resP.dati || []);
+    allWellness   = (resW.dati || []);
+    allNoteStaff  = {};
+    (resNS.note || []).forEach(n => { allNoteStaff[n.id] = n; });
 
     const sel = document.getElementById('sel-giocatrice');
     allGiocatrici
@@ -451,11 +535,115 @@ function renderCompliance() {
     </div>`;
 }
 
+function renderWellness() {
+  const wrap = document.getElementById('wellness-section');
+  if (!allWellness.length) { wrap.innerHTML = ''; return; }
+
+  const selId = document.getElementById('sel-giocatrice').value;
+  const days = parseInt(document.getElementById('sel-periodo').value) || 0;
+  const cutoff = days ? new Date(new Date().setDate(new Date().getDate() - days)) : null;
+  const wData = cutoff
+    ? allWellness.filter(w => { const ts = w.Timestamp ? new Date(w.Timestamp) : null; return ts && ts >= cutoff; })
+    : allWellness;
+
+  const sonnoClass  = v => !v ? '' : v >= 4 ? 'ok' : v >= 3 ? 'warn' : 'bad';
+  const doloriClass = v => !v ? '' : v <= 2 ? 'ok' : v <= 3 ? 'warn' : 'bad';
+  const avg = arr => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1) : null;
+
+  if (selId === 'all') {
+    const rows = allGiocatrici.map(g => {
+      const entries = wData.filter(w => String(w.ID_Giocatrice) === String(g.ID));
+      if (!entries.length) return null;
+      const sonno   = avg(entries.map(e => Number(e.Qualita_Sonno)).filter(v => !isNaN(v) && v));
+      const dolori  = avg(entries.map(e => Number(e.Dolori)).filter(v => !isNaN(v) && v));
+      const energia = avg(entries.map(e => Number(e.Energia)).filter(v => !isNaN(v) && v));
+      const lastNote = [...entries].reverse().find(e => e.Note)?.Note || '';
+      const anomalia = entries.some(e => Number(e.Qualita_Sonno) <= 2 || Number(e.Dolori) >= 4 || Number(e.Energia) <= 2);
+      return { g, count: entries.length, sonno, dolori, energia, note: lastNote, anomalia };
+    }).filter(Boolean);
+
+    if (!rows.length) { wrap.innerHTML = ''; return; }
+
+    const totAnom = rows.filter(r => r.anomalia).length;
+    const badge = totAnom > 0
+      ? `<span class="cmp-urgenti">${totAnom} con anomalie</span>`
+      : `<span style="color:#2a9d3a;font-size:0.75rem;font-weight:700">✓ nessuna anomalia</span>`;
+    const open = totAnom > 0;
+
+    const rowsHtml = rows.map(r => `
+      <div class="cmp-row">
+        <span class="cmp-name">${r.g.Nome}</span>
+        <span class="wl-val ${sonnoClass(parseFloat(r.sonno))}">${r.sonno ?? '—'}</span>
+        <span class="wl-val ${doloriClass(parseFloat(r.dolori))}">${r.dolori ?? '—'}</span>
+        <span class="wl-val ${sonnoClass(parseFloat(r.energia))}">${r.energia ?? '—'}</span>
+        <span class="wl-note">${r.note ? '📝 ' + r.note : ''}</span>
+      </div>`).join('');
+
+    wrap.innerHTML = `
+      <div class="compliance-wrap">
+        <div class="compliance-hdr" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.compliance-toggle').textContent=this.nextElementSibling.style.display==='none'?'▼ espandi':'▲ chiudi'">
+          <h3>💚 Wellness squadra ${badge}</h3>
+          <span class="compliance-toggle">${open ? '▲ chiudi' : '▼ espandi'}</span>
+        </div>
+        <div class="compliance-body" style="display:${open ? 'block' : 'none'}">
+          <div class="cmp-head-row">
+            <span style="flex:1">Atleta</span>
+            <span style="width:58px;text-align:right">🌙 Sonno</span>
+            <span style="width:58px;text-align:right">💢 Dolori</span>
+            <span style="width:58px;text-align:right">⚡ Energia</span>
+            <span style="flex:2;padding-left:6px">Ultima nota</span>
+          </div>
+          ${rowsHtml}
+        </div>
+      </div>`;
+  } else {
+    const entries = wData
+      .filter(w => String(w.ID_Giocatrice) === selId)
+      .sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
+      .slice(0, 10);
+
+    if (!entries.length) { wrap.innerHTML = ''; return; }
+
+    const fmtDate = ts => { const d = new Date(ts); return `${d.getDate()}/${d.getMonth()+1}`; };
+
+    const rowsHtml = entries.map(e => {
+      const s = Number(e.Qualita_Sonno), dl = Number(e.Dolori), en = Number(e.Energia);
+      return `
+        <div class="cmp-row">
+          <span style="width:38px;font-size:0.78rem;color:var(--text-light)">${e.Data || fmtDate(e.Timestamp)}</span>
+          <span class="wl-val ${sonnoClass(s)}">${s || '—'}</span>
+          <span class="wl-val ${doloriClass(dl)}">${dl || '—'}</span>
+          <span class="wl-val ${sonnoClass(en)}">${en || '—'}</span>
+          <span class="wl-note">${e.Note ? '📝 ' + e.Note : ''}</span>
+        </div>`;
+    }).join('');
+
+    wrap.innerHTML = `
+      <div class="compliance-wrap">
+        <div class="compliance-hdr" style="cursor:default">
+          <h3>💚 Wellness personale</h3>
+          <span></span>
+        </div>
+        <div class="compliance-body">
+          <div class="cmp-head-row">
+            <span style="width:38px">Data</span>
+            <span style="width:58px;text-align:right">🌙 Sonno</span>
+            <span style="width:58px;text-align:right">💢 Dolori</span>
+            <span style="width:58px;text-align:right">⚡ Energia</span>
+            <span style="flex:2;padding-left:6px">Note</span>
+          </div>
+          ${rowsHtml}
+        </div>
+      </div>`;
+  }
+}
+
 function renderReport() {
   chartInstances.forEach(c => c.destroy());
   chartInstances = [];
 
   renderCompliance();
+  renderWellness();
 
   const selId = document.getElementById('sel-giocatrice').value;
   const giocatrici = selId === 'all'
@@ -553,6 +741,23 @@ function renderReport() {
       html += `</div>`;
     }
 
+    const nota = allNoteStaff[String(g.ID)] || {};
+    html += `
+      <div class="note-staff-wrap">
+        <div class="note-staff-field">
+          <div class="note-staff-label pos">✅ Cosa va</div>
+          <textarea class="note-staff-textarea pos" id="note-pos-${g.ID}" placeholder="Punti positivi...">${nota.positivo || ''}</textarea>
+        </div>
+        <div class="note-staff-field">
+          <div class="note-staff-label crit">⚠️ Da lavorare</div>
+          <textarea class="note-staff-textarea crit" id="note-crit-${g.ID}" placeholder="Aspetti critici...">${nota.critico || ''}</textarea>
+        </div>
+        <div class="note-staff-save-row">
+          <button class="note-staff-save-btn" onclick="salvaNota('${g.ID}')">Salva</button>
+          <span class="note-staff-feedback" id="note-fb-${g.ID}">✓ Salvato</span>
+        </div>
+      </div>`;
+
     section.innerHTML = html;
     content.appendChild(section);
 
@@ -599,6 +804,24 @@ function renderReport() {
       chartInstances.push(chart);
     });
   });
+}
+
+async function salvaNota(id) {
+  const pos  = document.getElementById(`note-pos-${id}`)?.value  || '';
+  const crit = document.getElementById(`note-crit-${id}`)?.value || '';
+  const fb   = document.getElementById(`note-fb-${id}`);
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: TOKEN, azione: 'scrivi_nota_staff', id_giocatrice: id, positivo: pos, critico: crit }),
+    });
+    const json = await res.json();
+    if (json.ok) {
+      allNoteStaff[id] = { id, positivo: pos, critico: crit };
+      if (fb) { fb.classList.add('visible'); setTimeout(() => fb.classList.remove('visible'), 2000); }
+    }
+  } catch {}
 }
 </script>
 
