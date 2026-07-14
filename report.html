@@ -213,6 +213,9 @@
     .cmp-rpe.hi  { color: #c33; font-weight: 700; }
     .cmp-rpe.med { color: #e6a817; font-weight: 600; }
 
+    /* ── FULL WIDTH OVERRIDE ── */
+    .container { max-width: 100% !important; padding: 12px 20px 40px !important; }
+
     /* ── TABELLA ATLETE ── */
     #report-content { overflow-x: auto; }
     .atleta-table {
@@ -226,34 +229,31 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--text-light, #888);
-      padding: 6px 10px;
+      padding: 6px 8px;
       text-align: left;
       border-bottom: 2px solid var(--border, #dde1e9);
       white-space: nowrap;
     }
-    .atleta-table tbody tr {
-      border-bottom: 1px solid var(--border, #dde1e9);
-    }
+    .atleta-table tbody tr { border-bottom: 1px solid var(--border, #dde1e9); }
     .atleta-table tbody tr:last-child { border-bottom: none; }
     .atleta-table td {
-      padding: 7px 10px;
+      padding: 6px 8px;
       vertical-align: middle;
       white-space: nowrap;
     }
-    .atleta-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; flex-shrink: 0; vertical-align: middle; }
+    .atleta-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: middle; flex-shrink: 0; }
     .atleta-nome { font-weight: 700; color: var(--text, #1a1a2e); }
-    .atleta-ruolo { font-weight: 400; font-size: 0.75rem; opacity: 0.55; margin-left: 4px; }
+    .atleta-ruolo { font-weight: 400; font-size: 0.72rem; opacity: 0.55; margin-left: 4px; }
     .atleta-last { font-size: 0.75rem; font-weight: 700; }
-    .stat-num { font-weight: 700; color: var(--primary, #1a3a6b); }
-    .stat-sub { font-size: 0.65rem; color: var(--text-light, #999); margin-left: 2px; }
-    .td-note { width: 180px; }
+    .stat-num { font-weight: 700; }
+    .td-note { width: 160px; white-space: normal; }
     .note-input {
       width: 100%;
-      padding: 5px 8px;
-      border-radius: 6px;
+      padding: 4px 7px;
+      border-radius: 5px;
       border: 1.5px solid var(--border, #dde1e9);
-      background: var(--surface, #f5f7fa);
-      color: var(--text, #1a1a2e);
+      background: #fff;
+      color: #1a1a2e;
       font-size: 0.78rem;
       font-family: inherit;
       box-sizing: border-box;
@@ -263,19 +263,19 @@
     .note-input.pos:focus  { border-color: #2a9d3a; }
     .note-input.crit:focus { border-color: #c33; }
     .note-staff-save-btn {
-      padding: 5px 12px;
-      border-radius: 6px;
+      padding: 4px 10px;
+      border-radius: 5px;
       border: none;
       background: var(--primary, #1a3a6b);
       color: #fff;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
     }
     .note-staff-save-btn:active { opacity: 0.8; }
     .note-staff-feedback {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: #2a9d3a;
       font-weight: 600;
       opacity: 0;
@@ -676,11 +676,11 @@ function renderReport() {
     <th>Ultima</th>
     <th>Sed. sett.</th>
     <th>Sed. tot.</th>
-    <th>RPE</th>
-    <th>Fatica</th>
-    <th>🌙</th><th>💢</th><th>⚡</th>
-    <th>✅</th>
-    <th>⚠️</th>
+    <th>RPE / 10</th>
+    <th>Fatica / 5</th>
+    <th>Wellness</th>
+    <th>✅ Cosa va</th>
+    <th>⚠️ Da lavorare</th>
     <th></th>
   </tr></thead>`;
   const tbody = document.createElement('tbody');
@@ -730,9 +730,7 @@ function renderReport() {
       <td><span class="stat-num">${sedTot}</span></td>
       <td><span class="stat-num" style="color:${rpeCol}">${rpe ?? '—'}</span></td>
       <td><span class="stat-num">${fat ?? '—'}</span></td>
-      <td><span class="stat-num" style="color:${sCol}">${sonno ?? '—'}</span></td>
-      <td><span class="stat-num" style="color:${dCol}">${dolori ?? '—'}</span></td>
-      <td><span class="stat-num" style="color:${eCol}">${energia ?? '—'}</span></td>
+      <td style="white-space:nowrap"><span style="color:${sCol};font-weight:700">🌙${sonno ?? '—'}</span> <span style="color:${dCol};font-weight:700">💢${dolori ?? '—'}</span> <span style="color:${eCol};font-weight:700">⚡${energia ?? '—'}</span></td>
       <td class="td-note"><input class="note-input pos" id="note-pos-${id}" value="${(nota.positivo || '').replace(/"/g, '&quot;')}" placeholder="Cosa va..."></td>
       <td class="td-note"><input class="note-input crit" id="note-crit-${id}" value="${(nota.critico || '').replace(/"/g, '&quot;')}" placeholder="Da lavorare..."></td>
       <td><button class="note-staff-save-btn" onclick="salvaNota('${id}')">Salva</button><span class="note-staff-feedback" id="note-fb-${id}">✓</span></td>`;
