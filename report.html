@@ -213,12 +213,46 @@
     .cmp-rpe.hi  { color: #c33; font-weight: 700; }
     .cmp-rpe.med { color: #e6a817; font-weight: 600; }
 
-    /* ── WELLNESS SECTION ── */
-    .wl-val { width: 58px; text-align: right; font-size: 0.78rem; color: var(--text-light, #888); }
-    .wl-val.ok   { color: #2a9d3a; font-weight: 600; }
-    .wl-val.warn { color: #e6a817; font-weight: 600; }
-    .wl-val.bad  { color: #c33;    font-weight: 700; }
-    .wl-note { flex: 2; font-size: 0.75rem; color: var(--text-light, #888); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-left: 6px; }
+    /* ── ATLETA CARD ── */
+    .atleta-card {
+      background: var(--surface, #f5f7fa);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .atleta-hdr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .atleta-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .atleta-nome { flex: 1; font-weight: 700; font-size: 1rem; color: var(--text, #1a1a2e); }
+    .atleta-ruolo { font-weight: 400; font-size: 0.82rem; opacity: 0.65; }
+    .atleta-last { font-size: 0.82rem; font-weight: 700; }
+    .atleta-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .atleta-stat-group {
+      background: var(--bg, #fff);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .stat-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-light, #888);
+      margin-bottom: 8px;
+    }
+    .stat-row { display: flex; align-items: baseline; gap: 5px; margin-bottom: 5px; }
+    .stat-row:last-child { margin-bottom: 0; }
+    .stat-num { font-size: 1.1rem; font-weight: 700; color: var(--primary, #1a3a6b); line-height: 1; }
+    .stat-sub { font-size: 0.68rem; color: var(--text-light, #999); }
 
     .note-staff-wrap {
       display: grid;
@@ -641,167 +675,115 @@ function renderReport() {
   chartInstances.forEach(c => c.destroy());
   chartInstances = [];
 
-  renderCompliance();
-  renderWellness();
+  document.getElementById('compliance-section').innerHTML = '';
+  document.getElementById('wellness-section').innerHTML  = '';
 
-  const selId = document.getElementById('sel-giocatrice').value;
-  const giocatrici = selId === 'all'
-    ? allGiocatrici
-    : allGiocatrici.filter(g => String(g.ID) === selId);
+  const selId  = document.getElementById('sel-giocatrice').value;
+  const days   = parseInt(document.getElementById('sel-periodo').value) || 0;
+  const now    = new Date();
+  const cutoff = days ? new Date(now.getTime() - days * 86400000) : null;
 
-  const progressi = filterByPeriodo(allProgressi);
+  const startOfWeek = new Date(now);
+  const dow = startOfWeek.getDay();
+  startOfWeek.setDate(now.getDate() - (dow === 0 ? 6 : dow - 1));
+  startOfWeek.setHours(0, 0, 0, 0);
 
-  /* summary */
-  const attivi = new Set(progressi.filter(p => !SKIP.has(p.Esercizio) && p.Valore).map(p => p.ID_Giocatrice));
-  const totLog = progressi.filter(p => !SKIP.has(p.Esercizio) && p.Valore).length;
-  const ultime = progressi.filter(p => !SKIP.has(p.Esercizio) && p.Valore);
-  const dataMin = ultime.length
-    ? formatData(ultime.reduce((a, b) => new Date(a.Timestamp) < new Date(b.Timestamp) ? a : b).Timestamp)
-    : '—';
+  const avg = arr => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1) : null;
+  const filterTs = arr => cutoff ? arr.filter(p => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; return ts && ts >= cutoff; }) : arr;
+
+  const giocatrici = selId === 'all' ? allGiocatrici : allGiocatrici.filter(g => String(g.ID) === selId);
+
+  const progressiFiltrati = filterTs(allProgressi);
+  const attivi = new Set(progressiFiltrati.filter(p => !SKIP.has(p.Esercizio) && p.Valore).map(p => p.ID_Giocatrice));
+  const sedTotSquadra = new Set(progressiFiltrati.filter(p => !SKIP.has(p.Esercizio) && p.Valore).map(p => p.N_Seduta)).size;
 
   document.getElementById('summary-bar').innerHTML = `
-    <div class="summary-chip"><strong>${totLog}</strong>log totali</div>
-    <div class="summary-chip"><strong>${attivi.size}</strong>atlete attive</div>
-    ${totLog ? `<div class="summary-chip"><strong>${dataMin}</strong>primo log</div>` : ''}
+    <div class="summary-chip"><strong>${attivi.size}/${allGiocatrici.length}</strong>atlete attive</div>
+    <div class="summary-chip"><strong>${sedTotSquadra}</strong>sedute totali (periodo)</div>
   `;
 
   const content = document.getElementById('report-content');
   content.innerHTML = '';
 
   giocatrici.forEach(g => {
-    const pGioc = progressi
-      .filter(p => String(p.ID_Giocatrice) === String(g.ID))
-      .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
+    const id = String(g.ID);
 
-    const section = document.createElement('div');
-    section.className = 'player-section';
+    /* workload */
+    const logsG    = allProgressi.filter(p => String(p.ID_Giocatrice) === id && !SKIP.has(p.Esercizio) && p.Valore);
+    const logsGFil = filterTs(logsG);
+    const sedTot   = new Set(logsGFil.map(p => p.N_Seduta)).size;
+    const sedWeek  = new Set(logsG.filter(p => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; return ts && ts >= startOfWeek; }).map(p => p.N_Seduta)).size;
 
-    /* esercizi con kg */
-    const byEserc = {};
-    pGioc.filter(p => !SKIP.has(p.Esercizio) && p.Valore).forEach(p => {
-      if (!byEserc[p.Esercizio]) byEserc[p.Esercizio] = [];
-      byEserc[p.Esercizio].push(p);
-    });
+    let ultimoTs = null;
+    logsG.forEach(p => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; if (ts && (!ultimoTs || ts > ultimoTs)) ultimoTs = ts; });
+    const daysSince = ultimoTs ? Math.floor((now - ultimoTs) / 86400000) : null;
+    const lastLabel = daysSince === null ? 'mai' : daysSince === 0 ? 'oggi' : daysSince === 1 ? 'ieri' : `${daysSince}gg fa`;
+    const status    = daysSince === null ? 'mai' : daysSince > 7 ? 'red' : daysSince > 3 ? 'warn' : 'ok';
+    const dotColor  = status === 'ok' ? '#2a9d3a' : status === 'warn' ? '#e6a817' : '#c33';
+    const lastColor = status === 'ok' ? '#2a9d3a' : status === 'warn' ? '#e6a817' : '#c33';
 
-    /* RPE e fatica */
-    const rpeVals  = pGioc.filter(p => p.Esercizio === 'RPE-seduta'    && p.Valore).map(p => Number(p.Valore));
-    const fatVals  = pGioc.filter(p => p.Esercizio === 'Fatica-seduta' && p.Valore).map(p => Number(p.Valore));
-    const rpeMedia = rpeVals.length ? (rpeVals.reduce((a, b) => a + b, 0) / rpeVals.length).toFixed(1) : null;
-    const fatMedia = fatVals.length ? (fatVals.reduce((a, b) => a + b, 0) / fatVals.length).toFixed(1) : null;
+    /* intensità */
+    const allG   = filterTs(allProgressi.filter(p => String(p.ID_Giocatrice) === id));
+    const rpeV   = allG.filter(p => p.Esercizio === 'RPE-seduta'    && p.Valore).map(p => Number(p.Valore)).filter(v => !isNaN(v));
+    const fatV   = allG.filter(p => p.Esercizio === 'Fatica-seduta' && p.Valore).map(p => Number(p.Valore)).filter(v => !isNaN(v));
+    const rpe    = avg(rpeV);
+    const fat    = avg(fatV);
+    const rpeCol = !rpe ? '#aaa' : parseFloat(rpe) >= 8 ? '#c33' : parseFloat(rpe) >= 6 ? '#e6a817' : '#2a9d3a';
 
-    let html = `<div class="player-title">${g.Nome}${g.Ruolo ? ' <span style="font-weight:400;font-size:0.85rem;opacity:0.7">— ' + g.Ruolo + '</span>' : ''}</div>`;
+    /* wellness */
+    const wG      = filterTs(allWellness.filter(w => String(w.ID_Giocatrice) === id));
+    const sonno   = avg(wG.map(w => Number(w.Qualita_Sonno)).filter(v => !isNaN(v) && v));
+    const dolori  = avg(wG.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v));
+    const energia = avg(wG.map(w => Number(w.Energia)).filter(v => !isNaN(v) && v));
+    const anomalia = wG.some(w => Number(w.Qualita_Sonno) <= 2 || Number(w.Dolori) >= 4 || Number(w.Energia) <= 2);
+    const sCol = !sonno  ? '#aaa' : parseFloat(sonno)  >= 4 ? '#2a9d3a' : parseFloat(sonno)  >= 3 ? '#e6a817' : '#c33';
+    const dCol = !dolori ? '#aaa' : parseFloat(dolori) <= 2 ? '#2a9d3a' : parseFloat(dolori) <= 3 ? '#e6a817' : '#c33';
+    const eCol = !energia? '#aaa' : parseFloat(energia) >= 4 ? '#2a9d3a' : parseFloat(energia)>= 3 ? '#e6a817' : '#c33';
 
-    if (Object.keys(byEserc).length === 0 && !rpeMedia && !fatMedia) {
-      html += `<div class="no-data">Nessun dato registrato nel periodo selezionato.</div>`;
-      section.innerHTML = html;
-      content.appendChild(section);
-      return;
-    }
+    /* note staff */
+    const nota = allNoteStaff[id] || {};
 
-    /* griglia esercizi */
-    if (Object.keys(byEserc).length > 0) {
-      html += `<div class="exercise-grid" id="grid-${g.ID}">`;
-      Object.entries(byEserc).forEach(([nome, voci], idx) => {
-        const kgVals = voci
-          .map(v => ({ label: v.Data || formatData(v.Timestamp), kg: parseKg(v.Valore) }))
-          .filter(v => v.kg !== null);
-
-        const last = voci[voci.length - 1];
-        const lastKg = kgVals.length ? kgVals[kgVals.length - 1].kg : null;
-        const prevKg = kgVals.length > 1 ? kgVals[kgVals.length - 2].kg : null;
-
-        let trendHtml = '';
-        if (lastKg !== null && prevKg !== null) {
-          const diff = Math.round((lastKg - prevKg) * 10) / 10;
-          if (diff > 0)      trendHtml = `<div class="ex-trend trend-up">↑ +${diff} kg</div>`;
-          else if (diff < 0) trendHtml = `<div class="ex-trend trend-dn">↓ ${diff} kg</div>`;
-          else               trendHtml = `<div class="ex-trend trend-eq">= invariato</div>`;
-        }
-
-        const chartId = `chart-${g.ID}-${idx}`;
-        html += `
-          <div class="exercise-card">
-            <div class="ex-name">${nome}</div>
-            <div class="ex-last">${last.Valore || '—'}</div>
-            ${trendHtml}
-            ${kgVals.length > 1 ? `<div class="ex-chart"><canvas id="${chartId}"></canvas></div>` : ''}
-            <div class="ex-count">${voci.length} ${voci.length !== 1 ? 'registrazioni' : 'registrazione'}</div>
-          </div>`;
-      });
-      html += `</div>`;
-    }
-
-    /* feedback RPE / fatica */
-    if (rpeMedia || fatMedia) {
-      html += `<div class="feedback-summary">
-        <div class="feedback-summary-title">Feedback sedute (media)</div>`;
-      if (rpeMedia) html += `<div class="feedback-row-report"><span>Intensità (RPE)</span><span class="feedback-val">${rpeMedia} / 10</span></div>`;
-      if (fatMedia) html += `<div class="feedback-row-report"><span>Sensazione</span><span class="feedback-val">${fatMedia} / 5</span></div>`;
-      html += `</div>`;
-    }
-
-    const nota = allNoteStaff[String(g.ID)] || {};
-    html += `
+    const card = document.createElement('div');
+    card.className = 'atleta-card';
+    card.innerHTML = `
+      <div class="atleta-hdr">
+        <span class="atleta-dot" style="background:${dotColor}"></span>
+        <span class="atleta-nome">${g.Nome}${g.Ruolo ? ` <span class="atleta-ruolo">— ${g.Ruolo}</span>` : ''}</span>
+        <span class="atleta-last" style="color:${lastColor}">${lastLabel}</span>
+      </div>
+      <div class="atleta-stats">
+        <div class="atleta-stat-group">
+          <div class="stat-label">LAVORO</div>
+          <div class="stat-row"><span class="stat-num">${sedWeek}</span><span class="stat-sub">sed. questa sett.</span></div>
+          <div class="stat-row"><span class="stat-num">${sedTot}</span><span class="stat-sub">sed. nel periodo</span></div>
+        </div>
+        <div class="atleta-stat-group">
+          <div class="stat-label">INTENSITÀ</div>
+          <div class="stat-row"><span class="stat-num" style="color:${rpeCol}">${rpe ?? '—'}</span><span class="stat-sub">RPE medio / 10</span></div>
+          <div class="stat-row"><span class="stat-num">${fat ?? '—'}</span><span class="stat-sub">sensazione / 5</span></div>
+        </div>
+        <div class="atleta-stat-group">
+          <div class="stat-label">WELLNESS${anomalia ? ' <span style="color:#c33;font-size:0.85em">⚠</span>' : ''}</div>
+          <div class="stat-row"><span class="stat-num" style="color:${sCol}">🌙 ${sonno ?? '—'}</span><span class="stat-sub">sonno / 5</span></div>
+          <div class="stat-row"><span class="stat-num" style="color:${dCol}">💢 ${dolori ?? '—'}</span><span class="stat-sub">dolori / 5</span></div>
+          <div class="stat-row"><span class="stat-num" style="color:${eCol}">⚡ ${energia ?? '—'}</span><span class="stat-sub">energia / 5</span></div>
+        </div>
+      </div>
       <div class="note-staff-wrap">
         <div class="note-staff-field">
           <div class="note-staff-label pos">✅ Cosa va</div>
-          <textarea class="note-staff-textarea pos" id="note-pos-${g.ID}" placeholder="Punti positivi...">${nota.positivo || ''}</textarea>
+          <textarea class="note-staff-textarea pos" id="note-pos-${id}" placeholder="Punti positivi...">${nota.positivo || ''}</textarea>
         </div>
         <div class="note-staff-field">
           <div class="note-staff-label crit">⚠️ Da lavorare</div>
-          <textarea class="note-staff-textarea crit" id="note-crit-${g.ID}" placeholder="Aspetti critici...">${nota.critico || ''}</textarea>
+          <textarea class="note-staff-textarea crit" id="note-crit-${id}" placeholder="Aspetti critici...">${nota.critico || ''}</textarea>
         </div>
         <div class="note-staff-save-row">
-          <button class="note-staff-save-btn" onclick="salvaNota('${g.ID}')">Salva</button>
-          <span class="note-staff-feedback" id="note-fb-${g.ID}">✓ Salvato</span>
+          <button class="note-staff-save-btn" onclick="salvaNota('${id}')">Salva</button>
+          <span class="note-staff-feedback" id="note-fb-${id}">✓ Salvato</span>
         </div>
       </div>`;
-
-    section.innerHTML = html;
-    content.appendChild(section);
-
-    /* disegna grafici */
-    Object.entries(byEserc).forEach(([, voci], idx) => {
-      const kgVals = voci
-        .map(v => ({ label: v.Data || formatData(v.Timestamp), kg: parseKg(v.Valore) }))
-        .filter(v => v.kg !== null);
-      if (kgVals.length < 2) return;
-      const canvas = document.getElementById(`chart-${g.ID}-${idx}`);
-      if (!canvas) return;
-      const chart = new Chart(canvas, {
-        type: 'line',
-        data: {
-          labels: kgVals.map(v => v.label),
-          datasets: [{
-            data: kgVals.map(v => v.kg),
-            borderColor: '#1a3a6b',
-            backgroundColor: 'rgba(26,58,107,0.08)',
-            tension: 0.35,
-            pointRadius: 3,
-            pointBackgroundColor: '#1a3a6b',
-            fill: true,
-            borderWidth: 2,
-          }],
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          animation: false,
-          plugins: { legend: { display: false }, tooltip: { callbacks: {
-            label: ctx => `${ctx.parsed.y} kg`,
-          }}},
-          scales: {
-            x: { display: false },
-            y: {
-              display: true,
-              ticks: { font: { size: 9 }, maxTicksLimit: 3 },
-              grid: { color: 'rgba(0,0,0,0.05)' },
-            },
-          },
-        },
-      });
-      chartInstances.push(chart);
-    });
+    content.appendChild(card);
   });
 }
 
