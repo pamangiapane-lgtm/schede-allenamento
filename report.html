@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -680,7 +680,6 @@ function renderReport() {
     <th>Wellness</th>
     <th>✅ Cosa va</th>
     <th>⚠️ Da lavorare</th>
-    <th></th>
   </tr></thead>`;
   const tbody = document.createElement('tbody');
 
@@ -729,32 +728,36 @@ function renderReport() {
       <td><span class="stat-num">${sedTot}</span></td>
       <td><span class="stat-num" style="color:${rpeCol}">${rpe ?? '—'}</span></td>
       <td><span class="stat-num">${fat ?? '—'}</span></td>
-      <td style="white-space:nowrap;font-size:0.78rem"><span style="color:${sCol};font-weight:700">🌙 Sonno ${sonno ?? '—'}/5</span> &nbsp; <span style="color:${dCol};font-weight:700">💢 Dolori ${dolori ?? '—'}/5</span> &nbsp; <span style="color:${eCol};font-weight:700">⚡ Energia ${energia ?? '—'}/5</span></td>
+      <td style="white-space:nowrap;font-size:0.78rem"><span style="color:${sCol};font-weight:700">🌙 Sonno ${sonno ?? '—'}</span> &nbsp; <span style="color:${dCol};font-weight:700">💢 Dolori ${dolori ?? '—'}</span> &nbsp; <span style="color:${eCol};font-weight:700">⚡ Energia ${energia ?? '—'}</span></td>
       <td class="td-note"><input class="note-input pos" id="note-pos-${id}" value="${(nota.positivo || '').replace(/"/g, '&quot;')}" placeholder="Cosa va..."></td>
-      <td class="td-note"><input class="note-input crit" id="note-crit-${id}" value="${(nota.critico || '').replace(/"/g, '&quot;')}" placeholder="Da lavorare..."></td>
-      <td><button class="note-staff-save-btn" onclick="salvaNota('${id}')">Salva</button><span class="note-staff-feedback" id="note-fb-${id}">✓</span></td>`;
+      <td class="td-note"><input class="note-input crit" id="note-crit-${id}" value="${(nota.critico || '').replace(/"/g, '&quot;')}" placeholder="Da lavorare..."></td>`;
     tbody.appendChild(tr);
   });
 
   table.appendChild(tbody);
   content.appendChild(table);
+
+  const footer = document.createElement('div');
+  footer.style.cssText = 'margin-top:14px;display:flex;align-items:center;gap:12px;';
+  footer.innerHTML = `<button class="note-staff-save-btn" style="padding:8px 24px;font-size:0.85rem" onclick="salvaTutte()">Salva note</button><span id="note-fb-all" class="note-staff-feedback">✓ Salvato</span>`;
+  content.appendChild(footer);
 }
 
-async function salvaNota(id) {
-  const pos  = document.getElementById(`note-pos-${id}`)?.value  || '';
-  const crit = document.getElementById(`note-crit-${id}`)?.value || '';
-  const fb   = document.getElementById(`note-fb-${id}`);
+async function salvaTutte() {
+  const fb = document.getElementById('note-fb-all');
+  const ids = [...document.querySelectorAll('[id^="note-pos-"]')].map(el => el.id.replace('note-pos-', ''));
   try {
-    const res = await fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: TOKEN, azione: 'scrivi_nota_staff', id_giocatrice: id, positivo: pos, critico: crit }),
-    });
-    const json = await res.json();
-    if (json.ok) {
+    await Promise.all(ids.map(id => {
+      const pos  = document.getElementById(`note-pos-${id}`)?.value  || '';
+      const crit = document.getElementById(`note-crit-${id}`)?.value || '';
       allNoteStaff[id] = { id, positivo: pos, critico: crit };
-      if (fb) { fb.classList.add('visible'); setTimeout(() => fb.classList.remove('visible'), 2000); }
-    }
+      return fetch(API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: TOKEN, azione: 'scrivi_nota_staff', id_giocatrice: id, positivo: pos, critico: crit }),
+      });
+    }));
+    if (fb) { fb.classList.add('visible'); setTimeout(() => fb.classList.remove('visible'), 2500); }
   } catch {}
 }
 </script>
