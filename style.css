@@ -1082,6 +1082,29 @@ header p  { font-size: 0.82rem; opacity: 0.70; margin-top: 3px; }
 }
 .report-miss { color: #b04400; }
 
+/* ===== NOTA COACH (banner per-seduta) ===== */
+.coach-note-banner {
+  margin: 10px 14px 4px;
+  padding: 10px 14px;
+  background: #eff6ff;
+  border-left: 3px solid #1a3a6b;
+  border-radius: 6px;
+}
+.coach-note-banner .cnb-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #1a3a6b;
+  margin-bottom: 4px;
+}
+.coach-note-banner .cnb-text {
+  font-size: 0.82rem;
+  color: #334155;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
 /* ===== ANALISI FUNZIONALE ===== */
 .af-subheader {
   padding: 7px 16px;
