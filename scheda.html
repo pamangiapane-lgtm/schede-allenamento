@@ -1024,6 +1024,7 @@ async function fineSeduta(nSeduta, btn) {
     btn.style.background = 'var(--verde)';
     btn.style.color      = '#fff';
     _datiModificati      = false;
+    localStorage.removeItem(wellnessKey());
 
   } catch {
     btn.textContent      = L.errorBtn;
