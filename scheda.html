@@ -1259,17 +1259,12 @@ async function salvaPeso(btn) {
 function htmlFeedbackSeduta(nSeduta, prev) {
   const rpeId   = `rpe-${id}-${nSeduta}`;
   const fatId   = `fat-${id}-${nSeduta}`;
-  const prevRpe = prev['RPE-seduta']    || null;
-  const prevFat = prev['Fatica-seduta'] || null;
-
   let rpeBtn = '', fatBtn = '';
   for (let i = 1; i <= 10; i++) {
-    const sel = i === prevRpe ? ' selected' : '';
-    rpeBtn += `<button class="rating-btn${sel}" onclick="salvaRating(this,'${rpeId}',${i},'RPE-seduta','${nSeduta}')">${i}</button>`;
+    rpeBtn += `<button class="rating-btn" onclick="salvaRating(this,'${rpeId}',${i},'RPE-seduta','${nSeduta}')">${i}</button>`;
   }
   for (let i = 1; i <= 5; i++) {
-    const sel = i === prevFat ? ' selected' : '';
-    fatBtn += `<button class="rating-btn${sel}" onclick="salvaRating(this,'${fatId}',${i},'Fatica-seduta','${nSeduta}')">${i}</button>`;
+    fatBtn += `<button class="rating-btn" onclick="salvaRating(this,'${fatId}',${i},'Fatica-seduta','${nSeduta}')">${i}</button>`;
   }
 
   return `
