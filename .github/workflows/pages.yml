@@ -44,6 +44,7 @@ jobs:
           cp dev-build/offline.html  site/dev/offline.html  2>/dev/null || true
           cp dev-build/icon.svg      site/dev/icon.svg      2>/dev/null || true
           cp dev-build/report.html   site/dev/report.html   2>/dev/null || true
+          cp dev-build/coach.html    site/dev/coach.html    2>/dev/null || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
