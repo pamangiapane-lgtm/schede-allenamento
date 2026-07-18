@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Storico Progressioni</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#1a3a6b">
+  <style>
+    .storico-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .storico-controls select {
+      flex: 1;
+      min-width: 160px;
+      padding: 10px 12px;
+      border: 1.5px solid var(--bordo);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      color: var(--testo);
+      background: var(--grigio);
+      outline: none;
+      font-family: inherit;
+      appearance: none;
+    }
+    .storico-controls select:focus { border-color: var(--blu-medio); background: #fff; }
+
+    .chart-card {
+      background: var(--bianco);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .chart-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--testo-sec);
+      margin-bottom: 12px;
+    }
+    .chart-wrap { overflow-x: auto; }
+    .chart-wrap svg { display: block; width: 100%; max-width: 680px; margin: 0 auto; }
+
+    .tooltip-box {
+      position: absolute;
+      background: var(--testo);
+      color: var(--bianco);
+      font-size: 0.75rem;
+      padding: 5px 10px;
+      border-radius: 6px;
+      pointer-events: none;
+      white-space: nowrap;
+      display: none;
+      z-index: 10;
+    }
+
+    .pr-card {
+      background: var(--bianco);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .pr-tbl { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .pr-tbl thead th {
+      padding: 10px 12px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--testo-sec);
+      background: var(--grigio);
+      text-align: left;
+      white-space: nowrap;
+    }
+    .pr-tbl tbody td {
+      padding: 8px 12px;
+      border-top: 1px solid var(--bordo);
+      color: var(--testo);
+    }
+    .pr-tbl tbody tr:hover { background: #f8fafc; }
+    .pr-val { font-weight: 700; color: var(--blu); font-variant-numeric: tabular-nums; }
+    .pr-trend { font-size: 0.75rem; }
+    .trend-up   { color: #16a34a; }
+    .trend-down { color: #dc2626; }
+    .trend-eq   { color: var(--testo-sec); }
+
+    .empty-msg { text-align: center; padding: 32px; color: var(--testo-sec); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
+    <h1>Storico Progressioni</h1>
+  </div>
+  <p>Marsala Volley 2026/27</p>
+  <div id="dev-banner" style="display:none;background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
+</header>
+
+<div id="access-denied" style="display:none">
+  <div class="container">
+    <p class="errore-msg" style="margin-top:48px;">Accesso non autorizzato.<br><small>Usa il link fornito dallo staff tecnico.</small></p>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <div class="container">
+
+    <div class="storico-controls">
+      <select id="sel-atleta" onchange="onAtletaChange()">
+        <option value="">Seleziona atleta...</option>
+      </select>
+      <select id="sel-esercizio" onchange="renderChart()" disabled>
+        <option value="">Seleziona esercizio...</option>
+      </select>
+    </div>
+
+    <div id="chart-area"></div>
+
+    <div id="pr-area" style="display:none">
+      <p class="sez-titolo" style="margin-bottom:10px">Record personali</p>
+      <div class="pr-card">
+        <div style="overflow-x:auto">
+          <table class="pr-tbl">
+            <thead><tr><th>Esercizio</th><th>PR (kg)</th><th>Data PR</th><th>Δ ultima-prima</th><th>Misurazioni</th></tr></thead>
+            <tbody id="pr-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:24px">
+      <a href="coach.html?coach=mv26-coach-8pL2wK" style="font-size:0.8rem;color:var(--testo-sec)">← Pannello Coach</a>
+    </p>
+  </div>
+</div>
+
+<div class="tooltip-box" id="tooltip"></div>
+
+<script>
+const IS_DEV  = window.location.pathname.includes('/dev/');
+const API     = IS_DEV
+  ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
+  : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const TOKEN     = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
+const COACH_KEY = 'mv26-coach-8pL2wK';
+
+if (IS_DEV) {
+  document.title = '[DEV] ' + document.title;
+  document.getElementById('dev-banner').style.display = '';
+}
+
+const params  = new URLSearchParams(window.location.search);
+const isCoach = params.get('coach') === COACH_KEY;
+const atletaId = params.get('id');
+
+if (!isCoach && !atletaId) {
+  document.getElementById('access-denied').style.display = '';
+} else {
+  document.getElementById('app').style.display = '';
+  init();
+}
+
+const SKIP_ES = new Set(['RPE-seduta','Fatica-seduta','Peso-corporeo']);
+
+let giocatrici = [];
+let progressi  = [];
+let atletaMap  = {};
+
+async function init() {
+  const [resG, resP] = await Promise.all([
+    apiGet('leggi', 'Giocatrici'),
+    apiGet('leggi', 'Progressi')
+  ]);
+  if (resG.ok) {
+    giocatrici = (resG.dati || []).filter(g => g.ID && !isNaN(parseInt(g.ID)))
+      .sort((a, b) => a.Nome.localeCompare(b.Nome, 'it', { sensitivity: 'base' }));
+    giocatrici.forEach(g => { atletaMap[String(g.ID)] = g.Nome; });
+  }
+  if (resP.ok) progressi = resP.dati || [];
+
+  if (isCoach) {
+    const sel = document.getElementById('sel-atleta');
+    giocatrici.forEach(g => {
+      const o = document.createElement('option');
+      o.value = g.ID; o.textContent = g.Nome;
+      sel.appendChild(o);
+    });
+  } else {
+    // Modalità atleta: pre-seleziona e blocca
+    const sel = document.getElementById('sel-atleta');
+    const g = giocatrici.find(g => String(g.ID) === String(atletaId));
+    if (g) {
+      const o = document.createElement('option');
+      o.value = g.ID; o.textContent = g.Nome; o.selected = true;
+      sel.appendChild(o);
+    }
+    sel.disabled = true;
+    onAtletaChange();
+  }
+}
+
+async function apiGet(azione, foglio) {
+  const url = `${API}?token=${TOKEN}&azione=${azione}${foglio ? '&foglio=' + foglio : ''}`;
+  const r = await fetch(url);
+  return r.json();
+}
+
+function parseKg(s) {
+  if (!s) return null;
+  const m = String(s).match(/[\d.]+/);
+  return m ? parseFloat(m[0]) : null;
+}
+
+function fmtDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return isNaN(d) ? iso : `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
+}
+
+function onAtletaChange() {
+  const id = document.getElementById('sel-atleta').value;
+  const selEs = document.getElementById('sel-esercizio');
+  document.getElementById('chart-area').innerHTML = '';
+  document.getElementById('pr-area').style.display = 'none';
+
+  if (!id) { selEs.disabled = true; selEs.innerHTML = '<option value="">Seleziona esercizio...</option>'; return; }
+
+  const pAll = progressi.filter(p => String(p.ID_Giocatrice) === String(id) && p.Valore && !SKIP_ES.has(p.Esercizio));
+  const esercizi = [...new Set(pAll.map(p => p.Esercizio))].sort((a,b) => a.localeCompare(b,'it'));
+
+  selEs.innerHTML = '<option value="">Tutti (record)</option>' +
+    esercizi.map(e => `<option value="${esc(e)}">${esc(e)}</option>`).join('');
+  selEs.disabled = false;
+
+  renderPR(id);
+  renderChart();
+}
+
+function renderChart() {
+  const id = document.getElementById('sel-atleta').value;
+  const es = document.getElementById('sel-esercizio').value;
+  const area = document.getElementById('chart-area');
+  area.innerHTML = '';
+  if (!id || !es) return;
+
+  const punti = progressi
+    .filter(p => String(p.ID_Giocatrice) === String(id) && p.Esercizio === es && p.Valore && p.Timestamp)
+    .map(p => ({ ts: new Date(p.Timestamp), kg: parseKg(p.Valore) }))
+    .filter(p => p.kg !== null && !isNaN(p.ts))
+    .sort((a, b) => a.ts - b.ts);
+
+  if (!punti.length) {
+    area.innerHTML = '<p class="empty-msg">Nessun dato per questo esercizio.</p>';
+    return;
+  }
+
+  // Raggruppa per giorno: prendi il massimo per giornata
+  const byDay = {};
+  punti.forEach(p => {
+    const d = p.ts.toISOString().slice(0,10);
+    if (!byDay[d] || p.kg > byDay[d].kg) byDay[d] = { date: d, kg: p.kg, ts: p.ts };
+  });
+  const dati = Object.values(byDay).sort((a,b) => new Date(a.date) - new Date(b.date));
+
+  const W = 600, H = 220, PAD = { t: 16, r: 20, b: 44, l: 46 };
+  const cW = W - PAD.l - PAD.r;
+  const cH = H - PAD.t - PAD.b;
+
+  const kgs  = dati.map(d => d.kg);
+  const maxK = Math.ceil(Math.max(...kgs) * 1.08);
+  const minK = Math.max(0, Math.floor(Math.min(...kgs) * 0.88));
+  const tsArr = dati.map(d => new Date(d.date).getTime());
+  const tMin  = Math.min(...tsArr), tMax = Math.max(...tsArr);
+  const tSpan = tMax - tMin || 1;
+
+  const px = (d) => PAD.l + ((new Date(d.date).getTime() - tMin) / tSpan) * cW;
+  const py = (kg) => PAD.t + cH - ((kg - minK) / (maxK - minK || 1)) * cH;
+
+  // Y grid lines
+  const yTicks = 4;
+  let grid = '', yLabels = '', xLabels = '';
+  for (let i = 0; i <= yTicks; i++) {
+    const v  = minK + (maxK - minK) * (i / yTicks);
+    const y  = py(v);
+    grid    += `<line x1="${PAD.l}" y1="${y}" x2="${W - PAD.r}" y2="${y}" stroke="var(--bordo)" stroke-width="1"/>`;
+    yLabels += `<text x="${PAD.l - 5}" y="${y + 4}" text-anchor="end" font-size="10" fill="var(--testo-sec)">${Math.round(v)}</text>`;
+  }
+
+  // X labels (max 5)
+  const step = Math.ceil(dati.length / 5);
+  dati.forEach((d, i) => {
+    if (i % step !== 0 && i !== dati.length - 1) return;
+    const x = px(d);
+    const dt = new Date(d.date);
+    xLabels += `<text x="${x}" y="${H - 6}" text-anchor="middle" font-size="10" fill="var(--testo-sec)">${dt.getDate()}/${dt.getMonth()+1}</text>`;
+  });
+
+  // Line + area
+  const pts  = dati.map(d => `${px(d)},${py(d.kg)}`).join(' ');
+  const ptsFill = `${PAD.l},${PAD.t + cH} ` + pts + ` ${px(dati[dati.length-1])},${PAD.t + cH}`;
+  const line  = `<polyline points="${pts}" fill="none" stroke="var(--blu)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`;
+  const fill  = `<polygon points="${ptsFill}" fill="var(--blu-light)" opacity="0.6"/>`;
+
+  // Dots with data attributes for tooltip
+  const dots = dati.map((d, i) =>
+    `<circle cx="${px(d)}" cy="${py(d.kg)}" r="5" fill="var(--blu)" stroke="var(--bianco)" stroke-width="2"
+      data-i="${i}" data-kg="${d.kg}" data-date="${d.date}"
+      onmouseenter="showTip(event,this)" onmouseleave="hideTip()"/>`
+  ).join('');
+
+  const svgStr = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+    ${grid}${yLabels}${xLabels}
+    <line x1="${PAD.l}" y1="${PAD.t}" x2="${PAD.l}" y2="${PAD.t+cH}" stroke="var(--bordo)" stroke-width="1"/>
+    <line x1="${PAD.l}" y1="${PAD.t+cH}" x2="${W-PAD.r}" y2="${PAD.t+cH}" stroke="var(--bordo)" stroke-width="1"/>
+    ${fill}${line}${dots}
+  </svg>`;
+
+  const card = document.createElement('div');
+  card.className = 'chart-card';
+  card.innerHTML = `<p class="chart-title">${esc(es)} — progressione kg</p>
+    <div class="chart-wrap">${svgStr}</div>`;
+  area.appendChild(card);
+}
+
+function renderPR(id) {
+  const pAll = progressi.filter(p => String(p.ID_Giocatrice) === String(id) && p.Valore && !SKIP_ES.has(p.Esercizio) && p.Timestamp);
+
+  const eMap = {};
+  pAll.forEach(p => {
+    const kg = parseKg(p.Valore);
+    if (kg === null) return;
+    const ts = new Date(p.Timestamp);
+    if (!eMap[p.Esercizio]) eMap[p.Esercizio] = [];
+    eMap[p.Esercizio].push({ kg, ts });
+  });
+
+  const righe = Object.entries(eMap)
+    .map(([es, arr]) => {
+      arr.sort((a,b) => a.ts - b.ts);
+      const pr    = Math.max(...arr.map(a => a.kg));
+      const prTs  = arr.find(a => a.kg === pr).ts;
+      const prima = arr[0].kg;
+      const ult   = arr[arr.length-1].kg;
+      const delta = ult - prima;
+      return { es, pr, prTs, prima, ult, delta, n: arr.length };
+    })
+    .sort((a,b) => a.es.localeCompare(b.es,'it'));
+
+  if (!righe.length) return;
+
+  const tbody = document.getElementById('pr-body');
+  tbody.innerHTML = righe.map(r => {
+    const trendCls = r.delta > 0 ? 'trend-up' : r.delta < 0 ? 'trend-down' : 'trend-eq';
+    const trendSym = r.delta > 0 ? '▲' : r.delta < 0 ? '▼' : '→';
+    return `<tr>
+      <td>${esc(r.es)}</td>
+      <td class="pr-val">${r.pr} kg</td>
+      <td>${fmtDate(r.prTs.toISOString())}</td>
+      <td class="pr-trend ${trendCls}">${trendSym} ${r.delta > 0 ? '+' : ''}${r.delta.toFixed(1)} kg</td>
+      <td>${r.n}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('pr-area').style.display = '';
+}
+
+function showTip(e, el) {
+  const tip  = document.getElementById('tooltip');
+  const date = new Date(el.dataset.date);
+  tip.textContent = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} — ${el.dataset.kg} kg`;
+  tip.style.display = 'block';
+  moveTip(e);
+}
+function moveTip(e) {
+  const tip = document.getElementById('tooltip');
+  tip.style.left = (e.pageX + 12) + 'px';
+  tip.style.top  = (e.pageY - 28) + 'px';
+}
+function hideTip() { document.getElementById('tooltip').style.display = 'none'; }
+
+document.addEventListener('mousemove', e => {
+  if (document.getElementById('tooltip').style.display === 'block') moveTip(e);
+});
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+</body>
+</html>

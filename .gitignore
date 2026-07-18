@@ -1,0 +1,5 @@
+apps_script_dev_project/
+apps_script_prod_project/
+_strumenti/
+backup_locale/
+.claude/
