@@ -26,11 +26,13 @@ jobs:
         with:
           ref: main
           path: main-build
+
       - name: Checkout dev
         uses: actions/checkout@v4
         with:
           ref: dev
           path: dev-build
+
       - name: Prepara cartella pubblicazione
         run: |
           cp -r main-build site
@@ -46,8 +48,10 @@ jobs:
           cp dev-build/report.html   site/dev/report.html   2>/dev/null || true
           cp dev-build/coach.html    site/dev/coach.html    2>/dev/null || true
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
+
       - id: deployment
         uses: actions/deploy-pages@v4
