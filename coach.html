@@ -164,6 +164,66 @@
     }
     .btn-elimina:active { background: #fee2e2; }
 
+    /* ── Template chips ── */
+    .tpl-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .tpl-chip {
+      background: var(--grigio);
+      border: 1.5px solid var(--bordo);
+      border-radius: 20px;
+      padding: 4px 11px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: var(--testo-sec);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .tpl-chip:hover { background: var(--blu-light); border-color: var(--blu-medio); color: var(--blu); }
+    .tpl-chip:active { opacity: 0.75; }
+
+    /* ── Preset date ── */
+    .date-preset-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .date-preset-btn {
+      background: var(--grigio);
+      border: 1.5px solid var(--bordo);
+      border-radius: 20px;
+      padding: 4px 11px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: var(--testo-sec);
+      cursor: pointer;
+    }
+    .date-preset-btn:hover { background: var(--blu-light); border-color: var(--blu-medio); color: var(--blu); }
+    .date-preset-btn:active { opacity: 0.75; }
+
+    /* ── Session pills ── */
+    .sed-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 7px;
+    }
+    .sed-pill {
+      background: var(--grigio);
+      border: 1.5px solid var(--bordo);
+      border-radius: 8px;
+      padding: 4px 11px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--testo);
+    }
+    .sed-pill.selected { background: var(--blu-light); border-color: var(--blu); color: var(--blu); }
+
     /* ── Filtri storico ── */
     .filtri-bar {
       background: var(--bianco);
@@ -294,7 +354,7 @@
 
         <div class="campo">
           <label>Atleta</label>
-          <select id="nota-atleta">
+          <select id="nota-atleta" onchange="aggiornaSedute()">
             <option value="TUTTE">Tutte le atlete</option>
           </select>
         </div>
@@ -308,15 +368,30 @@
         </div>
 
         <div class="campo" id="seduta-field" style="display:none">
-          <label>Numero seduta</label>
-          <input type="number" id="nota-seduta" min="1" placeholder="es. 3">
+          <label>Seduta</label>
+          <input type="text" id="nota-seduta" placeholder="es. OS1-S2 o 3">
+          <div class="sed-pills" id="sed-pills"></div>
         </div>
 
         <div class="campo">
           <label>Testo</label>
+          <div class="tpl-chips">
+            <button type="button" class="tpl-chip" onclick="applyTpl('Lavora al 70% del carico abituale — priorità al recupero muscolare.')">🔄 Carico ridotto</button>
+            <button type="button" class="tpl-chip" onclick="applyTpl('Qualità prima della quantità. Concentrati sulla tecnica di esecuzione, non sul carico.')">🎯 Focus tecnica</button>
+            <button type="button" class="tpl-chip" onclick="applyTpl('Test massimale: riscaldamento progressivo 60% → 75% → 85% → 95% → max.')">💪 Test 1RM</button>
+            <button type="button" class="tpl-chip" onclick="applyTpl('RPE massimo 7 questa settimana — non spingere oltre indipendentemente dal programma.')">⚡ RPE ≤7</button>
+            <button type="button" class="tpl-chip" onclick="applyTpl('Rientro dopo stop: prima seduta al 60%, poi +10% ogni seduta. Segnalami qualsiasi fastidio.')">🏥 Rientro</button>
+            <button type="button" class="tpl-chip" onclick="applyTpl('Ottimo lavoro — mantieni questo ritmo e questa qualità di esecuzione.')">✅ Ottimo ritmo</button>
+            <button type="button" class="tpl-chip" onclick="applyTpl('Aumenta progressivamente il carico del 5–10% sui grandi esercizi da questa settimana.')">📈 Aumenta carico</button>
+          </div>
           <textarea id="nota-testo" placeholder="Scrivi la nota per l'atleta..."></textarea>
         </div>
 
+        <div class="date-preset-row">
+          <button type="button" class="date-preset-btn" onclick="applyDatePreset(0)">📅 Questa settimana</button>
+          <button type="button" class="date-preset-btn" onclick="applyDatePreset(1)">📅 Prossima settimana</button>
+          <button type="button" class="date-preset-btn" onclick="applyDatePreset(2)">📅 Da oggi 14gg</button>
+        </div>
         <div class="date-row">
           <div class="campo">
             <label>Valida dal</label>
@@ -464,10 +539,69 @@ function mostraTab(nome) {
   });
 }
 
+// ── Template chips ────────────────────────────────────────────────────────────
+function applyTpl(testo) {
+  const el = document.getElementById('nota-testo');
+  el.value = testo;
+  el.focus();
+}
+
+// ── Preset date ───────────────────────────────────────────────────────────────
+function applyDatePreset(mode) {
+  const pad = n => String(n).padStart(2, '0');
+  const iso = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  const today = new Date();
+  const dow   = today.getDay() === 0 ? 7 : today.getDay(); // 1=lun
+
+  let dal, al;
+  if (mode === 0) {                         // questa settimana (lun-dom)
+    const lun = new Date(today); lun.setDate(today.getDate() - (dow - 1));
+    const dom = new Date(lun);   dom.setDate(lun.getDate() + 6);
+    dal = iso(lun); al = iso(dom);
+  } else if (mode === 1) {                  // prossima settimana
+    const lun = new Date(today); lun.setDate(today.getDate() - (dow - 1) + 7);
+    const dom = new Date(lun);   dom.setDate(lun.getDate() + 6);
+    dal = iso(lun); al = iso(dom);
+  } else {                                  // da oggi per 14 giorni
+    const fine = new Date(today); fine.setDate(today.getDate() + 14);
+    dal = iso(today); al = iso(fine);
+  }
+  document.getElementById('nota-dal').value = dal;
+  document.getElementById('nota-al').value  = al;
+}
+
+// ── Session picker contestuale ────────────────────────────────────────────────
+function aggiornaSedute() {
+  const idG    = document.getElementById('nota-atleta').value;
+  const isSed  = document.getElementById('nota-tipo').value === 'per-seduta';
+  const cont   = document.getElementById('sed-pills');
+  const input  = document.getElementById('nota-seduta');
+  if (!isSed || idG === 'TUTTE' || !progressi.length) { cont.innerHTML = ''; return; }
+
+  const sedUniq = [...new Set(
+    progressi
+      .filter(p => String(p.ID_Giocatrice) === String(idG) && p.N_Seduta)
+      .sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
+      .map(p => String(p.N_Seduta))
+  )].slice(0, 8);
+
+  cont.innerHTML = sedUniq.map(s =>
+    `<button type="button" class="sed-pill" onclick="selSeduta('${s}')">${s}</button>`
+  ).join('');
+}
+
+function selSeduta(s) {
+  document.getElementById('nota-seduta').value = s;
+  document.querySelectorAll('.sed-pill').forEach(b =>
+    b.classList.toggle('selected', b.textContent === s)
+  );
+}
+
 // ── Tipo nota ─────────────────────────────────────────────────────────────────
 function aggiornaTipo() {
   const isSed = document.getElementById('nota-tipo').value === 'per-seduta';
   document.getElementById('seduta-field').style.display = isSed ? '' : 'none';
+  aggiornaSedute();
 }
 
 // ── Salva nota ────────────────────────────────────────────────────────────────
@@ -481,7 +615,7 @@ async function salvaNota() {
 
   if (!testo) { alert('Scrivi il testo della nota.'); return; }
   if (!dal)   { alert('Inserisci la data di inizio validità.'); return; }
-  if (tipo === 'per-seduta' && !seduta) { alert('Inserisci il numero seduta.'); return; }
+  if (tipo === 'per-seduta' && !seduta) { alert('Seleziona o scrivi la seduta.'); return; }
 
   const btn = document.getElementById('btn-salva');
   btn.disabled = true;
