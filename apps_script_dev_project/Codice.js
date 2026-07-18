@@ -402,7 +402,7 @@ function inviaDigest() {
       <tbody>${righeHtml}</tbody>
     </table>
     <p style="margin-top:16px;font-size:0.8rem;color:#888;text-align:center">
-      <a href="https://pamangiapane-lgtm.github.io/schede-allenamento/report.html?coach=coach2026" style="color:#1a3a6b">→ Apri report completo</a>
+      <a href="https://pamangiapane-lgtm.github.io/schede-allenamento/report.html?coach=mv26-coach-8pL2wK" style="color:#1a3a6b">→ Apri report completo</a>
     </p>
   </div>
 </div>`;
