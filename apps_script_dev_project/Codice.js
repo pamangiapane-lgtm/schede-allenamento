@@ -434,6 +434,230 @@ function installaTrigger() {
   });
 }
 
+// ── RIEPILOGO SETTIMANALE ATLETE ─────────────────────────────────────────────
+
+const EMAIL_ATLETE = {
+  '1':  'allasiaveronica1@gmail.com',
+  '2':  'maria2004.marcuzzi@gmail.com',
+  '3':  'victoria.sassolini@gmail.com',
+  '4':  'anjaasonja2@gmail.com',
+  '5':  'chiara.lodico11@gmail.com',
+  '7':  'elisa.bole613@gmail.com',
+  '8':  'Fede.nonnati@gmail.com',
+  '9':  'sara.dodi7@icloud.com',
+  '11': 'lunacicola18@gmail.com',
+  '12': 'erin.grippo@icloud.com',
+  '13': 'giulia.caserta21@gmail.com',
+};
+
+function inviaRiepilogoSettimanale() {
+  const ss     = SpreadsheetApp.getActiveSpreadsheet();
+  const sheetG = ss.getSheetByName('Giocatrici');
+  const sheetP = ss.getSheetByName('Progressi');
+  const sheetW = ss.getSheetByName('Wellness');
+  const sheetN = ss.getSheetByName('Note_Coach');
+  if (!sheetG || !sheetP) { Logger.log('Fogli mancanti'); return; }
+
+  const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)));
+  const progressi  = leggiRighe_(sheetP);
+  const wellness   = sheetW ? leggiRighe_(sheetW) : [];
+  const noteCoach  = sheetN ? leggiRighe_(sheetN) : [];
+
+  const ora  = new Date();
+  const cut7 = new Date(ora); cut7.setDate(ora.getDate() - 7);
+
+  const oggi = new Date(); oggi.setHours(0, 0, 0, 0);
+  const noteAttive = noteCoach.filter(n => {
+    const ini = n.Data_Inizio ? new Date(n.Data_Inizio) : null;
+    const fin = n.Data_Fine   ? new Date(n.Data_Fine)   : null;
+    if (ini) { const d = new Date(ini); d.setHours(0,0,0,0); if (oggi < d) return false; }
+    if (fin) { const d = new Date(fin); d.setHours(23,59,59,999); if (oggi > d) return false; }
+    return true;
+  });
+
+  const SKIP_SET = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
+  const fmt  = d  => d.getDate() + '/' + (d.getMonth() + 1);
+  const dow  = ora.getDay();
+  const lune = new Date(ora);
+  lune.setDate(ora.getDate() - ((dow === 0 ? 7 : dow) - 1));
+  lune.setHours(0, 0, 0, 0);
+  const luneScorso = new Date(lune); luneScorso.setDate(lune.getDate() - 7);
+  const domScorso  = new Date(lune); domScorso.setMilliseconds(-1);
+  const settLabel  = fmt(luneScorso) + '–' + fmt(domScorso) + ' ' + domScorso.getFullYear();
+  const inRange    = ts => { const d = new Date(ts); return d >= cut7 && d <= ora; };
+  const IS_DEV_SCRIPT = TOKEN === 'mv26-dev-9kR4tLqB';
+
+  giocatrici.forEach(g => {
+    const email = EMAIL_ATLETE[String(g.ID)];
+    if (!email) { Logger.log('Email mancante per ID ' + g.ID + ' (' + g.Nome + ')'); return; }
+
+    const lingua  = String(g.Lingua || '').trim().toUpperCase() === 'EN' ? 'EN' : 'IT';
+    const pAll    = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
+    const pEserc  = pAll.filter(p => !SKIP_SET.has(p.Esercizio) && p.Timestamp && inRange(p.Timestamp));
+    const nSedute = new Set(pEserc.map(p => p.N_Seduta)).size;
+
+    const maxPerEs = {};
+    pEserc.forEach(p => {
+      const m = String(p.Valore).match(/[\d.]+/);
+      if (!m) return;
+      const kg = parseFloat(m[0]);
+      if (!maxPerEs[p.Esercizio] || kg > maxPerEs[p.Esercizio].kg)
+        maxPerEs[p.Esercizio] = { kg };
+    });
+    const topCarichi = Object.entries(maxPerEs).sort((a, b) => b[1].kg - a[1].kg).slice(0, 5);
+
+    const wSett   = wellness.filter(w => String(w.ID_Giocatrice) === String(g.ID) && w.Timestamp && inRange(w.Timestamp));
+    const avgW    = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
+    const sonno   = avgW(wSett.map(w => Number(w.Qualita_Sonno)).filter(v => !isNaN(v) && v > 0));
+    const dolori  = avgW(wSett.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v > 0));
+    const energia = avgW(wSett.map(w => Number(w.Energia)).filter(v => !isNaN(v) && v > 0));
+
+    const noteAtleta = noteAttive
+      .filter(n => String(n.ID_Giocatrice) === String(g.ID) || n.ID_Giocatrice === 'TUTTE')
+      .map(n => String(n.Testo).trim()).filter(Boolean);
+
+    const nome = g.Nome ? g.Nome.split(' ')[0] : String(g.Nome);
+    const html = lingua === 'EN'
+      ? buildRiepilogoEN_(nome, settLabel, nSedute, topCarichi, sonno, dolori, energia, noteAtleta, g.ID, IS_DEV_SCRIPT)
+      : buildRiepilogoIT_(nome, settLabel, nSedute, topCarichi, sonno, dolori, energia, noteAtleta, g.ID, IS_DEV_SCRIPT);
+
+    const subjectBase = lingua === 'EN'
+      ? 'Marsala Volley — Weekly summary ' + settLabel
+      : 'Marsala Volley — Riepilogo settimana ' + settLabel;
+
+    const dest    = IS_DEV_SCRIPT ? EMAIL_COACH : email;
+    const subject = IS_DEV_SCRIPT ? '[TEST ' + g.Nome + '] ' + subjectBase : subjectBase;
+
+    MailApp.sendEmail({ to: dest, subject: subject, htmlBody: html });
+    Logger.log('Inviato a ' + dest + ' (' + g.Nome + ')');
+  });
+
+  Logger.log('inviaRiepilogoSettimanale completato — ' + ora.toISOString());
+}
+
+function buildRiepilogoIT_(nome, settLabel, nSedute, topCarichi, sonno, dolori, energia, noteAtleta, idG, isDev) {
+  const BASE = isDev
+    ? 'https://pamangiapane-lgtm.github.io/schede-allenamento/dev/'
+    : 'https://pamangiapane-lgtm.github.io/schede-allenamento/';
+  const f1 = v => v !== null ? v.toFixed(1) : '—';
+
+  const carichiRighe = topCarichi.length
+    ? topCarichi.map(([es, d]) =>
+        '<tr><td style="padding:5px 10px;color:#334155;font-size:.82rem">' + esc_(es) +
+        '</td><td style="padding:5px 10px;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem">' +
+        d.kg + ' kg</td></tr>').join('')
+    : '<tr><td colspan="2" style="padding:8px 10px;color:#94a3b8;font-size:.82rem;font-style:italic">Nessun esercizio registrato questa settimana</td></tr>';
+
+  const wHtml = (sonno !== null || dolori !== null || energia !== null)
+    ? '<div style="background:#f8fafc;border-radius:8px;padding:12px 16px;margin:16px 0">' +
+      '<p style="margin:0 0 8px;font-size:.7rem;font-weight:700;color:#64748b;letter-spacing:.06em;text-transform:uppercase">Wellness medio</p>' +
+      '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
+      (sonno   !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + f1(sonno)   + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Sonno</div></div>' : '') +
+      (dolori  !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#16a34a">' + f1(dolori)  + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Dolori ↓</div></div>' : '') +
+      (energia !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + f1(energia) + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Energia</div></div>' : '') +
+      '</div></div>'
+    : '';
+
+  const nHtml = noteAtleta.length
+    ? '<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0">' +
+      '<p style="margin:0 0 4px;font-size:.7rem;font-weight:700;color:#1a3a6b;letter-spacing:.04em">NOTA COACH</p>' +
+      noteAtleta.map(n => '<p style="margin:4px 0 0;font-size:.84rem;color:#334155">' + esc_(n) + '</p>').join('') +
+      '</div>'
+    : '';
+
+  const sedColore = nSedute > 0 ? '#f0faf2' : '#fef2f2';
+  const sedTesto  = nSedute > 0 ? '#16a34a' : '#dc2626';
+  const sedLabel  = nSedute === 1 ? 'seduta completata' : nSedute > 1 ? 'sedute completate' : 'sedute registrate';
+
+  return '<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">' +
+    '<div style="background:#1a3a6b;color:#fff;padding:18px 20px;border-radius:8px 8px 0 0">' +
+    '<p style="margin:0 0 2px;font-size:.72rem;opacity:.7;letter-spacing:.06em">MARSALA VOLLEY · RIEPILOGO</p>' +
+    '<h2 style="margin:0;font-size:1.1rem;font-weight:600">Ciao ' + esc_(nome) + '!</h2>' +
+    '<p style="margin:4px 0 0;font-size:.8rem;opacity:.8">Settimana ' + settLabel + '</p></div>' +
+    '<div style="border:1px solid #e2e8f0;border-top:none;padding:16px 20px;border-radius:0 0 8px 8px">' +
+    '<div style="background:' + sedColore + ';border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:16px">' +
+    '<div style="font-size:2rem;font-weight:700;color:' + sedTesto + '">' + nSedute + '</div>' +
+    '<div><div style="font-size:.9rem;font-weight:600;color:#334155">' + sedLabel + '</div>' +
+    '<div style="font-size:.78rem;color:#64748b">negli ultimi 7 giorni</div></div></div>' +
+    '<p style="margin:0 0 6px;font-size:.7rem;font-weight:700;color:#64748b;letter-spacing:.06em;text-transform:uppercase">Carichi settimana</p>' +
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:4px"><tbody>' + carichiRighe + '</tbody></table>' +
+    wHtml + nHtml +
+    '<div style="text-align:center;margin-top:20px">' +
+    '<a href="' + BASE + 'scheda.html?id=' + idG + '" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 24px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Apri la mia scheda →</a></div>' +
+    '<div style="margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0;text-align:center">' +
+    '<p style="margin:0;font-size:.72rem;color:#94a3b8">Marsala Volley 2026/27 · Generato automaticamente ogni lunedì</p></div>' +
+    '</div></div>';
+}
+
+function buildRiepilogoEN_(nome, settLabel, nSedute, topCarichi, sonno, dolori, energia, noteAtleta, idG, isDev) {
+  const BASE = isDev
+    ? 'https://pamangiapane-lgtm.github.io/schede-allenamento/dev/'
+    : 'https://pamangiapane-lgtm.github.io/schede-allenamento/';
+  const f1 = v => v !== null ? v.toFixed(1) : '—';
+
+  const loadsRows = topCarichi.length
+    ? topCarichi.map(([es, d]) =>
+        '<tr><td style="padding:5px 10px;color:#334155;font-size:.82rem">' + esc_(es) +
+        '</td><td style="padding:5px 10px;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem">' +
+        d.kg + ' kg</td></tr>').join('')
+    : '<tr><td colspan="2" style="padding:8px 10px;color:#94a3b8;font-size:.82rem;font-style:italic">No exercises logged this week</td></tr>';
+
+  const wHtml = (sonno !== null || dolori !== null || energia !== null)
+    ? '<div style="background:#f8fafc;border-radius:8px;padding:12px 16px;margin:16px 0">' +
+      '<p style="margin:0 0 8px;font-size:.7rem;font-weight:700;color:#64748b;letter-spacing:.06em;text-transform:uppercase">Avg wellness</p>' +
+      '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
+      (sonno   !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + f1(sonno)   + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Sleep</div></div>' : '') +
+      (dolori  !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#16a34a">' + f1(dolori)  + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Pain ↓</div></div>' : '') +
+      (energia !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + f1(energia) + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Energy</div></div>' : '') +
+      '</div></div>'
+    : '';
+
+  const nHtml = noteAtleta.length
+    ? '<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0">' +
+      '<p style="margin:0 0 4px;font-size:.7rem;font-weight:700;color:#1a3a6b;letter-spacing:.04em">COACH NOTE</p>' +
+      noteAtleta.map(n => '<p style="margin:4px 0 0;font-size:.84rem;color:#334155">' + esc_(n) + '</p>').join('') +
+      '</div>'
+    : '';
+
+  const sedColore = nSedute > 0 ? '#f0faf2' : '#fef2f2';
+  const sedTesto  = nSedute > 0 ? '#16a34a' : '#dc2626';
+  const sedLabel  = nSedute === 1 ? 'session completed' : 'sessions completed';
+
+  return '<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">' +
+    '<div style="background:#1a3a6b;color:#fff;padding:18px 20px;border-radius:8px 8px 0 0">' +
+    '<p style="margin:0 0 2px;font-size:.72rem;opacity:.7;letter-spacing:.06em">MARSALA VOLLEY · WEEKLY SUMMARY</p>' +
+    '<h2 style="margin:0;font-size:1.1rem;font-weight:600">Hi ' + esc_(nome) + '!</h2>' +
+    '<p style="margin:4px 0 0;font-size:.8rem;opacity:.8">Week ' + settLabel + '</p></div>' +
+    '<div style="border:1px solid #e2e8f0;border-top:none;padding:16px 20px;border-radius:0 0 8px 8px">' +
+    '<div style="background:' + sedColore + ';border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:16px">' +
+    '<div style="font-size:2rem;font-weight:700;color:' + sedTesto + '">' + nSedute + '</div>' +
+    '<div><div style="font-size:.9rem;font-weight:600;color:#334155">' + sedLabel + '</div>' +
+    '<div style="font-size:.78rem;color:#64748b">in the last 7 days</div></div></div>' +
+    '<p style="margin:0 0 6px;font-size:.7rem;font-weight:700;color:#64748b;letter-spacing:.06em;text-transform:uppercase">Weekly loads</p>' +
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:4px"><tbody>' + loadsRows + '</tbody></table>' +
+    wHtml + nHtml +
+    '<div style="text-align:center;margin-top:20px">' +
+    '<a href="' + BASE + 'scheda.html?id=' + idG + '" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 24px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Open my program →</a></div>' +
+    '<div style="margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0;text-align:center">' +
+    '<p style="margin:0;font-size:.72rem;color:#94a3b8">Marsala Volley 2026/27 · Sent automatically every Monday</p></div>' +
+    '</div></div>';
+}
+
+function esc_(s) {
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// Esegui UNA VOLTA per installare il trigger lunedì 8:00
+function installaRiepilogoAtleteTrigger() {
+  ScriptApp.getProjectTriggers()
+    .filter(t => t.getHandlerFunction() === 'inviaRiepilogoSettimanale')
+    .forEach(t => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger('inviaRiepilogoSettimanale')
+    .timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(8).create();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 function leggiRighe_(sheet) {
   const vals = sheet.getDataRange().getValues();
   if (vals.length < 2) return [];
