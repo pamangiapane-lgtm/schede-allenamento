@@ -492,19 +492,32 @@ function inviaRiepilogoSettimanale() {
     if (!email) { Logger.log('Email mancante per ID ' + g.ID + ' (' + g.Nome + ')'); return; }
 
     const lingua  = String(g.Lingua || '').trim().toUpperCase() === 'EN' ? 'EN' : 'IT';
-    const pAll    = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
-    const pEserc  = pAll.filter(p => !SKIP_SET.has(p.Esercizio) && p.Timestamp && inRange(p.Timestamp));
-    const nSedute = new Set(pEserc.map(p => p.N_Seduta)).size;
+    const pAll  = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
+    const pSett = pAll.filter(p => p.Timestamp && inRange(p.Timestamp));
 
+    // Per-session breakdown (skip '?' = manually added max entries)
+    const seduteMap = {};
+    pSett.filter(p => p.N_Seduta && p.N_Seduta !== '?').forEach(p => {
+      if (!seduteMap[p.N_Seduta]) seduteMap[p.N_Seduta] = { nome: p.N_Seduta, rpe: null, fatica: null, ts: null };
+      const ts = new Date(p.Timestamp);
+      if (!seduteMap[p.N_Seduta].ts || ts < seduteMap[p.N_Seduta].ts) seduteMap[p.N_Seduta].ts = ts;
+      if (p.Esercizio === 'RPE-seduta')    { const v = Number(p.Valore); if (!isNaN(v) && v > 0) seduteMap[p.N_Seduta].rpe    = v; }
+      if (p.Esercizio === 'Fatica-seduta') { const v = Number(p.Valore); if (!isNaN(v) && v > 0) seduteMap[p.N_Seduta].fatica = v; }
+    });
+    const sedute = Object.values(seduteMap).sort((a, b) => (a.ts || 0) - (b.ts || 0));
+
+    // Top 5 carichi (all sessions including manual '?' entries)
     const maxPerEs = {};
-    pEserc.forEach(p => {
+    pSett.filter(p => !SKIP_SET.has(p.Esercizio)).forEach(p => {
       const m = String(p.Valore).match(/[\d.]+/);
       if (!m) return;
       const kg = parseFloat(m[0]);
+      const stima = String(p.Valore).includes('~');
       if (!maxPerEs[p.Esercizio] || kg > maxPerEs[p.Esercizio].kg)
-        maxPerEs[p.Esercizio] = { kg };
+        maxPerEs[p.Esercizio] = { kg, stima };
     });
     const topCarichi = Object.entries(maxPerEs).sort((a, b) => b[1].kg - a[1].kg).slice(0, 5);
+    const hasManual  = pSett.some(p => p.N_Seduta === '?' && !SKIP_SET.has(p.Esercizio));
 
     const wSett   = wellness.filter(w => String(w.ID_Giocatrice) === String(g.ID) && w.Timestamp && inRange(w.Timestamp));
     const avgW    = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
@@ -518,8 +531,8 @@ function inviaRiepilogoSettimanale() {
 
     const nome = g.Nome ? g.Nome.split(' ')[0] : String(g.Nome);
     const html = lingua === 'EN'
-      ? buildRiepilogoEN_(nome, settLabel, nSedute, topCarichi, sonno, dolori, energia, noteAtleta, g.ID, IS_DEV_SCRIPT)
-      : buildRiepilogoIT_(nome, settLabel, nSedute, topCarichi, sonno, dolori, energia, noteAtleta, g.ID, IS_DEV_SCRIPT);
+      ? buildRiepilogoEN_(nome, settLabel, sedute, topCarichi, hasManual, sonno, dolori, energia, noteAtleta, g.ID, IS_DEV_SCRIPT)
+      : buildRiepilogoIT_(nome, settLabel, sedute, topCarichi, hasManual, sonno, dolori, energia, noteAtleta, g.ID, IS_DEV_SCRIPT);
 
     const subjectBase = lingua === 'EN'
       ? 'Marsala Volley — Weekly summary ' + settLabel
@@ -535,111 +548,186 @@ function inviaRiepilogoSettimanale() {
   Logger.log('inviaRiepilogoSettimanale completato — ' + ora.toISOString());
 }
 
-function buildRiepilogoIT_(nome, settLabel, nSedute, topCarichi, sonno, dolori, energia, noteAtleta, idG, isDev) {
+function buildRiepilogoIT_(nome, settLabel, sedute, topCarichi, hasManual, sonno, dolori, energia, noteAtleta, idG, isDev) {
   const BASE = isDev
     ? 'https://pamangiapane-lgtm.github.io/schede-allenamento/dev/'
     : 'https://pamangiapane-lgtm.github.io/schede-allenamento/';
-  const f1 = v => v !== null ? v.toFixed(1) : '—';
+  const f1 = v => (v !== null && v !== undefined) ? Number(v).toFixed(1) : null;
 
-  const carichiRighe = topCarichi.length
-    ? topCarichi.map(([es, d]) =>
-        '<tr><td style="padding:5px 10px;color:#334155;font-size:.82rem">' + esc_(es) +
-        '</td><td style="padding:5px 10px;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem">' +
-        d.kg + ' kg</td></tr>').join('')
-    : '<tr><td colspan="2" style="padding:8px 10px;color:#94a3b8;font-size:.82rem;font-style:italic">Nessun esercizio registrato questa settimana</td></tr>';
+  const rpeColor = v => !v ? '#cbd5e1' : v >= 8 ? '#dc2626' : v >= 7 ? '#ea580c' : v >= 6 ? '#d97706' : '#16a34a';
+  const fatColor = v => !v ? '#cbd5e1' : v >= 4 ? '#dc2626' : v >= 3 ? '#d97706' : '#16a34a';
+  const wColor   = v => v === null ? '#94a3b8' : v >= 4 ? '#1a3a6b' : v >= 3 ? '#d97706' : '#dc2626';
+  const dolColor = v => v === null ? '#94a3b8' : v <= 1.5 ? '#16a34a' : v <= 2.5 ? '#d97706' : '#dc2626';
 
+  // Sedute per-session
+  const seduteHtml = sedute.length
+    ? '<div style="border:1px solid #e8edf5;border-radius:8px;overflow:hidden;margin-bottom:18px">' +
+      sedute.map(function(s, i) {
+        var rc = rpeColor(s.rpe), fc = fatColor(s.fatica);
+        var rv = s.rpe    !== null ? s.rpe    + '<span style="font-size:.65rem;font-weight:400;color:#94a3b8">/10</span>' : '&#x2014;';
+        var fv = s.fatica !== null ? s.fatica + '<span style="font-size:.65rem;font-weight:400;color:#94a3b8">/5</span>'  : '&#x2014;';
+        var bg  = i % 2 === 1 ? 'background:#fafbfd;' : '';
+        var bdr = i < sedute.length - 1 ? 'border-bottom:1px solid #f1f5f9;' : '';
+        return '<div style="display:flex;align-items:center;padding:10px 14px;gap:10px;' + bg + bdr + '">' +
+          '<span style="background:#e8f0fb;color:#1a3a6b;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.05em;white-space:nowrap">' + esc_(s.nome) + '</span>' +
+          '<span style="flex:1;height:1px;background:#eef1f7;display:block"></span>' +
+          '<span style="font-size:.68rem;color:#94a3b8;margin-right:3px">RPE</span>' +
+          '<span style="font-size:.88rem;font-weight:700;color:' + rc + ';min-width:34px;text-align:right">' + rv + '</span>' +
+          '<span style="width:1px;height:14px;background:#e2e8f0;display:inline-block;margin:0 6px"></span>' +
+          '<span style="font-size:.68rem;color:#94a3b8;margin-right:3px">Fatica</span>' +
+          '<span style="font-size:.88rem;font-weight:700;color:' + fc + ';min-width:24px;text-align:right">' + fv + '</span>' +
+          '</div>';
+      }).join('') + '</div>'
+    : '<div style="background:#fef2f2;border-radius:8px;padding:12px 16px;margin-bottom:18px">' +
+      '<p style="margin:0;font-size:.82rem;color:#dc2626">Nessuna seduta registrata questa settimana</p></div>';
+
+  // Wellness
+  const wVal = function(v, c) {
+    return v !== null
+      ? '<div style="font-size:1.25rem;font-weight:700;color:' + c + ';line-height:1">' + f1(v) + '<span style="font-size:.75rem;font-weight:400;color:#94a3b8">/5</span></div>'
+      : '<div style="font-size:1.25rem;font-weight:700;color:#94a3b8;line-height:1">&#x2014;</div>';
+  };
   const wHtml = (sonno !== null || dolori !== null || energia !== null)
-    ? '<div style="background:#f8fafc;border-radius:8px;padding:12px 16px;margin:16px 0">' +
-      '<p style="margin:0 0 8px;font-size:.7rem;font-weight:700;color:#64748b;letter-spacing:.06em;text-transform:uppercase">Wellness medio</p>' +
-      '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
-      (sonno   !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + f1(sonno)   + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Sonno</div></div>' : '') +
-      (dolori  !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#16a34a">' + f1(dolori)  + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Dolori ↓</div></div>' : '') +
-      (energia !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + f1(energia) + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Energia</div></div>' : '') +
-      '</div></div>'
-    : '';
-
-  const nHtml = noteAtleta.length
-    ? '<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0">' +
-      '<p style="margin:0 0 4px;font-size:.7rem;font-weight:700;color:#1a3a6b;letter-spacing:.04em">NOTA COACH</p>' +
-      noteAtleta.map(n => '<p style="margin:4px 0 0;font-size:.84rem;color:#334155">' + esc_(n) + '</p>').join('') +
+    ? '<p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Wellness medio</p>' +
+      '<div style="border:1px solid #e8edf5;border-radius:8px;display:flex;margin-bottom:18px;overflow:hidden">' +
+      '<div style="flex:1;padding:12px 8px;text-align:center;border-right:1px solid #e8edf5">'  + wVal(sonno,   wColor(sonno))   + '<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Sonno</div></div>' +
+      '<div style="flex:1;padding:12px 8px;text-align:center;border-right:1px solid #e8edf5">'  + wVal(dolori,  dolColor(dolori)) + '<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Dolori &#x2193;</div></div>' +
+      '<div style="flex:1;padding:12px 8px;text-align:center">'                                  + wVal(energia, wColor(energia))  + '<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Energia</div></div>' +
       '</div>'
     : '';
 
-  const sedColore = nSedute > 0 ? '#f0faf2' : '#fef2f2';
-  const sedTesto  = nSedute > 0 ? '#16a34a' : '#dc2626';
-  const sedLabel  = nSedute === 1 ? 'seduta completata' : nSedute > 1 ? 'sedute completate' : 'sedute registrate';
+  // Carichi
+  const lastIdx = topCarichi.length - 1;
+  const carichiRighe = topCarichi.length
+    ? topCarichi.map(function(entry, i) {
+        var es = entry[0], d = entry[1];
+        return '<tr' + (i < lastIdx ? ' style="border-bottom:1px solid #f1f5f9"' : '') + '>' +
+          '<td style="padding:7px 4px 7px 0;font-size:.82rem;color:#334155">' + esc_(es) + '</td>' +
+          '<td style="padding:7px 0;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem;font-variant-numeric:tabular-nums">' +
+          (d.stima ? '~' : '') + d.kg + ' kg</td></tr>';
+      }).join('')
+    : '<tr><td colspan="2" style="padding:8px 4px;color:#94a3b8;font-size:.82rem;font-style:italic">Nessun esercizio registrato questa settimana</td></tr>';
+
+  const caricoFooter = topCarichi.length
+    ? '<p style="font-size:.68rem;color:#94a3b8;font-style:italic;padding-top:6px;border-top:1px solid #f1f5f9">' +
+      (hasManual
+        ? 'Carichi aggiunti manualmente &middot; massimali corretti in app'
+        : '~ valore stimato in seduta &middot; nessun massimale aggiornato manualmente questa settimana') +
+      '</p>'
+    : '';
+
+  const nHtml = noteAtleta.length
+    ? '<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin-top:16px;border-radius:0 6px 6px 0">' +
+      '<p style="margin:0 0 4px;font-size:.7rem;font-weight:700;color:#1a3a6b;letter-spacing:.04em">NOTA COACH</p>' +
+      noteAtleta.map(function(n) { return '<p style="margin:4px 0 0;font-size:.84rem;color:#334155">' + esc_(n) + '</p>'; }).join('') +
+      '</div>'
+    : '';
 
   return '<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">' +
-    '<div style="background:#1a3a6b;color:#fff;padding:18px 20px;border-radius:8px 8px 0 0">' +
-    '<p style="margin:0 0 2px;font-size:.72rem;opacity:.7;letter-spacing:.06em">MARSALA VOLLEY · RIEPILOGO</p>' +
-    '<h2 style="margin:0;font-size:1.1rem;font-weight:600">Ciao ' + esc_(nome) + '!</h2>' +
-    '<p style="margin:4px 0 0;font-size:.8rem;opacity:.8">Settimana ' + settLabel + '</p></div>' +
-    '<div style="border:1px solid #e2e8f0;border-top:none;padding:16px 20px;border-radius:0 0 8px 8px">' +
-    '<div style="background:' + sedColore + ';border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:16px">' +
-    '<div style="font-size:2rem;font-weight:700;color:' + sedTesto + '">' + nSedute + '</div>' +
-    '<div><div style="font-size:.9rem;font-weight:600;color:#334155">' + sedLabel + '</div>' +
-    '<div style="font-size:.78rem;color:#64748b">negli ultimi 7 giorni</div></div></div>' +
-    '<p style="margin:0 0 6px;font-size:.7rem;font-weight:700;color:#64748b;letter-spacing:.06em;text-transform:uppercase">Carichi settimana</p>' +
-    '<table style="width:100%;border-collapse:collapse;margin-bottom:4px"><tbody>' + carichiRighe + '</tbody></table>' +
-    wHtml + nHtml +
-    '<div style="text-align:center;margin-top:20px">' +
-    '<a href="' + BASE + 'scheda.html?id=' + idG + '" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 24px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Apri la mia scheda →</a></div>' +
-    '<div style="margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0;text-align:center">' +
-    '<p style="margin:0;font-size:.72rem;color:#94a3b8">Marsala Volley 2026/27 · Generato automaticamente ogni lunedì</p></div>' +
+    '<div style="background:#1a3a6b;color:#fff;padding:18px 20px">' +
+    '<p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Riepilogo settimanale</p>' +
+    '<h2 style="margin:0;font-size:1.1rem;font-weight:700">Ciao ' + esc_(nome) + '!</h2>' +
+    '<p style="margin:4px 0 0;font-size:.78rem;opacity:.7">Settimana ' + settLabel + '</p></div>' +
+    '<div style="padding:18px 20px;border:1px solid #e8edf5;border-top:none">' +
+    '<p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Sedute settimana</p>' +
+    seduteHtml +
+    wHtml +
+    '<p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Carichi settimana</p>' +
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tbody>' + carichiRighe + '</tbody></table>' +
+    caricoFooter + nHtml +
+    '<div style="text-align:center;margin-top:22px">' +
+    '<a href="' + BASE + 'scheda.html?id=' + idG + '" style="display:inline-block;background:#1a3a6b;color:#fff;padding:11px 28px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none;letter-spacing:.01em">Apri la mia scheda &#x2192;</a></div>' +
+    '<p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Generato automaticamente ogni luned&#xEC;</p>' +
     '</div></div>';
 }
 
-function buildRiepilogoEN_(nome, settLabel, nSedute, topCarichi, sonno, dolori, energia, noteAtleta, idG, isDev) {
+function buildRiepilogoEN_(nome, settLabel, sedute, topCarichi, hasManual, sonno, dolori, energia, noteAtleta, idG, isDev) {
   const BASE = isDev
     ? 'https://pamangiapane-lgtm.github.io/schede-allenamento/dev/'
     : 'https://pamangiapane-lgtm.github.io/schede-allenamento/';
-  const f1 = v => v !== null ? v.toFixed(1) : '—';
+  const f1 = v => (v !== null && v !== undefined) ? Number(v).toFixed(1) : null;
 
-  const loadsRows = topCarichi.length
-    ? topCarichi.map(([es, d]) =>
-        '<tr><td style="padding:5px 10px;color:#334155;font-size:.82rem">' + esc_(es) +
-        '</td><td style="padding:5px 10px;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem">' +
-        d.kg + ' kg</td></tr>').join('')
-    : '<tr><td colspan="2" style="padding:8px 10px;color:#94a3b8;font-size:.82rem;font-style:italic">No exercises logged this week</td></tr>';
+  const rpeColor = v => !v ? '#cbd5e1' : v >= 8 ? '#dc2626' : v >= 7 ? '#ea580c' : v >= 6 ? '#d97706' : '#16a34a';
+  const fatColor = v => !v ? '#cbd5e1' : v >= 4 ? '#dc2626' : v >= 3 ? '#d97706' : '#16a34a';
+  const wColor   = v => v === null ? '#94a3b8' : v >= 4 ? '#1a3a6b' : v >= 3 ? '#d97706' : '#dc2626';
+  const dolColor = v => v === null ? '#94a3b8' : v <= 1.5 ? '#16a34a' : v <= 2.5 ? '#d97706' : '#dc2626';
 
+  const seduteHtml = sedute.length
+    ? '<div style="border:1px solid #e8edf5;border-radius:8px;overflow:hidden;margin-bottom:18px">' +
+      sedute.map(function(s, i) {
+        var rc = rpeColor(s.rpe), fc = fatColor(s.fatica);
+        var rv = s.rpe    !== null ? s.rpe    + '<span style="font-size:.65rem;font-weight:400;color:#94a3b8">/10</span>' : '&#x2014;';
+        var fv = s.fatica !== null ? s.fatica + '<span style="font-size:.65rem;font-weight:400;color:#94a3b8">/5</span>'  : '&#x2014;';
+        var bg  = i % 2 === 1 ? 'background:#fafbfd;' : '';
+        var bdr = i < sedute.length - 1 ? 'border-bottom:1px solid #f1f5f9;' : '';
+        return '<div style="display:flex;align-items:center;padding:10px 14px;gap:10px;' + bg + bdr + '">' +
+          '<span style="background:#e8f0fb;color:#1a3a6b;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.05em;white-space:nowrap">' + esc_(s.nome) + '</span>' +
+          '<span style="flex:1;height:1px;background:#eef1f7;display:block"></span>' +
+          '<span style="font-size:.68rem;color:#94a3b8;margin-right:3px">RPE</span>' +
+          '<span style="font-size:.88rem;font-weight:700;color:' + rc + ';min-width:34px;text-align:right">' + rv + '</span>' +
+          '<span style="width:1px;height:14px;background:#e2e8f0;display:inline-block;margin:0 6px"></span>' +
+          '<span style="font-size:.68rem;color:#94a3b8;margin-right:3px">Fatigue</span>' +
+          '<span style="font-size:.88rem;font-weight:700;color:' + fc + ';min-width:24px;text-align:right">' + fv + '</span>' +
+          '</div>';
+      }).join('') + '</div>'
+    : '<div style="background:#fef2f2;border-radius:8px;padding:12px 16px;margin-bottom:18px">' +
+      '<p style="margin:0;font-size:.82rem;color:#dc2626">No sessions logged this week</p></div>';
+
+  const wVal = function(v, c) {
+    return v !== null
+      ? '<div style="font-size:1.25rem;font-weight:700;color:' + c + ';line-height:1">' + f1(v) + '<span style="font-size:.75rem;font-weight:400;color:#94a3b8">/5</span></div>'
+      : '<div style="font-size:1.25rem;font-weight:700;color:#94a3b8;line-height:1">&#x2014;</div>';
+  };
   const wHtml = (sonno !== null || dolori !== null || energia !== null)
-    ? '<div style="background:#f8fafc;border-radius:8px;padding:12px 16px;margin:16px 0">' +
-      '<p style="margin:0 0 8px;font-size:.7rem;font-weight:700;color:#64748b;letter-spacing:.06em;text-transform:uppercase">Avg wellness</p>' +
-      '<div style="display:flex;gap:12px;flex-wrap:wrap">' +
-      (sonno   !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + f1(sonno)   + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Sleep</div></div>' : '') +
-      (dolori  !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#16a34a">' + f1(dolori)  + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Pain ↓</div></div>' : '') +
-      (energia !== null ? '<div style="flex:1;min-width:70px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + f1(energia) + '<span style="font-size:.8rem;font-weight:400">/5</span></div><div style="font-size:.7rem;color:#64748b">Energy</div></div>' : '') +
-      '</div></div>'
-    : '';
-
-  const nHtml = noteAtleta.length
-    ? '<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin:16px 0;border-radius:0 6px 6px 0">' +
-      '<p style="margin:0 0 4px;font-size:.7rem;font-weight:700;color:#1a3a6b;letter-spacing:.04em">COACH NOTE</p>' +
-      noteAtleta.map(n => '<p style="margin:4px 0 0;font-size:.84rem;color:#334155">' + esc_(n) + '</p>').join('') +
+    ? '<p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Avg wellness</p>' +
+      '<div style="border:1px solid #e8edf5;border-radius:8px;display:flex;margin-bottom:18px;overflow:hidden">' +
+      '<div style="flex:1;padding:12px 8px;text-align:center;border-right:1px solid #e8edf5">'  + wVal(sonno,   wColor(sonno))   + '<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Sleep</div></div>' +
+      '<div style="flex:1;padding:12px 8px;text-align:center;border-right:1px solid #e8edf5">'  + wVal(dolori,  dolColor(dolori)) + '<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Pain &#x2193;</div></div>' +
+      '<div style="flex:1;padding:12px 8px;text-align:center">'                                  + wVal(energia, wColor(energia))  + '<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Energy</div></div>' +
       '</div>'
     : '';
 
-  const sedColore = nSedute > 0 ? '#f0faf2' : '#fef2f2';
-  const sedTesto  = nSedute > 0 ? '#16a34a' : '#dc2626';
-  const sedLabel  = nSedute === 1 ? 'session completed' : 'sessions completed';
+  const lastIdx = topCarichi.length - 1;
+  const loadsRows = topCarichi.length
+    ? topCarichi.map(function(entry, i) {
+        var es = entry[0], d = entry[1];
+        return '<tr' + (i < lastIdx ? ' style="border-bottom:1px solid #f1f5f9"' : '') + '>' +
+          '<td style="padding:7px 4px 7px 0;font-size:.82rem;color:#334155">' + esc_(es) + '</td>' +
+          '<td style="padding:7px 0;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem;font-variant-numeric:tabular-nums">' +
+          (d.stima ? '~' : '') + d.kg + ' kg</td></tr>';
+      }).join('')
+    : '<tr><td colspan="2" style="padding:8px 4px;color:#94a3b8;font-size:.82rem;font-style:italic">No exercises logged this week</td></tr>';
+
+  const loadsFooter = topCarichi.length
+    ? '<p style="font-size:.68rem;color:#94a3b8;font-style:italic;padding-top:6px;border-top:1px solid #f1f5f9">' +
+      (hasManual
+        ? 'Manually added loads &middot; maxes updated in the app'
+        : '~ estimated in session &middot; no manual max logged this week') +
+      '</p>'
+    : '';
+
+  const nHtml = noteAtleta.length
+    ? '<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin-top:16px;border-radius:0 6px 6px 0">' +
+      '<p style="margin:0 0 4px;font-size:.7rem;font-weight:700;color:#1a3a6b;letter-spacing:.04em">COACH NOTE</p>' +
+      noteAtleta.map(function(n) { return '<p style="margin:4px 0 0;font-size:.84rem;color:#334155">' + esc_(n) + '</p>'; }).join('') +
+      '</div>'
+    : '';
 
   return '<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">' +
-    '<div style="background:#1a3a6b;color:#fff;padding:18px 20px;border-radius:8px 8px 0 0">' +
-    '<p style="margin:0 0 2px;font-size:.72rem;opacity:.7;letter-spacing:.06em">MARSALA VOLLEY · WEEKLY SUMMARY</p>' +
-    '<h2 style="margin:0;font-size:1.1rem;font-weight:600">Hi ' + esc_(nome) + '!</h2>' +
-    '<p style="margin:4px 0 0;font-size:.8rem;opacity:.8">Week ' + settLabel + '</p></div>' +
-    '<div style="border:1px solid #e2e8f0;border-top:none;padding:16px 20px;border-radius:0 0 8px 8px">' +
-    '<div style="background:' + sedColore + ';border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:16px">' +
-    '<div style="font-size:2rem;font-weight:700;color:' + sedTesto + '">' + nSedute + '</div>' +
-    '<div><div style="font-size:.9rem;font-weight:600;color:#334155">' + sedLabel + '</div>' +
-    '<div style="font-size:.78rem;color:#64748b">in the last 7 days</div></div></div>' +
-    '<p style="margin:0 0 6px;font-size:.7rem;font-weight:700;color:#64748b;letter-spacing:.06em;text-transform:uppercase">Weekly loads</p>' +
-    '<table style="width:100%;border-collapse:collapse;margin-bottom:4px"><tbody>' + loadsRows + '</tbody></table>' +
-    wHtml + nHtml +
-    '<div style="text-align:center;margin-top:20px">' +
-    '<a href="' + BASE + 'scheda.html?id=' + idG + '" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 24px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Open my program →</a></div>' +
-    '<div style="margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0;text-align:center">' +
-    '<p style="margin:0;font-size:.72rem;color:#94a3b8">Marsala Volley 2026/27 · Sent automatically every Monday</p></div>' +
+    '<div style="background:#1a3a6b;color:#fff;padding:18px 20px">' +
+    '<p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Weekly summary</p>' +
+    '<h2 style="margin:0;font-size:1.1rem;font-weight:700">Hi ' + esc_(nome) + '!</h2>' +
+    '<p style="margin:4px 0 0;font-size:.78rem;opacity:.7">Week ' + settLabel + '</p></div>' +
+    '<div style="padding:18px 20px;border:1px solid #e8edf5;border-top:none">' +
+    '<p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Sessions this week</p>' +
+    seduteHtml +
+    wHtml +
+    '<p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Weekly loads</p>' +
+    '<table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tbody>' + loadsRows + '</tbody></table>' +
+    loadsFooter + nHtml +
+    '<div style="text-align:center;margin-top:22px">' +
+    '<a href="' + BASE + 'scheda.html?id=' + idG + '" style="display:inline-block;background:#1a3a6b;color:#fff;padding:11px 28px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none;letter-spacing:.01em">Open my program &#x2192;</a></div>' +
+    '<p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Sent automatically every Monday</p>' +
     '</div></div>';
 }
 
