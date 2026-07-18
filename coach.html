@@ -224,6 +224,11 @@
     }
     .sed-pill.selected { background: var(--blu-light); border-color: var(--blu); color: var(--blu); }
 
+    /* ── sRPE color ── */
+    .srpe-v { color: #16a34a; font-weight: 700; }
+    .srpe-y { color: #d97706; font-weight: 700; }
+    .srpe-r { color: #dc2626; font-weight: 700; }
+
     /* ── Filtri storico ── */
     .filtri-bar {
       background: var(--bianco);
@@ -444,6 +449,15 @@
     <div id="tab-compliance" class="tab-pnl">
       <p class="sez-titolo">Stato atlete — ultimi 7 giorni</p>
       <div id="lista-compliance"><p class="loading-msg">Caricamento...</p></div>
+
+      <p class="sez-titolo" style="margin-top:24px">Ultime 20 sessioni — carico (sRPE)</p>
+      <div class="tbl-wrap">
+        <table class="storico-tbl">
+          <thead><tr><th>Data</th><th>Atleta</th><th>Sed.</th><th>RPE</th><th>Durata</th><th>sRPE (AU)</th></tr></thead>
+          <tbody id="srpe-body"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--testo-sec)">Caricamento...</td></tr></tbody>
+        </table>
+      </div>
+      <p style="font-size:0.65rem;color:var(--testo-sec);margin-top:6px;margin-bottom:16px">Metodo Foster: sRPE = RPE × durata seduta (min). Soglie: basso &lt;400 · medio 400–800 · alto &gt;800 AU. Durata calcolata dal primo log al log RPE-seduta.</p>
     </div>
 
   </div>
@@ -475,6 +489,7 @@ let giocatrici = [];
 let progressi  = [];
 let tutteNote  = [];
 let atletaMap  = {};
+let srpeData   = [];
 
 // ── Init ─────────────────────────────────────────────────────────────────────
 async function init() {
@@ -492,12 +507,13 @@ async function init() {
       giocatrici.forEach(g => { atletaMap[String(g.ID)] = g.Nome; });
       popolaSelects();
     }
-    if (resP.ok) progressi = resP.dati || [];
+    if (resP.ok) { progressi = resP.dati || []; srpeData = computeSrpe(progressi); }
     if (resN.ok) tutteNote = resN.note || [];
 
     renderNote();
     filtraStorico();
     renderCompliance();
+    renderSrpeTable();
   } catch (err) {
     document.getElementById('lista-note').innerHTML =
       `<p class="errore-msg">Errore caricamento: ${esc(err.message)}</p>`;
@@ -745,6 +761,69 @@ function filtraStorico() {
     `${righe.length} risultati${righe.length === 300 ? ' (ultimi 300)' : ''}`;
 }
 
+// ── sRPE (metodo Foster) ──────────────────────────────────────────────────────
+function computeSrpe(prg) {
+  // Per ogni entry RPE-seduta, cerca gli esercizi dello stesso atleta+seduta
+  // nelle 4 ore precedenti (evita di mescolare sessioni con lo stesso ID in date diverse)
+  const W4H = 4 * 60 * 60 * 1000;
+  const rpeEntries = prg.filter(p => p.Esercizio === 'RPE-seduta' && p.Valore && p.Timestamp && p.N_Seduta);
+  return rpeEntries
+    .map(rpe => {
+      const tEnd = new Date(rpe.Timestamp);
+      if (isNaN(tEnd)) return null;
+      const v = Number(rpe.Valore);
+      if (isNaN(v)) return null;
+      const idG = String(rpe.ID_Giocatrice);
+      const sed = String(rpe.N_Seduta);
+      const tEndMs = tEnd.getTime();
+      // Tutti i log di quell'atleta+seduta nelle 4h precedenti il RPE
+      // Cerca tutti gli esercizi reali dell'atleta nelle 4h prima del RPE
+      // (N_Seduta spesso assente negli esercizi — filtrare per sed escluderebbe tutto)
+      const SKIP_TS = new Set(['RPE-seduta', 'Fatica-seduta']);
+      const win = prg.filter(p => {
+        if (String(p.ID_Giocatrice) !== idG || !p.Timestamp) return false;
+        if (SKIP_TS.has(p.Esercizio)) return false;
+        const t = new Date(p.Timestamp).getTime();
+        return !isNaN(t) && t <= tEndMs && (tEndMs - t) <= W4H;
+      });
+      const tMin  = Math.min(...win.map(p => new Date(p.Timestamp).getTime()));
+      const durMin = Math.max(0, Math.round((tEndMs - tMin) / 60000));
+      return {
+        id_giocatrice: idG,
+        n_seduta:      sed,
+        rpe:           v,
+        durata_min:    durMin,
+        srpe:          durMin >= 10 ? v * durMin : null,
+        timestamp:     tEnd.toISOString()
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+}
+
+function renderSrpeTable() {
+  const tbody = document.getElementById('srpe-body');
+  const recent = srpeData.slice(0, 20);
+  if (!recent.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--testo-sec)">Nessuna sessione con RPE registrato.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = recent.map(s => {
+    const nome    = atletaMap[s.id_giocatrice] || 'ID ' + s.id_giocatrice;
+    const durStr  = s.durata_min >= 10 ? s.durata_min + ' min' : '—';
+    const srpeStr = s.srpe !== null ? String(s.srpe) : '—';
+    const cls     = s.srpe > 800 ? 'srpe-r' : s.srpe > 400 ? 'srpe-y' : s.srpe !== null ? 'srpe-v' : '';
+    return `<tr>
+      <td>${esc(fmtTs(s.timestamp))}</td>
+      <td>${esc(nome)}</td>
+      <td>${esc(s.n_seduta)}</td>
+      <td>${s.rpe}</td>
+      <td>${durStr}</td>
+      <td class="valore-cell ${cls}">${srpeStr}</td>
+    </tr>`;
+  }).join('');
+}
+
 // ── Compliance ────────────────────────────────────────────────────────────────
 function renderCompliance() {
   const cont = document.getElementById('lista-compliance');
@@ -776,7 +855,12 @@ function renderCompliance() {
     const stato = gg === null ? 'mai' : gg > 7 ? 'rosso' : gg > 3 ? 'giallo' : 'verde';
     const ultimoLbl = gg === null ? 'mai' : gg === 0 ? 'oggi' : gg === 1 ? 'ieri' : gg + 'gg fa';
 
-    return { nome: g.Nome, stato, ultimoLbl, sedSett, rpe };
+    const srpeG   = srpeData.filter(s => s.id_giocatrice === String(g.ID));
+    const srpe7   = srpeG.filter(s => new Date(s.timestamp) >= cut7 && s.srpe !== null)
+                         .reduce((sum, s) => sum + s.srpe, 0);
+    const lstSRPE = srpeG[0];
+
+    return { nome: g.Nome, stato, ultimoLbl, sedSett, rpe, srpe7: srpe7 || null, lstSRPE };
   }).sort((a, b) => {
     const ord = { mai: 0, rosso: 1, giallo: 2, verde: 3 };
     return ord[a.stato] - ord[b.stato];
@@ -790,6 +874,8 @@ function renderCompliance() {
         <span class="comp-chip">ultimo <strong>${d.ultimoLbl}</strong></span>
         <span class="comp-chip">sed. 7gg <strong>${d.sedSett}</strong></span>
         ${d.rpe !== null ? `<span class="comp-chip">RPE <strong>${d.rpe}</strong></span>` : ''}
+        ${d.srpe7 ? `<span class="comp-chip">carico 7gg <strong class="${d.srpe7 > 800 ? 'srpe-r' : d.srpe7 > 400 ? 'srpe-y' : 'srpe-v'}">${d.srpe7} AU</strong></span>` : ''}
+        ${d.lstSRPE?.srpe ? `<span class="comp-chip">sRPE ult.sed. <strong>${d.lstSRPE.srpe} AU</strong></span>` : ''}
       </div>
     </div>`).join('');
 }
