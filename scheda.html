@@ -90,18 +90,6 @@
     margin-top: 6px;
   }
   .wellness-confirm:disabled { opacity: 0.4; cursor: default; }
-  .wellness-skip {
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    padding: 8px;
-    background: none;
-    border: none;
-    color: var(--text-light, #aaa);
-    font-size: 0.82rem;
-    cursor: pointer;
-    text-align: center;
-  }
   .wellness-guide {
     display: flex;
     justify-content: space-between;
@@ -1327,7 +1315,6 @@ const WL = {
     noteLabel: '📝 Note (opzionale)',
     notePlaceholder: 'Es. dolore al ginocchio sinistro, mal di testa...',
     confirm: 'Inizia seduta',
-    skip: 'Salta'
   },
   en: {
     title: 'How are you feeling today?',
@@ -1341,7 +1328,6 @@ const WL = {
     noteLabel: '📝 Notes (optional)',
     notePlaceholder: 'E.g. left knee pain, headache...',
     confirm: 'Start session',
-    skip: 'Skip'
   }
 };
 
@@ -1399,7 +1385,6 @@ function mostraWellness(accId) {
   overlay.querySelector('.wellness-note textarea').placeholder = wl.notePlaceholder;
   overlay.querySelector('.wellness-note textarea').value       = '';
   overlay.querySelector('.wellness-confirm').textContent = wl.confirm;
-  overlay.querySelector('.wellness-skip').textContent    = wl.skip;
   // Reset selezioni
   overlay.querySelectorAll('.wellness-stars button').forEach(b => b.classList.remove('sel'));
   overlay.querySelector('.wellness-confirm').disabled = true;
@@ -1449,15 +1434,6 @@ function confermaWellness() {
   }).catch(() => {}); // silenzioso — non blocca l'atleta
 }
 
-function saltaWellness() {
-  localStorage.setItem(wellnessKey(), '1');
-  document.getElementById('wellness-overlay').classList.remove('open');
-  if (_wellnessPendingAcc) {
-    apriSedutaConNote(_wellnessPendingAcc);
-    _wellnessPendingAcc = null;
-  }
-}
-
 // ─────────────────────────────────────────────────────────────────────────────
 </script>
 
@@ -1503,7 +1479,6 @@ function saltaWellness() {
       <textarea rows="2" placeholder=""></textarea>
     </div>
     <button class="wellness-confirm" onclick="confermaWellness()" disabled></button>
-    <button class="wellness-skip" onclick="saltaWellness()"></button>
   </div>
 </div>
 

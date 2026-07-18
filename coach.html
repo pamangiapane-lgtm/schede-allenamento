@@ -488,16 +488,18 @@ if (params.get('coach') !== COACH_KEY) {
 let giocatrici = [];
 let progressi  = [];
 let tutteNote  = [];
+let wellness   = [];
 let atletaMap  = {};
 let srpeData   = [];
 
 // ── Init ─────────────────────────────────────────────────────────────────────
 async function init() {
   try {
-    const [resG, resP, resN] = await Promise.all([
+    const [resG, resP, resN, resW] = await Promise.all([
       apiGet('leggi', 'Giocatrici'),
       apiGet('leggi', 'Progressi'),
-      apiGet('leggi_tutte_note')
+      apiGet('leggi_tutte_note'),
+      apiGet('leggi', 'Wellness')
     ]);
 
     if (resG.ok) {
@@ -507,7 +509,8 @@ async function init() {
       giocatrici.forEach(g => { atletaMap[String(g.ID)] = g.Nome; });
       popolaSelects();
     }
-    if (resP.ok) { progressi = resP.dati || []; srpeData = computeSrpe(progressi); }
+    if (resW.ok) wellness  = resW.dati || [];
+    if (resP.ok) { progressi = resP.dati || []; srpeData = computeSrpe(progressi, wellness); }
     if (resN.ok) tutteNote = resN.note || [];
 
     renderNote();
@@ -762,10 +765,11 @@ function filtraStorico() {
 }
 
 // ── sRPE (metodo Foster) ──────────────────────────────────────────────────────
-function computeSrpe(prg) {
-  // Per ogni entry RPE-seduta, cerca gli esercizi dello stesso atleta+seduta
-  // nelle 4 ore precedenti (evita di mescolare sessioni con lo stesso ID in date diverse)
-  const W4H = 4 * 60 * 60 * 1000;
+function computeSrpe(prg, wel) {
+  // T_start: usa Wellness.Timestamp (compilato PRIMA della seduta) se disponibile,
+  // altrimenti timestamp minimo degli esercizi nelle 4h precedenti il RPE.
+  const W4H     = 4 * 60 * 60 * 1000;
+  const SKIP_TS = new Set(['RPE-seduta', 'Fatica-seduta']);
   const rpeEntries = prg.filter(p => p.Esercizio === 'RPE-seduta' && p.Valore && p.Timestamp && p.N_Seduta);
   return rpeEntries
     .map(rpe => {
@@ -773,20 +777,31 @@ function computeSrpe(prg) {
       if (isNaN(tEnd)) return null;
       const v = Number(rpe.Valore);
       if (isNaN(v)) return null;
-      const idG = String(rpe.ID_Giocatrice);
-      const sed = String(rpe.N_Seduta);
+      const idG    = String(rpe.ID_Giocatrice);
+      const sed    = String(rpe.N_Seduta);
       const tEndMs = tEnd.getTime();
-      // Tutti i log di quell'atleta+seduta nelle 4h precedenti il RPE
-      // Cerca tutti gli esercizi reali dell'atleta nelle 4h prima del RPE
-      // (N_Seduta spesso assente negli esercizi — filtrare per sed escluderebbe tutto)
-      const SKIP_TS = new Set(['RPE-seduta', 'Fatica-seduta']);
-      const win = prg.filter(p => {
-        if (String(p.ID_Giocatrice) !== idG || !p.Timestamp) return false;
-        if (SKIP_TS.has(p.Esercizio)) return false;
-        const t = new Date(p.Timestamp).getTime();
-        return !isNaN(t) && t <= tEndMs && (tEndMs - t) <= W4H;
-      });
-      const tMin  = Math.min(...win.map(p => new Date(p.Timestamp).getTime()));
+
+      // Wellness dell'atleta nelle 12h prima del RPE (finestra ampia: copre sessioni mattutine)
+      const wellnessTs = (wel || [])
+        .filter(w => String(w.ID_Giocatrice) === idG && w.Timestamp)
+        .map(w => new Date(w.Timestamp).getTime())
+        .filter(t => !isNaN(t) && t < tEndMs && (tEndMs - t) <= W4H * 3)
+        .sort((a, b) => a - b);
+
+      let tMin, srcWellness;
+      if (wellnessTs.length) {
+        tMin = wellnessTs[0];  // primo wellness disponibile = inizio sessione
+        srcWellness = true;
+      } else {
+        // Fallback: esercizi reali nelle 4h prima del RPE
+        const winTs = prg
+          .filter(p => String(p.ID_Giocatrice) === idG && !SKIP_TS.has(p.Esercizio) && p.Timestamp)
+          .map(p => new Date(p.Timestamp).getTime())
+          .filter(t => !isNaN(t) && t <= tEndMs && (tEndMs - t) <= W4H);
+        tMin = winTs.length ? Math.min(...winTs) : tEndMs;
+        srcWellness = false;
+      }
+
       const durMin = Math.max(0, Math.round((tEndMs - tMin) / 60000));
       return {
         id_giocatrice: idG,
@@ -794,7 +809,8 @@ function computeSrpe(prg) {
         rpe:           v,
         durata_min:    durMin,
         srpe:          durMin >= 10 ? v * durMin : null,
-        timestamp:     tEnd.toISOString()
+        timestamp:     tEnd.toISOString(),
+        src_wellness:  srcWellness
       };
     })
     .filter(Boolean)
