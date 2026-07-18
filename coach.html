@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pannello Coach</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#1a3a6b">
+  <link rel="apple-touch-icon" href="logo.jpg">
+  <style>
+    .coach-tabs {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--bianco);
+      border-bottom: 2px solid var(--bordo);
+      display: flex;
+    }
+    .coach-tab {
+      flex: 1;
+      padding: 13px 6px;
+      border: none;
+      background: transparent;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--testo-sec);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .coach-tab.active {
+      color: var(--blu);
+      border-bottom-color: var(--blu);
+    }
+    .tab-pnl { display: none; }
+    .tab-pnl.active { display: block; }
+
+    /* ── Sezione titolo ── */
+    .sez-titolo {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--testo-sec);
+      margin-bottom: 12px;
+    }
+
+    /* ── Form nota ── */
+    .form-card {
+      background: var(--bianco);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .campo { margin-bottom: 12px; }
+    .campo label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--testo-sec);
+      margin-bottom: 5px;
+    }
+    .campo select,
+    .campo input[type=text],
+    .campo input[type=number],
+    .campo input[type=date],
+    .campo textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid var(--bordo);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: var(--testo);
+      background: var(--grigio);
+      outline: none;
+      font-family: inherit;
+      appearance: none;
+    }
+    .campo select:focus,
+    .campo input:focus,
+    .campo textarea:focus { border-color: var(--blu-medio); background: #fff; }
+    .campo textarea { min-height: 78px; resize: vertical; }
+    .date-row { display: flex; gap: 10px; }
+    .date-row .campo { flex: 1; }
+
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: var(--blu);
+      color: var(--bianco);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+    .btn-primary:active { opacity: 0.85; }
+    .btn-primary:disabled { opacity: 0.55; cursor: default; }
+    .form-feedback {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--verde);
+      font-weight: 600;
+      margin-top: 8px;
+      min-height: 20px;
+    }
+
+    /* ── Lista note ── */
+    .nota-item {
+      background: var(--bianco);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      border-left: 4px solid var(--blu-medio);
+    }
+    .nota-item.per-seduta { border-left-color: var(--verde); }
+    .nota-head {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .nota-nome { font-weight: 700; font-size: 0.9rem; }
+    .nota-badge {
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: var(--blu-light);
+      color: var(--blu);
+    }
+    .nota-badge.sed { background: #e8f5ee; color: var(--verde); }
+    .nota-date { font-size: 0.65rem; color: var(--testo-sec); margin-left: auto; }
+    .nota-testo {
+      font-size: 0.88rem;
+      color: var(--testo);
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .nota-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+      font-size: 0.72rem;
+      color: var(--testo-sec);
+    }
+    .btn-elimina {
+      background: none;
+      border: 1px solid #ddd;
+      color: #b33;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.72rem;
+      cursor: pointer;
+    }
+    .btn-elimina:active { background: #fee2e2; }
+
+    /* ── Filtri storico ── */
+    .filtri-bar {
+      background: var(--bianco);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filtri-bar select,
+    .filtri-bar input {
+      flex: 1;
+      min-width: 120px;
+      padding: 8px 10px;
+      border: 1.5px solid var(--bordo);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--testo);
+      background: var(--grigio);
+      outline: none;
+      font-family: inherit;
+      appearance: none;
+    }
+    .filtri-bar select:focus,
+    .filtri-bar input:focus { border-color: var(--blu-medio); background: #fff; }
+
+    /* ── Tabella storico ── */
+    .tbl-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .storico-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bianco);
+      font-size: 0.82rem;
+    }
+    .storico-tbl thead th {
+      padding: 10px 12px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--testo-sec);
+      background: var(--grigio);
+      text-align: left;
+      white-space: nowrap;
+    }
+    .storico-tbl tbody td {
+      padding: 8px 12px;
+      border-top: 1px solid var(--bordo);
+      color: var(--testo);
+      white-space: nowrap;
+    }
+    .storico-tbl tbody tr:hover { background: #f8fafc; }
+    .valore-cell { font-weight: 700; color: var(--blu); }
+    .count-label {
+      text-align: right;
+      font-size: 0.72rem;
+      color: var(--testo-sec);
+      margin-top: 8px;
+    }
+
+    /* ── Compliance ── */
+    .comp-item {
+      background: var(--bianco);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .comp-dot {
+      width: 13px; height: 13px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .comp-dot.verde  { background: #22c55e; }
+    .comp-dot.giallo { background: #f59e0b; }
+    .comp-dot.rosso  { background: #ef4444; }
+    .comp-dot.mai    { background: #94a3b8; }
+    .comp-nome { font-weight: 700; font-size: 0.92rem; flex: 1; }
+    .comp-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .comp-chip {
+      font-size: 0.7rem;
+      color: var(--testo-sec);
+      background: var(--grigio);
+      border-radius: 20px;
+      padding: 2px 9px;
+      white-space: nowrap;
+    }
+    .comp-chip strong { color: var(--testo); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
+    <h1>Pannello Coach</h1>
+  </div>
+  <p>Marsala Volley 2026/27</p>
+  <div id="dev-banner" style="display:none;background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
+</header>
+
+<div id="access-denied" style="display:none">
+  <div class="container">
+    <p class="errore-msg" style="margin-top:48px;">Accesso non autorizzato.<br><small>Usa il link fornito dallo staff tecnico.</small></p>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+
+  <div class="coach-tabs">
+    <button class="coach-tab active" onclick="mostraTab('note')">📝 Note</button>
+    <button class="coach-tab" onclick="mostraTab('storico')">📈 Storico</button>
+    <button class="coach-tab" onclick="mostraTab('compliance')">✅ Compliance</button>
+  </div>
+
+  <div class="container">
+
+    <!-- ── TAB NOTE ── -->
+    <div id="tab-note" class="tab-pnl active">
+
+      <div class="form-card">
+        <p class="sez-titolo">Nuova nota</p>
+
+        <div class="campo">
+          <label>Atleta</label>
+          <select id="nota-atleta">
+            <option value="TUTTE">Tutte le atlete</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label>Tipo</label>
+          <select id="nota-tipo" onchange="aggiornaTipo()">
+            <option value="generale">Generale</option>
+            <option value="per-seduta">Per seduta specifica</option>
+          </select>
+        </div>
+
+        <div class="campo" id="seduta-field" style="display:none">
+          <label>Numero seduta</label>
+          <input type="number" id="nota-seduta" min="1" placeholder="es. 3">
+        </div>
+
+        <div class="campo">
+          <label>Testo</label>
+          <textarea id="nota-testo" placeholder="Scrivi la nota per l'atleta..."></textarea>
+        </div>
+
+        <div class="date-row">
+          <div class="campo">
+            <label>Valida dal</label>
+            <input type="date" id="nota-dal">
+          </div>
+          <div class="campo">
+            <label>Valida fino al <span style="font-weight:400;text-transform:none;font-size:0.7rem">(opz.)</span></label>
+            <input type="date" id="nota-al">
+          </div>
+        </div>
+
+        <button class="btn-primary" id="btn-salva" onclick="salvaNota()">Salva nota</button>
+        <p class="form-feedback" id="nota-ok"></p>
+      </div>
+
+      <p class="sez-titolo">Note esistenti</p>
+      <div id="lista-note"><p class="loading-msg">Caricamento...</p></div>
+    </div>
+
+    <!-- ── TAB STORICO ── -->
+    <div id="tab-storico" class="tab-pnl">
+      <div class="filtri-bar">
+        <select id="filtro-atleta" onchange="filtraStorico()">
+          <option value="">Tutte le atlete</option>
+        </select>
+        <input type="text" id="filtro-eserc" placeholder="Esercizio..." oninput="filtraStorico()">
+        <input type="date" id="filtro-dal" onchange="filtraStorico()">
+        <input type="date" id="filtro-al" onchange="filtraStorico()">
+      </div>
+      <div class="tbl-wrap">
+        <table class="storico-tbl">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Atleta</th>
+              <th>Sed.</th>
+              <th>Esercizio</th>
+              <th>Valore</th>
+            </tr>
+          </thead>
+          <tbody id="storico-body">
+            <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--testo-sec)">Caricamento...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="count-label" id="storico-count"></p>
+    </div>
+
+    <!-- ── TAB COMPLIANCE ── -->
+    <div id="tab-compliance" class="tab-pnl">
+      <p class="sez-titolo">Stato atlete — ultimi 7 giorni</p>
+      <div id="lista-compliance"><p class="loading-msg">Caricamento...</p></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const IS_DEV = window.location.pathname.includes('/dev/');
+const API    = IS_DEV
+  ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
+  : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const TOKEN     = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
+const COACH_KEY = 'mv26-coach-8pL2wK';
+
+if (IS_DEV) {
+  document.title = '[DEV] ' + document.title;
+  document.getElementById('dev-banner').style.display = '';
+}
+
+const params = new URLSearchParams(window.location.search);
+if (params.get('coach') !== COACH_KEY) {
+  document.getElementById('access-denied').style.display = '';
+} else {
+  document.getElementById('app').style.display = '';
+  init();
+}
+
+// ── Stato globale ────────────────────────────────────────────────────────────
+let giocatrici = [];
+let progressi  = [];
+let tutteNote  = [];
+let atletaMap  = {};
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+async function init() {
+  try {
+    const [resG, resP, resN] = await Promise.all([
+      apiGet('leggi', 'Giocatrici'),
+      apiGet('leggi', 'Progressi'),
+      apiGet('leggi_tutte_note')
+    ]);
+
+    if (resG.ok) {
+      giocatrici = (resG.dati || [])
+        .filter(g => g.ID && !isNaN(parseInt(g.ID)))
+        .sort((a, b) => a.Nome.localeCompare(b.Nome, 'it', { sensitivity: 'base' }));
+      giocatrici.forEach(g => { atletaMap[String(g.ID)] = g.Nome; });
+      popolaSelects();
+    }
+    if (resP.ok) progressi = resP.dati || [];
+    if (resN.ok) tutteNote = resN.note || [];
+
+    renderNote();
+    filtraStorico();
+    renderCompliance();
+  } catch (err) {
+    document.getElementById('lista-note').innerHTML =
+      `<p class="errore-msg">Errore caricamento: ${esc(err.message)}</p>`;
+  }
+}
+
+// ── API ───────────────────────────────────────────────────────────────────────
+async function apiGet(azione, foglio) {
+  const url = `${API}?token=${TOKEN}&azione=${azione}${foglio ? '&foglio=' + foglio : ''}`;
+  const r = await fetch(url);
+  return r.json();
+}
+async function apiPost(body) {
+  const r = await fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ token: TOKEN, ...body })
+  });
+  return r.json();
+}
+
+// ── Select helpers ────────────────────────────────────────────────────────────
+function popolaSelects() {
+  const opts = giocatrici.map(g => `<option value="${g.ID}">${esc(g.Nome)}</option>`).join('');
+  document.getElementById('nota-atleta').innerHTML =
+    '<option value="TUTTE">Tutte le atlete</option>' + opts;
+  document.getElementById('filtro-atleta').innerHTML =
+    '<option value="">Tutte le atlete</option>' + opts;
+}
+
+// ── Tab ───────────────────────────────────────────────────────────────────────
+function mostraTab(nome) {
+  const nomi = ['note', 'storico', 'compliance'];
+  document.querySelectorAll('.coach-tab').forEach((b, i) => {
+    b.classList.toggle('active', nomi[i] === nome);
+  });
+  document.querySelectorAll('.tab-pnl').forEach(p => {
+    p.classList.toggle('active', p.id === 'tab-' + nome);
+  });
+}
+
+// ── Tipo nota ─────────────────────────────────────────────────────────────────
+function aggiornaTipo() {
+  const isSed = document.getElementById('nota-tipo').value === 'per-seduta';
+  document.getElementById('seduta-field').style.display = isSed ? '' : 'none';
+}
+
+// ── Salva nota ────────────────────────────────────────────────────────────────
+async function salvaNota() {
+  const idG    = document.getElementById('nota-atleta').value;
+  const tipo   = document.getElementById('nota-tipo').value;
+  const seduta = document.getElementById('nota-seduta').value;
+  const testo  = document.getElementById('nota-testo').value.trim();
+  const dal    = document.getElementById('nota-dal').value;
+  const al     = document.getElementById('nota-al').value;
+
+  if (!testo) { alert('Scrivi il testo della nota.'); return; }
+  if (!dal)   { alert('Inserisci la data di inizio validità.'); return; }
+  if (tipo === 'per-seduta' && !seduta) { alert('Inserisci il numero seduta.'); return; }
+
+  const btn = document.getElementById('btn-salva');
+  btn.disabled = true;
+  btn.textContent = 'Salvataggio...';
+
+  const res = await apiPost({
+    azione:       'scrivi_nota_coach',
+    id_giocatrice: idG,
+    tipo,
+    n_seduta:     tipo === 'per-seduta' ? seduta : '',
+    testo,
+    data_inizio:  dal,
+    data_fine:    al
+  });
+
+  btn.disabled = false;
+  btn.textContent = 'Salva nota';
+
+  if (res.ok) {
+    tutteNote.unshift({
+      timestamp: res.timestamp || new Date().toISOString(),
+      id_giocatrice: idG, tipo,
+      n_seduta: tipo === 'per-seduta' ? seduta : '',
+      testo, data_inizio: dal, data_fine: al
+    });
+    document.getElementById('nota-testo').value = '';
+    document.getElementById('nota-al').value = '';
+    mostraOk('nota-ok', '✓ Nota salvata');
+    renderNote();
+  } else {
+    alert('Errore: ' + (res.errore || '?'));
+  }
+}
+
+function mostraOk(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  setTimeout(() => { el.textContent = ''; }, 3000);
+}
+
+// ── Render note ───────────────────────────────────────────────────────────────
+function renderNote() {
+  const cont = document.getElementById('lista-note');
+  if (!tutteNote.length) {
+    cont.innerHTML = '<p class="loading-msg">Nessuna nota presente.</p>';
+    return;
+  }
+  cont.innerHTML = tutteNote.map((n, i) => {
+    const nome = n.id_giocatrice === 'TUTTE'
+      ? 'Tutte le atlete'
+      : (atletaMap[String(n.id_giocatrice)] || 'ID ' + n.id_giocatrice);
+    const isSed = n.tipo === 'per-seduta';
+    const dateRange = n.data_fine
+      ? `${fmtDate(n.data_inizio)} → ${fmtDate(n.data_fine)}`
+      : `dal ${fmtDate(n.data_inizio)}`;
+    return `
+    <div class="nota-item${isSed ? ' per-seduta' : ''}">
+      <div class="nota-head">
+        <span class="nota-nome">${esc(nome)}</span>
+        <span class="nota-badge${isSed ? ' sed' : ''}">${isSed ? 'Sed. ' + n.n_seduta : 'Generale'}</span>
+        <span class="nota-date">${dateRange}</span>
+      </div>
+      <p class="nota-testo">${esc(n.testo)}</p>
+      <div class="nota-footer">
+        <span>${fmtTs(n.timestamp)}</span>
+        <button class="btn-elimina" onclick="eliminaNota(${i})">Elimina</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function eliminaNota(i) {
+  if (!confirm('Eliminare questa nota?')) return;
+  const n = tutteNote[i];
+  const res = await apiPost({ azione: 'elimina_nota_coach', timestamp: n.timestamp });
+  if (res.ok) {
+    tutteNote.splice(i, 1);
+    renderNote();
+  } else {
+    alert('Errore: ' + (res.errore || '?'));
+  }
+}
+
+// ── Storico ───────────────────────────────────────────────────────────────────
+const SKIP = new Set(['RPE-seduta', 'Fatica-seduta']);
+
+function filtraStorico() {
+  const idG   = document.getElementById('filtro-atleta').value;
+  const eserc = document.getElementById('filtro-eserc').value.toLowerCase().trim();
+  const dalV  = document.getElementById('filtro-dal').value;
+  const alV   = document.getElementById('filtro-al').value;
+  const dal   = dalV ? new Date(dalV) : null;
+  const al    = alV  ? new Date(alV + 'T23:59:59') : null;
+
+  const righe = progressi.filter(p => {
+    if (!p.Valore) return false;
+    if (SKIP.has(p.Esercizio)) return false;
+    if (idG && String(p.ID_Giocatrice) !== idG) return false;
+    if (eserc && !(p.Esercizio || '').toLowerCase().includes(eserc)) return false;
+    if (p.Timestamp) {
+      const ts = new Date(p.Timestamp);
+      if (dal && ts < dal) return false;
+      if (al  && ts > al)  return false;
+    }
+    return true;
+  }).slice(-300).reverse();
+
+  const tbody = document.getElementById('storico-body');
+  if (!righe.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--testo-sec)">Nessun risultato</td></tr>';
+    document.getElementById('storico-count').textContent = '';
+    return;
+  }
+
+  tbody.innerHTML = righe.map(p => {
+    const nome = atletaMap[String(p.ID_Giocatrice)] || 'ID ' + p.ID_Giocatrice;
+    return `<tr>
+      <td>${esc(fmtTs(p.Timestamp))}</td>
+      <td>${esc(nome)}</td>
+      <td>${esc(String(p.N_Seduta || ''))}</td>
+      <td>${esc(p.Esercizio || '')}</td>
+      <td class="valore-cell">${esc(String(p.Valore))}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('storico-count').textContent =
+    `${righe.length} risultati${righe.length === 300 ? ' (ultimi 300)' : ''}`;
+}
+
+// ── Compliance ────────────────────────────────────────────────────────────────
+function renderCompliance() {
+  const cont = document.getElementById('lista-compliance');
+  const ora  = new Date();
+  const cut7 = new Date(ora); cut7.setDate(ora.getDate() - 7);
+  const SKIP_C = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
+
+  const dati = giocatrici.map(g => {
+    const pAll   = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
+    const pEserc = pAll.filter(p => !SKIP_C.has(p.Esercizio));
+
+    let ultimoTs = null;
+    pEserc.forEach(p => {
+      const ts = p.Timestamp ? new Date(p.Timestamp) : null;
+      if (ts && (!ultimoTs || ts > ultimoTs)) ultimoTs = ts;
+    });
+
+    const gg = ultimoTs ? Math.floor((ora - ultimoTs) / 86400000) : null;
+    const sedSett = new Set(
+      pEserc.filter(p => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; return ts && ts >= cut7; })
+            .map(p => p.N_Seduta)
+    ).size;
+
+    const rpeVals = pAll
+      .filter(p => p.Esercizio === 'RPE-seduta' && p.Timestamp && new Date(p.Timestamp) >= cut7)
+      .map(p => Number(p.Valore)).filter(v => !isNaN(v));
+    const rpe = rpeVals.length ? (rpeVals.reduce((a, b) => a + b, 0) / rpeVals.length).toFixed(1) : null;
+
+    const stato = gg === null ? 'mai' : gg > 7 ? 'rosso' : gg > 3 ? 'giallo' : 'verde';
+    const ultimoLbl = gg === null ? 'mai' : gg === 0 ? 'oggi' : gg === 1 ? 'ieri' : gg + 'gg fa';
+
+    return { nome: g.Nome, stato, ultimoLbl, sedSett, rpe };
+  }).sort((a, b) => {
+    const ord = { mai: 0, rosso: 1, giallo: 2, verde: 3 };
+    return ord[a.stato] - ord[b.stato];
+  });
+
+  cont.innerHTML = dati.map(d => `
+    <div class="comp-item">
+      <div class="comp-dot ${d.stato}"></div>
+      <div class="comp-nome">${esc(d.nome)}</div>
+      <div class="comp-chips">
+        <span class="comp-chip">ultimo <strong>${d.ultimoLbl}</strong></span>
+        <span class="comp-chip">sed. 7gg <strong>${d.sedSett}</strong></span>
+        ${d.rpe !== null ? `<span class="comp-chip">RPE <strong>${d.rpe}</strong></span>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+// ── Utility ───────────────────────────────────────────────────────────────────
+function fmtDate(s) {
+  if (!s) return '';
+  const d = new Date(s);
+  if (isNaN(d)) return String(s);
+  return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
+}
+function fmtTs(s) {
+  if (!s) return '';
+  const d = new Date(s);
+  if (isNaN(d)) return String(s);
+  return d.getDate() + '/' + (d.getMonth() + 1) + ' ' +
+    String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+}
+function esc(s) {
+  return String(s || '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+</script>
+
+</body>
+</html>
