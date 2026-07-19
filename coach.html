@@ -3,359 +3,483 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pannello Coach</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="theme-color" content="#1a3a6b">
-  <link rel="apple-touch-icon" href="logo.jpg">
+  <title>Coach Panel — Marsala Volley</title>
   <style>
-    .coach-tabs {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      background: var(--bianco);
-      border-bottom: 2px solid var(--bordo);
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --surface2: #1e1e1e;
+      --border: #272727;
+      --text: #f0f0f0;
+      --text-muted: #888;
+      --text-dim: #444;
+      --accent: #e84c2b;
+      --accent-bg: rgba(232,76,43,0.12);
+      --green: #22c55e;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --sidebar-w: 212px;
+      --radius: 8px;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
       display: flex;
+      min-height: 100vh;
     }
-    .coach-tab {
-      flex: 1;
-      padding: 13px 6px;
-      border: none;
-      background: transparent;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--testo-sec);
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      margin-bottom: -2px;
-      transition: color 0.15s, border-color 0.15s;
-    }
-    .coach-tab.active {
-      color: var(--blu);
-      border-bottom-color: var(--blu);
-    }
-    .tab-pnl { display: none; }
-    .tab-pnl.active { display: block; }
 
-    /* ── Sezione titolo ── */
-    .sez-titolo {
-      font-size: 0.72rem;
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 100;
+      transition: transform 0.2s;
+    }
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-logo {
+      width: 30px; height: 30px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .sidebar-title { font-size: 0.85rem; font-weight: 700; line-height: 1.2; }
+    .sidebar-subtitle { font-size: 0.65rem; color: var(--text-muted); }
+    #dev-badge {
+      margin: 8px 10px 0;
+      background: #92400e;
+      color: #fde68a;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 3px 8px;
+      border-radius: 5px;
+      letter-spacing: 0.5px;
+      display: none;
+    }
+    .sidebar-nav { flex: 1; padding: 10px 8px; overflow-y: auto; }
+    .nav-label {
+      font-size: 0.6rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 1px;
-      color: var(--testo-sec);
+      color: var(--text-dim);
+      padding: 10px 8px 4px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      transition: background 0.1s, color 0.1s;
+    }
+    .nav-item:hover { background: var(--surface2); color: var(--text); }
+    .nav-item.active { background: var(--accent-bg); color: var(--accent); }
+    .nav-icon { font-size: 0.95rem; width: 18px; text-align: center; flex-shrink: 0; }
+    .sidebar-footer {
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar-footer-name { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── Main ── */
+    .main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; }
+    .main-header {
+      padding: 22px 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .main-header-left { display: flex; align-items: center; gap: 12px; }
+    .page-title { font-size: 1.4rem; font-weight: 700; }
+    .main-content { padding: 0 28px 28px; }
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 99;
+    }
+
+    /* ── Tab panels ── */
+    .tab-pnl { display: none; }
+    .tab-pnl.active { display: block; }
+
+    /* ── Section label ── */
+    .sez-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
       margin-bottom: 12px;
     }
 
-    /* ── Form nota ── */
-    .form-card {
-      background: var(--bianco);
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 16px;
-      margin-bottom: 20px;
+      padding: 18px;
+      margin-bottom: 18px;
     }
-    .campo { margin-bottom: 12px; }
+
+    /* ── Form ── */
+    .campo { margin-bottom: 14px; }
     .campo label {
       display: block;
-      font-size: 0.72rem;
+      font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: var(--testo-sec);
+      color: var(--text-muted);
       margin-bottom: 5px;
     }
     .campo select,
     .campo input[type=text],
-    .campo input[type=number],
     .campo input[type=date],
     .campo textarea {
       width: 100%;
       padding: 9px 12px;
-      border: 1.5px solid var(--bordo);
-      border-radius: 8px;
-      font-size: 0.95rem;
-      color: var(--testo);
-      background: var(--grigio);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.88rem;
+      color: var(--text);
       outline: none;
       font-family: inherit;
       appearance: none;
+      transition: border-color 0.15s;
     }
     .campo select:focus,
     .campo input:focus,
-    .campo textarea:focus { border-color: var(--blu-medio); background: #fff; }
-    .campo textarea { min-height: 78px; resize: vertical; }
-    .date-row { display: flex; gap: 10px; }
-    .date-row .campo { flex: 1; }
+    .campo textarea:focus { border-color: var(--accent); }
+    .campo textarea { min-height: 80px; resize: vertical; }
+    .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
+    /* ── Buttons ── */
     .btn-primary {
       width: 100%;
-      padding: 12px;
-      background: var(--blu);
-      color: var(--bianco);
+      padding: 10px;
+      background: var(--accent);
+      color: #fff;
       border: none;
       border-radius: var(--radius);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 4px;
     }
-    .btn-primary:active { opacity: 0.85; }
-    .btn-primary:disabled { opacity: 0.55; cursor: default; }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:disabled { opacity: 0.45; cursor: default; }
     .form-feedback {
       text-align: center;
-      font-size: 0.8rem;
-      color: var(--verde);
+      font-size: 0.78rem;
+      color: var(--green);
       font-weight: 600;
       margin-top: 8px;
-      min-height: 20px;
+      min-height: 18px;
     }
+    .btn-ghost {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      cursor: pointer;
+    }
+    .btn-ghost:hover { border-color: var(--red); color: var(--red); }
 
-    /* ── Lista note ── */
+    /* ── Chip ── */
+    .chips-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color 0.1s, color 0.1s;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--accent); }
+    .chip.selected { background: var(--accent-bg); border-color: var(--accent); color: var(--accent); }
+
+    /* ── Note ── */
     .nota-item {
-      background: var(--bianco);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
       padding: 12px 14px;
-      margin-bottom: 10px;
-      border-left: 4px solid var(--blu-medio);
+      margin-bottom: 8px;
     }
-    .nota-item.per-seduta { border-left-color: var(--verde); }
-    .nota-head {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      flex-wrap: wrap;
-      margin-bottom: 6px;
-    }
+    .nota-item.per-seduta { border-left-color: var(--green); }
+    .nota-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
     .nota-nome { font-weight: 700; font-size: 0.9rem; }
-    .nota-badge {
+    .tag {
       font-size: 0.62rem;
       font-weight: 700;
       padding: 2px 8px;
       border-radius: 20px;
-      background: var(--blu-light);
-      color: var(--blu);
     }
-    .nota-badge.sed { background: #e8f5ee; color: var(--verde); }
-    .nota-date { font-size: 0.65rem; color: var(--testo-sec); margin-left: auto; }
-    .nota-testo {
-      font-size: 0.88rem;
-      color: var(--testo);
-      line-height: 1.5;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-    .nota-footer {
+    .tag-blue { background: rgba(14,165,233,0.15); color: #38bdf8; }
+    .tag-green { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .nota-date { font-size: 0.65rem; color: var(--text-muted); margin-left: auto; }
+    .nota-testo { font-size: 0.87rem; color: #ccc; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
+    .nota-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 0.68rem; color: var(--text-muted); }
+
+    /* ── Search bar (Enode History-style) ── */
+    .search-bar {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-top: 8px;
-      font-size: 0.72rem;
-      color: var(--testo-sec);
+      gap: 10px;
+      margin-bottom: 10px;
     }
-    .btn-elimina {
-      background: none;
-      border: 1px solid #ddd;
-      color: #b33;
-      border-radius: 6px;
-      padding: 3px 10px;
-      font-size: 0.72rem;
-      cursor: pointer;
-    }
-    .btn-elimina:active { background: #fee2e2; }
-
-    /* ── Template chips ── */
-    .tpl-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-    .tpl-chip {
-      background: var(--grigio);
-      border: 1.5px solid var(--bordo);
-      border-radius: 20px;
-      padding: 4px 11px;
-      font-size: 0.73rem;
-      font-weight: 600;
-      color: var(--testo-sec);
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .tpl-chip:hover { background: var(--blu-light); border-color: var(--blu-medio); color: var(--blu); }
-    .tpl-chip:active { opacity: 0.75; }
-
-    /* ── Preset date ── */
-    .date-preset-row {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-    .date-preset-btn {
-      background: var(--grigio);
-      border: 1.5px solid var(--bordo);
-      border-radius: 20px;
-      padding: 4px 11px;
-      font-size: 0.73rem;
-      font-weight: 600;
-      color: var(--testo-sec);
-      cursor: pointer;
-    }
-    .date-preset-btn:hover { background: var(--blu-light); border-color: var(--blu-medio); color: var(--blu); }
-    .date-preset-btn:active { opacity: 0.75; }
-
-    /* ── Session pills ── */
-    .sed-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 7px;
-    }
-    .sed-pill {
-      background: var(--grigio);
-      border: 1.5px solid var(--bordo);
-      border-radius: 8px;
-      padding: 4px 11px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--testo);
-    }
-    .sed-pill.selected { background: var(--blu-light); border-color: var(--blu); color: var(--blu); }
-
-    /* ── sRPE color ── */
-    .srpe-v { color: #16a34a; font-weight: 700; }
-    .srpe-y { color: #d97706; font-weight: 700; }
-    .srpe-r { color: #dc2626; font-weight: 700; }
-
-    /* ── Filtri storico ── */
-    .filtri-bar {
-      background: var(--bianco);
+    .search-wrap { flex: 1; position: relative; }
+    .search-wrap input {
+      width: 100%;
+      padding: 9px 12px 9px 34px;
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .filtri-bar select,
-    .filtri-bar input {
-      flex: 1;
-      min-width: 120px;
-      padding: 8px 10px;
-      border: 1.5px solid var(--bordo);
-      border-radius: 8px;
-      font-size: 0.85rem;
-      color: var(--testo);
-      background: var(--grigio);
+      font-size: 0.88rem;
+      color: var(--text);
       outline: none;
       font-family: inherit;
-      appearance: none;
     }
-    .filtri-bar select:focus,
-    .filtri-bar input:focus { border-color: var(--blu-medio); background: #fff; }
+    .search-wrap input:focus { border-color: var(--accent); }
+    .search-ico { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
+    .daterange {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 6px 12px;
+    }
+    .daterange input[type=date] {
+      background: none; border: none;
+      color: var(--text); font-size: 0.82rem;
+      font-family: inherit; outline: none;
+      width: 122px;
+    }
+    .daterange-sep { color: var(--text-muted); font-size: 0.8rem; }
+    .results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .results-count { font-size: 0.75rem; color: var(--text-muted); }
 
-    /* ── Tabella storico ── */
-    .tbl-wrap { overflow-x: auto; border-radius: var(--radius); box-shadow: var(--shadow); }
-    .storico-tbl {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--bianco);
-      font-size: 0.82rem;
-    }
-    .storico-tbl thead th {
-      padding: 10px 12px;
+    /* ── Avatar chip ── */
+    .av {
+      border-radius: 6px;
       font-size: 0.62rem;
+      font-weight: 700;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      letter-spacing: 0.5px;
+      width: 26px; height: 26px;
+    }
+    .av.lg { width: 36px; height: 36px; border-radius: 8px; font-size: 0.78rem; }
+
+    /* ── Table ── */
+    .tbl-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+    .data-tbl { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .data-tbl thead th {
+      padding: 10px 12px;
+      font-size: 0.6rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: var(--testo-sec);
-      background: var(--grigio);
+      color: var(--text-muted);
+      background: var(--surface2);
       text-align: left;
       white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
     }
-    .storico-tbl tbody td {
-      padding: 8px 12px;
-      border-top: 1px solid var(--bordo);
-      color: var(--testo);
-      white-space: nowrap;
+    .data-tbl thead th:hover { color: var(--text); }
+    .data-tbl thead th.sorted { color: var(--accent); }
+    .data-tbl tbody td { padding: 10px 12px; border-top: 1px solid var(--border); white-space: nowrap; }
+    .data-tbl tbody tr:hover { background: var(--surface2); }
+    .td-athlete { display: flex; align-items: center; gap: 8px; }
+    .td-val { font-weight: 700; }
+    .trend-badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
     }
-    .storico-tbl tbody tr:hover { background: #f8fafc; }
-    .valore-cell { font-weight: 700; color: var(--blu); }
-    .count-label {
-      text-align: right;
-      font-size: 0.72rem;
-      color: var(--testo-sec);
-      margin-top: 8px;
-    }
+    .trend-up { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .trend-dn { background: rgba(239,68,68,0.15); color: #f87171; }
+    .srpe-v { color: #22c55e; font-weight: 700; }
+    .srpe-y { color: #f59e0b; font-weight: 700; }
+    .srpe-r { color: #ef4444; font-weight: 700; }
 
-    /* ── Compliance ── */
-    .comp-item {
-      background: var(--bianco);
+    /* ── Compliance grid (Enode Athletes-style) ── */
+    .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 10px; }
+    .comp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 12px 16px;
-      margin-bottom: 8px;
+      padding: 14px 16px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 12px;
     }
-    .comp-dot {
-      width: 13px; height: 13px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .comp-dot.verde  { background: #22c55e; }
-    .comp-dot.giallo { background: #f59e0b; }
-    .comp-dot.rosso  { background: #ef4444; }
-    .comp-dot.mai    { background: #94a3b8; }
-    .comp-nome { font-weight: 700; font-size: 0.92rem; flex: 1; }
-    .comp-chips { display: flex; gap: 6px; flex-wrap: wrap; }
-    .comp-chip {
-      font-size: 0.7rem;
-      color: var(--testo-sec);
-      background: var(--grigio);
+    .comp-info { flex: 1; min-width: 0; }
+    .comp-nome { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+    .comp-status { display: flex; align-items: center; gap: 5px; margin-bottom: 8px; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .status-dot.verde  { background: #22c55e; }
+    .status-dot.giallo { background: #f59e0b; }
+    .status-dot.rosso  { background: #ef4444; }
+    .status-dot.mai    { background: #555; }
+    .status-text { font-size: 0.75rem; color: var(--text-muted); }
+    .metric-pills { display: flex; flex-wrap: wrap; gap: 5px; }
+    .mpill {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: var(--surface2);
+      border: 1px solid var(--border);
       border-radius: 20px;
       padding: 2px 9px;
-      white-space: nowrap;
     }
-    .comp-chip strong { color: var(--testo); }
+    .mpill strong { color: var(--text); }
+
+    /* ── Access denied ── */
+    #access-denied-screen {
+      flex: 1;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    #access-denied-screen h2 { color: var(--accent); margin-bottom: 8px; }
+    #access-denied-screen p { color: var(--text-muted); }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .sidebar-overlay.open { display: block; }
+      .main { margin-left: 0; }
+      .main-header { padding: 14px 16px 0; }
+      .main-content { padding: 0 16px 24px; }
+      .hamburger { display: block; }
+      .date-row { grid-template-columns: 1fr; }
+      .comp-grid { grid-template-columns: 1fr; }
+      .search-bar { flex-direction: column; align-items: stretch; }
+      .daterange { flex-wrap: wrap; }
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="header-brand">
-    <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
-    <h1>Pannello Coach</h1>
-  </div>
-  <p>Marsala Volley 2026/27</p>
-  <div id="dev-banner" style="display:none;background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
-</header>
-
-<div id="access-denied" style="display:none">
-  <div class="container">
-    <p class="errore-msg" style="margin-top:48px;">Accesso non autorizzato.<br><small>Usa il link fornito dallo staff tecnico.</small></p>
+<div id="access-denied-screen">
+  <div>
+    <h2>Accesso non autorizzato</h2>
+    <p>Usa il link fornito dallo staff tecnico.</p>
   </div>
 </div>
 
-<div id="app" style="display:none">
+<div id="sidebar-overlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
 
-  <div class="coach-tabs">
-    <button class="coach-tab active" onclick="mostraTab('note')">📝 Note</button>
-    <button class="coach-tab" onclick="mostraTab('storico')">📈 Storico</button>
-    <button class="coach-tab" onclick="mostraTab('compliance')">✅ Compliance</button>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <img src="logo.jpg" class="sidebar-logo" alt="">
+    <div>
+      <div class="sidebar-title">Coach Panel</div>
+      <div class="sidebar-subtitle">Marsala Volley 26/27</div>
+    </div>
   </div>
 
-  <div class="container">
+  <div id="dev-badge">⚠ AMBIENTE TEST</div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-label">Pannello</div>
+    <button class="nav-item active" id="nav-note" onclick="mostraTab('note')">
+      <span class="nav-icon">📝</span> Note
+    </button>
+    <button class="nav-item" id="nav-storico" onclick="mostraTab('storico')">
+      <span class="nav-icon">📈</span> Storico
+    </button>
+    <button class="nav-item" id="nav-compliance" onclick="mostraTab('compliance')">
+      <span class="nav-icon">✅</span> Compliance
+    </button>
+
+    <div class="nav-label" style="margin-top:14px">Report</div>
+    <a class="nav-item" id="link-report" href="report.html?coach=mv26-coach-8pL2wK" target="_blank">
+      <span class="nav-icon">📋</span> Report staff
+    </a>
+    <a class="nav-item" id="link-storico-ext" href="storico.html?coach=mv26-coach-8pL2wK" target="_blank">
+      <span class="nav-icon">📊</span> Grafici
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="av lg" style="background:#e84c2b;width:28px;height:28px;border-radius:6px;font-size:0.7rem">PM</div>
+    <span class="sidebar-footer-name">Coach</span>
+  </div>
+</aside>
+
+<div class="main" id="main-app" style="display:none">
+  <div class="main-header">
+    <div class="main-header-left">
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+      <h1 class="page-title" id="page-title">Note</h1>
+    </div>
+  </div>
+
+  <div class="main-content">
 
     <!-- ── TAB NOTE ── -->
     <div id="tab-note" class="tab-pnl active">
-
-      <div class="form-card">
-        <p class="sez-titolo">Nuova nota</p>
+      <div class="card">
+        <p class="sez-label">Nuova nota</p>
 
         <div class="campo">
           <label>Atleta</label>
@@ -375,36 +499,39 @@
         <div class="campo" id="seduta-field" style="display:none">
           <label>Seduta</label>
           <input type="text" id="nota-seduta" placeholder="es. OS1-S2 o 3">
-          <div class="sed-pills" id="sed-pills"></div>
+          <div class="chips-row" id="sed-pills" style="margin-top:6px"></div>
         </div>
 
         <div class="campo">
-          <label>Testo</label>
-          <div class="tpl-chips">
-            <button type="button" class="tpl-chip" onclick="applyTpl('Lavora al 70% del carico abituale — priorità al recupero muscolare.')">🔄 Carico ridotto</button>
-            <button type="button" class="tpl-chip" onclick="applyTpl('Qualità prima della quantità. Concentrati sulla tecnica di esecuzione, non sul carico.')">🎯 Focus tecnica</button>
-            <button type="button" class="tpl-chip" onclick="applyTpl('Test massimale: riscaldamento progressivo 60% → 75% → 85% → 95% → max.')">💪 Test 1RM</button>
-            <button type="button" class="tpl-chip" onclick="applyTpl('RPE massimo 7 questa settimana — non spingere oltre indipendentemente dal programma.')">⚡ RPE ≤7</button>
-            <button type="button" class="tpl-chip" onclick="applyTpl('Rientro dopo stop: prima seduta al 60%, poi +10% ogni seduta. Segnalami qualsiasi fastidio.')">🏥 Rientro</button>
-            <button type="button" class="tpl-chip" onclick="applyTpl('Ottimo lavoro — mantieni questo ritmo e questa qualità di esecuzione.')">✅ Ottimo ritmo</button>
-            <button type="button" class="tpl-chip" onclick="applyTpl('Aumenta progressivamente il carico del 5–10% sui grandi esercizi da questa settimana.')">📈 Aumenta carico</button>
+          <label>Template rapido</label>
+          <div class="chips-row">
+            <button type="button" class="chip" onclick="applyTpl('Lavora al 70% del carico abituale — priorità al recupero muscolare.')">🔄 Carico ridotto</button>
+            <button type="button" class="chip" onclick="applyTpl('Qualità prima della quantità. Concentrati sulla tecnica di esecuzione, non sul carico.')">🎯 Focus tecnica</button>
+            <button type="button" class="chip" onclick="applyTpl('Test massimale: riscaldamento progressivo 60% → 75% → 85% → 95% → max.')">💪 Test 1RM</button>
+            <button type="button" class="chip" onclick="applyTpl('RPE massimo 7 questa settimana — non spingere oltre indipendentemente dal programma.')">⚡ RPE ≤7</button>
+            <button type="button" class="chip" onclick="applyTpl('Rientro dopo stop: prima seduta al 60%, poi +10% ogni seduta. Segnalami qualsiasi fastidio.')">🏥 Rientro</button>
+            <button type="button" class="chip" onclick="applyTpl('Ottimo lavoro — mantieni questo ritmo e questa qualità di esecuzione.')">✅ Ottimo</button>
+            <button type="button" class="chip" onclick="applyTpl('Aumenta progressivamente il carico del 5–10% sui grandi esercizi da questa settimana.')">📈 Aumenta carico</button>
           </div>
           <textarea id="nota-testo" placeholder="Scrivi la nota per l'atleta..."></textarea>
         </div>
 
-        <div class="date-preset-row">
-          <button type="button" class="date-preset-btn" onclick="applyDatePreset(0)">📅 Questa settimana</button>
-          <button type="button" class="date-preset-btn" onclick="applyDatePreset(1)">📅 Prossima settimana</button>
-          <button type="button" class="date-preset-btn" onclick="applyDatePreset(2)">📅 Da oggi 14gg</button>
-        </div>
-        <div class="date-row">
-          <div class="campo">
-            <label>Valida dal</label>
-            <input type="date" id="nota-dal">
+        <div class="campo">
+          <label>Periodo di validità</label>
+          <div class="chips-row">
+            <button type="button" class="chip" onclick="applyDatePreset(0)">Questa settimana</button>
+            <button type="button" class="chip" onclick="applyDatePreset(1)">Prossima settimana</button>
+            <button type="button" class="chip" onclick="applyDatePreset(2)">Da oggi 14gg</button>
           </div>
-          <div class="campo">
-            <label>Valida fino al <span style="font-weight:400;text-transform:none;font-size:0.7rem">(opz.)</span></label>
-            <input type="date" id="nota-al">
+          <div class="date-row">
+            <div class="campo">
+              <label>Dal</label>
+              <input type="date" id="nota-dal">
+            </div>
+            <div class="campo">
+              <label>Al <span style="font-weight:400;text-transform:none;font-size:0.7rem">(opz.)</span></label>
+              <input type="date" id="nota-al">
+            </div>
           </div>
         </div>
 
@@ -412,100 +539,127 @@
         <p class="form-feedback" id="nota-ok"></p>
       </div>
 
-      <p class="sez-titolo">Note esistenti</p>
-      <div id="lista-note"><p class="loading-msg">Caricamento...</p></div>
+      <p class="sez-label">Note esistenti</p>
+      <div id="lista-note"><p style="color:var(--text-muted);font-size:0.85rem">Caricamento...</p></div>
     </div>
 
     <!-- ── TAB STORICO ── -->
     <div id="tab-storico" class="tab-pnl">
-      <p style="margin-bottom:10px;text-align:right">
-        <a id="link-storico-grafici" href="storico.html?coach=mv26-coach-8pL2wK" target="_blank"
-           style="font-size:0.8rem;color:var(--blu);font-weight:600">📊 Grafici progressioni →</a>
-      </p>
-      <div class="filtri-bar">
-        <select id="filtro-atleta" onchange="filtraStorico()">
-          <option value="">Tutte le atlete</option>
-        </select>
-        <input type="text" id="filtro-eserc" placeholder="Esercizio..." oninput="filtraStorico()">
-        <input type="date" id="filtro-dal" onchange="filtraStorico()">
-        <input type="date" id="filtro-al" onchange="filtraStorico()">
+      <div class="search-bar">
+        <div class="search-wrap">
+          <span class="search-ico">🔍</span>
+          <input type="text" id="filtro-search" placeholder="Cerca per atleta o esercizio…" oninput="filtraStorico()">
+        </div>
+        <div class="daterange">
+          <input type="date" id="filtro-dal" onchange="filtraStorico()">
+          <span class="daterange-sep">→</span>
+          <input type="date" id="filtro-al" onchange="filtraStorico()">
+        </div>
+      </div>
+      <div class="results-bar">
+        <span class="results-count" id="storico-count"></span>
       </div>
       <div class="tbl-wrap">
-        <table class="storico-tbl">
+        <table class="data-tbl">
           <thead>
             <tr>
-              <th>Data</th>
-              <th>Atleta</th>
-              <th>Sed.</th>
-              <th>Esercizio</th>
-              <th>Valore</th>
+              <th onclick="sortStorico('data')" id="th-data">Data <span id="sort-data">↕</span></th>
+              <th onclick="sortStorico('atleta')" id="th-atleta">Atleta <span id="sort-atleta">↕</span></th>
+              <th onclick="sortStorico('seduta')" id="th-seduta">Sed. <span id="sort-seduta">↕</span></th>
+              <th onclick="sortStorico('esercizio')" id="th-esercizio">Esercizio <span id="sort-esercizio">↕</span></th>
+              <th onclick="sortStorico('valore')" id="th-valore">Valore <span id="sort-valore">↕</span></th>
             </tr>
           </thead>
           <tbody id="storico-body">
-            <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--testo-sec)">Caricamento...</td></tr>
+            <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-muted)">Caricamento...</td></tr>
           </tbody>
         </table>
       </div>
-      <p class="count-label" id="storico-count"></p>
     </div>
 
     <!-- ── TAB COMPLIANCE ── -->
     <div id="tab-compliance" class="tab-pnl">
-      <p class="sez-titolo">Stato atlete — ultimi 7 giorni</p>
-      <div id="lista-compliance"><p class="loading-msg">Caricamento...</p></div>
+      <p class="sez-label">Stato atlete — ultimi 7 giorni</p>
+      <div class="comp-grid" id="lista-compliance">
+        <p style="color:var(--text-muted);font-size:0.85rem">Caricamento...</p>
+      </div>
 
-      <p class="sez-titolo" style="margin-top:24px">Ultime 20 sessioni — carico (sRPE)</p>
+      <p class="sez-label" style="margin-top:28px">Ultime 20 sessioni — sRPE (metodo Foster)</p>
+      <p style="font-size:0.68rem;color:var(--text-muted);margin-bottom:10px">
+        RPE × durata seduta. Soglie:
+        <span class="srpe-v">basso &lt;400</span> ·
+        <span class="srpe-y">medio 400–800</span> ·
+        <span class="srpe-r">alto &gt;800 AU</span>.
+        T_start = Wellness o primo log esercizi.
+      </p>
       <div class="tbl-wrap">
-        <table class="storico-tbl">
-          <thead><tr><th>Data</th><th>Atleta</th><th>Sed.</th><th>RPE</th><th>Durata</th><th>sRPE (AU)</th></tr></thead>
-          <tbody id="srpe-body"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--testo-sec)">Caricamento...</td></tr></tbody>
+        <table class="data-tbl">
+          <thead>
+            <tr>
+              <th>Data</th><th>Atleta</th><th>Sed.</th>
+              <th>RPE</th><th>Durata</th><th>sRPE (AU)</th>
+            </tr>
+          </thead>
+          <tbody id="srpe-body">
+            <tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-muted)">Caricamento...</td></tr>
+          </tbody>
         </table>
       </div>
-      <p style="font-size:0.65rem;color:var(--testo-sec);margin-top:6px;margin-bottom:16px">Metodo Foster: sRPE = RPE × durata seduta (min). Soglie: basso &lt;400 · medio 400–800 · alto &gt;800 AU. Durata calcolata dal primo log al log RPE-seduta.</p>
     </div>
 
-  </div>
-</div>
+  </div><!-- /main-content -->
+</div><!-- /main -->
 
 <script>
-const IS_DEV = window.location.pathname.includes('/dev/');
-const API    = IS_DEV
+const IS_DEV    = window.location.pathname.includes('/dev/');
+const API       = IS_DEV
   ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
   : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
 const TOKEN     = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
 const COACH_KEY = 'mv26-coach-8pL2wK';
 
 if (IS_DEV) {
-  document.title = '[DEV] ' + document.title;
-  document.getElementById('dev-banner').style.display = '';
+  document.title = '[DEV] Coach Panel';
+  document.getElementById('dev-badge').style.display = '';
 }
 
 const params = new URLSearchParams(window.location.search);
 if (params.get('coach') !== COACH_KEY) {
-  document.getElementById('access-denied').style.display = '';
+  document.getElementById('access-denied-screen').style.display = 'flex';
 } else {
-  document.getElementById('app').style.display = '';
+  document.getElementById('main-app').style.display = '';
   init();
 }
 
-// ── Stato globale ────────────────────────────────────────────────────────────
-let giocatrici = [];
-let progressi  = [];
-let tutteNote  = [];
-let wellness   = [];
-let atletaMap  = {};
-let srpeData   = [];
+// ── Avatar ─────────────────────────────────────────────────────────────────────
+const AV_COLORS = ['#e84c2b','#16a34a','#7c3aed','#0ea5e9','#f59e0b','#ec4899','#06b6d4','#8b5cf6','#84cc16','#f97316','#14b8a6','#ef4444'];
+function avColor(name) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) & 0xfffff;
+  return AV_COLORS[h % AV_COLORS.length];
+}
+function avInitials(name) {
+  const p = String(name || '').trim().split(/\s+/);
+  return ((p[0]?.[0] || '') + (p[1]?.[0] || p[0]?.[1] || '')).toUpperCase();
+}
+function avHtml(name, lg) {
+  return `<span class="av${lg ? ' lg' : ''}" style="background:${avColor(name)}">${avInitials(name)}</span>`;
+}
 
-// ── Init ─────────────────────────────────────────────────────────────────────
+// ── Stato ──────────────────────────────────────────────────────────────────────
+let giocatrici = [], progressi = [], tutteNote = [], wellness = [];
+let atletaMap  = {}, srpeData  = [];
+let sortKey = 'data', sortDir = -1, storicoFiltered = [];
+
+// ── Init ───────────────────────────────────────────────────────────────────────
 async function init() {
   try {
     const [resG, resP, resN, resW] = await Promise.all([
-      apiGet('leggi', 'Giocatrici'),
-      apiGet('leggi', 'Progressi'),
+      apiGet('leggi','Giocatrici'),
+      apiGet('leggi','Progressi'),
       apiGet('leggi_tutte_note'),
-      apiGet('leggi', 'Wellness')
+      apiGet('leggi','Wellness')
     ]);
-
     if (resG.ok) {
       giocatrici = (resG.dati || [])
         .filter(g => g.ID && !isNaN(parseInt(g.ID)))
@@ -513,24 +667,22 @@ async function init() {
       giocatrici.forEach(g => { atletaMap[String(g.ID)] = g.Nome; });
       popolaSelects();
     }
-    if (resW.ok) wellness  = resW.dati || [];
+    if (resW.ok) wellness = resW.dati || [];
     if (resP.ok) { progressi = resP.dati || []; srpeData = computeSrpe(progressi, wellness); }
     if (resN.ok) tutteNote = resN.note || [];
-
     renderNote();
     filtraStorico();
     renderCompliance();
     renderSrpeTable();
   } catch (err) {
     document.getElementById('lista-note').innerHTML =
-      `<p class="errore-msg">Errore caricamento: ${esc(err.message)}</p>`;
+      `<p style="color:var(--red)">Errore: ${esc(err.message)}</p>`;
   }
 }
 
-// ── API ───────────────────────────────────────────────────────────────────────
+// ── API ────────────────────────────────────────────────────────────────────────
 async function apiGet(azione, foglio) {
-  const url = `${API}?token=${TOKEN}&azione=${azione}${foglio ? '&foglio=' + foglio : ''}`;
-  const r = await fetch(url);
+  const r = await fetch(`${API}?token=${TOKEN}&azione=${azione}${foglio ? '&foglio='+foglio : ''}`);
   return r.json();
 }
 async function apiPost(body) {
@@ -542,384 +694,391 @@ async function apiPost(body) {
   return r.json();
 }
 
-// ── Select helpers ────────────────────────────────────────────────────────────
+// ── Selects ────────────────────────────────────────────────────────────────────
 function popolaSelects() {
   const opts = giocatrici.map(g => `<option value="${g.ID}">${esc(g.Nome)}</option>`).join('');
   document.getElementById('nota-atleta').innerHTML =
     '<option value="TUTTE">Tutte le atlete</option>' + opts;
-  document.getElementById('filtro-atleta').innerHTML =
-    '<option value="">Tutte le atlete</option>' + opts;
 }
 
-// ── Tab ───────────────────────────────────────────────────────────────────────
+// ── Sidebar / Tab ──────────────────────────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
+}
+const PAGE_TITLES = { note:'Note', storico:'Storico', compliance:'Compliance' };
 function mostraTab(nome) {
-  const nomi = ['note', 'storico', 'compliance'];
-  document.querySelectorAll('.coach-tab').forEach((b, i) => {
-    b.classList.toggle('active', nomi[i] === nome);
+  ['note','storico','compliance'].forEach(n => {
+    document.getElementById('nav-'+n).classList.toggle('active', n===nome);
+    document.getElementById('tab-'+n).classList.toggle('active', n===nome);
   });
-  document.querySelectorAll('.tab-pnl').forEach(p => {
-    p.classList.toggle('active', p.id === 'tab-' + nome);
-  });
+  document.getElementById('page-title').textContent = PAGE_TITLES[nome];
+  closeSidebar();
 }
 
-// ── Template chips ────────────────────────────────────────────────────────────
+// ── Template + date preset ─────────────────────────────────────────────────────
 function applyTpl(testo) {
   const el = document.getElementById('nota-testo');
-  el.value = testo;
-  el.focus();
+  el.value = testo; el.focus();
 }
-
-// ── Preset date ───────────────────────────────────────────────────────────────
 function applyDatePreset(mode) {
-  const pad = n => String(n).padStart(2, '0');
+  const pad = n => String(n).padStart(2,'0');
   const iso = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
   const today = new Date();
-  const dow   = today.getDay() === 0 ? 7 : today.getDay(); // 1=lun
-
+  const dow   = today.getDay()===0 ? 7 : today.getDay();
   let dal, al;
-  if (mode === 0) {                         // questa settimana (lun-dom)
-    const lun = new Date(today); lun.setDate(today.getDate() - (dow - 1));
-    const dom = new Date(lun);   dom.setDate(lun.getDate() + 6);
-    dal = iso(lun); al = iso(dom);
-  } else if (mode === 1) {                  // prossima settimana
-    const lun = new Date(today); lun.setDate(today.getDate() - (dow - 1) + 7);
-    const dom = new Date(lun);   dom.setDate(lun.getDate() + 6);
-    dal = iso(lun); al = iso(dom);
-  } else {                                  // da oggi per 14 giorni
-    const fine = new Date(today); fine.setDate(today.getDate() + 14);
-    dal = iso(today); al = iso(fine);
+  if (mode===0) {
+    const lun = new Date(today); lun.setDate(today.getDate()-(dow-1));
+    const dom = new Date(lun);   dom.setDate(lun.getDate()+6);
+    dal=iso(lun); al=iso(dom);
+  } else if (mode===1) {
+    const lun = new Date(today); lun.setDate(today.getDate()-(dow-1)+7);
+    const dom = new Date(lun);   dom.setDate(lun.getDate()+6);
+    dal=iso(lun); al=iso(dom);
+  } else {
+    const fine = new Date(today); fine.setDate(today.getDate()+14);
+    dal=iso(today); al=iso(fine);
   }
   document.getElementById('nota-dal').value = dal;
   document.getElementById('nota-al').value  = al;
 }
 
-// ── Session picker contestuale ────────────────────────────────────────────────
+// ── Sedute picker ──────────────────────────────────────────────────────────────
 function aggiornaSedute() {
-  const idG    = document.getElementById('nota-atleta').value;
-  const isSed  = document.getElementById('nota-tipo').value === 'per-seduta';
-  const cont   = document.getElementById('sed-pills');
-  const input  = document.getElementById('nota-seduta');
-  if (!isSed || idG === 'TUTTE' || !progressi.length) { cont.innerHTML = ''; return; }
-
+  const idG  = document.getElementById('nota-atleta').value;
+  const isSed= document.getElementById('nota-tipo').value==='per-seduta';
+  const cont = document.getElementById('sed-pills');
+  if (!isSed || idG==='TUTTE' || !progressi.length) { cont.innerHTML=''; return; }
   const sedUniq = [...new Set(
     progressi
-      .filter(p => String(p.ID_Giocatrice) === String(idG) && p.N_Seduta)
-      .sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
+      .filter(p => String(p.ID_Giocatrice)===String(idG) && p.N_Seduta)
+      .sort((a,b) => new Date(b.Timestamp)-new Date(a.Timestamp))
       .map(p => String(p.N_Seduta))
-  )].slice(0, 8);
-
+  )].slice(0,8);
   cont.innerHTML = sedUniq.map(s =>
-    `<button type="button" class="sed-pill" onclick="selSeduta('${s}')">${s}</button>`
+    `<button type="button" class="chip" onclick="selSeduta('${s}')">${s}</button>`
   ).join('');
 }
-
 function selSeduta(s) {
   document.getElementById('nota-seduta').value = s;
-  document.querySelectorAll('.sed-pill').forEach(b =>
-    b.classList.toggle('selected', b.textContent === s)
+  document.querySelectorAll('#sed-pills .chip').forEach(b =>
+    b.classList.toggle('selected', b.textContent===s)
   );
 }
-
-// ── Tipo nota ─────────────────────────────────────────────────────────────────
 function aggiornaTipo() {
-  const isSed = document.getElementById('nota-tipo').value === 'per-seduta';
+  const isSed = document.getElementById('nota-tipo').value==='per-seduta';
   document.getElementById('seduta-field').style.display = isSed ? '' : 'none';
   aggiornaSedute();
 }
 
-// ── Salva nota ────────────────────────────────────────────────────────────────
+// ── Salva nota ─────────────────────────────────────────────────────────────────
 async function salvaNota() {
-  const idG    = document.getElementById('nota-atleta').value;
-  const tipo   = document.getElementById('nota-tipo').value;
-  const seduta = document.getElementById('nota-seduta').value;
-  const testo  = document.getElementById('nota-testo').value.trim();
-  const dal    = document.getElementById('nota-dal').value;
-  const al     = document.getElementById('nota-al').value;
-
+  const idG   = document.getElementById('nota-atleta').value;
+  const tipo  = document.getElementById('nota-tipo').value;
+  const seduta= document.getElementById('nota-seduta').value;
+  const testo = document.getElementById('nota-testo').value.trim();
+  const dal   = document.getElementById('nota-dal').value;
+  const al    = document.getElementById('nota-al').value;
   if (!testo) { alert('Scrivi il testo della nota.'); return; }
   if (!dal)   { alert('Inserisci la data di inizio validità.'); return; }
-  if (tipo === 'per-seduta' && !seduta) { alert('Seleziona o scrivi la seduta.'); return; }
-
+  if (tipo==='per-seduta' && !seduta) { alert('Seleziona o scrivi la seduta.'); return; }
   const btn = document.getElementById('btn-salva');
-  btn.disabled = true;
-  btn.textContent = 'Salvataggio...';
-
+  btn.disabled=true; btn.textContent='Salvataggio...';
   const res = await apiPost({
-    azione:       'scrivi_nota_coach',
-    id_giocatrice: idG,
-    tipo,
-    n_seduta:     tipo === 'per-seduta' ? seduta : '',
-    testo,
-    data_inizio:  dal,
-    data_fine:    al
+    azione:'scrivi_nota_coach',
+    id_giocatrice:idG, tipo,
+    n_seduta: tipo==='per-seduta' ? seduta : '',
+    testo, data_inizio:dal, data_fine:al
   });
-
-  btn.disabled = false;
-  btn.textContent = 'Salva nota';
-
+  btn.disabled=false; btn.textContent='Salva nota';
   if (res.ok) {
     tutteNote.unshift({
-      timestamp: res.timestamp || new Date().toISOString(),
-      id_giocatrice: idG, tipo,
-      n_seduta: tipo === 'per-seduta' ? seduta : '',
-      testo, data_inizio: dal, data_fine: al
+      timestamp: res.timestamp||new Date().toISOString(),
+      id_giocatrice:idG, tipo,
+      n_seduta: tipo==='per-seduta' ? seduta : '',
+      testo, data_inizio:dal, data_fine:al
     });
-    document.getElementById('nota-testo').value = '';
-    document.getElementById('nota-al').value = '';
-    mostraOk('nota-ok', '✓ Nota salvata');
+    document.getElementById('nota-testo').value='';
+    document.getElementById('nota-al').value='';
+    mostraOk('nota-ok','✓ Nota salvata');
     renderNote();
-  } else {
-    alert('Errore: ' + (res.errore || '?'));
-  }
+  } else { alert('Errore: '+(res.errore||'?')); }
 }
-
 function mostraOk(id, msg) {
-  const el = document.getElementById(id);
-  el.textContent = msg;
-  setTimeout(() => { el.textContent = ''; }, 3000);
+  const el=document.getElementById(id);
+  el.textContent=msg;
+  setTimeout(()=>{ el.textContent=''; },3000);
 }
 
-// ── Render note ───────────────────────────────────────────────────────────────
+// ── Render note ────────────────────────────────────────────────────────────────
 function renderNote() {
-  const cont = document.getElementById('lista-note');
+  const cont=document.getElementById('lista-note');
   if (!tutteNote.length) {
-    cont.innerHTML = '<p class="loading-msg">Nessuna nota presente.</p>';
+    cont.innerHTML='<p style="color:var(--text-muted);font-size:0.85rem">Nessuna nota presente.</p>';
     return;
   }
-  cont.innerHTML = tutteNote.map((n, i) => {
-    const nome = n.id_giocatrice === 'TUTTE'
+  cont.innerHTML=tutteNote.map((n,i)=>{
+    const nome = n.id_giocatrice==='TUTTE'
       ? 'Tutte le atlete'
-      : (atletaMap[String(n.id_giocatrice)] || 'ID ' + n.id_giocatrice);
-    const isSed = n.tipo === 'per-seduta';
-    const dateRange = n.data_fine
+      : (atletaMap[String(n.id_giocatrice)]||'ID '+n.id_giocatrice);
+    const isSed=n.tipo==='per-seduta';
+    const dateRange=n.data_fine
       ? `${fmtDate(n.data_inizio)} → ${fmtDate(n.data_fine)}`
       : `dal ${fmtDate(n.data_inizio)}`;
     return `
-    <div class="nota-item${isSed ? ' per-seduta' : ''}">
+    <div class="nota-item${isSed?' per-seduta':''}">
       <div class="nota-head">
+        ${avHtml(nome)}
         <span class="nota-nome">${esc(nome)}</span>
-        <span class="nota-badge${isSed ? ' sed' : ''}">${isSed ? 'Sed. ' + n.n_seduta : 'Generale'}</span>
+        <span class="tag ${isSed?'tag-green':'tag-blue'}">${isSed?'Sed. '+n.n_seduta:'Generale'}</span>
         <span class="nota-date">${dateRange}</span>
       </div>
       <p class="nota-testo">${esc(n.testo)}</p>
       <div class="nota-footer">
         <span>${fmtTs(n.timestamp)}</span>
-        <button class="btn-elimina" onclick="eliminaNota(${i})">Elimina</button>
+        <button class="btn-ghost" onclick="eliminaNota(${i})">Elimina</button>
       </div>
     </div>`;
   }).join('');
 }
-
 async function eliminaNota(i) {
   if (!confirm('Eliminare questa nota?')) return;
-  const n = tutteNote[i];
-  const res = await apiPost({ azione: 'elimina_nota_coach', timestamp: n.timestamp });
-  if (res.ok) {
-    tutteNote.splice(i, 1);
-    renderNote();
-  } else {
-    alert('Errore: ' + (res.errore || '?'));
-  }
+  const n=tutteNote[i];
+  const res=await apiPost({azione:'elimina_nota_coach',timestamp:n.timestamp});
+  if (res.ok) { tutteNote.splice(i,1); renderNote(); }
+  else alert('Errore: '+(res.errore||'?'));
 }
 
-// ── Storico ───────────────────────────────────────────────────────────────────
-const SKIP = new Set(['RPE-seduta', 'Fatica-seduta']);
+// ── Storico ────────────────────────────────────────────────────────────────────
+const SKIP=new Set(['RPE-seduta','Fatica-seduta']);
+
+function buildTrendMap(rows) {
+  const map={};
+  rows.forEach(p=>{
+    const k=`${p.ID_Giocatrice}__${p.Esercizio}`;
+    if (!map[k]) map[k]=[];
+    map[k].push({ts:new Date(p.Timestamp).getTime(), val:parseFloat(p.Valore)});
+  });
+  Object.values(map).forEach(arr=>arr.sort((a,b)=>a.ts-b.ts));
+  return map;
+}
 
 function filtraStorico() {
-  const idG   = document.getElementById('filtro-atleta').value;
-  const eserc = document.getElementById('filtro-eserc').value.toLowerCase().trim();
-  const dalV  = document.getElementById('filtro-dal').value;
-  const alV   = document.getElementById('filtro-al').value;
-  const dal   = dalV ? new Date(dalV) : null;
-  const al    = alV  ? new Date(alV + 'T23:59:59') : null;
+  const q   =(document.getElementById('filtro-search').value||'').toLowerCase().trim();
+  const dalV= document.getElementById('filtro-dal').value;
+  const alV = document.getElementById('filtro-al').value;
+  const dal = dalV ? new Date(dalV) : null;
+  const al  = alV  ? new Date(alV+'T23:59:59') : null;
 
-  const righe = progressi.filter(p => {
-    if (!p.Valore) return false;
-    if (SKIP.has(p.Esercizio)) return false;
-    if (idG && String(p.ID_Giocatrice) !== idG) return false;
-    if (eserc && !(p.Esercizio || '').toLowerCase().includes(eserc)) return false;
+  storicoFiltered=progressi.filter(p=>{
+    if (!p.Valore || SKIP.has(p.Esercizio)) return false;
+    if (q) {
+      const nome=(atletaMap[String(p.ID_Giocatrice)]||'').toLowerCase();
+      const eserc=(p.Esercizio||'').toLowerCase();
+      if (!nome.includes(q) && !eserc.includes(q)) return false;
+    }
     if (p.Timestamp) {
-      const ts = new Date(p.Timestamp);
-      if (dal && ts < dal) return false;
-      if (al  && ts > al)  return false;
+      const ts=new Date(p.Timestamp);
+      if (dal && ts<dal) return false;
+      if (al  && ts>al)  return false;
     }
     return true;
-  }).slice(-300).reverse();
+  });
+  renderStoricoTable();
+}
 
-  const tbody = document.getElementById('storico-body');
-  if (!righe.length) {
-    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--testo-sec)">Nessun risultato</td></tr>';
-    document.getElementById('storico-count').textContent = '';
+function sortStorico(key) {
+  sortKey===key ? sortDir=-sortDir : (sortKey=key, sortDir=-1);
+  renderStoricoTable();
+}
+
+function renderStoricoTable() {
+  ['data','atleta','seduta','esercizio','valore'].forEach(k=>{
+    const s=document.getElementById('sort-'+k);
+    const t=document.getElementById('th-'+k);
+    if (s) s.textContent=sortKey===k?(sortDir===-1?'↓':'↑'):'↕';
+    if (t) t.classList.toggle('sorted',sortKey===k);
+  });
+
+  let rows=[...storicoFiltered].slice(-500);
+  rows.sort((a,b)=>{
+    let va,vb;
+    if (sortKey==='data')      { va=new Date(a.Timestamp).getTime(); vb=new Date(b.Timestamp).getTime(); }
+    else if (sortKey==='atleta')    { va=atletaMap[String(a.ID_Giocatrice)]||''; vb=atletaMap[String(b.ID_Giocatrice)]||''; return sortDir*va.localeCompare(vb,'it'); }
+    else if (sortKey==='seduta')    { va=String(a.N_Seduta||'');  vb=String(b.N_Seduta||'');  return sortDir*va.localeCompare(vb); }
+    else if (sortKey==='esercizio') { va=String(a.Esercizio||''); vb=String(b.Esercizio||''); return sortDir*va.localeCompare(vb,'it'); }
+    else                            { va=parseFloat(a.Valore)||0; vb=parseFloat(b.Valore)||0; }
+    return sortDir*(va<vb?-1:va>vb?1:0);
+  });
+
+  const trendMap=buildTrendMap(progressi.filter(p=>!SKIP.has(p.Esercizio)&&p.Valore));
+  const tbody=document.getElementById('storico-body');
+  const total=storicoFiltered.length;
+
+  if (!rows.length) {
+    tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-muted)">Nessun risultato</td></tr>';
+    document.getElementById('storico-count').textContent='';
     return;
   }
 
-  tbody.innerHTML = righe.map(p => {
-    const nome = atletaMap[String(p.ID_Giocatrice)] || 'ID ' + p.ID_Giocatrice;
+  tbody.innerHTML=rows.map(p=>{
+    const nome=atletaMap[String(p.ID_Giocatrice)]||'ID '+p.ID_Giocatrice;
+    const valNum=parseFloat(p.Valore);
+    const k=`${p.ID_Giocatrice}__${p.Esercizio}`;
+    const arr=trendMap[k]||[];
+    const tsMs=new Date(p.Timestamp).getTime();
+    const idx=arr.findIndex(x=>x.ts===tsMs);
+    let trendHtml='';
+    if (idx>0 && !isNaN(valNum)) {
+      const prev=arr[idx-1].val;
+      if (!isNaN(prev) && prev!==0) {
+        const pct=Math.round(((valNum-prev)/prev)*100);
+        if (pct!==0) trendHtml=`<span class="trend-badge ${pct>0?'trend-up':'trend-dn'}">${pct>0?'+':''}${pct}%</span>`;
+      }
+    }
     return `<tr>
       <td>${esc(fmtTs(p.Timestamp))}</td>
-      <td>${esc(nome)}</td>
-      <td>${esc(String(p.N_Seduta || ''))}</td>
-      <td>${esc(p.Esercizio || '')}</td>
-      <td class="valore-cell">${esc(String(p.Valore))}</td>
+      <td><div class="td-athlete">${avHtml(nome)}${esc(nome)}</div></td>
+      <td>${esc(String(p.N_Seduta||''))}</td>
+      <td>${esc(p.Esercizio||'')}</td>
+      <td class="td-val">${esc(String(p.Valore))}${trendHtml}</td>
     </tr>`;
   }).join('');
 
-  document.getElementById('storico-count').textContent =
-    `${righe.length} risultati${righe.length === 300 ? ' (ultimi 300)' : ''}`;
+  document.getElementById('storico-count').textContent=
+    `${total} risultati${rows.length<total?` (mostrando ${rows.length})`:''}`;
 }
 
-// ── sRPE (metodo Foster) ──────────────────────────────────────────────────────
-function computeSrpe(prg, wel) {
-  // T_start: usa Wellness.Timestamp (compilato PRIMA della seduta) se disponibile,
-  // altrimenti timestamp minimo degli esercizi nelle 4h precedenti il RPE.
-  const W4H     = 4 * 60 * 60 * 1000;
-  const SKIP_TS = new Set(['RPE-seduta', 'Fatica-seduta']);
-  const rpeEntries = prg.filter(p => p.Esercizio === 'RPE-seduta' && p.Valore && p.Timestamp && p.N_Seduta);
-  return rpeEntries
-    .map(rpe => {
-      const tEnd = new Date(rpe.Timestamp);
+// ── sRPE ───────────────────────────────────────────────────────────────────────
+function computeSrpe(prg,wel) {
+  const W4H=4*60*60*1000;
+  const SKIP_TS=new Set(['RPE-seduta','Fatica-seduta']);
+  return prg.filter(p=>p.Esercizio==='RPE-seduta'&&p.Valore&&p.Timestamp&&p.N_Seduta)
+    .map(rpe=>{
+      const tEnd=new Date(rpe.Timestamp);
       if (isNaN(tEnd)) return null;
-      const v = Number(rpe.Valore);
+      const v=Number(rpe.Valore);
       if (isNaN(v)) return null;
-      const idG    = String(rpe.ID_Giocatrice);
-      const sed    = String(rpe.N_Seduta);
-      const tEndMs = tEnd.getTime();
-
-      // Wellness dell'atleta nelle 12h prima del RPE (finestra ampia: copre sessioni mattutine)
-      const wellnessTs = (wel || [])
-        .filter(w => String(w.ID_Giocatrice) === idG && w.Timestamp)
-        .map(w => new Date(w.Timestamp).getTime())
-        .filter(t => !isNaN(t) && t < tEndMs && (tEndMs - t) <= W4H * 3)
-        .sort((a, b) => a - b);
-
-      let tMin, srcWellness;
-      if (wellnessTs.length) {
-        tMin = wellnessTs[0];  // primo wellness disponibile = inizio sessione
-        srcWellness = true;
+      const idG=String(rpe.ID_Giocatrice);
+      const tEndMs=tEnd.getTime();
+      const wellTs=(wel||[])
+        .filter(w=>String(w.ID_Giocatrice)===idG&&w.Timestamp)
+        .map(w=>new Date(w.Timestamp).getTime())
+        .filter(t=>!isNaN(t)&&t<tEndMs&&(tEndMs-t)<=W4H*3)
+        .sort((a,b)=>a-b);
+      let tMin;
+      if (wellTs.length) {
+        tMin=wellTs[0];
       } else {
-        // Fallback: esercizi reali nelle 4h prima del RPE
-        const winTs = prg
-          .filter(p => String(p.ID_Giocatrice) === idG && !SKIP_TS.has(p.Esercizio) && p.Timestamp)
-          .map(p => new Date(p.Timestamp).getTime())
-          .filter(t => !isNaN(t) && t <= tEndMs && (tEndMs - t) <= W4H);
-        tMin = winTs.length ? Math.min(...winTs) : tEndMs;
-        srcWellness = false;
+        const winTs=prg
+          .filter(p=>String(p.ID_Giocatrice)===idG&&!SKIP_TS.has(p.Esercizio)&&p.Timestamp)
+          .map(p=>new Date(p.Timestamp).getTime())
+          .filter(t=>!isNaN(t)&&t<=tEndMs&&(tEndMs-t)<=W4H);
+        tMin=winTs.length?Math.min(...winTs):tEndMs;
       }
-
-      const durMin = Math.max(0, Math.round((tEndMs - tMin) / 60000));
+      const durMin=Math.max(0,Math.round((tEndMs-tMin)/60000));
       return {
-        id_giocatrice: idG,
-        n_seduta:      sed,
-        rpe:           v,
-        durata_min:    durMin,
-        srpe:          durMin >= 10 ? v * durMin : null,
-        timestamp:     tEnd.toISOString(),
-        src_wellness:  srcWellness
+        id_giocatrice:idG, n_seduta:String(rpe.N_Seduta),
+        rpe:v, durata_min:durMin,
+        srpe:durMin>=10?v*durMin:null,
+        timestamp:tEnd.toISOString()
       };
     })
     .filter(Boolean)
-    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    .sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
 }
 
 function renderSrpeTable() {
-  const tbody = document.getElementById('srpe-body');
-  const recent = srpeData.slice(0, 20);
+  const tbody=document.getElementById('srpe-body');
+  const recent=srpeData.slice(0,20);
   if (!recent.length) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--testo-sec)">Nessuna sessione con RPE registrato.</td></tr>';
+    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-muted)">Nessuna sessione con RPE registrato.</td></tr>';
     return;
   }
-  tbody.innerHTML = recent.map(s => {
-    const nome    = atletaMap[s.id_giocatrice] || 'ID ' + s.id_giocatrice;
-    const durStr  = s.durata_min >= 10 ? s.durata_min + ' min' : '—';
-    const srpeStr = s.srpe !== null ? String(s.srpe) : '—';
-    const cls     = s.srpe > 800 ? 'srpe-r' : s.srpe > 400 ? 'srpe-y' : s.srpe !== null ? 'srpe-v' : '';
+  tbody.innerHTML=recent.map(s=>{
+    const nome=atletaMap[s.id_giocatrice]||'ID '+s.id_giocatrice;
+    const durStr=s.durata_min>=10?s.durata_min+' min':'—';
+    const srpeStr=s.srpe!==null?String(s.srpe):'—';
+    const cls=s.srpe>800?'srpe-r':s.srpe>400?'srpe-y':s.srpe!==null?'srpe-v':'';
     return `<tr>
       <td>${esc(fmtTs(s.timestamp))}</td>
-      <td>${esc(nome)}</td>
+      <td><div class="td-athlete">${avHtml(nome)}${esc(nome)}</div></td>
       <td>${esc(s.n_seduta)}</td>
       <td>${s.rpe}</td>
       <td>${durStr}</td>
-      <td class="valore-cell ${cls}">${srpeStr}</td>
+      <td class="td-val ${cls}">${srpeStr}</td>
     </tr>`;
   }).join('');
 }
 
-// ── Compliance ────────────────────────────────────────────────────────────────
+// ── Compliance ─────────────────────────────────────────────────────────────────
 function renderCompliance() {
-  const cont = document.getElementById('lista-compliance');
-  const ora  = new Date();
-  const cut7 = new Date(ora); cut7.setDate(ora.getDate() - 7);
-  const SKIP_C = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
+  const cont=document.getElementById('lista-compliance');
+  const ora=new Date();
+  const cut7=new Date(ora); cut7.setDate(ora.getDate()-7);
+  const SKIP_C=new Set(['RPE-seduta','Fatica-seduta','Peso-corporeo']);
 
-  const dati = giocatrici.map(g => {
-    const pAll   = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
-    const pEserc = pAll.filter(p => !SKIP_C.has(p.Esercizio));
-
-    let ultimoTs = null;
-    pEserc.forEach(p => {
-      const ts = p.Timestamp ? new Date(p.Timestamp) : null;
-      if (ts && (!ultimoTs || ts > ultimoTs)) ultimoTs = ts;
-    });
-
-    const gg = ultimoTs ? Math.floor((ora - ultimoTs) / 86400000) : null;
-    const sedSett = new Set(
-      pEserc.filter(p => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; return ts && ts >= cut7; })
-            .map(p => p.N_Seduta)
+  const dati=giocatrici.map(g=>{
+    const pAll  =progressi.filter(p=>String(p.ID_Giocatrice)===String(g.ID)&&p.Valore);
+    const pEserc=pAll.filter(p=>!SKIP_C.has(p.Esercizio));
+    let ultimoTs=null;
+    pEserc.forEach(p=>{ const ts=p.Timestamp?new Date(p.Timestamp):null; if(ts&&(!ultimoTs||ts>ultimoTs))ultimoTs=ts; });
+    const gg=ultimoTs?Math.floor((ora-ultimoTs)/86400000):null;
+    const sedSett=new Set(
+      pEserc.filter(p=>{ const ts=p.Timestamp?new Date(p.Timestamp):null; return ts&&ts>=cut7; }).map(p=>p.N_Seduta)
     ).size;
+    const rpeVals=pAll
+      .filter(p=>p.Esercizio==='RPE-seduta'&&p.Timestamp&&new Date(p.Timestamp)>=cut7)
+      .map(p=>Number(p.Valore)).filter(v=>!isNaN(v));
+    const rpe=rpeVals.length?(rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length).toFixed(1):null;
+    const stato=gg===null?'mai':gg>7?'rosso':gg>3?'giallo':'verde';
+    const ultimoLbl=gg===null?'mai':gg===0?'oggi':gg===1?'ieri':gg+'gg fa';
+    const srpeG=srpeData.filter(s=>s.id_giocatrice===String(g.ID));
+    const srpe7=srpeG.filter(s=>new Date(s.timestamp)>=cut7&&s.srpe!==null).reduce((sum,s)=>sum+s.srpe,0);
+    const lstSRPE=srpeG[0];
+    return {nome:g.Nome,stato,ultimoLbl,sedSett,rpe,srpe7:srpe7||null,lstSRPE};
+  }).sort((a,b)=>({mai:0,rosso:1,giallo:2,verde:3}[a.stato]-{mai:0,rosso:1,giallo:2,verde:3}[b.stato]));
 
-    const rpeVals = pAll
-      .filter(p => p.Esercizio === 'RPE-seduta' && p.Timestamp && new Date(p.Timestamp) >= cut7)
-      .map(p => Number(p.Valore)).filter(v => !isNaN(v));
-    const rpe = rpeVals.length ? (rpeVals.reduce((a, b) => a + b, 0) / rpeVals.length).toFixed(1) : null;
-
-    const stato = gg === null ? 'mai' : gg > 7 ? 'rosso' : gg > 3 ? 'giallo' : 'verde';
-    const ultimoLbl = gg === null ? 'mai' : gg === 0 ? 'oggi' : gg === 1 ? 'ieri' : gg + 'gg fa';
-
-    const srpeG   = srpeData.filter(s => s.id_giocatrice === String(g.ID));
-    const srpe7   = srpeG.filter(s => new Date(s.timestamp) >= cut7 && s.srpe !== null)
-                         .reduce((sum, s) => sum + s.srpe, 0);
-    const lstSRPE = srpeG[0];
-
-    return { nome: g.Nome, stato, ultimoLbl, sedSett, rpe, srpe7: srpe7 || null, lstSRPE };
-  }).sort((a, b) => {
-    const ord = { mai: 0, rosso: 1, giallo: 2, verde: 3 };
-    return ord[a.stato] - ord[b.stato];
-  });
-
-  cont.innerHTML = dati.map(d => `
-    <div class="comp-item">
-      <div class="comp-dot ${d.stato}"></div>
-      <div class="comp-nome">${esc(d.nome)}</div>
-      <div class="comp-chips">
-        <span class="comp-chip">ultimo <strong>${d.ultimoLbl}</strong></span>
-        <span class="comp-chip">sed. 7gg <strong>${d.sedSett}</strong></span>
-        ${d.rpe !== null ? `<span class="comp-chip">RPE <strong>${d.rpe}</strong></span>` : ''}
-        ${d.srpe7 ? `<span class="comp-chip">carico 7gg <strong class="${d.srpe7 > 800 ? 'srpe-r' : d.srpe7 > 400 ? 'srpe-y' : 'srpe-v'}">${d.srpe7} AU</strong></span>` : ''}
-        ${d.lstSRPE?.srpe ? `<span class="comp-chip">sRPE ult.sed. <strong>${d.lstSRPE.srpe} AU</strong></span>` : ''}
+  cont.innerHTML=dati.map(d=>`
+    <div class="comp-card">
+      ${avHtml(d.nome,true)}
+      <div class="comp-info">
+        <div class="comp-nome">${esc(d.nome)}</div>
+        <div class="comp-status">
+          <div class="status-dot ${d.stato}"></div>
+          <span class="status-text">ultimo: <strong>${d.ultimoLbl}</strong></span>
+        </div>
+        <div class="metric-pills">
+          <span class="mpill">sed. 7gg <strong>${d.sedSett}</strong></span>
+          ${d.rpe!==null?`<span class="mpill">RPE <strong>${d.rpe}</strong></span>`:''}
+          ${d.srpe7?`<span class="mpill">carico <strong class="${d.srpe7>800?'srpe-r':d.srpe7>400?'srpe-y':'srpe-v'}">${d.srpe7} AU</strong></span>`:''}
+          ${d.lstSRPE?.srpe?`<span class="mpill">ult.sed. <strong>${d.lstSRPE.srpe} AU</strong></span>`:''}
+        </div>
       </div>
     </div>`).join('');
 }
 
-// ── Utility ───────────────────────────────────────────────────────────────────
+// ── Utility ────────────────────────────────────────────────────────────────────
 function fmtDate(s) {
   if (!s) return '';
-  const d = new Date(s);
+  const d=new Date(s);
   if (isNaN(d)) return String(s);
-  return d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
+  return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
 }
 function fmtTs(s) {
   if (!s) return '';
-  const d = new Date(s);
+  const d=new Date(s);
   if (isNaN(d)) return String(s);
-  return d.getDate() + '/' + (d.getMonth() + 1) + ' ' +
-    String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  return d.getDate()+'/'+(d.getMonth()+1)+' '+
+    String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
 }
 function esc(s) {
-  return String(s || '')
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 </script>
-
 </body>
 </html>

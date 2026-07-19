@@ -442,6 +442,7 @@ const EMAIL_ATLETE = {
   '3':  'victoria.sassolini@gmail.com',
   '4':  'anjaasonja2@gmail.com',
   '5':  'chiara.lodico11@gmail.com',
+  '6':  'gaiabio15@gmail.com',
   '7':  'elisa.bole613@gmail.com',
   '8':  'Fede.nonnati@gmail.com',
   '9':  'sara.dodi7@icloud.com',
