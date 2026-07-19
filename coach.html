@@ -51,12 +51,7 @@
       padding: 15px 14px;
       border-bottom: 1px solid var(--border);
     }
-    .sidebar-logo {
-      width: 30px; height: 30px;
-      border-radius: 6px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
+    .sidebar-logo { width: 30px; height: 30px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
     .sidebar-title { font-size: 0.85rem; font-weight: 700; line-height: 1.2; }
     .sidebar-subtitle { font-size: 0.65rem; color: var(--text-muted); }
     #dev-badge {
@@ -120,7 +115,7 @@
     }
     .main-header-left { display: flex; align-items: center; gap: 12px; }
     .page-title { font-size: 1.4rem; font-weight: 700; }
-    .main-content { padding: 0 28px 28px; }
+    .main-content { padding: 0 28px 32px; }
     .hamburger {
       display: none;
       background: none;
@@ -161,6 +156,221 @@
       margin-bottom: 18px;
     }
 
+    /* ── KPI grid (Dashboard) ── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+    }
+    .kpi-val { font-size: 2.2rem; font-weight: 800; line-height: 1; margin-bottom: 5px; }
+    .kpi-lbl { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .kpi-sub { font-size: 0.68rem; color: var(--text-muted); margin-top: 3px; }
+
+    /* Dashboard quick list */
+    .dash-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      margin-bottom: 6px;
+    }
+    .dash-row-right { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+
+    /* ── Calendar layout ── */
+    .cal-layout {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .cal-left {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      position: sticky;
+      top: 16px;
+    }
+    .cal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .cal-nav-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+    .cal-nav-btn:hover { background: var(--surface2); color: var(--text); }
+    .cal-month { font-weight: 700; font-size: 0.9rem; }
+    .cal-dow {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      margin-bottom: 4px;
+    }
+    .cal-dow span {
+      text-align: center;
+      font-size: 0.58rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      padding: 2px 0;
+    }
+    .cal-cells {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+    .cal-cell {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      position: relative;
+    }
+    .cal-cell:hover { background: var(--surface2); }
+    .cal-cell.other-m { opacity: 0.25; pointer-events: none; }
+    .cal-cell.has-data { color: var(--text); font-weight: 600; }
+    .cal-cell.today { background: var(--surface2); }
+    .cal-cell.selected { background: var(--accent) !important; color: #fff !important; }
+    .cal-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      position: absolute;
+      bottom: 2px;
+    }
+    .cal-cell.selected .cal-dot { background: rgba(255,255,255,0.7); }
+    .cal-right { min-height: 200px; }
+    .cal-day-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .cal-filters { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .cal-filters select,
+    .cal-filters input {
+      flex: 1;
+      min-width: 130px;
+      padding: 7px 10px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.83rem;
+      outline: none;
+      font-family: inherit;
+    }
+    .cal-filters select:focus,
+    .cal-filters input:focus { border-color: var(--accent); }
+
+    /* Session cards (Calendar) */
+    .session-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .session-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .session-name { font-weight: 700; font-size: 0.88rem; }
+    .session-items { display: flex; flex-wrap: wrap; gap: 5px; }
+    .session-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.76rem;
+    }
+    .session-item strong { color: var(--accent); }
+    .session-rpe {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* ── Analisi ── */
+    .tab-toggle {
+      display: inline-flex;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3px;
+      gap: 3px;
+      margin-bottom: 16px;
+    }
+    .toggle-btn {
+      padding: 6px 16px;
+      border-radius: 6px;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.1s, color 0.1s;
+    }
+    .toggle-btn.active {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .analisi-filters { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .analisi-filters select,
+    .analisi-filters input[type=text] {
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-size: 0.88rem;
+      outline: none;
+      font-family: inherit;
+      min-width: 200px;
+    }
+    .analisi-filters select:focus,
+    .analisi-filters input:focus { border-color: var(--accent); }
+    .time-pills { display: flex; gap: 4px; }
+
+    /* Bar chart */
+    .bar-section { margin-bottom: 28px; }
+    .bar-section-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .bar-label { width: 150px; font-size: 0.8rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
+    .bar-track { flex: 1; height: 18px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; background: var(--accent); transition: width 0.4s ease; }
+    .bar-value { width: 65px; text-align: right; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; }
+    .bar-trend { width: 22px; text-align: center; font-size: 0.78rem; flex-shrink: 0; }
+    .analisi-empty { text-align: center; padding: 48px 20px; color: var(--text-muted); }
+
     /* ── Form ── */
     .campo { margin-bottom: 14px; }
     .campo label {
@@ -172,10 +382,7 @@
       color: var(--text-muted);
       margin-bottom: 5px;
     }
-    .campo select,
-    .campo input[type=text],
-    .campo input[type=date],
-    .campo textarea {
+    .campo select, .campo input[type=text], .campo input[type=date], .campo textarea {
       width: 100%;
       padding: 9px 12px;
       background: var(--bg);
@@ -188,9 +395,7 @@
       appearance: none;
       transition: border-color 0.15s;
     }
-    .campo select:focus,
-    .campo input:focus,
-    .campo textarea:focus { border-color: var(--accent); }
+    .campo select:focus, .campo input:focus, .campo textarea:focus { border-color: var(--accent); }
     .campo textarea { min-height: 80px; resize: vertical; }
     .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
@@ -256,25 +461,15 @@
     .nota-item.per-seduta { border-left-color: var(--green); }
     .nota-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
     .nota-nome { font-weight: 700; font-size: 0.9rem; }
-    .tag {
-      font-size: 0.62rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 20px;
-    }
+    .tag { font-size: 0.62rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
     .tag-blue { background: rgba(14,165,233,0.15); color: #38bdf8; }
     .tag-green { background: rgba(34,197,94,0.15); color: #4ade80; }
     .nota-date { font-size: 0.65rem; color: var(--text-muted); margin-left: auto; }
     .nota-testo { font-size: 0.87rem; color: #ccc; line-height: 1.55; white-space: pre-wrap; word-break: break-word; }
     .nota-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 0.68rem; color: var(--text-muted); }
 
-    /* ── Search bar (Enode History-style) ── */
-    .search-bar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
+    /* ── Storico search bar ── */
+    .search-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .search-wrap { flex: 1; position: relative; }
     .search-wrap input {
       width: 100%;
@@ -301,11 +496,10 @@
     .daterange input[type=date] {
       background: none; border: none;
       color: var(--text); font-size: 0.82rem;
-      font-family: inherit; outline: none;
-      width: 122px;
+      font-family: inherit; outline: none; width: 122px;
     }
     .daterange-sep { color: var(--text-muted); font-size: 0.8rem; }
-    .results-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .results-bar { display: flex; align-items: center; margin-bottom: 8px; }
     .results-count { font-size: 0.75rem; color: var(--text-muted); }
 
     /* ── Avatar chip ── */
@@ -345,21 +539,14 @@
     .data-tbl tbody tr:hover { background: var(--surface2); }
     .td-athlete { display: flex; align-items: center; gap: 8px; }
     .td-val { font-weight: 700; }
-    .trend-badge {
-      display: inline-block;
-      font-size: 0.62rem;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 4px;
-      margin-left: 6px;
-    }
+    .trend-badge { display: inline-block; font-size: 0.62rem; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 6px; }
     .trend-up { background: rgba(34,197,94,0.15); color: #4ade80; }
     .trend-dn { background: rgba(239,68,68,0.15); color: #f87171; }
     .srpe-v { color: #22c55e; font-weight: 700; }
     .srpe-y { color: #f59e0b; font-weight: 700; }
     .srpe-r { color: #ef4444; font-weight: 700; }
 
-    /* ── Compliance grid (Enode Athletes-style) ── */
+    /* ── Compliance grid ── */
     .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 10px; }
     .comp-card {
       background: var(--surface);
@@ -380,28 +567,22 @@
     .status-dot.mai    { background: #555; }
     .status-text { font-size: 0.75rem; color: var(--text-muted); }
     .metric-pills { display: flex; flex-wrap: wrap; gap: 5px; }
-    .mpill {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 2px 9px;
-    }
+    .mpill { font-size: 0.68rem; color: var(--text-muted); background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 2px 9px; }
     .mpill strong { color: var(--text); }
 
     /* ── Access denied ── */
     #access-denied-screen {
-      flex: 1;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      flex: 1; display: none;
+      align-items: center; justify-content: center; text-align: center;
     }
     #access-denied-screen h2 { color: var(--accent); margin-bottom: 8px; }
     #access-denied-screen p { color: var(--text-muted); }
 
     /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .cal-layout { grid-template-columns: 1fr; }
+      .cal-left { position: static; }
+    }
     @media (max-width: 720px) {
       .sidebar { transform: translateX(-100%); }
       .sidebar.open { transform: translateX(0); }
@@ -410,10 +591,14 @@
       .main-header { padding: 14px 16px 0; }
       .main-content { padding: 0 16px 24px; }
       .hamburger { display: block; }
-      .date-row { grid-template-columns: 1fr; }
+      .date-row, .kpi-grid { grid-template-columns: 1fr 1fr; }
       .comp-grid { grid-template-columns: 1fr; }
       .search-bar { flex-direction: column; align-items: stretch; }
       .daterange { flex-wrap: wrap; }
+      .analisi-filters { flex-direction: column; align-items: stretch; }
+    }
+    @media (max-width: 480px) {
+      .date-row, .kpi-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -441,8 +626,17 @@
 
   <nav class="sidebar-nav">
     <div class="nav-label">Pannello</div>
-    <button class="nav-item active" id="nav-note" onclick="mostraTab('note')">
+    <button class="nav-item active" id="nav-dashboard" onclick="mostraTab('dashboard')">
+      <span class="nav-icon">🏠</span> Dashboard
+    </button>
+    <button class="nav-item" id="nav-note" onclick="mostraTab('note')">
       <span class="nav-icon">📝</span> Note
+    </button>
+    <button class="nav-item" id="nav-calendario" onclick="mostraTab('calendario')">
+      <span class="nav-icon">📅</span> Calendario
+    </button>
+    <button class="nav-item" id="nav-analisi" onclick="mostraTab('analisi')">
+      <span class="nav-icon">📊</span> Analisi
     </button>
     <button class="nav-item" id="nav-storico" onclick="mostraTab('storico')">
       <span class="nav-icon">📈</span> Storico
@@ -456,12 +650,12 @@
       <span class="nav-icon">📋</span> Report staff
     </a>
     <a class="nav-item" id="link-storico-ext" href="storico.html?coach=mv26-coach-8pL2wK" target="_blank">
-      <span class="nav-icon">📊</span> Grafici
+      <span class="nav-icon">📉</span> Grafici
     </a>
   </nav>
 
   <div class="sidebar-footer">
-    <div class="av lg" style="background:#e84c2b;width:28px;height:28px;border-radius:6px;font-size:0.7rem">PM</div>
+    <div class="av" style="background:#e84c2b;width:28px;height:28px;border-radius:6px;font-size:0.7rem">PM</div>
     <span class="sidebar-footer-name">Coach</span>
   </div>
 </aside>
@@ -470,24 +664,48 @@
   <div class="main-header">
     <div class="main-header-left">
       <button class="hamburger" onclick="toggleSidebar()">☰</button>
-      <h1 class="page-title" id="page-title">Note</h1>
+      <h1 class="page-title" id="page-title">Dashboard</h1>
     </div>
   </div>
 
   <div class="main-content">
 
+    <!-- ── TAB DASHBOARD ── -->
+    <div id="tab-dashboard" class="tab-pnl active">
+      <div class="kpi-grid" id="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-val" id="kpi-atlete" style="color:var(--accent)">—</div>
+          <div class="kpi-lbl">Atlete nel roster</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val" id="kpi-verde">—</div>
+          <div class="kpi-lbl">Compliance verde 7gg</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val" id="kpi-sed-sett">—</div>
+          <div class="kpi-lbl">Sessioni questa settimana</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-val" id="kpi-ultima" style="font-size:1.1rem">—</div>
+          <div class="kpi-lbl">Ultima sessione</div>
+          <div class="kpi-sub" id="kpi-ultima-chi"></div>
+        </div>
+      </div>
+
+      <p class="sez-label">Stato atlete — oggi</p>
+      <div id="dash-list"><p style="color:var(--text-muted);font-size:0.85rem">Caricamento...</p></div>
+    </div>
+
     <!-- ── TAB NOTE ── -->
-    <div id="tab-note" class="tab-pnl active">
+    <div id="tab-note" class="tab-pnl">
       <div class="card">
         <p class="sez-label">Nuova nota</p>
-
         <div class="campo">
           <label>Atleta</label>
           <select id="nota-atleta" onchange="aggiornaSedute()">
             <option value="TUTTE">Tutte le atlete</option>
           </select>
         </div>
-
         <div class="campo">
           <label>Tipo</label>
           <select id="nota-tipo" onchange="aggiornaTipo()">
@@ -495,13 +713,11 @@
             <option value="per-seduta">Per seduta specifica</option>
           </select>
         </div>
-
         <div class="campo" id="seduta-field" style="display:none">
           <label>Seduta</label>
           <input type="text" id="nota-seduta" placeholder="es. OS1-S2 o 3">
           <div class="chips-row" id="sed-pills" style="margin-top:6px"></div>
         </div>
-
         <div class="campo">
           <label>Template rapido</label>
           <div class="chips-row">
@@ -515,7 +731,6 @@
           </div>
           <textarea id="nota-testo" placeholder="Scrivi la nota per l'atleta..."></textarea>
         </div>
-
         <div class="campo">
           <label>Periodo di validità</label>
           <div class="chips-row">
@@ -534,13 +749,83 @@
             </div>
           </div>
         </div>
-
         <button class="btn-primary" id="btn-salva" onclick="salvaNota()">Salva nota</button>
         <p class="form-feedback" id="nota-ok"></p>
       </div>
-
       <p class="sez-label">Note esistenti</p>
       <div id="lista-note"><p style="color:var(--text-muted);font-size:0.85rem">Caricamento...</p></div>
+    </div>
+
+    <!-- ── TAB CALENDARIO ── -->
+    <div id="tab-calendario" class="tab-pnl">
+      <div class="cal-layout">
+        <div class="cal-left">
+          <div class="cal-nav">
+            <button class="cal-nav-btn" onclick="navMese(-1)">‹</button>
+            <span class="cal-month" id="cal-month-title"></span>
+            <button class="cal-nav-btn" onclick="navMese(1)">›</button>
+          </div>
+          <div class="cal-dow">
+            <span>Lun</span><span>Mar</span><span>Mer</span>
+            <span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span>
+          </div>
+          <div class="cal-cells" id="cal-cells"></div>
+        </div>
+
+        <div class="cal-right">
+          <p class="cal-day-title" id="cal-day-title">Seleziona un giorno</p>
+          <div class="cal-filters">
+            <select id="cal-filtro-atleta" onchange="renderCalSessioni()">
+              <option value="">Tutte le atlete</option>
+            </select>
+            <input type="text" id="cal-filtro-eserc" placeholder="Filtra esercizio…" oninput="renderCalSessioni()">
+          </div>
+          <div id="cal-sessioni"><p style="color:var(--text-muted);font-size:0.85rem">Clicca un giorno con il puntino per vedere le sessioni.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TAB ANALISI ── -->
+    <div id="tab-analisi" class="tab-pnl">
+      <div class="tab-toggle">
+        <button class="toggle-btn active" id="tog-atleta" onclick="toggleAnalisi('atleta')">Per atleta</button>
+        <button class="toggle-btn" id="tog-eserc" onclick="toggleAnalisi('eserc')">Per esercizio</button>
+      </div>
+
+      <!-- Per atleta -->
+      <div id="an-panel-atleta">
+        <div class="analisi-filters">
+          <select id="an-atleta" onchange="renderAnalisiAtleta()">
+            <option value="">Seleziona atleta…</option>
+          </select>
+          <div class="time-pills">
+            <button class="chip selected" id="tw-4"  onclick="setTimeRange(4)">4 sett.</button>
+            <button class="chip"          id="tw-8"  onclick="setTimeRange(8)">8 sett.</button>
+            <button class="chip"          id="tw-12" onclick="setTimeRange(12)">12 sett.</button>
+            <button class="chip"          id="tw-0"  onclick="setTimeRange(0)">Tutto</button>
+          </div>
+        </div>
+        <div id="an-content-atleta">
+          <div class="analisi-empty">Seleziona un'atleta per vedere l'analisi dei carichi.</div>
+        </div>
+      </div>
+
+      <!-- Per esercizio -->
+      <div id="an-panel-eserc" style="display:none">
+        <div class="analisi-filters">
+          <input type="text" id="an-eserc" placeholder="Nome esercizio…" list="eserc-datalist" oninput="renderAnalisiEserc()">
+          <datalist id="eserc-datalist"></datalist>
+          <div class="time-pills">
+            <button class="chip selected" id="twe-4"  onclick="setTimeRangeE(4)">4 sett.</button>
+            <button class="chip"          id="twe-8"  onclick="setTimeRangeE(8)">8 sett.</button>
+            <button class="chip"          id="twe-12" onclick="setTimeRangeE(12)">12 sett.</button>
+            <button class="chip"          id="twe-0"  onclick="setTimeRangeE(0)">Tutto</button>
+          </div>
+        </div>
+        <div id="an-content-eserc">
+          <div class="analisi-empty">Scrivi il nome di un esercizio per confrontare le atlete.</div>
+        </div>
+      </div>
     </div>
 
     <!-- ── TAB STORICO ── -->
@@ -590,15 +875,11 @@
         <span class="srpe-v">basso &lt;400</span> ·
         <span class="srpe-y">medio 400–800</span> ·
         <span class="srpe-r">alto &gt;800 AU</span>.
-        T_start = Wellness o primo log esercizi.
       </p>
       <div class="tbl-wrap">
         <table class="data-tbl">
           <thead>
-            <tr>
-              <th>Data</th><th>Atleta</th><th>Sed.</th>
-              <th>RPE</th><th>Durata</th><th>sRPE (AU)</th>
-            </tr>
+            <tr><th>Data</th><th>Atleta</th><th>Sed.</th><th>RPE</th><th>Durata</th><th>sRPE (AU)</th></tr>
           </thead>
           <tbody id="srpe-body">
             <tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-muted)">Caricamento...</td></tr>
@@ -634,71 +915,87 @@ if (params.get('coach') !== COACH_KEY) {
 // ── Avatar ─────────────────────────────────────────────────────────────────────
 const AV_COLORS = ['#e84c2b','#16a34a','#7c3aed','#0ea5e9','#f59e0b','#ec4899','#06b6d4','#8b5cf6','#84cc16','#f97316','#14b8a6','#ef4444'];
 function avColor(name) {
-  let h = 0;
-  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) & 0xfffff;
+  let h=0; for (let i=0;i<name.length;i++) h=(h*31+name.charCodeAt(i))&0xfffff;
   return AV_COLORS[h % AV_COLORS.length];
 }
 function avInitials(name) {
-  const p = String(name || '').trim().split(/\s+/);
-  return ((p[0]?.[0] || '') + (p[1]?.[0] || p[0]?.[1] || '')).toUpperCase();
+  const p=String(name||'').trim().split(/\s+/);
+  return ((p[0]?.[0]||'')+(p[1]?.[0]||p[0]?.[1]||'')).toUpperCase();
 }
 function avHtml(name, lg) {
-  return `<span class="av${lg ? ' lg' : ''}" style="background:${avColor(name)}">${avInitials(name)}</span>`;
+  return `<span class="av${lg?' lg':''}" style="background:${avColor(name)}">${avInitials(name)}</span>`;
 }
 
-// ── Stato ──────────────────────────────────────────────────────────────────────
-let giocatrici = [], progressi = [], tutteNote = [], wellness = [];
-let atletaMap  = {}, srpeData  = [];
-let sortKey = 'data', sortDir = -1, storicoFiltered = [];
+// ── Stato globale ──────────────────────────────────────────────────────────────
+const SKIP = new Set(['RPE-seduta','Fatica-seduta']);
+let giocatrici=[], progressi=[], tutteNote=[], wellness=[];
+let atletaMap={}, srpeData=[];
+// Storico sort
+let sortKey='data', sortDir=-1, storicoFiltered=[];
+// Calendar
+let calYear=new Date().getFullYear(), calMonth=new Date().getMonth(), calSelDay=null;
+let logDates=new Set(), seduteByDate={};
+// Analisi
+let analisiMode='atleta', analisiWeeks=4, analisiWeeksE=4;
 
 // ── Init ───────────────────────────────────────────────────────────────────────
 async function init() {
   try {
-    const [resG, resP, resN, resW] = await Promise.all([
+    const [resG,resP,resN,resW] = await Promise.all([
       apiGet('leggi','Giocatrici'),
       apiGet('leggi','Progressi'),
       apiGet('leggi_tutte_note'),
       apiGet('leggi','Wellness')
     ]);
     if (resG.ok) {
-      giocatrici = (resG.dati || [])
-        .filter(g => g.ID && !isNaN(parseInt(g.ID)))
-        .sort((a, b) => a.Nome.localeCompare(b.Nome, 'it', { sensitivity: 'base' }));
-      giocatrici.forEach(g => { atletaMap[String(g.ID)] = g.Nome; });
+      giocatrici=(resG.dati||[])
+        .filter(g=>g.ID&&!isNaN(parseInt(g.ID)))
+        .sort((a,b)=>a.Nome.localeCompare(b.Nome,'it',{sensitivity:'base'}));
+      giocatrici.forEach(g=>{atletaMap[String(g.ID)]=g.Nome;});
       popolaSelects();
     }
-    if (resW.ok) wellness = resW.dati || [];
-    if (resP.ok) { progressi = resP.dati || []; srpeData = computeSrpe(progressi, wellness); }
-    if (resN.ok) tutteNote = resN.note || [];
+    if (resW.ok) wellness=resW.dati||[];
+    if (resP.ok) {
+      progressi=resP.dati||[];
+      srpeData=computeSrpe(progressi,wellness);
+      logDates=buildLogDates();
+      seduteByDate=buildSeduteByDate();
+      populateEsercDatalist();
+    }
+    if (resN.ok) tutteNote=resN.note||[];
+
+    renderDashboard();
     renderNote();
     filtraStorico();
     renderCompliance();
     renderSrpeTable();
-  } catch (err) {
-    document.getElementById('lista-note').innerHTML =
+    buildCal(calYear, calMonth);
+  } catch(err) {
+    document.getElementById('lista-note').innerHTML=
       `<p style="color:var(--red)">Errore: ${esc(err.message)}</p>`;
   }
 }
 
 // ── API ────────────────────────────────────────────────────────────────────────
-async function apiGet(azione, foglio) {
-  const r = await fetch(`${API}?token=${TOKEN}&azione=${azione}${foglio ? '&foglio='+foglio : ''}`);
+async function apiGet(azione,foglio) {
+  const r=await fetch(`${API}?token=${TOKEN}&azione=${azione}${foglio?'&foglio='+foglio:''}`);
   return r.json();
 }
 async function apiPost(body) {
-  const r = await fetch(API, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ token: TOKEN, ...body })
-  });
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({token:TOKEN,...body})});
   return r.json();
 }
 
 // ── Selects ────────────────────────────────────────────────────────────────────
 function popolaSelects() {
-  const opts = giocatrici.map(g => `<option value="${g.ID}">${esc(g.Nome)}</option>`).join('');
-  document.getElementById('nota-atleta').innerHTML =
-    '<option value="TUTTE">Tutte le atlete</option>' + opts;
+  const opts=giocatrici.map(g=>`<option value="${g.ID}">${esc(g.Nome)}</option>`).join('');
+  document.getElementById('nota-atleta').innerHTML='<option value="TUTTE">Tutte le atlete</option>'+opts;
+  document.getElementById('cal-filtro-atleta').innerHTML='<option value="">Tutte le atlete</option>'+opts;
+  document.getElementById('an-atleta').innerHTML='<option value="">Seleziona atleta…</option>'+opts;
+}
+function populateEsercDatalist() {
+  const esercizi=[...new Set(progressi.filter(p=>!SKIP.has(p.Esercizio)&&p.Valore).map(p=>p.Esercizio))].sort();
+  document.getElementById('eserc-datalist').innerHTML=esercizi.map(e=>`<option value="${esc(e)}">`).join('');
 }
 
 // ── Sidebar / Tab ──────────────────────────────────────────────────────────────
@@ -710,348 +1007,499 @@ function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebar-overlay').classList.remove('open');
 }
-const PAGE_TITLES = { note:'Note', storico:'Storico', compliance:'Compliance' };
+const PAGE_TITLES={dashboard:'Dashboard',note:'Note',calendario:'Calendario',analisi:'Analisi',storico:'Storico',compliance:'Compliance'};
+const ALL_TABS=['dashboard','note','calendario','analisi','storico','compliance'];
 function mostraTab(nome) {
-  ['note','storico','compliance'].forEach(n => {
-    document.getElementById('nav-'+n).classList.toggle('active', n===nome);
-    document.getElementById('tab-'+n).classList.toggle('active', n===nome);
+  ALL_TABS.forEach(n=>{
+    document.getElementById('nav-'+n).classList.toggle('active',n===nome);
+    document.getElementById('tab-'+n).classList.toggle('active',n===nome);
   });
-  document.getElementById('page-title').textContent = PAGE_TITLES[nome];
+  document.getElementById('page-title').textContent=PAGE_TITLES[nome];
   closeSidebar();
 }
 
-// ── Template + date preset ─────────────────────────────────────────────────────
-function applyTpl(testo) {
-  const el = document.getElementById('nota-testo');
-  el.value = testo; el.focus();
-}
-function applyDatePreset(mode) {
-  const pad = n => String(n).padStart(2,'0');
-  const iso = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-  const today = new Date();
-  const dow   = today.getDay()===0 ? 7 : today.getDay();
-  let dal, al;
-  if (mode===0) {
-    const lun = new Date(today); lun.setDate(today.getDate()-(dow-1));
-    const dom = new Date(lun);   dom.setDate(lun.getDate()+6);
-    dal=iso(lun); al=iso(dom);
-  } else if (mode===1) {
-    const lun = new Date(today); lun.setDate(today.getDate()-(dow-1)+7);
-    const dom = new Date(lun);   dom.setDate(lun.getDate()+6);
-    dal=iso(lun); al=iso(dom);
-  } else {
-    const fine = new Date(today); fine.setDate(today.getDate()+14);
-    dal=iso(today); al=iso(fine);
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+function renderDashboard() {
+  const ora=new Date();
+  const cut7=new Date(ora); cut7.setDate(ora.getDate()-7);
+  const SKIP_C=new Set(['RPE-seduta','Fatica-seduta','Peso-corporeo']);
+
+  // KPI: atlete
+  document.getElementById('kpi-atlete').textContent=giocatrici.length;
+
+  // KPI: sed questa settimana (lun-oggi)
+  const dow=ora.getDay()===0?7:ora.getDay();
+  const lun=new Date(ora); lun.setDate(ora.getDate()-(dow-1)); lun.setHours(0,0,0,0);
+  const sedSett=new Set(
+    progressi.filter(p=>{
+      const ts=p.Timestamp?new Date(p.Timestamp):null;
+      return ts&&ts>=lun&&!SKIP_C.has(p.Esercizio)&&p.Valore&&p.N_Seduta;
+    }).map(p=>`${p.ID_Giocatrice}__${p.N_Seduta}`)
+  ).size;
+  document.getElementById('kpi-sed-sett').textContent=sedSett;
+
+  // KPI: compliance verde
+  let nVerde=0;
+  const datiComp=giocatrici.map(g=>{
+    const pAll=progressi.filter(p=>String(p.ID_Giocatrice)===String(g.ID)&&p.Valore);
+    const pEserc=pAll.filter(p=>!SKIP_C.has(p.Esercizio));
+    let ultimoTs=null;
+    pEserc.forEach(p=>{const ts=p.Timestamp?new Date(p.Timestamp):null;if(ts&&(!ultimoTs||ts>ultimoTs))ultimoTs=ts;});
+    const gg=ultimoTs?Math.floor((ora-ultimoTs)/86400000):null;
+    const stato=gg===null?'mai':gg>7?'rosso':gg>3?'giallo':'verde';
+    const ultimoLbl=gg===null?'mai':gg===0?'oggi':gg===1?'ieri':gg+'gg fa';
+    const sedSett7=new Set(
+      pEserc.filter(p=>{const ts=p.Timestamp?new Date(p.Timestamp):null;return ts&&ts>=cut7;}).map(p=>p.N_Seduta)
+    ).size;
+    const rpeVals=pAll.filter(p=>p.Esercizio==='RPE-seduta'&&p.Timestamp&&new Date(p.Timestamp)>=cut7).map(p=>Number(p.Valore)).filter(v=>!isNaN(v));
+    const rpe=rpeVals.length?(rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length).toFixed(1):null;
+    if(stato==='verde')nVerde++;
+    return {nome:g.Nome,stato,ultimoLbl,sedSett7,rpe};
+  }).sort((a,b)=>({mai:0,rosso:1,giallo:2,verde:3}[a.stato]-{mai:0,rosso:1,giallo:2,verde:3}[b.stato]));
+  document.getElementById('kpi-verde').textContent=nVerde+'/'+giocatrici.length;
+
+  // KPI: ultima sessione
+  const lastP=progressi.filter(p=>p.Timestamp&&!SKIP_C.has(p.Esercizio)&&p.Valore)
+    .reduce((acc,p)=>{const t=new Date(p.Timestamp).getTime();return(!acc||t>acc.t)?{t,p}:acc;},null);
+  if(lastP){
+    document.getElementById('kpi-ultima').textContent=fmtDate(new Date(lastP.t).toISOString());
+    document.getElementById('kpi-ultima-chi').textContent=atletaMap[String(lastP.p.ID_Giocatrice)]||'';
   }
-  document.getElementById('nota-dal').value = dal;
-  document.getElementById('nota-al').value  = al;
+
+  // Quick list
+  const cont=document.getElementById('dash-list');
+  cont.innerHTML=datiComp.map(d=>`
+    <div class="dash-row">
+      ${avHtml(d.nome)}
+      <span style="font-weight:600;font-size:0.88rem">${esc(d.nome)}</span>
+      <div class="comp-status" style="margin:0">
+        <div class="status-dot ${d.stato}"></div>
+        <span class="status-text">${d.ultimoLbl}</span>
+      </div>
+      <div class="dash-row-right">
+        <span class="mpill">sed. 7gg <strong>${d.sedSett7}</strong></span>
+        ${d.rpe!==null?`<span class="mpill">RPE <strong>${d.rpe}</strong></span>`:''}
+      </div>
+    </div>`).join('');
 }
 
-// ── Sedute picker ──────────────────────────────────────────────────────────────
-function aggiornaSedute() {
-  const idG  = document.getElementById('nota-atleta').value;
-  const isSed= document.getElementById('nota-tipo').value==='per-seduta';
-  const cont = document.getElementById('sed-pills');
-  if (!isSed || idG==='TUTTE' || !progressi.length) { cont.innerHTML=''; return; }
-  const sedUniq = [...new Set(
-    progressi
-      .filter(p => String(p.ID_Giocatrice)===String(idG) && p.N_Seduta)
-      .sort((a,b) => new Date(b.Timestamp)-new Date(a.Timestamp))
-      .map(p => String(p.N_Seduta))
-  )].slice(0,8);
-  cont.innerHTML = sedUniq.map(s =>
-    `<button type="button" class="chip" onclick="selSeduta('${s}')">${s}</button>`
-  ).join('');
-}
-function selSeduta(s) {
-  document.getElementById('nota-seduta').value = s;
-  document.querySelectorAll('#sed-pills .chip').forEach(b =>
-    b.classList.toggle('selected', b.textContent===s)
-  );
-}
-function aggiornaTipo() {
-  const isSed = document.getElementById('nota-tipo').value==='per-seduta';
-  document.getElementById('seduta-field').style.display = isSed ? '' : 'none';
-  aggiornaSedute();
-}
-
-// ── Salva nota ─────────────────────────────────────────────────────────────────
-async function salvaNota() {
-  const idG   = document.getElementById('nota-atleta').value;
-  const tipo  = document.getElementById('nota-tipo').value;
-  const seduta= document.getElementById('nota-seduta').value;
-  const testo = document.getElementById('nota-testo').value.trim();
-  const dal   = document.getElementById('nota-dal').value;
-  const al    = document.getElementById('nota-al').value;
-  if (!testo) { alert('Scrivi il testo della nota.'); return; }
-  if (!dal)   { alert('Inserisci la data di inizio validità.'); return; }
-  if (tipo==='per-seduta' && !seduta) { alert('Seleziona o scrivi la seduta.'); return; }
-  const btn = document.getElementById('btn-salva');
-  btn.disabled=true; btn.textContent='Salvataggio...';
-  const res = await apiPost({
-    azione:'scrivi_nota_coach',
-    id_giocatrice:idG, tipo,
-    n_seduta: tipo==='per-seduta' ? seduta : '',
-    testo, data_inizio:dal, data_fine:al
+// ── CALENDARIO ────────────────────────────────────────────────────────────────
+function buildLogDates() {
+  const s=new Set();
+  progressi.forEach(p=>{
+    if(!p.Timestamp||!p.Valore) return;
+    const d=new Date(p.Timestamp);
+    if(!isNaN(d)) s.add(d.toISOString().slice(0,10));
   });
-  btn.disabled=false; btn.textContent='Salva nota';
-  if (res.ok) {
-    tutteNote.unshift({
-      timestamp: res.timestamp||new Date().toISOString(),
-      id_giocatrice:idG, tipo,
-      n_seduta: tipo==='per-seduta' ? seduta : '',
-      testo, data_inizio:dal, data_fine:al
-    });
-    document.getElementById('nota-testo').value='';
-    document.getElementById('nota-al').value='';
-    mostraOk('nota-ok','✓ Nota salvata');
-    renderNote();
-  } else { alert('Errore: '+(res.errore||'?')); }
-}
-function mostraOk(id, msg) {
-  const el=document.getElementById(id);
-  el.textContent=msg;
-  setTimeout(()=>{ el.textContent=''; },3000);
+  return s;
 }
 
-// ── Render note ────────────────────────────────────────────────────────────────
-function renderNote() {
-  const cont=document.getElementById('lista-note');
-  if (!tutteNote.length) {
-    cont.innerHTML='<p style="color:var(--text-muted);font-size:0.85rem">Nessuna nota presente.</p>';
-    return;
-  }
-  cont.innerHTML=tutteNote.map((n,i)=>{
-    const nome = n.id_giocatrice==='TUTTE'
-      ? 'Tutte le atlete'
-      : (atletaMap[String(n.id_giocatrice)]||'ID '+n.id_giocatrice);
-    const isSed=n.tipo==='per-seduta';
-    const dateRange=n.data_fine
-      ? `${fmtDate(n.data_inizio)} → ${fmtDate(n.data_fine)}`
-      : `dal ${fmtDate(n.data_inizio)}`;
-    return `
-    <div class="nota-item${isSed?' per-seduta':''}">
-      <div class="nota-head">
-        ${avHtml(nome)}
-        <span class="nota-nome">${esc(nome)}</span>
-        <span class="tag ${isSed?'tag-green':'tag-blue'}">${isSed?'Sed. '+n.n_seduta:'Generale'}</span>
-        <span class="nota-date">${dateRange}</span>
-      </div>
-      <p class="nota-testo">${esc(n.testo)}</p>
-      <div class="nota-footer">
-        <span>${fmtTs(n.timestamp)}</span>
-        <button class="btn-ghost" onclick="eliminaNota(${i})">Elimina</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-async function eliminaNota(i) {
-  if (!confirm('Eliminare questa nota?')) return;
-  const n=tutteNote[i];
-  const res=await apiPost({azione:'elimina_nota_coach',timestamp:n.timestamp});
-  if (res.ok) { tutteNote.splice(i,1); renderNote(); }
-  else alert('Errore: '+(res.errore||'?'));
-}
-
-// ── Storico ────────────────────────────────────────────────────────────────────
-const SKIP=new Set(['RPE-seduta','Fatica-seduta']);
-
-function buildTrendMap(rows) {
+function buildSeduteByDate() {
   const map={};
-  rows.forEach(p=>{
-    const k=`${p.ID_Giocatrice}__${p.Esercizio}`;
-    if (!map[k]) map[k]=[];
-    map[k].push({ts:new Date(p.Timestamp).getTime(), val:parseFloat(p.Valore)});
+  progressi.forEach(p=>{
+    if(!p.Timestamp||!p.Valore) return;
+    const d=new Date(p.Timestamp);
+    if(isNaN(d)) return;
+    const day=d.toISOString().slice(0,10);
+    if(!map[day]) map[day]={};
+    const key=`${p.ID_Giocatrice}__${p.N_Seduta||'?'}`;
+    if(!map[day][key]) map[day][key]={id:String(p.ID_Giocatrice),n_seduta:String(p.N_Seduta||'—'),esercizi:[],rpe:null,fatica:null};
+    if(p.Esercizio==='RPE-seduta') map[day][key].rpe=p.Valore;
+    else if(p.Esercizio==='Fatica-seduta') map[day][key].fatica=p.Valore;
+    else map[day][key].esercizi.push({nome:p.Esercizio,val:p.Valore});
   });
-  Object.values(map).forEach(arr=>arr.sort((a,b)=>a.ts-b.ts));
   return map;
 }
 
-function filtraStorico() {
-  const q   =(document.getElementById('filtro-search').value||'').toLowerCase().trim();
-  const dalV= document.getElementById('filtro-dal').value;
-  const alV = document.getElementById('filtro-al').value;
-  const dal = dalV ? new Date(dalV) : null;
-  const al  = alV  ? new Date(alV+'T23:59:59') : null;
+const MESI=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 
+function buildCal(year, month) {
+  calYear=year; calMonth=month;
+  document.getElementById('cal-month-title').textContent=MESI[month]+' '+year;
+
+  const today=new Date();
+  const todayStr=today.toISOString().slice(0,10);
+
+  // First day of month (0=Sun..6=Sat → convert to Mon=0)
+  const first=new Date(year,month,1);
+  const startDow=(first.getDay()+6)%7; // Mon=0
+  const daysInMonth=new Date(year,month+1,0).getDate();
+
+  let html='';
+  // Empty cells before first day
+  for(let i=0;i<startDow;i++) html+=`<div class="cal-cell other-m"></div>`;
+  // Day cells
+  for(let d=1;d<=daysInMonth;d++){
+    const pad=n=>String(n).padStart(2,'0');
+    const ds=`${year}-${pad(month+1)}-${pad(d)}`;
+    const hasData=logDates.has(ds);
+    const isToday=ds===todayStr;
+    const isSel=ds===calSelDay;
+    const cls=['cal-cell',hasData?'has-data':'',isToday?'today':'',isSel?'selected':''].filter(Boolean).join(' ');
+    html+=`<div class="${cls}" onclick="selectDay('${ds}')">${d}${hasData?'<span class="cal-dot"></span>':''}</div>`;
+  }
+  document.getElementById('cal-cells').innerHTML=html;
+}
+
+function navMese(dir) {
+  let m=calMonth+dir, y=calYear;
+  if(m<0){m=11;y--;} else if(m>11){m=0;y++;}
+  buildCal(y,m);
+}
+
+function selectDay(dateStr) {
+  calSelDay=dateStr;
+  buildCal(calYear,calMonth); // refresh to show selection
+  const d=new Date(dateStr+'T12:00:00');
+  const giorno=d.getDate();
+  const m=MESI[d.getMonth()];
+  document.getElementById('cal-day-title').textContent=`${giorno} ${m} ${d.getFullYear()}`;
+  renderCalSessioni();
+}
+
+function renderCalSessioni() {
+  const cont=document.getElementById('cal-sessioni');
+  if(!calSelDay){ cont.innerHTML='<p style="color:var(--text-muted);font-size:0.85rem">Clicca un giorno con il puntino.</p>'; return; }
+
+  const filtroAtleta=document.getElementById('cal-filtro-atleta').value;
+  const filtroEserc=(document.getElementById('cal-filtro-eserc').value||'').toLowerCase().trim();
+
+  const dayData=seduteByDate[calSelDay]||{};
+  let entries=Object.values(dayData);
+
+  if(filtroAtleta) entries=entries.filter(e=>e.id===filtroAtleta);
+  if(filtroEserc) entries=entries.filter(e=>e.esercizi.some(ex=>(ex.nome||'').toLowerCase().includes(filtroEserc)));
+
+  if(!entries.length){
+    cont.innerHTML='<p style="color:var(--text-muted);font-size:0.85rem">Nessuna sessione registrata per questo giorno.</p>';
+    return;
+  }
+
+  // Sort by atleta name
+  entries.sort((a,b)=>{
+    const na=atletaMap[a.id]||''; const nb=atletaMap[b.id]||'';
+    return na.localeCompare(nb,'it');
+  });
+
+  cont.innerHTML=entries.map(e=>{
+    const nome=atletaMap[e.id]||'ID '+e.id;
+    let esercizi=e.esercizi;
+    if(filtroEserc) esercizi=esercizi.filter(ex=>(ex.nome||'').toLowerCase().includes(filtroEserc));
+    const itemsHtml=esercizi.slice(0,12).map(ex=>
+      `<span class="session-item">${esc(ex.nome||'')} <strong>${esc(String(ex.val))}</strong></span>`
+    ).join('');
+    const rpeHtml=e.rpe?`<span class="session-item">RPE <strong>${e.rpe}</strong></span>`:'';
+    const fatHtml=e.fatica?`<span class="session-item">Fatica <strong>${e.fatica}</strong></span>`:'';
+    return `
+    <div class="session-card">
+      <div class="session-head">
+        ${avHtml(nome)}
+        <span class="session-name">${esc(nome)}</span>
+        <span class="tag tag-blue" style="margin-left:auto">${esc(e.n_seduta)}</span>
+      </div>
+      <div class="session-items">${itemsHtml}${rpeHtml}${fatHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── ANALISI ────────────────────────────────────────────────────────────────────
+function toggleAnalisi(mode) {
+  analisiMode=mode;
+  document.getElementById('tog-atleta').classList.toggle('active',mode==='atleta');
+  document.getElementById('tog-eserc').classList.toggle('active',mode==='eserc');
+  document.getElementById('an-panel-atleta').style.display=mode==='atleta'?'':'none';
+  document.getElementById('an-panel-eserc').style.display=mode==='eserc'?'':'none';
+}
+
+function setTimeRange(weeks) {
+  analisiWeeks=weeks;
+  ['4','8','12','0'].forEach(w=>document.getElementById('tw-'+w).classList.toggle('selected',String(weeks)===w));
+  renderAnalisiAtleta();
+}
+function setTimeRangeE(weeks) {
+  analisiWeeksE=weeks;
+  ['4','8','12','0'].forEach(w=>document.getElementById('twe-'+w).classList.toggle('selected',String(weeks)===w));
+  renderAnalisiEserc();
+}
+
+function cutDate(weeks) {
+  if(!weeks) return null;
+  const d=new Date(); d.setDate(d.getDate()-weeks*7);
+  return d;
+}
+
+function renderAnalisiAtleta() {
+  const idG=document.getElementById('an-atleta').value;
+  const cont=document.getElementById('an-content-atleta');
+  if(!idG){ cont.innerHTML='<div class="analisi-empty">Seleziona un\'atleta per vedere l\'analisi dei carichi.</div>'; return; }
+
+  const cut=cutDate(analisiWeeks);
+  const pAtl=progressi.filter(p=>{
+    if(String(p.ID_Giocatrice)!==idG||!p.Valore||SKIP.has(p.Esercizio)) return false;
+    if(cut&&p.Timestamp&&new Date(p.Timestamp)<cut) return false;
+    return true;
+  });
+
+  if(!pAtl.length){ cont.innerHTML='<div class="analisi-empty">Nessun dato nel periodo selezionato.</div>'; return; }
+
+  // Max per esercizio + trend (last 2 valori)
+  const exMap={};
+  pAtl.forEach(p=>{
+    const ex=p.Esercizio;
+    if(!exMap[ex]) exMap[ex]={vals:[],ts:[]};
+    const v=parseValore(p.Valore);
+    if(!isNaN(v)){exMap[ex].vals.push(v);exMap[ex].ts.push(new Date(p.Timestamp).getTime());}
+  });
+
+  // Sort by max desc
+  const rows=Object.entries(exMap)
+    .map(([nome,{vals,ts}])=>{
+      const sorted=vals.map((v,i)=>({v,t:ts[i]})).sort((a,b)=>a.t-b.t);
+      const maxVal=vals.length?Math.max(...vals):0;
+      const last2=sorted.slice(-2);
+      let trend='—';
+      if(last2.length>=2){
+        const diff=last2[1].v-last2[0].v;
+        trend=diff>0?'▲':diff<0?'▼':'—';
+      }
+      return {nome,maxVal,trend,count:vals.length};
+    })
+    .sort((a,b)=>b.maxVal-a.maxVal)
+    .slice(0,15);
+
+  if(!rows.length){ cont.innerHTML='<div class="analisi-empty">Nessun dato nel periodo selezionato.</div>'; return; }
+
+  const globalMax=rows[0].maxVal||1;
+  const nome=atletaMap[idG]||'Atleta';
+  const periodoLbl=analisiWeeks?`ultime ${analisiWeeks} settimane`:'tutto il periodo';
+
+  cont.innerHTML=`
+  <div class="bar-section">
+    <div class="bar-section-title">${esc(nome)} — carichi massimi (${periodoLbl})</div>
+    ${rows.map(r=>`
+    <div class="bar-row">
+      <span class="bar-label" title="${esc(r.nome)}">${esc(r.nome)}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round((r.maxVal/globalMax)*100)}%"></div></div>
+      <span class="bar-value">${r.maxVal} <span style="font-size:0.65rem;color:var(--text-muted)">kg</span></span>
+      <span class="bar-trend" style="color:${r.trend==='▲'?'var(--green)':r.trend==='▼'?'var(--red)':'var(--text-muted)'}">${r.trend}</span>
+    </div>`).join('')}
+    <p style="font-size:0.65rem;color:var(--text-muted);margin-top:8px">▲▼ = trend rispetto alla sessione precedente per quell'esercizio. Visualizzati i top 15 per carico massimo.</p>
+  </div>`;
+}
+
+function renderAnalisiEserc() {
+  const nome=document.getElementById('an-eserc').value.trim();
+  const cont=document.getElementById('an-content-eserc');
+  if(!nome||nome.length<2){ cont.innerHTML='<div class="analisi-empty">Scrivi il nome di un esercizio per confrontare le atlete.</div>'; return; }
+
+  const cut=cutDate(analisiWeeksE);
+  const nomeLower=nome.toLowerCase();
+  const pEserc=progressi.filter(p=>{
+    if(!p.Valore||!p.Esercizio) return false;
+    if(!p.Esercizio.toLowerCase().includes(nomeLower)) return false;
+    if(cut&&p.Timestamp&&new Date(p.Timestamp)<cut) return false;
+    return true;
+  });
+
+  if(!pEserc.length){ cont.innerHTML='<div class="analisi-empty">Nessun dato trovato per "'+esc(nome)+'" nel periodo selezionato.</div>'; return; }
+
+  // Max per atleta
+  const athMap={};
+  pEserc.forEach(p=>{
+    const id=String(p.ID_Giocatrice);
+    const v=parseValore(p.Valore);
+    if(!isNaN(v)) athMap[id]=Math.max(athMap[id]||0,v);
+  });
+
+  const rows=Object.entries(athMap)
+    .map(([id,maxVal])=>({nome:atletaMap[id]||'ID '+id,maxVal}))
+    .sort((a,b)=>b.maxVal-a.maxVal);
+
+  if(!rows.length){ cont.innerHTML='<div class="analisi-empty">Nessun dato.</div>'; return; }
+
+  const globalMax=rows[0].maxVal||1;
+  const periodoLbl=analisiWeeksE?`ultime ${analisiWeeksE} settimane`:'tutto il periodo';
+
+  cont.innerHTML=`
+  <div class="bar-section">
+    <div class="bar-section-title">${esc(nome)} — confronto atlete (${periodoLbl})</div>
+    ${rows.map(r=>`
+    <div class="bar-row">
+      <div class="bar-label td-athlete" style="width:160px">${avHtml(r.nome)}<span style="overflow:hidden;text-overflow:ellipsis">${esc(r.nome)}</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round((r.maxVal/globalMax)*100)}%"></div></div>
+      <span class="bar-value">${r.maxVal} <span style="font-size:0.65rem;color:var(--text-muted)">kg</span></span>
+    </div>`).join('')}
+  </div>`;
+}
+
+// ── NOTE ───────────────────────────────────────────────────────────────────────
+function applyTpl(testo){const el=document.getElementById('nota-testo');el.value=testo;el.focus();}
+function applyDatePreset(mode){
+  const pad=n=>String(n).padStart(2,'0');
+  const iso=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  const today=new Date(); const dow=today.getDay()===0?7:today.getDay();
+  let dal,al;
+  if(mode===0){const lun=new Date(today);lun.setDate(today.getDate()-(dow-1));const dom=new Date(lun);dom.setDate(lun.getDate()+6);dal=iso(lun);al=iso(dom);}
+  else if(mode===1){const lun=new Date(today);lun.setDate(today.getDate()-(dow-1)+7);const dom=new Date(lun);dom.setDate(lun.getDate()+6);dal=iso(lun);al=iso(dom);}
+  else{const fine=new Date(today);fine.setDate(today.getDate()+14);dal=iso(today);al=iso(fine);}
+  document.getElementById('nota-dal').value=dal;
+  document.getElementById('nota-al').value=al;
+}
+function aggiornaSedute(){
+  const idG=document.getElementById('nota-atleta').value;
+  const isSed=document.getElementById('nota-tipo').value==='per-seduta';
+  const cont=document.getElementById('sed-pills');
+  if(!isSed||idG==='TUTTE'||!progressi.length){cont.innerHTML='';return;}
+  const sedUniq=[...new Set(progressi.filter(p=>String(p.ID_Giocatrice)===String(idG)&&p.N_Seduta).sort((a,b)=>new Date(b.Timestamp)-new Date(a.Timestamp)).map(p=>String(p.N_Seduta)))].slice(0,8);
+  cont.innerHTML=sedUniq.map(s=>`<button type="button" class="chip" onclick="selSeduta('${s}')">${s}</button>`).join('');
+}
+function selSeduta(s){document.getElementById('nota-seduta').value=s;document.querySelectorAll('#sed-pills .chip').forEach(b=>b.classList.toggle('selected',b.textContent===s));}
+function aggiornaTipo(){const isSed=document.getElementById('nota-tipo').value==='per-seduta';document.getElementById('seduta-field').style.display=isSed?'':'none';aggiornaSedute();}
+
+async function salvaNota(){
+  const idG=document.getElementById('nota-atleta').value;
+  const tipo=document.getElementById('nota-tipo').value;
+  const seduta=document.getElementById('nota-seduta').value;
+  const testo=document.getElementById('nota-testo').value.trim();
+  const dal=document.getElementById('nota-dal').value;
+  const al=document.getElementById('nota-al').value;
+  if(!testo){alert('Scrivi il testo della nota.');return;}
+  if(!dal){alert('Inserisci la data di inizio validità.');return;}
+  if(tipo==='per-seduta'&&!seduta){alert('Seleziona o scrivi la seduta.');return;}
+  const btn=document.getElementById('btn-salva');
+  btn.disabled=true;btn.textContent='Salvataggio...';
+  const res=await apiPost({azione:'scrivi_nota_coach',id_giocatrice:idG,tipo,n_seduta:tipo==='per-seduta'?seduta:'',testo,data_inizio:dal,data_fine:al});
+  btn.disabled=false;btn.textContent='Salva nota';
+  if(res.ok){tutteNote.unshift({timestamp:res.timestamp||new Date().toISOString(),id_giocatrice:idG,tipo,n_seduta:tipo==='per-seduta'?seduta:'',testo,data_inizio:dal,data_fine:al});document.getElementById('nota-testo').value='';document.getElementById('nota-al').value='';mostraOk('nota-ok','✓ Nota salvata');renderNote();}
+  else alert('Errore: '+(res.errore||'?'));
+}
+function mostraOk(id,msg){const el=document.getElementById(id);el.textContent=msg;setTimeout(()=>{el.textContent='';},3000);}
+
+function renderNote(){
+  const cont=document.getElementById('lista-note');
+  if(!tutteNote.length){cont.innerHTML='<p style="color:var(--text-muted);font-size:0.85rem">Nessuna nota presente.</p>';return;}
+  cont.innerHTML=tutteNote.map((n,i)=>{
+    const nome=n.id_giocatrice==='TUTTE'?'Tutte le atlete':(atletaMap[String(n.id_giocatrice)]||'ID '+n.id_giocatrice);
+    const isSed=n.tipo==='per-seduta';
+    const dateRange=n.data_fine?`${fmtDate(n.data_inizio)} → ${fmtDate(n.data_fine)}`:`dal ${fmtDate(n.data_inizio)}`;
+    return `<div class="nota-item${isSed?' per-seduta':''}">
+      <div class="nota-head">${avHtml(nome)}<span class="nota-nome">${esc(nome)}</span><span class="tag ${isSed?'tag-green':'tag-blue'}">${isSed?'Sed. '+n.n_seduta:'Generale'}</span><span class="nota-date">${dateRange}</span></div>
+      <p class="nota-testo">${esc(n.testo)}</p>
+      <div class="nota-footer"><span>${fmtTs(n.timestamp)}</span><button class="btn-ghost" onclick="eliminaNota(${i})">Elimina</button></div>
+    </div>`;
+  }).join('');
+}
+async function eliminaNota(i){if(!confirm('Eliminare questa nota?'))return;const n=tutteNote[i];const res=await apiPost({azione:'elimina_nota_coach',timestamp:n.timestamp});if(res.ok){tutteNote.splice(i,1);renderNote();}else alert('Errore: '+(res.errore||'?'));}
+
+// ── STORICO ────────────────────────────────────────────────────────────────────
+function buildTrendMap(rows){
+  const map={};
+  rows.forEach(p=>{const k=`${p.ID_Giocatrice}__${p.Esercizio}`;if(!map[k])map[k]=[];map[k].push({ts:new Date(p.Timestamp).getTime(),val:parseValore(p.Valore)});});
+  Object.values(map).forEach(arr=>arr.sort((a,b)=>a.ts-b.ts));
+  return map;
+}
+function filtraStorico(){
+  const q=(document.getElementById('filtro-search').value||'').toLowerCase().trim();
+  const dalV=document.getElementById('filtro-dal').value;
+  const alV=document.getElementById('filtro-al').value;
+  const dal=dalV?new Date(dalV):null;
+  const al=alV?new Date(alV+'T23:59:59'):null;
   storicoFiltered=progressi.filter(p=>{
-    if (!p.Valore || SKIP.has(p.Esercizio)) return false;
-    if (q) {
-      const nome=(atletaMap[String(p.ID_Giocatrice)]||'').toLowerCase();
-      const eserc=(p.Esercizio||'').toLowerCase();
-      if (!nome.includes(q) && !eserc.includes(q)) return false;
-    }
-    if (p.Timestamp) {
-      const ts=new Date(p.Timestamp);
-      if (dal && ts<dal) return false;
-      if (al  && ts>al)  return false;
-    }
+    if(!p.Valore||SKIP.has(p.Esercizio)) return false;
+    if(q){const nome=(atletaMap[String(p.ID_Giocatrice)]||'').toLowerCase();const eserc=(p.Esercizio||'').toLowerCase();if(!nome.includes(q)&&!eserc.includes(q)) return false;}
+    if(p.Timestamp){const ts=new Date(p.Timestamp);if(dal&&ts<dal)return false;if(al&&ts>al)return false;}
     return true;
   });
   renderStoricoTable();
 }
-
-function sortStorico(key) {
-  sortKey===key ? sortDir=-sortDir : (sortKey=key, sortDir=-1);
-  renderStoricoTable();
-}
-
-function renderStoricoTable() {
+function sortStorico(key){sortKey===key?sortDir=-sortDir:(sortKey=key,sortDir=-1);renderStoricoTable();}
+function renderStoricoTable(){
   ['data','atleta','seduta','esercizio','valore'].forEach(k=>{
-    const s=document.getElementById('sort-'+k);
-    const t=document.getElementById('th-'+k);
-    if (s) s.textContent=sortKey===k?(sortDir===-1?'↓':'↑'):'↕';
-    if (t) t.classList.toggle('sorted',sortKey===k);
+    const s=document.getElementById('sort-'+k);const t=document.getElementById('th-'+k);
+    if(s)s.textContent=sortKey===k?(sortDir===-1?'↓':'↑'):'↕';
+    if(t)t.classList.toggle('sorted',sortKey===k);
   });
-
   let rows=[...storicoFiltered].slice(-500);
   rows.sort((a,b)=>{
     let va,vb;
-    if (sortKey==='data')      { va=new Date(a.Timestamp).getTime(); vb=new Date(b.Timestamp).getTime(); }
-    else if (sortKey==='atleta')    { va=atletaMap[String(a.ID_Giocatrice)]||''; vb=atletaMap[String(b.ID_Giocatrice)]||''; return sortDir*va.localeCompare(vb,'it'); }
-    else if (sortKey==='seduta')    { va=String(a.N_Seduta||'');  vb=String(b.N_Seduta||'');  return sortDir*va.localeCompare(vb); }
-    else if (sortKey==='esercizio') { va=String(a.Esercizio||''); vb=String(b.Esercizio||''); return sortDir*va.localeCompare(vb,'it'); }
-    else                            { va=parseFloat(a.Valore)||0; vb=parseFloat(b.Valore)||0; }
+    if(sortKey==='data'){va=new Date(a.Timestamp).getTime();vb=new Date(b.Timestamp).getTime();}
+    else if(sortKey==='atleta'){va=atletaMap[String(a.ID_Giocatrice)]||'';vb=atletaMap[String(b.ID_Giocatrice)]||'';return sortDir*va.localeCompare(vb,'it');}
+    else if(sortKey==='seduta'){va=String(a.N_Seduta||'');vb=String(b.N_Seduta||'');return sortDir*va.localeCompare(vb);}
+    else if(sortKey==='esercizio'){va=String(a.Esercizio||'');vb=String(b.Esercizio||'');return sortDir*va.localeCompare(vb,'it');}
+    else{va=parseFloat(a.Valore)||0;vb=parseFloat(b.Valore)||0;}
     return sortDir*(va<vb?-1:va>vb?1:0);
   });
-
   const trendMap=buildTrendMap(progressi.filter(p=>!SKIP.has(p.Esercizio)&&p.Valore));
   const tbody=document.getElementById('storico-body');
-  const total=storicoFiltered.length;
-
-  if (!rows.length) {
-    tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-muted)">Nessun risultato</td></tr>';
-    document.getElementById('storico-count').textContent='';
-    return;
-  }
-
+  if(!rows.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-muted)">Nessun risultato</td></tr>';document.getElementById('storico-count').textContent='';return;}
   tbody.innerHTML=rows.map(p=>{
     const nome=atletaMap[String(p.ID_Giocatrice)]||'ID '+p.ID_Giocatrice;
-    const valNum=parseFloat(p.Valore);
+    const valNum=parseValore(p.Valore);
     const k=`${p.ID_Giocatrice}__${p.Esercizio}`;
     const arr=trendMap[k]||[];
     const tsMs=new Date(p.Timestamp).getTime();
     const idx=arr.findIndex(x=>x.ts===tsMs);
     let trendHtml='';
-    if (idx>0 && !isNaN(valNum)) {
-      const prev=arr[idx-1].val;
-      if (!isNaN(prev) && prev!==0) {
-        const pct=Math.round(((valNum-prev)/prev)*100);
-        if (pct!==0) trendHtml=`<span class="trend-badge ${pct>0?'trend-up':'trend-dn'}">${pct>0?'+':''}${pct}%</span>`;
-      }
-    }
-    return `<tr>
-      <td>${esc(fmtTs(p.Timestamp))}</td>
-      <td><div class="td-athlete">${avHtml(nome)}${esc(nome)}</div></td>
-      <td>${esc(String(p.N_Seduta||''))}</td>
-      <td>${esc(p.Esercizio||'')}</td>
-      <td class="td-val">${esc(String(p.Valore))}${trendHtml}</td>
-    </tr>`;
+    if(idx>0&&!isNaN(valNum)){const prev=arr[idx-1].val;if(!isNaN(prev)&&prev!==0){const pct=Math.round(((valNum-prev)/prev)*100);if(pct!==0)trendHtml=`<span class="trend-badge ${pct>0?'trend-up':'trend-dn'}">${pct>0?'+':''}${pct}%</span>`;}}
+    return `<tr><td>${esc(fmtTs(p.Timestamp))}</td><td><div class="td-athlete">${avHtml(nome)}${esc(nome)}</div></td><td>${esc(String(p.N_Seduta||''))}</td><td>${esc(p.Esercizio||'')}</td><td class="td-val">${esc(String(p.Valore))}${trendHtml}</td></tr>`;
   }).join('');
-
-  document.getElementById('storico-count').textContent=
-    `${total} risultati${rows.length<total?` (mostrando ${rows.length})`:''}`;
+  document.getElementById('storico-count').textContent=`${storicoFiltered.length} risultati${rows.length<storicoFiltered.length?` (mostrando ${rows.length})`:''}`;
 }
 
 // ── sRPE ───────────────────────────────────────────────────────────────────────
-function computeSrpe(prg,wel) {
-  const W4H=4*60*60*1000;
-  const SKIP_TS=new Set(['RPE-seduta','Fatica-seduta']);
-  return prg.filter(p=>p.Esercizio==='RPE-seduta'&&p.Valore&&p.Timestamp&&p.N_Seduta)
-    .map(rpe=>{
-      const tEnd=new Date(rpe.Timestamp);
-      if (isNaN(tEnd)) return null;
-      const v=Number(rpe.Valore);
-      if (isNaN(v)) return null;
-      const idG=String(rpe.ID_Giocatrice);
-      const tEndMs=tEnd.getTime();
-      const wellTs=(wel||[])
-        .filter(w=>String(w.ID_Giocatrice)===idG&&w.Timestamp)
-        .map(w=>new Date(w.Timestamp).getTime())
-        .filter(t=>!isNaN(t)&&t<tEndMs&&(tEndMs-t)<=W4H*3)
-        .sort((a,b)=>a-b);
-      let tMin;
-      if (wellTs.length) {
-        tMin=wellTs[0];
-      } else {
-        const winTs=prg
-          .filter(p=>String(p.ID_Giocatrice)===idG&&!SKIP_TS.has(p.Esercizio)&&p.Timestamp)
-          .map(p=>new Date(p.Timestamp).getTime())
-          .filter(t=>!isNaN(t)&&t<=tEndMs&&(tEndMs-t)<=W4H);
-        tMin=winTs.length?Math.min(...winTs):tEndMs;
-      }
-      const durMin=Math.max(0,Math.round((tEndMs-tMin)/60000));
-      return {
-        id_giocatrice:idG, n_seduta:String(rpe.N_Seduta),
-        rpe:v, durata_min:durMin,
-        srpe:durMin>=10?v*durMin:null,
-        timestamp:tEnd.toISOString()
-      };
-    })
-    .filter(Boolean)
-    .sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
+function computeSrpe(prg,wel){
+  const W4H=4*60*60*1000, SKIP_TS=new Set(['RPE-seduta','Fatica-seduta']);
+  return prg.filter(p=>p.Esercizio==='RPE-seduta'&&p.Valore&&p.Timestamp&&p.N_Seduta).map(rpe=>{
+    const tEnd=new Date(rpe.Timestamp); if(isNaN(tEnd))return null;
+    const v=Number(rpe.Valore); if(isNaN(v))return null;
+    const idG=String(rpe.ID_Giocatrice); const tEndMs=tEnd.getTime();
+    const wellTs=(wel||[]).filter(w=>String(w.ID_Giocatrice)===idG&&w.Timestamp).map(w=>new Date(w.Timestamp).getTime()).filter(t=>!isNaN(t)&&t<tEndMs&&(tEndMs-t)<=W4H*3).sort((a,b)=>a-b);
+    let tMin;
+    if(wellTs.length){tMin=wellTs[0];}
+    else{const winTs=prg.filter(p=>String(p.ID_Giocatrice)===idG&&!SKIP_TS.has(p.Esercizio)&&p.Timestamp).map(p=>new Date(p.Timestamp).getTime()).filter(t=>!isNaN(t)&&t<=tEndMs&&(tEndMs-t)<=W4H);tMin=winTs.length?Math.min(...winTs):tEndMs;}
+    const durMin=Math.max(0,Math.round((tEndMs-tMin)/60000));
+    return{id_giocatrice:idG,n_seduta:String(rpe.N_Seduta),rpe:v,durata_min:durMin,srpe:durMin>=10?v*durMin:null,timestamp:tEnd.toISOString()};
+  }).filter(Boolean).sort((a,b)=>new Date(b.timestamp)-new Date(a.timestamp));
 }
-
-function renderSrpeTable() {
-  const tbody=document.getElementById('srpe-body');
-  const recent=srpeData.slice(0,20);
-  if (!recent.length) {
-    tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-muted)">Nessuna sessione con RPE registrato.</td></tr>';
-    return;
-  }
+function renderSrpeTable(){
+  const tbody=document.getElementById('srpe-body');const recent=srpeData.slice(0,20);
+  if(!recent.length){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-muted)">Nessuna sessione con RPE registrato.</td></tr>';return;}
   tbody.innerHTML=recent.map(s=>{
     const nome=atletaMap[s.id_giocatrice]||'ID '+s.id_giocatrice;
     const durStr=s.durata_min>=10?s.durata_min+' min':'—';
     const srpeStr=s.srpe!==null?String(s.srpe):'—';
     const cls=s.srpe>800?'srpe-r':s.srpe>400?'srpe-y':s.srpe!==null?'srpe-v':'';
-    return `<tr>
-      <td>${esc(fmtTs(s.timestamp))}</td>
-      <td><div class="td-athlete">${avHtml(nome)}${esc(nome)}</div></td>
-      <td>${esc(s.n_seduta)}</td>
-      <td>${s.rpe}</td>
-      <td>${durStr}</td>
-      <td class="td-val ${cls}">${srpeStr}</td>
-    </tr>`;
+    return `<tr><td>${esc(fmtTs(s.timestamp))}</td><td><div class="td-athlete">${avHtml(nome)}${esc(nome)}</div></td><td>${esc(s.n_seduta)}</td><td>${s.rpe}</td><td>${durStr}</td><td class="td-val ${cls}">${srpeStr}</td></tr>`;
   }).join('');
 }
 
-// ── Compliance ─────────────────────────────────────────────────────────────────
-function renderCompliance() {
+// ── COMPLIANCE ─────────────────────────────────────────────────────────────────
+function renderCompliance(){
   const cont=document.getElementById('lista-compliance');
-  const ora=new Date();
-  const cut7=new Date(ora); cut7.setDate(ora.getDate()-7);
+  const ora=new Date(); const cut7=new Date(ora); cut7.setDate(ora.getDate()-7);
   const SKIP_C=new Set(['RPE-seduta','Fatica-seduta','Peso-corporeo']);
-
   const dati=giocatrici.map(g=>{
-    const pAll  =progressi.filter(p=>String(p.ID_Giocatrice)===String(g.ID)&&p.Valore);
+    const pAll=progressi.filter(p=>String(p.ID_Giocatrice)===String(g.ID)&&p.Valore);
     const pEserc=pAll.filter(p=>!SKIP_C.has(p.Esercizio));
     let ultimoTs=null;
-    pEserc.forEach(p=>{ const ts=p.Timestamp?new Date(p.Timestamp):null; if(ts&&(!ultimoTs||ts>ultimoTs))ultimoTs=ts; });
+    pEserc.forEach(p=>{const ts=p.Timestamp?new Date(p.Timestamp):null;if(ts&&(!ultimoTs||ts>ultimoTs))ultimoTs=ts;});
     const gg=ultimoTs?Math.floor((ora-ultimoTs)/86400000):null;
-    const sedSett=new Set(
-      pEserc.filter(p=>{ const ts=p.Timestamp?new Date(p.Timestamp):null; return ts&&ts>=cut7; }).map(p=>p.N_Seduta)
-    ).size;
-    const rpeVals=pAll
-      .filter(p=>p.Esercizio==='RPE-seduta'&&p.Timestamp&&new Date(p.Timestamp)>=cut7)
-      .map(p=>Number(p.Valore)).filter(v=>!isNaN(v));
+    const sedSett=new Set(pEserc.filter(p=>{const ts=p.Timestamp?new Date(p.Timestamp):null;return ts&&ts>=cut7;}).map(p=>p.N_Seduta)).size;
+    const rpeVals=pAll.filter(p=>p.Esercizio==='RPE-seduta'&&p.Timestamp&&new Date(p.Timestamp)>=cut7).map(p=>Number(p.Valore)).filter(v=>!isNaN(v));
     const rpe=rpeVals.length?(rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length).toFixed(1):null;
     const stato=gg===null?'mai':gg>7?'rosso':gg>3?'giallo':'verde';
     const ultimoLbl=gg===null?'mai':gg===0?'oggi':gg===1?'ieri':gg+'gg fa';
     const srpeG=srpeData.filter(s=>s.id_giocatrice===String(g.ID));
     const srpe7=srpeG.filter(s=>new Date(s.timestamp)>=cut7&&s.srpe!==null).reduce((sum,s)=>sum+s.srpe,0);
     const lstSRPE=srpeG[0];
-    return {nome:g.Nome,stato,ultimoLbl,sedSett,rpe,srpe7:srpe7||null,lstSRPE};
+    return{nome:g.Nome,stato,ultimoLbl,sedSett,rpe,srpe7:srpe7||null,lstSRPE};
   }).sort((a,b)=>({mai:0,rosso:1,giallo:2,verde:3}[a.stato]-{mai:0,rosso:1,giallo:2,verde:3}[b.stato]));
-
   cont.innerHTML=dati.map(d=>`
     <div class="comp-card">
       ${avHtml(d.nome,true)}
       <div class="comp-info">
         <div class="comp-nome">${esc(d.nome)}</div>
-        <div class="comp-status">
-          <div class="status-dot ${d.stato}"></div>
-          <span class="status-text">ultimo: <strong>${d.ultimoLbl}</strong></span>
-        </div>
+        <div class="comp-status"><div class="status-dot ${d.stato}"></div><span class="status-text">ultimo: <strong>${d.ultimoLbl}</strong></span></div>
         <div class="metric-pills">
           <span class="mpill">sed. 7gg <strong>${d.sedSett}</strong></span>
           ${d.rpe!==null?`<span class="mpill">RPE <strong>${d.rpe}</strong></span>`:''}
@@ -1063,22 +1511,10 @@ function renderCompliance() {
 }
 
 // ── Utility ────────────────────────────────────────────────────────────────────
-function fmtDate(s) {
-  if (!s) return '';
-  const d=new Date(s);
-  if (isNaN(d)) return String(s);
-  return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
-}
-function fmtTs(s) {
-  if (!s) return '';
-  const d=new Date(s);
-  if (isNaN(d)) return String(s);
-  return d.getDate()+'/'+(d.getMonth()+1)+' '+
-    String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
-}
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+function parseValore(v){const m=String(v||'').match(/[\d]+(?:[.,]\d+)?/);return m?parseFloat(m[0].replace(',','.')):NaN;}
+function fmtDate(s){if(!s)return'';const d=new Date(s);if(isNaN(d))return String(s);return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();}
+function fmtTs(s){if(!s)return'';const d=new Date(s);if(isNaN(d))return String(s);return d.getDate()+'/'+(d.getMonth()+1)+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 </script>
 </body>
 </html>
