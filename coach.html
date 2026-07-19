@@ -399,6 +399,32 @@
     .campo textarea { min-height: 80px; resize: vertical; }
     .date-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
+    /* ── Email tab ── */
+    .em-layout { display:grid; grid-template-columns:190px 1fr; gap:16px; min-height:calc(100vh - 120px); }
+    .em-list { border:1px solid var(--border); border-radius:var(--radius); overflow-y:auto; background:var(--surface); align-self:start; max-height:calc(100vh - 120px); }
+    .em-item { display:flex; align-items:center; gap:8px; padding:9px 12px; cursor:pointer; border-bottom:1px solid var(--border); font-size:0.82rem; transition:background .12s; user-select:none; }
+    .em-item:last-child { border-bottom:none; }
+    .em-item:hover { background:var(--surface2); }
+    .em-item.sel { background:var(--accent-bg); box-shadow:inset 2px 0 0 var(--accent); }
+    .em-item.sent .em-nome { opacity:.6; }
+    .em-tick { margin-left:auto; color:var(--green); font-size:0.7rem; font-weight:700; }
+    .em-preview-col { display:flex; flex-direction:column; gap:12px; overflow-y:auto; max-height:calc(100vh - 120px); padding-right:2px; }
+    .em-preview-wrap { background:#fff; border-radius:10px; overflow:hidden; box-shadow:0 2px 20px rgba(0,0,0,.35); flex-shrink:0; }
+    .em-empty { display:flex; align-items:center; justify-content:center; min-height:280px; color:var(--text-muted); font-size:0.9rem; border:1px solid var(--border); border-radius:var(--radius); }
+    .em-note-section { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; flex-shrink:0; }
+    .em-note-section textarea { width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); padding:10px 12px; font-size:0.85rem; resize:vertical; min-height:70px; font-family:inherit; margin:8px 0 10px; }
+    .em-note-section textarea:focus { outline:none; border-color:var(--accent); }
+    .em-existing { background:var(--accent-bg); border-left:2px solid var(--accent); padding:8px 12px; border-radius:0 6px 6px 0; margin-bottom:10px; font-size:0.82rem; color:var(--text); }
+    .em-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .btn-sm { padding:7px 14px; background:var(--surface2); border:1px solid var(--border); border-radius:6px; color:var(--text); font-size:0.8rem; font-weight:600; cursor:pointer; transition:background .12s; white-space:nowrap; }
+    .btn-sm:hover { background:var(--surface); border-color:var(--text-muted); }
+    .btn-sm:disabled { opacity:.4; cursor:default; }
+    .btn-sm.accent { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .btn-sm.accent:hover { opacity:.88; }
+    .em-status { font-size:0.78rem; color:var(--text-muted); }
+    .em-header-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+    .em-counter { font-size:0.78rem; color:var(--text-muted); }
+
     /* ── Buttons ── */
     .btn-primary {
       width: 100%;
@@ -644,6 +670,9 @@
     <button class="nav-item" id="nav-compliance" onclick="mostraTab('compliance')">
       <span class="nav-icon">✅</span> Compliance
     </button>
+    <button class="nav-item" id="nav-email" onclick="mostraTab('email')">
+      <span class="nav-icon">✉️</span> Email
+    </button>
 
     <div class="nav-label" style="margin-top:14px">Report</div>
     <a class="nav-item" id="link-report" href="report.html?coach=mv26-coach-8pL2wK" target="_blank">
@@ -888,6 +917,22 @@
       </div>
     </div>
 
+    <!-- ── TAB EMAIL ── -->
+    <div id="tab-email" class="tab-pnl">
+      <div class="em-header-bar">
+        <span class="em-counter" id="em-counter">0 / 0 inviate</span>
+        <button class="btn-sm accent" onclick="inviaEmailTutte()" id="em-btn-tutte" style="display:none">✉️ Invia tutte le rimanenti</button>
+      </div>
+      <div class="em-layout">
+        <div class="em-list" id="em-atleta-list">
+          <p style="padding:14px;color:var(--text-muted);font-size:0.82rem">Caricamento…</p>
+        </div>
+        <div class="em-preview-col" id="em-preview-col">
+          <div class="em-empty">← Seleziona un'atleta dalla lista</div>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /main-content -->
 </div><!-- /main -->
 
@@ -970,6 +1015,7 @@ async function init() {
     renderCompliance();
     renderSrpeTable();
     buildCal(calYear, calMonth);
+    renderEmailTab();
   } catch(err) {
     document.getElementById('lista-note').innerHTML=
       `<p style="color:var(--red)">Errore: ${esc(err.message)}</p>`;
@@ -1007,8 +1053,8 @@ function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebar-overlay').classList.remove('open');
 }
-const PAGE_TITLES={dashboard:'Dashboard',note:'Note',calendario:'Calendario',analisi:'Analisi',storico:'Storico',compliance:'Compliance'};
-const ALL_TABS=['dashboard','note','calendario','analisi','storico','compliance'];
+const PAGE_TITLES={dashboard:'Dashboard',note:'Note',calendario:'Calendario',analisi:'Analisi',storico:'Storico',compliance:'Compliance',email:'Email atlete'};
+const ALL_TABS=['dashboard','note','calendario','analisi','storico','compliance','email'];
 function mostraTab(nome) {
   ALL_TABS.forEach(n=>{
     document.getElementById('nav-'+n).classList.toggle('active',n===nome);
@@ -1508,6 +1554,303 @@ function renderCompliance(){
         </div>
       </div>
     </div>`).join('');
+}
+
+// ── EMAIL TAB ─────────────────────────────────────────────────────────────────
+const emailInviate = new Set();
+
+function renderEmailTab() {
+  const el = document.getElementById('em-atleta-list');
+  if (!giocatrici.length) return;
+  el.innerHTML = giocatrici.map(g => {
+    const sent = emailInviate.has(String(g.ID));
+    return `<div class="em-item${sent?' sent':''}" id="em-item-${g.ID}" onclick="selectEmailAtleta('${g.ID}')">
+      ${avHtml(g.Nome)}
+      <span class="em-nome" style="font-size:.82rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(g.Nome.split(' ')[0])}</span>
+      ${sent ? '<span class="em-tick">✓</span>' : ''}
+    </div>`;
+  }).join('');
+  aggiornaContatore();
+  document.getElementById('em-btn-tutte').style.display = '';
+}
+
+function aggiornaContatore() {
+  const tot = giocatrici.length;
+  const inv = emailInviate.size;
+  document.getElementById('em-counter').textContent = `${inv} / ${tot} inviate`;
+}
+
+function selectEmailAtleta(id) {
+  document.querySelectorAll('.em-item').forEach(el => el.classList.toggle('sel', el.id === 'em-item-'+id));
+  const g = giocatrici.find(x => String(x.ID) === String(id));
+  if (!g) return;
+  const previewHtml = buildEmailHtmlBrowser(g);
+  const noteEsistenti = getNoteAttiveAtleta(id);
+  const sent = emailInviate.has(String(id));
+  document.getElementById('em-preview-col').innerHTML = `
+    <div class="em-preview-wrap">${previewHtml}</div>
+    <div class="em-note-section">
+      <p style="font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em">Nota coach — ${esc(g.Nome.split(' ')[0])}</p>
+      ${noteEsistenti.length ? `<div class="em-existing">${noteEsistenti.map(n=>`<div>→ ${esc(n)}</div>`).join('')}</div>` : ''}
+      <textarea id="em-nota-input" placeholder="Scrivi una nota che apparirà nell'email di ${esc(g.Nome.split(' ')[0])}…"></textarea>
+      <div class="em-actions">
+        <button class="btn-sm" onclick="salvaNotaEmail('${id}')">💾 Salva nota</button>
+        <button class="btn-sm accent" onclick="inviaEmailAtleta('${id}')" id="em-send-btn-${id}"${sent?' disabled':''}>
+          ${sent ? '✓ Inviata' : '✉️ Invia a '+esc(g.Nome.split(' ')[0])}
+        </button>
+        <span class="em-status" id="em-status-${id}">${sent ? (IS_DEV?'(test inviato al coach)':'email consegnata') : ''}</span>
+      </div>
+    </div>`;
+}
+
+function getNoteAttiveAtleta(id) {
+  const oggi = new Date(); oggi.setHours(0,0,0,0);
+  return tutteNote.filter(n => {
+    if (String(n.id_giocatrice) !== String(id) && n.id_giocatrice !== 'TUTTE') return false;
+    const ini = n.data_inizio ? new Date(n.data_inizio) : null;
+    const fin = n.data_fine   ? new Date(n.data_fine)   : null;
+    if (ini) { const d=new Date(ini); d.setHours(0,0,0,0); if(oggi<d) return false; }
+    if (fin) { const d=new Date(fin); d.setHours(23,59,59,999); if(oggi>d) return false; }
+    return true;
+  }).map(n=>String(n.testo||'').trim()).filter(Boolean);
+}
+
+async function salvaNotaEmail(id) {
+  const inp = document.getElementById('em-nota-input');
+  const testo = inp?.value?.trim();
+  if (!testo) return;
+  inp.disabled = true;
+  await apiPost({azione:'scrivi_nota_coach', id_giocatrice:String(id), tipo:'settimanale', testo});
+  const res = await apiGet('leggi_tutte_note');
+  if (res.ok) tutteNote = res.note || [];
+  renderNote();
+  selectEmailAtleta(id); // refresh preview con nota aggiornata
+}
+
+async function inviaEmailAtleta(id) {
+  const btn = document.getElementById('em-send-btn-'+id);
+  const sta = document.getElementById('em-status-'+id);
+  if (btn) { btn.disabled=true; btn.textContent='Invio…'; }
+  try {
+    const res = await apiPost({azione:'invia_atleta', id:String(id)});
+    if (res.ok) {
+      emailInviate.add(String(id));
+      if (btn) btn.textContent = '✓ Inviata';
+      if (sta) { sta.textContent = IS_DEV ? '(test inviato a '+res.dest+')' : 'email consegnata'; sta.style.color='var(--green)'; }
+      const item = document.getElementById('em-item-'+id);
+      if (item) { item.classList.add('sent'); if (!item.querySelector('.em-tick')) item.insertAdjacentHTML('beforeend','<span class="em-tick">✓</span>'); }
+      aggiornaContatore();
+    } else {
+      if (btn) { btn.disabled=false; btn.textContent='✉️ Riprova'; }
+      if (sta) { sta.textContent='Errore: '+(res.errore||'sconosciuto'); sta.style.color='var(--red)'; }
+    }
+  } catch(e) {
+    if (btn) { btn.disabled=false; btn.textContent='✉️ Riprova'; }
+    if (sta) { sta.textContent='Errore di rete'; sta.style.color='var(--red)'; }
+  }
+}
+
+async function inviaEmailTutte() {
+  const rimanenti = giocatrici.filter(g => !emailInviate.has(String(g.ID)));
+  if (!rimanenti.length) return;
+  if (!confirm(`Invia email a ${rimanenti.length} atlete rimanenti?`)) return;
+  const btn = document.getElementById('em-btn-tutte');
+  btn.disabled = true;
+  btn.textContent = 'Invio in corso…';
+  for (const g of rimanenti) {
+    await inviaEmailAtleta(String(g.ID));
+    await new Promise(r=>setTimeout(r,800)); // pausa tra invii
+  }
+  btn.textContent = '✓ Tutte inviate';
+}
+
+// ── Email HTML builder (porta buildRiepilogoIT_/EN_ dal server) ────────────────
+function buildEmailHtmlBrowser(g) {
+  const id = String(g.ID);
+  const ora = new Date();
+  const cut7 = new Date(ora); cut7.setDate(ora.getDate()-7);
+  const SKIP_E = new Set(['RPE-seduta','Fatica-seduta','Peso-corporeo']);
+  const pAll  = progressi.filter(p=>String(p.ID_Giocatrice)===id && p.Valore);
+  const pSett = pAll.filter(p=>{const d=new Date(p.Timestamp);return d>=cut7&&d<=ora;});
+
+  // Sedute per-sessione
+  const seduteMap={};
+  pSett.filter(p=>p.N_Seduta&&p.N_Seduta!=='?').forEach(p=>{
+    if(!seduteMap[p.N_Seduta]) seduteMap[p.N_Seduta]={nome:p.N_Seduta,rpe:null,fatica:null,ts:null};
+    const ts=new Date(p.Timestamp);
+    if(!seduteMap[p.N_Seduta].ts||ts<seduteMap[p.N_Seduta].ts) seduteMap[p.N_Seduta].ts=ts;
+    if(p.Esercizio==='RPE-seduta')    {const v=Number(p.Valore);if(!isNaN(v)&&v>0) seduteMap[p.N_Seduta].rpe=v;}
+    if(p.Esercizio==='Fatica-seduta') {const v=Number(p.Valore);if(!isNaN(v)&&v>0) seduteMap[p.N_Seduta].fatica=v;}
+  });
+  const sedute=Object.values(seduteMap).sort((a,b)=>(a.ts||0)-(b.ts||0));
+
+  // Top 5 carichi
+  const maxPerEs={};
+  pSett.filter(p=>!SKIP_E.has(p.Esercizio)).forEach(p=>{
+    const m=String(p.Valore).match(/[\d.]+/);if(!m)return;
+    const kg=parseFloat(m[0]),stima=String(p.Valore).includes('~');
+    if(!maxPerEs[p.Esercizio]||kg>maxPerEs[p.Esercizio].kg) maxPerEs[p.Esercizio]={kg,stima};
+  });
+  const topCarichi=Object.entries(maxPerEs).sort((a,b)=>b[1].kg-a[1].kg).slice(0,5);
+  const hasManual=pSett.some(p=>p.N_Seduta==='?'&&!SKIP_E.has(p.Esercizio));
+
+  // Wellness medio
+  const wSett=wellness.filter(w=>String(w.ID_Giocatrice)===id&&w.Timestamp&&new Date(w.Timestamp)>=cut7&&new Date(w.Timestamp)<=ora);
+  const avgW=arr=>arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:null;
+  const sonno  =avgW(wSett.map(w=>Number(w.Qualita_Sonno)).filter(v=>!isNaN(v)&&v>0));
+  const dolori =avgW(wSett.map(w=>Number(w.Dolori)).filter(v=>!isNaN(v)&&v>0));
+  const energia=avgW(wSett.map(w=>Number(w.Energia)).filter(v=>!isNaN(v)&&v>0));
+
+  // Note attive
+  const noteAtleta=getNoteAttiveAtleta(id);
+
+  // Settimana label
+  const fmt=d=>d.getDate()+'/'+(d.getMonth()+1);
+  const dow=ora.getDay();
+  const lune=new Date(ora);lune.setDate(ora.getDate()-((dow===0?7:dow)-1));lune.setHours(0,0,0,0);
+  const luneScorso=new Date(lune);luneScorso.setDate(lune.getDate()-7);
+  const domScorso=new Date(lune);domScorso.setMilliseconds(-1);
+  const settLabel=fmt(luneScorso)+'–'+fmt(domScorso)+' '+domScorso.getFullYear();
+  const nome=g.Nome?g.Nome.split(' ')[0]:g.Nome;
+  const lingua=String(g.Lingua||'').trim().toUpperCase()==='EN'?'EN':'IT';
+  return lingua==='EN'
+    ? buildEmailEN_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,energia,noteAtleta,id)
+    : buildEmailIT_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,energia,noteAtleta,id);
+}
+
+function buildEmailIT_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,energia,noteAtleta,idG) {
+  const BASE=IS_DEV?'https://pamangiapane-lgtm.github.io/schede-allenamento/dev/':'https://pamangiapane-lgtm.github.io/schede-allenamento/';
+  const f1=v=>(v!==null&&v!==undefined)?Number(v).toFixed(1):null;
+  const rC=v=>!v?'#cbd5e1':v>=8?'#dc2626':v>=7?'#ea580c':v>=6?'#d97706':'#16a34a';
+  const fC=v=>!v?'#cbd5e1':v>=4?'#dc2626':v>=3?'#d97706':'#16a34a';
+  const wC=v=>v===null?'#94a3b8':v>=4?'#1a3a6b':v>=3?'#d97706':'#dc2626';
+  const dC=v=>v===null?'#94a3b8':v<=1.5?'#16a34a':v<=2.5?'#d97706':'#dc2626';
+  const e=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  const seduteHtml=sedute.length
+    ?'<div style="border:1px solid #e8edf5;border-radius:8px;overflow:hidden;margin-bottom:18px">'+
+      sedute.map((s,i)=>{
+        const bg=i%2===1?'background:#fafbfd;':'';
+        const bdr=i<sedute.length-1?'border-bottom:1px solid #f1f5f9;':'';
+        const rv=s.rpe!==null?s.rpe+'<span style="font-size:.65rem;font-weight:400;color:#94a3b8">/10</span>':'&mdash;';
+        const fv=s.fatica!==null?s.fatica+'<span style="font-size:.65rem;font-weight:400;color:#94a3b8">/5</span>':'&mdash;';
+        return `<div style="display:flex;align-items:center;padding:10px 14px;gap:10px;${bg}${bdr}">
+          <span style="background:#e8f0fb;color:#1a3a6b;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.05em;white-space:nowrap">${e(s.nome)}</span>
+          <span style="flex:1;height:1px;background:#eef1f7"></span>
+          <span style="font-size:.68rem;color:#94a3b8;margin-right:3px">RPE</span>
+          <span style="font-size:.88rem;font-weight:700;color:${rC(s.rpe)};min-width:34px;text-align:right">${rv}</span>
+          <span style="width:1px;height:14px;background:#e2e8f0;display:inline-block;margin:0 6px"></span>
+          <span style="font-size:.68rem;color:#94a3b8;margin-right:3px">Fatica</span>
+          <span style="font-size:.88rem;font-weight:700;color:${fC(s.fatica)};min-width:24px;text-align:right">${fv}</span>
+        </div>`;
+      }).join('')+'</div>'
+    :'<div style="background:#fef2f2;border-radius:8px;padding:12px 16px;margin-bottom:18px"><p style="margin:0;font-size:.82rem;color:#dc2626">Nessuna seduta registrata questa settimana</p></div>';
+
+  const wVal=(v,c)=>v!==null
+    ?`<div style="font-size:1.25rem;font-weight:700;color:${c};line-height:1">${f1(v)}<span style="font-size:.75rem;font-weight:400;color:#94a3b8">/5</span></div>`
+    :'<div style="font-size:1.25rem;font-weight:700;color:#94a3b8;line-height:1">&mdash;</div>';
+  const wHtml=(sonno!==null||dolori!==null||energia!==null)
+    ?'<p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Wellness medio</p>'+
+     '<div style="border:1px solid #e8edf5;border-radius:8px;display:flex;margin-bottom:18px;overflow:hidden">'+
+     `<div style="flex:1;padding:12px 8px;text-align:center;border-right:1px solid #e8edf5">${wVal(sonno,wC(sonno))}<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Sonno</div></div>`+
+     `<div style="flex:1;padding:12px 8px;text-align:center;border-right:1px solid #e8edf5">${wVal(dolori,dC(dolori))}<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Dolori ↓</div></div>`+
+     `<div style="flex:1;padding:12px 8px;text-align:center">${wVal(energia,wC(energia))}<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Energia</div></div>`+
+     '</div>':'' ;
+
+  const cRighe=topCarichi.length
+    ?topCarichi.map(([es,d],i)=>`<tr${i<topCarichi.length-1?' style="border-bottom:1px solid #f1f5f9"':''}><td style="padding:7px 4px 7px 0;font-size:.82rem;color:#334155">${e(es)}</td><td style="padding:7px 0;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem;font-variant-numeric:tabular-nums">${d.stima?'~':''}${d.kg} kg</td></tr>`).join('')
+    :'<tr><td colspan="2" style="padding:8px 4px;color:#94a3b8;font-size:.82rem;font-style:italic">Nessun esercizio registrato questa settimana</td></tr>';
+  const cFoot=topCarichi.length
+    ?`<p style="font-size:.68rem;color:#94a3b8;font-style:italic;padding-top:6px;border-top:1px solid #f1f5f9">${hasManual?'Carichi aggiunti manualmente &middot; massimali corretti in app':'~ valore stimato in seduta &middot; nessun massimale aggiornato manualmente'}</p>`:'' ;
+
+  const nHtml=noteAtleta.length
+    ?'<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin-top:16px;border-radius:0 6px 6px 0">'+
+     '<p style="margin:0 0 4px;font-size:.7rem;font-weight:700;color:#1a3a6b;letter-spacing:.04em">NOTA COACH</p>'+
+     noteAtleta.map(n=>`<p style="margin:4px 0 0;font-size:.84rem;color:#334155">${e(n)}</p>`).join('')+'</div>':'';
+
+  return `<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">
+    <div style="background:#1a3a6b;color:#fff;padding:18px 20px">
+      <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Riepilogo settimanale</p>
+      <h2 style="margin:0;font-size:1.1rem;font-weight:700">Ciao ${e(nome)}!</h2>
+      <p style="margin:4px 0 0;font-size:.78rem;opacity:.7">Settimana ${settLabel}</p>
+    </div>
+    <div style="padding:18px 20px;border:1px solid #e8edf5;border-top:none">
+      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Sedute settimana</p>
+      ${seduteHtml}${wHtml}
+      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Carichi settimana</p>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tbody>${cRighe}</tbody></table>
+      ${cFoot}${nHtml}
+      <div style="text-align:center;margin-top:22px">
+        <a href="${BASE}scheda.html?id=${idG}" style="display:inline-block;background:#1a3a6b;color:#fff;padding:11px 28px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Apri la mia scheda &#x2192;</a>
+      </div>
+      <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Generato automaticamente ogni lunedì</p>
+    </div>
+  </div>`;
+}
+
+function buildEmailEN_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,energia,noteAtleta,idG) {
+  const BASE=IS_DEV?'https://pamangiapane-lgtm.github.io/schede-allenamento/dev/':'https://pamangiapane-lgtm.github.io/schede-allenamento/';
+  const f1=v=>(v!==null&&v!==undefined)?Number(v).toFixed(1):null;
+  const rC=v=>!v?'#cbd5e1':v>=8?'#dc2626':v>=7?'#ea580c':v>=6?'#d97706':'#16a34a';
+  const fC=v=>!v?'#cbd5e1':v>=4?'#dc2626':v>=3?'#d97706':'#16a34a';
+  const wC=v=>v===null?'#94a3b8':v>=4?'#1a3a6b':v>=3?'#d97706':'#dc2626';
+  const dC=v=>v===null?'#94a3b8':v<=1.5?'#16a34a':v<=2.5?'#d97706':'#dc2626';
+  const e=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  const seduteHtml=sedute.length
+    ?'<div style="border:1px solid #e8edf5;border-radius:8px;overflow:hidden;margin-bottom:18px">'+
+      sedute.map((s,i)=>{
+        const bg=i%2===1?'background:#fafbfd;':'';const bdr=i<sedute.length-1?'border-bottom:1px solid #f1f5f9;':'';
+        const rv=s.rpe!==null?s.rpe+'<span style="font-size:.65rem;font-weight:400;color:#94a3b8">/10</span>':'&mdash;';
+        const fv=s.fatica!==null?s.fatica+'<span style="font-size:.65rem;font-weight:400;color:#94a3b8">/5</span>':'&mdash;';
+        return `<div style="display:flex;align-items:center;padding:10px 14px;gap:10px;${bg}${bdr}">
+          <span style="background:#e8f0fb;color:#1a3a6b;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.05em;white-space:nowrap">${e(s.nome)}</span>
+          <span style="flex:1;height:1px;background:#eef1f7"></span>
+          <span style="font-size:.68rem;color:#94a3b8;margin-right:3px">RPE</span>
+          <span style="font-size:.88rem;font-weight:700;color:${rC(s.rpe)};min-width:34px;text-align:right">${rv}</span>
+          <span style="width:1px;height:14px;background:#e2e8f0;display:inline-block;margin:0 6px"></span>
+          <span style="font-size:.68rem;color:#94a3b8;margin-right:3px">Fatigue</span>
+          <span style="font-size:.88rem;font-weight:700;color:${fC(s.fatica)};min-width:24px;text-align:right">${fv}</span>
+        </div>`;
+      }).join('')+'</div>'
+    :'<div style="background:#fef2f2;border-radius:8px;padding:12px 16px;margin-bottom:18px"><p style="margin:0;font-size:.82rem;color:#dc2626">No sessions logged this week</p></div>';
+
+  const wVal=(v,c)=>v!==null?`<div style="font-size:1.25rem;font-weight:700;color:${c};line-height:1">${f1(v)}<span style="font-size:.75rem;font-weight:400;color:#94a3b8">/5</span></div>`:'<div style="font-size:1.25rem;font-weight:700;color:#94a3b8;line-height:1">&mdash;</div>';
+  const wHtml=(sonno!==null||dolori!==null||energia!==null)
+    ?'<p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Avg wellness</p>'+
+     '<div style="border:1px solid #e8edf5;border-radius:8px;display:flex;margin-bottom:18px;overflow:hidden">'+
+     `<div style="flex:1;padding:12px 8px;text-align:center;border-right:1px solid #e8edf5">${wVal(sonno,wC(sonno))}<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Sleep</div></div>`+
+     `<div style="flex:1;padding:12px 8px;text-align:center;border-right:1px solid #e8edf5">${wVal(dolori,dC(dolori))}<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Pain ↓</div></div>`+
+     `<div style="flex:1;padding:12px 8px;text-align:center">${wVal(energia,wC(energia))}<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">Energy</div></div>`+
+     '</div>':'';
+
+  const cRighe=topCarichi.length
+    ?topCarichi.map(([es,d],i)=>`<tr${i<topCarichi.length-1?' style="border-bottom:1px solid #f1f5f9"':''}><td style="padding:7px 4px 7px 0;font-size:.82rem;color:#334155">${e(es)}</td><td style="padding:7px 0;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem;font-variant-numeric:tabular-nums">${d.stima?'~':''}${d.kg} kg</td></tr>`).join('')
+    :'<tr><td colspan="2" style="padding:8px 4px;color:#94a3b8;font-size:.82rem;font-style:italic">No exercises logged this week</td></tr>';
+  const cFoot=topCarichi.length?`<p style="font-size:.68rem;color:#94a3b8;font-style:italic;padding-top:6px;border-top:1px solid #f1f5f9">${hasManual?'Manually added loads &middot; maxes updated':'~ estimated in session &middot; no manual max logged'}</p>`:'';
+  const nHtml=noteAtleta.length
+    ?'<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin-top:16px;border-radius:0 6px 6px 0">'+
+     '<p style="margin:0 0 4px;font-size:.7rem;font-weight:700;color:#1a3a6b;letter-spacing:.04em">COACH NOTE</p>'+
+     noteAtleta.map(n=>`<p style="margin:4px 0 0;font-size:.84rem;color:#334155">${e(n)}</p>`).join('')+'</div>':'';
+
+  return `<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">
+    <div style="background:#1a3a6b;color:#fff;padding:18px 20px">
+      <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Weekly summary</p>
+      <h2 style="margin:0;font-size:1.1rem;font-weight:700">Hi ${e(nome)}!</h2>
+      <p style="margin:4px 0 0;font-size:.78rem;opacity:.7">Week ${settLabel}</p>
+    </div>
+    <div style="padding:18px 20px;border:1px solid #e8edf5;border-top:none">
+      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Sessions this week</p>
+      ${seduteHtml}${wHtml}
+      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Weekly loads</p>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tbody>${cRighe}</tbody></table>
+      ${cFoot}${nHtml}
+      <div style="text-align:center;margin-top:22px">
+        <a href="${BASE}scheda.html?id=${idG}" style="display:inline-block;background:#1a3a6b;color:#fff;padding:11px 28px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Open my program &#x2192;</a>
+      </div>
+      <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Sent automatically every Monday</p>
+    </div>
+  </div>`;
 }
 
 // ── Utility ────────────────────────────────────────────────────────────────────
