@@ -1449,6 +1449,69 @@ function drawBubbleChart_(slide, vals, labels, startX, startY, chartW, chartH, t
   });
 }
 
+// ── MONITOR PROD ─────────────────────────────────────────────────────────────
+
+function monitoraProd() {
+  if (TOKEN === 'mv26-dev-9kR4tLqB') return; // disabilitato in DEV
+  try {
+    const url  = PROD_API_URL + '?token=mv26-prd-3xF7wNqK&azione=leggi&foglio=Giocatrici';
+    const resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true, followRedirects: true });
+    const code = resp.getResponseCode();
+    let ok = false;
+    if (code === 200) {
+      try { ok = JSON.parse(resp.getContentText()).ok === true; } catch(e) {}
+    }
+    if (!ok) {
+      const ora = Utilities.formatDate(new Date(), 'Europe/Rome', 'dd/MM/yyyy HH:mm');
+      MailApp.sendEmail({
+        to: EMAIL_COACH,
+        subject: '🚨 Marsala Volley — APP OFFLINE · ' + ora,
+        htmlBody: '<div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto">' +
+          '<div style="background:#dc2626;color:#fff;padding:16px 20px;border-radius:8px 8px 0 0">' +
+          '<p style="margin:0 0 2px;font-size:.65rem;opacity:.7;letter-spacing:.1em;text-transform:uppercase">Marsala Volley · Monitor automatico</p>' +
+          '<h2 style="margin:0;font-size:1.1rem;font-weight:700">⚠ App non raggiungibile</h2></div>' +
+          '<div style="border:1px solid #fecaca;border-top:none;padding:16px 20px">' +
+          '<p style="margin:0 0 10px;font-size:.85rem;color:#7f1d1d">Rilevato alle <b>' + ora + '</b></p>' +
+          '<p style="margin:0 0 10px;font-size:.82rem;color:#334155">HTTP ' + code + ' — la PROD API non risponde correttamente.</p>' +
+          '<p style="margin:0;font-size:.82rem;color:#334155">Controlla lo script PROD su Google Apps Script e verifica che non ci siano errori di esecuzione.</p>' +
+          '</div>' +
+          '<div style="border:1px solid #fecaca;border-top:none;padding:12px 20px;background:#fef2f2;border-radius:0 0 8px 8px">' +
+          '<p style="margin:0;font-size:.72rem;color:#991b1b">Monitor ogni 30 min · Marsala Volley 2026/27</p>' +
+          '</div></div>'
+      });
+      Logger.log('MONITOR: app offline — HTTP ' + code + ' — email inviata');
+    } else {
+      Logger.log('MONITOR: ok — ' + new Date().toISOString());
+    }
+  } catch (ex) {
+    const ora = Utilities.formatDate(new Date(), 'Europe/Rome', 'dd/MM/yyyy HH:mm');
+    MailApp.sendEmail({
+      to: EMAIL_COACH,
+      subject: '🚨 Marsala Volley — APP OFFLINE · ' + ora,
+      htmlBody: '<div style="font-family:Arial,sans-serif;max-width:500px">' +
+        '<div style="background:#dc2626;color:#fff;padding:16px 20px">' +
+        '<h2 style="margin:0;font-size:1.1rem">⚠ App non raggiungibile</h2></div>' +
+        '<div style="padding:16px 20px;border:1px solid #fecaca;border-top:none">' +
+        '<p style="margin:0 0 8px;font-size:.85rem;color:#7f1d1d">Rilevato alle <b>' + ora + '</b></p>' +
+        '<p style="margin:0;font-size:.82rem;color:#334155;font-family:monospace">' + esc_(String(ex)) + '</p>' +
+        '</div></div>'
+    });
+    Logger.log('MONITOR: errore fetch — ' + ex);
+  }
+}
+
+// Esegui UNA VOLTA su PROD per attivare il monitor
+function installaMonitorTrigger() {
+  ScriptApp.getProjectTriggers()
+    .filter(t => t.getHandlerFunction() === 'monitoraProd')
+    .forEach(t => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger('monitoraProd')
+    .timeBased()
+    .everyMinutes(30)
+    .create();
+  Logger.log('Monitor installato — ogni 30 minuti');
+}
+
 // ── BACKUP AUTOMATICO ────────────────────────────────────────────────────────
 
 function creaBackup() {
