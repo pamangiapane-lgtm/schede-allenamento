@@ -307,7 +307,7 @@ function inviaDigest() {
   const sheetN = ss.getSheetByName('Note_Coach');
   if (!sheetG || !sheetP) return;
 
-  const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)));
+  const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)) && String(g.ID) !== '99');
   const progressi  = leggiRighe_(sheetP);
   const wellness   = sheetW ? leggiRighe_(sheetW) : [];
   const noteCoach  = sheetN ? leggiRighe_(sheetN) : [];
@@ -361,7 +361,10 @@ function inviaDigest() {
 
     const noteAtleta = noteAttive
       .filter(n => String(n.ID_Giocatrice) === String(g.ID) || n.ID_Giocatrice === 'TUTTE')
-      .map(n => String(n.Testo).trim()).filter(Boolean);
+      .map(n => {
+        if (lingua === 'EN' && n.Note_EN && String(n.Note_EN).trim()) return String(n.Note_EN).trim();
+        return String(n.Testo).trim();
+      }).filter(Boolean);
 
     return { nome: g.Nome, status, ultimoLabel, seduteSettimana, rpeMedia, rpeVals, volume, sonno, dolori, energia, noteAtleta };
   }).sort((a, b) => {
@@ -569,7 +572,7 @@ function inviaRiepilogoSettimanale() {
   const sheetN = ss.getSheetByName('Note_Coach');
   if (!sheetG || !sheetP) { Logger.log('Fogli mancanti'); return; }
 
-  const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)));
+  const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)) && String(g.ID) !== '99');
   const progressi  = leggiRighe_(sheetP);
   const wellness   = sheetW ? leggiRighe_(sheetW) : [];
   const noteCoach  = sheetN ? leggiRighe_(sheetN) : [];
@@ -639,7 +642,10 @@ function inviaRiepilogoSettimanale() {
 
     const noteAtleta = noteAttive
       .filter(n => String(n.ID_Giocatrice) === String(g.ID) || n.ID_Giocatrice === 'TUTTE')
-      .map(n => String(n.Testo).trim()).filter(Boolean);
+      .map(n => {
+        if (lingua === 'EN' && n.Note_EN && String(n.Note_EN).trim()) return String(n.Note_EN).trim();
+        return String(n.Testo).trim();
+      }).filter(Boolean);
 
     const nome = g.Nome ? g.Nome.split(' ')[0] : String(g.Nome);
     const html = lingua === 'EN'
@@ -925,7 +931,10 @@ function inviaRiepilogoAtleta_(idTarget) {
 
   const noteAtleta = noteAttive
     .filter(n => String(n.ID_Giocatrice) === String(g.ID) || n.ID_Giocatrice === 'TUTTE')
-    .map(n => String(n.Testo).trim()).filter(Boolean);
+    .map(n => {
+      if (lingua === 'EN' && n.Note_EN && String(n.Note_EN).trim()) return String(n.Note_EN).trim();
+      return String(n.Testo).trim();
+    }).filter(Boolean);
 
   const nome = g.Nome ? g.Nome.split(' ')[0] : String(g.Nome);
   const html = lingua === 'EN'
@@ -992,7 +1001,7 @@ function creaSlideSettimanale_() {
   const sheetW = ss.getSheetByName('Wellness');
   if (!sheetG || !sheetP) return;
 
-  const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)));
+  const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)) && String(g.ID) !== '99');
   const progressi  = leggiRighe_(sheetP);
   const wellness   = sheetW ? leggiRighe_(sheetW) : [];
   const sheetN     = ss.getSheetByName('Note_Coach');
@@ -1556,7 +1565,7 @@ function preparaBozzeRiepilogo() {
   const tuttiSedute   = sheetSed ? leggiRighe_(sheetSed)   : [];
   const tuttiEsercizi = sheetEse ? leggiRighe_(sheetEse)   : [];
 
-  const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)));
+  const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)) && String(g.ID) !== '99');
   const progressi  = leggiRighe_(sheetP);
   const wellness   = sheetW ? leggiRighe_(sheetW) : [];
   const ora  = new Date();
