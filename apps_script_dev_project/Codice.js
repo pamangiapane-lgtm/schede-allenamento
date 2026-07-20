@@ -519,11 +519,11 @@ function installaTrigger() {
     .filter(t => t.getHandlerFunction() === 'inviaDigest')
     .forEach(t => ScriptApp.deleteTrigger(t));
 
-  // Lun, Mer, Ven, Sab alle 08:00
-  [[ScriptApp.WeekDay.MONDAY, 8],
-   [ScriptApp.WeekDay.WEDNESDAY, 8],
-   [ScriptApp.WeekDay.FRIDAY, 8],
-   [ScriptApp.WeekDay.SATURDAY, 8]].forEach(([giorno, ora]) => {
+  // Lun, Mer, Ven, Sab alle 20:00
+  [[ScriptApp.WeekDay.MONDAY, 20],
+   [ScriptApp.WeekDay.WEDNESDAY, 20],
+   [ScriptApp.WeekDay.FRIDAY, 20],
+   [ScriptApp.WeekDay.SATURDAY, 20]].forEach(([giorno, ora]) => {
     ScriptApp.newTrigger('inviaDigest')
       .timeBased()
       .onWeekDay(giorno)
