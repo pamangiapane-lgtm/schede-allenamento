@@ -502,7 +502,7 @@ function inviaDigest() {
     <a href="https://claude.ai/code/artifact/e85a1b03-9788-4d9d-ad27-a9ca626c8c4a" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 26px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none;margin-right:8px">Apri report staff →</a>
     <a href="https://pamangiapane-lgtm.github.io/schede-allenamento/report.html?coach=mv26-coach-8pL2wK" style="display:inline-block;background:#f1f5f9;color:#1a3a6b;padding:10px 18px;border-radius:6px;font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid #e2e8f0">Coach dashboard</a>
   </div>
-  <p style="text-align:center;font-size:.62rem;color:#cbd5e1;padding:6px 0 4px;margin:0">Marsala Volley 2026/27 · Report automatico mattutino · Lun/Mer/Ven/Sab 08:00</p>
+  <p style="text-align:center;font-size:.62rem;color:#cbd5e1;padding:6px 0 4px;margin:0">Marsala Volley 2026/27 · Report automatico · Lun/Mer/Ven/Sab 20:00</p>
 </div>`;
 
   const oggetto = urgenti > 0
