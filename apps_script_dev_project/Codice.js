@@ -415,77 +415,94 @@ function inviaDigest() {
     '</tr>';
   }).join('');
 
-  const body = `
-<div style="font-family:Arial,sans-serif;max-width:700px;margin:0 auto">
+  // Note automatiche coach-facing (generate dal sistema, non dalle atlete)
+  const noteAutoCoach = [];
+  if (inattive.length)
+    noteAutoCoach.push('⚫ ' + inattive.length + ' atleta/e senza sedute negli ultimi 7gg: ' + inattive.map(r => r.nome.split(' ')[0] + ' (' + r.ultimoLabel + ')').join(', '));
+  if (rpeAlti.length)
+    noteAutoCoach.push('🔴 RPE ≥8: ' + rpeAlti.map(r => r.nome.split(' ')[0] + ' (max ' + Math.max(...r.rpeVals) + ')').join(', ') + ' — valutare riduzione carico');
+  if (doloriAlti.length)
+    noteAutoCoach.push('⚠️ Dolori ≥3/5: ' + doloriAlti.map(r => r.nome.split(' ')[0] + ' (' + f1(r.dolori) + ')').join(', ') + ' — monitorare e aggiornare protocollo');
+  const noteManCoach = noteAttive
+    .filter(n => n.ID_Giocatrice === 'COACH')
+    .map(n => String(n.Testo).trim()).filter(Boolean);
+  const tutteNoteCoach = noteAutoCoach.concat(noteManCoach);
 
-  <div style="background:#1a3a6b;color:#fff;padding:16px 20px">
-    <p style="margin:0 0 2px;font-size:.63rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley · Digest Allenamenti</p>
-    <h2 style="margin:0;font-size:1.05rem;font-weight:700">${giornoOra} · Ultimi 7 giorni</h2>
+  const noteCHtml = tutteNoteCoach.length
+    ? '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:12px 16px;margin:0 0 0">' +
+      '<p style="margin:0 0 8px;font-size:.65rem;font-weight:700;color:#1a3a6b;letter-spacing:.08em;text-transform:uppercase">Note per il coach</p>' +
+      tutteNoteCoach.map(n => '<p style="margin:4px 0;font-size:.8rem;color:#1e3a5f">' + esc_(n) + '</p>').join('') +
+      '</div>'
+    : '';
+
+  const body = `
+<div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto">
+
+  <div style="background:#1a3a6b;color:#fff;padding:18px 22px 16px">
+    <p style="margin:0 0 2px;font-size:.6rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase">Marsala Volley · Report mattutino</p>
+    <h2 style="margin:0;font-size:1.1rem;font-weight:700">${giornoOra} · Ultimi 7 giorni</h2>
+    <p style="margin:5px 0 0;font-size:.72rem;opacity:.65">Squadra: ${allenate}/${righe.length} attive · ${urgenti > 0 ? urgenti + ' urgenti' : 'nessuna urgenza'}</p>
   </div>
+
+  ${tutteNoteCoach.length ? '<div style="padding:14px 16px;background:#fafbff;border:1px solid #e8edf5;border-top:none">' + noteCHtml + '</div>' : ''}
 
   <div style="display:flex;border:1px solid #e8edf5;border-top:none">
     <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1.25rem;font-weight:700;color:#1a3a6b">${allenate}/${righe.length}</div>
-      <div style="font-size:.65rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">allenate</div>
+      <div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">${allenate}/${righe.length}</div>
+      <div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">allenate</div>
     </div>
     <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1.25rem;font-weight:700;color:#1a3a6b">${totSedute}</div>
-      <div style="font-size:.65rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">sedute tot</div>
+      <div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">${totSedute}</div>
+      <div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">sedute</div>
     </div>
     <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1.25rem;font-weight:700;color:#1a3a6b">${rpeSquadra !== null ? f1(rpeSquadra) : '—'}<span style="font-size:.82rem;font-weight:400">/10</span></div>
-      <div style="font-size:.65rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">RPE medio</div>
+      <div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">${rpeSquadra !== null ? f1(rpeSquadra) : '—'}<span style="font-size:.78rem;font-weight:400">/10</span></div>
+      <div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">RPE medio</div>
     </div>
     <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1.25rem;font-weight:700;color:#1a3a6b">${caricoSquadra !== null ? f1(caricoSquadra) : '—'}</div>
-      <div style="font-size:.65rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">carico medio</div>
+      <div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">${caricoSquadra !== null ? f1(caricoSquadra) : '—'}</div>
+      <div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">carico</div>
+    </div>
+    <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
+      <div style="font-size:1.2rem;font-weight:700;color:${wC(sonnoSq)}">${sonnoSq !== null ? f1(sonnoSq) : '—'}<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>
+      <div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Sonno</div>
+    </div>
+    <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
+      <div style="font-size:1.2rem;font-weight:700;color:${dC(doloriSq)}">${doloriSq !== null ? f1(doloriSq) : '—'}<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>
+      <div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Dolori ↓</div>
     </div>
     <div style="flex:1;padding:11px 8px;text-align:center">
-      <div style="font-size:1.25rem;font-weight:700;color:${urgenti > 0 ? '#dc2626' : '#16a34a'}">${urgenti}</div>
-      <div style="font-size:.65rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">urgenti</div>
+      <div style="font-size:1.2rem;font-weight:700;color:${wC(energiaSq)}">${energiaSq !== null ? f1(energiaSq) : '—'}<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>
+      <div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Energia</div>
     </div>
   </div>
 
-  <div style="display:flex;border:1px solid #e8edf5;border-top:none">
-    <div style="flex:1;padding:9px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1rem;font-weight:700;color:${wC(sonnoSq)}">${sonnoSq !== null ? f1(sonnoSq) : '—'}<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>
-      <div style="font-size:.62rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Sonno</div>
-    </div>
-    <div style="flex:1;padding:9px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1rem;font-weight:700;color:${dC(doloriSq)}">${doloriSq !== null ? f1(doloriSq) : '—'}<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>
-      <div style="font-size:.62rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Dolori ↓</div>
-    </div>
-    <div style="flex:1;padding:9px 8px;text-align:center">
-      <div style="font-size:1rem;font-weight:700;color:${wC(energiaSq)}">${energiaSq !== null ? f1(energiaSq) : '—'}<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>
-      <div style="font-size:.62rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Energia</div>
-    </div>
-  </div>
-
-  ${alertHtml ? '<div style="padding:12px 14px;border:1px solid #e8edf5;border-top:none">' + alertHtml + '</div>' : ''}
+  ${alertHtml ? '<div style="padding:10px 14px;border:1px solid #e8edf5;border-top:none">' + alertHtml + '</div>' : ''}
 
   <div style="border:1px solid #e8edf5;border-top:none;overflow-x:auto">
     <table style="width:100%;border-collapse:collapse;min-width:560px">
       <thead>
         <tr style="background:#f8fafc">
-          <th style="padding:6px 8px;font-size:.6rem;color:#94a3b8;letter-spacing:.06em;text-align:center;font-weight:700;text-transform:uppercase"></th>
-          <th style="padding:6px 4px;font-size:.6rem;color:#94a3b8;letter-spacing:.06em;text-align:left;font-weight:700;text-transform:uppercase">Atleta</th>
-          <th style="padding:6px 4px;font-size:.6rem;color:#94a3b8;letter-spacing:.06em;text-align:center;font-weight:700;text-transform:uppercase">Sed.</th>
-          <th style="padding:6px 4px;font-size:.6rem;color:#94a3b8;letter-spacing:.06em;text-align:center;font-weight:700;text-transform:uppercase">RPE</th>
-          <th style="padding:6px 4px;font-size:.6rem;color:#94a3b8;letter-spacing:.06em;text-align:center;font-weight:700;text-transform:uppercase">Vol.</th>
-          <th style="padding:6px 4px;font-size:.6rem;color:#94a3b8;letter-spacing:.06em;text-align:center;font-weight:700;text-transform:uppercase">Sonno</th>
-          <th style="padding:6px 4px;font-size:.6rem;color:#94a3b8;letter-spacing:.06em;text-align:center;font-weight:700;text-transform:uppercase">Dolori</th>
-          <th style="padding:6px 4px;font-size:.6rem;color:#94a3b8;letter-spacing:.06em;text-align:center;font-weight:700;text-transform:uppercase">Energia</th>
-          <th style="padding:6px 8px;font-size:.6rem;color:#94a3b8;letter-spacing:.06em;text-align:left;font-weight:700;text-transform:uppercase">Nota coach</th>
+          <th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase"></th>
+          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Atleta</th>
+          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">Sed.</th>
+          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">RPE</th>
+          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">Vol.</th>
+          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">Sonno</th>
+          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">Dolori</th>
+          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">Energia</th>
+          <th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Nota coach</th>
         </tr>
       </thead>
       <tbody>${righeHtml}</tbody>
     </table>
   </div>
 
-  <div style="padding:13px 20px;border:1px solid #e8edf5;border-top:none;text-align:center">
-    <a href="https://pamangiapane-lgtm.github.io/schede-allenamento/report.html?coach=mv26-coach-8pL2wK" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 24px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Apri report completo →</a>
+  <div style="padding:14px 20px;border:1px solid #e8edf5;border-top:none;text-align:center">
+    <a href="https://claude.ai/code/artifact/e85a1b03-9788-4d9d-ad27-a9ca626c8c4a" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 26px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none;margin-right:8px">Apri report staff →</a>
+    <a href="https://pamangiapane-lgtm.github.io/schede-allenamento/report.html?coach=mv26-coach-8pL2wK" style="display:inline-block;background:#f1f5f9;color:#1a3a6b;padding:10px 18px;border-radius:6px;font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid #e2e8f0">Coach dashboard</a>
   </div>
-  <p style="text-align:center;font-size:.65rem;color:#cbd5e1;padding:8px 0 0;margin:0">Marsala Volley 2026/27 · Digest automatico</p>
+  <p style="text-align:center;font-size:.62rem;color:#cbd5e1;padding:6px 0 4px;margin:0">Marsala Volley 2026/27 · Report automatico mattutino · Lun/Mer/Ven/Sab 08:00</p>
 </div>`;
 
   const oggetto = urgenti > 0
@@ -502,11 +519,11 @@ function installaTrigger() {
     .filter(t => t.getHandlerFunction() === 'inviaDigest')
     .forEach(t => ScriptApp.deleteTrigger(t));
 
-  // Lun, Mer, Ven, Sab alle 20:00
-  [[ScriptApp.WeekDay.MONDAY, 20],
-   [ScriptApp.WeekDay.WEDNESDAY, 20],
-   [ScriptApp.WeekDay.FRIDAY, 20],
-   [ScriptApp.WeekDay.SATURDAY, 20]].forEach(([giorno, ora]) => {
+  // Lun, Mer, Ven, Sab alle 08:00
+  [[ScriptApp.WeekDay.MONDAY, 8],
+   [ScriptApp.WeekDay.WEDNESDAY, 8],
+   [ScriptApp.WeekDay.FRIDAY, 8],
+   [ScriptApp.WeekDay.SATURDAY, 8]].forEach(([giorno, ora]) => {
     ScriptApp.newTrigger('inviaDigest')
       .timeBased()
       .onWeekDay(giorno)
