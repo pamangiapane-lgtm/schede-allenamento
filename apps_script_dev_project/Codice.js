@@ -1,4 +1,6 @@
 const TOKEN = 'mv26-dev-9kR4tLqB';
+const PROD_API_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const BACKUP_FOLDER_ID = '1iiM7V2CislN971wXZsOmnncGGj1lS1sG';
 
 function doGet(e) {
   const token  = e.parameter.token;
@@ -9,6 +11,16 @@ function doGet(e) {
     if (azione === 'leggi') return leggi(foglio);
     if (azione === 'leggi_note') return leggiNote(e.parameter.id, e.parameter.n_seduta);
     if (azione === 'leggi_tutte_note') return leggiTutteNote_();
+    if (azione === 'conferma_riepilogo_settimanale') {
+      inviaRiepilogoSettimanale();
+      return HtmlService.createHtmlOutput(
+        '<div style="font-family:Arial;max-width:500px;margin:60px auto;text-align:center">' +
+        '<div style="font-size:4rem">✅</div>' +
+        '<h2 style="color:#16a34a;margin:16px 0 8px">Email inviate!</h2>' +
+        '<p style="color:#64748b">Le email settimanali sono state inviate a tutte le atlete.<br>Puoi chiudere questa pagina.</p>' +
+        '</div>'
+      );
+    }
     return errore('Azione GET non valida: ' + azione);
   } catch (ex) { return errore(ex.toString()); }
 }
@@ -1440,11 +1452,18 @@ function drawBubbleChart_(slide, vals, labels, startX, startY, chartW, chartH, t
 // ── BACKUP AUTOMATICO ────────────────────────────────────────────────────────
 
 function creaBackup() {
-  const ss   = SpreadsheetApp.getActiveSpreadsheet();
-  const file = DriveApp.getFileById(ss.getId());
-  const ts   = Utilities.formatDate(new Date(), 'Europe/Rome', 'yyyy-MM-dd_HH-mm');
-  const nome = 'BACKUP_' + ts + '_' + ss.getName();
-  const copy = file.makeCopy(nome, DriveApp.getFolderById(FOLDER_STAFF_ID));
+  const ss    = SpreadsheetApp.getActiveSpreadsheet();
+  const file  = DriveApp.getFileById(ss.getId());
+  const oggi  = new Date();
+  const ts    = Utilities.formatDate(oggi, 'Europe/Rome', 'yyyy-MM-dd');
+  const nome  = 'BACKUP-' + ts + ' — Schede Squadra';
+  const mesiIT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
+                  'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+  const meseLbl = Utilities.formatDate(oggi, 'Europe/Rome', 'yyyy-MM') + ' — ' + mesiIT[oggi.getMonth()];
+  const root  = DriveApp.getFolderById(BACKUP_FOLDER_ID);
+  const subs  = root.getFoldersByName(meseLbl);
+  const sub   = subs.hasNext() ? subs.next() : root.createFolder(meseLbl);
+  const copy  = file.makeCopy(nome, sub);
   Logger.log('Backup creato: ' + copy.getUrl());
 }
 
@@ -1460,6 +1479,121 @@ function installaBackupTrigger() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+
+function preparaBozzeRiepilogo() {
+  const ss     = SpreadsheetApp.getActiveSpreadsheet();
+  const sheetG = ss.getSheetByName('Giocatrici');
+  const sheetP = ss.getSheetByName('Progressi');
+  const sheetW = ss.getSheetByName('Wellness');
+  const sheetN = ss.getSheetByName('Note_Coach');
+  if (!sheetG || !sheetP || !sheetN) { Logger.log('Fogli mancanti'); return; }
+
+  const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)));
+  const progressi  = leggiRighe_(sheetP);
+  const wellness   = sheetW ? leggiRighe_(sheetW) : [];
+  const ora  = new Date();
+  const cut7 = new Date(ora); cut7.setDate(ora.getDate() - 7);
+  const SKIP_SET = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
+  const avgN = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
+
+  const oggi = new Date(); oggi.setHours(0,0,0,0);
+  const fra7 = new Date(oggi); fra7.setDate(oggi.getDate() + 7);
+  const fmtDate = d => d.toISOString().split('T')[0];
+
+  // Cancella vecchie bozze automatiche tipo 'riepilogo_sett'
+  const vals = sheetN.getDataRange().getValues();
+  const heads = vals[0];
+  const idxTipo = heads.indexOf('Tipo');
+  for (let i = vals.length - 1; i >= 1; i--) {
+    if (String(vals[i][idxTipo]) === 'riepilogo_sett') sheetN.deleteRow(i + 1);
+  }
+  SpreadsheetApp.flush();
+
+  // Genera bozza per ogni atleta
+  const bozze = [];
+  giocatrici.forEach(g => {
+    const pAll    = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
+    const pEserc  = pAll.filter(p => !SKIP_SET.has(p.Esercizio));
+    const pSett   = pEserc.filter(p => p.Timestamp && new Date(p.Timestamp) >= cut7);
+    const rpeVals = pAll.filter(p => p.Esercizio === 'RPE-seduta' && p.Timestamp && new Date(p.Timestamp) >= cut7)
+                        .map(p => Number(p.Valore)).filter(v => !isNaN(v));
+    const seduteN  = new Set(pSett.map(p => p.N_Seduta)).size;
+    const rpeMedia = avgN(rpeVals);
+    let ultimoTs = null;
+    pEserc.forEach(p => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; if (ts && (!ultimoTs || ts > ultimoTs)) ultimoTs = ts; });
+    const giorniSilenzio = ultimoTs ? Math.floor((ora - ultimoTs) / 86400000) : null;
+    const wSett  = wellness.filter(w => String(w.ID_Giocatrice) === String(g.ID) && w.Timestamp && new Date(w.Timestamp) >= cut7);
+    const dolori = avgN(wSett.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v > 0));
+
+    let nota;
+    if (giorniSilenzio === null || giorniSilenzio > 7)
+      nota = 'Non vedo sedute registrate di recente — come stai? Fammi sapere se ci sono problemi o se hai bisogno di supporto.';
+    else if (dolori !== null && dolori >= 3)
+      nota = 'Hai segnalato qualche dolore questa settimana (' + dolori.toFixed(1) + '/5). Dimmi dove senti fastidio così adattiamo il programma.';
+    else if (rpeMedia !== null && rpeMedia >= 8)
+      nota = 'Settimana molto intensa (RPE ' + rpeMedia.toFixed(1) + '/10). Ottimo impegno — questa settimana recupera bene tra le sedute.';
+    else if (seduteN >= 2)
+      nota = 'Settimana regolare con ' + seduteN + ' sedute completate. Continua con questa costanza, stai lavorando bene.';
+    else if (seduteN === 1)
+      nota = 'Hai completato una seduta questa settimana. Prova ad aggiungerne un\'altra se riesci — la continuità fa la differenza.';
+    else
+      nota = 'Settimana con poca attività registrata. Tutto ok? Fammi sapere se hai bisogno di qualcosa.';
+
+    sheetN.appendRow([new Date().toISOString(), String(g.ID), 'riepilogo_sett', '', nota, fmtDate(oggi), fmtDate(fra7)]);
+    bozze.push({ nome: g.Nome ? g.Nome.split(' ')[0] : String(g.Nome), nota, seduteN, rpeMedia, dolori, giorniSilenzio });
+  });
+  SpreadsheetApp.flush();
+
+  const sheetUrl   = 'https://docs.google.com/spreadsheets/d/' + ss.getId() + '/edit#gid=' + sheetN.getSheetId();
+  const confirmUrl = PROD_API_URL + '?token=mv26-prd-3xF7wNqK&azione=conferma_riepilogo_settimanale';
+
+  const dow = ora.getDay();
+  const lune = new Date(ora); lune.setDate(ora.getDate() - ((dow === 0 ? 7 : dow) - 1)); lune.setHours(0,0,0,0);
+  const luneS = new Date(lune); luneS.setDate(lune.getDate() - 7);
+  const domS  = new Date(lune); domS.setMilliseconds(-1);
+  const fmt   = d => d.getDate() + '/' + (d.getMonth() + 1);
+  const settLabel = fmt(luneS) + '–' + fmt(domS) + ' ' + domS.getFullYear();
+
+  const righeHtml = bozze.map(b => {
+    const stato = b.giorniSilenzio === null ? '⚫ mai' : b.giorniSilenzio > 7 ? '🔴 ' + b.giorniSilenzio + 'gg' : '🟢 ' + b.seduteN + ' sed.';
+    return '<tr style="border-bottom:1px solid #f1f5f9">' +
+      '<td style="padding:10px 8px;font-size:.85rem;font-weight:600;color:#1a3a6b;white-space:nowrap">' + esc_(b.nome) + '</td>' +
+      '<td style="padding:10px 8px;font-size:.78rem;color:#64748b;white-space:nowrap">' + stato + '</td>' +
+      '<td style="padding:10px 8px;font-size:.82rem;color:#334155">' + esc_(b.nota) + '</td>' +
+    '</tr>';
+  }).join('');
+
+  MailApp.sendEmail({ to: EMAIL_COACH,
+    subject: '✏️ Bozze riepilogo atlete — ' + settLabel + ' — modifica e conferma',
+    htmlBody: `
+<div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto">
+  <div style="background:#1a3a6b;color:#fff;padding:18px 22px 16px">
+    <p style="margin:0 0 2px;font-size:.6rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase">Marsala Volley · Bozze riepilogo atlete</p>
+    <h2 style="margin:0;font-size:1.1rem;font-weight:700">Settimana ${settLabel}</h2>
+    <p style="margin:5px 0 0;font-size:.72rem;opacity:.65">${bozze.length} atlete · note generate automaticamente</p>
+  </div>
+  <div style="padding:12px 16px;background:#fffbeb;border:1px solid #fef08a;border-top:none">
+    <p style="margin:0;font-size:.82rem;color:#78350f">⚠️ Queste sono bozze automatiche. Modificale nel foglio Google se necessario, poi clicca Conferma.</p>
+  </div>
+  <div style="border:1px solid #e8edf5;border-top:none;overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse">
+      <thead><tr style="background:#f8fafc">
+        <th style="padding:8px;font-size:.65rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Atleta</th>
+        <th style="padding:8px;font-size:.65rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Stato</th>
+        <th style="padding:8px;font-size:.65rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Nota bozza</th>
+      </tr></thead>
+      <tbody>${righeHtml}</tbody>
+    </table>
+  </div>
+  <div style="padding:20px;border:1px solid #e8edf5;border-top:none;text-align:center">
+    <a href="${sheetUrl}" style="display:inline-block;background:#f1f5f9;color:#1a3a6b;padding:10px 18px;border-radius:6px;font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid #e2e8f0;margin-right:10px">✏️ Modifica note nel foglio</a>
+    <a href="${confirmUrl}" style="display:inline-block;background:#16a34a;color:#fff;padding:10px 26px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">✅ Conferma e invia a tutte</a>
+  </div>
+  <p style="text-align:center;font-size:.62rem;color:#cbd5e1;padding:6px 0 4px;margin:0">Cliccando Conferma le email partono immediatamente · Marsala Volley 2026/27</p>
+</div>`
+  });
+  Logger.log('preparaBozzeRiepilogo completato per ' + bozze.length + ' atlete');
+}
 
 function risposta(data) {
   return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
