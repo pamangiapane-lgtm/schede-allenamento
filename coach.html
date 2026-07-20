@@ -185,6 +185,9 @@
       margin-bottom: 6px;
     }
     .dash-row-right { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+    .alert-banner { padding:10px 14px; border-radius:6px; font-size:.82rem; margin-bottom:8px; line-height:1.4; }
+    .alert-banner.danger { background:rgba(239,68,68,.12); border:1px solid rgba(239,68,68,.35); color:var(--text); }
+    .alert-banner.warn   { background:rgba(234,179,8,.1);  border:1px solid rgba(234,179,8,.35);  color:var(--text); }
 
     /* ── Calendar layout ── */
     .cal-layout {
@@ -673,6 +676,9 @@
     <button class="nav-item" id="nav-email" onclick="mostraTab('email')">
       <span class="nav-icon">✉️</span> Email
     </button>
+    <button class="nav-item" id="nav-azioni" onclick="mostraTab('azioni')">
+      <span class="nav-icon">⚡</span> Azioni
+    </button>
 
     <div class="nav-label" style="margin-top:14px">Report</div>
     <a class="nav-item" id="link-report" href="report.html?coach=mv26-coach-8pL2wK" target="_blank">
@@ -707,8 +713,13 @@
           <div class="kpi-lbl">Atlete nel roster</div>
         </div>
         <div class="kpi-card">
+          <div class="kpi-val" id="kpi-urgenti">—</div>
+          <div class="kpi-lbl">Urgenti</div>
+          <div class="kpi-sub" id="kpi-urgenti-sub"></div>
+        </div>
+        <div class="kpi-card">
           <div class="kpi-val" id="kpi-verde">—</div>
-          <div class="kpi-lbl">Compliance verde 7gg</div>
+          <div class="kpi-lbl">Compliance verde</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-val" id="kpi-sed-sett">—</div>
@@ -721,8 +732,50 @@
         </div>
       </div>
 
-      <p class="sez-label">Stato atlete — oggi</p>
+      <div id="dash-alerts" style="margin-bottom:20px"></div>
+
+      <p class="sez-label">Azioni rapide</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px">
+        <button class="btn-sm accent" onclick="mostraTab('azioni')">⚡ Azioni</button>
+        <button class="btn-sm" onclick="mostraTab('compliance')">✅ Compliance</button>
+        <button class="btn-sm" onclick="mostraTab('email')">✉️ Email atlete</button>
+        <button class="btn-sm" onclick="mostraTab('note')">📝 Note</button>
+        <button class="btn-sm" onclick="mostraTab('analisi')">📊 Analisi</button>
+      </div>
+
+      <p class="sez-label">Atlete — attività recente</p>
       <div id="dash-list"><p style="color:var(--text-muted);font-size:0.85rem">Caricamento...</p></div>
+    </div>
+
+    <!-- ── TAB AZIONI ── -->
+    <div id="tab-azioni" class="tab-pnl">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px">
+
+        <div class="card">
+          <p class="sez-label">Riepilogo settimanale atlete</p>
+          <p style="font-size:.83rem;color:var(--text-muted);line-height:1.5;margin-bottom:14px">Genera le bozze email per tutte le atlete (con note automatiche e schede HTML allegate) e le invia a te per revisione. Poi clicchi "Conferma e invia".</p>
+          <button class="btn-primary" id="btn-bozze" onclick="preparaBozze()">✏️ Genera bozze riepilogo</button>
+          <p class="form-feedback" id="bozze-fb"></p>
+        </div>
+
+        <div class="card">
+          <p class="sez-label">Backup manuale</p>
+          <p style="font-size:.83rem;color:var(--text-muted);line-height:1.5;margin-bottom:14px">Crea subito una copia del foglio Google nella cartella Backup (normalmente avviene automaticamente alle 3:00 ogni notte).</p>
+          <button class="btn-primary" id="btn-backup" onclick="creaBackupManuale()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text)">💾 Crea backup ora</button>
+          <p class="form-feedback" id="backup-fb"></p>
+        </div>
+
+        <div class="card">
+          <p class="sez-label">Test connessione API</p>
+          <p style="font-size:.83rem;color:var(--text-muted);line-height:1.5;margin-bottom:14px">Verifica che la PROD API risponda correttamente. Il monitor controlla ogni 30 minuti in automatico e ti avvisa via email se offline.</p>
+          <div id="conn-stato" style="display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:.83rem;color:var(--text-muted)">
+            <div class="status-dot" id="conn-dot" style="background:var(--text-dim)"></div>
+            <span id="conn-lbl">Non verificato</span>
+          </div>
+          <button class="btn-primary" id="btn-conn" onclick="testConnessione()" style="background:var(--surface2);border:1px solid var(--border);color:var(--text)">🔄 Testa ora</button>
+        </div>
+
+      </div>
     </div>
 
     <!-- ── TAB NOTE ── -->
@@ -819,6 +872,7 @@
       <div class="tab-toggle">
         <button class="toggle-btn active" id="tog-atleta" onclick="toggleAnalisi('atleta')">Per atleta</button>
         <button class="toggle-btn" id="tog-eserc" onclick="toggleAnalisi('eserc')">Per esercizio</button>
+        <button class="toggle-btn" id="tog-srpe" onclick="toggleAnalisi('srpe')">sRPE</button>
       </div>
 
       <!-- Per atleta -->
@@ -836,6 +890,22 @@
         </div>
         <div id="an-content-atleta">
           <div class="analisi-empty">Seleziona un'atleta per vedere l'analisi dei carichi.</div>
+        </div>
+      </div>
+
+      <!-- sRPE -->
+      <div id="an-panel-srpe" style="display:none">
+        <p style="font-size:0.68rem;color:var(--text-muted);margin-bottom:10px">
+          RPE × durata seduta (metodo Foster). Soglie:
+          <span class="srpe-v">basso &lt;400</span> ·
+          <span class="srpe-y">medio 400–800</span> ·
+          <span class="srpe-r">alto &gt;800 AU</span>.
+        </p>
+        <div class="tbl-wrap">
+          <table class="data-tbl">
+            <thead><tr><th>Data</th><th>Atleta</th><th>Sed.</th><th>RPE</th><th>Durata</th><th>sRPE (AU)</th></tr></thead>
+            <tbody id="srpe-body"><tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-muted)">Caricamento...</td></tr></tbody>
+          </table>
         </div>
       </div>
 
@@ -898,23 +968,6 @@
         <p style="color:var(--text-muted);font-size:0.85rem">Caricamento...</p>
       </div>
 
-      <p class="sez-label" style="margin-top:28px">Ultime 20 sessioni — sRPE (metodo Foster)</p>
-      <p style="font-size:0.68rem;color:var(--text-muted);margin-bottom:10px">
-        RPE × durata seduta. Soglie:
-        <span class="srpe-v">basso &lt;400</span> ·
-        <span class="srpe-y">medio 400–800</span> ·
-        <span class="srpe-r">alto &gt;800 AU</span>.
-      </p>
-      <div class="tbl-wrap">
-        <table class="data-tbl">
-          <thead>
-            <tr><th>Data</th><th>Atleta</th><th>Sed.</th><th>RPE</th><th>Durata</th><th>sRPE (AU)</th></tr>
-          </thead>
-          <tbody id="srpe-body">
-            <tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text-muted)">Caricamento...</td></tr>
-          </tbody>
-        </table>
-      </div>
     </div>
 
     <!-- ── TAB EMAIL ── -->
@@ -994,7 +1047,7 @@ async function init() {
     ]);
     if (resG.ok) {
       giocatrici=(resG.dati||[])
-        .filter(g=>g.ID&&!isNaN(parseInt(g.ID)))
+        .filter(g=>g.ID&&!isNaN(parseInt(g.ID))&&String(g.ID)!=='99')
         .sort((a,b)=>a.Nome.localeCompare(b.Nome,'it',{sensitivity:'base'}));
       giocatrici.forEach(g=>{atletaMap[String(g.ID)]=g.Nome;});
       popolaSelects();
@@ -1053,8 +1106,8 @@ function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebar-overlay').classList.remove('open');
 }
-const PAGE_TITLES={dashboard:'Dashboard',note:'Note',calendario:'Calendario',analisi:'Analisi',storico:'Storico',compliance:'Compliance',email:'Email atlete'};
-const ALL_TABS=['dashboard','note','calendario','analisi','storico','compliance','email'];
+const PAGE_TITLES={dashboard:'Dashboard',note:'Note',calendario:'Calendario',analisi:'Analisi',storico:'Storico',compliance:'Compliance',email:'Email atlete',azioni:'Azioni'};
+const ALL_TABS=['dashboard','note','calendario','analisi','storico','compliance','email','azioni'];
 function mostraTab(nome) {
   ALL_TABS.forEach(n=>{
     document.getElementById('nav-'+n).classList.toggle('active',n===nome);
@@ -1111,6 +1164,24 @@ function renderDashboard() {
     document.getElementById('kpi-ultima').textContent=fmtDate(new Date(lastP.t).toISOString());
     document.getElementById('kpi-ultima-chi').textContent=atletaMap[String(lastP.p.ID_Giocatrice)]||'';
   }
+
+  // KPI: urgenti (rosso + mai)
+  const urgenti=datiComp.filter(d=>d.stato==='rosso'||d.stato==='mai');
+  document.getElementById('kpi-urgenti').textContent=urgenti.length;
+  document.getElementById('kpi-urgenti-sub').textContent=urgenti.length?urgenti.map(d=>d.nome.split(' ')[0]).join(', '):'';
+  document.getElementById('kpi-urgenti').style.color=urgenti.length?'var(--red)':'var(--green)';
+
+  // Alert banners
+  const alertsEl=document.getElementById('dash-alerts');
+  const alerts=[];
+  if(urgenti.length){
+    alerts.push(`<div class="alert-banner danger">⚠️ <strong>${urgenti.length} atlet${urgenti.length>1?'e':'a'} non si allenano da oltre 7 giorni</strong> — ${urgenti.map(d=>d.nome.split(' ')[0]).join(', ')} · <a href="#" style="color:inherit;font-weight:600" onclick="mostraTab('compliance');return false">Vai a Compliance →</a></div>`);
+  }
+  const gialle=datiComp.filter(d=>d.stato==='giallo');
+  if(gialle.length){
+    alerts.push(`<div class="alert-banner warn">⏱ <strong>${gialle.length} atlet${gialle.length>1?'e':'a'} in zona gialla</strong> (4-7gg) — ${gialle.map(d=>d.nome.split(' ')[0]).join(', ')}</div>`);
+  }
+  alertsEl.innerHTML=alerts.join('');
 
   // Quick list
   const cont=document.getElementById('dash-list');
@@ -1251,10 +1322,11 @@ function renderCalSessioni() {
 // ── ANALISI ────────────────────────────────────────────────────────────────────
 function toggleAnalisi(mode) {
   analisiMode=mode;
-  document.getElementById('tog-atleta').classList.toggle('active',mode==='atleta');
-  document.getElementById('tog-eserc').classList.toggle('active',mode==='eserc');
-  document.getElementById('an-panel-atleta').style.display=mode==='atleta'?'':'none';
-  document.getElementById('an-panel-eserc').style.display=mode==='eserc'?'':'none';
+  ['atleta','eserc','srpe'].forEach(m=>{
+    document.getElementById('tog-'+m).classList.toggle('active',mode===m);
+    document.getElementById('an-panel-'+m).style.display=mode===m?'':'none';
+  });
+  if(mode==='srpe') renderSrpeTable();
 }
 
 function setTimeRange(weeks) {
@@ -1564,9 +1636,11 @@ function renderEmailTab() {
   if (!giocatrici.length) return;
   el.innerHTML = giocatrici.map(g => {
     const sent = emailInviate.has(String(g.ID));
+    const schedaBase = IS_DEV ? 'https://pamangiapane-lgtm.github.io/schede-allenamento/dev/' : 'https://pamangiapane-lgtm.github.io/schede-allenamento/';
     return `<div class="em-item${sent?' sent':''}" id="em-item-${g.ID}" onclick="selectEmailAtleta('${g.ID}')">
       ${avHtml(g.Nome)}
       <span class="em-nome" style="font-size:.82rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(g.Nome.split(' ')[0])}</span>
+      <a href="${schedaBase}scheda.html?id=${g.ID}" target="_blank" onclick="event.stopPropagation()" title="Apri scheda" style="font-size:.7rem;color:var(--accent);white-space:nowrap;text-decoration:none;padding:2px 4px;border-radius:3px;border:1px solid var(--border)">📋</a>
       ${sent ? '<span class="em-tick">✓</span>' : ''}
     </div>`;
   }).join('');
@@ -1668,14 +1742,12 @@ async function inviaEmailTutte() {
 function buildEmailHtmlBrowser(g) {
   const id = String(g.ID);
   const ora = new Date();
-  const cut7 = new Date(ora); cut7.setDate(ora.getDate()-7);
   const SKIP_E = new Set(['RPE-seduta','Fatica-seduta','Peso-corporeo']);
   const pAll  = progressi.filter(p=>String(p.ID_Giocatrice)===id && p.Valore);
-  const pSett = pAll.filter(p=>{const d=new Date(p.Timestamp);return d>=cut7&&d<=ora;});
 
-  // Sedute per-sessione
+  // Sedute per-sessione (tutte dall'inizio)
   const seduteMap={};
-  pSett.filter(p=>p.N_Seduta&&p.N_Seduta!=='?').forEach(p=>{
+  pAll.filter(p=>p.N_Seduta&&p.N_Seduta!=='?').forEach(p=>{
     if(!seduteMap[p.N_Seduta]) seduteMap[p.N_Seduta]={nome:p.N_Seduta,rpe:null,fatica:null,ts:null};
     const ts=new Date(p.Timestamp);
     if(!seduteMap[p.N_Seduta].ts||ts<seduteMap[p.N_Seduta].ts) seduteMap[p.N_Seduta].ts=ts;
@@ -1684,33 +1756,31 @@ function buildEmailHtmlBrowser(g) {
   });
   const sedute=Object.values(seduteMap).sort((a,b)=>(a.ts||0)-(b.ts||0));
 
-  // Top 5 carichi
+  // Record carichi (massimo storico per esercizio)
   const maxPerEs={};
-  pSett.filter(p=>!SKIP_E.has(p.Esercizio)).forEach(p=>{
+  pAll.filter(p=>!SKIP_E.has(p.Esercizio)).forEach(p=>{
     const m=String(p.Valore).match(/[\d.]+/);if(!m)return;
     const kg=parseFloat(m[0]),stima=String(p.Valore).includes('~');
     if(!maxPerEs[p.Esercizio]||kg>maxPerEs[p.Esercizio].kg) maxPerEs[p.Esercizio]={kg,stima};
   });
   const topCarichi=Object.entries(maxPerEs).sort((a,b)=>b[1].kg-a[1].kg).slice(0,5);
-  const hasManual=pSett.some(p=>p.N_Seduta==='?'&&!SKIP_E.has(p.Esercizio));
+  const hasManual=pAll.some(p=>p.N_Seduta==='?'&&!SKIP_E.has(p.Esercizio));
 
-  // Wellness medio
-  const wSett=wellness.filter(w=>String(w.ID_Giocatrice)===id&&w.Timestamp&&new Date(w.Timestamp)>=cut7&&new Date(w.Timestamp)<=ora);
+  // Wellness medio (tutta la stagione)
+  const wAll=wellness.filter(w=>String(w.ID_Giocatrice)===id);
   const avgW=arr=>arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:null;
-  const sonno  =avgW(wSett.map(w=>Number(w.Qualita_Sonno)).filter(v=>!isNaN(v)&&v>0));
-  const dolori =avgW(wSett.map(w=>Number(w.Dolori)).filter(v=>!isNaN(v)&&v>0));
-  const energia=avgW(wSett.map(w=>Number(w.Energia)).filter(v=>!isNaN(v)&&v>0));
+  const sonno  =avgW(wAll.map(w=>Number(w.Qualita_Sonno)).filter(v=>!isNaN(v)&&v>0));
+  const dolori =avgW(wAll.map(w=>Number(w.Dolori)).filter(v=>!isNaN(v)&&v>0));
+  const energia=avgW(wAll.map(w=>Number(w.Energia)).filter(v=>!isNaN(v)&&v>0));
 
   // Note attive
   const noteAtleta=getNoteAttiveAtleta(id);
 
-  // Settimana label
+  // Period label: prima seduta → oggi
   const fmt=d=>d.getDate()+'/'+(d.getMonth()+1);
-  const dow=ora.getDay();
-  const lune=new Date(ora);lune.setDate(ora.getDate()-((dow===0?7:dow)-1));lune.setHours(0,0,0,0);
-  const luneScorso=new Date(lune);luneScorso.setDate(lune.getDate()-7);
-  const domScorso=new Date(lune);domScorso.setMilliseconds(-1);
-  const settLabel=fmt(luneScorso)+'–'+fmt(domScorso)+' '+domScorso.getFullYear();
+  const tss=pAll.map(p=>new Date(p.Timestamp)).filter(d=>!isNaN(d));
+  const primaData=tss.length?new Date(Math.min(...tss)):ora;
+  const settLabel='Pre-season '+fmt(primaData)+'–'+fmt(ora)+' '+ora.getFullYear();
   const nome=g.Nome?g.Nome.split(' ')[0]:g.Nome;
   const lingua=String(g.Lingua||'').trim().toUpperCase()==='EN'?'EN':'IT';
   return lingua==='EN'
@@ -1744,7 +1814,7 @@ function buildEmailIT_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,e
           <span style="font-size:.88rem;font-weight:700;color:${fC(s.fatica)};min-width:24px;text-align:right">${fv}</span>
         </div>`;
       }).join('')+'</div>'
-    :'<div style="background:#fef2f2;border-radius:8px;padding:12px 16px;margin-bottom:18px"><p style="margin:0;font-size:.82rem;color:#dc2626">Nessuna seduta registrata questa settimana</p></div>';
+    :'<div style="background:#fef2f2;border-radius:8px;padding:12px 16px;margin-bottom:18px"><p style="margin:0;font-size:.82rem;color:#dc2626">Nessuna seduta registrata</p></div>';
 
   const wVal=(v,c)=>v!==null
     ?`<div style="font-size:1.25rem;font-weight:700;color:${c};line-height:1">${f1(v)}<span style="font-size:.75rem;font-weight:400;color:#94a3b8">/5</span></div>`
@@ -1759,7 +1829,7 @@ function buildEmailIT_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,e
 
   const cRighe=topCarichi.length
     ?topCarichi.map(([es,d],i)=>`<tr${i<topCarichi.length-1?' style="border-bottom:1px solid #f1f5f9"':''}><td style="padding:7px 4px 7px 0;font-size:.82rem;color:#334155">${e(es)}</td><td style="padding:7px 0;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem;font-variant-numeric:tabular-nums">${d.stima?'~':''}${d.kg} kg</td></tr>`).join('')
-    :'<tr><td colspan="2" style="padding:8px 4px;color:#94a3b8;font-size:.82rem;font-style:italic">Nessun esercizio registrato questa settimana</td></tr>';
+    :'<tr><td colspan="2" style="padding:8px 4px;color:#94a3b8;font-size:.82rem;font-style:italic">Nessun esercizio registrato</td></tr>';
   const cFoot=topCarichi.length
     ?`<p style="font-size:.68rem;color:#94a3b8;font-style:italic;padding-top:6px;border-top:1px solid #f1f5f9">${hasManual?'Carichi aggiunti manualmente &middot; massimali corretti in app':'~ valore stimato in seduta &middot; nessun massimale aggiornato manualmente'}</p>`:'' ;
 
@@ -1770,20 +1840,20 @@ function buildEmailIT_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,e
 
   return `<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">
     <div style="background:#1a3a6b;color:#fff;padding:18px 20px">
-      <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Riepilogo settimanale</p>
+      <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Riepilogo stagione</p>
       <h2 style="margin:0;font-size:1.1rem;font-weight:700">Ciao ${e(nome)}!</h2>
-      <p style="margin:4px 0 0;font-size:.78rem;opacity:.7">Settimana ${settLabel}</p>
+      <p style="margin:4px 0 0;font-size:.78rem;opacity:.7">${settLabel}</p>
     </div>
     <div style="padding:18px 20px;border:1px solid #e8edf5;border-top:none">
-      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Sedute settimana</p>
+      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Tutte le sedute</p>
       ${seduteHtml}${wHtml}
-      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Carichi settimana</p>
+      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Record carichi</p>
       <table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tbody>${cRighe}</tbody></table>
       ${cFoot}${nHtml}
       <div style="text-align:center;margin-top:22px">
         <a href="${BASE}scheda.html?id=${idG}" style="display:inline-block;background:#1a3a6b;color:#fff;padding:11px 28px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Apri la mia scheda &#x2192;</a>
       </div>
-      <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Generato automaticamente ogni lunedì</p>
+      <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Riepilogo stagione</p>
     </div>
   </div>`;
 }
@@ -1813,7 +1883,7 @@ function buildEmailEN_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,e
           <span style="font-size:.88rem;font-weight:700;color:${fC(s.fatica)};min-width:24px;text-align:right">${fv}</span>
         </div>`;
       }).join('')+'</div>'
-    :'<div style="background:#fef2f2;border-radius:8px;padding:12px 16px;margin-bottom:18px"><p style="margin:0;font-size:.82rem;color:#dc2626">No sessions logged this week</p></div>';
+    :'<div style="background:#fef2f2;border-radius:8px;padding:12px 16px;margin-bottom:18px"><p style="margin:0;font-size:.82rem;color:#dc2626">No sessions logged</p></div>';
 
   const wVal=(v,c)=>v!==null?`<div style="font-size:1.25rem;font-weight:700;color:${c};line-height:1">${f1(v)}<span style="font-size:.75rem;font-weight:400;color:#94a3b8">/5</span></div>`:'<div style="font-size:1.25rem;font-weight:700;color:#94a3b8;line-height:1">&mdash;</div>';
   const wHtml=(sonno!==null||dolori!==null||energia!==null)
@@ -1826,7 +1896,7 @@ function buildEmailEN_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,e
 
   const cRighe=topCarichi.length
     ?topCarichi.map(([es,d],i)=>`<tr${i<topCarichi.length-1?' style="border-bottom:1px solid #f1f5f9"':''}><td style="padding:7px 4px 7px 0;font-size:.82rem;color:#334155">${e(es)}</td><td style="padding:7px 0;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem;font-variant-numeric:tabular-nums">${d.stima?'~':''}${d.kg} kg</td></tr>`).join('')
-    :'<tr><td colspan="2" style="padding:8px 4px;color:#94a3b8;font-size:.82rem;font-style:italic">No exercises logged this week</td></tr>';
+    :'<tr><td colspan="2" style="padding:8px 4px;color:#94a3b8;font-size:.82rem;font-style:italic">No exercises logged</td></tr>';
   const cFoot=topCarichi.length?`<p style="font-size:.68rem;color:#94a3b8;font-style:italic;padding-top:6px;border-top:1px solid #f1f5f9">${hasManual?'Manually added loads &middot; maxes updated':'~ estimated in session &middot; no manual max logged'}</p>`:'';
   const nHtml=noteAtleta.length
     ?'<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin-top:16px;border-radius:0 6px 6px 0">'+
@@ -1835,20 +1905,20 @@ function buildEmailEN_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,e
 
   return `<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">
     <div style="background:#1a3a6b;color:#fff;padding:18px 20px">
-      <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Weekly summary</p>
+      <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Season summary</p>
       <h2 style="margin:0;font-size:1.1rem;font-weight:700">Hi ${e(nome)}!</h2>
-      <p style="margin:4px 0 0;font-size:.78rem;opacity:.7">Week ${settLabel}</p>
+      <p style="margin:4px 0 0;font-size:.78rem;opacity:.7">${settLabel}</p>
     </div>
     <div style="padding:18px 20px;border:1px solid #e8edf5;border-top:none">
-      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Sessions this week</p>
+      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">All sessions</p>
       ${seduteHtml}${wHtml}
-      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Weekly loads</p>
+      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Best loads</p>
       <table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tbody>${cRighe}</tbody></table>
       ${cFoot}${nHtml}
       <div style="text-align:center;margin-top:22px">
         <a href="${BASE}scheda.html?id=${idG}" style="display:inline-block;background:#1a3a6b;color:#fff;padding:11px 28px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Open my program &#x2192;</a>
       </div>
-      <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Sent automatically every Monday</p>
+      <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Season summary</p>
     </div>
   </div>`;
 }
@@ -1858,6 +1928,71 @@ function parseValore(v){const m=String(v||'').match(/[\d]+(?:[.,]\d+)?/);return 
 function fmtDate(s){if(!s)return'';const d=new Date(s);if(isNaN(d))return String(s);return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();}
 function fmtTs(s){if(!s)return'';const d=new Date(s);if(isNaN(d))return String(s);return d.getDate()+'/'+(d.getMonth()+1)+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ── TAB AZIONI ────────────────────────────────────────────────────────────────
+async function preparaBozze() {
+  const btn = document.getElementById('btn-bozze');
+  const fb  = document.getElementById('bozze-fb');
+  btn.disabled = true; btn.textContent = '⏳ Generazione in corso…';
+  fb.textContent = ''; fb.style.color = 'var(--text-muted)';
+  try {
+    const res = await apiPost({ azione: 'prepara_bozze', token: TOKEN, coach_key: COACH_KEY });
+    if (res.ok) {
+      fb.textContent = '✅ Bozze generate e inviate a ' + (res.dest || 'pamangiapane@gmail.com') + ' — controlla la tua email per revisione.';
+      fb.style.color = 'var(--green)';
+    } else {
+      fb.textContent = '❌ Errore: ' + (res.error || 'risposta non valida');
+      fb.style.color = 'var(--red)';
+    }
+  } catch(e) {
+    fb.textContent = '❌ Errore di rete: ' + e.message;
+    fb.style.color = 'var(--red)';
+  }
+  btn.disabled = false; btn.textContent = '✏️ Genera bozze riepilogo';
+}
+
+async function creaBackupManuale() {
+  const btn = document.getElementById('btn-backup');
+  const fb  = document.getElementById('backup-fb');
+  btn.disabled = true; btn.textContent = '⏳ Backup in corso…';
+  fb.textContent = ''; fb.style.color = 'var(--text-muted)';
+  try {
+    const res = await apiPost({ azione: 'crea_backup', token: TOKEN, coach_key: COACH_KEY });
+    if (res.ok) {
+      fb.textContent = '✅ Backup creato: ' + (res.nome || 'file salvato');
+      fb.style.color = 'var(--green)';
+    } else {
+      fb.textContent = '❌ Errore: ' + (res.error || 'risposta non valida');
+      fb.style.color = 'var(--red)';
+    }
+  } catch(e) {
+    fb.textContent = '❌ Errore di rete: ' + e.message;
+    fb.style.color = 'var(--red)';
+  }
+  btn.disabled = false; btn.textContent = '💾 Crea backup ora';
+}
+
+async function testConnessione() {
+  const btn  = document.getElementById('btn-conn');
+  const dot  = document.getElementById('conn-dot');
+  const lbl  = document.getElementById('conn-lbl');
+  btn.disabled = true; btn.textContent = '⏳ Test in corso…';
+  dot.style.background = 'var(--text-dim)'; lbl.textContent = 'Verifica…';
+  try {
+    const res = await apiPost({ azione: 'leggi', foglio: 'Giocatrici', token: TOKEN });
+    if (res.ok) {
+      dot.style.background = 'var(--green)';
+      lbl.textContent = 'Online — risposta OK (' + new Date().toLocaleTimeString('it') + ')';
+    } else {
+      dot.style.background = 'var(--red)';
+      lbl.textContent = 'Errore risposta: ' + (res.error || 'nessun dettaglio');
+    }
+  } catch(e) {
+    dot.style.background = 'var(--red)';
+    lbl.textContent = 'Offline / timeout: ' + e.message;
+  }
+  btn.disabled = false; btn.textContent = '🔄 Testa ora';
+}
 </script>
 </body>
 </html>

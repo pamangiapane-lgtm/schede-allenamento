@@ -1,4 +1,5 @@
 const TOKEN = 'mv26-dev-9kR4tLqB';
+const COACH_KEY = 'mv26-coach-8pL2wK';
 const PROD_API_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
 const BACKUP_FOLDER_ID = '1iiM7V2CislN971wXZsOmnncGGj1lS1sG';
 
@@ -37,7 +38,17 @@ function doPost(e) {
     if (azione === 'crea_foglio_info')  return creaFoglioInfo();
     if (azione === 'scrivi_nota_coach') return scriviNotaCoach_(body);
     if (azione === 'elimina_nota_coach') return eliminaNotaCoach_(body);
-    if (azione === 'invia_atleta') return inviaRiepilogoAtleta_(body.id);
+    if (azione === 'invia_atleta')   return inviaRiepilogoAtleta_(body.id);
+    if (azione === 'prepara_bozze') {
+      if (String(body.coach_key) !== COACH_KEY) return errore('Coach key non valida');
+      preparaBozzeRiepilogo();
+      return risposta({ ok: true, dest: 'pamangiapane@gmail.com' });
+    }
+    if (azione === 'crea_backup') {
+      if (String(body.coach_key) !== COACH_KEY) return errore('Coach key non valida');
+      const nomeCopia = creaBackupManuale_();
+      return risposta({ ok: true, nome: nomeCopia });
+    }
     return errore('Azione POST non valida: ' + azione);
   } catch (ex) { return errore(ex.toString()); }
 }
@@ -1537,6 +1548,21 @@ function creaBackup() {
   const sub   = subs.hasNext() ? subs.next() : root.createFolder(meseLbl);
   const copy  = file.makeCopy(nome, sub);
   Logger.log('Backup creato: ' + copy.getUrl());
+}
+
+function creaBackupManuale_() {
+  const ss   = SpreadsheetApp.getActiveSpreadsheet();
+  const file = DriveApp.getFileById(ss.getId());
+  const oggi = new Date();
+  const nome = 'Backup_' + ss.getName() + '_' + Utilities.formatDate(oggi, 'Europe/Rome', 'yyyy-MM-dd_HHmm');
+  const mesiIT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
+                  'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+  const meseLbl = Utilities.formatDate(oggi, 'Europe/Rome', 'yyyy-MM') + ' — ' + mesiIT[oggi.getMonth()];
+  const root = DriveApp.getFolderById(BACKUP_FOLDER_ID);
+  const subs = root.getFoldersByName(meseLbl);
+  const sub  = subs.hasNext() ? subs.next() : root.createFolder(meseLbl);
+  file.makeCopy(nome, sub);
+  return nome;
 }
 
 function installaBackupTrigger() {
