@@ -1488,6 +1488,11 @@ function preparaBozzeRiepilogo() {
   const sheetN = ss.getSheetByName('Note_Coach');
   if (!sheetG || !sheetP || !sheetN) { Logger.log('Fogli mancanti'); return; }
 
+  const sheetSed      = ss.getSheetByName('Sedute');
+  const sheetEse      = ss.getSheetByName('Esercizi');
+  const tuttiSedute   = sheetSed ? leggiRighe_(sheetSed)   : [];
+  const tuttiEsercizi = sheetEse ? leggiRighe_(sheetEse)   : [];
+
   const giocatrici = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)));
   const progressi  = leggiRighe_(sheetP);
   const wellness   = sheetW ? leggiRighe_(sheetW) : [];
@@ -1511,6 +1516,7 @@ function preparaBozzeRiepilogo() {
 
   // Genera bozza per ogni atleta
   const bozze = [];
+  const atletaBlobs = [];
   giocatrici.forEach(g => {
     const pAll    = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
     const pEserc  = pAll.filter(p => !SKIP_SET.has(p.Esercizio));
@@ -1540,7 +1546,12 @@ function preparaBozzeRiepilogo() {
       nota = 'Settimana con poca attività registrata. Tutto ok? Fammi sapere se hai bisogno di qualcosa.';
 
     sheetN.appendRow([new Date().toISOString(), String(g.ID), 'riepilogo_sett', '', nota, fmtDate(oggi), fmtDate(fra7)]);
-    bozze.push({ nome: g.Nome ? g.Nome.split(' ')[0] : String(g.Nome), nota, seduteN, rpeMedia, dolori, giorniSilenzio });
+    const nomeBreve = g.Nome ? g.Nome.split(' ')[0] : String(g.Nome);
+    bozze.push({ nome: nomeBreve, nota, seduteN, rpeMedia, dolori, giorniSilenzio });
+
+    const schedaHtml = buildSchedaHTML_(g, tuttiSedute, tuttiEsercizi);
+    const nomeFile   = 'Scheda_' + String(g.Nome || g.ID).replace(/\s+/g, '_') + '.html';
+    atletaBlobs.push(Utilities.newBlob(schedaHtml, 'text/html', nomeFile));
   });
   SpreadsheetApp.flush();
 
@@ -1565,6 +1576,7 @@ function preparaBozzeRiepilogo() {
 
   MailApp.sendEmail({ to: EMAIL_COACH,
     subject: '✏️ Bozze riepilogo atlete — ' + settLabel + ' — modifica e conferma',
+    attachments: atletaBlobs,
     htmlBody: `
 <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto">
   <div style="background:#1a3a6b;color:#fff;padding:18px 22px 16px">
@@ -1593,6 +1605,112 @@ function preparaBozzeRiepilogo() {
 </div>`
   });
   Logger.log('preparaBozzeRiepilogo completato per ' + bozze.length + ' atlete');
+}
+
+// ── SCHEDA HTML PER ATLETA (allegato email bozze — piano B se app offline) ────
+
+function buildSchedaHTML_(g, tuttiSedute, tuttiEsercizi) {
+  const idG    = String(g.ID);
+  const nome   = g.Nome ? g.Nome.split(' ')[0] : idG;
+  const lingua = String(g.Lingua || '').trim().toUpperCase() === 'EN' ? 'EN' : 'IT';
+
+  const sedute = tuttiSedute
+    .filter(s => String(s.ID_Giocatrice) === '0' || String(s.ID_Giocatrice) === idG)
+    .sort((a, b) => Number(a.Ordine) - Number(b.Ordine));
+
+  const seduteHtml = sedute.map(function(s) {
+    const nSeduta = s.Numero_Seduta || s['Numero_Seduta'] || '';
+
+    const esercizi = tuttiEsercizi
+      .filter(function(e) {
+        if (String(e.N_Seduta) !== String(nSeduta)) return false;
+        if (String(e.ID_Giocatrice) !== '0' && String(e.ID_Giocatrice) !== idG) return false;
+        if (e.Escludi_ID) {
+          const esclusi = String(e.Escludi_ID).split(',').map(function(x) { return x.trim(); });
+          if (esclusi.indexOf(idG) !== -1) return false;
+        }
+        return true;
+      })
+      .sort(function(a, b) {
+        const om = Number(a.Ord_Metodo) - Number(b.Ord_Metodo);
+        return om !== 0 ? om : Number(a.Ord_Eserc) - Number(b.Ord_Eserc);
+      });
+
+    if (!esercizi.length) return '';
+
+    // Raggruppa per Metodo mantenendo l'ordine
+    const metodiMap = [];
+    const metodiSeen = [];
+    esercizi.forEach(function(e) {
+      const m = String(e.Metodo || 'Altro');
+      if (metodiSeen.indexOf(m) === -1) {
+        metodiSeen.push(m);
+        metodiMap.push({ metodo: m, desc: String(e.Desc_Metodo || ''), esercizi: [] });
+      }
+      metodiMap[metodiSeen.indexOf(m)].esercizi.push(e);
+    });
+
+    const metodiHtml = metodiMap.map(function(m) {
+      const eHtml = m.esercizi.map(function(e) {
+        const nomeE = (lingua === 'EN' && e.Esercizio_EN) ? String(e.Esercizio_EN) : String(e.Esercizio || '');
+        const tipo  = String(e.Tipo_Esercizio || '').toLowerCase();
+
+        let setsLine;
+        if (tipo === 'bicarico') {
+          const pA = (e.Serie || '') + '×' + (e.Reps || '') + (e.Intensit_ || e['Intensità'] || e.Intensita || '' ? ' @ ' + (e.Intensit_ || e['Intensità'] || e.Intensita) : '') + (e.Recupero ? ' · rec ' + e.Recupero : '');
+          const pB = (e.SerieB || '') + '×' + (e.RepsB || '') + (e.Intensit_B || e['IntensitàB'] || e.IntensitaB || '' ? ' @ ' + (e.Intensit_B || e['IntensitàB'] || e.IntensitaB) : '') + (e.RecuperoB ? ' · rec ' + e.RecuperoB : '');
+          setsLine = '<div style="font-size:.72rem;color:#64748b;margin-top:2px"><b>A:</b> ' + esc_(pA) + '<br><b>B:</b> ' + esc_(pB) + '</div>';
+        } else {
+          const inten = e.Intensit_ || e['Intensità'] || e.Intensita || '';
+          const sets  = (e.Serie || '') + '×' + (e.Reps || '') + (inten ? ' @ ' + inten : '');
+          const rec   = e.Recupero ? ' · rec ' + e.Recupero : '';
+          setsLine = '<span style="font-size:.78rem;color:#64748b">' + esc_(sets) + '</span>' +
+            (rec ? '<span style="font-size:.72rem;color:#94a3b8">' + esc_(rec) + '</span>' : '');
+        }
+
+        const note = e.Note ? '<div style="font-size:.68rem;color:#94a3b8;font-style:italic;margin-top:2px">' + esc_(String(e.Note)) + '</div>' : '';
+
+        return '<div style="padding:9px 16px;border-bottom:1px solid #f8fafc">' +
+          '<div style="font-size:.82rem;color:#334155;font-weight:500">' + esc_(nomeE) + '</div>' +
+          setsLine + note +
+          '</div>';
+      }).join('');
+
+      return '<div style="background:#f8fafc;padding:6px 16px 4px;border-bottom:1px solid #e8edf5">' +
+        '<span style="font-size:.6rem;font-weight:700;color:#94a3b8;letter-spacing:.1em;text-transform:uppercase">' + esc_(m.metodo) + '</span>' +
+        (m.desc ? '<span style="font-size:.65rem;color:#94a3b8"> — ' + esc_(m.desc) + '</span>' : '') +
+        '</div>' + eHtml;
+    }).join('');
+
+    return '<div style="border:1px solid #e8edf5;border-top:none;background:#fff">' +
+      '<div style="padding:11px 16px 10px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:10px;flex-wrap:wrap">' +
+      '<span style="background:#1a3a6b;color:#fff;font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:4px;letter-spacing:.04em">' + esc_(nSeduta) + '</span>' +
+      '<span style="font-size:.85rem;font-weight:600;color:#1a3a6b">' + esc_(String(s.Nome_Seduta || '')) + '</span>' +
+      '</div>' + metodiHtml + '</div>';
+  }).filter(Boolean).join('');
+
+  const subtitle = lingua === 'EN' ? 'Complete program — Marsala Volley 2026/27' : 'Programma completo — Marsala Volley 2026/27';
+  const intro    = lingua === 'EN'
+    ? 'Hi ' + esc_(nome) + '! This is your complete training program. If the app is not available, use this email.'
+    : 'Ciao ' + esc_(nome) + '! Questa è la tua scheda completa. Se l\'app non è disponibile, allénati con questa email.';
+
+  return '<!DOCTYPE html><html lang="it"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<title>Scheda ' + esc_(nome) + ' — Marsala Volley</title>' +
+    '<style>*{box-sizing:border-box;margin:0;padding:0}body{background:#f1f5f9;font-family:Arial,sans-serif;padding:20px 10px}.wrap{max-width:540px;margin:0 auto}</style>' +
+    '</head><body><div class="wrap">' +
+    '<div style="background:#1a3a6b;color:#fff;padding:20px 22px 18px;border-radius:8px 8px 0 0">' +
+    '<p style="font-size:.62rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px">Marsala Volley · ' + (lingua === 'EN' ? 'Training program' : 'Scheda allenamento') + '</p>' +
+    '<h2 style="font-size:1.1rem;font-weight:700;margin-bottom:4px">' + (lingua === 'EN' ? 'Hi ' + esc_(nome) + '!' : 'Ciao ' + esc_(nome) + '!') + '</h2>' +
+    '<p style="font-size:.75rem;opacity:.65">' + subtitle + '</p>' +
+    '</div>' +
+    '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-top:none;padding:10px 16px">' +
+    '<p style="font-size:.8rem;color:#1e3a5f">' + intro + '</p>' +
+    '</div>' +
+    (seduteHtml || '<div style="border:1px solid #e8edf5;border-top:none;padding:16px;text-align:center"><p style="font-size:.82rem;color:#94a3b8">Nessuna seduta trovata nel programma.</p></div>') +
+    '<div style="border:1px solid #e8edf5;border-top:none;padding:10px 16px;text-align:center;background:#f8fafc;border-radius:0 0 8px 8px">' +
+    '<p style="font-size:.62rem;color:#cbd5e1">Marsala Volley 2026/27 · Backup scheda · Non condividere</p>' +
+    '</div></div></body></html>';
 }
 
 function risposta(data) {
