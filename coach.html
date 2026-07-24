@@ -1835,12 +1835,12 @@ function buildEmailIT_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,e
 
   return `<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">
     <div style="background:#1a3a6b;color:#fff;padding:18px 20px">
-      <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Riepilogo stagione</p>
+      <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Riepilogo settimana</p>
       <h2 style="margin:0;font-size:1.1rem;font-weight:700">Ciao ${e(nome)}!</h2>
       <p style="margin:4px 0 0;font-size:.78rem;opacity:.7">${settLabel}</p>
     </div>
     <div style="padding:18px 20px;border:1px solid #e8edf5;border-top:none">
-      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Tutte le sedute</p>
+      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Sedute questa settimana</p>
       ${seduteHtml}${wHtml}
       <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Record carichi</p>
       <table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tbody>${cRighe}</tbody></table>
@@ -1848,7 +1848,7 @@ function buildEmailIT_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,e
       <div style="text-align:center;margin-top:22px">
         <a href="${BASE}scheda.html?id=${idG}" style="display:inline-block;background:#1a3a6b;color:#fff;padding:11px 28px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Apri la mia scheda &#x2192;</a>
       </div>
-      <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Riepilogo stagione</p>
+      <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Riepilogo settimana</p>
     </div>
   </div>`;
 }
@@ -1900,12 +1900,12 @@ function buildEmailEN_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,e
 
   return `<div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">
     <div style="background:#1a3a6b;color:#fff;padding:18px 20px">
-      <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Season summary</p>
+      <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Weekly summary</p>
       <h2 style="margin:0;font-size:1.1rem;font-weight:700">Hi ${e(nome)}!</h2>
       <p style="margin:4px 0 0;font-size:.78rem;opacity:.7">${settLabel}</p>
     </div>
     <div style="padding:18px 20px;border:1px solid #e8edf5;border-top:none">
-      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">All sessions</p>
+      <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Sessions this week</p>
       ${seduteHtml}${wHtml}
       <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">Best loads</p>
       <table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tbody>${cRighe}</tbody></table>
@@ -1913,7 +1913,7 @@ function buildEmailEN_(nome,settLabel,sedute,topCarichi,hasManual,sonno,dolori,e
       <div style="text-align:center;margin-top:22px">
         <a href="${BASE}scheda.html?id=${idG}" style="display:inline-block;background:#1a3a6b;color:#fff;padding:11px 28px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Open my program &#x2192;</a>
       </div>
-      <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Season summary</p>
+      <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Weekly summary</p>
     </div>
   </div>`;
 }
