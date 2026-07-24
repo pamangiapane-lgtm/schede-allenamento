@@ -147,6 +147,22 @@
     .spike.dn { background: #fee2e2; color: #b91c1c; }
     .nodata { color: var(--text3); font-size: .78rem; font-style: italic; text-align: center; padding: 14px 0; }
 
+    /* RPE CHIPS */
+    .rpe-chip { display:inline-flex;align-items:center;justify-content:center;min-width:28px;padding:2px 6px;border-radius:4px;font-weight:700;font-size:.78rem;font-variant-numeric:tabular-nums; }
+    .rpe-chip.lo  { background:#dcfce7;color:#15803d; }
+    .rpe-chip.mid { background:#fef3c7;color:#78350f; }
+    .rpe-chip.hi  { background:#fee2e2;color:#b91c1c; }
+    .max-badge { font-size:.6rem;font-weight:700;padding:1px 4px;border-radius:3px;margin-left:3px;background:#fef3c7;color:#78350f;white-space:nowrap; }
+
+    /* SESSION TABLE */
+    .sed-wrap { overflow-x:auto; }
+    .sed-table { width:100%;border-collapse:collapse;font-size:.78rem;min-width:300px; }
+    .sed-table th { font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--text3);padding:4px 7px;border-bottom:1px solid var(--border);text-align:center; }
+    .sed-table th:first-child { text-align:left; }
+    .sed-table td { padding:6px 7px;border-bottom:1px solid var(--border);vertical-align:middle;text-align:center;font-variant-numeric:tabular-nums; }
+    .sed-table td:first-child { text-align:left;font-size:.76rem; }
+    .sed-table tr:last-child td { border-bottom:none; }
+
     /* SPARKLINE */
     .spark-wrap { display: flex; align-items: flex-end; gap: 3px; height: 38px; }
     .spark-bar { flex: 1; border-radius: 2px 2px 0 0; min-height: 3px; }
@@ -466,6 +482,93 @@ function currentNota(athleteId) {
   ) || null;
 }
 
+// ─── ALL-TIME MAX & SESSION DETAIL ────────────────────────────────────────
+function allTimeExMap(athleteId) {
+  const id = String(athleteId);
+  const ex = {};
+  for (const p of progressi) {
+    if (String(p.ID_Giocatrice) !== id || SKIP.has(p.Esercizio)) continue;
+    const kg = extractKg(p);
+    if (kg !== null && (!ex[p.Esercizio] || kg > ex[p.Esercizio])) ex[p.Esercizio] = kg;
+  }
+  return ex;
+}
+
+function buildSeduteDetail(athleteId, off) {
+  const { start, end } = weekBounds(off);
+  const id = String(athleteId);
+  const progs = progressi.filter(p => {
+    if (String(p.ID_Giocatrice) !== id) return false;
+    const ts = p.Timestamp ? new Date(p.Timestamp) : null;
+    return ts && ts >= start && ts < end;
+  });
+  const sedMap = {};
+  for (const p of progs) {
+    const k = String(p.N_Seduta || (p.Timestamp || '').slice(0, 10) || '?');
+    if (!sedMap[k]) sedMap[k] = { k, ts: p.Timestamp ? new Date(p.Timestamp) : null, rpe: null, fatica: null, durata: null, exSet: new Set(), vol: 0 };
+    const s = sedMap[k];
+    if (p.Esercizio === 'RPE-seduta')         { const v = Number(p.Valore); if (!isNaN(v) && v > 0) s.rpe    = v; }
+    else if (p.Esercizio === 'Fatica-seduta') { const v = Number(p.Valore); if (!isNaN(v) && v > 0) s.fatica = v; }
+    else if (/durata/i.test(String(p.Esercizio || ''))) { const v = Number(p.Valore); if (!isNaN(v) && v > 0) s.durata = v; }
+    else {
+      const kg = extractKg(p);
+      if (kg !== null) {
+        const reps = Number(p.Reps_Fatte);
+        if (!isNaN(reps) && reps > 0) s.vol += kg * reps;
+        s.exSet.add(p.Esercizio);
+      }
+    }
+  }
+  return Object.values(sedMap)
+    .sort((a, b) => (a.ts || 0) - (b.ts || 0))
+    .map(s => ({
+      label:  s.ts ? s.ts.toLocaleDateString('it-IT', { weekday:'short', day:'2-digit', month:'short' }) : 'Sed. ' + s.k,
+      rpe:    s.rpe,
+      fatica: s.fatica,
+      durata: s.durata,
+      sRPE:   (s.rpe !== null && s.durata !== null) ? Math.round(s.rpe * s.durata) : null,
+      volume: s.vol,
+      nEx:    s.exSet.size
+    }));
+}
+
+function rpeChip(v) {
+  if (v === null || v === undefined) return '<span style="color:var(--text3)">—</span>';
+  const cls = v >= 8.5 ? 'hi' : v >= 7 ? 'mid' : 'lo';
+  return `<span class="rpe-chip ${cls}">${Number(v).toFixed(1)}</span>`;
+}
+
+function renderSeduteSection(seds) {
+  if (!seds.length) return '';
+  const hasDurata = seds.some(s => s.durata !== null);
+  const rows = seds.map(s => `<tr>
+    <td>${s.label}</td>
+    ${hasDurata ? `<td>${s.durata !== null ? s.durata + ' min' : '—'}</td>` : ''}
+    <td>${rpeChip(s.rpe)}</td>
+    <td>${s.fatica !== null ? s.fatica.toFixed(1) : '—'}</td>
+    ${hasDurata ? `<td>${s.sRPE !== null ? s.sRPE : '—'}</td>` : ''}
+    <td>${s.volume > 0 ? fVol(s.volume) : '—'}</td>
+    <td>${s.nEx || '—'}</td>
+  </tr>`).join('');
+  return `<div class="sec">
+    <div class="sec-ttl">Sedute questa settimana</div>
+    <div class="sed-wrap">
+      <table class="sed-table">
+        <thead><tr>
+          <th style="text-align:left">Data</th>
+          ${hasDurata ? '<th>Min</th>' : ''}
+          <th>RPE</th>
+          <th>Fatica</th>
+          ${hasDurata ? '<th>sRPE</th>' : ''}
+          <th>Volume</th>
+          <th>Eserc.</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
 // ─── TAB: SQUADRA ──────────────────────────────────────────────────────────
 function renderSquadra() {
   const ORDER = { r: 0, y: 1, g: 2 };
@@ -536,9 +639,10 @@ function renderAthlete(id) {
   const g = giocatrici.find(x => String(x.ID) === String(id));
   if (!g) return;
 
-  const m0 = metrics(id, weekOffset);
-  const m1 = metrics(id, weekOffset - 1);
-  const vd = m1.volume > 0 ? (m0.volume - m1.volume) / m1.volume : null;
+  const m0   = metrics(id, weekOffset);
+  const m1   = metrics(id, weekOffset - 1);
+  const vd   = m1.volume > 0 ? (m0.volume - m1.volume) / m1.volume : null;
+  const mAll = allTimeExMap(id);
 
   const trendRows = [weekOffset - 3, weekOffset - 2, weekOffset - 1, weekOffset].map(off => {
     const { start } = weekBounds(off);
@@ -582,13 +686,9 @@ function renderAthlete(id) {
       </div>
     </div>
 
-    ${renderCarichi(m0, m1, vd)}
+    ${renderCarichi(m0, m1, vd, mAll)}
 
-    ${m0.rpeHistory.length >= 2 ? `
-    <div class="sec">
-      <div class="sec-ttl">RPE ultime sedute</div>
-      ${renderSparkline(m0.rpeHistory)}
-    </div>` : ''}
+    ${renderSeduteSection(buildSeduteDetail(id, weekOffset))}
 
     <div class="sec">
       <div class="sec-ttl">Trend 4 settimane</div>
@@ -628,7 +728,7 @@ function renderAthlete(id) {
   document.getElementById('pane-atleta').innerHTML = html;
 }
 
-function renderCarichi(m0, m1, vd) {
+function renderCarichi(m0, m1, vd, mAll = {}) {
   const allEx = new Set([...Object.keys(m0.exMap), ...Object.keys(m1.exMap)]);
 
   let deltaClass = 'neu', deltaStr = '—';
@@ -644,6 +744,8 @@ function renderCarichi(m0, m1, vd) {
   const exRows = [...allEx].map(ex => {
     const w0 = m0.exMap[ex] ?? null;
     const w1 = m1.exMap[ex] ?? null;
+    const mx = mAll[ex] ?? null;
+    const isNewMax = w0 !== null && mx !== null && w0 >= mx;
     const d  = (w0 !== null && w1 !== null) ? (w0 - w1) / w1 : null;
     const spikeBadge = d !== null && Math.abs(d) >= 0.15
       ? `<span class="spike ${d > 0 ? 'up' : 'dn'}">${d > 0 ? '▲' : '▼'} ${Math.round(Math.abs(d)*100)}%</span>` : '';
@@ -651,8 +753,9 @@ function renderCarichi(m0, m1, vd) {
       ? `<span style="font-size:.65rem;color:var(--text3)">${d >= 0 ? '+' : ''}${Math.round(d*100)}%</span>` : '';
     return `<tr>
       <td>${esc(ex)}</td>
-      <td>${w0 !== null ? w0 + ' kg' : '—'}</td>
+      <td>${w0 !== null ? w0 + ' kg' : '—'}${isNewMax ? ' <span class="max-badge">★ max</span>' : ''}</td>
       <td>${w1 !== null ? w1 + ' kg' : '—'}</td>
+      <td>${mx !== null ? mx + ' kg' : '—'}</td>
       <td>${spikeBadge}${dStr}</td>
     </tr>`;
   }).join('');
@@ -673,6 +776,7 @@ function renderCarichi(m0, m1, vd) {
           <th>Esercizio</th>
           <th style="text-align:right">Sett. att.</th>
           <th style="text-align:right">Sett. prec.</th>
+          <th style="text-align:right">Max</th>
           <th style="text-align:right">Δ</th>
         </tr></thead>
         <tbody>${exRows}</tbody>
@@ -681,18 +785,6 @@ function renderCarichi(m0, m1, vd) {
   </div>`;
 }
 
-function renderSparkline(vals) {
-  const max = Math.max(...vals, 1);
-  const bars = vals.slice(-10).map(v => {
-    const pct = Math.max((v / max) * 100, 4);
-    const col = v >= 8.5 ? '#dc2626' : v >= 7 ? '#d97706' : '#16a34a';
-    return `<div class="spark-bar" style="height:${pct}%;background:${col}" title="RPE ${v}"></div>`;
-  }).join('');
-  return `<div class="spark-wrap">${bars}</div>
-    <div class="spark-legend">
-      <span>← meno recente</span><span>più recente →</span>
-    </div>`;
-}
 
 // ─── TAB: NOTE ─────────────────────────────────────────────────────────────
 function renderNote() {
