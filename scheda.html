@@ -137,7 +137,10 @@
 
 <div class="container">
 
-  <a class="back-link" href="index.html">← Tutte le giocatrici</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <a class="back-link" href="index.html" style="margin-bottom:0">← Tutte le giocatrici</a>
+    <a id="storico-link" href="#" style="font-size:.82rem;color:var(--blu-medio);text-decoration:none;font-weight:600;display:none">📈 Il mio storico</a>
+  </div>
 
   <div id="loading" class="loading-msg">Caricamento scheda...</div>
 
@@ -200,7 +203,7 @@ const IT = {
   instrP2:'Dopo ogni seduta <strong>aggiorna il massimale (1RM)</strong> nella sezione qui sotto in base al carico spostato durante la seduta. I carichi in scheda si calcolano da quel valore.',
   instrP3:'Compila i <strong>kg usati</strong> per ogni esercizio nella sezione Sedute e premi <strong>Salva</strong> per tenere lo storico aggiornato.',
   bwTitle:'Peso corporeo', bwPlaceholder:'es. 65', saveBtn:'Salva', savedOk:'✓ Salvato!',
-  histTitle:'Storico carichi', sessionFallback: n=>`Seduta ${n}`,
+  histTitle:'Storico carichi', sessionFallback: n=>`Seduta ${n}`, storicoLink:'Il mio storico',
   maxTitle:'Massimali', enterRM:'Inserisci il tuo RM',
   afTitle:'Analisi Funzionale', stratTitle:'Strategia',
   prehabTitle:'Programma Prehab', prehabBtn:'Apri il programma personale',
@@ -228,7 +231,7 @@ const EN = {
   instrP2:'After each session, <strong>update your 1RM</strong> in the section below based on how the exercise felt. Your program loads are calculated from that value.',
   instrP3:'Fill in the <strong>kg used</strong> for each exercise in the Sessions tab and press <strong>Save</strong> to keep your history up to date.',
   bwTitle:'Body weight', bwPlaceholder:'e.g. 65', saveBtn:'Save', savedOk:'✓ Saved!',
-  histTitle:'Load History', sessionFallback: n=>`Session ${n}`,
+  histTitle:'Load History', sessionFallback: n=>`Session ${n}`, storicoLink:'My progress',
   maxTitle:'1RM Maxes', enterRM:'Enter your 1RM',
   afTitle:'Functional Assessment', stratTitle:'Strategy',
   prehabTitle:'Prehab Program', prehabBtn:'Open personal program',
@@ -624,6 +627,8 @@ async function caricaScheda() {
     L = (g.Lingua === 'EN') ? EN : IT;
     document.querySelector('h1').textContent = L.appTitle;
     document.querySelector('.back-link').textContent = L.back;
+    const sl = document.getElementById('storico-link');
+    if (sl && id) { sl.href = 'storico.html?id=' + encodeURIComponent(id); sl.textContent = '📈 ' + L.storicoLink; sl.style.display = ''; }
     const tabBtns = document.querySelectorAll('.tab-btn');
     if (tabBtns[0]) tabBtns[0].textContent = L.tabProfile;
     if (tabBtns[1]) tabBtns[1].textContent = L.tabSessions;
