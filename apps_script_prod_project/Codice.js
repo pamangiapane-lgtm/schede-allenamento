@@ -678,7 +678,7 @@ function inviaRiepilogoSettimanale() {
   const domScorso  = new Date(lune); domScorso.setMilliseconds(-1);
   const settLabel  = fmt(luneScorso) + '–' + fmt(domScorso) + ' ' + domScorso.getFullYear();
   const inRange    = ts => { const d = new Date(ts); return d >= cut7 && d <= ora; };
-  const IS_DEV_SCRIPT = TOKEN === 'mv26-prd-3xF7wNqK';
+  const IS_DEV_SCRIPT = TOKEN === 'mv26-dev-9kR4tLqB';
   if (IS_DEV_SCRIPT) { Logger.log('[DEV] inviaRiepilogoSettimanale — invio email disabilitato in DEV'); return; }
 
   giocatrici.forEach(g => {
@@ -969,7 +969,7 @@ function inviaRiepilogoAtleta_(idTarget) {
   const domScorso  = new Date(lune); domScorso.setMilliseconds(-1);
   const settLabel  = fmt(luneScorso) + '–' + fmt(domScorso) + ' ' + domScorso.getFullYear();
   const inRange    = ts => { const d = new Date(ts); return d >= cut7 && d <= ora; };
-  const IS_DEV_SCRIPT = TOKEN === 'mv26-prd-3xF7wNqK';
+  const IS_DEV_SCRIPT = TOKEN === 'mv26-dev-9kR4tLqB';
   if (IS_DEV_SCRIPT) { Logger.log('[DEV] inviaRiepilogoAtleta_ — invio email disabilitato in DEV'); return risposta({ ok: false, errore: 'Invio disabilitato in DEV' }); }
 
   const g = giocatrici[0];
@@ -1540,7 +1540,7 @@ function drawBubbleChart_(slide, vals, labels, startX, startY, chartW, chartH, t
 // ── MONITOR PROD ─────────────────────────────────────────────────────────────
 
 function monitoraProd() {
-  if (TOKEN === 'mv26-prd-3xF7wNqK') return; // disabilitato in DEV
+  if (TOKEN === 'mv26-dev-9kR4tLqB') return; // disabilitato in DEV
   try {
     const url  = PROD_API_URL + '?token=mv26-prd-3xF7wNqK&azione=leggi&foglio=Giocatrici';
     const resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true, followRedirects: true });
