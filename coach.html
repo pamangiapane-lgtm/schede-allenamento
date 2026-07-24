@@ -1744,10 +1744,11 @@ function buildEmailHtmlBrowser(g) {
   const ora = new Date();
   const SKIP_E = new Set(['RPE-seduta','Fatica-seduta','Peso-corporeo']);
   const pAll  = progressi.filter(p=>String(p.ID_Giocatrice)===id && p.Valore);
+  const cut7  = new Date(ora); cut7.setDate(ora.getDate()-7);
+  const pSett = pAll.filter(p=>p.Timestamp && new Date(p.Timestamp)>=cut7);
 
-  // Sedute per-sessione (tutte dall'inizio)
   const seduteMap={};
-  pAll.filter(p=>p.N_Seduta&&p.N_Seduta!=='?').forEach(p=>{
+  pSett.filter(p=>p.N_Seduta&&p.N_Seduta!=='?').forEach(p=>{
     if(!seduteMap[p.N_Seduta]) seduteMap[p.N_Seduta]={nome:p.N_Seduta,rpe:null,fatica:null,ts:null};
     const ts=new Date(p.Timestamp);
     if(!seduteMap[p.N_Seduta].ts||ts<seduteMap[p.N_Seduta].ts) seduteMap[p.N_Seduta].ts=ts;
@@ -1756,31 +1757,25 @@ function buildEmailHtmlBrowser(g) {
   });
   const sedute=Object.values(seduteMap).sort((a,b)=>(a.ts||0)-(b.ts||0));
 
-  // Record carichi (massimo storico per esercizio)
   const maxPerEs={};
-  pAll.filter(p=>!SKIP_E.has(p.Esercizio)).forEach(p=>{
+  pSett.filter(p=>!SKIP_E.has(p.Esercizio)).forEach(p=>{
     const m=String(p.Valore).match(/[\d.]+/);if(!m)return;
     const kg=parseFloat(m[0]),stima=String(p.Valore).includes('~');
     if(!maxPerEs[p.Esercizio]||kg>maxPerEs[p.Esercizio].kg) maxPerEs[p.Esercizio]={kg,stima};
   });
   const topCarichi=Object.entries(maxPerEs).sort((a,b)=>b[1].kg-a[1].kg).slice(0,5);
-  const hasManual=pAll.some(p=>p.N_Seduta==='?'&&!SKIP_E.has(p.Esercizio));
+  const hasManual=pSett.some(p=>p.N_Seduta==='?'&&!SKIP_E.has(p.Esercizio));
 
-  // Wellness medio (tutta la stagione)
-  const wAll=wellness.filter(w=>String(w.ID_Giocatrice)===id);
+  const wSett=wellness.filter(w=>String(w.ID_Giocatrice)===id && w.Timestamp && new Date(w.Timestamp)>=cut7);
   const avgW=arr=>arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:null;
-  const sonno  =avgW(wAll.map(w=>Number(w.Qualita_Sonno)).filter(v=>!isNaN(v)&&v>0));
-  const dolori =avgW(wAll.map(w=>Number(w.Dolori)).filter(v=>!isNaN(v)&&v>0));
-  const energia=avgW(wAll.map(w=>Number(w.Energia)).filter(v=>!isNaN(v)&&v>0));
+  const sonno  =avgW(wSett.map(w=>Number(w.Qualita_Sonno)).filter(v=>!isNaN(v)&&v>0));
+  const dolori =avgW(wSett.map(w=>Number(w.Dolori)).filter(v=>!isNaN(v)&&v>0));
+  const energia=avgW(wSett.map(w=>Number(w.Energia)).filter(v=>!isNaN(v)&&v>0));
 
-  // Note attive
   const noteAtleta=getNoteAttiveAtleta(id);
 
-  // Period label: prima seduta → oggi
   const fmt=d=>d.getDate()+'/'+(d.getMonth()+1);
-  const tss=pAll.map(p=>new Date(p.Timestamp)).filter(d=>!isNaN(d));
-  const primaData=tss.length?new Date(Math.min(...tss)):ora;
-  const settLabel='Pre-season '+fmt(primaData)+'–'+fmt(ora)+' '+ora.getFullYear();
+  const settLabel='Settimana '+fmt(cut7)+'–'+fmt(ora)+' '+ora.getFullYear();
   const nome=g.Nome?g.Nome.split(' ')[0]:g.Nome;
   const lingua=String(g.Lingua||'').trim().toUpperCase()==='EN'?'EN':'IT';
   return lingua==='EN'
