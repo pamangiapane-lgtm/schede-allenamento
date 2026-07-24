@@ -323,9 +323,13 @@ function inviaDigest() {
   const wellness   = sheetW ? leggiRighe_(sheetW) : [];
   const noteCoach  = sheetN ? leggiRighe_(sheetN) : [];
 
-  const ora  = new Date();
-  const cut7 = new Date(ora); cut7.setDate(ora.getDate() - 7);
-  const oggi = new Date(); oggi.setHours(0, 0, 0, 0);
+  const ora   = new Date();
+  const cut7  = new Date(ora); cut7.setDate(ora.getDate() - 7);
+  const cut14 = new Date(ora); cut14.setDate(ora.getDate() - 14);
+  const oggi  = new Date(); oggi.setHours(0, 0, 0, 0);
+  // Settimana corrente: dal lunedì alle 00:00 a ora
+  const cutLun = new Date(ora); cutLun.setDate(ora.getDate() - ((ora.getDay() + 6) % 7)); cutLun.setHours(0, 0, 0, 0);
+  const cutLunPrev = new Date(cutLun); cutLunPrev.setDate(cutLun.getDate() - 7);
 
   const noteAttive = noteCoach.filter(n => {
     const ini = n.Data_Inizio ? new Date(n.Data_Inizio) : null;
@@ -340,13 +344,24 @@ function inviaDigest() {
   const avgN = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
 
   const righe = giocatrici.map(g => {
-    const pAll   = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
-    const pEserc = pAll.filter(p => !SKIP_SET.has(p.Esercizio));
-    const pSett  = pEserc.filter(p => p.Timestamp && new Date(p.Timestamp) >= cut7);
-    const rpeVals = pAll.filter(p => p.Esercizio === 'RPE-seduta' && p.Timestamp && new Date(p.Timestamp) >= cut7)
+    const pAll    = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
+    const pEserc  = pAll.filter(p => !SKIP_SET.has(p.Esercizio));
+    const pSett   = pEserc.filter(p => p.Timestamp && new Date(p.Timestamp) >= cutLun);
+    const pPrev   = pEserc.filter(p => p.Timestamp && new Date(p.Timestamp) >= cutLunPrev && new Date(p.Timestamp) < cutLun);
+
+    const rpeVals = pAll.filter(p => p.Esercizio === 'RPE-seduta' && p.Timestamp && new Date(p.Timestamp) >= cutLun)
                         .map(p => Number(p.Valore)).filter(v => !isNaN(v));
+    const rpeValsPrev = pAll.filter(p => p.Esercizio === 'RPE-seduta' && p.Timestamp && new Date(p.Timestamp) >= cutLunPrev && new Date(p.Timestamp) < cutLun)
+                            .map(p => Number(p.Valore)).filter(v => !isNaN(v));
+    // Cronologico ultimi 14gg per rilevare trend RPE
+    const rpeValsOrd = pAll.filter(p => p.Esercizio === 'RPE-seduta' && p.Timestamp && new Date(p.Timestamp) >= cut14)
+                           .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
+                           .map(p => Number(p.Valore)).filter(v => !isNaN(v));
+
     const seduteSettimana = new Set(pSett.map(p => p.N_Seduta)).size;
+    const sedutePrev      = new Set(pPrev.map(p => p.N_Seduta)).size;
     const rpeMedia = avgN(rpeVals);
+    const rpePrev  = avgN(rpeValsPrev);
     const volume   = rpeMedia !== null ? rpeMedia * seduteSettimana : null;
 
     let ultimoTs = null;
@@ -365,175 +380,228 @@ function inviaDigest() {
     else if (giorniSilenzio === 1) ultimoLabel = 'ieri';
     else ultimoLabel = giorniSilenzio + 'gg fa';
 
-    const wSett   = wellness.filter(w => String(w.ID_Giocatrice) === String(g.ID) && w.Timestamp && new Date(w.Timestamp) >= cut7);
-    const sonno   = avgN(wSett.map(w => Number(w.Qualita_Sonno)).filter(v => !isNaN(v) && v > 0));
-    const dolori  = avgN(wSett.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v > 0));
-    const energia = avgN(wSett.map(w => Number(w.Energia)).filter(v => !isNaN(v) && v > 0));
+    const wSett  = wellness.filter(w => String(w.ID_Giocatrice) === String(g.ID) && w.Timestamp && new Date(w.Timestamp) >= cut7);
+    const wPrev  = wellness.filter(w => String(w.ID_Giocatrice) === String(g.ID) && w.Timestamp && new Date(w.Timestamp) >= cut14 && new Date(w.Timestamp) < cut7);
+    const sonno      = avgN(wSett.map(w => Number(w.Qualita_Sonno)).filter(v => !isNaN(v) && v > 0));
+    const dolori     = avgN(wSett.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v > 0));
+    const energia    = avgN(wSett.map(w => Number(w.Energia)).filter(v => !isNaN(v) && v > 0));
+    const sonnoPrev  = avgN(wPrev.map(w => Number(w.Qualita_Sonno)).filter(v => !isNaN(v) && v > 0));
+    const doloriPrev = avgN(wPrev.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v > 0));
+    const energiaPrev= avgN(wPrev.map(w => Number(w.Energia)).filter(v => !isNaN(v) && v > 0));
 
     const noteAtleta = noteAttive
       .filter(n => String(n.ID_Giocatrice) === String(g.ID) || n.ID_Giocatrice === 'TUTTE')
-      .map(n => {
-        if (lingua === 'EN' && n.Note_EN && String(n.Note_EN).trim()) return String(n.Note_EN).trim();
-        return String(n.Testo).trim();
-      }).filter(Boolean);
+      .map(n => String(n.Testo).trim())
+      .filter(Boolean);
 
-    return { nome: g.Nome, status, ultimoLabel, seduteSettimana, rpeMedia, rpeVals, volume, sonno, dolori, energia, noteAtleta };
+    return { nome: g.Nome, status, ultimoLabel, seduteSettimana, sedutePrev, rpeMedia, rpePrev, rpeVals, rpeValsOrd, volume, sonno, sonnoPrev, dolori, doloriPrev, energia, energiaPrev, noteAtleta };
   }).sort((a, b) => {
     const ord = { mai: 0, rosso: 1, giallo: 2, verde: 3 };
     return ord[a.status] - ord[b.status];
   });
 
-  // KPI squadra
-  const urgenti      = righe.filter(r => r.status === 'mai' || r.status === 'rosso').length;
-  const allenate     = righe.filter(r => r.seduteSettimana > 0).length;
-  const totSedute    = righe.reduce((s, r) => s + r.seduteSettimana, 0);
-  const allRpe       = righe.flatMap(r => r.rpeVals);
-  const rpeSquadra   = avgN(allRpe);
-  const caricoSquadra = rpeSquadra !== null ? rpeSquadra * (totSedute / righe.length) : null;
-  const sonnoSq      = avgN(righe.map(r => r.sonno).filter(v => v !== null));
-  const doloriSq     = avgN(righe.map(r => r.dolori).filter(v => v !== null));
-  const energiaSq    = avgN(righe.map(r => r.energia).filter(v => v !== null));
+  // KPI squadra (settimana corrente vs precedente)
+  const urgenti        = righe.filter(r => r.status === 'mai' || r.status === 'rosso').length;
+  const allenate       = righe.filter(r => r.seduteSettimana > 0).length;
+  const allenatePrev   = righe.filter(r => r.sedutePrev > 0).length;
+  const totSedute      = righe.reduce((s, r) => s + r.seduteSettimana, 0);
+  const allRpe         = righe.flatMap(r => r.rpeVals);
+  const rpeSquadra     = avgN(allRpe);
+  const rpeSquadraPrev = avgN(righe.map(r => r.rpePrev).filter(v => v !== null));
+  const caricoSquadra  = rpeSquadra !== null ? rpeSquadra * (totSedute / righe.length) : null;
+  const sonnoSq        = avgN(righe.map(r => r.sonno).filter(v => v !== null));
+  const doloriSq       = avgN(righe.map(r => r.dolori).filter(v => v !== null));
+  const energiaSq      = avgN(righe.map(r => r.energia).filter(v => v !== null));
+  const sonnoSqPrev    = avgN(righe.map(r => r.sonnoPrev).filter(v => v !== null));
+  const doloriSqPrev   = avgN(righe.map(r => r.doloriPrev).filter(v => v !== null));
+  const energiaSqPrev  = avgN(righe.map(r => r.energiaPrev).filter(v => v !== null));
 
   // Alerts
   const rpeAlti    = righe.filter(r => r.rpeVals.some(v => v >= 8));
   const doloriAlti = righe.filter(r => r.dolori !== null && r.dolori >= 3);
   const inattive   = righe.filter(r => r.status === 'mai' || r.status === 'rosso');
+  const faticaCombo = righe.filter(r => r.status === 'verde' && r.sonno !== null && r.energia !== null && r.sonno < 3 && r.energia < 3);
 
   // Colors
   const wC  = v => v === null ? '#94a3b8' : v >= 4 ? '#1a3a6b' : v >= 3 ? '#d97706' : '#dc2626';
   const dC  = v => v === null ? '#94a3b8' : v <= 1.5 ? '#16a34a' : v <= 2.5 ? '#d97706' : '#dc2626';
   const rC  = v => !v ? '#334155' : v >= 8 ? '#dc2626' : v >= 7 ? '#d97706' : '#334155';
   const stC = { mai: '#f1f5f9', rosso: '#fef2f2', giallo: '#fffbeb', verde: '#f0fdf4' };
-  const stE = { mai: '⚫', rosso: '🔴', giallo: '🟡', verde: '🟢' };
+  const stE = { mai: '&#9899;', rosso: '&#128308;', giallo: '&#128993;', verde: '&#128994;' };
+
+  // Trend arrow — higherIsBetter: true per sonno/energia/allenate, false per dolori
+  const tA = (curr, prev, higherIsBetter) => {
+    if (prev === null || curr === null || Math.abs(curr - prev) < 0.15) return '';
+    const good = higherIsBetter ? curr > prev : curr < prev;
+    return ' <span style="font-size:.65rem;font-weight:700;color:' + (good ? '#16a34a' : '#dc2626') + '">' + (curr > prev ? '&#8593;' : '&#8595;') + '</span>';
+  };
+
+  // Auto-osservazione per atleta basata sui dati degli ultimi 14 giorni
+  const autoNota = r => {
+    if (r.status === 'mai') return 'Nessuna seduta registrata';
+    if (r.status === 'rosso') return 'Ultima seduta ' + r.ultimoLabel + ' &mdash; contattare';
+    const parts = [];
+    // Trend RPE cronologico (almeno 3 rilevazioni negli ultimi 14gg)
+    if (r.rpeValsOrd.length >= 3) {
+      const half = Math.floor(r.rpeValsOrd.length / 2);
+      const avgF = avgN(r.rpeValsOrd.slice(0, half));
+      const avgL = avgN(r.rpeValsOrd.slice(r.rpeValsOrd.length - half));
+      if (avgL - avgF >= 1.5 && avgL >= 7)
+        parts.push('RPE in crescita (' + r.rpeValsOrd.join('&#8594;') + ') &mdash; valutare carico');
+      else if (avgF - avgL >= 1.5)
+        parts.push('RPE in calo (' + r.rpeValsOrd.join('&#8594;') + ')');
+    }
+    // Dolori
+    if (r.dolori !== null && r.dolori >= 3) {
+      const crescita = r.doloriPrev !== null && r.dolori > r.doloriPrev + 0.5 ? ' in crescita' : '';
+      parts.push('Dolori ' + f1(r.dolori) + '/5' + crescita);
+    }
+    // Fatica accumulata: sonno + energia entrambi bassi
+    if (r.sonno !== null && r.energia !== null && r.sonno < 3 && r.energia < 3)
+      parts.push('Sonno ' + f1(r.sonno) + ' + energia ' + f1(r.energia) + ' &mdash; possibile fatica accumulata');
+    else if (r.sonno !== null && r.sonno < 2.5)
+      parts.push('Sonno scarso (' + f1(r.sonno) + '/5)');
+    // Calo sedute rispetto alla settimana precedente
+    if (r.sedutePrev > 0 && r.seduteSettimana < r.sedutePrev - 1)
+      parts.push('Sedute in calo (' + r.sedutePrev + '&#8594;' + r.seduteSettimana + ')');
+    // Nessun segnale negativo: riepilogo positivo
+    if (parts.length === 0) {
+      const doloriOk = r.dolori === null || r.dolori <= 1.5;
+      const energiaOk = r.energia === null || r.energia >= 4;
+      if (r.seduteSettimana >= 3 && doloriOk && energiaOk)
+        parts.push(r.seduteSettimana + ' sed., dolori assenti, energia ok');
+      else
+        parts.push(r.seduteSettimana + ' sed.' + (r.rpeMedia !== null ? ', RPE ' + f1(r.rpeMedia) : ''));
+    }
+    return parts.join(' &middot; ');
+  };
 
   const giornoNomi = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
   const giornoOra  = giornoNomi[ora.getDay()] + ' ' + ora.getDate() + '/' + (ora.getMonth()+1) + ' ' + String(ora.getHours()).padStart(2,'0') + ':00';
 
-  // Alert blocks
+  // Blocchi alert (inattive / RPE alto / dolori)
   let alertHtml = '';
   if (inattive.length)
     alertHtml += '<div style="background:#fef2f2;border-left:3px solid #dc2626;padding:9px 14px;margin-bottom:8px;border-radius:0 6px 6px 0">' +
       '<p style="margin:0 0 3px;font-size:.7rem;font-weight:700;color:#dc2626;letter-spacing:.04em;text-transform:uppercase">Inattive / Urgenti</p>' +
-      '<p style="margin:0;font-size:.82rem;color:#7f1d1d">' + inattive.map(r => esc_(r.nome.split(' ')[0]) + ' (' + r.ultimoLabel + ')').join(' · ') + '</p></div>';
+      '<p style="margin:0;font-size:.82rem;color:#7f1d1d">' + inattive.map(r => esc_(r.nome.split(' ')[0]) + ' (' + r.ultimoLabel + ')').join(' &middot; ') + '</p></div>';
   if (rpeAlti.length)
     alertHtml += '<div style="background:#fff7ed;border-left:3px solid #ea580c;padding:9px 14px;margin-bottom:8px;border-radius:0 6px 6px 0">' +
-      '<p style="margin:0 0 3px;font-size:.7rem;font-weight:700;color:#ea580c;letter-spacing:.04em;text-transform:uppercase">RPE alto ≥8</p>' +
-      '<p style="margin:0;font-size:.82rem;color:#7c2d12">' + rpeAlti.map(r => esc_(r.nome.split(' ')[0]) + ' (' + Math.max(...r.rpeVals) + ')').join(' · ') + '</p></div>';
+      '<p style="margin:0 0 3px;font-size:.7rem;font-weight:700;color:#ea580c;letter-spacing:.04em;text-transform:uppercase">RPE alto &ge;8</p>' +
+      '<p style="margin:0;font-size:.82rem;color:#7c2d12">' + rpeAlti.map(r => esc_(r.nome.split(' ')[0]) + ' (' + Math.max(...r.rpeVals) + ')').join(' &middot; ') + '</p></div>';
   if (doloriAlti.length)
-    alertHtml += '<div style="background:#fffbeb;border-left:3px solid #d97706;padding:9px 14px;margin-bottom:0;border-radius:0 6px 6px 0">' +
-      '<p style="margin:0 0 3px;font-size:.7rem;font-weight:700;color:#d97706;letter-spacing:.04em;text-transform:uppercase">Dolori elevati ≥3/5</p>' +
-      '<p style="margin:0;font-size:.82rem;color:#78350f">' + doloriAlti.map(r => esc_(r.nome.split(' ')[0]) + ' (' + f1(r.dolori) + ')').join(' · ') + '</p></div>';
+    alertHtml += '<div style="background:#fffbeb;border-left:3px solid #d97706;padding:9px 14px;margin-bottom:8px;border-radius:0 6px 6px 0">' +
+      '<p style="margin:0 0 3px;font-size:.7rem;font-weight:700;color:#d97706;letter-spacing:.04em;text-transform:uppercase">Dolori elevati &ge;3/5</p>' +
+      '<p style="margin:0;font-size:.82rem;color:#78350f">' + doloriAlti.map(r => esc_(r.nome.split(' ')[0]) + ' (' + f1(r.dolori) + ')').join(' &middot; ') + '</p></div>';
+  if (faticaCombo.length)
+    alertHtml += '<div style="background:#f5f3ff;border-left:3px solid #7c3aed;padding:9px 14px;margin-bottom:0;border-radius:0 6px 6px 0">' +
+      '<p style="margin:0 0 3px;font-size:.7rem;font-weight:700;color:#7c3aed;letter-spacing:.04em;text-transform:uppercase">Fatica accumulata</p>' +
+      '<p style="margin:0;font-size:.82rem;color:#4c1d95">' + faticaCombo.map(r => esc_(r.nome.split(' ')[0]) + ' (sonno ' + f1(r.sonno) + ' + energia ' + f1(r.energia) + ')').join(' &middot; ') + '</p></div>';
 
-  // Per-athlete rows
+  // Righe per atleta — osservazione auto-generata, fix escaping &hellip;
   const righeHtml = righe.map(r => {
-    const nc = r.noteAtleta.length ? r.noteAtleta[0] : '';
-    const ncTxt = nc.length > 65 ? nc.substring(0, 62) + '…' : nc;
+    const nota    = autoNota(r);
+    const notaTxt = nota.length > 120 ? nota.substring(0, 117) + '&hellip;' : nota;
     return '<tr style="background:' + stC[r.status] + ';border-bottom:1px solid #e8edf5">' +
       '<td style="padding:7px 8px;font-size:.75rem;white-space:nowrap">' + stE[r.status] + '</td>' +
-      '<td style="padding:7px 4px;font-size:.82rem;font-weight:600;color:#1a3a6b;white-space:nowrap">' + esc_(r.nome.split(' ')[0]) + '</td>' +
-      '<td style="padding:7px 4px;font-size:.82rem;text-align:center;font-variant-numeric:tabular-nums">' + r.seduteSettimana + '</td>' +
-      '<td style="padding:7px 4px;font-size:.82rem;text-align:center;font-weight:' + (r.rpeMedia !== null && r.rpeMedia >= 7 ? '700' : '400') + ';color:' + rC(r.rpeMedia) + ';font-variant-numeric:tabular-nums">' + (r.rpeMedia !== null ? f1(r.rpeMedia) : '—') + '</td>' +
-      '<td style="padding:7px 4px;font-size:.82rem;text-align:center;font-variant-numeric:tabular-nums">' + (r.volume !== null ? f1(r.volume) : '—') + '</td>' +
-      '<td style="padding:7px 4px;font-size:.75rem;text-align:center;color:' + wC(r.sonno) + ';font-variant-numeric:tabular-nums">' + (r.sonno !== null ? f1(r.sonno) : '—') + '</td>' +
-      '<td style="padding:7px 4px;font-size:.75rem;text-align:center;color:' + dC(r.dolori) + ';font-variant-numeric:tabular-nums">' + (r.dolori !== null ? f1(r.dolori) : '—') + '</td>' +
-      '<td style="padding:7px 4px;font-size:.75rem;text-align:center;color:' + wC(r.energia) + ';font-variant-numeric:tabular-nums">' + (r.energia !== null ? f1(r.energia) : '—') + '</td>' +
-      '<td style="padding:7px 8px;font-size:.72rem;color:#64748b">' + esc_(ncTxt) + '</td>' +
+      '<td style="padding:7px 8px;font-size:.82rem;font-weight:600;color:#1a3a6b;white-space:nowrap">' + esc_(r.nome.split(' ')[0]) + '</td>' +
+      '<td style="padding:7px 8px;font-size:.82rem;text-align:center;font-variant-numeric:tabular-nums">' + r.seduteSettimana + '</td>' +
+      '<td style="padding:7px 8px;font-size:.82rem;text-align:center;font-weight:' + (r.rpeMedia !== null && r.rpeMedia >= 7 ? '700' : '400') + ';color:' + rC(r.rpeMedia) + ';font-variant-numeric:tabular-nums">' + (r.rpeMedia !== null ? f1(r.rpeMedia) : '—') + '</td>' +
+      '<td style="padding:7px 8px;font-size:.72rem;color:#475569">' + notaTxt + '</td>' +
     '</tr>';
   }).join('');
 
-  // Note automatiche coach-facing (generate dal sistema, non dalle atlete)
-  const noteAutoCoach = [];
-  if (inattive.length)
-    noteAutoCoach.push('⚫ ' + inattive.length + ' atleta/e senza sedute negli ultimi 7gg: ' + inattive.map(r => r.nome.split(' ')[0] + ' (' + r.ultimoLabel + ')').join(', '));
-  if (rpeAlti.length)
-    noteAutoCoach.push('🔴 RPE ≥8: ' + rpeAlti.map(r => r.nome.split(' ')[0] + ' (max ' + Math.max(...r.rpeVals) + ')').join(', ') + ' — valutare riduzione carico');
-  if (doloriAlti.length)
-    noteAutoCoach.push('⚠️ Dolori ≥3/5: ' + doloriAlti.map(r => r.nome.split(' ')[0] + ' (' + f1(r.dolori) + ')').join(', ') + ' — monitorare e aggiornare protocollo');
-  const noteManCoach = noteAttive
-    .filter(n => n.ID_Giocatrice === 'COACH')
-    .map(n => String(n.Testo).trim()).filter(Boolean);
-  const tutteNoteCoach = noteAutoCoach.concat(noteManCoach);
+  // Sezione "Priorità settimana" — dinamica, appare solo quando ci sono atleti da segnalare
+  // Include note manuali del coach (ID_Giocatrice === 'COACH') e atleti con segnali preoccupanti
+  const noteManCoach = noteAttive.filter(n => n.ID_Giocatrice === 'COACH').map(n => String(n.Testo).trim()).filter(Boolean);
+  const atletePrioritarie = [...new Set([
+    ...inattive, ...rpeAlti, ...doloriAlti, ...faticaCombo
+  ])].slice(0, 5); // max 5 per non appesantire
+  let prioritaHtml = '';
+  if (atletePrioritarie.length > 0 || noteManCoach.length > 0) {
+    const titoloPrioritа = atletePrioritarie.length === 1
+      ? 'Attenzione su ' + esc_(atletePrioritarie[0].nome.split(' ')[0])
+      : atletePrioritarie.length > 1 && atletePrioritarie.length <= 3
+      ? 'Attenzione su: ' + atletePrioritarie.map(r => esc_(r.nome.split(' ')[0])).join(', ')
+      : 'Priorit&agrave; settimana';
+    const righeP = atletePrioritarie.map(r =>
+      '<p style="margin:3px 0;font-size:.8rem;color:#1e3a5f"><strong>' + esc_(r.nome.split(' ')[0]) + '</strong> &mdash; ' + autoNota(r) + '</p>'
+    ).join('');
+    const noteM = noteManCoach.map(n => '<p style="margin:3px 0;font-size:.8rem;color:#374151">' + esc_(n) + '</p>').join('');
+    prioritaHtml = '<div style="padding:14px 16px;background:#fafbff;border:1px solid #e8edf5;border-top:none">' +
+      '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:12px 16px">' +
+      '<p style="margin:0 0 8px;font-size:.65rem;font-weight:700;color:#1a3a6b;letter-spacing:.08em;text-transform:uppercase">' + titoloPrioritа + '</p>' +
+      righeP + noteM +
+      '</div></div>';
+  }
 
-  const noteCHtml = tutteNoteCoach.length
-    ? '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:12px 16px;margin:0 0 0">' +
-      '<p style="margin:0 0 8px;font-size:.65rem;font-weight:700;color:#1a3a6b;letter-spacing:.08em;text-transform:uppercase">Note per il coach</p>' +
-      tutteNoteCoach.map(n => '<p style="margin:4px 0;font-size:.8rem;color:#1e3a5f">' + esc_(n) + '</p>').join('') +
-      '</div>'
-    : '';
+  const body = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>' +
+'<div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto">' +
 
-  const body = `
-<div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto">
+'<div style="background:#1a3a6b;color:#fff;padding:18px 22px 16px">' +
+'<p style="margin:0 0 2px;font-size:.6rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase">Marsala Volley &middot; Report allenamento</p>' +
+'<h2 style="margin:0;font-size:1.1rem;font-weight:700">' + giornoOra + ' &middot; Ultimi 7 giorni</h2>' +
+'<p style="margin:5px 0 0;font-size:.72rem;opacity:.65">Squadra: ' + allenate + '/' + righe.length + ' attive &middot; ' + (urgenti > 0 ? urgenti + ' urgenti' : 'nessuna urgenza') + '</p>' +
+'</div>' +
 
-  <div style="background:#1a3a6b;color:#fff;padding:18px 22px 16px">
-    <p style="margin:0 0 2px;font-size:.6rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase">Marsala Volley · Report mattutino</p>
-    <h2 style="margin:0;font-size:1.1rem;font-weight:700">${giornoOra} · Ultimi 7 giorni</h2>
-    <p style="margin:5px 0 0;font-size:.72rem;opacity:.65">Squadra: ${allenate}/${righe.length} attive · ${urgenti > 0 ? urgenti + ' urgenti' : 'nessuna urgenza'}</p>
-  </div>
+prioritaHtml +
 
-  ${tutteNoteCoach.length ? '<div style="padding:14px 16px;background:#fafbff;border:1px solid #e8edf5;border-top:none">' + noteCHtml + '</div>' : ''}
+'<div style="overflow-x:scroll;-webkit-overflow-scrolling:touch;border:1px solid #e8edf5;border-top:none">' +
+'<div style="display:flex;min-width:560px">' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + allenate + '/' + righe.length + tA(allenate, allenatePrev, true) + '</div>' +
+'<div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">allenate</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + totSedute + '</div>' +
+'<div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">sedute</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + (rpeSquadra !== null ? f1(rpeSquadra) : '&mdash;') + tA(rpeSquadra, rpeSquadraPrev, false) + '<span style="font-size:.78rem;font-weight:400">/10</span></div>' +
+'<div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">RPE medio</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + (caricoSquadra !== null ? f1(caricoSquadra) : '&mdash;') + '</div>' +
+'<div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">carico</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:' + wC(sonnoSq) + '">' + (sonnoSq !== null ? f1(sonnoSq) : '&mdash;') + tA(sonnoSq, sonnoSqPrev, true) + '<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>' +
+'<div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Sonno</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:' + dC(doloriSq) + '">' + (doloriSq !== null ? f1(doloriSq) : '&mdash;') + tA(doloriSq, doloriSqPrev, false) + '<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>' +
+'<div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Dolori &darr;</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center">' +
+'<div style="font-size:1.2rem;font-weight:700;color:' + wC(energiaSq) + '">' + (energiaSq !== null ? f1(energiaSq) : '&mdash;') + tA(energiaSq, energiaSqPrev, true) + '<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>' +
+'<div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Energia</div>' +
+'</div>' +
+'</div></div>' +
 
-  <div style="display:flex;border:1px solid #e8edf5;border-top:none">
-    <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">${allenate}/${righe.length}</div>
-      <div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">allenate</div>
-    </div>
-    <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">${totSedute}</div>
-      <div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">sedute</div>
-    </div>
-    <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">${rpeSquadra !== null ? f1(rpeSquadra) : '—'}<span style="font-size:.78rem;font-weight:400">/10</span></div>
-      <div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">RPE medio</div>
-    </div>
-    <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">${caricoSquadra !== null ? f1(caricoSquadra) : '—'}</div>
-      <div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">carico</div>
-    </div>
-    <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1.2rem;font-weight:700;color:${wC(sonnoSq)}">${sonnoSq !== null ? f1(sonnoSq) : '—'}<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>
-      <div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Sonno</div>
-    </div>
-    <div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">
-      <div style="font-size:1.2rem;font-weight:700;color:${dC(doloriSq)}">${doloriSq !== null ? f1(doloriSq) : '—'}<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>
-      <div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Dolori ↓</div>
-    </div>
-    <div style="flex:1;padding:11px 8px;text-align:center">
-      <div style="font-size:1.2rem;font-weight:700;color:${wC(energiaSq)}">${energiaSq !== null ? f1(energiaSq) : '—'}<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>
-      <div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Energia</div>
-    </div>
-  </div>
+(alertHtml ? '<div style="padding:10px 14px;border:1px solid #e8edf5;border-top:none">' + alertHtml + '</div>' : '') +
 
-  ${alertHtml ? '<div style="padding:10px 14px;border:1px solid #e8edf5;border-top:none">' + alertHtml + '</div>' : ''}
+'<div style="border:1px solid #e8edf5;border-top:none;overflow-x:scroll;-webkit-overflow-scrolling:touch">' +
+'<table style="width:100%;border-collapse:collapse">' +
+'<thead><tr style="background:#f8fafc">' +
+'<th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase;width:28px"></th>' +
+'<th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Atleta</th>' +
+'<th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase;width:40px">Sed.</th>' +
+'<th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase;width:48px">RPE</th>' +
+'<th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Osservazione</th>' +
+'</tr></thead>' +
+'<tbody>' + righeHtml + '</tbody>' +
+'</table></div>' +
 
-  <div style="border:1px solid #e8edf5;border-top:none;overflow-x:auto">
-    <table style="width:100%;border-collapse:collapse;min-width:560px">
-      <thead>
-        <tr style="background:#f8fafc">
-          <th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase"></th>
-          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Atleta</th>
-          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">Sed.</th>
-          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">RPE</th>
-          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">Vol.</th>
-          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">Sonno</th>
-          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">Dolori</th>
-          <th style="padding:6px 4px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase">Energia</th>
-          <th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Nota coach</th>
-        </tr>
-      </thead>
-      <tbody>${righeHtml}</tbody>
-    </table>
-  </div>
-
-  <div style="padding:14px 20px;border:1px solid #e8edf5;border-top:none;text-align:center">
-    <a href="https://claude.ai/code/artifact/e85a1b03-9788-4d9d-ad27-a9ca626c8c4a" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 26px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none;margin-right:8px">Apri report staff →</a>
-    <a href="https://pamangiapane-lgtm.github.io/schede-allenamento/report.html?coach=mv26-coach-8pL2wK" style="display:inline-block;background:#f1f5f9;color:#1a3a6b;padding:10px 18px;border-radius:6px;font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid #e2e8f0">Coach dashboard</a>
-  </div>
-  <p style="text-align:center;font-size:.62rem;color:#cbd5e1;padding:6px 0 4px;margin:0">Marsala Volley 2026/27 · Report automatico · Lun/Mer/Ven/Sab 20:00</p>
-</div>`;
+'<div style="padding:14px 20px;border:1px solid #e8edf5;border-top:none;text-align:center">' +
+'<a href="https://drive.google.com/uc?export=download&id=1q6nCI0N8s2lpn1aOM2uFkSOQ3HKJU-Vb" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 26px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none;margin-right:8px">Apri report staff &rarr;</a>' +
+'<a href="https://pamangiapane-lgtm.github.io/schede-allenamento/report.html?coach=mv26-coach-8pL2wK" style="display:inline-block;background:#f1f5f9;color:#1a3a6b;padding:10px 18px;border-radius:6px;font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid #e2e8f0">Coach dashboard</a>' +
+'</div>' +
+'<p style="text-align:center;font-size:.62rem;color:#cbd5e1;padding:6px 0 4px;margin:0">Marsala Volley 2026/27 &middot; Report automatico &middot; Lun/Mer/Ven/Sab 20:00</p>' +
+'</div></body></html>';
 
   const oggetto = urgenti > 0
-    ? `⚠️ Marsala Volley — ${urgenti} urgenti · ${giornoOra}`
-    : `✅ Marsala Volley — ${allenate}/${righe.length} allenate · ${giornoOra}`;
+    ? '[!!] Marsala Volley - ' + urgenti + ' urgenti | ' + giornoOra
+    : '[ok] Marsala Volley - ' + allenate + '/' + righe.length + ' allenate | ' + giornoOra;
 
   MailApp.sendEmail({ to: EMAIL_COACH, subject: oggetto, htmlBody: body });
 }

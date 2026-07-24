@@ -1,766 +1,894 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Report Progressi — Coach</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="theme-color" content="#1a3a6b">
-  <link rel="apple-touch-icon" href="logo.jpg">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <title>Coach Dashboard — Pre Season 26</title>
   <style>
-    .report-controls {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-      background: var(--surface, #f5f7fa);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 20px;
+    :root {
+      --bg:        #f1f5f9;
+      --surface:   #ffffff;
+      --surface2:  #f8fafc;
+      --border:    #e2e8f0;
+      --text:      #0f172a;
+      --text2:     #475569;
+      --text3:     #94a3b8;
+      --blu:       #1a3a6b;
+      --blu-mid:   #2d5fa6;
+      --blu-lt:    #e8f0fb;
+      --green:     #16a34a;
+      --green-bg:  #dcfce7;
+      --amber:     #d97706;
+      --amber-bg:  #fef3c7;
+      --red:       #dc2626;
+      --red-bg:    #fee2e2;
+      --r: 10px;
     }
-    .report-controls select {
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border, #dde1e9);
-      font-size: 0.9rem;
-      background: #fff;
-      color: var(--text, #1a1a2e);
-      flex: 1;
-      min-width: 140px;
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:#0f172a; --surface:#1e293b; --surface2:#162032; --border:#2d3f55;
+        --text:#f1f5f9; --text2:#94a3b8; --text3:#64748b;
+        --blu:#60a5fa; --blu-mid:#3b82f6; --blu-lt:#1e3a5f;
+        --green:#4ade80; --green-bg:#14532d;
+        --amber:#fbbf24; --amber-bg:#3d2000;
+        --red:#f87171; --red-bg:#450a0a;
+      }
     }
-    .pdf-btn {
-      padding: 9px 20px;
-      border-radius: 8px;
-      border: none;
-      background: var(--primary, #1a3a6b);
-      color: #fff;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
+    :root[data-theme="light"] {
+      --bg:#f1f5f9; --surface:#ffffff; --surface2:#f8fafc; --border:#e2e8f0;
+      --text:#0f172a; --text2:#475569; --text3:#94a3b8;
+      --blu:#1a3a6b; --blu-mid:#2d5fa6; --blu-lt:#e8f0fb;
+      --green:#16a34a; --green-bg:#dcfce7;
+      --amber:#d97706; --amber-bg:#fef3c7;
+      --red:#dc2626; --red-bg:#fee2e2;
     }
-    .pdf-btn:active { opacity: 0.85; }
-
-    .summary-bar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-    .summary-chip {
-      background: var(--surface, #f5f7fa);
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-size: 0.82rem;
-      color: var(--text-light, #555);
-    }
-    .summary-chip strong {
-      display: block;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--primary, #1a3a6b);
-      line-height: 1.1;
+    :root[data-theme="dark"] {
+      --bg:#0f172a; --surface:#1e293b; --surface2:#162032; --border:#2d3f55;
+      --text:#f1f5f9; --text2:#94a3b8; --text3:#64748b;
+      --blu:#60a5fa; --blu-mid:#3b82f6; --blu-lt:#1e3a5f;
+      --green:#4ade80; --green-bg:#14532d;
+      --amber:#fbbf24; --amber-bg:#3d2000;
+      --red:#f87171; --red-bg:#450a0a;
     }
 
-    .player-section { margin-bottom: 32px; }
-    .player-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--primary, #1a3a6b);
-      border-bottom: 2px solid var(--primary, #1a3a6b);
-      padding-bottom: 6px;
-      margin-bottom: 14px;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
 
-    .exercise-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 12px;
-    }
-    .exercise-card {
-      background: var(--surface, #f5f7fa);
-      border-radius: 10px;
-      padding: 14px;
-    }
-    .ex-name {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text, #1a1a2e);
-      margin-bottom: 6px;
-      line-height: 1.3;
-    }
-    .ex-last {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--primary, #1a3a6b);
-      line-height: 1;
-    }
-    .ex-trend {
-      font-size: 0.78rem;
-      margin-top: 3px;
-    }
-    .trend-up { color: #2a9d3a; }
-    .trend-dn { color: #c33; }
-    .trend-eq { color: var(--text-light, #888); }
-    .ex-chart { margin-top: 10px; height: 72px; position: relative; }
-    .ex-count {
-      font-size: 0.72rem;
-      color: var(--text-light, #888);
-      margin-top: 5px;
-    }
+    /* ACCESS DENIED */
+    #access-denied { display: none; min-height: 100vh; align-items: center; justify-content: center; flex-direction: column; gap: 12px; padding: 24px; text-align: center; }
+    #access-denied h2 { font-size: 1.2rem; }
+    #access-denied p { color: var(--text2); font-size: .88rem; }
 
-    .no-data {
-      color: var(--text-light, #888);
-      font-style: italic;
-      font-size: 0.9rem;
-      padding: 12px 0;
-    }
+    /* APP SHELL */
+    #app { display: none; max-width: 800px; margin: 0 auto; padding-bottom: 80px; }
 
-    .feedback-summary {
-      margin-top: 16px;
-      padding: 12px 14px;
-      background: var(--surface, #f5f7fa);
-      border-radius: 10px;
-    }
-    .feedback-summary-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--text-light, #555);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .feedback-row-report {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      margin-bottom: 4px;
-    }
-    .feedback-val { font-weight: 700; }
+    /* HEADER */
+    .hdr { background: var(--blu); color: #fff; padding: 14px 16px 10px; }
+    .hdr-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .hdr-eyebrow { font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+    .hdr-week { font-size: 1rem; font-weight: 800; margin-top: 2px; }
+    .hdr-refresh { font-size: .68rem; opacity: .6; margin-top: 4px; }
+    .week-nav { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+    .week-nav button { background: rgba(255,255,255,.18); border: none; color: #fff; border-radius: 6px; padding: 5px 12px; cursor: pointer; font-size: .8rem; font-weight: 600; transition: background .15s; }
+    .week-nav button:hover:not(:disabled) { background: rgba(255,255,255,.3); }
+    .week-nav button:disabled { opacity: .3; cursor: default; }
+    #week-label { flex: 1; text-align: center; font-size: .78rem; font-weight: 600; color: rgba(255,255,255,.9); }
 
-    /* ── COMPLIANCE SECTION ── */
-    .compliance-wrap {
-      background: var(--surface, #f5f7fa);
-      border-radius: 12px;
-      margin-bottom: 20px;
-      overflow: hidden;
-    }
-    .compliance-hdr {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 11px 16px;
-      cursor: pointer;
-      user-select: none;
-    }
-    .compliance-hdr h3 {
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-light, #555);
-      margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .cmp-urgenti {
-      background: #fee2e2;
-      color: #c33;
-      border-radius: 4px;
-      padding: 1px 8px;
-      font-size: 0.73rem;
-      font-weight: 700;
-    }
-    .compliance-toggle { font-size: 0.78rem; color: var(--text-light, #888); }
-    .compliance-body { padding: 0 16px 12px; }
-    .cmp-head-row {
-      display: flex;
-      gap: 8px;
-      padding: 0 0 6px;
-      font-size: 0.72rem;
-      color: var(--text-light, #888);
-      border-bottom: 1px solid var(--border, #dde1e9);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-    .cmp-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--border, #dde1e9);
-      font-size: 0.83rem;
-    }
-    .cmp-row:last-child { border: none; }
-    .cmp-dot {
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .cmp-ok   .cmp-dot { background: #2a9d3a; }
-    .cmp-warn .cmp-dot { background: #e6a817; }
-    .cmp-red  .cmp-dot { background: #c33; }
-    .cmp-mai  .cmp-dot { background: #bbb; }
-    .cmp-name { flex: 1; font-weight: 600; color: var(--text, #1a1a2e); }
-    .cmp-days { width: 75px; text-align: right; color: var(--text-light, #888); font-size: 0.8rem; }
-    .cmp-days.rd { color: #c33; font-weight: 700; }
-    .cmp-days.wn { color: #e6a817; font-weight: 700; }
-    .cmp-sed  { width: 65px; text-align: right; font-size: 0.78rem; color: var(--text-light, #888); }
-    .cmp-rpe  { width: 58px; text-align: right; font-size: 0.78rem; color: var(--text-light, #888); }
-    .cmp-rpe.hi  { color: #c33; font-weight: 700; }
-    .cmp-rpe.med { color: #e6a817; font-weight: 600; }
+    /* TABS */
+    .tabs { display: flex; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 90; }
+    .tab-btn { flex: 1; border: none; background: none; color: var(--text2); padding: 12px 6px; font-size: .73rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .15s, border-color .15s; }
+    .tab-btn.active { color: var(--blu-mid); border-color: var(--blu-mid); }
 
-    /* ── FULL WIDTH OVERRIDE ── */
-    .container { max-width: 100% !important; padding: 12px 20px 40px !important; }
+    /* TAB CONTENT */
+    .tab-pane { display: none; padding: 14px 16px; }
+    .tab-pane.active { display: block; }
 
-    /* ── TABELLA ATLETE ── */
-    #report-content { overflow-x: auto; }
-    .atleta-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.83rem;
-    }
-    .atleta-table thead th {
-      font-size: 0.62rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-light, #888);
-      padding: 6px 8px;
-      text-align: left;
-      border-bottom: 2px solid var(--border, #dde1e9);
-      white-space: nowrap;
-    }
-    .atleta-table tbody tr { border-bottom: 1px solid var(--border, #dde1e9); }
-    .atleta-table tbody tr:last-child { border-bottom: none; }
-    .atleta-table td {
-      padding: 6px 8px;
-      vertical-align: middle;
-      white-space: nowrap;
-    }
-    .atleta-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: middle; flex-shrink: 0; }
-    .atleta-nome { font-weight: 700; color: var(--text, #1a1a2e); }
-    .atleta-ruolo { font-weight: 400; font-size: 0.72rem; opacity: 0.55; margin-left: 4px; }
-    .atleta-last { font-size: 0.75rem; font-weight: 700; }
-    .stat-num { font-weight: 700; }
-    .td-note { width: 160px; white-space: normal; }
-    .note-input {
-      width: 100%;
-      padding: 4px 7px;
-      border-radius: 5px;
-      border: 1.5px solid var(--border, #dde1e9);
-      background: #fff;
-      color: #1a1a2e;
-      font-size: 0.78rem;
-      font-family: inherit;
-      box-sizing: border-box;
-      transition: border-color 0.15s;
-    }
-    .note-input:focus { outline: none; }
-    .note-input.pos:focus  { border-color: #2a9d3a; }
-    .note-input.crit:focus { border-color: #c33; }
-    .note-staff-save-btn {
-      padding: 4px 10px;
-      border-radius: 5px;
-      border: none;
-      background: var(--primary, #1a3a6b);
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .note-staff-save-btn:active { opacity: 0.8; }
-    .note-staff-feedback {
-      font-size: 0.7rem;
-      color: #2a9d3a;
-      font-weight: 600;
-      opacity: 0;
-      transition: opacity 0.3s;
-      display: block;
-    }
-    .note-staff-feedback.visible { opacity: 1; }
+    /* LOADING / EMPTY */
+    .loading { text-align: center; padding: 48px 0; color: var(--text3); }
+    .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--blu-mid); border-radius: 50%; animation: spin .65s linear infinite; margin: 0 auto 10px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty { text-align: center; padding: 36px; color: var(--text3); font-size: .85rem; }
 
-    @media print {
-      header, .report-controls, .back-link, .install-banner { display: none !important; }
-      .summary-bar { margin-bottom: 12px; }
-      .exercise-grid { grid-template-columns: repeat(3, 1fr); }
-      .exercise-card { break-inside: avoid; border: 1px solid #ddd; background: #fff !important; }
-      .player-section { break-inside: avoid; }
-      body, .container { background: #fff !important; }
-      .summary-chip { border: 1px solid #ddd; background: #fff !important; }
-      .note-staff-save-row { display: none !important; }
+    /* ALERT BAR */
+    .alert-bar { background: #fef3c7; border: 1px solid #fde68a; border-radius: var(--r); padding: 10px 14px; margin-bottom: 12px; }
+    .alert-bar-ttl { font-size: .65rem; font-weight: 700; color: #78350f; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 3px; }
+    .alert-bar-body { font-size: .82rem; color: #451a03; line-height: 1.5; }
+
+    /* SQUAD LIST */
+    .squad-row { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 11px 13px; margin-bottom: 7px; cursor: pointer; transition: box-shadow .15s, border-color .15s; }
+    .squad-row:hover { box-shadow: 0 2px 10px rgba(0,0,0,.09); border-color: var(--blu-mid); }
+    .sdot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .sdot.g { background: #16a34a; }
+    .sdot.y { background: #d97706; }
+    .sdot.r { background: #dc2626; }
+    .sname { flex: 1; min-width: 0; }
+    .sname strong { display: block; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sname small { font-size: .7rem; color: var(--text2); display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin-top: 1px; }
+    .vol-badge { font-size: .6rem; font-weight: 700; padding: 1px 5px; border-radius: 3px; }
+    .vol-badge.up { background: #dcfce7; color: #15803d; }
+    .vol-badge.dn { background: #fee2e2; color: #b91c1c; }
+    .smetrics { display: flex; gap: 8px; flex-shrink: 0; }
+    .mpill { text-align: center; min-width: 34px; }
+    .mpill .mv { font-size: .85rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .mpill .ml { font-size: .58rem; color: var(--text3); text-transform: uppercase; letter-spacing: .04em; }
+
+    /* ATHLETE DETAIL */
+    .back-btn { display: inline-flex; align-items: center; gap: 4px; color: var(--blu-mid); font-weight: 600; font-size: .8rem; cursor: pointer; margin-bottom: 12px; }
+    .hero { background: var(--blu); color: #fff; border-radius: var(--r); padding: 16px; margin-bottom: 12px; }
+    .hero-name { font-size: 1.25rem; font-weight: 800; }
+    .hero-sub { font-size: .76rem; opacity: .8; margin-top: 3px; }
+    .stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 12px; }
+    .sc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 11px 13px; }
+    .sc-lbl { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text3); margin-bottom: 4px; }
+    .sc-val { font-size: 1.35rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+    .sc-sub { font-size: .7rem; color: var(--text2); margin-top: 3px; }
+
+    /* SECTION BOXES */
+    .sec { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 13px; margin-bottom: 12px; }
+    .sec-ttl { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text3); padding-bottom: 8px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+    /* CARICHI */
+    .vol-summary { display: flex; align-items: flex-end; gap: 14px; margin-bottom: 12px; }
+    .vol-big { font-size: 1.7rem; font-weight: 800; color: var(--blu-mid); font-variant-numeric: tabular-nums; line-height: 1; }
+    .vol-lbl { font-size: .65rem; color: var(--text2); text-transform: uppercase; letter-spacing: .04em; margin-top: 3px; }
+    .vol-delta { font-size: .8rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
+    .vol-delta.up { background: #dcfce7; color: #15803d; }
+    .vol-delta.dn { background: #fee2e2; color: #b91c1c; }
+    .vol-delta.neu { background: var(--surface2); color: var(--text2); }
+    .ex-wrap { overflow-x: auto; }
+    .ex-table { width: 100%; border-collapse: collapse; font-size: .78rem; min-width: 280px; }
+    .ex-table th { font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--text3); padding: 4px 7px; border-bottom: 1px solid var(--border); }
+    .ex-table th:not(:first-child) { text-align: right; }
+    .ex-table td { padding: 7px 7px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .ex-table td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+    .ex-table tr:last-child td { border-bottom: none; }
+    .spike { font-size: .6rem; font-weight: 700; padding: 1px 5px; border-radius: 3px; margin-left: 4px; white-space: nowrap; }
+    .spike.up { background: #dcfce7; color: #15803d; }
+    .spike.dn { background: #fee2e2; color: #b91c1c; }
+    .nodata { color: var(--text3); font-size: .78rem; font-style: italic; text-align: center; padding: 14px 0; }
+
+    /* SPARKLINE */
+    .spark-wrap { display: flex; align-items: flex-end; gap: 3px; height: 38px; }
+    .spark-bar { flex: 1; border-radius: 2px 2px 0 0; min-height: 3px; }
+    .spark-legend { display: flex; justify-content: space-between; margin-top: 5px; }
+    .spark-legend span { font-size: .6rem; color: var(--text3); }
+
+    /* TREND */
+    .trend-table { width: 100%; border-collapse: collapse; font-size: .78rem; }
+    .trend-table th { font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--text3); padding: 4px 7px; border-bottom: 1px solid var(--border); text-align: center; }
+    .trend-table th:first-child { text-align: left; }
+    .trend-table td { padding: 6px 7px; border-bottom: 1px solid var(--border); text-align: center; font-variant-numeric: tabular-nums; }
+    .trend-table td:first-child { text-align: left; }
+    .trend-table tr:last-child td { border-bottom: none; }
+    .cur-row td { font-weight: 700; }
+
+    /* NOTE */
+    .note-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 12px 13px; margin-bottom: 8px; }
+    .note-name { font-weight: 700; font-size: .88rem; margin-bottom: 7px; }
+    .note-ta { width: 100%; min-height: 72px; border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; font-size: .82rem; background: var(--bg); color: var(--text); resize: vertical; font-family: inherit; transition: border-color .15s, box-shadow .15s; }
+    .note-ta:focus { outline: none; border-color: var(--blu-mid); box-shadow: 0 0 0 3px rgba(45,95,166,.12); }
+    .note-actions { display: flex; align-items: center; gap: 10px; margin-top: 7px; }
+    .btn-save { background: var(--blu-mid); color: #fff; border: none; border-radius: 6px; padding: 6px 14px; font-size: .78rem; font-weight: 700; cursor: pointer; transition: background .15s; }
+    .btn-save:hover:not(:disabled) { background: var(--blu); }
+    .btn-save:disabled { opacity: .45; cursor: default; }
+    .note-status { font-size: .7rem; color: var(--text3); }
+
+    /* REPORT */
+    .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin-bottom: 16px; }
+    .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 11px; text-align: center; }
+    .kpi-val { font-size: 1.45rem; font-weight: 800; font-variant-numeric: tabular-nums; color: var(--blu-mid); }
+    .kpi-lbl { font-size: .6rem; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; margin-top: 2px; }
+    .var-row { display: flex; align-items: center; gap: 10px; padding: 9px 13px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 6px; }
+    .var-name { flex: 1; font-weight: 600; font-size: .88rem; }
+    .var-kg { font-size: .75rem; color: var(--text2); flex-shrink: 0; }
+    .var-delta { font-size: .8rem; font-weight: 700; padding: 3px 8px; border-radius: 5px; flex-shrink: 0; }
+    .var-delta.up { background: #dcfce7; color: #15803d; }
+    .var-delta.dn { background: #fee2e2; color: #b91c1c; }
+    .prio-list { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
+    .prio-item { background: #fef3c7; border-left: 3px solid #d97706; border-radius: 0 8px 8px 0; padding: 8px 13px; font-size: .82rem; color: #451a03; }
+    .prio-item strong { color: #451a03; font-weight: 700; }
+    .rep-table-wrap { overflow-x: auto; margin-bottom: 16px; }
+    .rep-table { width: 100%; border-collapse: collapse; font-size: .76rem; min-width: 520px; }
+    .rep-table th { font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--text3); padding: 5px 8px; border-bottom: 2px solid var(--border); text-align: center; }
+    .rep-table th:first-child { text-align: left; }
+    .rep-table td { padding: 7px 8px; border-bottom: 1px solid var(--border); text-align: center; font-variant-numeric: tabular-nums; }
+    .rep-table td:first-child { text-align: left; font-weight: 600; }
+    .rep-table td.obs { text-align: left; font-weight: 400; color: var(--text2); font-size: .7rem; max-width: 180px; }
+    .rep-table tr:last-child td { border-bottom: none; }
+    .sec-ttl-outer { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text3); padding-bottom: 7px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .report-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-primary { background: var(--blu-mid); color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: .85rem; font-weight: 700; cursor: pointer; transition: background .15s; }
+    .btn-primary:hover:not(:disabled) { background: var(--blu); }
+    .btn-primary:disabled { opacity: .45; cursor: default; }
+
+    .cr { color: var(--red); }
+
+    @media (max-width: 480px) {
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .smetrics { gap: 5px; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="header-brand">
-    <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
-    <h1>Report Progressi</h1>
-  </div>
-</header>
+<div id="access-denied">
+  <div style="font-size:2.5rem">🔒</div>
+  <h2>Accesso riservato</h2>
+  <p>Parametro <code>coach</code> mancante o non valido.</p>
+</div>
 
-<div class="container">
-  <a class="back-link" href="index.html">← Tutte le giocatrici</a>
+<div id="app">
 
-  <div id="access-denied" style="display:none">
-    <p class="errore-msg" style="margin-top:32px;">Accesso non autorizzato.<br><small>Questo report è riservato allo staff tecnico.</small></p>
-  </div>
-
-  <div id="loading" class="loading-msg">Caricamento dati...</div>
-
-  <div id="contenuto" style="display:none">
-    <div class="report-controls">
-      <select id="sel-giocatrice" onchange="renderReport()">
-        <option value="all">Tutte le giocatrici</option>
-      </select>
-      <select id="sel-periodo" onchange="renderReport()">
-        <option value="all">Tutto il periodo</option>
-        <option value="30">Ultimo mese</option>
-        <option value="7">Ultima settimana</option>
-      </select>
-      <button class="pdf-btn" onclick="window.print()">⬇ Esporta PDF</button>
+  <div class="hdr">
+    <div class="hdr-top">
+      <div>
+        <div class="hdr-eyebrow">Coach Dashboard · Pre Season 26</div>
+        <div class="hdr-week" id="hdr-week">—</div>
+      </div>
+      <div style="text-align:right">
+        <div class="hdr-refresh" id="hdr-refresh"></div>
+      </div>
     </div>
-
-    <div id="summary-bar" class="summary-bar"></div>
-    <div id="compliance-section"></div>
-    <div id="wellness-section"></div>
-    <div id="report-content"></div>
+    <div class="week-nav">
+      <button id="btn-prev" onclick="changeWeek(-1)">‹ Prec.</button>
+      <span id="week-label">—</span>
+      <button id="btn-next" onclick="changeWeek(1)" disabled>Succ. ›</button>
+    </div>
   </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="squadra" onclick="showTab('squadra')">Squadra</button>
+    <button class="tab-btn" data-tab="atleta" onclick="showTab('atleta')">Atleta</button>
+    <button class="tab-btn" data-tab="note" onclick="showTab('note')">Note</button>
+    <button class="tab-btn" data-tab="report" onclick="showTab('report')">Report</button>
+  </div>
+
+  <div id="pane-squadra" class="tab-pane active">
+    <div class="loading"><div class="spinner"></div>Caricamento dati...</div>
+  </div>
+
+  <div id="pane-atleta" class="tab-pane">
+    <div class="empty">
+      <div style="font-size:2rem;margin-bottom:8px">👆</div>
+      Seleziona un'atleta dalla tab Squadra
+    </div>
+  </div>
+
+  <div id="pane-note" class="tab-pane">
+    <div class="loading"><div class="spinner"></div>Caricamento...</div>
+  </div>
+
+  <div id="pane-report" class="tab-pane">
+    <div class="loading"><div class="spinner"></div>Elaborazione...</div>
+  </div>
+
 </div>
 
 <script>
 const API       = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
 const TOKEN     = 'mv26-prd-3xF7wNqK';
 const COACH_KEY = 'mv26-coach-8pL2wK';
-const SKIP      = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
+const SKIP      = new Set(['RPE-seduta','Fatica-seduta','Peso-corporeo']);
 
-let allGiocatrici  = [];
-let allProgressi   = [];
-let allWellness    = [];
-let allNoteStaff   = {};
-let chartInstances = [];
+let giocatrici = [], progressi = [], wellness = [], noteCoach = [];
+let weekOffset = 0;
+let currentAthleteId = null;
+let loaded = false;
 
-const params = new URLSearchParams(window.location.search);
-if (params.get('coach') !== COACH_KEY) {
-  document.getElementById('loading').style.display      = 'none';
-  document.getElementById('access-denied').style.display = 'block';
+// ─── ACCESS CHECK ──────────────────────────────────────────────────────────
+const qp = new URLSearchParams(location.search);
+if (qp.get('coach') !== COACH_KEY) {
+  document.getElementById('access-denied').style.display = 'flex';
 } else {
+  document.getElementById('app').style.display = 'block';
   init();
 }
 
-async function fetchSheet(foglio) {
-  const r = await fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=${foglio}`);
-  return r.json();
+// ─── UTILITIES ─────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s ?? '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
 }
 
+function f1(v) {
+  return (v !== null && v !== undefined && !isNaN(v)) ? Number(v).toFixed(1) : '—';
+}
+
+function fVol(v) {
+  if (!v || isNaN(v) || v <= 0) return '—';
+  if (v >= 1000) return (v / 1000).toFixed(1) + ' t';
+  return Math.round(v) + ' kg';
+}
+
+function extractKg(p) {
+  const ku = Number(p.Kg_Usati);
+  if (!isNaN(ku) && ku > 0) return ku;
+  if (p.Valore) {
+    const m = String(p.Valore).match(/^[\d.]+/);
+    if (m) { const v = Number(m[0]); if (!isNaN(v) && v > 0) return v; }
+  }
+  return null;
+}
+
+// ─── WEEK HELPERS ──────────────────────────────────────────────────────────
+function weekBounds(off) {
+  const now = new Date();
+  const day = now.getDay();
+  const diff = (day + 6) % 7;
+  const mon = new Date(now);
+  mon.setDate(now.getDate() - diff + off * 7);
+  mon.setHours(0, 0, 0, 0);
+  const end = new Date(mon);
+  end.setDate(mon.getDate() + 7);
+  return { start: mon, end };
+}
+
+function isoWeekNum(date) {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayN = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayN);
+  const y1 = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d - y1) / 86400000) + 1) / 7);
+}
+
+function weekRangeStr(off) {
+  const { start, end } = weekBounds(off);
+  const fmt = d => d.toLocaleDateString('it-IT', { day: '2-digit', month: 'short' });
+  return fmt(start) + ' – ' + fmt(new Date(end.getTime() - 86400000));
+}
+
+function updateWeekDisplay() {
+  const { start } = weekBounds(weekOffset);
+  const wn = isoWeekNum(start);
+  const rng = weekRangeStr(weekOffset);
+  document.getElementById('week-label').textContent = rng + ' (W' + wn + ')';
+  document.getElementById('hdr-week').textContent = 'Settimana ' + wn + ' — ' + rng;
+  document.getElementById('btn-next').disabled = weekOffset >= 0;
+}
+
+function changeWeek(delta) {
+  if (weekOffset + delta > 0) return;
+  weekOffset += delta;
+  updateWeekDisplay();
+  if (loaded) refreshAll();
+}
+
+// ─── API ───────────────────────────────────────────────────────────────────
+function apiFetch(params) {
+  const url = API + '?' + new URLSearchParams({ token: TOKEN, ...params });
+  return fetch(url).then(r => r.json());
+}
+
+function apiPost(body) {
+  return fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token: TOKEN, ...body })
+  }).then(r => r.json());
+}
+
+// ─── INIT ──────────────────────────────────────────────────────────────────
 async function init() {
+  updateWeekDisplay();
   try {
-    const [resG, resP, resW, resNS] = await Promise.all([
-      fetchSheet('Giocatrici'),
-      fetchSheet('Progressi'),
-      fetchSheet('Wellness'),
-      fetch(`${API}?token=${TOKEN}&azione=leggi_note_staff`).then(r => r.json()).catch(() => ({note:[]})),
+    const [rg, rp, rw, rn] = await Promise.all([
+      apiFetch({ azione: 'leggi', foglio: 'Giocatrici' }),
+      apiFetch({ azione: 'leggi', foglio: 'Progressi' }),
+      apiFetch({ azione: 'leggi', foglio: 'Wellness' }),
+      apiFetch({ azione: 'leggi_tutte_note' }).catch(() => ({ ok: true, note: [] }))
     ]);
-
-    allGiocatrici = (resG.dati || []).filter(g => !isNaN(parseInt(g.ID)));
-    allProgressi  = (resP.dati || []);
-    allWellness   = (resW.dati || []);
-    allNoteStaff  = {};
-    (resNS.note || []).forEach(n => { allNoteStaff[n.id] = n; });
-
-    const sel = document.getElementById('sel-giocatrice');
-    allGiocatrici
-      .sort((a, b) => a.Nome.localeCompare(b.Nome, 'it'))
-      .forEach(g => {
-        const opt = document.createElement('option');
-        opt.value = g.ID;
-        opt.textContent = g.Nome;
-        sel.appendChild(opt);
-      });
-
-    document.getElementById('loading').style.display   = 'none';
-    document.getElementById('contenuto').style.display = '';
-    renderReport();
-  } catch {
-    document.getElementById('loading').innerHTML =
-      `<p class="errore-msg">Errore nel caricamento. Riprova.</p>`;
+    giocatrici = (rg.dati || []).filter(g => g.ID && g.Nome && String(g.ID) !== '99');
+    progressi  = rp.dati  || [];
+    wellness   = rw.dati  || [];
+    noteCoach  = rn.note  || [];
+    loaded = true;
+    document.getElementById('hdr-refresh').textContent =
+      'Agg. ' + new Date().toLocaleTimeString('it-IT', { hour:'2-digit', minute:'2-digit' });
+    refreshAll();
+  } catch (err) {
+    document.getElementById('pane-squadra').innerHTML =
+      '<div class="empty" style="color:var(--red)">Errore caricamento: ' + esc(String(err)) + '</div>';
   }
 }
 
-function filterByPeriodo(progressi) {
-  const days = parseInt(document.getElementById('sel-periodo').value) || 0;
-  if (!days) return progressi;
-  const cutoff = new Date();
-  cutoff.setDate(cutoff.getDate() - days);
-  return progressi.filter(p => {
+function refreshAll() {
+  renderSquadra();
+  renderNote();
+  renderReport();
+  if (currentAthleteId !== null) renderAthlete(currentAthleteId);
+}
+
+// ─── METRICS ───────────────────────────────────────────────────────────────
+function metrics(athleteId, off) {
+  const { start, end } = weekBounds(off);
+  const id = String(athleteId);
+
+  const progs = progressi.filter(p => {
+    if (String(p.ID_Giocatrice) !== id) return false;
     const ts = p.Timestamp ? new Date(p.Timestamp) : null;
-    return ts && ts >= cutoff;
-  });
-}
-
-function parseKg(valore) {
-  const m = String(valore || '').match(/(\d+(?:\.\d+)?)\s*kg/i);
-  return m ? parseFloat(m[1]) : null;
-}
-
-function formatData(raw) {
-  if (!raw) return '';
-  if (typeof raw === 'string' && raw.includes('/')) return raw;
-  const d = new Date(raw);
-  if (isNaN(d)) return String(raw);
-  return `${d.getDate()}/${d.getMonth() + 1}`;
-}
-
-function renderCompliance() {
-  const wrap = document.getElementById('compliance-section');
-  const selId = document.getElementById('sel-giocatrice').value;
-  if (selId !== 'all') { wrap.innerHTML = ''; return; }
-
-  const now = new Date();
-  const dayOfWeek = now.getDay(); // 0=dom, 1=lun...
-  const startOfWeek = new Date(now);
-  startOfWeek.setDate(now.getDate() - ((dayOfWeek === 0 ? 7 : dayOfWeek) - 1));
-  startOfWeek.setHours(0, 0, 0, 0);
-  const startOfLastWeek = new Date(startOfWeek);
-  startOfLastWeek.setDate(startOfWeek.getDate() - 7);
-
-  const rows = allGiocatrici.map(g => {
-    const allLogs = allProgressi.filter(p =>
-      String(p.ID_Giocatrice) === String(g.ID) && p.Valore
-    );
-    const logs = allLogs.filter(p => !SKIP.has(p.Esercizio));
-
-    let lastTs = null;
-    logs.forEach(p => {
-      const ts = p.Timestamp ? new Date(p.Timestamp) : null;
-      if (ts && (!lastTs || ts > lastTs)) lastTs = ts;
-    });
-
-    const daysSince = lastTs
-      ? Math.floor((now - lastTs) / 86400000)
-      : null;
-
-    // Sedute settimana corrente (lunedì → oggi)
-    const sedWeek = new Set(
-      logs.filter(p => {
-        const ts = p.Timestamp ? new Date(p.Timestamp) : null;
-        return ts && ts >= startOfWeek;
-      }).map(p => p.N_Seduta)
-    ).size;
-
-    // Sedute settimana scorsa
-    const sedLastWeek = new Set(
-      logs.filter(p => {
-        const ts = p.Timestamp ? new Date(p.Timestamp) : null;
-        return ts && ts >= startOfLastWeek && ts < startOfWeek;
-      }).map(p => p.N_Seduta)
-    ).size;
-
-    // RPE medio settimana corrente (usa allLogs per includere RPE-seduta che è in SKIP)
-    const rpeWeek = allLogs.filter(p =>
-      p.Esercizio === 'RPE-seduta' && p.Valore &&
-      (() => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; return ts && ts >= startOfWeek; })()
-    ).map(p => Number(p.Valore)).filter(v => !isNaN(v));
-    const rpeMedia = rpeWeek.length
-      ? (rpeWeek.reduce((a, b) => a + b, 0) / rpeWeek.length).toFixed(1)
-      : null;
-
-    let status;
-    if (daysSince === null)    status = 'mai';
-    else if (daysSince > 7)    status = 'red';
-    else if (daysSince > 3)    status = 'warn';
-    else                       status = 'ok';
-
-    let lastLabel;
-    if (daysSince === null)    lastLabel = 'mai';
-    else if (daysSince === 0)  lastLabel = 'oggi';
-    else if (daysSince === 1)  lastLabel = 'ieri';
-    else                       lastLabel = `${daysSince}gg fa`;
-
-    return { g, status, lastLabel, daysSince, sedWeek, sedLastWeek, rpeMedia };
+    return ts && ts >= start && ts < end;
   });
 
-  const order = { mai: 0, red: 1, warn: 2, ok: 3 };
-  rows.sort((a, b) => order[a.status] - order[b.status]);
+  const wRows = wellness.filter(w => {
+    if (String(w.ID_Giocatrice) !== id) return false;
+    const ts = w.Timestamp ? new Date(w.Timestamp) : null;
+    return ts && ts >= start && ts < end;
+  });
 
-  const urgenti = rows.filter(r => r.status === 'mai' || r.status === 'red').length;
-  const open = urgenti > 0;
+  const sedute = new Set(progs.map(p => p.N_Seduta).filter(Boolean)).size;
 
-  const urgBadge = urgenti > 0
-    ? `<span class="cmp-urgenti">${urgenti} urgenti</span>`
-    : `<span style="color:#2a9d3a;font-size:0.75rem;font-weight:700">✓ tutte nei tempi</span>`;
+  const rpeEntries = progs.filter(p => p.Esercizio === 'RPE-seduta');
+  const rpeVals = rpeEntries.map(p => Number(p.Valore)).filter(v => !isNaN(v) && v > 0);
+  const rpeMedia = rpeVals.length
+    ? rpeVals.reduce((a, b) => a + b, 0) / rpeVals.length : null;
+  const rpeHistory = [...rpeEntries]
+    .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
+    .map(p => Number(p.Valore)).filter(v => !isNaN(v) && v > 0);
 
-  let rowsHtml = rows.map(r => {
-    const dc = r.status === 'red' ? 'rd' : r.status === 'warn' ? 'wn' : '';
-    const sedDiff = r.sedWeek - r.sedLastWeek;
-    const sedArrow = sedDiff > 0 ? ` <span style="color:#2a9d3a">↑</span>`
-                   : sedDiff < 0 ? ` <span style="color:#c33">↓</span>` : '';
-    const rpeClass = r.rpeMedia >= 8 ? 'hi' : r.rpeMedia >= 6 ? 'med' : '';
-    return `
-      <div class="cmp-row cmp-${r.status}">
-        <span class="cmp-dot"></span>
-        <span class="cmp-name">${r.g.Nome}</span>
-        <span class="cmp-days ${dc}">${r.lastLabel}</span>
-        <span class="cmp-sed">${r.sedWeek}${sedArrow}</span>
-        <span class="cmp-rpe ${rpeClass}">${r.rpeMedia !== null ? r.rpeMedia : '—'}</span>
-      </div>`;
+  const avgW = (field) => {
+    const vals = wRows.map(r => Number(r[field])).filter(v => !isNaN(v) && v > 0);
+    return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+  };
+  const sonno   = avgW('Qualita_Sonno');
+  const dolori  = avgW('Dolori');
+  const energia = avgW('Energia');
+
+  let volume = 0;
+  const exMap = {};
+  for (const p of progs.filter(p => !SKIP.has(p.Esercizio))) {
+    const kg   = extractKg(p);
+    const reps = Number(p.Reps_Fatte);
+    if (kg !== null) {
+      if (!exMap[p.Esercizio] || kg > exMap[p.Esercizio]) exMap[p.Esercizio] = kg;
+      if (!isNaN(reps) && reps > 0) volume += kg * reps;
+    }
+  }
+
+  return { sedute, rpeMedia, rpeHistory, sonno, dolori, energia, volume, exMap };
+}
+
+function status(m) {
+  if (m.sedute === 0) return 'r';
+  if ((m.dolori  !== null && m.dolori  >= 3)    ||
+      (m.rpeMedia !== null && m.rpeMedia >= 8.5) ||
+      (m.sonno !== null && m.energia !== null && m.sonno < 2.5 && m.energia < 2.5))
+    return 'y';
+  return 'g';
+}
+
+function currentNota(athleteId) {
+  const { start: ws, end: we } = weekBounds(weekOffset);
+  return noteCoach.find(n =>
+    String(n.id_giocatrice) === String(athleteId) &&
+    n.tipo === 'settimanale' &&
+    n.data_inizio && new Date(n.data_inizio) >= ws && new Date(n.data_inizio) < we
+  ) || null;
+}
+
+// ─── TAB: SQUADRA ──────────────────────────────────────────────────────────
+function renderSquadra() {
+  const ORDER = { r: 0, y: 1, g: 2 };
+  const rows = giocatrici.map(g => {
+    const m0 = metrics(g.ID, weekOffset);
+    const m1 = metrics(g.ID, weekOffset - 1);
+    const st = status(m0);
+    const vd = m1.volume > 0 ? (m0.volume - m1.volume) / m1.volume : null;
+    return { g, m0, m1, st, vd };
+  }).sort((a, b) => (ORDER[a.st] - ORDER[b.st]) || a.g.Nome.localeCompare(b.g.Nome));
+
+  const flagged = rows.filter(r => r.st !== 'g');
+  let alertHtml = '';
+  if (flagged.length) {
+    const red  = flagged.filter(r => r.st === 'r').map(r => esc(r.g.Nome.split(' ')[0]));
+    const yell = flagged.filter(r => r.st === 'y').map(r => esc(r.g.Nome.split(' ')[0]));
+    const parts = [];
+    if (red.length)  parts.push('<strong style="color:#92400e">Inattive:</strong> ' + red.join(', '));
+    if (yell.length) parts.push('<strong style="color:#92400e">Attenzione:</strong> ' + yell.join(', '));
+    alertHtml = `<div class="alert-bar">
+      <div class="alert-bar-ttl">⚠ Da monitorare questa settimana</div>
+      <div class="alert-bar-body">${parts.join(' &middot; ')}</div>
+    </div>`;
+  }
+
+  const rowsHtml = rows.map(({ g, m0, vd, st }) => {
+    const volBadge = vd !== null && Math.abs(vd) >= 0.20
+      ? `<span class="vol-badge ${vd > 0 ? 'up' : 'dn'}">${vd > 0 ? '▲' : '▼'}${Math.round(Math.abs(vd)*100)}%</span>` : '';
+    const subParts = [m0.sedute + ' sed.',
+      m0.rpeMedia !== null ? 'RPE ' + f1(m0.rpeMedia) : '',
+      m0.volume > 0 ? fVol(m0.volume) : ''
+    ].filter(Boolean);
+    return `<div class="squad-row" onclick="openAthlete('${esc(g.ID)}')">
+      <div class="sdot ${st}"></div>
+      <div class="sname">
+        <strong>${esc(g.Nome)}</strong>
+        <small>${esc(subParts.join(' · '))} ${volBadge}</small>
+      </div>
+      <div class="smetrics">
+        <div class="mpill">
+          <div class="mv">${m0.sonno !== null ? f1(m0.sonno) : '—'}</div>
+          <div class="ml">Sonno</div>
+        </div>
+        <div class="mpill">
+          <div class="mv ${m0.dolori !== null && m0.dolori >= 3 ? 'cr' : ''}">${m0.dolori !== null ? f1(m0.dolori) : '—'}</div>
+          <div class="ml">Dolori</div>
+        </div>
+        <div class="mpill">
+          <div class="mv">${m0.energia !== null ? f1(m0.energia) : '—'}</div>
+          <div class="ml">Energia</div>
+        </div>
+      </div>
+    </div>`;
   }).join('');
 
-  wrap.innerHTML = `
-    <div class="compliance-wrap">
-      <div class="compliance-hdr" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.compliance-toggle').textContent=this.nextElementSibling.style.display==='none'?'▼ espandi':'▲ chiudi'">
-        <h3>📋 Compliance settimanale ${urgBadge}</h3>
-        <span class="compliance-toggle">${open ? '▲ chiudi' : '▼ espandi'}</span>
+  document.getElementById('pane-squadra').innerHTML =
+    alertHtml + (rowsHtml || '<div class="empty">Nessun dato per questa settimana</div>');
+}
+
+// ─── TAB: ATLETA ───────────────────────────────────────────────────────────
+function openAthlete(id) {
+  currentAthleteId = id;
+  showTab('atleta');
+  renderAthlete(id);
+}
+
+function renderAthlete(id) {
+  const g = giocatrici.find(x => String(x.ID) === String(id));
+  if (!g) return;
+
+  const m0 = metrics(id, weekOffset);
+  const m1 = metrics(id, weekOffset - 1);
+  const vd = m1.volume > 0 ? (m0.volume - m1.volume) / m1.volume : null;
+
+  const trendRows = [weekOffset - 3, weekOffset - 2, weekOffset - 1, weekOffset].map(off => {
+    const { start } = weekBounds(off);
+    const wn = isoWeekNum(start);
+    const m  = metrics(id, off);
+    const mp = metrics(id, off - 1);
+    const tvd = mp.volume > 0 ? (m.volume - mp.volume) / mp.volume : null;
+    return { wn, m, tvd, cur: off === weekOffset };
+  });
+
+  const nota = currentNota(id);
+
+  const html = `
+    <div class="back-btn" onclick="showTab('squadra')">‹ Squadra</div>
+
+    <div class="hero">
+      <div class="hero-name">${esc(g.Nome)}</div>
+      <div class="hero-sub">${m0.sedute} sedut${m0.sedute !== 1 ? 'e' : 'a'} · Volume ${fVol(m0.volume)}</div>
+    </div>
+
+    <div class="stat-cards">
+      <div class="sc">
+        <div class="sc-lbl">Sedute</div>
+        <div class="sc-val">${m0.sedute}</div>
+        <div class="sc-sub">prec. ${m1.sedute}</div>
       </div>
-      <div class="compliance-body" style="display:${open ? 'block' : 'none'}">
-        <div class="cmp-head-row">
-          <span style="width:9px;flex-shrink:0"></span>
-          <span style="flex:1">Atleta</span>
-          <span style="width:75px;text-align:right">Ultimo log</span>
-          <span style="width:65px;text-align:right">Sed. (sett.)</span>
-          <span style="width:58px;text-align:right">RPE medio</span>
-        </div>
-        ${rowsHtml}
+      <div class="sc">
+        <div class="sc-lbl">RPE medio</div>
+        <div class="sc-val ${m0.rpeMedia !== null && m0.rpeMedia >= 8.5 ? 'cr' : ''}">${f1(m0.rpeMedia)}</div>
+        <div class="sc-sub">prec. ${f1(m1.rpeMedia)}</div>
       </div>
+      <div class="sc">
+        <div class="sc-lbl">Sonno · Dolori</div>
+        <div class="sc-val">${f1(m0.sonno)} · <span class="${m0.dolori !== null && m0.dolori >= 3 ? 'cr' : ''}">${f1(m0.dolori)}</span></div>
+        <div class="sc-sub">su scala 1–5</div>
+      </div>
+      <div class="sc">
+        <div class="sc-lbl">Energia</div>
+        <div class="sc-val">${f1(m0.energia)}</div>
+        <div class="sc-sub">prec. ${f1(m1.energia)}</div>
+      </div>
+    </div>
+
+    ${renderCarichi(m0, m1, vd)}
+
+    ${m0.rpeHistory.length >= 2 ? `
+    <div class="sec">
+      <div class="sec-ttl">RPE ultime sedute</div>
+      ${renderSparkline(m0.rpeHistory)}
+    </div>` : ''}
+
+    <div class="sec">
+      <div class="sec-ttl">Trend 4 settimane</div>
+      <table class="trend-table">
+        <thead><tr>
+          <th>Sett.</th><th>Sed.</th><th>RPE</th><th>Volume</th><th>Δ Vol.</th>
+        </tr></thead>
+        <tbody>
+          ${trendRows.map(({ wn, m, tvd, cur }) => {
+            const tvdColor = tvd !== null && Math.abs(tvd) >= 0.20
+              ? (tvd > 0 ? 'style="color:#16a34a"' : 'style="color:#dc2626"') : '';
+            const tvdStr = tvd !== null
+              ? (tvd >= 0 ? '+' : '') + Math.round(tvd * 100) + '%' : '—';
+            return `<tr ${cur ? 'class="cur-row"' : ''}>
+              <td>W${wn}${cur ? ' ★' : ''}</td>
+              <td>${m.sedute || '—'}</td>
+              <td>${f1(m.rpeMedia)}</td>
+              <td>${fVol(m.volume)}</td>
+              <td ${tvdColor}>${tvdStr}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec">
+      <div class="sec-ttl">Nota coach — settimana corrente</div>
+      <textarea class="note-ta" id="ata-${esc(id)}"
+        placeholder="Nota per ${esc(g.Nome.split(' ')[0])}...">${esc(nota ? nota.testo : '')}</textarea>
+      <div class="note-actions">
+        <button class="btn-save" onclick="saveNota('${esc(id)}','ata-','asta-')">Salva nota</button>
+        <span class="note-status" id="asta-${esc(id)}"></span>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('pane-atleta').innerHTML = html;
+}
+
+function renderCarichi(m0, m1, vd) {
+  const allEx = new Set([...Object.keys(m0.exMap), ...Object.keys(m1.exMap)]);
+
+  let deltaClass = 'neu', deltaStr = '—';
+  if (vd !== null) {
+    if (Math.abs(vd) >= 0.20) {
+      deltaClass = vd > 0 ? 'up' : 'dn';
+      deltaStr = (vd > 0 ? '▲ +' : '▼ ') + Math.round(Math.abs(vd) * 100) + '% vs sett. prec.';
+    } else {
+      deltaStr = (vd >= 0 ? '+' : '') + Math.round(vd * 100) + '% vs sett. prec.';
+    }
+  }
+
+  const exRows = [...allEx].map(ex => {
+    const w0 = m0.exMap[ex] ?? null;
+    const w1 = m1.exMap[ex] ?? null;
+    const d  = (w0 !== null && w1 !== null) ? (w0 - w1) / w1 : null;
+    const spikeBadge = d !== null && Math.abs(d) >= 0.15
+      ? `<span class="spike ${d > 0 ? 'up' : 'dn'}">${d > 0 ? '▲' : '▼'} ${Math.round(Math.abs(d)*100)}%</span>` : '';
+    const dStr = d !== null && !spikeBadge
+      ? `<span style="font-size:.65rem;color:var(--text3)">${d >= 0 ? '+' : ''}${Math.round(d*100)}%</span>` : '';
+    return `<tr>
+      <td>${esc(ex)}</td>
+      <td>${w0 !== null ? w0 + ' kg' : '—'}</td>
+      <td>${w1 !== null ? w1 + ' kg' : '—'}</td>
+      <td>${spikeBadge}${dStr}</td>
+    </tr>`;
+  }).join('');
+
+  return `<div class="sec">
+    <div class="sec-ttl">Carichi e volume</div>
+    <div class="vol-summary">
+      <div>
+        <div class="vol-big">${fVol(m0.volume)}</div>
+        <div class="vol-lbl">Volume totale settimana</div>
+      </div>
+      ${vd !== null ? `<span class="vol-delta ${deltaClass}">${deltaStr}</span>` : ''}
+    </div>
+    ${allEx.size > 0 ? `
+    <div class="ex-wrap">
+      <table class="ex-table">
+        <thead><tr>
+          <th>Esercizio</th>
+          <th style="text-align:right">Sett. att.</th>
+          <th style="text-align:right">Sett. prec.</th>
+          <th style="text-align:right">Δ</th>
+        </tr></thead>
+        <tbody>${exRows}</tbody>
+      </table>
+    </div>` : '<div class="nodata">Nessun dato di carico per questa settimana</div>'}
+  </div>`;
+}
+
+function renderSparkline(vals) {
+  const max = Math.max(...vals, 1);
+  const bars = vals.slice(-10).map(v => {
+    const pct = Math.max((v / max) * 100, 4);
+    const col = v >= 8.5 ? '#dc2626' : v >= 7 ? '#d97706' : '#16a34a';
+    return `<div class="spark-bar" style="height:${pct}%;background:${col}" title="RPE ${v}"></div>`;
+  }).join('');
+  return `<div class="spark-wrap">${bars}</div>
+    <div class="spark-legend">
+      <span>← meno recente</span><span>più recente →</span>
     </div>`;
 }
 
-function renderWellness() {
-  const wrap = document.getElementById('wellness-section');
-  if (!allWellness.length) { wrap.innerHTML = ''; return; }
+// ─── TAB: NOTE ─────────────────────────────────────────────────────────────
+function renderNote() {
+  if (!loaded) return;
+  const html = giocatrici.map(g => {
+    const nota = currentNota(g.ID);
+    return `<div class="note-card">
+      <div class="note-name">${esc(g.Nome)}</div>
+      <textarea class="note-ta" id="nta-${esc(g.ID)}"
+        placeholder="Nota settimanale...">${esc(nota ? nota.testo : '')}</textarea>
+      <div class="note-actions">
+        <button class="btn-save" onclick="saveNota('${esc(g.ID)}','nta-','nst-')">Salva</button>
+        <span class="note-status" id="nst-${esc(g.ID)}"></span>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('pane-note').innerHTML =
+    html || '<div class="empty">Nessuna atleta</div>';
+}
 
-  const selId = document.getElementById('sel-giocatrice').value;
-  const days = parseInt(document.getElementById('sel-periodo').value) || 0;
-  const cutoff = days ? new Date(new Date().setDate(new Date().getDate() - days)) : null;
-  const wData = cutoff
-    ? allWellness.filter(w => { const ts = w.Timestamp ? new Date(w.Timestamp) : null; return ts && ts >= cutoff; })
-    : allWellness;
+// ─── SAVE NOTA ─────────────────────────────────────────────────────────────
+async function saveNota(athleteId, taPrefix, stPrefix) {
+  const ta   = document.getElementById(taPrefix + athleteId);
+  const stEl = document.getElementById(stPrefix + athleteId);
+  if (!ta) return;
 
-  const sonnoClass  = v => !v ? '' : v >= 4 ? 'ok' : v >= 3 ? 'warn' : 'bad';
-  const doloriClass = v => !v ? '' : v <= 2 ? 'ok' : v <= 3 ? 'warn' : 'bad';
-  const avg = arr => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1) : null;
+  const testo = ta.value.trim();
+  const { start: ws, end: we } = weekBounds(weekOffset);
+  const btn = ta.parentElement.querySelector('.btn-save');
 
-  if (selId === 'all') {
-    const rows = allGiocatrici.map(g => {
-      const entries = wData.filter(w => String(w.ID_Giocatrice) === String(g.ID));
-      if (!entries.length) return null;
-      const sonno   = avg(entries.map(e => Number(e.Qualita_Sonno)).filter(v => !isNaN(v) && v));
-      const dolori  = avg(entries.map(e => Number(e.Dolori)).filter(v => !isNaN(v) && v));
-      const energia = avg(entries.map(e => Number(e.Energia)).filter(v => !isNaN(v) && v));
-      const lastNote = [...entries].reverse().find(e => e.Note)?.Note || '';
-      const anomalia = entries.some(e => Number(e.Qualita_Sonno) <= 2 || Number(e.Dolori) >= 4 || Number(e.Energia) <= 2);
-      return { g, count: entries.length, sonno, dolori, energia, note: lastNote, anomalia };
-    }).filter(Boolean);
+  if (btn) btn.disabled = true;
+  if (stEl) stEl.textContent = 'Salvataggio...';
 
-    if (!rows.length) { wrap.innerHTML = ''; return; }
+  try {
+    const existing = currentNota(athleteId);
+    if (existing && existing.timestamp) {
+      await apiPost({ azione: 'elimina_nota_coach', timestamp: existing.timestamp });
+      noteCoach = noteCoach.filter(n => n.timestamp !== existing.timestamp);
+    }
 
-    const totAnom = rows.filter(r => r.anomalia).length;
-    const badge = totAnom > 0
-      ? `<span class="cmp-urgenti">${totAnom} con anomalie</span>`
-      : `<span style="color:#2a9d3a;font-size:0.75rem;font-weight:700">✓ nessuna anomalia</span>`;
-    const open = totAnom > 0;
+    if (testo) {
+      const localTs = new Date().toISOString();
+      await apiPost({
+        azione:        'scrivi_nota_coach',
+        id_giocatrice: athleteId,
+        tipo:          'settimanale',
+        n_seduta:      '',
+        testo,
+        data_inizio:   ws.toISOString(),
+        data_fine:     new Date(we.getTime() - 1).toISOString()
+      });
+      noteCoach.push({
+        timestamp:     localTs,
+        id_giocatrice: String(athleteId),
+        tipo:          'settimanale',
+        n_seduta:      '',
+        testo,
+        data_inizio:   ws.toISOString(),
+        data_fine:     new Date(we.getTime() - 1).toISOString()
+      });
+    }
 
-    const rowsHtml = rows.map(r => `
-      <div class="cmp-row">
-        <span class="cmp-name">${r.g.Nome}</span>
-        <span class="wl-val ${sonnoClass(parseFloat(r.sonno))}">${r.sonno ?? '—'}</span>
-        <span class="wl-val ${doloriClass(parseFloat(r.dolori))}">${r.dolori ?? '—'}</span>
-        <span class="wl-val ${sonnoClass(parseFloat(r.energia))}">${r.energia ?? '—'}</span>
-        <span class="wl-note">${r.note ? '📝 ' + r.note : ''}</span>
-      </div>`).join('');
+    if (stEl) {
+      stEl.textContent = '✓ Salvato';
+      setTimeout(() => { if (stEl) stEl.textContent = ''; }, 2500);
+    }
+    renderReport();
 
-    wrap.innerHTML = `
-      <div class="compliance-wrap">
-        <div class="compliance-hdr" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.compliance-toggle').textContent=this.nextElementSibling.style.display==='none'?'▼ espandi':'▲ chiudi'">
-          <h3>💚 Wellness squadra ${badge}</h3>
-          <span class="compliance-toggle">${open ? '▲ chiudi' : '▼ espandi'}</span>
-        </div>
-        <div class="compliance-body" style="display:${open ? 'block' : 'none'}">
-          <div class="cmp-head-row">
-            <span style="flex:1">Atleta</span>
-            <span style="width:58px;text-align:right">🌙 Sonno</span>
-            <span style="width:58px;text-align:right">💢 Dolori</span>
-            <span style="width:58px;text-align:right">⚡ Energia</span>
-            <span style="flex:2;padding-left:6px">Ultima nota</span>
-          </div>
-          ${rowsHtml}
-        </div>
-      </div>`;
-  } else {
-    const entries = wData
-      .filter(w => String(w.ID_Giocatrice) === selId)
-      .sort((a, b) => new Date(b.Timestamp) - new Date(a.Timestamp))
-      .slice(0, 10);
-
-    if (!entries.length) { wrap.innerHTML = ''; return; }
-
-    const fmtDate = ts => { const d = new Date(ts); return `${d.getDate()}/${d.getMonth()+1}`; };
-
-    const rowsHtml = entries.map(e => {
-      const s = Number(e.Qualita_Sonno), dl = Number(e.Dolori), en = Number(e.Energia);
-      return `
-        <div class="cmp-row">
-          <span style="width:38px;font-size:0.78rem;color:var(--text-light)">${e.Data || fmtDate(e.Timestamp)}</span>
-          <span class="wl-val ${sonnoClass(s)}">${s || '—'}</span>
-          <span class="wl-val ${doloriClass(dl)}">${dl || '—'}</span>
-          <span class="wl-val ${sonnoClass(en)}">${en || '—'}</span>
-          <span class="wl-note">${e.Note ? '📝 ' + e.Note : ''}</span>
-        </div>`;
-    }).join('');
-
-    wrap.innerHTML = `
-      <div class="compliance-wrap">
-        <div class="compliance-hdr" style="cursor:default">
-          <h3>💚 Wellness personale</h3>
-          <span></span>
-        </div>
-        <div class="compliance-body">
-          <div class="cmp-head-row">
-            <span style="width:38px">Data</span>
-            <span style="width:58px;text-align:right">🌙 Sonno</span>
-            <span style="width:58px;text-align:right">💢 Dolori</span>
-            <span style="width:58px;text-align:right">⚡ Energia</span>
-            <span style="flex:2;padding-left:6px">Note</span>
-          </div>
-          ${rowsHtml}
-        </div>
-      </div>`;
+  } catch (err) {
+    if (stEl) stEl.textContent = '✗ Errore: ' + err.message;
+  } finally {
+    if (btn) btn.disabled = false;
   }
 }
 
+// ─── TAB: REPORT ───────────────────────────────────────────────────────────
 function renderReport() {
-  chartInstances.forEach(c => c.destroy());
-  chartInstances = [];
+  if (!loaded) return;
 
-  document.getElementById('compliance-section').innerHTML = '';
-  document.getElementById('wellness-section').innerHTML  = '';
+  const ORDER = { r: 0, y: 1, g: 2 };
+  const all = giocatrici.map(g => {
+    const m0 = metrics(g.ID, weekOffset);
+    const m1 = metrics(g.ID, weekOffset - 1);
+    const st = status(m0);
+    const vd = m1.volume > 0 ? (m0.volume - m1.volume) / m1.volume : null;
+    return { g, m0, m1, st, vd };
+  }).sort((a, b) => (ORDER[a.st] - ORDER[b.st]) || a.g.Nome.localeCompare(b.g.Nome));
 
-  const selId  = document.getElementById('sel-giocatrice').value;
-  const days   = parseInt(document.getElementById('sel-periodo').value) || 0;
-  const now    = new Date();
-  const cutoff = days ? new Date(now.getTime() - days * 86400000) : null;
+  const av = (fn) => {
+    const vals = all.map(fn).filter(v => v !== null);
+    return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : null;
+  };
+  const activeN  = all.filter(r => r.m0.sedute > 0).length;
 
-  const startOfWeek = new Date(now);
-  const dow = startOfWeek.getDay();
-  startOfWeek.setDate(now.getDate() - (dow === 0 ? 6 : dow - 1));
-  startOfWeek.setHours(0, 0, 0, 0);
+  const kpiHtml = `<div class="kpi-grid">
+    <div class="kpi"><div class="kpi-val">${activeN}/${giocatrici.length}</div><div class="kpi-lbl">Attive</div></div>
+    <div class="kpi"><div class="kpi-val">${f1(av(r => r.m0.sedute))}</div><div class="kpi-lbl">Sed. medie</div></div>
+    <div class="kpi"><div class="kpi-val">${f1(av(r => r.m0.rpeMedia))}</div><div class="kpi-lbl">RPE medio</div></div>
+    <div class="kpi"><div class="kpi-val">${f1(av(r => r.m0.sonno))}</div><div class="kpi-lbl">Sonno</div></div>
+    <div class="kpi"><div class="kpi-val">${f1(av(r => r.m0.dolori))}</div><div class="kpi-lbl">Dolori ↓</div></div>
+    <div class="kpi"><div class="kpi-val">${f1(av(r => r.m0.energia))}</div><div class="kpi-lbl">Energia</div></div>
+  </div>`;
 
-  const avg = arr => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1) : null;
-  const filterTs = arr => cutoff ? arr.filter(p => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; return ts && ts >= cutoff; }) : arr;
+  const varSig = all
+    .filter(r => r.vd !== null && Math.abs(r.vd) >= 0.20)
+    .sort((a, b) => Math.abs(b.vd) - Math.abs(a.vd));
 
-  const giocatrici = selId === 'all' ? allGiocatrici : allGiocatrici.filter(g => String(g.ID) === selId);
+  const varHtml = `<div style="margin-bottom:16px">
+    <div class="sec-ttl-outer">Variazioni carico significative ≥20%</div>
+    ${varSig.length
+      ? varSig.map(r => `<div class="var-row">
+          <div class="var-name">${esc(r.g.Nome)}</div>
+          <div class="var-kg">${fVol(r.m1.volume)} → ${fVol(r.m0.volume)}</div>
+          <span class="var-delta ${r.vd > 0 ? 'up' : 'dn'}">${r.vd > 0 ? '▲ +' : '▼ '}${Math.round(Math.abs(r.vd)*100)}%</span>
+        </div>`).join('')
+      : '<div class="empty" style="padding:10px 0">Nessuna variazione ≥20% ✓</div>'}
+  </div>`;
 
-  const progressiFiltrati = filterTs(allProgressi);
-  const attivi = new Set(progressiFiltrati.filter(p => !SKIP.has(p.Esercizio) && p.Valore).map(p => p.ID_Giocatrice));
-  const sedTotSquadra = new Set(progressiFiltrati.filter(p => !SKIP.has(p.Esercizio) && p.Valore).map(p => p.N_Seduta)).size;
+  const prio = all.filter(r => r.st !== 'g');
+  const prioHtml = `<div>
+    <div class="sec-ttl-outer">Priorità settimana</div>
+    ${prio.length
+      ? `<ul class="prio-list">
+          ${prio.map(r => {
+            const parts = [];
+            if (r.m0.sedute === 0) parts.push('inattiva');
+            if (r.m0.dolori !== null && r.m0.dolori >= 3) parts.push('dolori ' + f1(r.m0.dolori) + '/5');
+            if (r.m0.rpeMedia !== null && r.m0.rpeMedia >= 8.5) parts.push('RPE ' + f1(r.m0.rpeMedia));
+            if (r.m0.sonno !== null && r.m0.energia !== null && r.m0.sonno < 2.5 && r.m0.energia < 2.5)
+              parts.push('fatica (sonno ' + f1(r.m0.sonno) + ', energia ' + f1(r.m0.energia) + ')');
+            return `<li class="prio-item"><strong>${esc(r.g.Nome)}</strong> — ${parts.join('; ')}</li>`;
+          }).join('')}
+         </ul>`
+      : '<div class="empty" style="padding:10px 0;margin-bottom:16px">Tutte le atlete nei parametri ✓</div>'}
+  </div>`;
 
-  document.getElementById('summary-bar').innerHTML = `
-    <div class="summary-chip"><strong>${attivi.size}/${allGiocatrici.length}</strong>atlete attive</div>
-    <div class="summary-chip"><strong>${sedTotSquadra}</strong>sedute totali (periodo)</div>
-  `;
+  const tableRows = all.map(r => {
+    const dot = r.st === 'r' ? '🔴' : r.st === 'y' ? '🟡' : '🟢';
+    const nota = currentNota(r.g.ID);
+    const vdStr = r.vd !== null ? (r.vd >= 0 ? '+' : '') + Math.round(r.vd * 100) + '%' : '—';
+    const vdAttr = r.vd !== null && Math.abs(r.vd) >= 0.20
+      ? (r.vd > 0 ? 'style="color:#16a34a;font-weight:700"' : 'style="color:#dc2626;font-weight:700"') : '';
+    return `<tr>
+      <td>${dot} ${esc(r.g.Nome)}</td>
+      <td>${r.m0.sedute || '—'}</td>
+      <td>${f1(r.m0.rpeMedia)}</td>
+      <td>${f1(r.m0.sonno)}</td>
+      <td>${f1(r.m0.dolori)}</td>
+      <td>${fVol(r.m0.volume)}</td>
+      <td ${vdAttr}>${vdStr}</td>
+      <td class="obs">${esc(nota ? nota.testo : '')}</td>
+    </tr>`;
+  }).join('');
 
-  const content = document.getElementById('report-content');
-  content.innerHTML = '';
+  const tableHtml = `<div style="margin-bottom:16px">
+    <div class="sec-ttl-outer">Quadro completo squadra</div>
+    <div class="rep-table-wrap">
+      <table class="rep-table">
+        <thead><tr>
+          <th>Atleta</th><th>Sed.</th><th>RPE</th><th>Sonno</th><th>Dolori</th><th>Volume</th><th>Δ Vol.</th><th>Nota</th>
+        </tr></thead>
+        <tbody>${tableRows}</tbody>
+      </table>
+    </div>
+  </div>`;
 
-  const table = document.createElement('table');
-  table.className = 'atleta-table';
-  table.innerHTML = `<thead><tr>
-    <th>Atleta</th>
-    <th>Ultima</th>
-    <th>Sed. sett.</th>
-    <th>Sed. tot.</th>
-    <th>RPE / 10</th>
-    <th>Fatica / 5</th>
-    <th>Wellness</th>
-    <th>✅ Cosa va</th>
-    <th>⚠️ Da lavorare</th>
-  </tr></thead>`;
-  const tbody = document.createElement('tbody');
-
-  giocatrici.forEach(g => {
-    const id = String(g.ID);
-
-    /* workload */
-    const logsG    = allProgressi.filter(p => String(p.ID_Giocatrice) === id && !SKIP.has(p.Esercizio) && p.Valore);
-    const logsGFil = filterTs(logsG);
-    const sedTot   = new Set(logsGFil.map(p => p.N_Seduta)).size;
-    const sedWeek  = new Set(logsG.filter(p => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; return ts && ts >= startOfWeek; }).map(p => p.N_Seduta)).size;
-
-    let ultimoTs = null;
-    logsG.forEach(p => { const ts = p.Timestamp ? new Date(p.Timestamp) : null; if (ts && (!ultimoTs || ts > ultimoTs)) ultimoTs = ts; });
-    const daysSince = ultimoTs ? Math.floor((now - ultimoTs) / 86400000) : null;
-    const lastLabel = daysSince === null ? 'mai' : daysSince === 0 ? 'oggi' : daysSince === 1 ? 'ieri' : `${daysSince}gg fa`;
-    const status    = daysSince === null ? 'mai' : daysSince > 7 ? 'red' : daysSince > 3 ? 'warn' : 'ok';
-    const dotColor  = status === 'ok' ? '#2a9d3a' : status === 'warn' ? '#e6a817' : '#c33';
-    const lastColor = status === 'ok' ? '#2a9d3a' : status === 'warn' ? '#e6a817' : '#c33';
-
-    /* intensità */
-    const allG   = filterTs(allProgressi.filter(p => String(p.ID_Giocatrice) === id));
-    const rpeV   = allG.filter(p => p.Esercizio === 'RPE-seduta'    && p.Valore).map(p => Number(p.Valore)).filter(v => !isNaN(v));
-    const fatV   = allG.filter(p => p.Esercizio === 'Fatica-seduta' && p.Valore).map(p => Number(p.Valore)).filter(v => !isNaN(v));
-    const rpe    = avg(rpeV);
-    const fat    = avg(fatV);
-    const rpeCol = !rpe ? '#aaa' : parseFloat(rpe) >= 8 ? '#c33' : parseFloat(rpe) >= 6 ? '#e6a817' : '#2a9d3a';
-
-    /* wellness */
-    const wG      = filterTs(allWellness.filter(w => String(w.ID_Giocatrice) === id));
-    const sonno   = avg(wG.map(w => Number(w.Qualita_Sonno)).filter(v => !isNaN(v) && v));
-    const dolori  = avg(wG.map(w => Number(w.Dolori)).filter(v => !isNaN(v) && v));
-    const energia = avg(wG.map(w => Number(w.Energia)).filter(v => !isNaN(v) && v));
-    const sCol = !sonno  ? '#aaa' : parseFloat(sonno)  >= 4 ? '#2a9d3a' : parseFloat(sonno)  >= 3 ? '#e6a817' : '#c33';
-    const dCol = !dolori ? '#aaa' : parseFloat(dolori) <= 2 ? '#2a9d3a' : parseFloat(dolori) <= 3 ? '#e6a817' : '#c33';
-    const eCol = !energia? '#aaa' : parseFloat(energia) >= 4 ? '#2a9d3a' : parseFloat(energia)>= 3 ? '#e6a817' : '#c33';
-
-    /* note staff */
-    const nota = allNoteStaff[id] || {};
-
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><span class="atleta-dot" style="background:${dotColor}"></span><span class="atleta-nome">${g.Nome}${g.Ruolo ? `<span class="atleta-ruolo">${g.Ruolo}</span>` : ''}</span></td>
-      <td><span class="atleta-last" style="color:${lastColor}">${lastLabel}</span></td>
-      <td><span class="stat-num">${sedWeek}</span></td>
-      <td><span class="stat-num">${sedTot}</span></td>
-      <td><span class="stat-num" style="color:${rpeCol}">${rpe ?? '—'}</span></td>
-      <td><span class="stat-num">${fat ?? '—'}</span></td>
-      <td style="white-space:nowrap;font-size:0.78rem"><span style="color:${sCol};font-weight:700">🌙 Sonno ${sonno ?? '—'}</span> &nbsp; <span style="color:${dCol};font-weight:700">💢 Dolori ${dolori ?? '—'}</span> &nbsp; <span style="color:${eCol};font-weight:700">⚡ Energia ${energia ?? '—'}</span></td>
-      <td class="td-note"><input class="note-input pos" id="note-pos-${id}" value="${(nota.positivo || '').replace(/"/g, '&quot;')}" placeholder="Cosa va..."></td>
-      <td class="td-note"><input class="note-input crit" id="note-crit-${id}" value="${(nota.critico || '').replace(/"/g, '&quot;')}" placeholder="Da lavorare..."></td>`;
-    tbody.appendChild(tr);
-  });
-
-  table.appendChild(tbody);
-  content.appendChild(table);
-
-  const footer = document.createElement('div');
-  footer.style.cssText = 'margin-top:14px;display:flex;align-items:center;gap:12px;';
-  footer.innerHTML = `<button class="note-staff-save-btn" style="padding:8px 24px;font-size:0.85rem" onclick="salvaTutte()">Salva note</button><span id="note-fb-all" class="note-staff-feedback">✓ Salvato</span>`;
-  content.appendChild(footer);
+  document.getElementById('pane-report').innerHTML =
+    kpiHtml + varHtml + prioHtml + tableHtml +
+    `<div class="report-actions">
+      <button class="btn-primary" onclick="inviaBozze(this)">📧 Prepara bozze &rarr; Gmail</button>
+    </div>`;
 }
 
-async function salvaTutte() {
-  const fb = document.getElementById('note-fb-all');
-  const ids = [...document.querySelectorAll('[id^="note-pos-"]')].map(el => el.id.replace('note-pos-', ''));
+// ─── INVIA BOZZE ───────────────────────────────────────────────────────────
+async function inviaBozze(btn) {
+  btn.disabled = true;
+  btn.textContent = 'Invio in corso...';
   try {
-    await Promise.all(ids.map(id => {
-      const pos  = document.getElementById(`note-pos-${id}`)?.value  || '';
-      const crit = document.getElementById(`note-crit-${id}`)?.value || '';
-      allNoteStaff[id] = { id, positivo: pos, critico: crit };
-      return fetch(API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: TOKEN, azione: 'scrivi_nota_staff', id_giocatrice: id, positivo: pos, critico: crit }),
-      });
-    }));
-    if (fb) { fb.classList.add('visible'); setTimeout(() => fb.classList.remove('visible'), 2500); }
-  } catch {}
+    await apiPost({ azione: 'prepara_bozze', coach_key: COACH_KEY });
+    btn.textContent = '✓ Bozze inviate a Gmail';
+    btn.style.background = '#16a34a';
+  } catch (err) {
+    btn.textContent = '✗ Errore';
+    btn.disabled = false;
+  }
+}
+
+// ─── TABS ──────────────────────────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.tab === name));
+  document.querySelectorAll('.tab-pane').forEach(p =>
+    p.classList.toggle('active', p.id === 'pane-' + name));
+  if (name === 'note'   && loaded) renderNote();
+  if (name === 'report' && loaded) renderReport();
 }
 </script>
-
 </body>
 </html>
