@@ -1,4 +1,4 @@
-﻿const TOKEN = 'mv26-prd-3xF7wNqK';
+const TOKEN = 'mv26-prd-3xF7wNqK';
 const COACH_KEY = 'mv26-coach-8pL2wK';
 const PROD_API_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
 const BACKUP_FOLDER_ID = '1iiM7V2CislN971wXZsOmnncGGj1lS1sG';
@@ -16,7 +16,7 @@ function doGet(e) {
       inviaRiepilogoSettimanale();
       return HtmlService.createHtmlOutput(
         '<div style="font-family:Arial;max-width:500px;margin:60px auto;text-align:center">' +
-        '<div style="font-size:4rem">âœ…</div>' +
+        '<div style="font-size:4rem">✅</div>' +
         '<h2 style="color:#16a34a;margin:16px 0 8px">Email inviate!</h2>' +
         '<p style="color:#64748b">Le email settimanali sono state inviate a tutte le atlete.<br>Puoi chiudere questa pagina.</p>' +
         '</div>'
@@ -117,14 +117,14 @@ function creaFoglioInfo() {
   ss.moveActiveSheet(1);
 
   const r1 = sheet.getRange('A1:D1');
-  r1.merge().setValue('Schede Allenamento &mdash; Pre-Season 26')
+  r1.merge().setValue('Schede Allenamento — Pre-Season 26')
     .setBackground('#1a3a6b').setFontColor('#ffffff')
     .setFontSize(14).setFontWeight('bold')
     .setHorizontalAlignment('center').setVerticalAlignment('middle');
   sheet.setRowHeight(1, 40);
 
   sheet.getRange('A3:D3').merge()
-    .setValue('WEB APP &mdash; link da condividere con le atlete')
+    .setValue('WEB APP — link da condividere con le atlete')
     .setFontWeight('bold');
 
   sheet.getRange('A4:D4').merge()
@@ -132,7 +132,7 @@ function creaFoglioInfo() {
     .setFontColor('#1155cc');
 
   sheet.getRange('A6:D6').merge()
-    .setValue('DEV &mdash; solo test (non condividere)')
+    .setValue('DEV — solo test (non condividere)')
     .setFontColor('#888888').setFontWeight('bold').setFontSize(9);
 
   sheet.getRange('A7:D7').merge()
@@ -246,7 +246,7 @@ function leggiNote(idGiocatrice, nSeduta) {
 function creaFoglioNoteCoach() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName('Note_Coach');
-  if (sheet) { Logger.log('Foglio Note_Coach esiste giÃ .'); return; }
+  if (sheet) { Logger.log('Foglio Note_Coach esiste già.'); return; }
   sheet = ss.insertSheet('Note_Coach');
   const heads = ['Timestamp','ID_Giocatrice','Tipo','N_Seduta','Testo','Data_Inizio','Data_Fine'];
   sheet.appendRow(heads);
@@ -262,7 +262,7 @@ function creaFoglioWellness() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let sheet = ss.getSheetByName('Wellness');
   if (sheet) {
-    Logger.log('Foglio Wellness esiste giÃ .');
+    Logger.log('Foglio Wellness esiste già.');
     return;
   }
   sheet = ss.insertSheet('Wellness');
@@ -273,7 +273,7 @@ function creaFoglioWellness() {
   Logger.log('Foglio Wellness creato.');
 }
 
-// â”€â”€ SETUP UNA TANTUM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── SETUP UNA TANTUM ─────────────────────────────────────────────────────────
 
 // Esegui UNA VOLTA dall'editor, poi puoi ignorare questa funzione
 function aggiungiColonnaLingua() {
@@ -284,7 +284,7 @@ function aggiungiColonnaLingua() {
   const vals  = sheet.getDataRange().getValues();
   const heads = vals[0];
 
-  // Aggiunge colonna Lingua se non esiste giÃ 
+  // Aggiunge colonna Lingua se non esiste già
   let colLingua = heads.indexOf('Lingua');
   if (colLingua === -1) {
     colLingua = heads.length;
@@ -303,10 +303,10 @@ function aggiungiColonnaLingua() {
   });
 
   SpreadsheetApp.flush();
-  Logger.log('Fatto &mdash; colonna Lingua aggiunta, EN impostato per ID 4 e 14');
+  Logger.log('Fatto — colonna Lingua aggiunta, EN impostato per ID 4 e 14');
 }
 
-// â”€â”€ EMAIL DIGEST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── EMAIL DIGEST ─────────────────────────────────────────────────────────────
 
 const EMAIL_COACH = 'pamangiapane@gmail.com';
 
@@ -340,7 +340,7 @@ function inviaDigest() {
   });
 
   const SKIP_SET = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
-  const f1   = v => (v !== null && v !== undefined) ? Number(v).toFixed(1) : '&mdash;';
+  const f1   = v => (v !== null && v !== undefined) ? Number(v).toFixed(1) : '—';
   const avgN = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
 
   const righe = giocatrici.map(g => {
@@ -353,6 +353,7 @@ function inviaDigest() {
                         .map(p => Number(p.Valore)).filter(v => !isNaN(v));
     const rpeValsPrev = pAll.filter(p => p.Esercizio === 'RPE-seduta' && p.Timestamp && new Date(p.Timestamp) >= cutLunPrev && new Date(p.Timestamp) < cutLun)
                             .map(p => Number(p.Valore)).filter(v => !isNaN(v));
+    // Cronologico ultimi 14gg per rilevare trend RPE
     const rpeValsOrd = pAll.filter(p => p.Esercizio === 'RPE-seduta' && p.Timestamp && new Date(p.Timestamp) >= cut14)
                            .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
                            .map(p => Number(p.Valore)).filter(v => !isNaN(v));
@@ -416,9 +417,9 @@ function inviaDigest() {
   const energiaSqPrev  = avgN(righe.map(r => r.energiaPrev).filter(v => v !== null));
 
   // Alerts
-  const rpeAlti     = righe.filter(r => r.rpeVals.some(v => v >= 8));
-  const doloriAlti  = righe.filter(r => r.dolori !== null && r.dolori >= 3);
-  const inattive    = righe.filter(r => r.status === 'mai' || r.status === 'rosso');
+  const rpeAlti    = righe.filter(r => r.rpeVals.some(v => v >= 8));
+  const doloriAlti = righe.filter(r => r.dolori !== null && r.dolori >= 3);
+  const inattive   = righe.filter(r => r.status === 'mai' || r.status === 'rosso');
   const faticaCombo = righe.filter(r => r.status === 'verde' && r.sonno !== null && r.energia !== null && r.sonno < 3 && r.energia < 3);
 
   // Colors
@@ -428,18 +429,19 @@ function inviaDigest() {
   const stC = { mai: '#f1f5f9', rosso: '#fef2f2', giallo: '#fffbeb', verde: '#f0fdf4' };
   const stE = { mai: '&#9899;', rosso: '&#128308;', giallo: '&#128993;', verde: '&#128994;' };
 
-  // Trend arrow
+  // Trend arrow — higherIsBetter: true per sonno/energia/allenate, false per dolori
   const tA = (curr, prev, higherIsBetter) => {
     if (prev === null || curr === null || Math.abs(curr - prev) < 0.15) return '';
     const good = higherIsBetter ? curr > prev : curr < prev;
     return ' <span style="font-size:.65rem;font-weight:700;color:' + (good ? '#16a34a' : '#dc2626') + '">' + (curr > prev ? '&#8593;' : '&#8595;') + '</span>';
   };
 
-  // Auto-osservazione per atleta
+  // Auto-osservazione per atleta basata sui dati degli ultimi 14 giorni
   const autoNota = r => {
     if (r.status === 'mai') return 'Nessuna seduta registrata';
     if (r.status === 'rosso') return 'Ultima seduta ' + r.ultimoLabel + ' &mdash; contattare';
     const parts = [];
+    // Trend RPE cronologico (almeno 3 rilevazioni negli ultimi 14gg)
     if (r.rpeValsOrd.length >= 3) {
       const half = Math.floor(r.rpeValsOrd.length / 2);
       const avgF = avgN(r.rpeValsOrd.slice(0, half));
@@ -449,16 +451,20 @@ function inviaDigest() {
       else if (avgF - avgL >= 1.5)
         parts.push('RPE in calo (' + r.rpeValsOrd.join('&#8594;') + ')');
     }
+    // Dolori
     if (r.dolori !== null && r.dolori >= 3) {
       const crescita = r.doloriPrev !== null && r.dolori > r.doloriPrev + 0.5 ? ' in crescita' : '';
       parts.push('Dolori ' + f1(r.dolori) + '/5' + crescita);
     }
+    // Fatica accumulata: sonno + energia entrambi bassi
     if (r.sonno !== null && r.energia !== null && r.sonno < 3 && r.energia < 3)
       parts.push('Sonno ' + f1(r.sonno) + ' + energia ' + f1(r.energia) + ' &mdash; possibile fatica accumulata');
     else if (r.sonno !== null && r.sonno < 2.5)
       parts.push('Sonno scarso (' + f1(r.sonno) + '/5)');
+    // Calo sedute rispetto alla settimana precedente
     if (r.sedutePrev > 0 && r.seduteSettimana < r.sedutePrev - 1)
       parts.push('Sedute in calo (' + r.sedutePrev + '&#8594;' + r.seduteSettimana + ')');
+    // Nessun segnale negativo: riepilogo positivo
     if (parts.length === 0) {
       const doloriOk = r.dolori === null || r.dolori <= 1.5;
       const energiaOk = r.energia === null || r.energia >= 4;
@@ -473,7 +479,7 @@ function inviaDigest() {
   const giornoNomi = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
   const giornoOra  = giornoNomi[ora.getDay()] + ' ' + ora.getDate() + '/' + (ora.getMonth()+1) + ' ' + String(ora.getHours()).padStart(2,'0') + ':00';
 
-  // Blocchi alert
+  // Blocchi alert (inattive / RPE alto / dolori)
   let alertHtml = '';
   if (inattive.length)
     alertHtml += '<div style="background:#fef2f2;border-left:3px solid #dc2626;padding:9px 14px;margin-bottom:8px;border-radius:0 6px 6px 0">' +
@@ -492,7 +498,7 @@ function inviaDigest() {
       '<p style="margin:0 0 3px;font-size:.7rem;font-weight:700;color:#7c3aed;letter-spacing:.04em;text-transform:uppercase">Fatica accumulata</p>' +
       '<p style="margin:0;font-size:.82rem;color:#4c1d95">' + faticaCombo.map(r => esc_(r.nome.split(' ')[0]) + ' (sonno ' + f1(r.sonno) + ' + energia ' + f1(r.energia) + ')').join(' &middot; ') + '</p></div>';
 
-  // Righe per atleta con osservazione auto-generata
+  // Righe per atleta — osservazione auto-generata, fix escaping &hellip;
   const righeHtml = righe.map(r => {
     const nota    = autoNota(r);
     const notaTxt = nota.length > 120 ? nota.substring(0, 117) + '&hellip;' : nota;
@@ -500,17 +506,20 @@ function inviaDigest() {
       '<td style="padding:7px 8px;font-size:.75rem;white-space:nowrap">' + stE[r.status] + '</td>' +
       '<td style="padding:7px 8px;font-size:.82rem;font-weight:600;color:#1a3a6b;white-space:nowrap">' + esc_(r.nome.split(' ')[0]) + '</td>' +
       '<td style="padding:7px 8px;font-size:.82rem;text-align:center;font-variant-numeric:tabular-nums">' + r.seduteSettimana + '</td>' +
-      '<td style="padding:7px 8px;font-size:.82rem;text-align:center;font-weight:' + (r.rpeMedia !== null && r.rpeMedia >= 7 ? '700' : '400') + ';color:' + rC(r.rpeMedia) + ';font-variant-numeric:tabular-nums">' + (r.rpeMedia !== null ? f1(r.rpeMedia) : '&mdash;') + '</td>' +
+      '<td style="padding:7px 8px;font-size:.82rem;text-align:center;font-weight:' + (r.rpeMedia !== null && r.rpeMedia >= 7 ? '700' : '400') + ';color:' + rC(r.rpeMedia) + ';font-variant-numeric:tabular-nums">' + (r.rpeMedia !== null ? f1(r.rpeMedia) : '—') + '</td>' +
       '<td style="padding:7px 8px;font-size:.72rem;color:#475569">' + notaTxt + '</td>' +
     '</tr>';
   }).join('');
 
-  // Sezione Priorita settimana - dinamica
+  // Sezione "Priorità settimana" — dinamica, appare solo quando ci sono atleti da segnalare
+  // Include note manuali del coach (ID_Giocatrice === 'COACH') e atleti con segnali preoccupanti
   const noteManCoach = noteAttive.filter(n => n.ID_Giocatrice === 'COACH').map(n => String(n.Testo).trim()).filter(Boolean);
-  const atletePrioritarie = [...new Set([...inattive, ...rpeAlti, ...doloriAlti, ...faticaCombo])].slice(0, 5);
+  const atletePrioritarie = [...new Set([
+    ...inattive, ...rpeAlti, ...doloriAlti, ...faticaCombo
+  ])].slice(0, 5); // max 5 per non appesantire
   let prioritaHtml = '';
   if (atletePrioritarie.length > 0 || noteManCoach.length > 0) {
-    const titoloPriorita = atletePrioritarie.length === 1
+    const titoloPrioritа = atletePrioritarie.length === 1
       ? 'Attenzione su ' + esc_(atletePrioritarie[0].nome.split(' ')[0])
       : atletePrioritarie.length > 1 && atletePrioritarie.length <= 3
       ? 'Attenzione su: ' + atletePrioritarie.map(r => esc_(r.nome.split(' ')[0])).join(', ')
@@ -521,31 +530,58 @@ function inviaDigest() {
     const noteM = noteManCoach.map(n => '<p style="margin:3px 0;font-size:.8rem;color:#374151">' + esc_(n) + '</p>').join('');
     prioritaHtml = '<div style="padding:14px 16px;background:#fafbff;border:1px solid #e8edf5;border-top:none">' +
       '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:12px 16px">' +
-      '<p style="margin:0 0 8px;font-size:.65rem;font-weight:700;color:#1a3a6b;letter-spacing:.08em;text-transform:uppercase">' + titoloPriorita + '</p>' +
+      '<p style="margin:0 0 8px;font-size:.65rem;font-weight:700;color:#1a3a6b;letter-spacing:.08em;text-transform:uppercase">' + titoloPrioritа + '</p>' +
       righeP + noteM +
       '</div></div>';
   }
 
   const body = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>' +
 '<div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto">' +
+
 '<div style="background:#1a3a6b;color:#fff;padding:18px 22px 16px">' +
 '<p style="margin:0 0 2px;font-size:.6rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase">Marsala Volley &middot; Report allenamento</p>' +
 '<h2 style="margin:0;font-size:1.1rem;font-weight:700">' + giornoOra + ' &middot; Ultimi 7 giorni</h2>' +
 '<p style="margin:5px 0 0;font-size:.72rem;opacity:.65">Squadra: ' + allenate + '/' + righe.length + ' attive &middot; ' + (urgenti > 0 ? urgenti + ' urgenti' : 'nessuna urgenza') + '</p>' +
 '</div>' +
+
 prioritaHtml +
+
 '<div style="overflow-x:scroll;-webkit-overflow-scrolling:touch;border:1px solid #e8edf5;border-top:none">' +
 '<div style="display:flex;min-width:560px">' +
-'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + allenate + '/' + righe.length + tA(allenate, allenatePrev, true) + '</div><div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">allenate</div></div>' +
-'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + totSedute + '</div><div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">sedute</div></div>' +
-'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + (rpeSquadra !== null ? f1(rpeSquadra) : '&mdash;') + tA(rpeSquadra, rpeSquadraPrev, false) + '<span style="font-size:.78rem;font-weight:400">/10</span></div><div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">RPE medio</div></div>' +
-'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5"><div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + (caricoSquadra !== null ? f1(caricoSquadra) : '&mdash;') + '</div><div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">carico</div></div>' +
-'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5"><div style="font-size:1.2rem;font-weight:700;color:' + wC(sonnoSq) + '">' + (sonnoSq !== null ? f1(sonnoSq) : '&mdash;') + tA(sonnoSq, sonnoSqPrev, true) + '<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div><div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Sonno</div></div>' +
-'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5"><div style="font-size:1.2rem;font-weight:700;color:' + dC(doloriSq) + '">' + (doloriSq !== null ? f1(doloriSq) : '&mdash;') + tA(doloriSq, doloriSqPrev, false) + '<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div><div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Dolori &darr;</div></div>' +
-'<div style="flex:1;padding:11px 8px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:' + wC(energiaSq) + '">' + (energiaSq !== null ? f1(energiaSq) : '&mdash;') + tA(energiaSq, energiaSqPrev, true) + '<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div><div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Energia</div></div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + allenate + '/' + righe.length + tA(allenate, allenatePrev, true) + '</div>' +
+'<div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">allenate</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + totSedute + '</div>' +
+'<div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">sedute</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + (rpeSquadra !== null ? f1(rpeSquadra) : '&mdash;') + tA(rpeSquadra, rpeSquadraPrev, false) + '<span style="font-size:.78rem;font-weight:400">/10</span></div>' +
+'<div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">RPE medio</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:#1a3a6b">' + (caricoSquadra !== null ? f1(caricoSquadra) : '&mdash;') + '</div>' +
+'<div style="font-size:.6rem;color:#64748b;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">carico</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:' + wC(sonnoSq) + '">' + (sonnoSq !== null ? f1(sonnoSq) : '&mdash;') + tA(sonnoSq, sonnoSqPrev, true) + '<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>' +
+'<div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Sonno</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center;border-right:1px solid #e8edf5">' +
+'<div style="font-size:1.2rem;font-weight:700;color:' + dC(doloriSq) + '">' + (doloriSq !== null ? f1(doloriSq) : '&mdash;') + tA(doloriSq, doloriSqPrev, false) + '<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>' +
+'<div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Dolori &darr;</div>' +
+'</div>' +
+'<div style="flex:1;padding:11px 8px;text-align:center">' +
+'<div style="font-size:1.2rem;font-weight:700;color:' + wC(energiaSq) + '">' + (energiaSq !== null ? f1(energiaSq) : '&mdash;') + tA(energiaSq, energiaSqPrev, true) + '<span style="font-size:.72rem;font-weight:400;color:#94a3b8">/5</span></div>' +
+'<div style="font-size:.6rem;color:#94a3b8;margin-top:2px;text-transform:uppercase;letter-spacing:.05em">Energia</div>' +
+'</div>' +
 '</div></div>' +
+
 (alertHtml ? '<div style="padding:10px 14px;border:1px solid #e8edf5;border-top:none">' + alertHtml + '</div>' : '') +
-'<div style="border:1px solid #e8edf5;border-top:none"><table style="width:100%;border-collapse:collapse">' +
+
+'<div style="border:1px solid #e8edf5;border-top:none;overflow-x:scroll;-webkit-overflow-scrolling:touch">' +
+'<table style="width:100%;border-collapse:collapse">' +
 '<thead><tr style="background:#f8fafc">' +
 '<th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase;width:28px"></th>' +
 '<th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Atleta</th>' +
@@ -553,7 +589,9 @@ prioritaHtml +
 '<th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:center;font-weight:700;text-transform:uppercase;width:48px">RPE</th>' +
 '<th style="padding:6px 8px;font-size:.58rem;color:#94a3b8;text-align:left;font-weight:700;text-transform:uppercase">Osservazione</th>' +
 '</tr></thead>' +
-'<tbody>' + righeHtml + '</tbody></table></div>' +
+'<tbody>' + righeHtml + '</tbody>' +
+'</table></div>' +
+
 '<div style="padding:14px 20px;border:1px solid #e8edf5;border-top:none;text-align:center">' +
 '<a href="https://drive.google.com/uc?export=download&id=1q6nCI0N8s2lpn1aOM2uFkSOQ3HKJU-Vb" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 26px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none;margin-right:8px">Apri report staff &rarr;</a>' +
 '<a href="https://pamangiapane-lgtm.github.io/schede-allenamento/report.html?coach=mv26-coach-8pL2wK" style="display:inline-block;background:#f1f5f9;color:#1a3a6b;padding:10px 18px;border-radius:6px;font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid #e2e8f0">Coach dashboard</a>' +
@@ -588,7 +626,7 @@ function installaTrigger() {
   });
 }
 
-// â”€â”€ RIEPILOGO SETTIMANALE ATLETE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── RIEPILOGO SETTIMANALE ATLETE ─────────────────────────────────────────────
 
 const EMAIL_ATLETE = {
   '1':  'allasiaveronica1@gmail.com',
@@ -638,10 +676,10 @@ function inviaRiepilogoSettimanale() {
   lune.setHours(0, 0, 0, 0);
   const luneScorso = new Date(lune); luneScorso.setDate(lune.getDate() - 7);
   const domScorso  = new Date(lune); domScorso.setMilliseconds(-1);
-  const settLabel  = fmt(luneScorso) + 'â€“' + fmt(domScorso) + ' ' + domScorso.getFullYear();
+  const settLabel  = fmt(luneScorso) + '–' + fmt(domScorso) + ' ' + domScorso.getFullYear();
   const inRange    = ts => { const d = new Date(ts); return d >= cut7 && d <= ora; };
-  const IS_DEV_SCRIPT = TOKEN === 'mv26-dev-9kR4tLqB';
-  if (IS_DEV_SCRIPT) { Logger.log('[DEV] inviaRiepilogoSettimanale &mdash; invio email disabilitato in DEV'); return; }
+  const IS_DEV_SCRIPT = TOKEN === 'mv26-prd-3xF7wNqK';
+  if (IS_DEV_SCRIPT) { Logger.log('[DEV] inviaRiepilogoSettimanale — invio email disabilitato in DEV'); return; }
 
   giocatrici.forEach(g => {
     const email = EMAIL_ATLETE[String(g.ID)];
@@ -694,8 +732,8 @@ function inviaRiepilogoSettimanale() {
       : buildRiepilogoIT_(nome, settLabel, sedute, topCarichi, hasManual, sonno, dolori, energia, noteAtleta, g.ID, IS_DEV_SCRIPT);
 
     const subjectBase = lingua === 'EN'
-      ? 'Marsala Volley &mdash; Weekly summary ' + settLabel
-      : 'Marsala Volley &mdash; Riepilogo settimana ' + settLabel;
+      ? 'Marsala Volley — Weekly summary ' + settLabel
+      : 'Marsala Volley — Riepilogo settimana ' + settLabel;
 
     const dest    = IS_DEV_SCRIPT ? EMAIL_COACH : email;
     const subject = IS_DEV_SCRIPT ? '[TEST ' + g.Nome + '] ' + subjectBase : subjectBase;
@@ -704,7 +742,7 @@ function inviaRiepilogoSettimanale() {
     Logger.log('Inviato a ' + dest + ' (' + g.Nome + ')');
   });
 
-  Logger.log('inviaRiepilogoSettimanale completato &mdash; ' + ora.toISOString());
+  Logger.log('inviaRiepilogoSettimanale completato — ' + ora.toISOString());
 }
 
 function buildRiepilogoIT_(nome, settLabel, sedute, topCarichi, hasManual, sonno, dolori, energia, noteAtleta, idG, isDev) {
@@ -929,10 +967,10 @@ function inviaRiepilogoAtleta_(idTarget) {
   lune.setHours(0, 0, 0, 0);
   const luneScorso = new Date(lune); luneScorso.setDate(lune.getDate() - 7);
   const domScorso  = new Date(lune); domScorso.setMilliseconds(-1);
-  const settLabel  = fmt(luneScorso) + 'â€“' + fmt(domScorso) + ' ' + domScorso.getFullYear();
+  const settLabel  = fmt(luneScorso) + '–' + fmt(domScorso) + ' ' + domScorso.getFullYear();
   const inRange    = ts => { const d = new Date(ts); return d >= cut7 && d <= ora; };
-  const IS_DEV_SCRIPT = TOKEN === 'mv26-dev-9kR4tLqB';
-  if (IS_DEV_SCRIPT) { Logger.log('[DEV] inviaRiepilogoAtleta_ &mdash; invio email disabilitato in DEV'); return risposta({ ok: false, errore: 'Invio disabilitato in DEV' }); }
+  const IS_DEV_SCRIPT = TOKEN === 'mv26-prd-3xF7wNqK';
+  if (IS_DEV_SCRIPT) { Logger.log('[DEV] inviaRiepilogoAtleta_ — invio email disabilitato in DEV'); return risposta({ ok: false, errore: 'Invio disabilitato in DEV' }); }
 
   const g = giocatrici[0];
   const email = EMAIL_ATLETE[String(g.ID)];
@@ -983,8 +1021,8 @@ function inviaRiepilogoAtleta_(idTarget) {
     : buildRiepilogoIT_(nome, settLabel, sedute, topCarichi, hasManual, sonno, dolori, energia, noteAtleta, g.ID, IS_DEV_SCRIPT);
 
   const subjectBase = lingua === 'EN'
-    ? 'Marsala Volley &mdash; Weekly summary ' + settLabel
-    : 'Marsala Volley &mdash; Riepilogo settimana ' + settLabel;
+    ? 'Marsala Volley — Weekly summary ' + settLabel
+    : 'Marsala Volley — Riepilogo settimana ' + settLabel;
 
   const dest    = IS_DEV_SCRIPT ? EMAIL_COACH : email;
   const subject = IS_DEV_SCRIPT ? '[TEST ' + g.Nome + '] ' + subjectBase : subjectBase;
@@ -994,8 +1032,8 @@ function inviaRiepilogoAtleta_(idTarget) {
   return risposta({ ok: true, dest: dest, nome: g.Nome });
 }
 
-// Esegui UNA VOLTA per installare il trigger lunedÃ¬ 8:00
-// NOTA: non usare piÃ¹ &mdash; il trigger Ã¨ stato disabilitato per design. Le mail alle atlete
+// Esegui UNA VOLTA per installare il trigger lunedì 8:00
+// NOTA: non usare più — il trigger è stato disabilitato per design. Le mail alle atlete
 // partono solo su approvazione esplicita del coach.
 function installaRiepilogoAtleteTrigger() {
   ScriptApp.getProjectTriggers()
@@ -1005,7 +1043,7 @@ function installaRiepilogoAtleteTrigger() {
     .timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(8).create();
 }
 
-// Esegui UNA VOLTA su PROD per rimuovere il trigger lunedÃ¬ 8:00 esistente
+// Esegui UNA VOLTA su PROD per rimuovere il trigger lunedì 8:00 esistente
 function rimuoviTriggerAtlete() {
   const triggers = ScriptApp.getProjectTriggers()
     .filter(t => t.getHandlerFunction() === 'inviaRiepilogoSettimanale');
@@ -1013,7 +1051,7 @@ function rimuoviTriggerAtlete() {
   Logger.log('Rimossi ' + triggers.length + ' trigger per inviaRiepilogoSettimanale.');
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─────────────────────────────────────────────────────────────────────────────
 
 function leggiRighe_(sheet) {
   const vals = sheet.getDataRange().getValues();
@@ -1026,13 +1064,13 @@ function leggiRighe_(sheet) {
   });
 }
 
-// â”€â”€ REPORT SETTIMANALE STAFF (Google Slides) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── REPORT SETTIMANALE STAFF (Google Slides) ─────────────────────────────────
 
 const FOLDER_STAFF_ID = '1H8NcBNeUi1Jr7b-fx3blaPB8vRKfTrT2';
 
 function creaSlideSettimanale() {
-  // DEV: non crea slide nÃ© manda email &mdash; usa PROD per il report reale
-  Logger.log('[DEV] creaSlideSettimanale &mdash; disabilitata in ambiente di test');
+  // DEV: non crea slide né manda email — usa PROD per il report reale
+  Logger.log('[DEV] creaSlideSettimanale — disabilitata in ambiente di test');
 }
 
 function creaSlideSettimanale_() {
@@ -1059,7 +1097,7 @@ function creaSlideSettimanale_() {
   });
   const SKIP_SET   = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
 
-  // â”€â”€ Date boundaries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Date boundaries ───────────────────────────────────────────────────────
   const ora = new Date();
   const dow = ora.getDay();
   const luneCorrente = new Date(ora);
@@ -1070,9 +1108,9 @@ function creaSlideSettimanale_() {
 
   const fmt  = d => d.getDate() + '/' + (d.getMonth() + 1);
   const avgN = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
-  const f1   = n   => n !== null ? n.toFixed(1) : '&mdash;';
+  const f1   = n   => n !== null ? n.toFixed(1) : '—';
 
-  // â”€â”€ Ultime 4 settimane con dati (max 8 settimane indietro) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Ultime 4 settimane con dati (max 8 settimane indietro) ───────────────
   const allWeeks = [];
   for (let w = 7; w >= 0; w--) {
     const wL = new Date(luneScorso); wL.setDate(luneScorso.getDate() - w * 7);
@@ -1083,7 +1121,7 @@ function creaSlideSettimanale_() {
   const weekData = allWeeks.filter(w => w.allenate > 0 || w.sonno !== null).slice(-4);
   if (!weekData.length) weekData.push(allWeeks[allWeeks.length - 1]);
 
-  // â”€â”€ Dati per-atleta ultima settimana (slide 2) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Dati per-atleta ultima settimana (slide 2) ────────────────────────────
   const inRange = ts => { const d = new Date(ts); return d >= luneScorso && d < luneCorrente; };
   const atletaData = giocatrici.map(g => {
     const pAll   = progressi.filter(p => String(p.ID_Giocatrice) === String(g.ID) && p.Valore);
@@ -1114,11 +1152,11 @@ function creaSlideSettimanale_() {
   const sorted = [...atletaData].sort((a, b) => ordCat[a.statoCat] - ordCat[b.statoCat]);
   const lastWk = weekData[weekData.length - 1];
 
-  // â”€â”€ Crea presentazione â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── Crea presentazione ────────────────────────────────────────────────────
   const BLU  = '#1a3a6b';
   const MID  = '#4a7bc4';
   const PALE = '#bfdbfe';
-  const titolo = 'Report Staff &mdash; ' + fmt(luneScorso) + '->' + fmt(domScorso) + ' ' + domScorso.getFullYear();
+  const titolo = 'Report Staff — ' + fmt(luneScorso) + '->' + fmt(domScorso) + ' ' + domScorso.getFullYear();
   const pres = SlidesApp.create(titolo);
   const presUrl = pres.getUrl();
 
@@ -1136,7 +1174,7 @@ function creaSlideSettimanale_() {
     return box;
   }
 
-  // â”€â”€ SLIDE 1: Accumulata 4 settimane â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── SLIDE 1: Accumulata 4 settimane ──────────────────────────────────────
   const s1 = pres.getSlides()[0];
   s1.getBackground().setSolidFill('#FFFFFF');
   s1.getPlaceholders().forEach(p => p.remove());
@@ -1144,8 +1182,8 @@ function creaSlideSettimanale_() {
   // Header
   const s1hdr = s1.insertShape(SlidesApp.ShapeType.RECTANGLE, 0, 0, 720, 26);
   s1hdr.getFill().setSolidFill(BLU); s1hdr.getBorder().setTransparent();
-  txt_(s1, 'Marsala Volley &mdash; Report Staff', 15, 5, 400, 14, 11, true, '#FFFFFF');
-  txt_(s1, 'andamento squadra &middot; ultime 4 settimane', 15, 16, 400, 10, 7, false, '#8ab4e8');
+  txt_(s1, 'Marsala Volley — Report Staff', 15, 5, 400, 14, 11, true, '#FFFFFF');
+  txt_(s1, 'andamento squadra · ultime 4 settimane', 15, 16, 400, 10, 7, false, '#8ab4e8');
 
   // Sezione tabella
   txt_(s1, 'VALORI SQUADRA PER SETTIMANA', 15, 32, 400, 10, 6, true, '#94a3b8');
@@ -1156,7 +1194,7 @@ function creaSlideSettimanale_() {
     { l:'Carico medio', x:217, w:82,  r:true  },
     { l:'RPE /10',      x:299, w:82,  r:true  },
     { l:'Sonno /5',     x:381, w:82,  r:true  },
-    { l:'Dolori /5 &darr;',  x:463, w:82,  r:true  },
+    { l:'Dolori /5 ↓',  x:463, w:82,  r:true  },
     { l:'Energia /5',   x:545, w:82,  r:true  },
     { l:'Urgenti',      x:627, w:78,  r:true  },
   ];
@@ -1165,7 +1203,7 @@ function creaSlideSettimanale_() {
   tHdrBg.getFill().setSolidFill('#e8f0fb'); tHdrBg.getBorder().setTransparent();
   tblCols.forEach(c => txt_(s1, c.l, c.x, tHdrY + 2, c.w, 10, 6, true, BLU, c.r));
 
-  const wkShort4 = weekData.map(w => fmt(w.lune) + 'â€“' + fmt(w.dom));
+  const wkShort4 = weekData.map(w => fmt(w.lune) + '–' + fmt(w.dom));
   weekData.forEach((wd, i) => {
     const ry = tHdrY + 13 + i * 15;
     const isCurr = i === weekData.length - 1;
@@ -1180,7 +1218,7 @@ function creaSlideSettimanale_() {
     const cells = [
       { v:wkShort4[i],                                                  x:15,  w:120, r:false },
       { v:wd.allenate + '/' + wd.tot,                                   x:135, w:82,  r:true  },
-      { v:wd.caricoMedio !== null ? wd.caricoMedio.toFixed(1) : '&mdash;',    x:217, w:82,  r:true  },
+      { v:wd.caricoMedio !== null ? wd.caricoMedio.toFixed(1) : '—',    x:217, w:82,  r:true  },
       { v:f1(wd.rpe) + '/10',                                           x:299, w:82,  r:true  },
       { v:f1(wd.sonno) + '/5',                                          x:381, w:82,  r:true  },
       { v:f1(wd.dolori) + '/5',                                         x:463, w:82,  r:true  },
@@ -1218,10 +1256,10 @@ function creaSlideSettimanale_() {
   const files = folder.getFiles();
   while (files.hasNext()) {
     const f = files.next();
-    if (f.getName().startsWith('Report Staff &mdash; ')) pastUrls[f.getName()] = f.getUrl();
+    if (f.getName().startsWith('Report Staff — ')) pastUrls[f.getName()] = f.getUrl();
   }
   const navY = 383;
-  txt_(s1, 'vai a &rarr;', 15, navY + 2, 44, 10, 5, false, '#94a3b8');
+  txt_(s1, 'vai a →', 15, navY + 2, 44, 10, 5, false, '#94a3b8');
   let navX = 62;
   for (let w = 7; w >= 0; w--) {
     const wL = new Date(luneScorso); wL.setDate(luneScorso.getDate() - w * 7);
@@ -1231,23 +1269,23 @@ function creaSlideSettimanale_() {
     const pill   = s1.insertShape(SlidesApp.ShapeType.ROUND_RECTANGLE, navX, navY, pillW, 14);
     pill.getFill().setSolidFill(isCurr ? BLU : '#f0f5ff');
     pill.getBorder().getLineFill().setSolidFill(isCurr ? BLU : PALE);
-    const pillLbl = fmt(wL) + (isCurr ? '' : ' â†—');
+    const pillLbl = fmt(wL) + (isCurr ? '' : ' ↗');
     const pt = txt_(s1, pillLbl, navX + 2, navY + 2, pillW - 4, 10, 5, isCurr, isCurr ? '#ffffff' : MID);
     if (!isCurr) {
-      const rName = 'Report Staff &mdash; ' + fmt(wL) + '->' + fmt(wD) + ' ' + wD.getFullYear();
+      const rName = 'Report Staff — ' + fmt(wL) + '->' + fmt(wD) + ' ' + wD.getFullYear();
       if (pastUrls[rName]) pt.getText().getTextStyle().setLinkUrl(pastUrls[rName]);
     }
     navX += pillW + 3;
   }
 
-  // â”€â”€ SLIDE 2: Settimana corrente &mdash; individuale â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // ── SLIDE 2: Settimana corrente — individuale ─────────────────────────────
   const s2 = pres.appendSlide();
   s2.getPlaceholders().forEach(p => p.remove());
   s2.getBackground().setSolidFill('#FFFFFF');
 
   const s2hdr = s2.insertShape(SlidesApp.ShapeType.RECTANGLE, 0, 0, 720, 24);
   s2hdr.getFill().setSolidFill(BLU); s2hdr.getBorder().setTransparent();
-  txt_(s2, 'Settimana ' + fmt(luneScorso) + 'â€“' + fmt(domScorso) + ' ' + domScorso.getFullYear(), 15, 5, 240, 14, 9, true, '#FFFFFF');
+  txt_(s2, 'Settimana ' + fmt(luneScorso) + '–' + fmt(domScorso) + ' ' + domScorso.getFullYear(), 15, 5, 240, 14, 9, true, '#FFFFFF');
   const chips = [
     { v: lastWk.allenate + '/' + lastWk.tot + ' allenate', ok: lastWk.allenate >= lastWk.tot * 0.75 },
     { v: f1(lastWk.caricoMedio) + ' carico medio',         ok: true  },
@@ -1263,8 +1301,8 @@ function creaSlideSettimanale_() {
     chipX += cw + 4;
   });
 
-  txt_(s2, 'Compliance &middot; Carico &middot; Wellness &mdash; individuale', 15, 28, 680, 16, 11, true, BLU);
-  txt_(s2, 'Volume percepito = RPE Ã— sedute', 15, 44, 680, 12, 8, false, '#888888');
+  txt_(s2, 'Compliance · Carico · Wellness — individuale', 15, 28, 680, 16, 11, true, BLU);
+  txt_(s2, 'Volume percepito = RPE × sedute', 15, 44, 680, 12, 8, false, '#888888');
 
   const hY2 = 58;
   const hBar2 = s2.insertShape(SlidesApp.ShapeType.RECTANGLE, 15, hY2, 690, 16);
@@ -1305,7 +1343,7 @@ function creaSlideSettimanale_() {
     ].forEach(c => txt_(s2, c.v, c.x, ry + 2, c.w, 11, 7.5, false, '#333333'));
   });
 
-  // Slide 3 rimossa &mdash; note coach per atleta in arrivo con Deploy 8 (scheda.html)
+  // Slide 3 rimossa — note coach per atleta in arrivo con Deploy 8 (scheda.html)
 
   // Salva e sposta nella cartella staff
   pres.saveAndClose();
@@ -1313,19 +1351,19 @@ function creaSlideSettimanale_() {
   DriveApp.getFolderById(FOLDER_STAFF_ID).addFile(presFile);
   DriveApp.getRootFolder().removeFile(presFile);
 
-  // Email disabilitata in DEV &mdash; slide disponibile su Drive
+  // Email disabilitata in DEV — slide disponibile su Drive
   Logger.log('[DEV] Report creato: ' + presUrl);
 }
 
 function inviaEmailEsempio() {
-  const oggetto = 'Report Staff Marsala Volley &mdash; 6/7->12/7 [ESEMPIO]';
+  const oggetto = 'Report Staff Marsala Volley — 6/7->12/7 [ESEMPIO]';
   const presUrl = 'https://drive.google.com/';
   MailApp.sendEmail({ to: EMAIL_COACH, subject: oggetto, htmlBody: `
 <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">
   <div style="background:#1a3a6b;color:#fff;padding:16px 20px;border-radius:8px 8px 0 0">
-    <p style="margin:0 0 2px;font-size:.75rem;opacity:.7;letter-spacing:.06em">MARSALA VOLLEY &middot; STAFF REPORT</p>
-    <h2 style="margin:0;font-size:1.1rem;font-weight:600">Settimana 6/7 â€“ 12/7 2026</h2>
-    <p style="margin:6px 0 0;font-size:.8rem;opacity:.75">generato automaticamente ogni lunedÃ¬ alle 8:00</p>
+    <p style="margin:0 0 2px;font-size:.75rem;opacity:.7;letter-spacing:.06em">MARSALA VOLLEY · STAFF REPORT</p>
+    <h2 style="margin:0;font-size:1.1rem;font-weight:600">Settimana 6/7 – 12/7 2026</h2>
+    <p style="margin:6px 0 0;font-size:.8rem;opacity:.75">generato automaticamente ogni lunedì alle 8:00</p>
   </div>
   <div style="border:1px solid #e2e8f0;border-top:none;padding:0;border-radius:0 0 8px 8px;overflow:hidden">
 
@@ -1357,7 +1395,7 @@ function inviaEmailEsempio() {
       </div>
       <div style="flex:1;padding:10px 16px;text-align:center;border-right:1px solid #e2e8f0">
         <div style="font-size:1.1rem;font-weight:600;color:#16a34a">2.0<span style="font-size:.8rem;font-weight:400">/5</span></div>
-        <div style="font-size:.72rem;color:#64748b">Dolori &darr;</div>
+        <div style="font-size:.72rem;color:#64748b">Dolori ↓</div>
       </div>
       <div style="flex:1;padding:10px 16px;text-align:center">
         <div style="font-size:1.1rem;font-weight:600;color:#1a3a6b">5.0<span style="font-size:.8rem;font-weight:400">/5</span></div>
@@ -1367,14 +1405,14 @@ function inviaEmailEsempio() {
 
     <!-- Urgenti -->
     <div style="padding:12px 16px;border-bottom:1px solid #e2e8f0;background:#fef2f2">
-      <p style="margin:0;font-size:.85rem;color:#dc2626;font-weight:600">âš  4 atlete non si allenano da oltre 7 giorni</p>
-      <p style="margin:4px 0 0;font-size:.8rem;color:#7f1d1d">Gaia &middot; Federica &middot; Luna &middot; Nelly</p>
+      <p style="margin:0;font-size:.85rem;color:#dc2626;font-weight:600">⚠ 4 atlete non si allenano da oltre 7 giorni</p>
+      <p style="margin:4px 0 0;font-size:.8rem;color:#7f1d1d">Gaia · Federica · Luna · Nelly</p>
     </div>
 
     <!-- CTA slides -->
     <div style="padding:16px 20px;border-bottom:1px solid #e2e8f0">
       <p style="margin:0 0 10px;font-size:.85rem;color:#334155">Le slide complete con andamento 4 settimane e dati individuali sono pronte:</p>
-      <a href="${presUrl}" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 20px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Apri report Staff &rarr;</a>
+      <a href="${presUrl}" style="display:inline-block;background:#1a3a6b;color:#fff;padding:10px 20px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">Apri report Staff →</a>
     </div>
 
     <!-- Note coach placeholder -->
@@ -1384,7 +1422,7 @@ function inviaEmailEsempio() {
     </div>
 
     <div style="padding:10px 16px;background:#f8fafc">
-      <p style="margin:0;font-size:.72rem;color:#94a3b8">Generato automaticamente &middot; Marsala Volley 2026</p>
+      <p style="margin:0;font-size:.72rem;color:#94a3b8">Generato automaticamente · Marsala Volley 2026</p>
     </div>
   </div>
 </div>` });
@@ -1403,7 +1441,7 @@ function installaReportTrigger() {
     .create();
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─────────────────────────────────────────────────────────────────────────────
 
 function computeTeamWeek_(progressi, wellness, giocatrici, weekStart, weekEnd, SKIP_SET, avgN) {
   const inR = ts => { const d = new Date(ts); return d >= weekStart && d < weekEnd; };
@@ -1499,10 +1537,10 @@ function drawBubbleChart_(slide, vals, labels, startX, startY, chartW, chartH, t
   });
 }
 
-// â”€â”€ MONITOR PROD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── MONITOR PROD ─────────────────────────────────────────────────────────────
 
 function monitoraProd() {
-  if (TOKEN === 'mv26-dev-9kR4tLqB') return; // disabilitato in DEV
+  if (TOKEN === 'mv26-prd-3xF7wNqK') return; // disabilitato in DEV
   try {
     const url  = PROD_API_URL + '?token=mv26-prd-3xF7wNqK&azione=leggi&foglio=Giocatrici';
     const resp = UrlFetchApp.fetch(url, { muteHttpExceptions: true, followRedirects: true });
@@ -1515,38 +1553,38 @@ function monitoraProd() {
       const ora = Utilities.formatDate(new Date(), 'Europe/Rome', 'dd/MM/yyyy HH:mm');
       MailApp.sendEmail({
         to: EMAIL_COACH,
-        subject: 'ðŸš¨ Marsala Volley &mdash; APP OFFLINE &middot; ' + ora,
+        subject: '🚨 Marsala Volley — APP OFFLINE · ' + ora,
         htmlBody: '<div style="font-family:Arial,sans-serif;max-width:500px;margin:0 auto">' +
           '<div style="background:#dc2626;color:#fff;padding:16px 20px;border-radius:8px 8px 0 0">' +
-          '<p style="margin:0 0 2px;font-size:.65rem;opacity:.7;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; Monitor automatico</p>' +
-          '<h2 style="margin:0;font-size:1.1rem;font-weight:700">âš  App non raggiungibile</h2></div>' +
+          '<p style="margin:0 0 2px;font-size:.65rem;opacity:.7;letter-spacing:.1em;text-transform:uppercase">Marsala Volley · Monitor automatico</p>' +
+          '<h2 style="margin:0;font-size:1.1rem;font-weight:700">⚠ App non raggiungibile</h2></div>' +
           '<div style="border:1px solid #fecaca;border-top:none;padding:16px 20px">' +
           '<p style="margin:0 0 10px;font-size:.85rem;color:#7f1d1d">Rilevato alle <b>' + ora + '</b></p>' +
-          '<p style="margin:0 0 10px;font-size:.82rem;color:#334155">HTTP ' + code + ' &mdash; la PROD API non risponde correttamente.</p>' +
+          '<p style="margin:0 0 10px;font-size:.82rem;color:#334155">HTTP ' + code + ' — la PROD API non risponde correttamente.</p>' +
           '<p style="margin:0;font-size:.82rem;color:#334155">Controlla lo script PROD su Google Apps Script e verifica che non ci siano errori di esecuzione.</p>' +
           '</div>' +
           '<div style="border:1px solid #fecaca;border-top:none;padding:12px 20px;background:#fef2f2;border-radius:0 0 8px 8px">' +
-          '<p style="margin:0;font-size:.72rem;color:#991b1b">Monitor ogni 30 min &middot; Marsala Volley 2026/27</p>' +
+          '<p style="margin:0;font-size:.72rem;color:#991b1b">Monitor ogni 30 min · Marsala Volley 2026/27</p>' +
           '</div></div>'
       });
-      Logger.log('MONITOR: app offline &mdash; HTTP ' + code + ' &mdash; email inviata');
+      Logger.log('MONITOR: app offline — HTTP ' + code + ' — email inviata');
     } else {
-      Logger.log('MONITOR: ok &mdash; ' + new Date().toISOString());
+      Logger.log('MONITOR: ok — ' + new Date().toISOString());
     }
   } catch (ex) {
     const ora = Utilities.formatDate(new Date(), 'Europe/Rome', 'dd/MM/yyyy HH:mm');
     MailApp.sendEmail({
       to: EMAIL_COACH,
-      subject: 'ðŸš¨ Marsala Volley &mdash; APP OFFLINE &middot; ' + ora,
+      subject: '🚨 Marsala Volley — APP OFFLINE · ' + ora,
       htmlBody: '<div style="font-family:Arial,sans-serif;max-width:500px">' +
         '<div style="background:#dc2626;color:#fff;padding:16px 20px">' +
-        '<h2 style="margin:0;font-size:1.1rem">âš  App non raggiungibile</h2></div>' +
+        '<h2 style="margin:0;font-size:1.1rem">⚠ App non raggiungibile</h2></div>' +
         '<div style="padding:16px 20px;border:1px solid #fecaca;border-top:none">' +
         '<p style="margin:0 0 8px;font-size:.85rem;color:#7f1d1d">Rilevato alle <b>' + ora + '</b></p>' +
         '<p style="margin:0;font-size:.82rem;color:#334155;font-family:monospace">' + esc_(String(ex)) + '</p>' +
         '</div></div>'
     });
-    Logger.log('MONITOR: errore fetch &mdash; ' + ex);
+    Logger.log('MONITOR: errore fetch — ' + ex);
   }
 }
 
@@ -1559,20 +1597,20 @@ function installaMonitorTrigger() {
     .timeBased()
     .everyMinutes(30)
     .create();
-  Logger.log('Monitor installato &mdash; ogni 30 minuti');
+  Logger.log('Monitor installato — ogni 30 minuti');
 }
 
-// â”€â”€ BACKUP AUTOMATICO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── BACKUP AUTOMATICO ────────────────────────────────────────────────────────
 
 function creaBackup() {
   const ss    = SpreadsheetApp.getActiveSpreadsheet();
   const file  = DriveApp.getFileById(ss.getId());
   const oggi  = new Date();
   const ts    = Utilities.formatDate(oggi, 'Europe/Rome', 'yyyy-MM-dd');
-  const nome  = 'BACKUP-' + ts + ' &mdash; Schede Squadra';
+  const nome  = 'BACKUP-' + ts + ' — Schede Squadra';
   const mesiIT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
                   'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
-  const meseLbl = Utilities.formatDate(oggi, 'Europe/Rome', 'yyyy-MM') + ' &mdash; ' + mesiIT[oggi.getMonth()];
+  const meseLbl = Utilities.formatDate(oggi, 'Europe/Rome', 'yyyy-MM') + ' — ' + mesiIT[oggi.getMonth()];
   const root  = DriveApp.getFolderById(BACKUP_FOLDER_ID);
   const subs  = root.getFoldersByName(meseLbl);
   const sub   = subs.hasNext() ? subs.next() : root.createFolder(meseLbl);
@@ -1587,7 +1625,7 @@ function creaBackupManuale_() {
   const nome = 'Backup_' + ss.getName() + '_' + Utilities.formatDate(oggi, 'Europe/Rome', 'yyyy-MM-dd_HHmm');
   const mesiIT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno',
                   'Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
-  const meseLbl = Utilities.formatDate(oggi, 'Europe/Rome', 'yyyy-MM') + ' &mdash; ' + mesiIT[oggi.getMonth()];
+  const meseLbl = Utilities.formatDate(oggi, 'Europe/Rome', 'yyyy-MM') + ' — ' + mesiIT[oggi.getMonth()];
   const root = DriveApp.getFolderById(BACKUP_FOLDER_ID);
   const subs = root.getFoldersByName(meseLbl);
   const sub  = subs.hasNext() ? subs.next() : root.createFolder(meseLbl);
@@ -1606,7 +1644,7 @@ function installaBackupTrigger() {
     .create();
 }
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ─────────────────────────────────────────────────────────────────────────────
 
 function preparaBozzeRiepilogo() {
   const ss     = SpreadsheetApp.getActiveSpreadsheet();
@@ -1661,17 +1699,17 @@ function preparaBozzeRiepilogo() {
 
     let nota;
     if (giorniSilenzio === null || giorniSilenzio > 7)
-      nota = 'Non vedo sedute registrate di recente &mdash; come stai? Fammi sapere se ci sono problemi o se hai bisogno di supporto.';
+      nota = 'Non vedo sedute registrate di recente — come stai? Fammi sapere se ci sono problemi o se hai bisogno di supporto.';
     else if (dolori !== null && dolori >= 3)
-      nota = 'Hai segnalato qualche dolore questa settimana (' + dolori.toFixed(1) + '/5). Dimmi dove senti fastidio cosÃ¬ adattiamo il programma.';
+      nota = 'Hai segnalato qualche dolore questa settimana (' + dolori.toFixed(1) + '/5). Dimmi dove senti fastidio così adattiamo il programma.';
     else if (rpeMedia !== null && rpeMedia >= 8)
-      nota = 'Settimana molto intensa (RPE ' + rpeMedia.toFixed(1) + '/10). Ottimo impegno &mdash; questa settimana recupera bene tra le sedute.';
+      nota = 'Settimana molto intensa (RPE ' + rpeMedia.toFixed(1) + '/10). Ottimo impegno — questa settimana recupera bene tra le sedute.';
     else if (seduteN >= 2)
       nota = 'Settimana regolare con ' + seduteN + ' sedute completate. Continua con questa costanza, stai lavorando bene.';
     else if (seduteN === 1)
-      nota = 'Hai completato una seduta questa settimana. Prova ad aggiungerne un\'altra se riesci &mdash; la continuitÃ  fa la differenza.';
+      nota = 'Hai completato una seduta questa settimana. Prova ad aggiungerne un\'altra se riesci — la continuità fa la differenza.';
     else
-      nota = 'Settimana con poca attivitÃ  registrata. Tutto ok? Fammi sapere se hai bisogno di qualcosa.';
+      nota = 'Settimana con poca attività registrata. Tutto ok? Fammi sapere se hai bisogno di qualcosa.';
 
     sheetN.appendRow([new Date().toISOString(), String(g.ID), 'riepilogo_sett', '', nota, fmtDate(oggi), fmtDate(fra7)]);
     const nomeBreve = g.Nome ? g.Nome.split(' ')[0] : String(g.Nome);
@@ -1691,10 +1729,10 @@ function preparaBozzeRiepilogo() {
   const luneS = new Date(lune); luneS.setDate(lune.getDate() - 7);
   const domS  = new Date(lune); domS.setMilliseconds(-1);
   const fmt   = d => d.getDate() + '/' + (d.getMonth() + 1);
-  const settLabel = fmt(luneS) + 'â€“' + fmt(domS) + ' ' + domS.getFullYear();
+  const settLabel = fmt(luneS) + '–' + fmt(domS) + ' ' + domS.getFullYear();
 
   const righeHtml = bozze.map(b => {
-    const stato = b.giorniSilenzio === null ? '&#9899; mai' : b.giorniSilenzio > 7 ? '&#128308; ' + b.giorniSilenzio + 'gg' : 'ðŸŸ¢ ' + b.seduteN + ' sed.';
+    const stato = b.giorniSilenzio === null ? '⚫ mai' : b.giorniSilenzio > 7 ? '🔴 ' + b.giorniSilenzio + 'gg' : '🟢 ' + b.seduteN + ' sed.';
     return '<tr style="border-bottom:1px solid #f1f5f9">' +
       '<td style="padding:10px 8px;font-size:.85rem;font-weight:600;color:#1a3a6b;white-space:nowrap">' + esc_(b.nome) + '</td>' +
       '<td style="padding:10px 8px;font-size:.78rem;color:#64748b;white-space:nowrap">' + stato + '</td>' +
@@ -1703,17 +1741,17 @@ function preparaBozzeRiepilogo() {
   }).join('');
 
   MailApp.sendEmail({ to: EMAIL_COACH,
-    subject: 'âœï¸ Bozze riepilogo atlete &mdash; ' + settLabel + ' &mdash; modifica e conferma',
+    subject: '✏️ Bozze riepilogo atlete — ' + settLabel + ' — modifica e conferma',
     attachments: atletaBlobs,
     htmlBody: `
 <div style="font-family:Arial,sans-serif;max-width:680px;margin:0 auto">
   <div style="background:#1a3a6b;color:#fff;padding:18px 22px 16px">
-    <p style="margin:0 0 2px;font-size:.6rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase">Marsala Volley &middot; Bozze riepilogo atlete</p>
+    <p style="margin:0 0 2px;font-size:.6rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase">Marsala Volley · Bozze riepilogo atlete</p>
     <h2 style="margin:0;font-size:1.1rem;font-weight:700">Settimana ${settLabel}</h2>
-    <p style="margin:5px 0 0;font-size:.72rem;opacity:.65">${bozze.length} atlete &middot; note generate automaticamente</p>
+    <p style="margin:5px 0 0;font-size:.72rem;opacity:.65">${bozze.length} atlete · note generate automaticamente</p>
   </div>
   <div style="padding:12px 16px;background:#fffbeb;border:1px solid #fef08a;border-top:none">
-    <p style="margin:0;font-size:.82rem;color:#78350f">âš ï¸ Queste sono bozze automatiche. Modificale nel foglio Google se necessario, poi clicca Conferma.</p>
+    <p style="margin:0;font-size:.82rem;color:#78350f">⚠️ Queste sono bozze automatiche. Modificale nel foglio Google se necessario, poi clicca Conferma.</p>
   </div>
   <div style="border:1px solid #e8edf5;border-top:none;overflow-x:auto">
     <table style="width:100%;border-collapse:collapse">
@@ -1726,16 +1764,16 @@ function preparaBozzeRiepilogo() {
     </table>
   </div>
   <div style="padding:20px;border:1px solid #e8edf5;border-top:none;text-align:center">
-    <a href="${sheetUrl}" style="display:inline-block;background:#f1f5f9;color:#1a3a6b;padding:10px 18px;border-radius:6px;font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid #e2e8f0;margin-right:10px">âœï¸ Modifica note nel foglio</a>
-    <a href="${confirmUrl}" style="display:inline-block;background:#16a34a;color:#fff;padding:10px 26px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">âœ… Conferma e invia a tutte</a>
+    <a href="${sheetUrl}" style="display:inline-block;background:#f1f5f9;color:#1a3a6b;padding:10px 18px;border-radius:6px;font-size:.82rem;font-weight:600;text-decoration:none;border:1px solid #e2e8f0;margin-right:10px">✏️ Modifica note nel foglio</a>
+    <a href="${confirmUrl}" style="display:inline-block;background:#16a34a;color:#fff;padding:10px 26px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">✅ Conferma e invia a tutte</a>
   </div>
-  <p style="text-align:center;font-size:.62rem;color:#cbd5e1;padding:6px 0 4px;margin:0">Cliccando Conferma le email partono immediatamente &middot; Marsala Volley 2026/27</p>
+  <p style="text-align:center;font-size:.62rem;color:#cbd5e1;padding:6px 0 4px;margin:0">Cliccando Conferma le email partono immediatamente · Marsala Volley 2026/27</p>
 </div>`
   });
   Logger.log('preparaBozzeRiepilogo completato per ' + bozze.length + ' atlete');
 }
 
-// â”€â”€ SCHEDA HTML PER ATLETA (allegato email bozze &mdash; piano B se app offline) â”€â”€â”€â”€
+// ── SCHEDA HTML PER ATLETA (allegato email bozze — piano B se app offline) ────
 
 function buildSchedaHTML_(g, tuttiSedute, tuttiEsercizi) {
   const idG    = String(g.ID);
@@ -1785,13 +1823,13 @@ function buildSchedaHTML_(g, tuttiSedute, tuttiEsercizi) {
 
         let setsLine;
         if (tipo === 'bicarico') {
-          const pA = (e.Serie || '') + 'Ã—' + (e.Reps || '') + (e.Intensit_ || e['IntensitÃ '] || e.Intensita || '' ? ' @ ' + (e.Intensit_ || e['IntensitÃ '] || e.Intensita) : '') + (e.Recupero ? ' &middot; rec ' + e.Recupero : '');
-          const pB = (e.SerieB || '') + 'Ã—' + (e.RepsB || '') + (e.Intensit_B || e['IntensitÃ B'] || e.IntensitaB || '' ? ' @ ' + (e.Intensit_B || e['IntensitÃ B'] || e.IntensitaB) : '') + (e.RecuperoB ? ' &middot; rec ' + e.RecuperoB : '');
+          const pA = (e.Serie || '') + '×' + (e.Reps || '') + (e.Intensit_ || e['Intensità'] || e.Intensita || '' ? ' @ ' + (e.Intensit_ || e['Intensità'] || e.Intensita) : '') + (e.Recupero ? ' · rec ' + e.Recupero : '');
+          const pB = (e.SerieB || '') + '×' + (e.RepsB || '') + (e.Intensit_B || e['IntensitàB'] || e.IntensitaB || '' ? ' @ ' + (e.Intensit_B || e['IntensitàB'] || e.IntensitaB) : '') + (e.RecuperoB ? ' · rec ' + e.RecuperoB : '');
           setsLine = '<div style="font-size:.72rem;color:#64748b;margin-top:2px"><b>A:</b> ' + esc_(pA) + '<br><b>B:</b> ' + esc_(pB) + '</div>';
         } else {
-          const inten = e.Intensit_ || e['IntensitÃ '] || e.Intensita || '';
-          const sets  = (e.Serie || '') + 'Ã—' + (e.Reps || '') + (inten ? ' @ ' + inten : '');
-          const rec   = e.Recupero ? ' &middot; rec ' + e.Recupero : '';
+          const inten = e.Intensit_ || e['Intensità'] || e.Intensita || '';
+          const sets  = (e.Serie || '') + '×' + (e.Reps || '') + (inten ? ' @ ' + inten : '');
+          const rec   = e.Recupero ? ' · rec ' + e.Recupero : '';
           setsLine = '<span style="font-size:.78rem;color:#64748b">' + esc_(sets) + '</span>' +
             (rec ? '<span style="font-size:.72rem;color:#94a3b8">' + esc_(rec) + '</span>' : '');
         }
@@ -1806,7 +1844,7 @@ function buildSchedaHTML_(g, tuttiSedute, tuttiEsercizi) {
 
       return '<div style="background:#f8fafc;padding:6px 16px 4px;border-bottom:1px solid #e8edf5">' +
         '<span style="font-size:.6rem;font-weight:700;color:#94a3b8;letter-spacing:.1em;text-transform:uppercase">' + esc_(m.metodo) + '</span>' +
-        (m.desc ? '<span style="font-size:.65rem;color:#94a3b8"> &mdash; ' + esc_(m.desc) + '</span>' : '') +
+        (m.desc ? '<span style="font-size:.65rem;color:#94a3b8"> — ' + esc_(m.desc) + '</span>' : '') +
         '</div>' + eHtml;
     }).join('');
 
@@ -1817,18 +1855,18 @@ function buildSchedaHTML_(g, tuttiSedute, tuttiEsercizi) {
       '</div>' + metodiHtml + '</div>';
   }).filter(Boolean).join('');
 
-  const subtitle = lingua === 'EN' ? 'Complete program &mdash; Marsala Volley 2026/27' : 'Programma completo &mdash; Marsala Volley 2026/27';
+  const subtitle = lingua === 'EN' ? 'Complete program — Marsala Volley 2026/27' : 'Programma completo — Marsala Volley 2026/27';
   const intro    = lingua === 'EN'
     ? 'Hi ' + esc_(nome) + '! This is your complete training program. If the app is not available, use this email.'
-    : 'Ciao ' + esc_(nome) + '! Questa Ã¨ la tua scheda completa. Se l\'app non Ã¨ disponibile, allÃ©nati con questa email.';
+    : 'Ciao ' + esc_(nome) + '! Questa è la tua scheda completa. Se l\'app non è disponibile, allénati con questa email.';
 
   return '<!DOCTYPE html><html lang="it"><head><meta charset="utf-8">' +
     '<meta name="viewport" content="width=device-width,initial-scale=1">' +
-    '<title>Scheda ' + esc_(nome) + ' &mdash; Marsala Volley</title>' +
+    '<title>Scheda ' + esc_(nome) + ' — Marsala Volley</title>' +
     '<style>*{box-sizing:border-box;margin:0;padding:0}body{background:#f1f5f9;font-family:Arial,sans-serif;padding:20px 10px}.wrap{max-width:540px;margin:0 auto}</style>' +
     '</head><body><div class="wrap">' +
     '<div style="background:#1a3a6b;color:#fff;padding:20px 22px 18px;border-radius:8px 8px 0 0">' +
-    '<p style="font-size:.62rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px">Marsala Volley &middot; ' + (lingua === 'EN' ? 'Training program' : 'Scheda allenamento') + '</p>' +
+    '<p style="font-size:.62rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase;margin-bottom:3px">Marsala Volley · ' + (lingua === 'EN' ? 'Training program' : 'Scheda allenamento') + '</p>' +
     '<h2 style="font-size:1.1rem;font-weight:700;margin-bottom:4px">' + (lingua === 'EN' ? 'Hi ' + esc_(nome) + '!' : 'Ciao ' + esc_(nome) + '!') + '</h2>' +
     '<p style="font-size:.75rem;opacity:.65">' + subtitle + '</p>' +
     '</div>' +
@@ -1837,7 +1875,7 @@ function buildSchedaHTML_(g, tuttiSedute, tuttiEsercizi) {
     '</div>' +
     (seduteHtml || '<div style="border:1px solid #e8edf5;border-top:none;padding:16px;text-align:center"><p style="font-size:.82rem;color:#94a3b8">Nessuna seduta trovata nel programma.</p></div>') +
     '<div style="border:1px solid #e8edf5;border-top:none;padding:10px 16px;text-align:center;background:#f8fafc;border-radius:0 0 8px 8px">' +
-    '<p style="font-size:.62rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; Backup scheda &middot; Non condividere</p>' +
+    '<p style="font-size:.62rem;color:#cbd5e1">Marsala Volley 2026/27 · Backup scheda · Non condividere</p>' +
     '</div></div></body></html>';
 }
 
