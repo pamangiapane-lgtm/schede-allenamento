@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invio riepilogo — Marsala Volley</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f3f4f6;min-height:100vh;color:#111}
+
+/* ── Top bar ── */
+.topbar{background:#1a3a6b;color:#fff;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.topbar-left{display:flex;align-items:center;gap:12px}
+.topbar h1{font-size:.9rem;font-weight:700;letter-spacing:.01em}
+.topbar p{font-size:.72rem;opacity:.65}
+.progress-text{font-size:.8rem;opacity:.8;white-space:nowrap}
+
+/* ── Nav atleta ── */
+.atleta-nav{background:#fff;border-bottom:1px solid #e5e7eb;padding:10px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:53px;z-index:9}
+.nav-btn{background:none;border:1px solid #d1d5db;border-radius:6px;padding:6px 14px;font-size:.85rem;cursor:pointer;color:#374151;font-weight:600;transition:all .15s}
+.nav-btn:hover:not(:disabled){background:#f9fafb;border-color:#9ca3af}
+.nav-btn:disabled{opacity:.35;cursor:default}
+.atleta-chip{display:flex;align-items:center;gap:8px;flex:1}
+.av{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.atleta-chip-name{font-weight:700;font-size:.95rem}
+.atleta-chip-idx{font-size:.78rem;color:#9ca3af;margin-left:4px}
+.sent-badge{font-size:.72rem;font-weight:700;color:#16a34a;background:#dcfce7;padding:2px 8px;border-radius:10px;margin-left:auto}
+
+/* ── Layout ── */
+.main{max-width:640px;margin:0 auto;padding:20px 16px 60px}
+
+/* ── Email preview card ── */
+.email-card{background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.1);margin-bottom:16px}
+.email-card iframe{width:100%;border:none;display:block}
+
+/* ── Nota box ── */
+.nota-box{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px}
+.nota-box label{display:block;font-size:.72rem;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.nota-esistente{background:#eff6ff;border-left:3px solid #1a3a6b;padding:8px 12px;border-radius:0 6px 6px 0;margin-bottom:10px;font-size:.84rem;color:#1e3a5f}
+.nota-esistente span{display:block;font-size:.7rem;font-weight:700;color:#1a3a6b;margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
+textarea{width:100%;border:1px solid #d1d5db;border-radius:6px;padding:10px 12px;font-size:.88rem;font-family:inherit;resize:vertical;min-height:72px;color:#111;transition:border .15s}
+textarea:focus{outline:none;border-color:#1a3a6b}
+
+/* ── Action bar ── */
+.action-bar{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.btn{padding:9px 20px;border-radius:7px;font-size:.85rem;font-weight:700;cursor:pointer;border:none;transition:all .15s;white-space:nowrap}
+.btn-save{background:#f3f4f6;color:#374151;border:1px solid #d1d5db}
+.btn-save:hover{background:#e5e7eb}
+.btn-send{background:#1a3a6b;color:#fff;min-width:160px}
+.btn-send:hover:not(:disabled){background:#163060}
+.btn-send:disabled{opacity:.45;cursor:default}
+.btn-skip{background:none;border:none;color:#9ca3af;font-size:.82rem;cursor:pointer;text-decoration:underline;padding:4px}
+.btn-skip:hover{color:#6b7280}
+.status-msg{font-size:.8rem;font-weight:600}
+.status-ok{color:#16a34a}
+.status-err{color:#dc2626}
+
+/* ── Done screen ── */
+.done-screen{text-align:center;padding:60px 20px;background:#fff;border-radius:12px;box-shadow:0 1px 6px rgba(0,0,0,.1)}
+.done-screen .check{font-size:3rem;margin-bottom:12px}
+.done-screen h2{font-size:1.2rem;font-weight:700;color:#1a3a6b;margin-bottom:6px}
+.done-screen p{font-size:.88rem;color:#6b7280}
+
+/* ── Skeleton loader ── */
+.skeleton{background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:sk 1.2s infinite;border-radius:6px}
+@keyframes sk{to{background-position:-200% 0}}
+.skel-email{height:420px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div>
+      <h1>Marsala Volley — Riepilogo settimanale</h1>
+      <p id="sett-label">Caricamento…</p>
+    </div>
+  </div>
+  <span class="progress-text" id="progress-text"></span>
+</div>
+
+<div class="atleta-nav" id="atleta-nav" style="display:none">
+  <button class="nav-btn" id="btn-prev" onclick="navigaAtleta(-1)" disabled>←</button>
+  <div class="atleta-chip">
+    <div class="av" id="nav-av"></div>
+    <div>
+      <span class="atleta-chip-name" id="nav-nome"></span>
+      <span class="atleta-chip-idx" id="nav-idx"></span>
+    </div>
+  </div>
+  <span class="sent-badge" id="nav-sent-badge" style="display:none">✓ Inviata</span>
+  <button class="nav-btn" id="btn-next" onclick="navigaAtleta(1)">→</button>
+</div>
+
+<div class="main">
+  <div id="loading" style="text-align:center;padding:60px 0;color:#9ca3af">Caricamento dati…</div>
+  <div id="content" style="display:none">
+    <div class="email-card" id="email-card">
+      <div class="skeleton skel-email"></div>
+    </div>
+    <div class="nota-box">
+      <label>Nota coach (opzionale — appare nell'email)</label>
+      <div id="nota-esistente-wrap" style="display:none">
+        <div class="nota-esistente">
+          <span>Nota già presente</span>
+          <div id="nota-esistente-testo"></div>
+        </div>
+      </div>
+      <textarea id="nota-input" placeholder="Aggiungi un messaggio personale…"></textarea>
+      <div class="action-bar">
+        <button class="btn btn-save" onclick="salvaNota()">Salva nota</button>
+        <button class="btn btn-send" id="btn-send" onclick="inviaEmail()">✉ Invia a <span id="btn-send-nome"></span></button>
+        <button class="btn-skip" onclick="saltaAtleta()">Salta →</button>
+        <span class="status-msg" id="status-msg"></span>
+      </div>
+    </div>
+  </div>
+  <div id="done-screen" style="display:none">
+    <div class="done-screen">
+      <div class="check">✅</div>
+      <h2>Email inviate!</h2>
+      <p id="done-summary"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+const IS_DEV = window.location.pathname.includes('/dev/');
+const API     = IS_DEV
+  ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
+  : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const TOKEN   = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
+const COACH_KEY = 'mv26-coach-8pL2wK';
+
+// Access check
+const params = new URLSearchParams(window.location.search);
+if (params.get('coach') !== COACH_KEY) {
+  document.body.innerHTML = '<div style="text-align:center;padding:80px 20px;color:#dc2626;font-family:sans-serif"><p style="font-size:1.2rem;font-weight:700">Accesso non autorizzato</p><p style="margin-top:6px;font-size:.9rem;color:#9ca3af">Usa il link fornito dallo staff tecnico.</p></div>';
+  throw new Error('accesso negato');
+}
+
+// ── Stato ──────────────────────────────────────────────────────────────────
+let giocatrici=[], progressi=[], wellness=[], tutteNote=[];
+let atletaIdx=0;
+const inviate = new Set();
+const saltate = new Set();
+
+const AV_COLORS=['#e84c2b','#16a34a','#7c3aed','#0ea5e9','#f59e0b','#ec4899','#06b6d4','#8b5cf6','#84cc16','#f97316','#14b8a6','#ef4444'];
+function avColor(n){let h=0;for(let i=0;i<n.length;i++)h=(h*31+n.charCodeAt(i))&0xfffff;return AV_COLORS[h%AV_COLORS.length];}
+function avInits(n){const p=String(n||'').trim().split(/\s+/);return((p[0]?.[0]||'')+(p[1]?.[0]||p[0]?.[1]||'')).toUpperCase();}
+
+async function apiGet(azione,foglio){const r=await fetch(`${API}?token=${TOKEN}&azione=${azione}${foglio?'&foglio='+foglio:''}`);return r.json();}
+async function apiPost(body){const r=await fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({token:TOKEN,...body})});return r.json();}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+async function init() {
+  const [rG,rP,rW,rN] = await Promise.all([
+    apiGet('leggi','Giocatrici'), apiGet('leggi','Progressi'),
+    apiGet('leggi','Wellness'),   apiGet('leggi_tutte_note')
+  ]);
+  giocatrici=(rG.dati||[]).filter(g=>g.ID&&!isNaN(parseInt(g.ID))).sort((a,b)=>a.Nome.localeCompare(b.Nome,'it',{sensitivity:'base'}));
+  progressi=rP.dati||[];
+  wellness=rW.dati||[];
+  tutteNote=rN.note||[];
+
+  // Settimana label
+  const ora=new Date(),dow=ora.getDay();
+  const lune=new Date(ora);lune.setDate(ora.getDate()-((dow===0?7:dow)-1));lune.setHours(0,0,0,0);
+  const luneS=new Date(lune);luneS.setDate(lune.getDate()-7);
+  const domS=new Date(lune);domS.setMilliseconds(-1);
+  const fmt=d=>d.getDate()+'/'+(d.getMonth()+1);
+  document.getElementById('sett-label').textContent='Settimana '+fmt(luneS)+'–'+fmt(domS)+' '+domS.getFullYear();
+
+  document.getElementById('loading').style.display='none';
+  document.getElementById('content').style.display='';
+  document.getElementById('atleta-nav').style.display='flex';
+  mostraAtleta(0);
+}
+
+function mostraAtleta(idx) {
+  atletaIdx = idx;
+  const g = giocatrici[idx];
+  if (!g) { mostraDoneScreen(); return; }
+
+  // Nav bar
+  const col=avColor(g.Nome), ini=avInits(g.Nome);
+  document.getElementById('nav-av').style.background=col;
+  document.getElementById('nav-av').textContent=ini;
+  document.getElementById('nav-nome').textContent=g.Nome;
+  document.getElementById('nav-idx').textContent=(idx+1)+' di '+giocatrici.length;
+  document.getElementById('btn-prev').disabled=idx===0;
+  document.getElementById('btn-next').disabled=idx===giocatrici.length-1;
+  const badge=document.getElementById('nav-sent-badge');
+  badge.style.display=inviate.has(String(g.ID))?'':'none';
+  aggiornaProgress();
+
+  // Email preview
+  const html=buildEmailHtml(g);
+  const card=document.getElementById('email-card');
+  card.innerHTML='';
+  const iframe=document.createElement('iframe');
+  iframe.style.cssText='width:100%;border:none;display:block;min-height:400px';
+  card.appendChild(iframe);
+  iframe.contentDocument.open();
+  iframe.contentDocument.write(html);
+  iframe.contentDocument.close();
+  // Auto-resize iframe
+  iframe.onload=()=>{iframe.style.height=iframe.contentDocument.body.scrollHeight+'px';};
+  setTimeout(()=>{if(iframe.contentDocument) iframe.style.height=iframe.contentDocument.body.scrollHeight+'px';},200);
+
+  // Nota
+  const noteEsistenti=getNoteAttive(String(g.ID));
+  const wrap=document.getElementById('nota-esistente-wrap');
+  const testo=document.getElementById('nota-esistente-testo');
+  if(noteEsistenti.length){wrap.style.display='';testo.textContent=noteEsistenti.join(' · ');}
+  else{wrap.style.display='none';}
+  document.getElementById('nota-input').value='';
+  document.getElementById('status-msg').textContent='';
+  const btn=document.getElementById('btn-send');
+  btn.disabled=inviate.has(String(g.ID));
+  btn.style.background=inviate.has(String(g.ID))?'#16a34a':'#1a3a6b';
+  btn.innerHTML=inviate.has(String(g.ID))?'✓ Inviata':'✉ Invia a <span id="btn-send-nome">'+esc(g.Nome.split(' ')[0])+'</span>';
+}
+
+function navigaAtleta(delta) {
+  const next=atletaIdx+delta;
+  if(next<0||next>=giocatrici.length) return;
+  mostraAtleta(next);
+}
+
+function saltaAtleta() {
+  saltate.add(String(giocatrici[atletaIdx]?.ID));
+  navigaAtleta(1);
+}
+
+function aggiornaProgress() {
+  const tot=giocatrici.length,inv=inviate.size;
+  document.getElementById('progress-text').textContent=inv+' / '+tot+' inviate';
+}
+
+function mostraDoneScreen() {
+  document.getElementById('content').style.display='none';
+  document.getElementById('atleta-nav').style.display='none';
+  document.getElementById('done-screen').style.display='';
+  const salt=saltate.size;
+  document.getElementById('done-summary').textContent=
+    inviate.size+' email inviate'+( salt?' · '+salt+' saltate.':'.') + (IS_DEV?' (modalità test — tutte arrivate a te)':'');
+}
+
+// ── Note ──────────────────────────────────────────────────────────────────
+function getNoteAttive(id) {
+  const oggi=new Date();oggi.setHours(0,0,0,0);
+  return tutteNote.filter(n=>{
+    if(String(n.id_giocatrice)!==id&&n.id_giocatrice!=='TUTTE') return false;
+    const ini=n.data_inizio?new Date(n.data_inizio):null;
+    const fin=n.data_fine?new Date(n.data_fine):null;
+    if(ini){const d=new Date(ini);d.setHours(0,0,0,0);if(oggi<d) return false;}
+    if(fin){const d=new Date(fin);d.setHours(23,59,59,999);if(oggi>d) return false;}
+    return true;
+  }).map(n=>String(n.testo||'').trim()).filter(Boolean);
+}
+
+async function salvaNota() {
+  const testo=document.getElementById('nota-input').value.trim();
+  if(!testo) return;
+  const g=giocatrici[atletaIdx];
+  setStatus('Salvataggio…','');
+  await apiPost({azione:'scrivi_nota_coach',id_giocatrice:String(g.ID),tipo:'settimanale',testo});
+  const rN=await apiGet('leggi_tutte_note');
+  if(rN.ok) tutteNote=rN.note||[];
+  mostraAtleta(atletaIdx); // refresh con nota aggiornata nell'email
+  setStatus('Nota salvata — l\'email è stata aggiornata','ok');
+}
+
+// ── Invio ─────────────────────────────────────────────────────────────────
+async function inviaEmail() {
+  const g=giocatrici[atletaIdx];
+  const btn=document.getElementById('btn-send');
+  btn.disabled=true; btn.textContent='Invio…';
+  setStatus('','');
+  try {
+    const res=await apiPost({azione:'invia_atleta',id:String(g.ID)});
+    if(res.ok){
+      inviate.add(String(g.ID));
+      btn.style.background='#16a34a';
+      btn.textContent='✓ Inviata';
+      const msg=IS_DEV?'Test inviato a te — in produzione andrà a '+g.Nome:'Email consegnata a '+g.Nome;
+      setStatus(msg,'ok');
+      document.getElementById('nav-sent-badge').style.display='';
+      aggiornaProgress();
+      // Avanza automaticamente dopo 1.5s
+      const next=atletaIdx+1;
+      if(next<giocatrici.length){setTimeout(()=>mostraAtleta(next),1500);}
+      else{setTimeout(()=>mostraDoneScreen(),1500);}
+    } else {
+      btn.disabled=false; btn.innerHTML='✉ Riprova';
+      setStatus('Errore: '+(res.errore||'sconosciuto'),'err');
+    }
+  } catch(e) {
+    btn.disabled=false; btn.innerHTML='✉ Riprova';
+    setStatus('Errore di rete','err');
+  }
+}
+
+function setStatus(msg,tipo) {
+  const el=document.getElementById('status-msg');
+  el.textContent=msg;
+  el.className='status-msg'+(tipo?' status-'+tipo:'');
+}
+
+// ── Email builder ─────────────────────────────────────────────────────────
+function buildEmailHtml(g) {
+  const id=String(g.ID),ora=new Date();
+  const cut7=new Date(ora);cut7.setDate(ora.getDate()-7);
+  const SKIP=new Set(['RPE-seduta','Fatica-seduta','Peso-corporeo']);
+  const pAll=progressi.filter(p=>String(p.ID_Giocatrice)===id&&p.Valore);
+  const pSett=pAll.filter(p=>{const d=new Date(p.Timestamp);return d>=cut7&&d<=ora;});
+
+  const seduteMap={};
+  pSett.filter(p=>p.N_Seduta&&p.N_Seduta!=='?').forEach(p=>{
+    if(!seduteMap[p.N_Seduta])seduteMap[p.N_Seduta]={nome:p.N_Seduta,rpe:null,fatica:null,ts:null};
+    const ts=new Date(p.Timestamp);
+    if(!seduteMap[p.N_Seduta].ts||ts<seduteMap[p.N_Seduta].ts)seduteMap[p.N_Seduta].ts=ts;
+    if(p.Esercizio==='RPE-seduta'){const v=Number(p.Valore);if(!isNaN(v)&&v>0)seduteMap[p.N_Seduta].rpe=v;}
+    if(p.Esercizio==='Fatica-seduta'){const v=Number(p.Valore);if(!isNaN(v)&&v>0)seduteMap[p.N_Seduta].fatica=v;}
+  });
+  const sedute=Object.values(seduteMap).sort((a,b)=>(a.ts||0)-(b.ts||0));
+
+  const maxPerEs={};
+  pSett.filter(p=>!SKIP.has(p.Esercizio)).forEach(p=>{
+    const m=String(p.Valore).match(/[\d.]+/);if(!m)return;
+    const kg=parseFloat(m[0]),stima=String(p.Valore).includes('~');
+    if(!maxPerEs[p.Esercizio]||kg>maxPerEs[p.Esercizio].kg)maxPerEs[p.Esercizio]={kg,stima};
+  });
+  const topCarichi=Object.entries(maxPerEs).sort((a,b)=>b[1].kg-a[1].kg).slice(0,5);
+  const hasManual=pSett.some(p=>p.N_Seduta==='?'&&!SKIP.has(p.Esercizio));
+
+  const wSett=wellness.filter(w=>String(w.ID_Giocatrice)===id&&new Date(w.Timestamp)>=cut7&&new Date(w.Timestamp)<=ora);
+  const avg=arr=>arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:null;
+  const sonno=avg(wSett.map(w=>Number(w.Qualita_Sonno)).filter(v=>!isNaN(v)&&v>0));
+  const dolori=avg(wSett.map(w=>Number(w.Dolori)).filter(v=>!isNaN(v)&&v>0));
+  const energia=avg(wSett.map(w=>Number(w.Energia)).filter(v=>!isNaN(v)&&v>0));
+  const noteAtleta=getNoteAttive(id);
+
+  const fmt=d=>d.getDate()+'/'+(d.getMonth()+1);
+  const dow=ora.getDay(),lune=new Date(ora);
+  lune.setDate(ora.getDate()-((dow===0?7:dow)-1));lune.setHours(0,0,0,0);
+  const luneS=new Date(lune);luneS.setDate(lune.getDate()-7);
+  const domS=new Date(lune);domS.setMilliseconds(-1);
+  const settLabel=fmt(luneS)+'–'+fmt(domS)+' '+domS.getFullYear();
+  const nome=g.Nome?g.Nome.split(' ')[0]:g.Nome;
+  const lingua=String(g.Lingua||'').trim().toUpperCase()==='EN'?'EN':'IT';
+
+  const f1=v=>v!==null?Number(v).toFixed(1):null;
+  const rC=v=>!v?'#cbd5e1':v>=8?'#dc2626':v>=7?'#ea580c':v>=6?'#d97706':'#16a34a';
+  const fC=v=>!v?'#cbd5e1':v>=4?'#dc2626':v>=3?'#d97706':'#16a34a';
+  const wC=v=>v===null?'#94a3b8':v>=4?'#1a3a6b':v>=3?'#d97706':'#dc2626';
+  const dC=v=>v===null?'#94a3b8':v<=1.5?'#16a34a':v<=2.5?'#d97706':'#dc2626';
+  const e=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const BASE=IS_DEV?'https://pamangiapane-lgtm.github.io/schede-allenamento/dev/':'https://pamangiapane-lgtm.github.io/schede-allenamento/';
+
+  const IT=lingua==='IT';
+  const lbl=(it,en)=>IT?it:en;
+
+  const seduteHtml=sedute.length
+    ?'<div style="border:1px solid #e8edf5;border-radius:8px;overflow:hidden;margin-bottom:18px">'+
+      sedute.map((s,i)=>{
+        const bg=i%2===1?'background:#fafbfd;':'';const bdr=i<sedute.length-1?'border-bottom:1px solid #f1f5f9;':'';
+        const rv=s.rpe!==null?s.rpe+'<span style="font-size:.65rem;font-weight:400;color:#94a3b8">/10</span>':'&mdash;';
+        const fv=s.fatica!==null?s.fatica+'<span style="font-size:.65rem;font-weight:400;color:#94a3b8">/5</span>':'&mdash;';
+        return `<div style="display:flex;align-items:center;padding:10px 14px;gap:10px;${bg}${bdr}">
+          <span style="background:#e8f0fb;color:#1a3a6b;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.05em;white-space:nowrap">${e(s.nome)}</span>
+          <span style="flex:1;height:1px;background:#eef1f7"></span>
+          <span style="font-size:.68rem;color:#94a3b8;margin-right:3px">RPE</span>
+          <span style="font-size:.88rem;font-weight:700;color:${rC(s.rpe)};min-width:34px;text-align:right">${rv}</span>
+          <span style="width:1px;height:14px;background:#e2e8f0;display:inline-block;margin:0 6px"></span>
+          <span style="font-size:.68rem;color:#94a3b8;margin-right:3px">${lbl('Fatica','Fatigue')}</span>
+          <span style="font-size:.88rem;font-weight:700;color:${fC(s.fatica)};min-width:24px;text-align:right">${fv}</span>
+        </div>`;
+      }).join('')+'</div>'
+    :`<div style="background:#fef2f2;border-radius:8px;padding:12px 16px;margin-bottom:18px"><p style="margin:0;font-size:.82rem;color:#dc2626">${lbl('Nessuna seduta registrata questa settimana','No sessions logged this week')}</p></div>`;
+
+  const wVal=(v,c)=>v!==null
+    ?`<div style="font-size:1.25rem;font-weight:700;color:${c};line-height:1">${f1(v)}<span style="font-size:.75rem;font-weight:400;color:#94a3b8">/5</span></div>`
+    :'<div style="font-size:1.25rem;font-weight:700;color:#94a3b8;line-height:1">&mdash;</div>';
+  const wHtml=(sonno!==null||dolori!==null||energia!==null)
+    ?`<p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">${lbl('Wellness medio','Avg wellness')}</p>`+
+     '<div style="border:1px solid #e8edf5;border-radius:8px;display:flex;margin-bottom:18px;overflow:hidden">'+
+     `<div style="flex:1;padding:12px 8px;text-align:center;border-right:1px solid #e8edf5">${wVal(sonno,wC(sonno))}<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">${lbl('Sonno','Sleep')}</div></div>`+
+     `<div style="flex:1;padding:12px 8px;text-align:center;border-right:1px solid #e8edf5">${wVal(dolori,dC(dolori))}<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">${lbl('Dolori ↓','Pain ↓')}</div></div>`+
+     `<div style="flex:1;padding:12px 8px;text-align:center">${wVal(energia,wC(energia))}<div style="font-size:.65rem;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.05em">${lbl('Energia','Energy')}</div></div>`+
+     '</div>':'';
+
+  const cRighe=topCarichi.length
+    ?topCarichi.map(([es,d],i)=>`<tr${i<topCarichi.length-1?' style="border-bottom:1px solid #f1f5f9"':''}>
+        <td style="padding:7px 4px 7px 0;font-size:.82rem;color:#334155">${e(es)}</td>
+        <td style="padding:7px 0;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem;font-variant-numeric:tabular-nums">${d.stima?'~':''}${d.kg} kg</td>
+      </tr>`).join('')
+    :`<tr><td colspan="2" style="padding:8px 4px;color:#94a3b8;font-size:.82rem;font-style:italic">${lbl('Nessun esercizio registrato','No exercises logged this week')}</td></tr>`;
+  const cFoot=topCarichi.length
+    ?`<p style="font-size:.68rem;color:#94a3b8;font-style:italic;padding-top:6px;border-top:1px solid #f1f5f9">${hasManual?lbl('Carichi aggiunti manualmente','Manually added loads'):lbl('~ valore stimato · nessun massimale aggiornato','~ estimated · no manual max logged')}</p>`:'';
+  const nHtml=noteAtleta.length
+    ?'<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin-top:16px;border-radius:0 6px 6px 0">'+
+     `<p style="margin:0 0 4px;font-size:.7rem;font-weight:700;color:#1a3a6b;letter-spacing:.04em">${lbl('NOTA COACH','COACH NOTE')}</p>`+
+     noteAtleta.map(n=>`<p style="margin:4px 0 0;font-size:.84rem;color:#334155">${e(n)}</p>`).join('')+'</div>':'';
+
+  const DEV_BANNER=IS_DEV?'<div style="background:#fef3c7;padding:8px 16px;font-size:.72rem;color:#92400e;font-weight:600">⚠️ Anteprima DEV — in produzione andrà all\'indirizzo reale dell\'atleta</div>':'';
+
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0">
+    ${DEV_BANNER}
+    <div style="font-family:Arial,sans-serif;max-width:560px;margin:0 auto">
+      <div style="background:#1a3a6b;color:#fff;padding:18px 20px">
+        <p style="margin:0 0 1px;font-size:.68rem;opacity:.55;letter-spacing:.1em;text-transform:uppercase">Marsala Volley &middot; ${lbl('Riepilogo settimanale','Weekly summary')}</p>
+        <h2 style="margin:0;font-size:1.1rem;font-weight:700">${lbl('Ciao','Hi')} ${e(nome)}!</h2>
+        <p style="margin:4px 0 0;font-size:.78rem;opacity:.7">${lbl('Settimana','Week')} ${settLabel}</p>
+      </div>
+      <div style="padding:18px 20px;border:1px solid #e8edf5;border-top:none">
+        <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">${lbl('Sedute settimana','Sessions this week')}</p>
+        ${seduteHtml}${wHtml}
+        <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">${lbl('Carichi settimana','Weekly loads')}</p>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tbody>${cRighe}</tbody></table>
+        ${cFoot}${nHtml}
+        <div style="text-align:center;margin-top:22px">
+          <a href="${BASE}scheda.html?id=${id}" style="display:inline-block;background:#1a3a6b;color:#fff;padding:11px 28px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">${lbl('Apri la mia scheda','Open my program')} &#x2192;</a>
+        </div>
+        <p style="margin-top:18px;padding-top:14px;border-top:1px solid #f1f5f9;text-align:center;font-size:.68rem;color:#cbd5e1">Marsala Volley 2026/27 &middot; ${lbl('Generato automaticamente ogni lunedì','Sent automatically every Monday')}</p>
+      </div>
+    </div></body></html>`;
+}
+
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+init().catch(e=>{document.getElementById('loading').textContent='Errore: '+e.message;});
+</script>
+</body>
+</html>
