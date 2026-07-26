@@ -1341,27 +1341,8 @@ function wellnessKey() {
   return `wellness_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}_${id}`;
 }
 
-const _noteCaricate = new Set();
-
-async function apriSedutaConNote(accId) {
+function apriSedutaConNote(accId) {
   document.getElementById(accId).classList.add('open');
-  if (_noteCaricate.has(accId)) return;
-  _noteCaricate.add(accId);
-  const nSeduta = accId.replace('acc-', '');
-  const areaId  = 'notes-' + nSeduta;
-  const area    = document.getElementById(areaId);
-  if (!area) return;
-  try {
-    const res  = await fetch(`${API}?token=${TOKEN}&azione=leggi_note&id=${id}&n_seduta=${nSeduta}`);
-    const json = await res.json();
-    if (!json.ok || !json.note.length) return;
-    const banners = json.note.map(n => `
-      <div class="coach-note-banner">
-        <div class="cnb-label">📋 ${L.noteCoach || 'Messaggio del coach'}</div>
-        <div class="cnb-text">${n.testo.replace(/</g,'&lt;')}</div>
-      </div>`).join('');
-    area.innerHTML = banners;
-  } catch (_) {}
 }
 
 function mostraWellness(accId) {
