@@ -392,13 +392,13 @@ function buildEmailHtml(g) {
      '</div>':'';
 
   const cRighe=topCarichi.length
-    ?topCarichi.map(([es,d],i)=>`<tr${i<topCarichi.length-1?' style="border-bottom:1px solid #f1f5f9"':''}>
-        <td style="padding:7px 4px 7px 0;font-size:.82rem;color:#334155">${e(es)}</td>
-        <td style="padding:7px 0;text-align:right;font-weight:700;color:#1a3a6b;font-size:.82rem;font-variant-numeric:tabular-nums">${d.stima?'~':''}${d.kg} kg</td>
+    ?topCarichi.map(([es,d],i)=>`<tr style="${i%2===1?'background:#fafbfd;':''}${i<topCarichi.length-1?'border-bottom:1px solid #eef1f7;':''}">
+        <td style="padding:10px 8px 10px 14px;font-size:.88rem;color:#1e293b">${e(es)}</td>
+        <td style="padding:10px 14px 10px 0;text-align:right;font-weight:700;color:#1a3a6b;font-size:.88rem;font-variant-numeric:tabular-nums;white-space:nowrap">${d.stima?'~':''}${d.kg} kg</td>
       </tr>`).join('')
-    :`<tr><td colspan="2" style="padding:8px 4px;color:#94a3b8;font-size:.82rem;font-style:italic">${lbl('Nessun esercizio registrato','No exercises logged this week')}</td></tr>`;
+    :`<tr><td colspan="2" style="padding:10px 14px;color:#94a3b8;font-size:.82rem;font-style:italic">${lbl('Nessun esercizio registrato','No exercises logged this week')}</td></tr>`;
   const cFoot=topCarichi.length
-    ?`<p style="font-size:.68rem;color:#94a3b8;font-style:italic;padding-top:6px;border-top:1px solid #f1f5f9">${hasManual?lbl('Carichi aggiunti manualmente','Manually added loads'):lbl('~ valore stimato · nessun massimale aggiornato','~ estimated · no manual max logged')}</p>`:'';
+    ?`<p style="font-size:.68rem;color:#94a3b8;font-style:italic;padding-top:6px;margin-bottom:16px">${hasManual?lbl('Carichi aggiunti manualmente','Manually added loads'):lbl('~ valore stimato · nessun massimale aggiornato','~ estimated · no manual max logged')}</p>`:'';
   const nHtml=noteAtleta.length
     ?'<div style="background:#eff6ff;border-left:3px solid #1a3a6b;padding:10px 14px;margin-top:16px;border-radius:0 6px 6px 0">'+
      `<p style="margin:0 0 4px;font-size:.7rem;font-weight:700;color:#1a3a6b;letter-spacing:.04em">${lbl('NOTA COACH','COACH NOTE')}</p>`+
@@ -418,7 +418,7 @@ function buildEmailHtml(g) {
         <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">${lbl('Sedute settimana','Sessions this week')}</p>
         ${seduteHtml}${wHtml}
         <p style="margin:0 0 10px;font-size:.65rem;font-weight:700;color:#94a3b8;letter-spacing:.09em;text-transform:uppercase">${lbl('Carichi settimana','Weekly loads')}</p>
-        <table style="width:100%;border-collapse:collapse;margin-bottom:6px"><tbody>${cRighe}</tbody></table>
+        <div style="border:1px solid #e8edf5;border-radius:8px;overflow:hidden;margin-bottom:10px"><table style="width:100%;border-collapse:collapse"><tbody>${cRighe}</tbody></table></div>
         ${cFoot}${nHtml}
         <div style="text-align:center;margin-top:22px">
           <a href="${BASE}scheda.html?id=${id}" style="display:inline-block;background:#1a3a6b;color:#fff;padding:11px 28px;border-radius:6px;font-size:.85rem;font-weight:600;text-decoration:none">${lbl('Apri la mia scheda','Open my program')} &#x2192;</a>
