@@ -90,14 +90,14 @@ tr:hover td{background:var(--accent-bg)}
     <div>
       <div class="header-eyebrow">Marsala Volley · Staff Report</div>
       <h1>Pre-Season 2026/27</h1>
-      <div class="header-sub">Aggiornato 20 luglio 2026 · Dati reali PROD</div>
+      <div class="header-sub">Aggiornato 26 luglio 2026 · Dati reali PROD</div>
     </div>
-    <div><div class="live-badge">🔴 Live · W1–W2</div></div>
+    <div><div class="live-badge">🔴 Live · W1–W3</div></div>
   </div>
   <div class="week-tabs">
     <button class="tab-btn" onclick="showWeek('w1',this)">W1 · 6–12 lug</button>
     <button class="tab-btn" onclick="showWeek('w2',this)">W2 · 13–19 lug</button>
-    <button class="tab-btn empty" onclick="showWeek('w3',this)">W3 · 20–26 lug</button>
+    <button class="tab-btn" onclick="showWeek('w3',this)">W3 · 20–26 lug</button>
     <button class="tab-btn empty" onclick="showWeek('w4',this)">W4 · 27 lug–2 ago</button>
     <button class="tab-btn empty" onclick="showWeek('w5',this)">W5 · 3–9 ago</button>
     <button class="tab-btn empty" onclick="showWeek('w6',this)">W6 · 10–16 ago</button>
@@ -198,7 +198,62 @@ tr:hover td{background:var(--accent-bg)}
 </div>
 
 <!-- W3–W6 vuote -->
-<div id="w3" class="week-panel"><div class="empty-week"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><h3>Settimana 3 · 20–26 luglio</h3><p>Dati in aggiornamento a fine settimana.</p></div></div>
+<!-- W3 -->
+<div id="w3" class="week-panel">
+  <div class="kpi-row">
+    <div class="kpi"><div class="kpi-label">Sedute</div><div class="kpi-val">17</div><div class="kpi-sub">7 atlete attive</div></div>
+    <div class="kpi"><div class="kpi-label">RPE medio</div><div class="kpi-val">5.3</div><div class="kpi-sub">−0.1 vs W2</div></div>
+    <div class="kpi"><div class="kpi-label">Compliance</div><div class="kpi-val">54%</div><div class="kpi-sub">−20% vs W2</div></div>
+    <div class="kpi"><div class="kpi-label">Sonno medio</div><div class="kpi-val">4.1</div><div class="kpi-sub">media attive (1–5)</div></div>
+    <div class="kpi"><div class="kpi-label">Dolori medi</div><div class="kpi-val" style="color:var(--green)">1.3</div><div class="kpi-sub">nessun alert clinico</div></div>
+    <div class="kpi"><div class="kpi-label">Energia media</div><div class="kpi-val">3.7</div><div class="kpi-sub">media attive (1–5)</div></div>
+  </div>
+  <div class="section">
+    <div class="s-title">Atlete · Settimana 3 · 20–26 luglio</div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Atleta</th><th class="r">Sed.</th><th class="r">S1</th><th class="r">S2</th><th class="r">S3</th><th class="r">RPE</th><th class="r">Fatica</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td style="font-weight:600">Veronica Allasia</td><td class="r"><span class="chip chip-z">0</span></td><td class="r" colspan="5" style="color:var(--faint);font-style:italic;font-size:.7rem">nessuna seduta registrata</td><td><div class="note">⚠ 3ª settimana consecutiva inattiva. Contattare urgentemente.</div></td></tr>
+        <tr><td style="font-weight:600;color:var(--faint)">Chiara Lo Dico</td><td class="r"><span class="chip chip-z">0</span></td><td class="r" colspan="5" style="color:var(--faint);font-style:italic;font-size:.7rem">nessuna seduta registrata</td><td><div class="note">Verifica se si allena con Club Italia questa settimana.</div></td></tr>
+        <tr><td style="font-weight:600;color:var(--faint)">Federica Nonnati</td><td class="r"><span class="chip chip-z">0</span></td><td class="r" colspan="5" style="color:var(--faint);font-style:italic;font-size:.7rem">ancora in Canada</td><td><div class="note">Rientro previsto agosto.</div></td></tr>
+        <tr><td style="font-weight:600;color:var(--faint)">Gaia Biondi</td><td class="r"><span class="chip chip-z">0</span></td><td class="r" colspan="5" style="color:var(--faint);font-style:italic;font-size:.7rem">nessuna seduta registrata</td><td><div class="note">Segue preparazione individuale esterna.</div></td></tr>
+        <tr><td style="font-weight:600;color:var(--faint)">Luna Cicola</td><td class="r"><span class="chip chip-z">0</span></td><td class="r" colspan="5" style="color:var(--faint);font-style:italic;font-size:.7rem">nessuna seduta registrata</td><td><div class="note">Gare esterne — coordinare rientro in programma.</div></td></tr>
+        <tr><td style="font-weight:600;color:var(--faint)">Nelly Adamczewska</td><td class="r"><span class="chip chip-z">0</span></td><td class="r" colspan="5" style="color:var(--faint);font-style:italic;font-size:.7rem">prep col padre</td><td><div class="note">Wellness regolare, nessuna seduta loggata nell'app.</div></td></tr>
+        <tr><td style="font-weight:600">Anja Asonja</td><td class="r"><span class="chip chip-l">1</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--faint)">—</span></td><td class="r"><span style="color:var(--faint)">—</span></td><td class="r rpe-mi">6.0</td><td class="r">—</td><td><div class="note">Solo 1 sed (da 3/3 in W1–W2). Volume ▼100%. Chiarire assenza.</div></td></tr>
+        <tr><td style="font-weight:600">Elisa Bolè</td><td class="r"><span class="chip chip-m">2</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--faint)">—</span></td><td class="r rpe-mi">5.5</td><td class="r">—</td><td><div class="note">960 kg — volume più alto del gruppo in W3. 2/3 sedute.</div></td></tr>
+        <tr><td style="font-weight:600">Maria Marcuzzi</td><td class="r"><span class="chip chip-m">2</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--faint)">—</span></td><td class="r rpe-lo">5.0</td><td class="r">—</td><td><div class="note">Volume ▼53% (516→240 kg). Verificare stato trapezio da W2.</div></td></tr>
+        <tr><td style="font-weight:600">Giulia Caserta</td><td class="r"><span class="chip chip-h">3</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r rpe-lo">5.0</td><td class="r">—</td><td><div class="note">⚠ Sonno 2.7/5, il più basso. Volume ▼53%. Indagare recupero.</div></td></tr>
+        <tr><td style="font-weight:600">Erin Grippo</td><td class="r"><span class="chip chip-h">3</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r rpe-mi">5.3</td><td class="r">3.3</td><td><div class="note">Volume ▲167% (180→480 kg). Forte rimbalzo dopo W2 ridotta.</div></td></tr>
+        <tr><td style="font-weight:600">Sara Dodi</td><td class="r"><span class="chip chip-h">3</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r rpe-mi">6.5</td><td class="r">—</td><td><div class="note">RPE più alto del gruppo. Volume ▼38% ma intensità percepita in aumento.</div></td></tr>
+        <tr><td style="font-weight:600">Victoria Sassolini</td><td class="r"><span class="chip chip-h">3</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r"><span style="color:var(--green)">✓</span></td><td class="r rpe-lo">4.0</td><td class="r">—</td><td><div class="note">Volume ▲140% (240→576 kg). RPE 4.0 — carico percepito ottimale.</div></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="section">
+    <div class="s-title">Segnalazioni W3</div>
+    <div class="alerts">
+      <div class="alert al-r"><div class="alert-t">⚠ Veronica Allasia — 0 sedute per 3 settimane consecutive</div><div class="alert-b">Nessuna attività registrata dall'inizio della prep. Contattare urgentemente per chiarire situazione.</div></div>
+      <div class="alert al-a"><div class="alert-t">⚠ Giulia Caserta — Sonno 2.7/5 (media settimana, il più basso)</div><div class="alert-b">Qualità del recupero in calo. Indagare fattori esterni. Volume già −53% vs W2.</div></div>
+      <div class="alert al-a"><div class="alert-t">Sara Dodi — RPE 6.5, il più alto del gruppo</div><div class="alert-b">Volume in calo del 38% ma intensità percepita in aumento. Monitorare in W4.</div></div>
+      <div class="alert al-a"><div class="alert-t">Anja Asonja — 1 seduta (da 3/3 in W1–W2)</div><div class="alert-b">Discontinuità marcata, volume ▼100% vs W2. Chiarire motivo assenza.</div></div>
+      <div class="alert al-g"><div class="alert-t">✓ Erin Grippo — volume +167% (180→480 kg)</div><div class="alert-b">Forte rimbalzo dopo W2 ridotta. RPE stabile a 5.3, fatica media 3.3.</div></div>
+      <div class="alert al-g"><div class="alert-t">✓ Victoria Sassolini — volume +140% (240→576 kg)</div><div class="alert-b">Raddoppio del volume. RPE 4.0 — carico percepito ottimale per la fase.</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="s-title">Wellness · 20–26 luglio (medie settimanali)</div>
+    <div class="well-grid">
+      <div class="wc"><div class="wc-name">Anja Asonja</div><div class="wc-date">media sett.</div><div class="wbars"><div class="brow"><span class="blbl">Sonno</span><div class="btrack"><div class="bfill" style="width:100%;background:#3b82f6"></div></div><span>5/5</span></div><div class="brow"><span class="blbl">Dolori</span><div class="btrack"><div class="bfill" style="width:40%;background:var(--amber)"></div></div><span>2/5</span></div><div class="brow"><span class="blbl">Energia</span><div class="btrack"><div class="bfill" style="width:70%;background:var(--amber)"></div></div><span>3.5/5</span></div></div></div>
+      <div class="wc"><div class="wc-name">Elisa Bolè</div><div class="wc-date">media sett.</div><div class="wbars"><div class="brow"><span class="blbl">Sonno</span><div class="btrack"><div class="bfill" style="width:70%;background:#3b82f6"></div></div><span>3.5/5</span></div><div class="brow"><span class="blbl">Dolori</span><div class="btrack"><div class="bfill" style="width:30%;background:var(--green)"></div></div><span>1.5/5</span></div><div class="brow"><span class="blbl">Energia</span><div class="btrack"><div class="bfill" style="width:60%;background:var(--amber)"></div></div><span>3/5</span></div></div></div>
+      <div class="wc"><div class="wc-name">Erin Grippo</div><div class="wc-date">media sett.</div><div class="wbars"><div class="brow"><span class="blbl">Sonno</span><div class="btrack"><div class="bfill" style="width:96%;background:#3b82f6"></div></div><span>4.8/5</span></div><div class="brow"><span class="blbl">Dolori</span><div class="btrack"><div class="bfill" style="width:20%;background:var(--green)"></div></div><span>1/5</span></div><div class="brow"><span class="blbl">Energia</span><div class="btrack"><div class="bfill" style="width:84%;background:var(--green)"></div></div><span>4.2/5</span></div></div></div>
+      <div class="wc" style="border-color:var(--amber);border-width:2px"><div class="wc-name">Giulia Caserta <span style="background:#fef3c7;color:#78350f;font-size:.58rem;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:3px">⚠ SONNO</span></div><div class="wc-date">media sett.</div><div class="wbars"><div class="brow"><span class="blbl">Sonno</span><div class="btrack"><div class="bfill" style="width:54%;background:var(--amber)"></div></div><span style="color:var(--amber);font-weight:700">2.7/5</span></div><div class="brow"><span class="blbl">Dolori</span><div class="btrack"><div class="bfill" style="width:26%;background:var(--green)"></div></div><span>1.3/5</span></div><div class="brow"><span class="blbl">Energia</span><div class="btrack"><div class="bfill" style="width:66%;background:var(--amber)"></div></div><span>3.3/5</span></div></div></div>
+      <div class="wc"><div class="wc-name">Maria Marcuzzi</div><div class="wc-date">media sett.</div><div class="wbars"><div class="brow"><span class="blbl">Sonno</span><div class="btrack"><div class="bfill" style="width:100%;background:#3b82f6"></div></div><span>5/5</span></div><div class="brow"><span class="blbl">Dolori</span><div class="btrack"><div class="bfill" style="width:20%;background:var(--green)"></div></div><span>1/5</span></div><div class="brow"><span class="blbl">Energia</span><div class="btrack"><div class="bfill" style="width:80%;background:var(--green)"></div></div><span>4/5</span></div></div></div>
+      <div class="wc"><div class="wc-name">Nelly Adamczewska</div><div class="wc-date">media sett.</div><div class="wbars"><div class="brow"><span class="blbl">Sonno</span><div class="btrack"><div class="bfill" style="width:80%;background:#3b82f6"></div></div><span>4/5</span></div><div class="brow"><span class="blbl">Dolori</span><div class="btrack"><div class="bfill" style="width:20%;background:var(--green)"></div></div><span>1/5</span></div><div class="brow"><span class="blbl">Energia</span><div class="btrack"><div class="bfill" style="width:80%;background:var(--green)"></div></div><span>4/5</span></div></div></div>
+      <div class="wc"><div class="wc-name">Sara Dodi</div><div class="wc-date">media sett.</div><div class="wbars"><div class="brow"><span class="blbl">Sonno</span><div class="btrack"><div class="bfill" style="width:86%;background:#3b82f6"></div></div><span>4.3/5</span></div><div class="brow"><span class="blbl">Dolori</span><div class="btrack"><div class="bfill" style="width:26%;background:var(--green)"></div></div><span>1.3/5</span></div><div class="brow"><span class="blbl">Energia</span><div class="btrack"><div class="bfill" style="width:80%;background:var(--green)"></div></div><span>4/5</span></div></div></div>
+      <div class="wc"><div class="wc-name">Victoria Sassolini</div><div class="wc-date">media sett.</div><div class="wbars"><div class="brow"><span class="blbl">Sonno</span><div class="btrack"><div class="bfill" style="width:80%;background:#3b82f6"></div></div><span>4/5</span></div><div class="brow"><span class="blbl">Dolori</span><div class="btrack"><div class="bfill" style="width:20%;background:var(--green)"></div></div><span>1/5</span></div><div class="brow"><span class="blbl">Energia</span><div class="btrack"><div class="bfill" style="width:74%;background:var(--amber)"></div></div><span>3.7/5</span></div></div></div>
+    </div>
+  </div>
+</div>
 <div id="w4" class="week-panel"><div class="empty-week"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><h3>Settimana 4 · 27 lug – 2 ago</h3><p>Dati in aggiornamento a fine settimana.</p></div></div>
 <div id="w5" class="week-panel"><div class="empty-week"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><h3>Settimana 5 · 3–9 agosto</h3><p>Dati in aggiornamento a fine settimana.</p></div></div>
 <div id="w6" class="week-panel"><div class="empty-week"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><h3>Settimana 6 · 10–16 agosto</h3><p>Dati in aggiornamento a fine settimana.</p></div></div>
@@ -214,7 +269,7 @@ function showWeek(id,btn){
   btn.classList.add('active');
 }
 document.addEventListener('DOMContentLoaded',function(){
-  showWeek('w2',document.querySelectorAll('.tab-btn')[1]);
+  showWeek('w3',document.querySelectorAll('.tab-btn')[2]);
 });
 </script>
 </body>
