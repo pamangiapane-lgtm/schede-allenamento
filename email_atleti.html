@@ -163,13 +163,11 @@ async function init() {
   wellness=rW.dati||[];
   tutteNote=rN.note||[];
 
-  // Settimana label
-  const ora=new Date(),dow=ora.getDay();
-  const lune=new Date(ora);lune.setDate(ora.getDate()-((dow===0?7:dow)-1));lune.setHours(0,0,0,0);
-  const luneS=new Date(lune);luneS.setDate(lune.getDate()-7);
-  const domS=new Date(lune);domS.setMilliseconds(-1);
+  // Settimana label — intervallo dati: ultimi 7 giorni
+  const ora=new Date();
+  const cut7ui=new Date(ora);cut7ui.setDate(ora.getDate()-7);
   const fmt=d=>d.getDate()+'/'+(d.getMonth()+1);
-  document.getElementById('sett-label').textContent='Settimana '+fmt(luneS)+'–'+fmt(domS)+' '+domS.getFullYear();
+  document.getElementById('sett-label').textContent='Settimana '+fmt(cut7ui)+'–'+fmt(ora)+' '+ora.getFullYear();
 
   document.getElementById('loading').style.display='none';
   document.getElementById('content').style.display='';
@@ -343,11 +341,7 @@ function buildEmailHtml(g) {
   const noteAtleta=getNoteAttive(id);
 
   const fmt=d=>d.getDate()+'/'+(d.getMonth()+1);
-  const dow=ora.getDay(),lune=new Date(ora);
-  lune.setDate(ora.getDate()-((dow===0?7:dow)-1));lune.setHours(0,0,0,0);
-  const luneS=new Date(lune);luneS.setDate(lune.getDate()-7);
-  const domS=new Date(lune);domS.setMilliseconds(-1);
-  const settLabel=fmt(luneS)+'–'+fmt(domS)+' '+domS.getFullYear();
+  const settLabel=fmt(cut7)+'–'+fmt(ora)+' '+ora.getFullYear();
   const nome=g.Nome?g.Nome.split(' ')[0]:g.Nome;
   const lingua=String(g.Lingua||'').trim().toUpperCase()==='EN'?'EN':'IT';
 
