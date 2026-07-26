@@ -1744,7 +1744,8 @@ function buildEmailHtmlBrowser(g) {
   const ora = new Date();
   const SKIP_E = new Set(['RPE-seduta','Fatica-seduta','Peso-corporeo']);
   const pAll  = progressi.filter(p=>String(p.ID_Giocatrice)===id && p.Valore);
-  const cut7  = new Date(ora); cut7.setDate(ora.getDate()-7);
+  const dow=ora.getDay()===0?7:ora.getDay();
+  const cut7=new Date(ora); cut7.setDate(ora.getDate()-(dow-1)); cut7.setHours(0,0,0,0);
   const pSett = pAll.filter(p=>p.Timestamp && new Date(p.Timestamp)>=cut7);
 
   const seduteMap={};
@@ -1775,7 +1776,8 @@ function buildEmailHtmlBrowser(g) {
   const noteAtleta=getNoteAttiveAtleta(id);
 
   const fmt=d=>d.getDate()+'/'+(d.getMonth()+1);
-  const settLabel='Settimana '+fmt(cut7)+'–'+fmt(ora)+' '+ora.getFullYear();
+  const dom=new Date(cut7); dom.setDate(cut7.getDate()+6);
+  const settLabel='Settimana '+fmt(cut7)+'–'+fmt(dom)+' '+ora.getFullYear();
   const nome=g.Nome?g.Nome.split(' ')[0]:g.Nome;
   const lingua=String(g.Lingua||'').trim().toUpperCase()==='EN'?'EN':'IT';
   return lingua==='EN'
