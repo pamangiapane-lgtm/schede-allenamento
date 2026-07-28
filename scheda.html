@@ -306,12 +306,12 @@ const FASI_DEF = [
   { id: 'potenza', label: 'W6 Potenza', labelEN: 'W6 Power'   },
   { id: 'taper',   label: 'W7 Taper',   labelEN: 'W7 Taper'   },
 ];
-function faseDa(numSed, nomeSed) {
-  const s = String(numSed || ''), n = String(nomeSed || '');
-  if (s.startsWith('OS4-') || n.includes('Taper'))            return 'taper';
-  if (s.startsWith('OS3-') || n.includes('Potenza'))          return 'potenza';
-  if (s.startsWith('OS2-') || n.includes('Picco'))            return 'picco';
-  if (s.startsWith('OS1-') || n.includes('Season 1') || n.includes('Off Season 1')) return 'base';
+function faseDa(numSed) {
+  const s = String(numSed || '');
+  if (s.startsWith('OS4-')) return 'taper';
+  if (s.startsWith('OS3-')) return 'potenza';
+  if (s.startsWith('OS2-')) return 'picco';
+  if (s.startsWith('OS1-')) return 'base';
   return null;
 }
 function switchFase(faseId, scrollToId) {
@@ -720,7 +720,7 @@ async function caricaScheda() {
     const fasiGruppi = {};
     const noFaseSed = [];
     seduteGioc.forEach(sed => {
-      const f = faseDa(sed.Numero_Seduta, sed.Nome_Seduta);
+      const f = faseDa(sed.Numero_Seduta);
       if (!f) { noFaseSed.push(sed); return; }
       if (!fasiGruppi[f]) fasiGruppi[f] = [];
       fasiGruppi[f].push(sed);
