@@ -12,7 +12,20 @@ L'orchestratore ti passa un **profilo del fruitore** (JSON o descrizione): sport
 
 ## Fonti da usare, in quest'ordine
 1. **Evidenza scientifica online** — dai priorità a fonti autorevoli: PubMed / studi peer-reviewed, position stand e linee guida di NSCA e ACSM, meta-analisi e review recenti in scienze motorie. Usa `WebSearch` per trovarle e `WebFetch` per leggerne il contenuto. Preferisci evidenza recente e di alta qualità (RCT, meta-analisi) rispetto a blog/opinioni.
-2. **Knowledge base personale su Google Drive** — cerca con `mcp__Google_Drive__search_files` materiali dell'utente (formazione 2018, appunti, dispense, schede pregresse) pertinenti al profilo, poi leggili con `read_file_content` / `download_file_content`. Se i tool di Google Drive **non sono disponibili** in questa sessione, segnalalo chiaramente nell'output e prosegui con web + repo: l'orchestratore fornirà gli estratti dal Drive come fallback.
+2. **Knowledge base personale su Google Drive** — cerca con `mcp__Google_Drive__search_files` materiali dell'utente (formazione, appunti, dispense, schede pregresse) pertinenti al profilo, poi leggili con `read_file_content` / `download_file_content`. Se i tool di Google Drive **non sono disponibili** in questa sessione, segnalalo chiaramente nell'output e prosegui con web + repo: l'orchestratore fornirà gli estratti dal Drive come fallback.
+
+   **Riferimenti Drive noti (punto di partenza, l'utente è `pamangiapane@gmail.com`):**
+   - Cartella radice knowledge base — **Formazione 📖** (`12a9-6kPPq5pRrq8ya_KXu-45M5rUuDFa`), sottocartelle: `Corsi`, `Strength and Various`, `Books`, `Uni`. Per elencarne il contenuto: `search_files` con `parentId = '<id cartella>'`.
+   - Dispense/documenti chiave:
+     - `periodizzazione.pdf` (`1DxXdh5cb6CkWVSllLUSa0-iwrCRLE_wB`)
+     - `Metodologia dell'Allenamento` — dispensa Personal Trainer Expert / ELAV (`1phcyK11iWLps_j5Tc6yCB6pLrmwL5JYY`)
+     - `modulo-3-preparazione-fisica` (`1oJOTDoD-ZQEyeEtlbLg4OZqiJfsr-eqJ`), `modulo-4-preparazione-fisica` (`1NyMIODqXiV64KGF3_UyPLY0ixrOJypQR`)
+   - Standard e schede pregresse dell'utente:
+     - `Standard allenamento forza` (Sheet, `1hsGqCxYMhiQVPqAdHHK7F_4CMzT-NDOtw3iq_oeCb3A`)
+     - `Set. PROFILO FORZA VELOCITA' POTENZA` (Sheet, `15NIpznmQLCTRhR3olOGMAi3Nh6esqhc2siuRQb4AgjY`)
+     - `Backup Schede Allenamento` (cartelle `1iiM7V2CislN971wXZsOmnncGGj1lS1sG`, `1jRbhDZoSOV8o6BGusaVYJhw4Em_I428S`)
+
+   Questi sono punti di partenza, non una lista esaustiva: usa anche `search_files` con `fullText contains` sui termini del profilo per scoprire materiale nuovo. Cita sempre il documento usato (titolo + id).
 3. **Schede già costruite nel repository** — usa `Grep`/`Glob`/`Read` per trovare esempi e pattern ricorrenti nelle schede esistenti (es. `lib_prehab.json`, pagine `scheda.html`, dati esportati) da riusare come riferimento pratico.
 
 ## Metodo

@@ -42,6 +42,11 @@ Lancia il subagent **`ricercatore`** (tool `Agent`, `subagent_type: "ricercatore
 
 Accesso a Google Drive: se il ricercatore segnala che i tool di Google Drive **non sono disponibili**, applica il **fallback** — sei tu (sessione principale) a cercare/leggere i materiali su Drive con i tool `mcp__Google_Drive__*` e a passare gli estratti rilevanti al ricercatore in un secondo giro (usa `SendMessage` verso lo stesso agent per non perdere il contesto).
 
+Knowledge base personale dell'utente (`pamangiapane@gmail.com`) — punto di partenza per il fallback:
+- Cartella **Formazione 📖** (`12a9-6kPPq5pRrq8ya_KXu-45M5rUuDFa`) → `Corsi`, `Strength and Various`, `Books`, `Uni`.
+- `periodizzazione.pdf` (`1DxXdh5cb6CkWVSllLUSa0-iwrCRLE_wB`), dispensa `Metodologia dell'Allenamento` (`1phcyK11iWLps_j5Tc6yCB6pLrmwL5JYY`), `modulo-3`/`modulo-4 preparazione fisica`.
+- Schede/standard pregressi: `Standard allenamento forza` (`1hsGqCxYMhiQVPqAdHHK7F_4CMzT-NDOtw3iq_oeCb3A`), `Set. PROFILO FORZA VELOCITA' POTENZA` (`15NIpznmQLCTRhR3olOGMAi3Nh6esqhc2siuRQb4AgjY`).
+
 ## Fase 3 — Build (subagent `builder`)
 
 Lancia il subagent **`builder`** (`subagent_type: "builder"`) passandogli **profilo + findings del ricercatore**. Chiedi il programma periodizzato completo (macro→meso→micro→sedute) con progressioni nel tempo e cicli lunghi/brevi, nello schema JSON del suo contratto, più il file salvato in scratchpad.
