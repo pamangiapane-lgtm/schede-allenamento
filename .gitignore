@@ -5,3 +5,4 @@ backup_locale/
 .claude/*
 !.claude/agents/
 !.claude/skills/
+!.claude/kb/

@@ -1,0 +1,225 @@
+{
+  "versione": "1.0",
+  "aggiornato_il": "2026-07-30",
+  "descrizione": "Indice curato della knowledge base di formazione dell'utente (pamangiapane@gmail.com) su Google Drive. È il 'database interno' del sistema: un catalogo con argomenti, archetipi e riferimenti (Drive id) per recuperare la fonte giusta senza leggere tutto. NON contiene il testo completo: i documenti si aprono on-demand via i tool mcp__Google_Drive__* usando l'id.",
+  "note_accesso": "Ambiente remoto: i PDF NON sono su disco. Si leggono via Google Drive (read_file_content / download_file_content) con l'id. I percorsi locali C:\\Users\\paulo\\Documents\\Formazione\\... corrispondono a questo materiale su Drive e non sono raggiungibili da qui.",
+  "cartelle": {
+    "formazione_root": {"id": "12a9-6kPPq5pRrq8ya_KXu-45M5rUuDFa", "titolo": "Formazione 📖"},
+    "corsi": {"id": "1TXBs7GgdzbaxgvlRuSC9bE7odXdJYsuM", "titolo": "Corsi"},
+    "elav": {"id": "1TN5cdNPU5NDXQ_93aLaPuxTX1OK8oUbo", "titolo": "Corsi/Elav"},
+    "elav_fitness": {"id": "1ryryQB7Tb3CwBFAgo7WH_NX-64XikG-1", "titolo": "Elav/Fitness (Personal Trainer Expert)"},
+    "elav_medical": {"id": "1IbSPN5jSs2a6juo5GJvGthbeqSyC6dhx", "titolo": "Elav/Medical (Recupero Funzionale, anatomia)"},
+    "elav_moduli_prep": {"id": "1PJVxL8ZjsHF0_UR0ke8MfXZG2obDqz2a", "titolo": "Elav — Moduli Preparazione Atletica (1-10)"},
+    "sc_americano": {"id": "1AfLJsz6MMzJ19zffYsDS1kBDBefZ8Xtp", "titolo": "Corsi/S&C americano (NSCA)"},
+    "strength_various": {"id": "1OXFSNGEp9418z5C1Dh5aADGna6ZpYssb", "titolo": "Strength and Various"},
+    "books": {"id": "1c2eT8nklfhNds-mECOyBziIQwaUbVWIN", "titolo": "Books (prev. non-tecnici)"},
+    "uni": {"id": "1sWwP9PLqAg7JC2WlAvxaJaZEIdmtxvLj", "titolo": "Uni (tesi, materie)"},
+    "backup_schede": {"id": "1iiM7V2CislN971wXZsOmnncGGj1lS1sG", "titolo": "Backup Schede Allenamento"}
+  },
+  "documenti": [
+    {
+      "id": "1VJ6uAI2fwV-S7nnFVUM8MwrWSRAXOj6M",
+      "titolo": "Essentials of Strength Training and Conditioning — NSCA, 4th Edition",
+      "fonte": "NSCA (libro di testo di riferimento)",
+      "tipo": "libro",
+      "priorita": "alta",
+      "argomenti": ["fondamenti", "fisiologia", "forza", "potenza", "ipertrofia", "periodizzazione", "programmazione", "tecnica_esercizi", "valutazione", "resistenza", "pliometria"],
+      "archetipi": ["performance_squadra", "fitness_individuale", "giovanile", "senior"],
+      "note": "Riferimento primario e più autorevole per parametri di carico, periodizzazione e selezione esercizi. Da citare quando serve un'evidenza solida."
+    },
+    {
+      "id": "1-UyRk2S9CmKsXHC4WSIoU63atbU4Jpc-",
+      "titolo": "Certificazione NSCA",
+      "fonte": "NSCA", "tipo": "dispensa", "priorita": "media",
+      "argomenti": ["fondamenti", "linee_guida", "valutazione"],
+      "archetipi": ["performance_squadra", "fitness_individuale"],
+      "note": "Sintesi/appunti per certificazione."
+    },
+    {
+      "id": "1zk54CjTmNL54q2ECexv-DUZlywIDto2l",
+      "titolo": "Appendice CSCS",
+      "fonte": "NSCA/CSCS", "tipo": "dispensa", "priorita": "bassa",
+      "argomenti": ["fondamenti", "valutazione"], "archetipi": ["performance_squadra"], "note": ""
+    },
+    {
+      "id": "1Xb-CFEviGFsljDnld1crJpiFOFv-fHaO",
+      "titolo": "Contenuti per esame CSCS",
+      "fonte": "NSCA/CSCS", "tipo": "dispensa", "priorita": "bassa",
+      "argomenti": ["indice_argomenti"], "archetipi": [], "note": "Utile come mappa degli argomenti CSCS."
+    },
+    {
+      "id": "1OdU343wZGXf-DH4102baPBy07vLCvjk1",
+      "titolo": "ELAV Personal Trainer Expert — 1. Teoria Introduttiva",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "media",
+      "argomenti": ["fondamenti", "fisiologia_base", "teoria_allenamento"],
+      "archetipi": ["fitness_individuale"], "note": "Base teorica del corso PT."
+    },
+    {
+      "id": "1phcyK11iWLps_j5Tc6yCB6pLrmwL5JYY",
+      "titolo": "ELAV Personal Trainer Expert — 2. Metodologia dell'Allenamento",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "alta",
+      "argomenti": ["metodologia", "carico_allenamento", "adattamenti", "principi_allenamento"],
+      "archetipi": ["fitness_individuale", "performance_squadra"],
+      "note": "Metodologia: gestione del carico, principi, adattamenti."
+    },
+    {
+      "id": "1T1QvvsAsGsb1XLOG53iNds1qtENSOdIm",
+      "titolo": "ELAV Personal Trainer Expert — 3. Programmazione dell'Allenamento",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "alta",
+      "argomenti": ["programmazione", "periodizzazione", "mesocicli", "microcicli", "progressioni"],
+      "archetipi": ["fitness_individuale", "performance_squadra"],
+      "note": "Riferimento chiave per costruire macro/meso/microcicli."
+    },
+    {
+      "id": "1QIGrvwbFqo_HHNrh6NGAFpHcaBdfXyqJ",
+      "titolo": "ELAV — 1. Principi e Fondamenti del Recupero Funzionale",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "alta",
+      "argomenti": ["recupero_funzionale", "riabilitazione", "return_to_play", "principi"],
+      "archetipi": ["recupero_infortunio", "posturale"],
+      "note": "Base per l'archetipo recupero_infortunio."
+    },
+    {
+      "id": "1A4lOutm0WM62m7N0aGR3zJZzgMhbyf1A",
+      "titolo": "ELAV — 2. Arto Inferiore (Modulo 1)",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "media",
+      "argomenti": ["anatomia", "arto_inferiore", "riabilitazione", "esercizi"],
+      "archetipi": ["recupero_infortunio", "posturale"], "note": ""
+    },
+    {
+      "id": "1auIC7aY3EacFyUfcEQJMGwR1t_oIzKdW",
+      "titolo": "ELAV — 3. Arto Inferiore (Modulo 2)",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "media",
+      "argomenti": ["anatomia", "arto_inferiore", "riabilitazione", "esercizi"],
+      "archetipi": ["recupero_infortunio", "posturale"], "note": ""
+    },
+    {
+      "id": "1ZvO6brvF3w1a6D-VLDLqHrHE6QvrKYmL",
+      "titolo": "ELAV — 4. Colonna Vertebrale",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "alta",
+      "argomenti": ["anatomia", "colonna_vertebrale", "postura", "riabilitazione", "core"],
+      "archetipi": ["posturale", "recupero_infortunio"],
+      "note": "Riferimento primario per l'archetipo posturale (rachide)."
+    },
+    {
+      "id": "1NIGzFMWR9Dlz5NpgfojZ_JTsIuU_yTho",
+      "titolo": "ELAV — 5. Arto Superiore",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "media",
+      "argomenti": ["anatomia", "arto_superiore", "spalla", "riabilitazione", "esercizi"],
+      "archetipi": ["recupero_infortunio", "posturale"],
+      "note": "Utile per sport overhead (pallavolo/basket) e spalla."
+    },
+    {
+      "id": "1_rtrGSDMZ--JiImOxte5hOBu-CPorxaU",
+      "titolo": "ELAV Preparazione — Modulo 1: Forza condizionale",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "alta",
+      "argomenti": ["forza", "capacita_condizionali", "programmazione"],
+      "archetipi": ["performance_squadra", "fitness_individuale"], "note": ""
+    },
+    {
+      "id": "1NTo81_GCaVdPvM36MpM_Qc6WlDJKvfcB",
+      "titolo": "ELAV Preparazione — Modulo 2: Metabolico",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "media",
+      "argomenti": ["condizionamento_metabolico", "resistenza", "energetica"],
+      "archetipi": ["performance_squadra", "fitness_individuale"], "note": ""
+    },
+    {
+      "id": "1s7e3giVjRV0XW6FH7NwZPTiV5FesMGkb",
+      "titolo": "ELAV Preparazione — Modulo 3: Skill e funzionale",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "media",
+      "argomenti": ["allenamento_funzionale", "skill", "coordinazione"],
+      "archetipi": ["performance_squadra"], "note": ""
+    },
+    {
+      "id": "1y3IOlEu7L9KWz5mnRy4igywU5WKaE_GL",
+      "titolo": "ELAV Preparazione — Modulo 4: Synapse e reaction",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "media",
+      "argomenti": ["reattivita", "tempo_di_reazione", "potenza", "neuromuscolare"],
+      "archetipi": ["performance_squadra"], "note": ""
+    },
+    {
+      "id": "1c-51DePAUUYzGEX4hJ41BXvxP0Hp5IKV",
+      "titolo": "ELAV Preparazione — Modulo 5: GPS e BIA",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "media",
+      "argomenti": ["monitoraggio_carico", "gps", "bioimpedenza", "valutazione"],
+      "archetipi": ["performance_squadra"], "note": "Monitoraggio del carico e composizione corporea."
+    },
+    {
+      "id": "1b4DIAdbeJsjOvocghHaN-I4hjSkkDrX2",
+      "titolo": "ELAV Preparazione — Modulo 6: Programmazione",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "alta",
+      "argomenti": ["programmazione", "periodizzazione", "stagione"],
+      "archetipi": ["performance_squadra"], "note": "Programmazione applicata allo sport di squadra."
+    },
+    {
+      "id": "17IgiDJeACJdf411IxYoH4jMQV0-mK4Zq",
+      "titolo": "ELAV Preparazione — Modulo 7: Bologna Calcio (case study)",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "media",
+      "argomenti": ["case_study", "calcio", "preparazione_squadra"],
+      "archetipi": ["performance_squadra"], "note": "Esempio applicato reale."
+    },
+    {
+      "id": "1vu3da1U98V--YTdDVoqrPZPvX1UbNgCr",
+      "titolo": "ELAV Preparazione — Modulo 9: Dati",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "bassa",
+      "argomenti": ["analisi_dati", "valutazione"], "archetipi": ["performance_squadra"], "note": ""
+    },
+    {
+      "id": "1lXLw1fRwz6ZBgWiRvcYELev9Jceg3nJt",
+      "titolo": "ELAV Preparazione — Modulo 10: Ricerca",
+      "fonte": "ELAV srl", "tipo": "dispensa", "priorita": "bassa",
+      "argomenti": ["metodologia_ricerca", "evidenze"], "archetipi": [], "note": ""
+    },
+    {
+      "id": "1DxXdh5cb6CkWVSllLUSa0-iwrCRLE_wB",
+      "titolo": "Periodizzazione",
+      "fonte": "personale", "tipo": "pdf", "priorita": "alta",
+      "argomenti": ["periodizzazione", "programmazione", "cicli"],
+      "archetipi": ["performance_squadra", "fitness_individuale"],
+      "note": "Documento dedicato alla periodizzazione."
+    },
+    {
+      "id": "15CH21ymFkE1eY5ZyTwIWbkL8Lb0H_Uy3",
+      "titolo": "FMS — Functional Movement Screen",
+      "fonte": "FMS", "tipo": "pdf", "priorita": "media",
+      "argomenti": ["screening", "valutazione_funzionale", "mobilita", "prevenzione"],
+      "archetipi": ["posturale", "recupero_infortunio", "fitness_individuale"],
+      "note": "Screening del movimento: utile in fase di valutazione iniziale.",
+      "in_cartella": "books"
+    },
+    {
+      "id": "1oJOTDoD-ZQEyeEtlbLg4OZqiJfsr-eqJ",
+      "titolo": "Modulo 3 — Preparazione fisica",
+      "fonte": "personale/corso", "tipo": "pdf", "priorita": "media",
+      "argomenti": ["preparazione_fisica"], "archetipi": ["performance_squadra"], "note": ""
+    },
+    {
+      "id": "1NyMIODqXiV64KGF3_UyPLY0ixrOJypQR",
+      "titolo": "Modulo 4 — Preparazione fisica",
+      "fonte": "personale/corso", "tipo": "pdf", "priorita": "media",
+      "argomenti": ["preparazione_fisica"], "archetipi": ["performance_squadra"], "note": ""
+    },
+    {
+      "id": "1hsGqCxYMhiQVPqAdHHK7F_4CMzT-NDOtw3iq_oeCb3A",
+      "titolo": "Standard allenamento forza",
+      "fonte": "personale (schede pregresse)", "tipo": "google_sheet", "priorita": "alta",
+      "argomenti": ["forza", "standard_riferimento", "esercizi", "schede_pregresse"],
+      "archetipi": ["fitness_individuale", "performance_squadra"],
+      "note": "Standard/prassi personali sulla forza: prezioso per allineare le proposte al metodo dell'utente."
+    },
+    {
+      "id": "15NIpznmQLCTRhR3olOGMAi3Nh6esqhc2siuRQb4AgjY",
+      "titolo": "Set. PROFILO FORZA VELOCITA' POTENZA",
+      "fonte": "personale", "tipo": "google_sheet", "priorita": "media",
+      "argomenti": ["valutazione", "profilo_forza_velocita_potenza", "test"],
+      "archetipi": ["performance_squadra", "fitness_individuale"],
+      "note": "Griglia di profilazione forza/velocità/potenza."
+    }
+  ],
+  "da_catalogare": [
+    {"cartella_id": "1GVAv6WizJM6aJF0UqwS8mf-yt7HtvI4E", "titolo": "Elav/Sport", "nota": "Materiali sport-specifici da esplorare al bisogno."},
+    {"cartella_id": "1kyZfEe-sVfDoLagnu9ciodigdlIHdktZ", "titolo": "Elav/Medical/Studio", "nota": "Approfondimenti medici."},
+    {"cartella_id": "1as3JGx_FVFMKwT0iLEcHIY8lWWgjyb2u", "titolo": "Street Lifting Empire - Claudio Negro", "nota": "Forza a corpo libero / street lifting."},
+    {"cartella_id": "1TYaOZRTAVitToRrcHJ3-2ZJBgXhh-tYd", "titolo": "Corsi/FIP", "nota": "Federazione Italiana Pallacanestro: materiale basket."},
+    {"cartella_id": "1LnJn2tzMQY3fos2ldsH4lvXLJ3ZU8rze", "titolo": "Elav/Extra", "nota": "Materiale extra."}
+  ]
+}

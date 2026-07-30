@@ -60,9 +60,13 @@ Quando hai abbastanza, **riepiloga il profilo in JSON** e chiedi conferma prima 
 
 > **Sicurezza (archetipi clinici).** Per `recupero_infortunio` e `posturale`: il programma è un supporto all'allenamento, **non** sostituisce diagnosi o terapia. Includi sempre un disclaimer nel documento finale e raccomanda la supervisione di un medico/fisioterapista. Non proporre progressioni che ignorino controindicazioni dichiarate.
 
-## Fase 2 — Ricerca (subagent `ricercatore`)
+## Fase 2 — Ricerca
 
-Lancia il subagent **`ricercatore`** (tool `Agent`, `subagent_type: "ricercatore"`) passandogli il profilo JSON confermato. Chiedigli la sintesi con parametri raccomandati, periodizzazione e **fonti citate**.
+### Fase 2a — Retrieval dalla knowledge base (subagent `bibliotecario`)
+Prima della ricerca, interpella il **`bibliotecario`** (`subagent_type: "bibliotecario"`, modalità RETRIEVAL) passandogli il profilo. Restituisce la **lista ordinata dei documenti personali pertinenti** (dispense NSCA/ELAV, periodizzazione, standard) con `id` Drive e motivazione, consultando l'indice `.claude/kb/index.json`. Se l'utente ha appena caricato nuovi materiali, chiedigli prima la modalità MANUTENZIONE per aggiornare l'indice.
+
+### Fase 2b — Ricerca (subagent `ricercatore`)
+Lancia il subagent **`ricercatore`** (`subagent_type: "ricercatore"`) passandogli il profilo JSON confermato **e la lista di documenti dal bibliotecario**. Chiedigli la sintesi con parametri raccomandati, periodizzazione e **fonti citate** (knowledge base personale + evidenza web + conoscenza).
 
 Accesso a Google Drive: se il ricercatore segnala che i tool di Google Drive **non sono disponibili**, applica il **fallback** — sei tu (sessione principale) a cercare/leggere i materiali su Drive con i tool `mcp__Google_Drive__*` e a passare gli estratti rilevanti al ricercatore in un secondo giro (usa `SendMessage` verso lo stesso agent per non perdere il contesto).
 
