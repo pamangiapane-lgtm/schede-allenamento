@@ -19,6 +19,15 @@
       margin-left: 4px;
     }
     .mass-save-btn:active { opacity: 0.85; }
+  /* ── FASE TABS ── */
+  .fase-tabs { display: flex; gap: 6px; padding: 4px 16px 10px; flex-wrap: wrap; }
+  .fase-tab { padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--blu-chiaro, #ccd8ee); background: none; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: var(--text-light, #888); transition: background 0.15s, color 0.15s; }
+  .fase-tab.active { background: var(--blu, #1a3a6b); color: #fff; border-color: var(--blu, #1a3a6b); }
+  .fase-nascosta { display: none; }
+  .prossima-pin { display: flex; align-items: center; gap: 8px; margin: 10px 16px 2px; padding: 9px 14px; background: #eef3ff; border-radius: 10px; border: 1px solid #ccd8ee; }
+  .prossima-pin .pin-label { font-size: 0.78rem; color: var(--text-light, #888); white-space: nowrap; }
+  .prossima-pin .pin-btn { background: none; border: none; color: var(--blu, #1a3a6b); font-size: 0.82rem; font-weight: 700; cursor: pointer; padding: 0; text-align: left; line-height: 1.3; }
+  .prossima-pin .pin-arrow { font-size: 1rem; color: var(--blu, #1a3a6b); flex-shrink: 0; }
   /* ── WELLNESS MODAL ── */
   #wellness-overlay {
     display: none;
@@ -137,7 +146,10 @@
 
 <div class="container">
 
-  <a class="back-link" href="index.html">← Tutte le giocatrici</a>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <a class="back-link" href="index.html" style="margin-bottom:0">← Tutte le giocatrici</a>
+    <a id="storico-link" href="#" style="font-size:.82rem;color:var(--blu-medio);text-decoration:none;font-weight:600;display:none">📈 Il mio storico</a>
+  </div>
 
   <div id="loading" class="loading-msg">Caricamento scheda...</div>
 
@@ -200,7 +212,7 @@ const IT = {
   instrP2:'Dopo ogni seduta <strong>aggiorna il massimale (1RM)</strong> nella sezione qui sotto in base al carico spostato durante la seduta. I carichi in scheda si calcolano da quel valore.',
   instrP3:'Compila i <strong>kg usati</strong> per ogni esercizio nella sezione Sedute e premi <strong>Salva</strong> per tenere lo storico aggiornato.',
   bwTitle:'Peso corporeo', bwPlaceholder:'es. 65', saveBtn:'Salva', savedOk:'✓ Salvato!',
-  histTitle:'Storico carichi', sessionFallback: n=>`Seduta ${n}`,
+  histTitle:'Storico carichi', sessionFallback: n=>`Seduta ${n}`, storicoLink:'Il mio storico',
   maxTitle:'Massimali', enterRM:'Inserisci il tuo RM',
   afTitle:'Analisi Funzionale', stratTitle:'Strategia',
   prehabTitle:'Programma Prehab', prehabBtn:'Apri il programma personale',
@@ -228,7 +240,7 @@ const EN = {
   instrP2:'After each session, <strong>update your 1RM</strong> in the section below based on how the exercise felt. Your program loads are calculated from that value.',
   instrP3:'Fill in the <strong>kg used</strong> for each exercise in the Sessions tab and press <strong>Save</strong> to keep your history up to date.',
   bwTitle:'Body weight', bwPlaceholder:'e.g. 65', saveBtn:'Save', savedOk:'✓ Saved!',
-  histTitle:'Load History', sessionFallback: n=>`Session ${n}`,
+  histTitle:'Load History', sessionFallback: n=>`Session ${n}`, storicoLink:'My progress',
   maxTitle:'1RM Maxes', enterRM:'Enter your 1RM',
   afTitle:'Functional Assessment', stratTitle:'Strategy',
   prehabTitle:'Prehab Program', prehabBtn:'Open personal program',
@@ -285,6 +297,34 @@ const DESC_METODO_EN = {
 function traduciDescMetodo(desc) {
   if (L !== EN || !desc) return desc;
   return DESC_METODO_EN[desc] || desc;
+}
+
+/* ── FASE TABS ── */
+const FASI_DEF = [
+  { id: 'base',    label: 'W1-3 Base',  labelEN: 'W1-3 Base'  },
+  { id: 'picco',   label: 'W4-5 Picco', labelEN: 'W4-5 Peak'  },
+  { id: 'potenza', label: 'W6 Potenza', labelEN: 'W6 Power'   },
+  { id: 'taper',   label: 'W7 Taper',   labelEN: 'W7 Taper'   },
+];
+function faseDa(numSed) {
+  const s = String(numSed || '');
+  if (s.startsWith('OS4-')) return 'taper';
+  if (s.startsWith('OS3-')) return 'potenza';
+  if (s.startsWith('OS2-')) return 'picco';
+  if (s.startsWith('OS1-')) return 'base';
+  return null;
+}
+function switchFase(faseId, scrollToId) {
+  document.querySelectorAll('.fase-wrap').forEach(w => w.classList.add('fase-nascosta'));
+  document.querySelectorAll('.fase-tab').forEach(t => t.classList.remove('active'));
+  const wrap = document.getElementById('fase-wrap-' + faseId);
+  if (wrap) wrap.classList.remove('fase-nascosta');
+  const tab = document.querySelector(`.fase-tab[data-fase="${faseId}"]`);
+  if (tab) tab.classList.add('active');
+  if (scrollToId) setTimeout(() => {
+    const el = document.getElementById('acc-' + scrollToId);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
 }
 
 /* ---------- helpers ---------- */
@@ -624,6 +664,8 @@ async function caricaScheda() {
     L = (g.Lingua === 'EN') ? EN : IT;
     document.querySelector('h1').textContent = L.appTitle;
     document.querySelector('.back-link').textContent = L.back;
+    const sl = document.getElementById('storico-link');
+    if (sl && id) { sl.href = 'storico.html?id=' + encodeURIComponent(id); sl.textContent = '📈 ' + L.storicoLink; sl.style.display = ''; }
     const tabBtns = document.querySelectorAll('.tab-btn');
     if (tabBtns[0]) tabBtns[0].textContent = L.tabProfile;
     if (tabBtns[1]) tabBtns[1].textContent = L.tabSessions;
@@ -674,77 +716,152 @@ async function caricaScheda() {
     const divSed = document.getElementById('sedute');
     divSed.innerHTML = '';
 
+    /* ── Raggruppa sedute per fase ── */
+    const fasiGruppi = {};
+    const noFaseSed = [];
     seduteGioc.forEach(sed => {
-      const esercSed = eserciziGioc
-        .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta))
-        .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
-
-      const metodiOrd = [];
-      const metodiMap = {};
-      esercSed.forEach(e => {
-        if (!metodiMap[e.Metodo]) {
-          metodiMap[e.Metodo] = { nome: e.Metodo, desc: e.Desc_Metodo, esercizi: [] };
-          metodiOrd.push(e.Metodo);
-        }
-        metodiMap[e.Metodo].esercizi.push(e);
-      });
-
-      const accId = `acc-${sed.Numero_Seduta}`;
-      let html = `
-        <div class="seduta-accordion" id="${accId}">
-          <button class="seduta-header" onclick="toggleSeduta('${accId}')">
-            <h3>${traduciSeduta(sed.Nome_Seduta)}</h3>
-            <span class="chevron">▾</span>
-          </button>
-          <div class="seduta-body">
-          <div class="coach-notes-area" id="notes-${sed.Numero_Seduta}"></div>`;
-
-      metodiOrd.forEach(key => {
-        const m = metodiMap[key];
-        html += `<div class="metodo-block">`;
-        if (m.nome === 'Prehab individuale' && g.Link_Prehab) {
-          html += `<div class="metodo-titolo">${traduciMetodo(m.nome)} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>`;
-          /* Obiettivo fase corrente */
-          let obiettivoHtml = '';
-          const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
-          if (_obvSrc) {
-            try {
-              const obv = JSON.parse(_obvSrc);
-              const fase = g.Fase_Prehab || 'F1';
-              const testo = obv[fase] || '';
-              if (testo) obiettivoHtml = `<div class="prehab-obiettivo">${testo}</div>`;
-            } catch(e) {}
-          }
-          html += `<div class="prehab-wrap">
-            ${obiettivoHtml}
-            <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
-              <span class="prehab-link-dot"></span>
-              ${L.prehabBtn}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-            </a>
-          </div>`;
-        } else if (m.nome === 'Prehab individuale' && faseAttiva) {
-          /* Fallback: esercizi della fase attiva */
-          html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
-          html += `<div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
-          faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
-        } else {
-          html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
-          if (m.desc) html += `<div class="metodo-desc">${traduciDescMetodo(m.desc)}</div>`;
-          m.esercizi.forEach(e => {
-            const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
-            html += htmlEsercizio(e, logId);
-          });
-        }
-
-        html += `</div>`;
-      });
-
-      html += htmlFeedbackSeduta(sed.Numero_Seduta, feedbackLog[sed.Numero_Seduta] || {});
-      html += htmlFineSeduta(sed.Numero_Seduta);
-      html += `</div></div>`;
-      divSed.innerHTML += html;
+      const f = faseDa(sed.Numero_Seduta);
+      if (!f) { noFaseSed.push(sed); return; }
+      if (!fasiGruppi[f]) fasiGruppi[f] = [];
+      fasiGruppi[f].push(sed);
     });
+    const faseOrdine = FASI_DEF.map(f => f.id).filter(id => fasiGruppi[id]);
+    const hasFasi = faseOrdine.length > 1;
+
+    /* Trova la prima seduta non ancora completata */
+    let faseDef = faseOrdine[0] || null;
+    let prossimaSed = null;
+    if (hasFasi) {
+      const completate = new Set(
+        Object.keys(feedbackLog).filter(k =>
+          feedbackLog[k]?.['RPE-seduta'] || feedbackLog[k]?.['Fatica-seduta']
+        )
+      );
+      outer: for (const fId of faseOrdine) {
+        for (const sed of (fasiGruppi[fId] || [])) {
+          if (!completate.has(String(sed.Numero_Seduta))) {
+            prossimaSed = sed; faseDef = fId; break outer;
+          }
+        }
+      }
+    }
+
+    /* Helper: renderizza lista sedute nel wrapper dato */
+    const renderSedute = (lista, wrapper) => {
+      lista.forEach(sed => {
+        const esercSed = eserciziGioc
+          .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta))
+          .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
+
+        const metodiOrd = [];
+        const metodiMap = {};
+        esercSed.forEach(e => {
+          if (!metodiMap[e.Metodo]) {
+            metodiMap[e.Metodo] = { nome: e.Metodo, desc: e.Desc_Metodo, esercizi: [] };
+            metodiOrd.push(e.Metodo);
+          }
+          metodiMap[e.Metodo].esercizi.push(e);
+        });
+
+        const accId = `acc-${sed.Numero_Seduta}`;
+        let html = `
+          <div class="seduta-accordion" id="${accId}">
+            <button class="seduta-header" onclick="toggleSeduta('${accId}')">
+              <h3>${traduciSeduta(sed.Nome_Seduta)}</h3>
+              <span class="chevron">▾</span>
+            </button>
+            <div class="seduta-body">
+            <div class="coach-notes-area" id="notes-${sed.Numero_Seduta}"></div>`;
+
+        metodiOrd.forEach(key => {
+          const m = metodiMap[key];
+          html += `<div class="metodo-block">`;
+          if (m.nome === 'Prehab individuale' && g.Link_Prehab) {
+            html += `<div class="metodo-titolo">${traduciMetodo(m.nome)} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>`;
+            let obiettivoHtml = '';
+            const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
+            if (_obvSrc) {
+              try {
+                const obv = JSON.parse(_obvSrc);
+                const fase = g.Fase_Prehab || 'F1';
+                const testo = obv[fase] || '';
+                if (testo) obiettivoHtml = `<div class="prehab-obiettivo">${testo}</div>`;
+              } catch(e) {}
+            }
+            html += `<div class="prehab-wrap">
+              ${obiettivoHtml}
+              <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
+                <span class="prehab-link-dot"></span>
+                ${L.prehabBtn}
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
+            </div>`;
+          } else if (m.nome === 'Prehab individuale' && faseAttiva) {
+            html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
+            html += `<div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
+            faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
+          } else {
+            html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
+            if (m.desc) html += `<div class="metodo-desc">${traduciDescMetodo(m.desc)}</div>`;
+            m.esercizi.forEach(e => {
+              const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
+              html += htmlEsercizio(e, logId);
+            });
+          }
+          html += `</div>`;
+        });
+
+        html += htmlFeedbackSeduta(sed.Numero_Seduta, feedbackLog[sed.Numero_Seduta] || {});
+        html += htmlFineSeduta(sed.Numero_Seduta);
+        html += `</div></div>`;
+        wrapper.innerHTML += html;
+      });
+    };
+
+    if (hasFasi) {
+      /* Pin prossima seduta */
+      if (prossimaSed) {
+        const pinDiv = document.createElement('div');
+        pinDiv.className = 'prossima-pin';
+        pinDiv.innerHTML = `<span class="pin-arrow">→</span>
+          <span class="pin-label">${L === EN ? 'Next:' : 'Prossima:'}</span>
+          <button class="pin-btn" onclick="switchFase('${faseDef}','${prossimaSed.Numero_Seduta}')">
+            ${traduciSeduta(prossimaSed.Nome_Seduta)}
+          </button>`;
+        divSed.appendChild(pinDiv);
+      }
+
+      /* Tab bar per fase */
+      const tabDiv = document.createElement('div');
+      tabDiv.className = 'fase-tabs';
+      FASI_DEF.filter(f => fasiGruppi[f.id]).forEach(f => {
+        const btn = document.createElement('button');
+        btn.className = 'fase-tab' + (f.id === faseDef ? ' active' : '');
+        btn.dataset.fase = f.id;
+        btn.textContent = (L === EN ? f.labelEN : f.label);
+        btn.setAttribute('onclick', `switchFase('${f.id}')`);
+        tabDiv.appendChild(btn);
+      });
+      divSed.appendChild(tabDiv);
+
+      /* Contenuto per fase */
+      faseOrdine.forEach(fId => {
+        const wrap = document.createElement('div');
+        wrap.className = 'fase-wrap' + (fId === faseDef ? '' : ' fase-nascosta');
+        wrap.id = `fase-wrap-${fId}`;
+        renderSedute(fasiGruppi[fId], wrap);
+        divSed.appendChild(wrap);
+      });
+
+      /* Sedute personali senza fase — sempre visibili */
+      if (noFaseSed.length) {
+        const wrapNoFase = document.createElement('div');
+        renderSedute(noFaseSed, wrapNoFase);
+        divSed.appendChild(wrapNoFase);
+      }
+    } else {
+      renderSedute(seduteGioc, divSed);
+    }
 
     /* PROFILO */
     document.getElementById('profilo').innerHTML = buildProfilo(g, resE, resP, seduteGioc);
@@ -1336,30 +1453,12 @@ function wellnessKey() {
   return `wellness_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}_${id}`;
 }
 
-const _noteCaricate = new Set();
-
-async function apriSedutaConNote(accId) {
+function apriSedutaConNote(accId) {
   document.getElementById(accId).classList.add('open');
-  if (_noteCaricate.has(accId)) return;
-  _noteCaricate.add(accId);
-  const nSeduta = accId.replace('acc-', '');
-  const areaId  = 'notes-' + nSeduta;
-  const area    = document.getElementById(areaId);
-  if (!area) return;
-  try {
-    const res  = await fetch(`${API}?token=${TOKEN}&azione=leggi_note&id=${id}&n_seduta=${nSeduta}`);
-    const json = await res.json();
-    if (!json.ok || !json.note.length) return;
-    const banners = json.note.map(n => `
-      <div class="coach-note-banner">
-        <div class="cnb-label">📋 ${L.noteCoach || 'Messaggio del coach'}</div>
-        <div class="cnb-text">${n.testo.replace(/</g,'&lt;')}</div>
-      </div>`).join('');
-    area.innerHTML = banners;
-  } catch (_) {}
 }
 
 function mostraWellness(accId) {
+  if (String(id) === '99') { apriSedutaConNote(accId); return; }
   if (localStorage.getItem(wellnessKey())) {
     // Già risposto oggi → apri seduta direttamente
     apriSedutaConNote(accId);
