@@ -1458,6 +1458,7 @@ function apriSedutaConNote(accId) {
 }
 
 function mostraWellness(accId) {
+  if (String(id) === '99') { apriSedutaConNote(accId); return; }
   if (localStorage.getItem(wellnessKey())) {
     // Già risposto oggi → apri seduta direttamente
     apriSedutaConNote(accId);
