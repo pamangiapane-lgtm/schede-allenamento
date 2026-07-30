@@ -55,7 +55,9 @@ async function caricaGiocatrici() {
     const json = await res.json();
     if (!json.ok) throw new Error(json.errore);
     lista.innerHTML = '';
-    json.dati.filter(g => !isNaN(parseInt(g.ID))).sort((a, b) => a.Nome.localeCompare(b.Nome, 'it', {sensitivity:'base'})).forEach(g => {
+    const reali = json.dati.filter(g => !isNaN(parseInt(g.ID)) && String(g.ID) !== '99');
+    const demo  = json.dati.find(g => String(g.ID) === '99');
+    reali.sort((a, b) => a.Nome.localeCompare(b.Nome, 'it', {sensitivity:'base'})).forEach(g => {
       const div = document.createElement('div');
       div.className = 'giocatrice-card';
       div.innerHTML = `
@@ -68,6 +70,23 @@ async function caricaGiocatrici() {
       div.onclick = () => { window.location.href = `scheda.html?id=${g.ID}`; };
       lista.appendChild(div);
     });
+    if (demo) {
+      const sep = document.createElement('div');
+      sep.style.cssText = 'margin:18px 0 8px;border-top:1px solid var(--border,#dde1e9);';
+      lista.appendChild(sep);
+      const div = document.createElement('div');
+      div.className = 'giocatrice-card';
+      div.style.cssText = 'opacity:0.6;border-style:dashed;';
+      div.innerHTML = `
+        <div class="giocatrice-info">
+          <strong>${demo.Nome}</strong>
+          <span style="font-size:0.75rem;color:var(--text-light,#888);font-style:italic">Accesso demo — solo coach</span>
+        </div>
+        <span class="arrow">›</span>
+      `;
+      div.onclick = () => { window.location.href = `scheda.html?id=99`; };
+      lista.appendChild(div);
+    }
   } catch (err) {
     lista.innerHTML = `<p class="errore-msg">Errore nel caricamento dati. Riprova.</p>`;
   }
