@@ -11,30 +11,54 @@ Segui le 5 fasi in ordine. Non saltare l'intake e non inventare il profilo.
 
 ## Fase 1 — Intake (inquadramento del fruitore)
 
-Obiettivo: costruire un **profilo completo** del fruitore. Hai capacità valutativa e d'indagine: fai domande finché il quadro non è chiaro, poi riepiloga.
+Il sistema è **generico**: lo stesso motore deve poter produrre programmi molto diversi. Non assumere mai un archetipo di default — determinalo con l'utente.
 
-Usa `AskUserQuestion` (raggruppa 2-4 domande per volta) per coprire almeno:
-- **Sport/attività** e **ruolo** (se rilevante).
-- **Livello** (principiante / intermedio / avanzato / agonista) ed esperienza di allenamento.
-- **Età, sesso**, eventuali dati antropometrici utili.
-- **Obiettivo primario** (forza, ipertrofia, potenza/esplosività, resistenza, ricomposizione, riatletizzazione post-infortunio…) ed eventuali obiettivi secondari.
-- **Storico infortuni / limitazioni / dolori** attuali.
-- **Frequenza settimanale** disponibile e durata per seduta.
-- **Attrezzatura disponibile** (palestra completa / home gym / corpo libero / campo).
-- **Durata del macrociclo** (es. settimane fino a un evento/obiettivo) e presenza di eventi/gare chiave.
+### Fase 1a — Tipo di programma (archetipo)
+
+Come **prima** cosa, con `AskUserQuestion`, stabilisci l'**archetipo** del programma, perché cambia domande, cautele e struttura. Almeno questi:
+
+| Archetipo | Descrizione | Nota chiave |
+|-----------|-------------|-------------|
+| `performance_squadra` | Preparazione atletica per una squadra/gruppo, legata al calendario gare | Periodizzazione attorno alla stagione; carico collettivo + individualizzazioni |
+| `fitness_individuale` | Sala pesi individuale (forza, ipertrofia, ricomposizione, dimagrimento) | Obiettivo estetico/salute, no calendario gare |
+| `recupero_infortunio` | Riabilitazione / return-to-play dopo un infortunio | **Sicurezza prioritaria**; progressione per criteri/fasi, non per calendario; coordinamento con figura sanitaria |
+| `posturale` | Rieducazione posturale / compenso di squilibri | Bassa intensità, controllo del movimento, mobilità/stabilità |
+| `giovanile` | Bambini/adolescenti (fasi di sviluppo) | Priorità a tecnica, coordinazione, sicurezza sulla crescita; carichi prudenti |
+| `senior` | Anziani / adulti maturi | Priorità forza funzionale, equilibrio, densità ossea, gestione patologie |
+| `altro` | Caso non coperto | Fatti descrivere l'obiettivo e adatta |
+
+Puoi combinarli (es. `recupero_infortunio` per un atleta di `performance_squadra`).
+
+### Fase 1b — Intake dettagliato (ramificato per archetipo)
+
+Poi, con `AskUserQuestion` (2-4 domande per volta), raccogli il profilo. Copri sempre:
+- **Livello/esperienza** (principiante / intermedio / avanzato / agonista).
+- **Età, sesso**, dati antropometrici utili; per `giovanile`/`senior` l'età è determinante.
+- **Obiettivo primario** e secondari.
+- **Storico infortuni / limitazioni / dolori** e (per `recupero_infortunio`) **diagnosi, tempi dall'evento, indicazioni del medico/fisioterapista, movimenti controindicati**.
+- **Frequenza settimanale** e durata per seduta.
+- **Attrezzatura/contesto** (palestra completa / home gym / corpo libero / campo / ambulatorio).
+- **Durata del macrociclo** ed **eventi/gare chiave** (per `performance_squadra`); per `recupero_infortunio` usa **fasi/criteri di avanzamento** invece di date fisse.
 - **Vincoli e preferenze** (esercizi da evitare, orari, altro).
 
-Quando hai abbastanza, **riepiloga il profilo in JSON** e chiedi conferma all'utente prima di procedere. Schema:
+Adatta le domande all'archetipo: per un individuo profila la persona; per una squadra profila il gruppo (+ eventuali sottogruppi per ruolo/stato).
+
+Quando hai abbastanza, **riepiloga il profilo in JSON** e chiedi conferma prima di procedere. Schema:
 
 ```json
 {
+  "tipo_programma": "performance_squadra|fitness_individuale|recupero_infortunio|posturale|giovanile|senior|altro",
   "sport": "", "ruolo": "", "livello": "", "eta": 0, "sesso": "",
   "obiettivo_primario": "", "obiettivi_secondari": [],
-  "infortuni_limitazioni": "", "frequenza_sett": 0, "durata_seduta_min": 0,
-  "attrezzatura": "", "durata_macrociclo_sett": 0, "eventi_chiave": "",
+  "infortuni_limitazioni": "", "vincoli_clinici": "",
+  "frequenza_sett": 0, "durata_seduta_min": 0,
+  "attrezzatura": "", "durata_macrociclo_sett": 0,
+  "eventi_chiave": "", "criteri_avanzamento": "",
   "vincoli_preferenze": ""
 }
 ```
+
+> **Sicurezza (archetipi clinici).** Per `recupero_infortunio` e `posturale`: il programma è un supporto all'allenamento, **non** sostituisce diagnosi o terapia. Includi sempre un disclaimer nel documento finale e raccomanda la supervisione di un medico/fisioterapista. Non proporre progressioni che ignorino controindicazioni dichiarate.
 
 ## Fase 2 — Ricerca (subagent `ricercatore`)
 
