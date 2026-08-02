@@ -180,7 +180,7 @@
 </div><!-- fine container -->
 
 <script>
-const IS_DEV = window.location.pathname.includes('/dev/');
+const IS_DEV = window.location.pathname.includes('/dev/') || window.location.hostname === 'localhost';
 const API   = IS_DEV
   ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
   : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
@@ -301,8 +301,8 @@ function traduciDescMetodo(desc) {
 
 /* ── FASE TABS ── */
 const FASI_DEF = [
-  { id: 'base',    label: 'W1-3 Base',  labelEN: 'W1-3 Base'  },
-  { id: 'picco',   label: 'W4-5 Picco', labelEN: 'W4-5 Peak'  },
+  { id: 'base',    label: 'W1-4 Base',  labelEN: 'W1-4 Base'  },
+  { id: 'picco',   label: 'W5 Picco',   labelEN: 'W5 Peak'    },
   { id: 'potenza', label: 'W6 Potenza', labelEN: 'W6 Power'   },
   { id: 'taper',   label: 'W7 Taper',   labelEN: 'W7 Taper'   },
 ];
