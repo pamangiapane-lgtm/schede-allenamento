@@ -437,30 +437,30 @@ function renderWeek(w) {
 
   html += '</tbody></table></div></div>';
 
-  // ── Alert automatici ──
+  // ── Osservazioni automatiche ──
   const alerts = [];
   for (const g of atlete) {
     const m    = mMap[String(g.ID)];
     const name = `${g.Nome} ${g.Cognome||''}`.trim();
 
     if (m.dolori !== null && m.dolori >= 4)
-      alerts.push({ l:'r', t:`⚠ ${name} — Dolori ${f1(m.dolori)}/5`, b:'Segnalazione clinica. Verificare con fisioterapista.' });
+      alerts.push({ l:'r', t:`${name} — Dolori ${f1(m.dolori)}/5`, b:`Valore sopra la media del gruppo questa settimana.` });
     if (m.rpe !== null && m.rpe >= 7.5)
-      alerts.push({ l:'r', t:`${name} — RPE medio ${f1(m.rpe)}/10`, b:'Intensità percepita molto alta. Valutare riduzione carico.' });
+      alerts.push({ l:'r', t:`${name} — RPE medio ${f1(m.rpe)}/10`, b:`Carico percepito nella parte alta della scala per questa settimana.` });
     if (m.sonno !== null && m.sonno < 3 && m.hasWellness)
-      alerts.push({ l:'a', t:`${name} — Sonno ${f1(m.sonno)}/5`, b:'Qualità recupero bassa. Indagare fattori esterni.' });
+      alerts.push({ l:'a', t:`${name} — Qualità sonno ${f1(m.sonno)}/5`, b:`Inferiore alla media del gruppo questa settimana.` });
     if (m.rpe !== null && m.rpe >= 6.5 && m.rpe < 7.5)
-      alerts.push({ l:'a', t:`${name} — RPE ${f1(m.rpe)}/10`, b:'Carico percepito elevato — monitorare nelle prossime sedute.' });
+      alerts.push({ l:'a', t:`${name} — RPE ${f1(m.rpe)}/10`, b:`Carico percepito nella parte medio-alta questa settimana.` });
     if (m.sedSet.length === 0 && past)
-      alerts.push({ l:'a', t:`${name} — 0 sedute in W${w}`, b:'Nessuna seduta registrata nella settimana.' });
+      alerts.push({ l:'a', t:`${name} — Nessuna seduta registrata in W${w}`, b:`Nessun dato disponibile per questa settimana.` });
     else if (m.sedSet.length === 1 && past)
-      alerts.push({ l:'a', t:`${name} — 1/${showSed.length} sedute`, b:'Compliance bassa per la settimana.' });
+      alerts.push({ l:'a', t:`${name} — 1 seduta registrata questa settimana`, b:`Dato parziale rispetto alle sedute previste.` });
     else if (m.sedSet.length >= 3)
-      alerts.push({ l:'g', t:`✓ ${name} — ${m.sedSet.length}/${showSed.length} sedute`, b:'Compliance completa.' });
+      alerts.push({ l:'g', t:`${name} — ${m.sedSet.length} sedute registrate questa settimana`, b:`Tutte le sedute previste completate.` });
   }
 
   if (alerts.length > 0) {
-    html += `<div class="section"><div class="s-title">Segnalazioni W${w}</div><div class="alerts">`;
+    html += `<div class="section"><div class="s-title">Note settimana W${w}</div><div class="alerts">`;
     alerts.forEach(a => {
       html += `<div class="alert al-${a.l}">
         <div class="alert-t">${esc(a.t)}</div>
@@ -486,9 +486,9 @@ function renderWeek(w) {
       const border = hasDAlert ? 'border-color:var(--red);border-width:2px'
                    : hasSAlert ? 'border-color:var(--amber);border-width:2px' : '';
       const badge  = hasDAlert
-        ? `<span style="background:#fee2e2;color:#991b1b;font-size:.58rem;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:3px">⚠ DOLORE</span>`
+        ? `<span style="background:#fee2e2;color:#991b1b;font-size:.58rem;padding:1px 5px;border-radius:3px;font-weight:600;margin-left:3px">dolori ↑</span>`
         : hasSAlert
-        ? `<span style="background:#fef3c7;color:#78350f;font-size:.58rem;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:3px">⚠ SONNO</span>`
+        ? `<span style="background:#fef3c7;color:#78350f;font-size:.58rem;padding:1px 5px;border-radius:3px;font-weight:600;margin-left:3px">sonno ↓</span>`
         : '';
 
       html += `<div class="wc" style="${border}">
