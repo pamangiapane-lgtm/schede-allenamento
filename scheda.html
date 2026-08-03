@@ -836,6 +836,40 @@ async function caricaScheda() {
           html += `</div>`;
         });
 
+        // Fallback: se Prehab individuale non ha righe in Esercizi per questa seduta,
+        // mostralo comunque in fondo (evita che versioni mancanti dei dati lo nascondano)
+        if (!metodiOrd.includes('Prehab individuale')) {
+          if (g.Link_Prehab) {
+            let obiettivoHtml = '';
+            const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
+            if (_obvSrc) {
+              try {
+                const obv = JSON.parse(_obvSrc);
+                const fase = g.Fase_Prehab || 'F1';
+                const testo = obv[fase] || '';
+                if (testo) obiettivoHtml = `<div class="prehab-obiettivo">${testo}</div>`;
+              } catch(e) {}
+            }
+            html += `<div class="metodo-block">
+              <div class="metodo-titolo">${traduciMetodo('Prehab individuale')} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>
+              <div class="prehab-wrap">
+                ${obiettivoHtml}
+                <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
+                  <span class="prehab-link-dot"></span>
+                  ${L.prehabBtn}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+              </div>
+            </div>`;
+          } else if (faseAttiva) {
+            html += `<div class="metodo-block">
+              <div class="metodo-titolo">${traduciMetodo('Prehab individuale')}</div>
+              <div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
+            faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
+            html += `</div>`;
+          }
+        }
+
         html += htmlFeedbackSeduta(sed.Numero_Seduta, feedbackLog[sed.Numero_Seduta] || {});
         html += htmlFineSeduta(sed.Numero_Seduta);
         html += `</div></div>`;
