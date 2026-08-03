@@ -589,12 +589,20 @@ function htmlIndividuale(e, sedSuffix) {
 }
 
 /* ---------- cache ---------- */
-const CACHE_V = 'v1';
+const CACHE_V   = 'v2';
+const CACHE_TTL = 10 * 60 * 1000; // 10 minuti — dopo scade e si ri-fetcha
 function leggiCache(f) {
-  try { const r = localStorage.getItem(`sch_${CACHE_V}_${f}`); return r ? JSON.parse(r) : null; } catch { return null; }
+  try {
+    const r = localStorage.getItem(`sch_${CACHE_V}_${f}`);
+    if (!r) return null;
+    const obj = JSON.parse(r);
+    if (!obj || !obj._ts || !obj._d) return null;
+    if (Date.now() - obj._ts > CACHE_TTL) return null; // scaduta
+    return obj._d;
+  } catch { return null; }
 }
 function scriviCache(f, dati) {
-  try { localStorage.setItem(`sch_${CACHE_V}_${f}`, JSON.stringify(dati)); } catch {}
+  try { localStorage.setItem(`sch_${CACHE_V}_${f}`, JSON.stringify({ _ts: Date.now(), _d: dati })); } catch {}
 }
 
 /* ---------- caricamento ---------- */
