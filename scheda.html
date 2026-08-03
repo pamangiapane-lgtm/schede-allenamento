@@ -605,6 +605,23 @@ function scriviCache(f, dati) {
   try { localStorage.setItem(`sch_${CACHE_V}_${f}`, JSON.stringify({ _ts: Date.now(), _d: dati })); } catch {}
 }
 
+/* ---------- POST con retry e controllo ok ---------- */
+async function postApi(payload, tentativo = 0) {
+  const MAX = 2;
+  try {
+    const r    = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+    const json = await r.json().catch(() => ({}));
+    if (json.ok === false) throw new Error(json.errore || 'server error');
+    return json;
+  } catch (err) {
+    if (tentativo < MAX) {
+      await new Promise(res => setTimeout(res, 1500 * (tentativo + 1)));
+      return postApi(payload, tentativo + 1);
+    }
+    throw err;
+  }
+}
+
 /* ---------- caricamento ---------- */
 async function fetchApi(foglio, tentativo = 0) {
   const TIMEOUT = 28000;
@@ -965,16 +982,12 @@ async function salvaLog(inputId, btn) {
   btn.disabled    = true;
 
   try {
-    await fetch(API, {
-      method:  'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta, esercizio: esercizio,
-        data: new Date().toLocaleDateString('it-IT'),
-        valore, note: '',
-        kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
-      }),
+    await postApi({
+      token: TOKEN, azione: 'log_progressi',
+      id_giocatrice: id, n_seduta: nSeduta, esercizio: esercizio,
+      data: new Date().toLocaleDateString('it-IT'),
+      valore, note: '',
+      kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
     });
 
     ultimiLog[esercizio] = { valore, rm, kg };
@@ -1039,29 +1052,21 @@ async function fineSeduta(nSeduta, btn) {
       const carico = parseFloat(input.dataset.carico) || null;
       const valore = carico != null ? `${carico} kg` : `RM ~${rm} kg`;
       salvati.push({ label: nome, detail: valore });
-      promises.push(fetch(API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          token: TOKEN, azione: 'log_progressi',
-          id_giocatrice: id, n_seduta: nSeduta,
-          esercizio: nome, data, valore, note: '',
-          kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
-        }),
+      promises.push(postApi({
+        token: TOKEN, azione: 'log_progressi',
+        id_giocatrice: id, n_seduta: nSeduta,
+        esercizio: nome, data, valore, note: '',
+        kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
       }));
       ultimiLog[nome] = { valore, rm, kg };
     } else if (kg > 0) {
       /* ha messo il peso ma non le reps — salva solo il kg */
       salvati.push({ label: nome, detail: `${kg} kg` });
-      promises.push(fetch(API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          token: TOKEN, azione: 'log_progressi',
-          id_giocatrice: id, n_seduta: nSeduta,
-          esercizio: nome, data, valore: `${kg} kg`, note: '',
-          kg_usati: kg, reps_fatte: '', rm_stimato: '',
-        }),
+      promises.push(postApi({
+        token: TOKEN, azione: 'log_progressi',
+        id_giocatrice: id, n_seduta: nSeduta,
+        esercizio: nome, data, valore: `${kg} kg`, note: '',
+        kg_usati: kg, reps_fatte: '', rm_stimato: '',
       }));
     } else {
       mancanti.push(nome);
@@ -1073,14 +1078,10 @@ async function fineSeduta(nSeduta, btn) {
   if (rpeBtn) {
     const val = rpeBtn.textContent.trim();
     salvati.push({ label: L.rpeLabel, detail: `${val}/10` });
-    promises.push(fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta, esercizio: 'RPE-seduta',
-        data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
-      }),
+    promises.push(postApi({
+      token: TOKEN, azione: 'log_progressi',
+      id_giocatrice: id, n_seduta: nSeduta, esercizio: 'RPE-seduta',
+      data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
     }));
   } else {
     mancanti.push(L.rpeLabel);
@@ -1091,14 +1092,10 @@ async function fineSeduta(nSeduta, btn) {
   if (fatBtn) {
     const val = fatBtn.textContent.trim();
     salvati.push({ label: L.fatLabel, detail: `${val}/5` });
-    promises.push(fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta, esercizio: 'Fatica-seduta',
-        data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
-      }),
+    promises.push(postApi({
+      token: TOKEN, azione: 'log_progressi',
+      id_giocatrice: id, n_seduta: nSeduta, esercizio: 'Fatica-seduta',
+      data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
     }));
   } else {
     mancanti.push(L.fatLabel);
