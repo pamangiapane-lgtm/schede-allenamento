@@ -276,6 +276,17 @@ function weekSessions(w) {
 }
 
 function getNoteForWeek(id, w) {
+  // Snapshot: usa nota di approvazione + notaCoach snapshot
+  if (w === currentWeekNum() && approvedSnapshot) {
+    const sid    = String(id);
+    const atleta = approvedSnapshot.data.atleti.find(a => a.id === sid);
+    const parts  = [];
+    const approvalNote = approvedSnapshot.noteAtleta[sid];
+    if (approvalNote) parts.push(approvalNote);
+    if (atleta?.notaCoach) parts.push(atleta.notaCoach);
+    return parts.join('\n\n') || null;
+  }
+  // Live: cerca in noteCoach per settimana
   const { start, end } = weekBounds(w);
   const sid = String(id);
   const match = noteCoach
@@ -314,24 +325,58 @@ function truncate(s, n) {
 // ─── Render week ──────────────────────────────────────────────────────────────
 
 function renderWeek(w) {
-  const atlete  = giocatrici.filter(g => String(g.ID) !== '99');
-  const sessions = weekSessions(w);
-  const rpeMap   = buildRpeMap(w);
-  const past     = isWeekPast(w);
-  const currW    = currentWeekNum();
+  const currW   = currentWeekNum();
+  const past    = isWeekPast(w);
+  const useSnap = (w === currW && approvedSnapshot !== null);
+
+  // Settimana corrente senza snapshot approvato → "In aggiornamento"
+  if (w === currW && !approvedSnapshot) {
+    const isSunday = new Date().getDay() === 0;
+    return `<div class="empty-week">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+      </svg>
+      <h3>Report W${w} · ${weekLabel(w)}</h3>
+      <p>${isSunday ? 'Il report è in attesa di approvazione — disponibile dopo la conferma del coach.' : 'Il report sarà disponibile dopo l\'approvazione domenicale del coach.'}</p>
+    </div>`;
+  }
+
+  let allAtlete = giocatrici.filter(g => String(g.ID) !== '99');
+  let sessions, rpeMap;
 
   // Calcolo metriche per ogni atleta
   const mMap = {};
   let totalSed = 0, rpeVals = [], fatVals = [], alertDolori = 0, activeCount = 0;
 
-  for (const g of atlete) {
-    const m = athleteMetrics(g.ID, w);
-    mMap[String(g.ID)] = m;
+  if (useSnap) {
+    // Usa dati snapshot: filtra atleti nascosti, usa metriche pre-calcolate
+    const hidden = new Set(approvedSnapshot.atletiNascosti);
+    allAtlete = allAtlete.filter(g => !hidden.has(String(g.ID)));
+    sessions  = [...new Set(approvedSnapshot.data.atleti.flatMap(a => a.sedute))].sort();
+    rpeMap    = {};
+    for (const a of approvedSnapshot.data.atleti) {
+      mMap[a.id] = { sedSet: a.sedute, rpe: a.rpe, fat: a.fat, sonno: a.sonno, dolori: a.dolori, energia: a.energia, hasWellness: a.hasWellness, wNote: a.wNote || '' };
+      rpeMap[a.id] = {};
+    }
+  } else {
+    sessions = weekSessions(w);
+    rpeMap   = buildRpeMap(w);
+    for (const g of allAtlete) {
+      const m = athleteMetrics(g.ID, w);
+      mMap[String(g.ID)] = m;
+    }
+  }
+
+  for (const g of allAtlete) {
+    const m = mMap[String(g.ID)];
+    if (!m) continue;
     if (m.sedSet.length > 0) { activeCount++; totalSed += m.sedSet.length; }
     if (m.rpe    !== null) rpeVals.push(m.rpe);
     if (m.fat    !== null) fatVals.push(m.fat);
     if (m.dolori !== null && m.dolori >= 3.5) alertDolori++;
   }
+
+  const atlete = allAtlete;
 
   // Settimana senza dati
   if (totalSed === 0 && !mMap[String(atlete[0]?.ID)]?.hasWellness && w > currW) {
@@ -349,6 +394,23 @@ function renderWeek(w) {
   const compliance = atlete.length > 0 ? Math.round(totalSed / (atlete.length * 3) * 100) : 0;
 
   let html = '';
+
+  // ── Banner snapshot ──
+  if (useSnap) {
+    const ts = approvedSnapshot.timestampApprovazione
+      ? new Date(approvedSnapshot.timestampApprovazione).toLocaleString('it-IT', { weekday:'short', day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' })
+      : '';
+    html += `<div class="section"><div class="alert al-g" style="border-left-color:var(--green)">
+      <div class="alert-t" style="color:var(--green)">Report approvato${ts ? ' · ' + ts : ''}</div>
+      <div class="alert-b">Snapshot settimanale verificato dal coach. I dati riportati si riferiscono alla settimana W${w}.</div>
+    </div></div>`;
+    if (approvedSnapshot.notaGenerale) {
+      html += `<div class="section"><div class="alert al-a">
+        <div class="alert-t">Nota coach — W${w}</div>
+        <div class="alert-b">${esc(approvedSnapshot.notaGenerale)}</div>
+      </div></div>`;
+    }
+  }
 
   // ── KPI ──
   html += `<div class="kpi-row">
@@ -573,6 +635,8 @@ function lastSundayNoon() {
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
+let approvedSnapshot = null; // snapshot approvato per la settimana corrente
+
 async function init() {
   document.getElementById('page').innerHTML = `
     <div class="loading-state">
@@ -581,30 +645,34 @@ async function init() {
     </div>`;
   document.getElementById('live-badge').textContent = '⟳ Caricamento';
   weekCache = {};
+  approvedSnapshot = null;
 
   try {
-    const [rg, rp, rw, rn] = await Promise.all([
+    const curW = currentWeekNum();
+    const [rg, rp, rw, rn, rs] = await Promise.all([
       apiFetch({ azione:'leggi', foglio:'Giocatrici' }),
       apiFetch({ azione:'leggi', foglio:'Progressi'  }),
       apiFetch({ azione:'leggi', foglio:'Wellness'   }),
       apiFetch({ azione:'leggi_tutte_note' }).catch(() => ({ ok:true, note:[] })),
+      apiFetch({ azione:'leggi_snapshot', w: curW }).catch(() => ({ ok:true, snapshot:null })),
     ]);
 
     giocatrici = (rg.dati||[]).filter(g => g.ID && g.Nome && String(g.ID) !== '99');
     progressi  = rp.dati || [];
     wellness   = rw.dati || [];
     noteCoach  = rn.note || [];
+    approvedSnapshot = (rs.ok && rs.snapshot) ? rs.snapshot : null;
 
     const now       = new Date();
     const fetchTime = now.toLocaleTimeString('it-IT', { hour:'2-digit', minute:'2-digit' });
     const fetchDate = now.toLocaleDateString('it-IT', { day:'2-digit', month:'short' });
-    const lastSun   = lastSundayNoon();
-    const lastSunStr= lastSun.toLocaleDateString('it-IT', { weekday:'short', day:'numeric', month:'short' });
 
     document.getElementById('hdr-sub').textContent =
-      `Dati live da PROD · ${giocatrici.length} atlete · Scaricato ${fetchDate} alle ${fetchTime}`;
+      approvedSnapshot
+        ? `Snapshot approvato · W${curW} · ${giocatrici.length} atlete`
+        : `Dati live da PROD · ${giocatrici.length} atlete · Scaricato ${fetchDate} alle ${fetchTime}`;
     document.getElementById('live-badge').textContent =
-      `🔴 Live · W${currentWeekNum()}`;
+      approvedSnapshot ? `✓ Approvato · W${curW}` : `🔴 Live · W${curW}`;
 
     renderTabs();
     scheduleRefresh();
