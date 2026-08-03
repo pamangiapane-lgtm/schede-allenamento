@@ -107,17 +107,6 @@ tr:hover td{background:var(--accent-bg)}
 .empty-week h3{font-size:1rem;font-weight:600;color:var(--muted);margin-bottom:6px}
 .empty-week p{font-size:.78rem}
 
-/* SESSION SNAPSHOT */
-.sess-snap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.sess-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 15px}
-.sess-card.sess-empty{background:transparent;border-color:transparent}
-.sess-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px}
-.sess-lbl{font-size:.62rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.06em}
-.sess-n{font-size:1.05rem;font-weight:800;line-height:1}
-.sess-rpe{font-size:.68rem;color:var(--muted);font-weight:600;margin-bottom:9px}
-.sess-tags{display:flex;flex-wrap:wrap;gap:4px}
-.sess-tag{background:var(--accent-bg);color:var(--text);font-size:.6rem;font-weight:500;padding:2px 7px;border-radius:4px;white-space:nowrap}
-
 /* FOOTER */
 .footer{text-align:center;font-size:.62rem;color:var(--faint);margin-top:28px;border-top:1px solid var(--border);padding-top:12px;padding-bottom:20px}
 
@@ -333,60 +322,6 @@ function truncate(s, n) {
   return s.length > n ? s.substring(0, n) + '…' : s;
 }
 
-// ─── Session snapshot (3-col card grid) ──────────────────────────────────────
-
-function renderSessionSnapshot(w, sessions, mMap, atlete) {
-  if (!sessions || sessions.length === 0) return '';
-  const { start, end } = weekBounds(w);
-
-  const cards = sessions.map(sid => {
-    const nAtlete = atlete.filter(g => {
-      const m = mMap[String(g.ID)];
-      if (!m) return false;
-      return m.sedSet instanceof Set ? m.sedSet.has(sid) : (m.sedSet || []).includes(sid);
-    }).length;
-
-    const rpeVals = [], exCount = {}, seenRpe = new Set();
-    progressi.forEach(p => {
-      if (String(p.N_Seduta) !== sid) return;
-      const ts = p.Timestamp ? new Date(p.Timestamp) : null;
-      if (!ts || ts < start || ts >= end) return;
-      if (p.Esercizio === 'RPE-seduta') {
-        const aid = String(p.ID_Giocatrice);
-        if (!seenRpe.has(aid)) { seenRpe.add(aid); rpeVals.push(Number(p.Valore)); }
-      } else if (!SKIP.has(p.Esercizio)) {
-        exCount[p.Esercizio] = (exCount[p.Esercizio] || 0) + 1;
-      }
-    });
-
-    const rpeAvg = rpeVals.length ? rpeVals.reduce((a,b)=>a+b,0)/rpeVals.length : null;
-    const topEx  = Object.entries(exCount).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([n])=>n);
-    return { sid, nAtlete, rpeAvg, topEx };
-  });
-
-  while (cards.length % 3 !== 0) cards.push(null);
-
-  const cardsHtml = cards.map(c => {
-    if (!c) return `<div class="sess-card sess-empty"></div>`;
-    const label   = /^\d+$/.test(c.sid) ? `Seduta ${c.sid}` : c.sid;
-    const rpeStr  = c.rpeAvg != null ? `RPE medio ${c.rpeAvg.toFixed(1)}/10` : '';
-    const tagsHtml = c.topEx.map(e => `<span class="sess-tag">${esc(e)}</span>`).join('');
-    return `<div class="sess-card">
-      <div class="sess-top">
-        <span class="sess-lbl">${esc(label)}</span>
-        <span class="sess-n">${c.nAtlete}<span style="font-size:.6rem;font-weight:400;color:var(--muted)"> atl</span></span>
-      </div>
-      ${rpeStr  ? `<div class="sess-rpe">${rpeStr}</div>` : ''}
-      ${tagsHtml ? `<div class="sess-tags">${tagsHtml}</div>` : ''}
-    </div>`;
-  }).join('');
-
-  return `<div class="section">
-    <div class="s-title">Sedute · W${w}</div>
-    <div class="sess-snap">${cardsHtml}</div>
-  </div>`;
-}
-
 // ─── Render week ──────────────────────────────────────────────────────────────
 
 function renderWeek(w) {
@@ -505,9 +440,6 @@ function renderWeek(w) {
       <div class="kpi-sub">${alertDolori>0?'dolori ≥ 3.5/5':'nessuno'}</div>
     </div>
   </div>`;
-
-  // ── Session snapshot ──
-  html += renderSessionSnapshot(w, sessions, mMap, atlete);
 
   // ── Tabella atlete ──
   const showSed = sessions.length > 0 ? sessions : ['1','2','3'];
