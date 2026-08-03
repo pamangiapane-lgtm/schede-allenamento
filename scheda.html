@@ -1210,10 +1210,14 @@ function buildProfilo(g, resE, resP, sedute) {
       logPerSeduta[sed].push(p);
     });
 
-  /* RM lookup (ultima stima per esercizio) */
+  /* RM lookup — sessioni come base, salvataggi manuali (n_seduta=0) prioritari */
   const rmMap = {};
   progressi
-    .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio))
+    .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio) && String(p.N_Seduta) !== '0')
+    .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
+    .forEach(p => { rmMap[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
+  progressi
+    .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio) && String(p.N_Seduta) === '0')
     .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
     .forEach(p => { rmMap[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
 
@@ -1323,16 +1327,12 @@ async function salvaMassimale(mId, nome, btn) {
   btn.textContent = '...';
   btn.disabled = true;
   try {
-    await fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: '0', esercizio: nome,
-        data: new Date().toLocaleDateString('it-IT'),
-        valore: `RM ${rm} kg`, note: '',
-        kg_usati: '', reps_fatte: '', rm_stimato: rm,
-      }),
+    await postApi({
+      token: TOKEN, azione: 'log_progressi',
+      id_giocatrice: id, n_seduta: '0', esercizio: nome,
+      data: new Date().toLocaleDateString('it-IT'),
+      valore: `RM ${rm} kg`, note: '',
+      kg_usati: '', reps_fatte: '', rm_stimato: rm,
     });
     btn.textContent = '✓';
     btn.style.background = 'var(--verde)';
