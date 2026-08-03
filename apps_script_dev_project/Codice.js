@@ -12,6 +12,8 @@ function doGet(e) {
     if (azione === 'leggi') return leggi(foglio);
     if (azione === 'leggi_note') return leggiNote(e.parameter.id, e.parameter.n_seduta);
     if (azione === 'leggi_tutte_note') return leggiTutteNote_();
+    if (azione === 'leggi_snapshot') return leggiSnapshot_(e.parameter.w || snapCurrentWeek_());
+    if (azione === 'pagina_approvazione') return paginaApprovazione_(e.parameter.snap_token);
     if (azione === 'conferma_riepilogo_settimanale') {
       inviaRiepilogoSettimanale();
       return HtmlService.createHtmlOutput(
@@ -38,6 +40,7 @@ function doPost(e) {
     if (azione === 'crea_foglio_info')  return creaFoglioInfo();
     if (azione === 'scrivi_nota_coach') return scriviNotaCoach_(body);
     if (azione === 'elimina_nota_coach') return eliminaNotaCoach_(body);
+    if (azione === 'approva_snapshot') return approvaSnapshot_(body);
     if (azione === 'invia_atleta')   return inviaRiepilogoAtleta_(body.id);
     if (azione === 'prepara_bozze') {
       if (String(body.coach_key) !== COACH_KEY) return errore('Coach key non valida');
@@ -1878,6 +1881,321 @@ function buildSchedaHTML_(g, tuttiSedute, tuttiEsercizi) {
     '<p style="font-size:.62rem;color:#cbd5e1">Marsala Volley 2026/27 · Backup scheda · Non condividere</p>' +
     '</div></div></body></html>';
 }
+
+// ── SNAPSHOT REPORT STAFF ───────────────────────────────────────────────────
+
+const SNAP_SHEET       = 'ReportSnapshot';
+const SNAP_W1_START    = new Date(2026, 6, 6); // 6 luglio 2026 (timezone script)
+const SNAP_TOTAL_WEEKS = 7;
+
+function snapWeekBounds_(w) {
+  const s = new Date(SNAP_W1_START);
+  s.setDate(s.getDate() + (w - 1) * 7);
+  s.setHours(0, 0, 0, 0);
+  const e = new Date(s);
+  e.setDate(e.getDate() + 6);
+  e.setHours(23, 59, 59, 999);
+  return [s, e];
+}
+
+function snapCurrentWeek_() {
+  const now = new Date();
+  for (let w = SNAP_TOTAL_WEEKS; w >= 1; w--) {
+    if (now >= snapWeekBounds_(w)[0]) return w;
+  }
+  return 1;
+}
+
+function computeSnapshotData_(w) {
+  const ss      = SpreadsheetApp.getActiveSpreadsheet();
+  const sheetG  = ss.getSheetByName('Giocatrici');
+  const sheetP  = ss.getSheetByName('Progressi');
+  const sheetWe = ss.getSheetByName('Wellness');
+  const sheetN  = ss.getSheetByName('Note_Coach');
+  if (!sheetG || !sheetP) throw new Error('Fogli mancanti (Giocatrici/Progressi)');
+
+  const atlete   = leggiRighe_(sheetG).filter(g => g.ID && !isNaN(parseInt(g.ID)) && String(g.ID) !== '99');
+  const progressi= leggiRighe_(sheetP);
+  const wellness = sheetWe ? leggiRighe_(sheetWe) : [];
+  const noteCoach= sheetN  ? leggiRighe_(sheetN)  : [];
+
+  const [wStart, wEnd] = snapWeekBounds_(w);
+  const SKIP = new Set(['RPE-seduta', 'Fatica-seduta', 'Peso-corporeo']);
+  const avgN = arr => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null;
+  const round1 = v => v !== null ? Math.round(v * 10) / 10 : null;
+
+  const oggi = new Date(); oggi.setHours(0, 0, 0, 0);
+  const noteAttive = noteCoach.filter(n => {
+    const ini = n.Data_Inizio ? new Date(n.Data_Inizio) : null;
+    const fin = n.Data_Fine   ? new Date(n.Data_Fine)   : null;
+    if (ini) { const d = new Date(ini); d.setHours(0,0,0,0); if (oggi < d) return false; }
+    if (fin) { const d = new Date(fin); d.setHours(23,59,59,999); if (oggi > d) return false; }
+    return true;
+  });
+
+  const atletiData = atlete.map(g => {
+    const id = String(g.ID);
+    const pSett = progressi.filter(p => {
+      if (String(p.ID_Giocatrice) !== id || !p.Timestamp) return false;
+      const ts = new Date(p.Timestamp);
+      return ts >= wStart && ts <= wEnd;
+    });
+    const sedute = [...new Set(pSett.filter(p => p.N_Seduta && p.N_Seduta !== '0').map(p => p.N_Seduta))];
+    const rpeVals = pSett.filter(p => p.Esercizio === 'RPE-seduta').map(p => Number(p.Valore)).filter(v => !isNaN(v) && v > 0);
+    const fatVals = pSett.filter(p => p.Esercizio === 'Fatica-seduta').map(p => Number(p.Valore)).filter(v => !isNaN(v) && v > 0);
+
+    const wSett = wellness.filter(we => {
+      if (String(we.ID_Giocatrice) !== id || !we.Timestamp) return false;
+      const ts = new Date(we.Timestamp);
+      return ts >= wStart && ts <= wEnd;
+    });
+    const sonno  = avgN(wSett.map(we => Number(we.Qualita_Sonno)).filter(v => !isNaN(v) && v > 0));
+    const dolori = avgN(wSett.map(we => Number(we.Dolori)).filter(v => !isNaN(v) && v > 0));
+    const energia= avgN(wSett.map(we => Number(we.Energia)).filter(v => !isNaN(v) && v > 0));
+    const wNote  = wSett.filter(we => we.Note).map(we => String(we.Note).trim()).filter(Boolean).join(' · ');
+
+    const maxPerEs = {};
+    pSett.filter(p => !SKIP.has(p.Esercizio)).forEach(p => {
+      const m = String(p.Valore).match(/[\d.]+/);
+      if (!m) return;
+      const kg = parseFloat(m[0]);
+      if (!maxPerEs[p.Esercizio] || kg > maxPerEs[p.Esercizio]) maxPerEs[p.Esercizio] = kg;
+    });
+    const carichi = Object.entries(maxPerEs).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([es, kg]) => ({ es, kg }));
+
+    const notaCoachTxt = noteAttive
+      .filter(n => String(n.ID_Giocatrice) === id || n.ID_Giocatrice === 'TUTTE')
+      .map(n => String(n.Testo).trim()).filter(Boolean).join(' | ');
+
+    return {
+      id, nome: String(g.Nome || ''), cognome: String(g.Cognome || ''),
+      sedute, carichi, notaCoach: notaCoachTxt, wNote,
+      rpe:    round1(avgN(rpeVals)),
+      fat:    round1(avgN(fatVals)),
+      sonno:  round1(sonno),
+      dolori: round1(dolori),
+      energia: round1(energia),
+      hasWellness: wSett.length > 0
+    };
+  });
+
+  const allenate  = atletiData.filter(a => a.sedute.length > 0).length;
+  const totSedute = atletiData.reduce((s, a) => s + a.sedute.length, 0);
+  const allRpe    = atletiData.filter(a => a.rpe !== null).map(a => a.rpe);
+  return {
+    settimana: w, timestamp: new Date().toISOString(),
+    kpi: { allenate, totale: atletiData.length, totSedute, rpe: round1(avgN(allRpe)) },
+    atleti: atletiData
+  };
+}
+
+function salvaSnapshot_(w, data) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(SNAP_SHEET);
+  if (!sheet) {
+    sheet = ss.insertSheet(SNAP_SHEET);
+    const h = ['Timestamp','Settimana','Token','Stato','Snapshot_JSON','Nota_Generale','Atleti_Nascosti','Note_Atleta','Timestamp_Approvazione'];
+    sheet.appendRow(h);
+    sheet.setFrozenRows(1);
+    sheet.getRange(1,1,1,h.length).setFontWeight('bold').setBackground('#1a3a6b').setFontColor('#fff');
+  }
+  // Elimina bozze precedenti per questa settimana
+  const vals = sheet.getDataRange().getValues();
+  for (let i = vals.length - 1; i >= 1; i--) {
+    if (String(vals[i][1]) === String(w) && String(vals[i][3]) === 'bozza') sheet.deleteRow(i + 1);
+  }
+  const token = 'snap-w' + w + '-' + Math.random().toString(36).substr(2, 10);
+  sheet.appendRow([new Date().toISOString(), w, token, 'bozza', JSON.stringify(data), '', '', '', '']);
+  SpreadsheetApp.flush();
+  return token;
+}
+
+function creaSnapshotSettimanale() {
+  const w     = snapCurrentWeek_();
+  const data  = computeSnapshotData_(w);
+  const token = salvaSnapshot_(w, data);
+  const GAS_URL = ScriptApp.getService().getUrl();
+  const approvalUrl = GAS_URL + '?token=' + TOKEN + '&azione=pagina_approvazione&snap_token=' + token;
+
+  const f1 = v => v !== null ? Number(v).toFixed(1) : '—';
+  const atletiRows = data.atleti.map(a => {
+    const flags = [];
+    if (a.dolori !== null && a.dolori >= 4) flags.push('dolori ' + f1(a.dolori));
+    if (a.rpe    !== null && a.rpe    >= 7.5) flags.push('RPE ' + f1(a.rpe));
+    if (a.sonno  !== null && a.sonno  < 3 && a.hasWellness) flags.push('sonno ' + f1(a.sonno));
+    return '<tr style="border-bottom:1px solid #f1f5f9">' +
+      '<td style="padding:6px 8px;font-size:.82rem;font-weight:600;color:#1a3a6b">' + esc_(a.nome) + '</td>' +
+      '<td style="padding:6px 8px;font-size:.82rem;text-align:center">' + a.sedute.length + '</td>' +
+      '<td style="padding:6px 8px;font-size:.82rem;text-align:center;color:' + (a.rpe >= 7.5 ? '#dc2626' : '#334155') + '">' + f1(a.rpe) + '</td>' +
+      '<td style="padding:6px 8px;font-size:.75rem;color:#64748b">' + (flags.join(' · ') || '—') + '</td>' +
+      '</tr>';
+  }).join('');
+
+  const emailHtml =
+    '<div style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto">' +
+    '<div style="background:#1a3a6b;color:#fff;padding:18px 22px">' +
+    '<p style="margin:0 0 2px;font-size:.6rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase">Marsala Volley · Anteprima report staff</p>' +
+    '<h2 style="margin:0;font-size:1.1rem;font-weight:700">Report W' + w + ' — anteprima</h2>' +
+    '<p style="margin:5px 0 0;font-size:.72rem;opacity:.65">Rivedi i dati, aggiungi note se vuoi, poi approva</p></div>' +
+    '<div style="padding:16px 20px;border:1px solid #e8edf5;border-top:none">' +
+    '<div style="display:flex;gap:10px;margin-bottom:16px">' +
+    '<div style="flex:1;background:#f8fafc;border:1px solid #e8edf5;border-radius:8px;padding:10px;text-align:center"><div style="font-size:1.3rem;font-weight:800;color:#1a3a6b">' + data.kpi.allenate + '/' + data.kpi.totale + '</div><div style="font-size:.62rem;color:#94a3b8;text-transform:uppercase">allenate</div></div>' +
+    '<div style="flex:1;background:#f8fafc;border:1px solid #e8edf5;border-radius:8px;padding:10px;text-align:center"><div style="font-size:1.3rem;font-weight:800;color:#1a3a6b">' + data.kpi.totSedute + '</div><div style="font-size:.62rem;color:#94a3b8;text-transform:uppercase">sedute</div></div>' +
+    '<div style="flex:1;background:#f8fafc;border:1px solid #e8edf5;border-radius:8px;padding:10px;text-align:center"><div style="font-size:1.3rem;font-weight:800;color:#1a3a6b">' + f1(data.kpi.rpe) + '</div><div style="font-size:.62rem;color:#94a3b8;text-transform:uppercase">RPE medio</div></div>' +
+    '</div>' +
+    '<table style="width:100%;border-collapse:collapse;border:1px solid #e8edf5;border-radius:8px;overflow:hidden">' +
+    '<thead><tr style="background:#f8fafc">' +
+    '<th style="padding:7px 8px;font-size:.6rem;color:#94a3b8;text-align:left;text-transform:uppercase">Atleta</th>' +
+    '<th style="padding:7px 8px;font-size:.6rem;color:#94a3b8;text-align:center;text-transform:uppercase">Sed.</th>' +
+    '<th style="padding:7px 8px;font-size:.6rem;color:#94a3b8;text-align:center;text-transform:uppercase">RPE</th>' +
+    '<th style="padding:7px 8px;font-size:.6rem;color:#94a3b8;text-align:left;text-transform:uppercase">Note</th>' +
+    '</tr></thead><tbody>' + atletiRows + '</tbody></table></div>' +
+    '<div style="padding:20px;text-align:center;border:1px solid #e8edf5;border-top:none">' +
+    '<a href="' + approvalUrl + '" style="display:inline-block;background:#16a34a;color:#fff;padding:14px 32px;border-radius:8px;font-size:.95rem;font-weight:700;text-decoration:none">Vai alla pagina di approvazione →</a>' +
+    '<p style="margin:10px 0 0;font-size:.68rem;color:#94a3b8">Puoi modificare note e nascondere atleti prima di approvare</p></div>' +
+    '<p style="text-align:center;font-size:.62rem;color:#cbd5e1;padding:8px 0">Marsala Volley 2026/27 · Report staff · Domenica ore 10:00</p></div>';
+
+  MailApp.sendEmail({
+    to: EMAIL_COACH,
+    subject: '[Approvazione] Report staff W' + w + ' — Marsala Volley',
+    htmlBody: emailHtml
+  });
+  Logger.log('Snapshot W' + w + ' creato e email inviata. Token: ' + token);
+}
+
+function leggiSnapshot_(w) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SNAP_SHEET);
+  if (!sheet) return risposta({ ok: true, snapshot: null });
+  const rows = leggiRighe_(sheet).filter(r => String(r.Settimana) === String(w) && r.Stato === 'approvato');
+  if (!rows.length) return risposta({ ok: true, snapshot: null });
+  rows.sort((a, b) => new Date(b.Timestamp_Approvazione) - new Date(a.Timestamp_Approvazione));
+  const r = rows[0];
+  return risposta({ ok: true, snapshot: {
+    data:                  JSON.parse(r.Snapshot_JSON),
+    notaGenerale:          r.Nota_Generale   || '',
+    atletiNascosti:        r.Atleti_Nascosti ? String(r.Atleti_Nascosti).split(',').map(s => s.trim()).filter(Boolean) : [],
+    noteAtleta:            r.Note_Atleta     ? JSON.parse(r.Note_Atleta)   : {},
+    timestampApprovazione: String(r.Timestamp_Approvazione)
+  }});
+}
+
+function paginaApprovazione_(snapToken) {
+  const ss    = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SNAP_SHEET);
+  if (!sheet) return HtmlService.createHtmlOutput('<p>Snapshot non trovato</p>');
+  const rows  = leggiRighe_(sheet);
+  const row   = rows.find(r => r.Token === snapToken);
+  if (!row) return HtmlService.createHtmlOutput('<p>Token non valido o snapshot già approvato</p>');
+  if (row.Stato === 'approvato') return HtmlService.createHtmlOutput(
+    '<div style="font-family:Arial;max-width:500px;margin:60px auto;text-align:center">' +
+    '<div style="font-size:4rem">✅</div><h2 style="color:#16a34a">Già approvato</h2>' +
+    '<p style="color:#64748b">Questo snapshot è già stato approvato e pubblicato.</p></div>');
+
+  const data    = JSON.parse(row.Snapshot_JSON);
+  const w       = data.settimana;
+  const GAS_URL = ScriptApp.getService().getUrl();
+  const f1      = v => v !== null ? Number(v).toFixed(1) : '—';
+  const prevNote = row.Note_Atleta ? JSON.parse(row.Note_Atleta) : {};
+
+  const atletiForm = data.atleti.map(a => {
+    const flags = [];
+    if (a.dolori !== null && a.dolori >= 4)  flags.push('<span style="color:#dc2626">dolori ' + f1(a.dolori) + '</span>');
+    if (a.rpe    !== null && a.rpe    >= 7.5) flags.push('<span style="color:#dc2626">RPE ' + f1(a.rpe) + '</span>');
+    if (a.sonno  !== null && a.sonno  < 3 && a.hasWellness) flags.push('<span style="color:#d97706">sonno ' + f1(a.sonno) + '</span>');
+    const carichiStr = a.carichi.map(c => c.es + ' ' + c.kg + 'kg').join(', ');
+    return '<div style="border:1px solid #e8edf5;border-radius:8px;padding:12px 14px;margin-bottom:8px;background:#fff">' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">' +
+      '<label style="display:flex;align-items:center;gap:5px;cursor:pointer;font-size:.72rem;color:#64748b">' +
+      '<input type="checkbox" name="nascondi" value="' + a.id + '"> Nascondi dal report</label>' +
+      '<span style="margin-left:auto;font-size:.7rem;color:#94a3b8">' + a.sedute.length + ' sed.</span></div>' +
+      '<div style="font-weight:700;font-size:.9rem;color:#1a3a6b;margin-bottom:2px">' + esc_(a.nome + ' ' + a.cognome).trim() + '</div>' +
+      (flags.length  ? '<div style="font-size:.74rem;margin-bottom:4px">' + flags.join(' · ') + '</div>' : '') +
+      (carichiStr    ? '<div style="font-size:.7rem;color:#64748b;margin-bottom:6px">' + esc_(carichiStr) + '</div>' : '') +
+      '<textarea name="nota_atleta_' + a.id + '" placeholder="Nota aggiuntiva per ' + esc_(a.nome) + ' (opzionale)..." ' +
+      'style="width:100%;font-size:.8rem;padding:8px;border:1px solid #e2e8f0;border-radius:6px;resize:vertical;min-height:50px;box-sizing:border-box;font-family:inherit">' +
+      esc_(prevNote[a.id] || '') + '</textarea></div>';
+  }).join('');
+
+  const html = '<!DOCTYPE html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+    '<title>Approva Report W' + w + ' — Marsala Volley</title>' +
+    '<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;background:#f0f4f8;color:#1e293b}' +
+    '.wrap{max-width:660px;margin:0 auto;padding:20px 14px 60px}' +
+    '.hdr{background:#1a3a6b;color:#fff;padding:16px 20px;border-radius:10px 10px 0 0}' +
+    '.body{background:#f8fafc;border:1px solid #e8edf5;border-top:none;padding:16px;border-radius:0 0 10px 10px}' +
+    '.kpi{display:flex;gap:8px;margin-bottom:16px}' +
+    '.kpi-c{flex:1;background:#fff;border:1px solid #e8edf5;border-radius:8px;padding:10px;text-align:center}' +
+    '.kpi-v{font-size:1.25rem;font-weight:800;color:#1a3a6b}.kpi-l{font-size:.6rem;color:#94a3b8;text-transform:uppercase;letter-spacing:.04em}' +
+    '.s-lbl{font-size:.6rem;font-weight:700;color:#94a3b8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}' +
+    'textarea.gen{width:100%;font-size:.84rem;padding:10px;border:1px solid #e2e8f0;border-radius:8px;resize:vertical;font-family:inherit;min-height:68px;margin-bottom:14px}' +
+    '.btn{width:100%;background:#16a34a;color:#fff;border:none;padding:14px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:6px}' +
+    '.btn:hover{background:#15803d}.btn:disabled{opacity:.6;cursor:default}</style></head><body>' +
+    '<div class="wrap"><div class="hdr">' +
+    '<p style="font-size:.6rem;opacity:.5;letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px">Marsala Volley · Approvazione</p>' +
+    '<h1 style="font-size:1.1rem;font-weight:700;color:#fff">Report W' + w + ' — anteprima</h1>' +
+    '<p style="font-size:.72rem;opacity:.65;margin-top:3px">Controlla, modifica se vuoi, poi approva</p></div>' +
+    '<div class="body"><div class="kpi">' +
+    '<div class="kpi-c"><div class="kpi-v">' + data.kpi.allenate + '/' + data.kpi.totale + '</div><div class="kpi-l">allenate</div></div>' +
+    '<div class="kpi-c"><div class="kpi-v">' + data.kpi.totSedute + '</div><div class="kpi-l">sedute</div></div>' +
+    '<div class="kpi-c"><div class="kpi-v">' + f1(data.kpi.rpe) + '</div><div class="kpi-l">RPE medio</div></div></div>' +
+    '<form id="frm"><input type="hidden" name="token" value="' + TOKEN + '">' +
+    '<input type="hidden" name="azione" value="approva_snapshot">' +
+    '<input type="hidden" name="snap_token" value="' + snapToken + '">' +
+    '<div class="s-lbl" style="margin-bottom:6px">Nota generale (appare in cima al report per lo staff)</div>' +
+    '<textarea name="nota_generale" class="gen" placeholder="Aggiungi un commento per tutto lo staff (opzionale)...">' + esc_(row.Nota_Generale || '') + '</textarea>' +
+    '<div class="s-lbl" style="margin-bottom:10px">Atleti — aggiungi note o nascondi</div>' +
+    atletiForm +
+    '<button type="submit" class="btn" id="btn-ok">✓ Approva e pubblica report W' + w + '</button></form></div></div>' +
+    '<script>' +
+    'var GAS="' + GAS_URL + '";' +
+    'document.getElementById("frm").addEventListener("submit",function(e){' +
+    'e.preventDefault();var btn=document.getElementById("btn-ok");btn.disabled=true;btn.textContent="Pubblicazione in corso...";' +
+    'var fd=new FormData(this);' +
+    'var body={token:fd.get("token"),azione:"approva_snapshot",snap_token:fd.get("snap_token"),nota_generale:fd.get("nota_generale"),atleti_nascosti:[],note_atleta:{}};' +
+    'fd.getAll("nascondi").forEach(function(id){body.atleti_nascosti.push(id);});' +
+    'for(var p of fd.entries()){if(p[0].startsWith("nota_atleta_")&&p[1].trim())body.note_atleta[p[0].replace("nota_atleta_","")]=p[1].trim();}' +
+    'fetch(GAS,{method:"POST",body:JSON.stringify(body)}).then(function(r){return r.json();})' +
+    '.then(function(d){if(d.ok){document.body.innerHTML=\'<div style="font-family:Arial;max-width:500px;margin:60px auto;text-align:center"><div style="font-size:4rem">✅</div><h2 style="color:#16a34a;margin:14px 0 8px">Report W' + w + ' approvato!</h2><p style="color:#64748b">Il report staff è ora visibile. Puoi chiudere questa pagina.</p></div>\';}' +
+    'else{alert("Errore: "+(d.errore||"sconosciuto"));btn.disabled=false;btn.textContent="✓ Approva e pubblica report W' + w + '";}})' +
+    '.catch(function(){alert("Errore di rete");btn.disabled=false;btn.textContent="✓ Approva e pubblica report W' + w + '";});});' +
+    '</script></body></html>';
+
+  return HtmlService.createHtmlOutput(html).setTitle('Approva Report W' + w + ' — Marsala Volley');
+}
+
+function approvaSnapshot_(body) {
+  const snapToken = body.snap_token;
+  const ss    = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(SNAP_SHEET);
+  if (!sheet) return errore('Foglio ReportSnapshot non trovato');
+  const vals  = sheet.getDataRange().getValues();
+  const heads = vals[0];
+  const col   = n => heads.indexOf(n);
+  for (let i = 1; i < vals.length; i++) {
+    if (String(vals[i][col('Token')]) !== String(snapToken)) continue;
+    const row = i + 1;
+    sheet.getRange(row, col('Stato') + 1).setValue('approvato');
+    sheet.getRange(row, col('Nota_Generale') + 1).setValue(body.nota_generale || '');
+    sheet.getRange(row, col('Atleti_Nascosti') + 1).setValue((body.atleti_nascosti || []).join(','));
+    sheet.getRange(row, col('Note_Atleta') + 1).setValue(JSON.stringify(body.note_atleta || {}));
+    sheet.getRange(row, col('Timestamp_Approvazione') + 1).setValue(new Date().toISOString());
+    SpreadsheetApp.flush();
+    return risposta({ ok: true });
+  }
+  return errore('Token non trovato: ' + snapToken);
+}
+
+// Esegui UNA VOLTA su PROD dall'editor per installare il trigger domenicale
+function installaTriggersSnapshot() {
+  ScriptApp.getProjectTriggers()
+    .filter(t => t.getHandlerFunction() === 'creaSnapshotSettimanale')
+    .forEach(t => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger('creaSnapshotSettimanale')
+    .timeBased().onWeekDay(ScriptApp.WeekDay.SUNDAY).atHour(10).create();
+  Logger.log('Trigger domenicale ore 10:00 installato per creaSnapshotSettimanale');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 
 function risposta(data) {
   return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
