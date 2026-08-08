@@ -1,6 +1,6 @@
 {
-  "versione": "1.1",
-  "aggiornato_il": "2026-07-30",
+  "versione": "1.2",
+  "aggiornato_il": "2026-08-08",
   "descrizione": "Indice curato della knowledge base di formazione dell'utente (pamangiapane@gmail.com) su Google Drive. È il 'database interno' del sistema: un catalogo con argomenti, archetipi e riferimenti (Drive id) per recuperare la fonte giusta senza leggere tutto. NON contiene il testo completo: i documenti si aprono on-demand via i tool mcp__Google_Drive__* usando l'id.",
   "note_accesso": "Ambiente remoto: i PDF NON sono su disco. Si leggono via Google Drive (read_file_content / download_file_content) con l'id. I percorsi locali C:\\Users\\paulo\\Documents\\Formazione\\... corrispondono a questo materiale su Drive e non sono raggiungibili da qui.",
   "cartelle": {
@@ -147,7 +147,7 @@
       "archetipi": [
         "fitness_individuale"
       ],
-      "note": "Base teorica del corso PT.",
+      "note": "Base teorica del corso PT. Ri-testato 2026-08-08: estrae solo marcatori di pagina, nessun testo reale (scansione senza layer OCR). Non ricaricato dall'utente.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -168,7 +168,7 @@
         "fitness_individuale",
         "performance_squadra"
       ],
-      "note": "Metodologia: gestione del carico, principi, adattamenti.",
+      "note": "Metodologia: gestione del carico, principi, adattamenti, zone FCmax/RPE, metodi forza/ipertrofia/metabolici/funzionali. Ri-testato 2026-08-08: testo presente ma rumoroso (watermark ELAV ripetuti); citazioni testuali poco affidabili. Non ricaricato dall'utente.",
       "estrazione": "ocr_rumoroso",
       "utilizzabile": true,
       "richiede_ocr": true
@@ -190,13 +190,13 @@
         "fitness_individuale",
         "performance_squadra"
       ],
-      "note": "Riferimento chiave per costruire macro/meso/microcicli.",
+      "note": "Riferimento chiave per costruire macro/meso/microcicli. Ri-testato 2026-08-08: testo presente ma rumoroso. Non ricaricato dall'utente.",
       "estrazione": "ocr_rumoroso",
       "utilizzabile": true,
       "richiede_ocr": true
     },
     {
-      "id": "1QIGrvwbFqo_HHNrh6NGAFpHcaBdfXyqJ",
+      "id": "1_Xw4VbV9M6s6OBdU2JAfl7cACFW168LT",
       "titolo": "ELAV — 1. Principi e Fondamenti del Recupero Funzionale",
       "fonte": "ELAV srl",
       "tipo": "dispensa",
@@ -211,13 +211,13 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "Base per l'archetipo recupero_infortunio.",
-      "estrazione": "ocr_rumoroso",
+      "note": "Base per l'archetipo recupero_infortunio. RICARICATA in versione OCR (id cambiato, prec. 1QIGrvwbFqo_HHNrh6NGAFpHcaBdfXyqJ). Ri-testato 2026-08-08: ~277k caratteri di testo OCR leggibile e strutturato (protocolli, fasi di ricondizionamento, classificazione lesioni).",
+      "estrazione": "ocr_pulito",
       "utilizzabile": true,
-      "richiede_ocr": true
+      "richiede_ocr": false
     },
     {
-      "id": "1A4lOutm0WM62m7N0aGR3zJZzgMhbyf1A",
+      "id": "1goC7P9d0otBtw-wz4dzeFYHWnZRy112f",
       "titolo": "ELAV — 2. Arto Inferiore (Modulo 1)",
       "fonte": "ELAV srl",
       "tipo": "dispensa",
@@ -232,13 +232,13 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "",
+      "note": "RICARICATA in versione OCR (id cambiato, prec. 1A4lOutm0WM62m7N0aGR3zJZzgMhbyf1A). Ri-testato 2026-08-08 (2 tentativi): estrazione ancora VUOTA. File molto grande (~65MB): il layer testo OCR non è estraibile con gli strumenti attuali. Da ri-OCR o comprimere/splittare.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
     },
     {
-      "id": "1auIC7aY3EacFyUfcEQJMGwR1t_oIzKdW",
+      "id": "1eX07azlo1hftvbB-TYV6gGLFwmRB_3_O",
       "titolo": "ELAV — 3. Arto Inferiore (Modulo 2)",
       "fonte": "ELAV srl",
       "tipo": "dispensa",
@@ -253,13 +253,13 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "",
-      "estrazione": "solo_immagine",
-      "utilizzabile": false,
-      "richiede_ocr": true
+      "note": "RICARICATA in versione OCR (id cambiato, prec. 1auIC7aY3EacFyUfcEQJMGwR1t_oIzKdW). Ri-testato 2026-08-08: ~285k caratteri di testo OCR molto pulito (anatomia dell'anca/coxofemorale, legamenti, femore).",
+      "estrazione": "ocr_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
     },
     {
-      "id": "1ZvO6brvF3w1a6D-VLDLqHrHE6QvrKYmL",
+      "id": "1mSyE7r3ryfr_CtT-lP4cBTL2RhqdRfYU",
       "titolo": "ELAV — 4. Colonna Vertebrale",
       "fonte": "ELAV srl",
       "tipo": "dispensa",
@@ -275,13 +275,13 @@
         "posturale",
         "recupero_infortunio"
       ],
-      "note": "Riferimento primario per l'archetipo posturale (rachide).",
+      "note": "Riferimento primario per l'archetipo posturale (rachide). RICARICATA in versione OCR (id cambiato, prec. 1ZvO6brvF3w1a6D-VLDLqHrHE6QvrKYmL). Ri-testato 2026-08-08 (2 tentativi): estrazione ancora VUOTA. File molto grande (~95MB): il layer testo OCR non è estraibile con gli strumenti attuali. Da ri-OCR o comprimere/splittare.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
     },
     {
-      "id": "1NIGzFMWR9Dlz5NpgfojZ_JTsIuU_yTho",
+      "id": "1RWJACNRzzVHozCGYHjwmyN5P4JCRUCFF",
       "titolo": "ELAV — 5. Arto Superiore",
       "fonte": "ELAV srl",
       "tipo": "dispensa",
@@ -297,7 +297,7 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "Utile per sport overhead (pallavolo/basket) e spalla.",
+      "note": "Utile per sport overhead (pallavolo/basket) e spalla. RICARICATA in versione OCR (id cambiato, prec. 1NIGzFMWR9Dlz5NpgfojZ_JTsIuU_yTho). Ri-testato 2026-08-08: testo OCR presente ma rumoroso (frammenti garbled tra paragrafi leggibili su valutazione spalla/gomito/polso); citazioni testuali con cautela.",
       "estrazione": "ocr_rumoroso",
       "utilizzabile": true,
       "richiede_ocr": true
@@ -317,7 +317,7 @@
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "",
+      "note": "Ri-testato 2026-08-08: estrazione vuota, ancora solo immagine. Non ricaricato dall'utente.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -337,7 +337,7 @@
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "",
+      "note": "Non ricaricato dall'utente; resta solo immagine.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -356,7 +356,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "",
+      "note": "Non ricaricato dall'utente; resta solo immagine.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -376,7 +376,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "",
+      "note": "Non ricaricato dall'utente; resta solo immagine.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -396,7 +396,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Monitoraggio del carico e composizione corporea.",
+      "note": "Monitoraggio del carico e composizione corporea. Non ricaricato dall'utente; resta solo immagine.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -415,7 +415,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Programmazione applicata allo sport di squadra.",
+      "note": "Programmazione applicata allo sport di squadra. Non ricaricato dall'utente; resta solo immagine.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -434,7 +434,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Esempio applicato reale.",
+      "note": "Esempio applicato reale. Non ricaricato dall'utente; resta solo immagine.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -452,7 +452,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "",
+      "note": "Non ricaricato dall'utente; resta solo immagine.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -468,7 +468,74 @@
         "evidenze"
       ],
       "archetipi": [],
-      "note": "",
+      "note": "Non ricaricato dall'utente; resta solo immagine.",
+      "estrazione": "solo_immagine",
+      "utilizzabile": false,
+      "richiede_ocr": true
+    },
+    {
+      "id": "1e6_0inJDktx3g6kOQaXJielvWMAkUYvq",
+      "titolo": "ELAV — A.L.E.S.A. Modificato (batteria test arto inferiore)",
+      "fonte": "ELAV srl",
+      "tipo": "pdf",
+      "priorita": "media",
+      "argomenti": [
+        "valutazione",
+        "test",
+        "return_to_play",
+        "arto_inferiore",
+        "asimmetrie"
+      ],
+      "archetipi": [
+        "recupero_infortunio",
+        "performance_squadra"
+      ],
+      "note": "Nuovo file (cartella Medical), catalogato 2026-08-08. Scheda test funzionali arto inferiore: CMT one leg press, single limb stance, Y-Balance Test, balzi bi/monopodalici, LSI/differenziali. Testo nativo pulito.",
+      "in_cartella": "elav_medical",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1w64C59wQDw0TEStdTZvvttQnHUi3ngsF",
+      "titolo": "ELAV — Questionari clinici (raccolta scale validate)",
+      "fonte": "ELAV srl",
+      "tipo": "pdf",
+      "priorita": "media",
+      "argomenti": [
+        "valutazione",
+        "questionari_clinici",
+        "dolore",
+        "anamnesi",
+        "return_to_play"
+      ],
+      "archetipi": [
+        "recupero_infortunio",
+        "posturale"
+      ],
+      "note": "Nuovo file (cartella Medical), catalogato 2026-08-08. Raccolta di scale/questionari validati tradotti in italiano: FADI e FADI Sport, KOOS, Lequesne anca/ginocchio, Roland-Morris, Oswestry, FABQ, Neck Pain Questionnaire, DASH, NRS dolore. Testo nativo pulito. Utile per screening/monitoraggio in rehab.",
+      "in_cartella": "elav_medical",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1sMpHyvR6pc33sVkEwBnidAE8FCZQvu7T",
+      "titolo": "ELAV — Questionari (versione short)",
+      "fonte": "ELAV srl",
+      "tipo": "pdf",
+      "priorita": "bassa",
+      "argomenti": [
+        "valutazione",
+        "questionari_clinici",
+        "dolore"
+      ],
+      "archetipi": [
+        "recupero_infortunio",
+        "posturale"
+      ],
+      "note": "Nuovo file (cartella Medical), catalogato 2026-08-08. Versione ridotta dei questionari: estrae solo l'intestazione (NRS dolore, Right/Left Foot), resto solo immagine. Per il contenuto usare 'Questionari clinici (raccolta scale validate)'.",
+      "in_cartella": "elav_medical",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -604,6 +671,11 @@
       "nota": "Approfondimenti medici."
     },
     {
+      "cartella_id": "1f3liPXiBNH8GivHhguP7Ioc7sqjj5d6A",
+      "titolo": "Elav/Medical/extra",
+      "nota": "Sottocartella nuova (creata 2026-08-06) dentro Medical, da esplorare."
+    },
+    {
       "cartella_id": "1as3JGx_FVFMKwT0iLEcHIY8lWWgjyb2u",
       "titolo": "Street Lifting Empire - Claudio Negro",
       "nota": "Forza a corpo libero / street lifting."
@@ -620,14 +692,26 @@
     }
   ],
   "verifica_accessibilita": {
-    "data": "2026-07-30",
-    "esito": "tutti i 27 documenti accessibili su Drive; nessun errore di accesso",
+    "data": "2026-08-08",
+    "esito": "30 documenti catalogati, tutti accessibili su Drive. Ri-verifica post ri-OCR dei PDF ELAV Medical: le dispense Medical sono state ricaricate con nuovi id (versioni OCR). 3 su 5 ora estraggono testo; 2 (Arto Inferiore Mod.1 ~65MB e Colonna Vertebrale ~95MB) restano non estraibili per dimensione. Aggiunti 3 nuovi file Medical (ALESA, Questionari, Questionari short).",
     "riepilogo": {
-      "nativo_pulito": 8,
-      "ocr_rumoroso": 4,
+      "nativo_pulito": 10,
+      "ocr_pulito": 2,
+      "ocr_rumoroso": 3,
       "foglio_ok": 2,
       "solo_immagine": 13
     },
-    "nota": "I file 'solo_immagine' sono scansioni senza layer di testo: NON usabili in retrieval finché non passano in OCR. Campo utilizzabile=false li marca. I 'ocr_rumoroso' sono usabili con cautela (citazioni testuali poco affidabili)."
+    "diventati_leggibili_2026_08_08": [
+      "ELAV — 1. Principi e Fondamenti del Recupero Funzionale (ocr_pulito)",
+      "ELAV — 3. Arto Inferiore (Modulo 2) (ocr_pulito)",
+      "ELAV — 5. Arto Superiore (ocr_rumoroso)"
+    ],
+    "ancora_da_ocr": [
+      "ELAV — 2. Arto Inferiore (Modulo 1): ricaricato OCR ma ~65MB, estrazione vuota",
+      "ELAV — 4. Colonna Vertebrale: ricaricato OCR ma ~95MB, estrazione vuota",
+      "ELAV PT Expert — 1. Teoria Introduttiva: solo immagine (non ricaricato)",
+      "ELAV Preparazione — Moduli 1-10: solo immagine (non ricaricati)"
+    ],
+    "nota": "I file 'solo_immagine' non hanno layer di testo estraibile: NON usabili in retrieval finché non passano un OCR efficace (utilizzabile=false). Per Arto Inferiore Mod.1 e Colonna Vertebrale il file È già una versione OCR ma la dimensione (65-95MB) impedisce l'estrazione con gli strumenti attuali: valutare compressione o split. Gli 'ocr_rumoroso' sono usabili con cautela (citazioni testuali poco affidabili)."
   }
 }
