@@ -1,8 +1,8 @@
 {
-  "versione": "1.2",
+  "versione": "1.3",
   "aggiornato_il": "2026-08-08",
   "descrizione": "Indice curato della knowledge base di formazione dell'utente (pamangiapane@gmail.com) su Google Drive. È il 'database interno' del sistema: un catalogo con argomenti, archetipi e riferimenti (Drive id) per recuperare la fonte giusta senza leggere tutto. NON contiene il testo completo: i documenti si aprono on-demand via i tool mcp__Google_Drive__* usando l'id.",
-  "note_accesso": "Ambiente remoto: i PDF NON sono su disco. Si leggono via Google Drive (read_file_content / download_file_content) con l'id. I percorsi locali C:\\Users\\paulo\\Documents\\Formazione\\... corrispondono a questo materiale su Drive e non sono raggiungibili da qui.",
+  "note_accesso": "Ambiente remoto: i PDF NON sono su disco. Si leggono via Google Drive (read_file_content / download_file_content) con l'id. I percorsi locali C:\\Users\\paulo\\Documents\\Formazione\\... corrispondono a questo materiale su Drive e non sono raggiungibili da qui. Da v1.3: molte dispense ELAV (immagine/OCR rumoroso) hanno ora una TRASCRIZIONE-TESTO equivalente (.txt, testo nativo pulito) nella sezione 'trascrizioni': è la fonte preferita per citazioni testuali affidabili.",
   "cartelle": {
     "formazione_root": {
       "id": "12a9-6kPPq5pRrq8ya_KXu-45M5rUuDFa",
@@ -27,6 +27,10 @@
     "elav_moduli_prep": {
       "id": "1PJVxL8ZjsHF0_UR0ke8MfXZG2obDqz2a",
       "titolo": "Elav — Moduli Preparazione Atletica (1-10)"
+    },
+    "trascrizioni_root": {
+      "id": "1ZJcMcr-aO0gS47URqrPMjSYtd38mDeEe",
+      "titolo": "Corsi/Elav/traascizioni (trascrizioni-testo dei video corsi)"
     },
     "sc_americano": {
       "id": "1AfLJsz6MMzJ19zffYsDS1kBDBefZ8Xtp",
@@ -147,7 +151,7 @@
       "archetipi": [
         "fitness_individuale"
       ],
-      "note": "Base teorica del corso PT. Ri-testato 2026-08-08: estrae solo marcatori di pagina, nessun testo reale (scansione senza layer OCR). Non ricaricato dall'utente.",
+      "note": "Base teorica del corso PT. Ri-testato 2026-08-08: estrae solo marcatori di pagina, nessun testo reale (scansione senza layer OCR). Non ricaricato dall'utente. Nessuna trascrizione-testo corrispondente al momento.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -168,7 +172,7 @@
         "fitness_individuale",
         "performance_squadra"
       ],
-      "note": "Metodologia: gestione del carico, principi, adattamenti, zone FCmax/RPE, metodi forza/ipertrofia/metabolici/funzionali. Ri-testato 2026-08-08: testo presente ma rumoroso (watermark ELAV ripetuti); citazioni testuali poco affidabili. Non ricaricato dall'utente.",
+      "note": "Metodologia: gestione del carico, principi, adattamenti, zone FCmax/RPE, metodi forza/ipertrofia/metabolici/funzionali. Ri-testato 2026-08-08: testo presente ma rumoroso (watermark ELAV ripetuti). FONTE PREFERITA ORA: trascrizione-testo 'PT Expert — Metodologia dell'Allenamento' (4 parti, testo nativo pulito) nella sezione trascrizioni.",
       "estrazione": "ocr_rumoroso",
       "utilizzabile": true,
       "richiede_ocr": true
@@ -190,7 +194,7 @@
         "fitness_individuale",
         "performance_squadra"
       ],
-      "note": "Riferimento chiave per costruire macro/meso/microcicli. Ri-testato 2026-08-08: testo presente ma rumoroso. Non ricaricato dall'utente.",
+      "note": "Riferimento chiave per costruire macro/meso/microcicli. Ri-testato 2026-08-08: testo presente ma rumoroso. FONTE PREFERITA ORA: trascrizione-testo 'PT Expert — Programmazione dell'Allenamento' (6 parti, testo nativo pulito) nella sezione trascrizioni.",
       "estrazione": "ocr_rumoroso",
       "utilizzabile": true,
       "richiede_ocr": true
@@ -211,7 +215,7 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "Base per l'archetipo recupero_infortunio. RICARICATA in versione OCR (id cambiato, prec. 1QIGrvwbFqo_HHNrh6NGAFpHcaBdfXyqJ). Ri-testato 2026-08-08: ~277k caratteri di testo OCR leggibile e strutturato (protocolli, fasi di ricondizionamento, classificazione lesioni).",
+      "note": "Base per l'archetipo recupero_infortunio. RICARICATA in versione OCR (id cambiato, prec. 1QIGrvwbFqo_HHNrh6NGAFpHcaBdfXyqJ). Ri-testato 2026-08-08: ~277k caratteri di testo OCR leggibile e strutturato. Disponibile anche trascrizione-testo 'Recovery — Mod.1 Principi e Fondamenti' (8 parti) come fonte alternativa pulita.",
       "estrazione": "ocr_pulito",
       "utilizzabile": true,
       "richiede_ocr": false
@@ -232,7 +236,7 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "RICARICATA in versione OCR (id cambiato, prec. 1A4lOutm0WM62m7N0aGR3zJZzgMhbyf1A). Ri-testato 2026-08-08 (2 tentativi): estrazione ancora VUOTA. File molto grande (~65MB): il layer testo OCR non è estraibile con gli strumenti attuali. Da ri-OCR o comprimere/splittare.",
+      "note": "RICARICATA in versione OCR (id cambiato, prec. 1A4lOutm0WM62m7N0aGR3zJZzgMhbyf1A). Ri-testato 2026-08-08 (2 tentativi): estrazione VUOTA, file ~65MB non estraibile. LACUNA ORA COPERTA: usare la trascrizione-testo 'Recovery — Mod.2 Arto Inferiore Piede/Caviglia' (6 parti r21-r26, testo nativo pulito) come fonte preferita per questo contenuto.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -253,7 +257,7 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "RICARICATA in versione OCR (id cambiato, prec. 1auIC7aY3EacFyUfcEQJMGwR1t_oIzKdW). Ri-testato 2026-08-08: ~285k caratteri di testo OCR molto pulito (anatomia dell'anca/coxofemorale, legamenti, femore).",
+      "note": "RICARICATA in versione OCR (id cambiato, prec. 1auIC7aY3EacFyUfcEQJMGwR1t_oIzKdW). Ri-testato 2026-08-08: ~285k caratteri di testo OCR molto pulito (anatomia anca/coxofemorale, legamenti, femore). Disponibile anche trascrizione-testo 'Recovery — Mod.3 Arto Inferiore Ginocchio/Anca' (9 parti r31-r36) come fonte alternativa.",
       "estrazione": "ocr_pulito",
       "utilizzabile": true,
       "richiede_ocr": false
@@ -275,7 +279,7 @@
         "posturale",
         "recupero_infortunio"
       ],
-      "note": "Riferimento primario per l'archetipo posturale (rachide). RICARICATA in versione OCR (id cambiato, prec. 1ZvO6brvF3w1a6D-VLDLqHrHE6QvrKYmL). Ri-testato 2026-08-08 (2 tentativi): estrazione ancora VUOTA. File molto grande (~95MB): il layer testo OCR non è estraibile con gli strumenti attuali. Da ri-OCR o comprimere/splittare.",
+      "note": "Riferimento primario per l'archetipo posturale (rachide). RICARICATA in versione OCR (id cambiato, prec. 1ZvO6brvF3w1a6D-VLDLqHrHE6QvrKYmL). Ri-testato 2026-08-08 (2 tentativi): estrazione VUOTA, file ~95MB non estraibile. LACUNA ORA COPERTA: usare la trascrizione-testo 'Recovery — Mod.4 Colonna Vertebrale' (5 parti r41-r46, testo nativo pulito) come fonte preferita per questo contenuto.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -297,7 +301,7 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "Utile per sport overhead (pallavolo/basket) e spalla. RICARICATA in versione OCR (id cambiato, prec. 1NIGzFMWR9Dlz5NpgfojZ_JTsIuU_yTho). Ri-testato 2026-08-08: testo OCR presente ma rumoroso (frammenti garbled tra paragrafi leggibili su valutazione spalla/gomito/polso); citazioni testuali con cautela.",
+      "note": "Utile per sport overhead (pallavolo/basket) e spalla. RICARICATA in versione OCR (id cambiato, prec. 1NIGzFMWR9Dlz5NpgfojZ_JTsIuU_yTho). Ri-testato 2026-08-08: testo OCR presente ma rumoroso. FONTE PREFERITA ORA: trascrizione-testo 'Recovery — Mod.5 Arto Superiore' (6 parti r51-r56, testo nativo pulito) nella sezione trascrizioni.",
       "estrazione": "ocr_rumoroso",
       "utilizzabile": true,
       "richiede_ocr": true
@@ -317,7 +321,7 @@
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "Ri-testato 2026-08-08: estrazione vuota, ancora solo immagine. Non ricaricato dall'utente.",
+      "note": "Ri-testato 2026-08-08: estrazione vuota, ancora solo immagine. Non ricaricato dall'utente. LACUNA ORA COPERTA: usare la trascrizione-testo 'Sport — Mod.3 Forza Condizionale' (9 parti s31-s36, testo nativo pulito) come fonte preferita per questo contenuto.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -337,7 +341,7 @@
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "Non ricaricato dall'utente; resta solo immagine.",
+      "note": "Non ricaricato dall'utente; resta solo immagine. LACUNA ORA COPERTA: usare la trascrizione-testo 'Sport — Mod.2 Allenamento Metabolico' (8 parti s21-s26, testo nativo pulito) come fonte preferita per questo contenuto.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -415,7 +419,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Programmazione applicata allo sport di squadra. Non ricaricato dall'utente; resta solo immagine.",
+      "note": "Programmazione applicata allo sport di squadra. Non ricaricato dall'utente; resta solo immagine. LACUNA ORA COPERTA: usare la trascrizione-testo 'Sport — Mod.6 Programmazione' (3 parti s62-s64, testo nativo pulito) come fonte preferita per questo contenuto.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -659,6 +663,403 @@
       "richiede_ocr": false
     }
   ],
+  "trascrizioni": [
+    {
+      "modulo": "PT Expert — Metodologia dell'Allenamento",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1phcyK11iWLps_j5Tc6yCB6pLrmwL5JYY",
+      "cartella_id": "1MNRpiWfs8rSCn0IrGDRKYuyKJCFVBDOg",
+      "priorita": "alta",
+      "argomenti": [
+        "metodologia",
+        "carico_allenamento",
+        "adattamenti",
+        "principi_allenamento",
+        "forza",
+        "ipertrofia"
+      ],
+      "archetipi": [
+        "fitness_individuale",
+        "performance_squadra"
+      ],
+      "note": "Trascrizione-testo pulita della Metodologia PT Expert; fonte preferita rispetto al PDF (ocr_rumoroso). Metodi ipertrofia/forza con parametri (piramidale, contrasto, mantieni carico/ripetizioni, superset, double set, stripping, long rest).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1QFbJeloH6y0pvoK6YFgRH3NFAUZSfnMg", "titolo": "Metodologia_FIT_METT_123 (parti 1-3)" },
+        { "id": "1crZd8CMHUPMGhLo8edDTm0D2KpMJ7w76", "titolo": "Metodologia_FIT_MET__4 (parte 4)" },
+        { "id": "1lhphiTFnZqKFz4HpjKyOPCJu4MoHJuDo", "titolo": "Metodologia_FIT_MET_5 (parte 5)" },
+        { "id": "1LWRb5xch3I7lOKGfFVSkkLE2mZNSQlgq", "titolo": "Metodologia_F_MET_6 (parte 6)" }
+      ]
+    },
+    {
+      "modulo": "PT Expert — Programmazione dell'Allenamento",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1T1QvvsAsGsb1XLOG53iNds1qtENSOdIm",
+      "cartella_id": "1ReCMvOy3qbspOh3-42AADgzGNS43RmDM",
+      "priorita": "alta",
+      "argomenti": [
+        "programmazione",
+        "periodizzazione",
+        "mesocicli",
+        "microcicli",
+        "progressioni"
+      ],
+      "archetipi": [
+        "fitness_individuale",
+        "performance_squadra"
+      ],
+      "note": "Trascrizione-testo pulita della Programmazione PT Expert; fonte preferita rispetto al PDF (ocr_rumoroso). Costruzione macro/meso/microcicli e progressioni.",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1hLyalRXb3BHqNFLyqfYbHQVGAe3P6sJf", "titolo": "Programmazione_F_PROG1 (parte 1)" },
+        { "id": "17E8fMiHixSKEnK_5aB1WuqA-HB0HHh01", "titolo": "Programmazione_F_PROG_2 (parte 2)" },
+        { "id": "1lppE9crJ5_8kZoAOmHi6Ko99P83GhHzG", "titolo": "Programmazione_F_PROG_3 (parte 3)" },
+        { "id": "1F8IuzDj87yGZ5UXRcxMYWxaU6YjYvGer", "titolo": "Programmazione_F_PROG_4 (parte 4)" },
+        { "id": "1PeKS3NT-LwkfoJfPWQyNOhaGqwnRadJH", "titolo": "Programmazione_F_PROG_5 (parte 5)" },
+        { "id": "1GiW4KEHdMWofjSTagEZ-Afz74m3vgb5v", "titolo": "Programmazione_F_PROG_6 (parte 6)" }
+      ]
+    },
+    {
+      "modulo": "Recovery — Mod.1 Principi e Fondamenti (Recupero Funzionale)",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1_Xw4VbV9M6s6OBdU2JAfl7cACFW168LT",
+      "cartella_id": "1g_REkLh7Ioi7jP7Fa2u0gM9467NraRgt",
+      "priorita": "alta",
+      "argomenti": [
+        "recupero_funzionale",
+        "riabilitazione",
+        "return_to_play",
+        "principi"
+      ],
+      "archetipi": [
+        "recupero_infortunio",
+        "posturale"
+      ],
+      "note": "Trascrizione-testo pulita dei Principi e Fondamenti del Recupero Funzionale. Fonte alternativa pulita al PDF (già ocr_pulito).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1Cgptlgev_v5m7_V9TCUBvKnmt9xY17fA", "titolo": "Mod1_Principi_e_Fondamenti_r11_1" },
+        { "id": "1JoTbgwic2UveVrhDsUxpAUaJbFS35nVA", "titolo": "Mod1_Principi_e_Fondamenti_r11_2" },
+        { "id": "1Kj0eOZXpU7xqUf-zAlEzrRVIzJ_QVdbx", "titolo": "Mod1_Principi_e_Fondamenti_r11_3" },
+        { "id": "1co6vKldUF2w44POEl_lMc0IJ6Mv8euPf", "titolo": "Mod1_Principi_e_Fondamenti_r13_1" },
+        { "id": "1s1dDuEBMBfxJwOVjsvoGpassrTgid3YU", "titolo": "Mod1_Principi_e_Fondamenti_r13_2" },
+        { "id": "18lxH932hXuie6hmhOFCSBTLV6-Pbbs0O", "titolo": "Mod1_Principi_e_Fondamenti_r15" },
+        { "id": "1QSEyT76Wo1CVMdTeeXkKnM9QJK6pRJrV", "titolo": "Mod1_Principi_e_Fondamenti_r16_1" },
+        { "id": "1VwcG1CpVBDCKx03IIlEBQ0NkPWls1alH", "titolo": "Mod1_Principi_e_Fondamenti_r16_2" }
+      ]
+    },
+    {
+      "modulo": "Recovery — Mod.2 Arto Inferiore: Piede e Caviglia",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1goC7P9d0otBtw-wz4dzeFYHWnZRy112f",
+      "cartella_id": "1p-EZP3tGBaUixm-RRyJ0_eAGTNOREEQ5",
+      "priorita": "alta",
+      "argomenti": [
+        "anatomia",
+        "arto_inferiore",
+        "piede",
+        "caviglia",
+        "riabilitazione",
+        "esercizi"
+      ],
+      "archetipi": [
+        "recupero_infortunio",
+        "posturale"
+      ],
+      "note": "COPRE una lacuna: il PDF corrispondente (ELAV — 2. Arto Inferiore Modulo 1) è ~65MB non estraibile. Questa trascrizione-testo è la fonte utilizzabile per piede/caviglia.",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1vlFLKpyvRWsHZTrSmu7jl0OGj22fO5hc", "titolo": "Mod2_Arto_Inferiore_Piede_Caviglia_r21" },
+        { "id": "1TvtVrJQgLaIMnbP5b6q3ouPhoDfIUXJ6", "titolo": "Mod2_Arto_Inferiore_Piede_Caviglia_r22" },
+        { "id": "1pu0abmIEsiFT2LuZhlTufwt8GnjNb9rY", "titolo": "Mod2_Arto_Inferiore_Piede_Caviglia_r23" },
+        { "id": "1IO7p8bM59F5WGJfGxRCaKwNjyL5Zaz5e", "titolo": "Mod2_Arto_Inferiore_Piede_Caviglia_r24" },
+        { "id": "1yOTqEK-eHx8iHQS-zxgJeJnJYrAB7pSD", "titolo": "Mod2_Arto_Inferiore_Piede_Caviglia_r25" },
+        { "id": "1IBubmpsrWyMOnSPqzMql3EzfxvSRVNxm", "titolo": "Mod2_Arto_Inferiore_Piede_Caviglia_r26" }
+      ]
+    },
+    {
+      "modulo": "Recovery — Mod.3 Arto Inferiore: Ginocchio e Anca",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1eX07azlo1hftvbB-TYV6gGLFwmRB_3_O",
+      "cartella_id": "16WTEBO1RbLcPu_6K6Z8ti3TeEl0HQIC0",
+      "priorita": "alta",
+      "argomenti": [
+        "anatomia",
+        "arto_inferiore",
+        "ginocchio",
+        "anca",
+        "riabilitazione",
+        "esercizi"
+      ],
+      "archetipi": [
+        "recupero_infortunio",
+        "posturale"
+      ],
+      "note": "Trascrizione-testo pulita per ginocchio/anca. Fonte alternativa al PDF (ELAV — 3. Arto Inferiore Modulo 2, già ocr_pulito).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1RfY0wNxnsepfTqhgfWtI0fLxIzmEhnua", "titolo": "Mod3_Arto_Inferiore_Ginocchio_Anca_r31" },
+        { "id": "1DUQaDWsIoqpjG3itbod_rEbAXgfr4tFG", "titolo": "Mod3_Arto_Inferiore_Ginocchio_Anca_r32" },
+        { "id": "1xG5pe4YF_vXzPenzo1U8y4mH6-Mw5HOk", "titolo": "Mod3_Arto_Inferiore_Ginocchio_Anca_r33" },
+        { "id": "1PakYWrCBkfmm6ghEabgU09jHeKNCVMR9", "titolo": "Mod3_Arto_Inferiore_Ginocchio_Anca_r34" },
+        { "id": "1aIqZJD05Y44nMoOC_MmVcrrPw1WOXN1m", "titolo": "Mod3_Arto_Inferiore_Ginocchio_Anca_r35" },
+        { "id": "1ERoCz_D4GFSX80f0O_hLZZJebI2jqEtO", "titolo": "Mod3_Arto_Inferiore_Ginocchio_Anca_r36_1" },
+        { "id": "1Ky5E2BDfxpS3LbiEOMNAlY1Y12yZKRWZ", "titolo": "Mod3_Arto_Inferiore_Ginocchio_Anca_r36_1b" },
+        { "id": "1jDOjBGEmVEKd4n4xK8zcG87nWDeEHrRp", "titolo": "Mod3_Arto_Inferiore_Ginocchio_Anca_r36_2" },
+        { "id": "14sonZwu4g70bU5N1Xkjsue2IY8RqEbvk", "titolo": "Mod3_Arto_Inferiore_Ginocchio_Anca_r36_2b" }
+      ]
+    },
+    {
+      "modulo": "Recovery — Mod.4 Colonna Vertebrale",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1mSyE7r3ryfr_CtT-lP4cBTL2RhqdRfYU",
+      "cartella_id": "1qvstEM4mW07r-xVtJcTT8SQFRmG4goZg",
+      "priorita": "alta",
+      "argomenti": [
+        "anatomia",
+        "colonna_vertebrale",
+        "postura",
+        "riabilitazione",
+        "core"
+      ],
+      "archetipi": [
+        "posturale",
+        "recupero_infortunio"
+      ],
+      "note": "COPRE una lacuna importante: il PDF corrispondente (ELAV — 4. Colonna Vertebrale) è ~95MB non estraibile. Questa trascrizione-testo è la fonte primaria utilizzabile per l'archetipo posturale (rachide). Parti r41,r43,r44,r45,r46 (r42 non presente).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1xGzmi_Jy64y4JAs6eLRsJVne86adLgzK", "titolo": "Mod4_Colonna_Vertebrale_r41" },
+        { "id": "1Db6Yk9alOsHt6Xq1Las6SpwblbYrZRVC", "titolo": "Mod4_Colonna_Vertebrale_r43" },
+        { "id": "1RTafC53N_h1o2BtUuaJpe7d2oUTnKro7", "titolo": "Mod4_Colonna_Vertebrale_r44" },
+        { "id": "1hogmiLEAkU0y_3WnFWghl5nDOt6DjfVJ", "titolo": "Mod4_Colonna_Vertebrale_r45" },
+        { "id": "1O-SUWlde8EiISC8BEFew2Dg-QbVetNda", "titolo": "Mod4_Colonna_Vertebrale_r46" }
+      ]
+    },
+    {
+      "modulo": "Recovery — Mod.5 Arto Superiore",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1RWJACNRzzVHozCGYHjwmyN5P4JCRUCFF",
+      "cartella_id": "12xPjYpDvvByufGI1F4M28vAJgKMHL1aP",
+      "priorita": "media",
+      "argomenti": [
+        "anatomia",
+        "arto_superiore",
+        "spalla",
+        "riabilitazione",
+        "esercizi"
+      ],
+      "archetipi": [
+        "recupero_infortunio",
+        "posturale"
+      ],
+      "note": "Trascrizione-testo pulita dell'arto superiore/spalla; fonte preferita rispetto al PDF (ocr_rumoroso). Utile per sport overhead.",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1B0sLlHx1tN2oVWIzQX6YDCiFhVVqxyRG", "titolo": "Mod5_Arto_Superiore_r51" },
+        { "id": "16sCNECZey830O9W4l1HerF2Ew8jO4V11", "titolo": "Mod5_Arto_Superiore_r52" },
+        { "id": "1XprHDwsxBPtEu-cDh7oGI1HrhZ5SJJ-_", "titolo": "Mod5_Arto_Superiore_r53" },
+        { "id": "1sfiNtomCeeYLrmQkFDDuY4NQtVBqWj_I", "titolo": "Mod5_Arto_Superiore_r54" },
+        { "id": "1texe7AWrUZoMgkwQ1PNus1WweOgKSs8G", "titolo": "Mod5_Arto_Superiore_r55" },
+        { "id": "13Y02zg_6tKl4VyXLq0hC8tHF8acD37KU", "titolo": "Mod5_Arto_Superiore_r56" }
+      ]
+    },
+    {
+      "modulo": "Sport — Mod.1 Biomeccanica",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": null,
+      "cartella_id": "1FlbsDduW5JLdki00sMFQf7FhlyJHSBoC",
+      "priorita": "alta",
+      "argomenti": [
+        "biomeccanica",
+        "fondamenti",
+        "tecnica_esercizi"
+      ],
+      "archetipi": [
+        "performance_squadra",
+        "fitness_individuale"
+      ],
+      "note": "Nuovo tema non coperto dai PDF indicizzati. Biomeccanica applicata all'allenamento. 10 parti (s11-s15).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1BE4nj-FxdA7FpLHvBEcj1dgGd30RxYKI", "titolo": "Mod1_Biomeccanica_s11" },
+        { "id": "1wmZlHTEx7Ol9JdjyaBJNxh1NUA7CgD1d", "titolo": "Mod1_Biomeccanica_s112" },
+        { "id": "1e6qJ8RYKEw11JVYX6Y_0cpvFqmrPpkpA", "titolo": "Mod1_Biomeccanica_s113" },
+        { "id": "1W1vrKmEw37VMlDXydxaKqgipKJNDwdBW", "titolo": "Mod1_Biomeccanica_s121" },
+        { "id": "1CtdqLYNAXw8j-GgIHLbLxccrZP9bEHv0", "titolo": "Mod1_Biomeccanica_s122" },
+        { "id": "1-Dteuan6e9MPFAxVgWEno8ydxsGRgEKq", "titolo": "Mod1_Biomeccanica_s131" },
+        { "id": "1G-pDStrSWB6dO-H4c9xHyuLu2lDRSUD-", "titolo": "Mod1_Biomeccanica_s132" },
+        { "id": "1p-a2Fr6B3CBZm_eg7acAbuWd-ZMsJ5vl", "titolo": "Mod1_Biomeccanica_s141" },
+        { "id": "1v9OceOZkCwQTz3BQEQRbpfy2NtuU4v1l", "titolo": "Mod1_Biomeccanica_s142" },
+        { "id": "1g3tRzxCpBfKZuKCRVU3OtTMInKbR1a0a", "titolo": "Mod1_Biomeccanica_s15" }
+      ]
+    },
+    {
+      "modulo": "Sport — Mod.2 Allenamento Metabolico",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1NTo81_GCaVdPvM36MpM_Qc6WlDJKvfcB",
+      "cartella_id": "1RvL2XblRfgwkRyuQUbd4dZCb1R_7m0i_",
+      "priorita": "media",
+      "argomenti": [
+        "condizionamento_metabolico",
+        "resistenza",
+        "energetica"
+      ],
+      "archetipi": [
+        "performance_squadra",
+        "fitness_individuale"
+      ],
+      "note": "COPRE una lacuna: il PDF corrispondente (ELAV Preparazione — Modulo 2 Metabolico) è solo immagine. Questa trascrizione-testo è la fonte utilizzabile. 8 parti (s21-s26).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "11rKkMgaMTxQXbVk7A2xKCaPiTVFGqVDW", "titolo": "Mod2_Allenamento_Metabolico_s21" },
+        { "id": "1mbdwDKXcb4TRyVsnjxDYuI5cZibmQFbl", "titolo": "Mod2_Allenamento_Metabolico_s222" },
+        { "id": "1eyl0j455_1w8Loz-EL9yrR-S11PWJnnV", "titolo": "Mod2_Allenamento_Metabolico_s223" },
+        { "id": "1OOz7qdvZT-Q2TPZ5c4DNVwFOGLWG93YC", "titolo": "Mod2_Allenamento_Metabolico_s231" },
+        { "id": "1ejSM3TZ19yTpMs0da4MA5Duxv7oGtmtJ", "titolo": "Mod2_Allenamento_Metabolico_s232" },
+        { "id": "1fswiBWc4WbhLfp4p6lwAH0zysQ2xNDuu", "titolo": "Mod2_Allenamento_Metabolico_s24" },
+        { "id": "1cicyVG866czYu_C-9cgfasBQHniiZW_5", "titolo": "Mod2_Allenamento_Metabolico_s25" },
+        { "id": "1NspSLdoMmOJ5qQZVSPUV7XnQxkxLbHHb", "titolo": "Mod2_Allenamento_Metabolico_s26" }
+      ]
+    },
+    {
+      "modulo": "Sport — Mod.3 Forza Condizionale",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1_rtrGSDMZ--JiImOxte5hOBu-CPorxaU",
+      "cartella_id": "1pk6X_7NdyUOT6p_EEpZhroU8-P9bLNbU",
+      "priorita": "alta",
+      "argomenti": [
+        "forza",
+        "capacita_condizionali",
+        "programmazione"
+      ],
+      "archetipi": [
+        "performance_squadra",
+        "fitness_individuale"
+      ],
+      "note": "COPRE una lacuna: il PDF corrispondente (ELAV Preparazione — Modulo 1 Forza condizionale) è solo immagine. Questa trascrizione-testo è la fonte utilizzabile. 9 parti (s31-s36).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "11kMWJAtn3ble8wHdypr7wisntbtcmseR", "titolo": "Mod3_Forza_Condizionale_s31" },
+        { "id": "1ht8nYyz619m2qKimrqQoKexWS2JZWkQ4", "titolo": "Mod3_Forza_Condizionale_s321" },
+        { "id": "1GzNP0XreCyzuOo_GZLeRvg9Xv08sxYdU", "titolo": "Mod3_Forza_Condizionale_s322" },
+        { "id": "12Lu2hzCqH6hZjPnnGD-rdLBHYQj2hOJB", "titolo": "Mod3_Forza_Condizionale_s331" },
+        { "id": "1rxJOINL06pH8F3YfK5vx6e_8WAcKOTfz", "titolo": "Mod3_Forza_Condizionale_s332" },
+        { "id": "1-ewm8TaCrG-KG6QNAUQwQTnEQHTZi4Py", "titolo": "Mod3_Forza_Condizionale_s333" },
+        { "id": "1ETC9hEdcZvWonIAGgSuJD0J4mzDiXduv", "titolo": "Mod3_Forza_Condizionale_s34" },
+        { "id": "11-DtSs22u5ezu1asmBWMc1Erxx9B8p-C", "titolo": "Mod3_Forza_Condizionale_s35" },
+        { "id": "1Cw-avYK_1eJE_SjXhTSWcmqaKdR0q-I-", "titolo": "Mod3_Forza_Condizionale_s36" }
+      ]
+    },
+    {
+      "modulo": "Sport — Mod.6 Programmazione",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1b4DIAdbeJsjOvocghHaN-I4hjSkkDrX2",
+      "cartella_id": "1B9q-6yuUcFMv9gZPelfpyDFl4NMp6idw",
+      "priorita": "alta",
+      "argomenti": [
+        "programmazione",
+        "periodizzazione",
+        "stagione"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "COPRE una lacuna: il PDF corrispondente (ELAV Preparazione — Modulo 6 Programmazione) è solo immagine. Questa trascrizione-testo è la fonte utilizzabile per la programmazione sport di squadra. 3 parti (s62-s64).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1sBBnI87OqPuR2TcJFgo-swjHYwqwuWAc", "titolo": "Mod6_Programmazione_s62" },
+        { "id": "12hKiNKF8G-AvvOWRzPEH3fZ9ZN6XLf1H", "titolo": "Mod6_Programmazione_s63" },
+        { "id": "1_KaHuQxA-tG3oAMQeoCPUTASwsH49o43", "titolo": "Mod6_Programmazione_s64" }
+      ]
+    },
+    {
+      "modulo": "Squillante — Forza e Periodizzazione",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": null,
+      "cartella_id": "1CYz4s1iT0utKMOcf39AheY_wOmFPL7Ed",
+      "priorita": "alta",
+      "argomenti": [
+        "forza",
+        "periodizzazione",
+        "programmazione"
+      ],
+      "archetipi": [
+        "performance_squadra",
+        "fitness_individuale"
+      ],
+      "note": "Lezioni Squillante su forza e periodizzazione. Nuovo tema (docente Squillante), non coperto dai PDF indicizzati. 2 parti testo (sottocartella frame video ignorata).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1u50HpPNrE4SbgCeQaiyiOdCLjgREMuZk", "titolo": "Lezioni_Squillante_2022_12_23 (Forza e Periodizzazione)" },
+        { "id": "1BSaMGNVfTvAJ9RpBqc45LNqKl4Kn99Nz", "titolo": "Lezioni_Squillante_5_presentazione_pc" }
+      ]
+    },
+    {
+      "modulo": "Squillante — Pliometria",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": null,
+      "cartella_id": "1SpgbVj3cOTm_C61k9K23k4u86c2lnxLp",
+      "priorita": "alta",
+      "argomenti": [
+        "pliometria",
+        "potenza",
+        "forza_esplosiva"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "Lezioni Squillante su pliometria/potenza. Nuovo tema (docente Squillante), non coperto dai PDF indicizzati. 6 parti testo (sottocartella frame video ignorata).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1E9v9Wr6DDfv4iV95Oiy3Vy_iMxRINZA-", "titolo": "Lezioni_Squillante_1_0" },
+        { "id": "1fiu2NwI1spSYNdtyY4DZ3ifdI8IuzAvA", "titolo": "Lezioni_Squillante_1" },
+        { "id": "1L_JkId7VK1eYGiMsyn-uH5gsyHfWsSDU", "titolo": "Lezioni_Squillante_1_2" },
+        { "id": "1EX_vYzvvFxz9lX-othwBS33__grrlSe7", "titolo": "Lezioni_Squillante_2" },
+        { "id": "18iTRNdtYnrpF4DOkuORpPLlJUsIDPNks", "titolo": "Lezioni_Squillante_3" },
+        { "id": "1N5PwHnkZtDaLxOsaqBLIprTiusIekIea", "titolo": "Lezioni_Squillante_4" }
+      ]
+    }
+  ],
   "da_catalogare": [
     {
       "cartella_id": "1GVAv6WizJM6aJF0UqwS8mf-yt7HtvI4E",
@@ -693,13 +1094,37 @@
   ],
   "verifica_accessibilita": {
     "data": "2026-08-08",
-    "esito": "30 documenti catalogati, tutti accessibili su Drive. Ri-verifica post ri-OCR dei PDF ELAV Medical: le dispense Medical sono state ricaricate con nuovi id (versioni OCR). 3 su 5 ora estraggono testo; 2 (Arto Inferiore Mod.1 ~65MB e Colonna Vertebrale ~95MB) restano non estraibili per dimensione. Aggiunti 3 nuovi file Medical (ALESA, Questionari, Questionari short).",
+    "esito": "30 documenti + 14 moduli di trascrizioni-testo (82 file .txt) catalogati, tutti accessibili su Drive. v1.3: aggiunta la sezione 'trascrizioni' (albero Corsi/Elav/traascizioni). Le trascrizioni sono testo nativo pulito e diventano la fonte preferita per i PDF ELAV che erano solo_immagine o ocr_rumoroso; sono coperte lacune prima non estraibili (Arto Inferiore Piede/Caviglia, Colonna Vertebrale, Forza Condizionale, Metabolico, Programmazione Sport).",
     "riepilogo": {
       "nativo_pulito": 10,
       "ocr_pulito": 2,
       "ocr_rumoroso": 3,
       "foglio_ok": 2,
-      "solo_immagine": 13
+      "solo_immagine": 13,
+      "trascrizioni_moduli": 14,
+      "trascrizioni_file_testo": 82
+    },
+    "trascrizioni_catalogate_2026_08_08": {
+      "moduli": 14,
+      "file_testo": 82,
+      "coperture_lacune": [
+        "ELAV — 2. Arto Inferiore Modulo 1 (~65MB, vuoto) → Recovery Mod.2 Piede/Caviglia (6 parti)",
+        "ELAV — 4. Colonna Vertebrale (~95MB, vuoto) → Recovery Mod.4 Colonna (5 parti)",
+        "ELAV Preparazione — Modulo 1 Forza condizionale (solo immagine) → Sport Mod.3 Forza Condizionale (9 parti)",
+        "ELAV Preparazione — Modulo 2 Metabolico (solo immagine) → Sport Mod.2 Metabolico (8 parti)",
+        "ELAV Preparazione — Modulo 6 Programmazione (solo immagine) → Sport Mod.6 Programmazione (3 parti)"
+      ],
+      "fonti_preferite_su_ocr_rumoroso": [
+        "PT Expert — Metodologia (4 parti) sostituisce citazioni dal PDF 1phcyK11iWLps_j5Tc6yCB6pLrmwL5JYY",
+        "PT Expert — Programmazione (6 parti) sostituisce citazioni dal PDF 1T1QvvsAsGsb1XLOG53iNds1qtENSOdIm",
+        "Recovery Mod.5 Arto Superiore (6 parti) sostituisce citazioni dal PDF 1RWJACNRzzVHozCGYHjwmyN5P4JCRUCFF"
+      ],
+      "nuovi_temi": [
+        "Sport Mod.1 Biomeccanica (10 parti)",
+        "Squillante Forza e Periodizzazione (2 parti)",
+        "Squillante Pliometria (6 parti)"
+      ],
+      "esclusi": "Sottocartelle frame_* e file immagine (fotogrammi video), non testo."
     },
     "diventati_leggibili_2026_08_08": [
       "ELAV — 1. Principi e Fondamenti del Recupero Funzionale (ocr_pulito)",
@@ -707,11 +1132,11 @@
       "ELAV — 5. Arto Superiore (ocr_rumoroso)"
     ],
     "ancora_da_ocr": [
-      "ELAV — 2. Arto Inferiore (Modulo 1): ricaricato OCR ma ~65MB, estrazione vuota",
-      "ELAV — 4. Colonna Vertebrale: ricaricato OCR ma ~95MB, estrazione vuota",
-      "ELAV PT Expert — 1. Teoria Introduttiva: solo immagine (non ricaricato)",
-      "ELAV Preparazione — Moduli 1-10: solo immagine (non ricaricati)"
+      "ELAV — 2. Arto Inferiore (Modulo 1): PDF ~65MB non estraibile (contenuto ora disponibile via trascrizione Piede/Caviglia)",
+      "ELAV — 4. Colonna Vertebrale: PDF ~95MB non estraibile (contenuto ora disponibile via trascrizione Colonna)",
+      "ELAV PT Expert — 1. Teoria Introduttiva: solo immagine, nessuna trascrizione",
+      "ELAV Preparazione — Moduli 3,4,5,7,9,10: solo immagine, nessuna trascrizione"
     ],
-    "nota": "I file 'solo_immagine' non hanno layer di testo estraibile: NON usabili in retrieval finché non passano un OCR efficace (utilizzabile=false). Per Arto Inferiore Mod.1 e Colonna Vertebrale il file È già una versione OCR ma la dimensione (65-95MB) impedisce l'estrazione con gli strumenti attuali: valutare compressione o split. Gli 'ocr_rumoroso' sono usabili con cautela (citazioni testuali poco affidabili)."
+    "nota": "I file 'solo_immagine' non hanno layer di testo estraibile. Da v1.3, dove esiste una trascrizione-testo equivalente, quella è la fonte preferita per il retrieval e per le citazioni (testo nativo pulito), mentre il PDF resta con la sua estrazione originale (utilizzabile invariato)."
   }
 }
