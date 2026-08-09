@@ -829,8 +829,15 @@ async function caricaScheda() {
             html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
             if (m.desc) html += `<div class="metodo-desc">${traduciDescMetodo(m.desc)}</div>`;
             m.esercizi.forEach(e => {
-              const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
-              html += htmlEsercizio(e, logId);
+              if (e.Esercizio === 'Prehab individuale' && g.Link_Prehab) {
+                let _obHtml = '';
+                const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
+                if (_obvSrc) { try { const _o = JSON.parse(_obvSrc); const _t = _o[g.Fase_Prehab||'F1']||''; if (_t) _obHtml = `<div class="prehab-obiettivo">${_t}</div>`; } catch(_){} }
+                html += `<div class="prehab-wrap">${_obHtml}<a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn"><span class="prehab-link-dot"></span>${L.prehabBtn}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></a></div>`;
+              } else {
+                const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
+                html += htmlEsercizio(e, logId);
+              }
             });
           }
           html += `</div>`;
@@ -838,7 +845,7 @@ async function caricaScheda() {
 
         // Fallback: se Prehab individuale non ha righe in Esercizi per questa seduta,
         // mostralo comunque in fondo (evita che versioni mancanti dei dati lo nascondano)
-        if (!metodiOrd.includes('Prehab individuale')) {
+        if (!metodiOrd.includes('Prehab individuale') && !esercSed.some(e => e.Esercizio === 'Prehab individuale')) {
           if (g.Link_Prehab) {
             let obiettivoHtml = '';
             const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
