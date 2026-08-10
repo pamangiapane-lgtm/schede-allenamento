@@ -1251,16 +1251,20 @@ function buildProfilo(g, resE, resP, sedute) {
       logPerSeduta[sed].push(p);
     });
 
-  /* RM lookup — sessioni come base, salvataggi manuali (n_seduta=0) prioritari */
-  const rmMap = {};
+  /* RM lookup — due mappe separate: sessioni e salvataggi manuali (n_seduta=0)
+     La chiave può differire ("step up bb" vs "squat / step up"), quindi il find()
+     su una mappa unica restituiva sempre la chiave di sessione. Ora si consulta
+     prima rmMapManual e solo come fallback rmMapSession. */
+  const rmMapSession = {};
   progressi
     .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio) && String(p.N_Seduta) !== '0')
     .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
-    .forEach(p => { rmMap[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
+    .forEach(p => { rmMapSession[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
+  const rmMapManual = {};
   progressi
     .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio) && String(p.N_Seduta) === '0')
     .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
-    .forEach(p => { rmMap[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
+    .forEach(p => { rmMapManual[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
 
   /* ---- HTML ---- */
   let html = '';
@@ -1322,8 +1326,9 @@ function buildProfilo(g, resE, resP, sedute) {
   /* 4. MASSIMALI */
   html += `<div class="profilo-card"><div class="profilo-header">${L.maxTitle}</div>`;
   MASSIMALI.forEach(m => {
-    const rmKey = Object.keys(rmMap).find(k => m.alias.some(a => k.includes(a)));
-    const rmVal = rmKey ? rmMap[rmKey] : '';
+    const rmKeyM = Object.keys(rmMapManual).find(k => m.alias.some(a => k.includes(a)));
+    const rmKeyS = Object.keys(rmMapSession).find(k => m.alias.some(a => k.includes(a)));
+    const rmVal  = rmKeyM ? rmMapManual[rmKeyM] : (rmKeyS ? rmMapSession[rmKeyS] : '');
     const badge = m.catena === 'lower' ? ' <span class="catena-badge">+ BW</span>' : '';
     html += `
       <div class="massimale-row">
