@@ -1,10 +1,10 @@
 # Preparazione Pre-season — Volley femminile giovanile (U14 e U17)
 
-**Documento di lavoro · v0.2 · 2026-08-14**
+**Documento di lavoro · v0.3 · 2026-08-14**
 Guida operativa **per i tecnici dei gruppi** — pensata per essere **eseguita in autonomia**, senza preparatore in campo.
 Impostazione metodologica: NSCA (giovanili, incl. Long-Term Athletic Development) + metodo ELAV/Squillante (pliometria a tappe), adattata a principianti assoluti.
 
-> **Nota di versione.** La v0.1 copriva solo le 3 settimane. La **v0.2** aggiunge: (1) la **visione a lungo termine** — queste 3 settimane sono la **Tappa 1** di un percorso pluriennale, di cui qui trovi un cenno del disegno completo; (2) una **verifica di coerenza tra esercizi, volumi e tempi**, con aggiustamenti mirati (volumi che crescono nelle 3 settimane, abbinamenti a coppie per stare nei tempi, durate riviste in Condizionamento & Gioco) per restare dentro i 30–45′ dichiarati.
+> **Nota di versione.** La v0.1 copriva solo le 3 settimane. La **v0.2** ha aggiunto: (1) la **visione a lungo termine** — queste 3 settimane sono la **Tappa 1** di un percorso pluriennale; (2) una **verifica di coerenza tra esercizi, volumi e tempi**, con aggiustamenti mirati per restare dentro i 30–45′ dichiarati. La **v0.3** approfondisce la visione **per il primo anno**: la Tappa 1 e la Tappa 2 vengono scomposte in **5 mesocicli**, ciascuno con obiettivi misurabili in successione, la strada metodologica seguita e il collegamento a ciò che serviranno nei mesocicli successivi.
 
 > ⚠️ **Leggere prima di iniziare.** Questi ragazzi/e **non hanno mai fatto preparazione atletica**. In 3 settimane l'obiettivo **non** è la prestazione: è **imparare a muoversi bene** (accosciata, atterraggi morbidi, equilibrio su una gamba), **prevenire infortuni** (ginocchio/caviglia/spalla) e **divertirsi** per creare l'abitudine. La **qualità del movimento viene sempre prima del numero di ripetizioni**. Se un esercizio "viene male", si toglie carico/velocità, non si insiste.
 
@@ -28,6 +28,84 @@ Prima del dettaglio operativo, la cornice. Queste 3 settimane **non sono un prog
 | **④ Specializzazione e integrazione** | anno 2+ | U17 (U14 in transizione a fine percorso) | programmazione periodizzata in-season, gestione del carico gara, prevenzione cronica spalla/ginocchio, eventuale ingresso in squadre superiori | Punto di arrivo: atlete autonome, resilienti, pronte alla prestazione. |
 
 **Come si passa da una tappa alla successiva:** non per calendario, ma **per criteri** — es. tecnica pulita e stabile su tutti i pattern, atterraggi simmetrici e silenziosi, nessun dolore ricorrente, capacità di reggere il volume della tappa senza cali di qualità a fine seduta. Chi non supera i criteri **resta un ciclo in più** sulla tappa precedente: non è un ritardo, è la scelta giusta.
+
+### Il primo anno, mese per mese: 5 mesocicli con obiettivi misurabili
+
+La Tappa ① (questo blocco) e la Tappa ② (autunno-inverno) coprono insieme circa **un anno sportivo** (Settembre → Maggio). Qui li scompongo in **5 mesocicli**, ognuno con obiettivi concreti e misurabili — così ogni passaggio si vede, si può verificare, e si capisce perché viene prima di quello dopo.
+
+| Mesociclo | Periodo | Durata | Parola chiave |
+|---|---|---|---|
+| **M1 — Pre-season: Alfabetizzazione motoria** | Settembre | 3 sett. | *questo blocco* — si parte da zero |
+| **M2 — Consolidamento e prima variabilità** | Ottobre–Novembre | ~8 sett. | dalla sabbia facilitata alla strada, meno assistenza |
+| **M3 — Multilateralità e pliometria in cluster** | Dicembre–Gennaio | ~8 sett. | più schemi motori, salti a bassi contatti in serie spezzate |
+| **M4 — Sviluppo della forza generale** | Febbraio–Marzo | ~8 sett. | entra il carico vero, i percorsi U14/U17 iniziano a divergere |
+| **M5 — Transfer e ponte verso l'Anno 2** | Aprile–Maggio | ~6–8 sett. | tutto insieme, verso il gesto di gara; re-test |
+
+_(M1 = Tappa ①; M2+M3 = Tappa ②; M4+M5 = inizio Tappa ③, che si completerà nella pre-season dell'Anno 2.)_
+
+---
+
+#### M1 — Pre-season: Alfabetizzazione motoria *(Settembre · 3 settimane · QUESTO BLOCCO)*
+
+**Da dove partiamo:** nessun precedente — primo contatto assoluto con la preparazione atletica. Si parte da zero, si costruiscono i prerequisiti.
+
+**Obiettivi di fine mesociclo** _(= i criteri del mini-test, §8)_:
+- **U14** — tecnica nuovo movimento: squat a corpo libero (profondità e ginocchia allineate, senza dolore) · capacità di atterraggio (6/6 atterraggi bipodalici morbidi e silenziosi, in sabbia) · equilibrio (20″ monopodalico dx/sx senza scompensi evidenti).
+- **U17** — forza (3 serie da 12 squat a corpo libero, tecnica pulita anche nell'ultima serie) · tecnica nuovo movimento: hip hinge (schema corretto, rachide neutro) · capacità di atterraggio (6/6 atterraggi bipodalici tecnicamente buoni + primi hop & stick monopodalici **assistiti**).
+
+**Strada metodologica:** alfabetizzazione motoria pura — corpo libero, bassi volumi, sicurezza prima di tutto. È la base di ogni percorso LTAD: non si salta.
+
+**Serve per:** i pattern imparati qui (squat, hinge, atterraggio) sono il "vocabolario" su cui M2 costruirà variabilità e i mesocicli successivi costruiranno carico e potenza. Vocabolario solido = tutto il resto più facile e più sicuro.
+
+#### M2 — Consolidamento e prima variabilità *(Ottobre–Novembre · ~8 settimane)*
+
+**Cosa miglioriamo rispetto a M1 / cosa introduciamo:** in M1 hanno imparato IL movimento in condizioni facilitate (sabbia, bassi volumi, tanto appoggio). Qui miglioriamo **la qualità sotto variabilità** (superficie dura, meno appoggio, primi elementi di gioco/decisione) e introduciamo i **primissimi carichi leggerissimi** per chi ha superato i criteri di M1.
+
+**Obiettivi di fine mesociclo:**
+- **U14** — miglioramento forza (da push-up inclinato "alto" a "medio": **5/8 piegamenti** con mani più basse) · capacità di atterraggio (**8 atterraggi bipodalici tecnicamente buoni** su superficie dura) · tecnica nuovo movimento: **atterraggio monopodalico libero** (hop & stick senza appoggio — in M1 era assistito).
+- **U17** — forza (avvicinarsi a **4 serie da 8 squat** con manubri leggerissimi, senza eccessiva fatica) · capacità di atterraggio (hop & stick monopodalico libero, 4/5 per lato tecnicamente puliti) · condizionamento (reggere un circuito giocato di 15′ mantenendo la tecnica fino all'ultima stazione).
+
+**Strada metodologica:** si resta su "tecnica prima del carico", ma si **aggiunge una variabile alla volta** (superficie, poi meno assistenza, poi primissimo carico) — mai due insieme. Così si costruisce robustezza senza saltare passaggi.
+
+**Serve per:** reggere la tecnica sotto variabilità è ciò che permette, in M3, di introdurre la pliometria strutturata senza rischio. Chi non regge qui, resta un ciclo in più (criterio, non calendario).
+
+#### M3 — Multilateralità e pliometria in cluster *(Dicembre–Gennaio · ~8 settimane)*
+
+**Cosa miglioriamo / introduciamo:** M2 ha consolidato i pattern sotto variabilità moderata. Qui **ampliamo il repertorio motorio** (lanci, rotolamenti, giochi multi-schema — cose mai fatte prima) e introduciamo la **pliometria estensiva in cluster** (serie spezzate, metodo ELAV/Squillante), sempre a bassi contatti.
+
+**Obiettivi di fine mesociclo:**
+- **U14** — tecnica nuovo movimento: lancio/ricezione con rotazione del tronco (schema mai eseguito prima) · capacità di atterraggio (pliometria in cluster: **3×4 salti** con atterraggio "congelato" tecnicamente pulito) · forza (2 serie da 10 affondi camminati con manubri leggerissimi, senza perdita di allineamento del ginocchio).
+- **U17** — forza (**4 serie da 8 squat** con carico leggero-moderato, RPE ≤6) · capacità di atterraggio (pliometria in cluster **4×6**, qualità stabile anche nell'ultima ripetizione) · condizionamento sport-specifico (6–8 ripetute di salto/spostamento, work:rest 1:2, mantenendo l'altezza/qualità del salto).
+
+**Strada metodologica:** multilateralità (più schemi motori possibile prima di specializzare) + pliometria a tappe **con gate di forza** — non si passa al volume successivo se la qualità cala.
+
+**Serve per:** un repertorio motorio ampio rende l'atleta adattabile. In M4/M5, quando arriva il carico vero, un corpo che sa già muoversi in tanti modi impara più in fretta e si infortuna meno.
+
+#### M4 — Sviluppo della forza generale *(Febbraio–Marzo · ~8 settimane)*
+
+**Cosa miglioriamo / introduciamo:** da qui i due percorsi iniziano a **divergere più chiaramente**. La forza costruita finora passa da "leggera" a "generale strutturata", con una vera progressione di carico — non solo tecnica.
+
+**Obiettivi di fine mesociclo:**
+- **U14** — forza (2–3 serie da 10 squat con carico leggero ma reale — es. manubri 2–4 kg — mantenendo la tecnica di M1–M3) · tecnica nuovo movimento: affondo con cambio di ritmo (componente decisionale/agility) · capacità di atterraggio (atterraggio monopodalico da un piccolo balzo, non solo da fermo).
+- **U17** — forza (**completare 4 serie da 8 squat con carico moderato senza eccessiva fatica**) · tecnica nuovo movimento: prima tecnica di hip hinge caricato (RDL con manubri) · pliometria (primi salti dal muretto con atterraggio controllato, solo per chi supera il gate di forza).
+
+**Strada metodologica:** la finestra di allenabilità della forza (LTAD) è piena per l'U17 e si apre progressivamente per l'U14 in base allo sviluppo individuale — il carico entra **solo dove i criteri delle tappe precedenti sono superati**, mai per tutte allo stesso modo e allo stesso momento.
+
+**Serve per:** questa è la base di forza su cui, in M5 e poi nella Tappa ③ dell'Anno 2, si costruirà la conversione forza→potenza (pliometria intensiva con gate, tecnica olimpica leggera per l'U17). Senza questa base, quel passaggio sarebbe rischio, non progresso.
+
+#### M5 — Transfer e ponte verso l'Anno 2 *(Aprile–Maggio · ~6–8 settimane)*
+
+**Cosa miglioriamo / introduciamo:** integriamo tutto quanto costruito (pattern, pliometria, forza) in **compiti più simili al gesto di gara**, e prepariamo il terreno per la pre-season dell'Anno 2.
+
+**Obiettivi di fine mesociclo:**
+- **U14** — forza (3 serie da 10 squat con carico leggero, tecnica mantenuta a fine seduta) · condizionamento (reggere un allenamento giocato di 45′ a intensità sport-specifica moderata) · **re-test vs M1**: miglioramento misurabile su tutti i marker del mini-test iniziale.
+- **U17** — forza (**consolidare stabilmente 4 serie da 8 squat con carico moderato, RPE ≤6** — l'obiettivo di M4 diventa qui la normalità) · pliometria (salti dal muretto con atterraggio pulito, volume in leggero aumento) · **re-test vs M1**: miglioramento su CMJ/simmetria hop/qualità dei pattern.
+
+**Strada metodologica:** chiusura del ciclo con **ri-verifica per criteri**, non solo per calendario — è il momento in cui si decide, atleta per atleta, chi è pronta per il salto di livello dell'anno successivo e chi ha bisogno di un altro giro sullo stesso mesociclo.
+
+**Serve per:** il punto di arrivo di quest'anno è il punto di partenza dell'Anno 2. La pre-season dell'Anno 2 (nuova Tappa ①) non ripartirà da zero come questa: partirà da un livello già alfabetizzato — più tempo per costruire, meno tempo speso a insegnare le basi.
+
+---
 
 ### Come crescono le 5 aree, tappa dopo tappa (dal semplice al complesso)
 
