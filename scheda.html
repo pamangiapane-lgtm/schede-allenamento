@@ -180,7 +180,7 @@
 </div><!-- fine container -->
 
 <script>
-const IS_DEV = window.location.pathname.includes('/dev/');
+const IS_DEV = window.location.pathname.includes('/dev/') || window.location.hostname === 'localhost';
 const API   = IS_DEV
   ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
   : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
@@ -301,8 +301,8 @@ function traduciDescMetodo(desc) {
 
 /* ── FASE TABS ── */
 const FASI_DEF = [
-  { id: 'base',    label: 'W1-3 Base',  labelEN: 'W1-3 Base'  },
-  { id: 'picco',   label: 'W4-5 Picco', labelEN: 'W4-5 Peak'  },
+  { id: 'base',    label: 'W1-4 Base',  labelEN: 'W1-4 Base'  },
+  { id: 'picco',   label: 'W5 Picco',   labelEN: 'W5 Peak'    },
   { id: 'potenza', label: 'W6 Potenza', labelEN: 'W6 Power'   },
   { id: 'taper',   label: 'W7 Taper',   labelEN: 'W7 Taper'   },
 ];
@@ -589,12 +589,37 @@ function htmlIndividuale(e, sedSuffix) {
 }
 
 /* ---------- cache ---------- */
-const CACHE_V = 'v1';
+const CACHE_V   = 'v2';
+const CACHE_TTL = 10 * 60 * 1000; // 10 minuti — dopo scade e si ri-fetcha
 function leggiCache(f) {
-  try { const r = localStorage.getItem(`sch_${CACHE_V}_${f}`); return r ? JSON.parse(r) : null; } catch { return null; }
+  try {
+    const r = localStorage.getItem(`sch_${CACHE_V}_${f}`);
+    if (!r) return null;
+    const obj = JSON.parse(r);
+    if (!obj || !obj._ts || !obj._d) return null;
+    if (Date.now() - obj._ts > CACHE_TTL) return null; // scaduta
+    return obj._d;
+  } catch { return null; }
 }
 function scriviCache(f, dati) {
-  try { localStorage.setItem(`sch_${CACHE_V}_${f}`, JSON.stringify(dati)); } catch {}
+  try { localStorage.setItem(`sch_${CACHE_V}_${f}`, JSON.stringify({ _ts: Date.now(), _d: dati })); } catch {}
+}
+
+/* ---------- POST con retry e controllo ok ---------- */
+async function postApi(payload, tentativo = 0) {
+  const MAX = 2;
+  try {
+    const r    = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+    const json = await r.json().catch(() => ({}));
+    if (json.ok === false) throw new Error(json.errore || 'server error');
+    return json;
+  } catch (err) {
+    if (tentativo < MAX) {
+      await new Promise(res => setTimeout(res, 1500 * (tentativo + 1)));
+      return postApi(payload, tentativo + 1);
+    }
+    throw err;
+  }
 }
 
 /* ---------- caricamento ---------- */
@@ -804,12 +829,53 @@ async function caricaScheda() {
             html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
             if (m.desc) html += `<div class="metodo-desc">${traduciDescMetodo(m.desc)}</div>`;
             m.esercizi.forEach(e => {
-              const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
-              html += htmlEsercizio(e, logId);
+              if (e.Esercizio === 'Prehab individuale' && g.Link_Prehab) {
+                let _obHtml = '';
+                const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
+                if (_obvSrc) { try { const _o = JSON.parse(_obvSrc); const _t = _o[g.Fase_Prehab||'F1']||''; if (_t) _obHtml = `<div class="prehab-obiettivo">${_t}</div>`; } catch(_){} }
+                html += `<div class="prehab-wrap">${_obHtml}<a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn"><span class="prehab-link-dot"></span>${L.prehabBtn}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></a></div>`;
+              } else {
+                const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
+                html += htmlEsercizio(e, logId);
+              }
             });
           }
           html += `</div>`;
         });
+
+        // Fallback: se Prehab individuale non ha righe in Esercizi per questa seduta,
+        // mostralo comunque in fondo (evita che versioni mancanti dei dati lo nascondano)
+        if (!metodiOrd.includes('Prehab individuale') && !esercSed.some(e => e.Esercizio === 'Prehab individuale')) {
+          if (g.Link_Prehab) {
+            let obiettivoHtml = '';
+            const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
+            if (_obvSrc) {
+              try {
+                const obv = JSON.parse(_obvSrc);
+                const fase = g.Fase_Prehab || 'F1';
+                const testo = obv[fase] || '';
+                if (testo) obiettivoHtml = `<div class="prehab-obiettivo">${testo}</div>`;
+              } catch(e) {}
+            }
+            html += `<div class="metodo-block">
+              <div class="metodo-titolo">${traduciMetodo('Prehab individuale')} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>
+              <div class="prehab-wrap">
+                ${obiettivoHtml}
+                <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
+                  <span class="prehab-link-dot"></span>
+                  ${L.prehabBtn}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+              </div>
+            </div>`;
+          } else if (faseAttiva) {
+            html += `<div class="metodo-block">
+              <div class="metodo-titolo">${traduciMetodo('Prehab individuale')}</div>
+              <div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
+            faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
+            html += `</div>`;
+          }
+        }
 
         html += htmlFeedbackSeduta(sed.Numero_Seduta, feedbackLog[sed.Numero_Seduta] || {});
         html += htmlFineSeduta(sed.Numero_Seduta);
@@ -957,16 +1023,12 @@ async function salvaLog(inputId, btn) {
   btn.disabled    = true;
 
   try {
-    await fetch(API, {
-      method:  'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta, esercizio: esercizio,
-        data: new Date().toLocaleDateString('it-IT'),
-        valore, note: '',
-        kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
-      }),
+    await postApi({
+      token: TOKEN, azione: 'log_progressi',
+      id_giocatrice: id, n_seduta: nSeduta, esercizio: esercizio,
+      data: new Date().toLocaleDateString('it-IT'),
+      valore, note: '',
+      kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
     });
 
     ultimiLog[esercizio] = { valore, rm, kg };
@@ -1031,29 +1093,21 @@ async function fineSeduta(nSeduta, btn) {
       const carico = parseFloat(input.dataset.carico) || null;
       const valore = carico != null ? `${carico} kg` : `RM ~${rm} kg`;
       salvati.push({ label: nome, detail: valore });
-      promises.push(fetch(API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          token: TOKEN, azione: 'log_progressi',
-          id_giocatrice: id, n_seduta: nSeduta,
-          esercizio: nome, data, valore, note: '',
-          kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
-        }),
+      promises.push(postApi({
+        token: TOKEN, azione: 'log_progressi',
+        id_giocatrice: id, n_seduta: nSeduta,
+        esercizio: nome, data, valore, note: '',
+        kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
       }));
       ultimiLog[nome] = { valore, rm, kg };
     } else if (kg > 0) {
       /* ha messo il peso ma non le reps — salva solo il kg */
       salvati.push({ label: nome, detail: `${kg} kg` });
-      promises.push(fetch(API, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          token: TOKEN, azione: 'log_progressi',
-          id_giocatrice: id, n_seduta: nSeduta,
-          esercizio: nome, data, valore: `${kg} kg`, note: '',
-          kg_usati: kg, reps_fatte: '', rm_stimato: '',
-        }),
+      promises.push(postApi({
+        token: TOKEN, azione: 'log_progressi',
+        id_giocatrice: id, n_seduta: nSeduta,
+        esercizio: nome, data, valore: `${kg} kg`, note: '',
+        kg_usati: kg, reps_fatte: '', rm_stimato: '',
       }));
     } else {
       mancanti.push(nome);
@@ -1065,14 +1119,10 @@ async function fineSeduta(nSeduta, btn) {
   if (rpeBtn) {
     const val = rpeBtn.textContent.trim();
     salvati.push({ label: L.rpeLabel, detail: `${val}/10` });
-    promises.push(fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta, esercizio: 'RPE-seduta',
-        data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
-      }),
+    promises.push(postApi({
+      token: TOKEN, azione: 'log_progressi',
+      id_giocatrice: id, n_seduta: nSeduta, esercizio: 'RPE-seduta',
+      data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
     }));
   } else {
     mancanti.push(L.rpeLabel);
@@ -1083,14 +1133,10 @@ async function fineSeduta(nSeduta, btn) {
   if (fatBtn) {
     const val = fatBtn.textContent.trim();
     salvati.push({ label: L.fatLabel, detail: `${val}/5` });
-    promises.push(fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta, esercizio: 'Fatica-seduta',
-        data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
-      }),
+    promises.push(postApi({
+      token: TOKEN, azione: 'log_progressi',
+      id_giocatrice: id, n_seduta: nSeduta, esercizio: 'Fatica-seduta',
+      data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
     }));
   } else {
     mancanti.push(L.fatLabel);
@@ -1205,12 +1251,20 @@ function buildProfilo(g, resE, resP, sedute) {
       logPerSeduta[sed].push(p);
     });
 
-  /* RM lookup (ultima stima per esercizio) */
-  const rmMap = {};
+  /* RM lookup — due mappe separate: sessioni e salvataggi manuali (n_seduta=0)
+     La chiave può differire ("step up bb" vs "squat / step up"), quindi il find()
+     su una mappa unica restituiva sempre la chiave di sessione. Ora si consulta
+     prima rmMapManual e solo come fallback rmMapSession. */
+  const rmMapSession = {};
   progressi
-    .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio))
+    .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio) && String(p.N_Seduta) !== '0')
     .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
-    .forEach(p => { rmMap[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
+    .forEach(p => { rmMapSession[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
+  const rmMapManual = {};
+  progressi
+    .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio) && String(p.N_Seduta) === '0')
+    .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
+    .forEach(p => { rmMapManual[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
 
   /* ---- HTML ---- */
   let html = '';
@@ -1272,8 +1326,9 @@ function buildProfilo(g, resE, resP, sedute) {
   /* 4. MASSIMALI */
   html += `<div class="profilo-card"><div class="profilo-header">${L.maxTitle}</div>`;
   MASSIMALI.forEach(m => {
-    const rmKey = Object.keys(rmMap).find(k => m.alias.some(a => k.includes(a)));
-    const rmVal = rmKey ? rmMap[rmKey] : '';
+    const rmKeyM = Object.keys(rmMapManual).find(k => m.alias.some(a => k.includes(a)));
+    const rmKeyS = Object.keys(rmMapSession).find(k => m.alias.some(a => k.includes(a)));
+    const rmVal  = rmKeyM ? rmMapManual[rmKeyM] : (rmKeyS ? rmMapSession[rmKeyS] : '');
     const badge = m.catena === 'lower' ? ' <span class="catena-badge">+ BW</span>' : '';
     html += `
       <div class="massimale-row">
@@ -1318,16 +1373,12 @@ async function salvaMassimale(mId, nome, btn) {
   btn.textContent = '...';
   btn.disabled = true;
   try {
-    await fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: '0', esercizio: nome,
-        data: new Date().toLocaleDateString('it-IT'),
-        valore: `RM ${rm} kg`, note: '',
-        kg_usati: '', reps_fatte: '', rm_stimato: rm,
-      }),
+    await postApi({
+      token: TOKEN, azione: 'log_progressi',
+      id_giocatrice: id, n_seduta: '0', esercizio: nome,
+      data: new Date().toLocaleDateString('it-IT'),
+      valore: `RM ${rm} kg`, note: '',
+      kg_usati: '', reps_fatte: '', rm_stimato: rm,
     });
     btn.textContent = '✓';
     btn.style.background = 'var(--verde)';
@@ -1458,6 +1509,7 @@ function apriSedutaConNote(accId) {
 }
 
 function mostraWellness(accId) {
+  if (String(id) === '99') { apriSedutaConNote(accId); return; }
   if (localStorage.getItem(wellnessKey())) {
     // Già risposto oggi → apri seduta direttamente
     apriSedutaConNote(accId);
