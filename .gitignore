@@ -2,8 +2,8 @@ apps_script_dev_project/
 apps_script_prod_project/
 _strumenti/
 backup_locale/
+Season_Off/
 .claude/*
 !.claude/agents/
 !.claude/skills/
 !.claude/kb/
-Season_Off/
