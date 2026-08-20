@@ -78,16 +78,71 @@ Il programma deve includere motivazione esplicita per ogni scelta metodologica r
 
 ### Il tuo compito
 
-Produce un **programma pre-season completo di 6 settimane** che includa:
+Produce i seguenti **4 file distinti**, con i nomi esatti indicati:
 
-1. **Architettura generale**: quale logica periodizzativa usi e perché (blocchi sequenziali? integrazione verticale? altra?)
-2. **Distribuzione settimanale**: quale tipo di seduta va in quale giorno e perché
-3. **Progressione in sala pesi** (Squat, Clean, Hinge, Upper): volumi, intensità (%RM), RPE settimana per settimana
-4. **Gestione del carico di salto**: come conti e controlli il volume di salto totale per ruolo, settimana per settimana
-5. **Sedute esplose** almeno per W1 e W2 (le prime due settimane in dettaglio operativo: esercizi, serie, rip, carico, recupero, RPE, note di coaching)
-6. **Criteri di avanzamento di fase**: quali indicatori usi per decidere se passare alla settimana successiva con pieno carico, e cosa fai se il criterio non è superato
+---
+
+#### File 1 — `Preseason_A2_2026_Programma_FINALE.md`
+
+Programma pre-season completo di 6 settimane. Deve contenere:
+
+1. **Architettura generale**: quale logica periodizzativa usi e perché (blocchi sequenziali? integrazione verticale? altra?); principi guida dichiarati esplicitamente
+2. **Profilo-gara**: tabella con le richieste fisiche della gara A2 e come il programma le costruisce
+3. **Regole non negoziabili**: lista numerata dei vincoli operativi che governano il programma
+4. **Enfasi settimanale**: tabella con la percentuale di volume per qualità (forza, potenza, elastico-reattivo, metabolico, simil-gara, prevenzione) settimana per settimana
+5. **Distribuzione settimanale**: tabella lun-dom × W1-W6 con il tipo di seduta per ogni giorno
+6. **Progressione forza** (Squat, Clean, Hinge/Stacco, Upper): volumi, intensità (%RM), RPE settimana per settimana
+7. **Carico di salto**: scala simil-gara (% della gara reale per settimana) + tabella numerica del jump budget per ruolo con verifica della regola 1,5×
+8. **Gate di progressione**: criteri quantitativi ai passaggi di settimana critici (ingresso al carico-partita; ingresso al taper), con azione di fallback esplicita per ogni caso
+9. **Prevenzione**: protocollo settimanale per spalla, ginocchio, caviglia (progressione per fase)
 
 Sii esplicito sulle scelte metodologiche e sui trade-off. Se assumi qualcosa che non trovi nel briefing, dillo.
+
+---
+
+#### File 2 — `Periodizzazione_Stagionale_A2_2026_27.md`
+
+Pianificazione dell'intera stagione 2026/27 (da ottobre 2026 ad aprile 2027). Deve contenere:
+
+1. **Calendario completo**: tutte le 32 giornate con data, avversario, casa/trasferta, infrasettimanali reali, turni di riposo
+2. **Pattern critici**: settimane con 3 gare in 7-10 giorni (identificarle tutte, non solo le più evidenti)
+3. **Logica di mantenimento in-season**: come distribuire le 2 sedute pesi settimanali + le proposte pre-campo per mantenere il 90% di readiness
+4. **Gestione dei cluster critici**: cosa fare nelle settimane con 3 gare, nella sosta natalizia, nel rientro post-sosta
+5. **Periodizzazione mesocicli in-season**: come variano volume/intensità nelle diverse fasi del campionato (ottobre, novembre-dicembre, gennaio-marzo, finale)
+6. **Momenti di ricarica**: quando e come inserire mini-blocchi di accumulo di forza durante la stagione senza interferire con la performance di gara
+
+---
+
+#### File 3 — `Stagione_Marsala_A2_2026_27.xlsx`
+
+Excel con la stagione completa. Deve contenere almeno i seguenti fogli:
+
+| Foglio | Contenuto |
+|--------|-----------|
+| `Calendario` | Tutte le 32 gare con data, avversario, casa/trasferta, giornata, tipo settimana (normale/cluster/riposo) |
+| `Pre-season W1-W6` | Piano settimanale della pre-season: giorni × tipo seduta, con carico previsto (alto/medio/basso) |
+| `Progressione_Forza` | Tabella Squat/Clean/Hinge/Upper per W1-W6 con %RM, serie, rip, RPE |
+| `Jump_Budget` | Tabella jump budget per ruolo (banda, centrale/palleggiatrice, libero) per W1-W6 con verifica 1,5× |
+| `Settimane_tipo` | 3-4 template di settimana-tipo in-season (settimana normale, settimana cluster, settimana con riposo) |
+
+---
+
+#### File 4 — `sedute/Scheda_Sedute_W[N]_FINALE.md` × 6 (uno per settimana)
+
+Sei file separati (`Scheda_Sedute_W1_FINALE.md` … `Scheda_Sedute_W6_FINALE.md`), uno per ogni settimana della pre-season.
+
+Ogni file deve contenere **tutte le sedute della settimana** in dettaglio operativo completo:
+
+- Giorno e tipo di seduta (es. "Lunedì — Spiaggia + Campo mini (medio)")
+- Per ogni esercizio: nome, serie × rip, carico (%RM o kg o RPE), recupero, note di coaching
+- RPE target per la seduta e per ogni blocco principale
+- Durata stimata totale della seduta
+- Note specifiche per ruolo dove rilevante (es. pliometria differenziata centrali vs bande)
+- Criteri di monitoraggio del giorno (es. CMJ mattino, fastidio articolare da 0-10)
+
+---
+
+**Formato**: Markdown per i file .md, Excel (.xlsx) per il file 3. Nomenclatura dei file esattamente come indicato sopra. I file delle sedute vanno in una sottocartella `sedute/`.
 
 ---
 
