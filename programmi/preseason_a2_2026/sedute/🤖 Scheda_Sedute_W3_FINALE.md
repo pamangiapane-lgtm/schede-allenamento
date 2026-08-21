@@ -1,118 +1,160 @@
-# Scheda Sedute Campo — Settimana 3 (FINALE)
-**Fonte**: Preseason_A2_2026_Programma_FINALE.md — §7 "Progressione forza definitiva" (Squat/Clean/Hinge/Upper/Barra veloce), §8 "Carico di salto", §13 "Sedute — Finestra 2 (W3-W5)".
-**Scopo**: solo esecuzione — ordine dei metodi/esercizi, distanze/volumi, intensità, recupero, RPE, varianti.
-**Cambia la struttura**: da qui la sabbia esce dal programma. Palestra passa da 2 a 3 sedute/settimana (Lun P, Mer V, Ven richiamo); i campo mini passano da 5 a 3 (Mar CM1, Gio CM2, Sab CM3) + entra l'**amichevole** (sabato, a partecipazione LIMITATA — vedi gate §9 del documento sorgente: se il gate W2→W3 non passa, cap ridotto a 2-3 set/atleta).
-**Scala simil-gara**: 60% questa settimana.
-**Differenza con v3**: Squat onda **82/85%** (non 82/87% — il tetto assoluto di questa versione è 87%, raggiunto solo in W4, non anticipato qui).
-**Nota sui contatti pliometrici**: come per v3, il sorgente dà solo il totale settimanale per ruolo (banda 34 / centrali-palleggiatrici 26 — identico a v3, le due versioni convergono su questo numero). La ripartizione tra Palestra P e CM2 qui sotto è indicativa.
+# Scheda Sedute — Settimana 3 (FINALE)
+**Fonte**: Preseason_A2_2026_Programma_FINALE.md — §6 (distribuzione), §7 (forza), §8 (carico salto, tre fonti), §13 (W3-W5).
+**Struttura settimana**: 3 giornate doppie con il fitness coach (Lun/Mer/Ven mattina palestra + pomeriggio campo); Mar e Gio campo tecnico pomeridiano condotto dal tecnico senza fitness coach.
+**Scala simil-gara**: 60% — prima amichevole, partecipazione LIMITATA (3-4 set/atleta, rotazioni centr/palleggiatrici).
+**Metodi presenti**: Forza (Gym P), Velocità/WL (Gym V), Agility & Synapse (campo Lun pom — intro W3), Elastico-Reattivo + Simil-gara (campo Mer pom — primo blocco DJ), Campo tecnico (Mar/Gio — fonte 3 budget salto, senza coach).
+**Prevenzione**: seconda onda — forza nel range (W3-4).
+**Nota plio**: la plio principale si sposta dal Gym P al campo Mer pom. In Gym P rimane solo la dose minima di attivazione (box jump 2×4 banda / 1×4 centr). I contatti DJ e laterali sono nel pomeriggio di mercoledì.
 
 ---
 
-## LUNEDÌ mattina — PALESTRA P, forza (~55-58')
+## LUNEDÌ MATTINA — GYM P, forza pesante (~50-55')
 
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione generale | Mobilità articolare | Prepara il corpo al carico | — | 4' | — | — | 3 |
-| 2 | Attivazione specifica | Glutei (banda) + **CMJ marker 3 salti** | Accende la catena d'anca; CMJ = misura di monitoraggio, non allenamento | — | 4' | — | — | 3 |
-| 3 | Prevenzione ruolo (forza-nel-range) | Centrali: heel raise zavorrato, step down; Schiacciatrici: extrarot. eccentrica, trap-3; Palleggiatrici: wrist roller, farmer polsi; Libero: nordic assistito, skater | Seconda onda di prevenzione — dal capacity-building di W1-2 alla forza sotto carico | — | 2-3 serie | RPE5-6 | 60-90" | 5-6 |
-| 4 | Forza (onda) | Squat, cluster 3×(2+1) | Onda di intensità nella stessa serie — 2 rip + pausa 20" + 1 rip più pesante | Box Squat (stesso schema) | 3×(2+1) | **82/85%** | 2'30" | 7 |
-| 5 | Superserie upper | Row 3×4 ss Bench 3×4 | Forza di tirata + spinta orizzontale abbinate | Row manubri unilaterale · Bench manubri | — | 75% | 90" tra coppie | 6 |
-| 6 | Elastico-reattivo (dose ruolo) | Box jump | Salto verticale, atterraggio pulito — dose ridotta per centrali/palleggiatrici | Drop landing da 20cm (per chi non ha ancora il rimbalzo elastico) | Banda 3×4 · Centrali/Palleggio 2×4 | — | 90" | 6 |
-| 7 | Core | Pallof | Anti-rotazione del core | — | 2×10+10 | — | 45" | 5 |
-| 8 | Chiusura | Mobilità | Rientro | — | 3' | — | — | 2 |
+| Ord. | Fase | Esercizio | Volume | Intensità | Recupero | RPE | Note |
+|---|---|---|---|---|---|---|---|
+| 1 | Attivazione | Mobilità articolare | 4' | — | — | 3 | — |
+| 2 | Attivazione specifica | Glutei banda + **CMJ marker 3 salti** | 4' | — | — | 3 | CMJ = misura di monitoraggio, non allenamento |
+| 3 | Prevenzione ruolo (forza nel range) | Centr: heel raise zavorrato, step down · Schiacciatrici: extrarot. eccentrica, trap-3 · Palleggio: wrist roller, farmer polsi · Libero: nordic assistito, skater | 2-3 serie | RPE5-6 | 60-90" | 5-6 | — |
+| 4 | Forza (onda) | **Squat cluster 3×(2+1)** | 3×(2+1) | **82 / 85%** | 2'30" | 7 | 2 rip + pausa intra-serie 20" + 1 rip più pesante. Variante: Box Squat stesso schema |
+| 5 | Superserie upper | Row 3×4 ss Bench 3×4 | — | 75% | 90" | 6 | — |
+| 6 | Box jump (attivazione) | Salto verticale atterraggio pulito | Banda 2×4 · Centr/Pall 1×4 | — | 90" | 6 | Dose minima — la plio principale è nel campo Mer pom. Rimbalzo elastico obbligatorio; tetto 40cm |
+| 7 | Core | Pallof anti-rotazione | 2×10+10 | — | 45" | 5 | — |
+| 8 | Chiusura | Mobilità | 3' | — | — | 2 | — |
 
-Nota: il tetto assoluto di forza in questa versione resta **87%**, non toccato in W3 (arriva in W4). Totale reale: ~48' + buffer ~8-10' = **~55-58'**.
-
----
-
-## MARTEDÌ pomeriggio — CM1, agility/scaletta — pattern fisso (~30')
-
-*La complessità cresce da W4 (+decisione su segnale) e W5 (+pallone in dual-task): questa settimana resta il pattern base.*
-
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Distanza/Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico caviglia+spalla | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
-| 2 | Attivazione dinamica | Skip basso | Accende il pattern di corsa | Skip laterale · Carioca leggero | 2×15m | RPE4 | 20" | 4 |
-| 3 | Scaletta ruolo | Pattern per ruolo (§ glossario) | Coordinazione specifica per ruolo | A ritmo max (gara a coppie) · Con pallone in mano | 4× (6-8m/passaggio) | RPE5-6 | 40" | 5-6 |
-| 4 | T-drill | Cambio direzione a coni | Cambio di direzione multidirezionale | 5-10-5 shuttle · L-drill | 4× | RPE5-6 | 45" | 5-6 |
-| 5 | Tecnica pallone | Gesto ruolo-specifico | Richiamo del gesto a bassa intensità | — | 8' | RPE4-5 | — | 4-5 |
-| 6 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
+**Tetto forza**: 87% (raggiunto solo in W4). Totale ~48' + buffer = **~52-55'**.
 
 ---
 
-## MERCOLEDÌ mattina — PALESTRA V, potenza/veloce (~52')
+## LUNEDÌ POMERIGGIO — CAMPO AGILITY & SYNAPSE (~35')
 
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione generale | Mobilità | Prepara il corpo al gesto veloce | — | 4' | — | — | 3 |
-| 2 | Attivazione balistica | Lanci MB, salti bassi | Accende il sistema nervoso senza affaticare | — | 6' | — | — | 4 |
-| 3 | WL (mai sospeso) | Clean | Weightlifting derivato — tripla estensione, tecnica sotto carico crescente | Hang Clean | 4×2 | **78%** | 2' | 7 |
-| 4 | Jump squat | Jump squat con bilanciere | Forza-velocità a carico leggero — massima intenzione di spinta in uscita | A corpo libero se non ancora confidenza col bilanciere in volo | 4×3 | **20% carico equivalente** | 2' | 7 |
-| 5 | Superserie | Push Press 3×4 ss Lat/Pull-up 3×6 | Potenza spinta + forza tirata verticale abbinate | Push Press bilanciere · Pulley basso | — | RPE7 | 90" | 7 |
-| 6 | Core dinamico | Rotazionale con MB | Potenza di rotazione, transfer al gesto d'attacco | — | 2×6+6 | — | 45" | 5 |
-| 7 | Chiusura | Mobilità | Rientro | — | 3' | — | — | 2 |
+*Intro W3: pattern agility fissi + Spatial Maze. RPE 5-6, zero impatto verticale alto. Separato dalla mattinata da almeno 4-5 ore.*
 
-Totale reale: ~45' + buffer ~7-8' = **~52-55'**. Due blocchi RPE≥7 (Clean + Jump squat): cap rispettato, mai di più.
+| Ord. | Fase | Esercizio | Volume | Recupero | RPE | Note |
+|---|---|---|---|---|---|---|
+| 1 | Attivazione | Mobilità dinamica arti inferiori + elastico caviglia | 3' | — | 3 | Leggera — non ripetere l'attivazione pesante della mattina |
+| 2 | Andature | Skip basso, carioca, laterale | 2×15m per tipo | 20" | 4 | Accende il pattern senza affaticare |
+| 3 | Scaletta — pattern fisso per ruolo | Centr: schema a due appoggi, uscita verticale · Banda: schema rapido laterale, uscita con passo incrociato · Libero: schema basso reattivo, uscita in dive | 4× per atleta | 40" | 5 | W3 = pattern fisso, direzione predefinita |
+| 4 | T-drill base 4m | Cambio direzione su percorso definito, esecuzione controllata | 4× | 45" | 5-6 | Focus tecnico: decelera-pivot-accelera (Guderzo: decelerare prima di accelerare) |
+| 5 | Spatial Maze intro | Tabellone numeri in lettere: l'atleta indica la casella chiamata vocalmente mentre cammina/trotterella su percorso | 2×3' | 60" | 4 | Primo contatto con il metodo. Stimolo cognitivo leggero. Non correre — l'errore cognitivo è l'obiettivo dell'esercizio |
+| 6 | Chiusura | Mobilità spalle + caviglie | 3' | — | 2 | — |
 
----
-
-## GIOVEDÌ pomeriggio — CM2, elastico-reattivo per ruolo + skimmy (~30')
-
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Distanza/Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico spalla/caviglia | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
-| 2 | Attivazione dinamica | Skip + balzi bassi | Accende il pattern di salto | — | 2×15m | RPE4-5 | 20" | 4-5 |
-| 3 | Elastico-reattivo (dose ruolo) | Drop Jump 25-30cm **solo se rimbalzo elastico visibile** | Pliometria reattiva — tempo di contatto minimo | Se il rimbalzo non è ancora elastico: resta a 20-25cm (livello W2) | Banda 3×5 · Centrali/Palleggio 2×4 | — | 60" | 6-7 |
-| 4 | Elastico-reattivo laterale | Balzi laterali su panca | Potenza laterale, transfer al movimento di blocco/difesa | Banda 2×3/lato · Centrali/Palleggio 2×2/lato | — | — | 45" | 6 |
-| 5 | Skimmy decelerazione | Scivolamento laterale + arresto | Decelerazione frontale in laterale — controllo del ginocchio | Con cambio senso a metà · + sprint 3m in uscita | 2×20"/lato | RPE5-6 | 40" | 5-6 |
-| 6 | Tecnica pallone | Gesto ruolo-specifico | Richiamo del gesto tecnico | — | 8' | RPE4-5 | — | 4-5 |
-| 7 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
-
-Contatti indicativi di sessione: banda ~21, centrali/palleggio ~12 (sommati ai 12/8 di Palestra P danno banda ~33, centrali/palleggio ~20 — vicino al target settimanale 34/26).
+**Contatti verticali**: ≈ 0 (passo-passo, nessun salto programmato in questa sessione).
 
 ---
 
-## VENERDÌ mattina — PALESTRA richiamo, pre-amichevole (~40-45')
+## MARTEDÌ POMERIGGIO — CAMPO TECNICO (tecnico — senza fitness coach)
 
-*Nessuna pliometria: le gambe si consegnano al sabato (regola §4.9 del documento sorgente).*
+*Fonte 3 del budget di salto. Il fitness coach non è presente. Raccogliere a fine seduta:*
+- **sRPE** (scala 0-10, tecnico o una atleta referente)
+- **Stima salti** (visiva o conteggio se possibile): atteso **banda ~40-50 / centr-pall ~50-65**
+- **Fastidio articolare**: segnalare qualunque >2/10
 
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione | Mobilità generale | Prepara il corpo senza affaticare | — | 5' | — | — | 3 |
-| 2 | Prevenzione ruolo (completa) | Menù W3-4 per ruolo (§ glossario) — volume pieno | — | 3 serie | RPE5 | 60-90" | 5 |
-| 3 | Forza leggera | Hinge (Stacco rumeno) | Richiamo della catena posteriore a carico sub-massimale | — | 2×3 | **75%** | 2' | 6 |
-| 4 | Tirata | Row bilanciere o Lat machine | Richiamo della tirata, volume basso | — | 2×8 | RPE5-6 | 90" | 5-6 |
-| 5 | Core | Deadbug o Pallof (a scelta) | Controllo lombo-pelvico/anti-rotazione, chiusura leggera | — | 2×30" | — | 45" | 4 |
-| 6 | Chiusura | Mobilità | Rientro | — | 5' | — | — | 2 |
-
-Totale reale: ~35' + buffer ~5-8' = **~40-45'**. **Zero contatti pliometrici**.
+Il fitness coach usa questi dati entro martedì sera per confermare o modificare il campo E-R del mercoledì pomeriggio.
 
 ---
 
-## SABATO mattina — CM3, attivazione pre-amichevole — deliberatamente scarica (~18-20')
+## MERCOLEDÌ MATTINA — GYM V, potenza/veloce (~52-55')
 
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione | Elastico + mobilità dinamica | Prepara senza affaticare — l'amichevole è lo stimolo del giorno | — | 8' | RPE3-4 | — | 3-4 |
-| 2 | Riattivazione neurale | Balzi bassi/skip | Richiamo neurale, nessun nuovo stimolo | — | 6' | RPE4-5 | — | 4-5 |
-| 3 | Tecnica pre-gara | Gesto specifico, bassa densità | Prontezza tecnica | — | 6' | RPE4 | — | 4 |
+| Ord. | Fase | Esercizio | Volume | Intensità | Recupero | RPE | Note |
+|---|---|---|---|---|---|---|---|
+| 1 | Attivazione | Mobilità | 4' | — | — | 3 | — |
+| 2 | Attivazione balistica | Lanci MB, salti bassi | 6' | — | — | 4 | Accende il SNC senza affaticare |
+| 3 | **Clean** | WL derivato — tripla estensione, mai sospeso | 4×2 | **78%** | 2' | 7 | Variante: Hang Clean |
+| 4 | **Jump squat** | Bilanciere, massima intenzione di spinta | 4×3 | **20% c.e.** | 2' | 7 | A corpo libero se non ancora confidenza |
+| 5 | Superserie | Push Press 3×4 ss Lat/Pull-up 3×6 | — | RPE7 | 90" | 7 | — |
+| 6 | Core dinamico | Rotazionale MB | 2×6+6 | — | 45" | 5 | — |
+| 7 | Chiusura | Mobilità | 3' | — | — | 2 | — |
 
-Nessuna chiusura dedicata: si passa direttamente alla gestione pre-amichevole del tecnico.
+**Cap RPE≥7**: 2 blocchi (Clean + Jump squat). Totale ~45' + buffer = **~52-55'**.
 
 ---
 
-## SABATO pomeriggio/sera — AMICHEVOLE, partecipazione LIMITATA
+## MERCOLEDÌ POMERIGGIO — CAMPO ELASTICO-REATTIVO + SIMIL-GARA (~35')
 
-**Formato**: max 3-4 set per atleta, con rotazioni programmate su centrali e palleggiatrici.
-**Carico stimato**: 50-70 contatti alto impatto (banda/libero) — 60-80 (centrali/palleggiatrici).
-**Gate collegato**: criteri del gate W2→W3 (§9 del documento sorgente) — CMJ ≥ baseline, zero atlete con fastidio rotuleo >2/10, velocità @80% nel profilo individuale. Se il gate non è passato, cap ridotto a 2-3 set/atleta e la pliometria del CM2 del giovedì successivo si dimezza.
+*Primo blocco DJ del ciclo. Giorno con il carico pomeridiano più alto — non aggiungere sprint o plio extra fuori da questo schema. Almeno 4h dalla mattina.*
+
+| Ord. | Fase | Esercizio | Volume | Recupero | RPE | Note |
+|---|---|---|---|---|---|---|
+| 1 | Attivazione | Mobilità + skip basso | 4' | — | 3-4 | — |
+| 2 | Attivazione balistica | Balzi bassi bipodalici | 2×8 | 30" | 4-5 | Pre-attiva il pattern di rimbalzo |
+| 3 | **Drop Jump 25-30cm** | Rimbalzo elastico obbligatorio — tallone NON tocca terra, contatto <250ms | Banda 3×5 · Centr/Pall 2×4 | 60" | 6-7 | Se il rimbalzo non è elastico visivamente: restare a 20cm (livello W2). Tetto 40cm |
+| 4 | Balzi laterali su panca | Potenza laterale — transfer al blocco e alla difesa | Banda 2×3/lato · Centr/Pall 2×2/lato | 45" | 6 | — |
+| 5 | Navette COD | Shuttle 10m a/r, partenza su segnale | 4×10m a/r | 30" rec 1:2 | 5-6 | Stimolo reattivo lineare |
+| 6 | Situazioni 2v2-3v3 (contate) | Attacco-muro-difesa su campo ridotto, salti contati | 3×4' | 90" | 6-7 | Contare i salti di attacco e muro — banda ~10-15 per blocco |
+| 7 | Chiusura | Mobilità | 3' | — | 2 | — |
+
+**Contatti DJ indicativi**: banda ~21 / centr ~12. **Totale giorno Mer** (gym + campo): banda ~27 / centr ~16.
+
+---
+
+## GIOVEDÌ POMERIGGIO — CAMPO TECNICO (tecnico — senza fitness coach)
+
+*Idem martedì. Giovedì è tipicamente leggermente più leggero (48h dall'amichevole). Atteso: banda ~35-45 / centr ~45-60.*
+
+Raccogliere sRPE + stima salti. Se fastidio rotuleo >2/10 → comunicare subito al fitness coach prima del Gym P di lunedì.
+
+---
+
+## VENERDÌ MATTINA — GYM RICHIAMO, pre-amichevole (~40-45')
+
+*Nessun salto — le gambe appartengono al sabato (regola §4.9).*
+
+| Ord. | Fase | Esercizio | Volume | Intensità | Recupero | RPE | Note |
+|---|---|---|---|---|---|---|---|
+| 1 | Attivazione | Mobilità generale | 5' | — | — | 3 | — |
+| 2 | Prevenzione ruolo (forza nel range, completa) | Menù W3-4 per ruolo | 3 serie | RPE5 | 60-90" | 5 | — |
+| 3 | Hinge leggero | Stacco Rumeno | 2×3 | **75%** | 2' | 6 | Richiamo catena posteriore |
+| 4 | Tirata | Row bilanciere o Lat machine | 2×8 | RPE5-6 | 90" | 5-6 | — |
+| 5 | Core | Deadbug o Pallof | 2×30" | — | 45" | 4 | — |
+| 6 | Chiusura | Mobilità | 5' | — | — | 2 | — |
+
+Totale ~35' + buffer = **~40-45'. Zero contatti pliometrici.**
+
+---
+
+## VENERDÌ POMERIGGIO — CAMPO TECNICO BASSO (~20-25')
+
+*Tecnica posizionale, zero salti verticali. Puro walk-through.*
+
+Contenuto: posizionamento fondamentali ruolo (prese, spostamenti laterali, chiamate) · lettura di gioco senza intensità · walk-through schemi tattici. **Nessun attacco, nessun muro, nessuna battuta jump**. RPE ≤ 4.
+
+---
+
+## SABATO MATTINA — RISCALDAMENTO PRE-AMICHEVOLE (~18-20', scarico deliberato)
+
+| Ord. | Fase | Esercizio | Volume | RPE |
+|---|---|---|---|---|
+| 1 | Attivazione | Elastico + mobilità dinamica | 8' | 3-4 |
+| 2 | Riattivazione neurale | Balzi bassi/skip | 6' | 4-5 |
+| 3 | Tecnica pre-gara | Gesto specifico, bassa densità | 6' | 4 |
+
+---
+
+## SABATO — AMICHEVOLE, partecipazione LIMITATA
+
+**Formato**: max 3-4 set per atleta, rotazioni programmate su centrali e palleggiatrici.
+**Gate W2→W3** (§9): se non superato → cap ridotto a 2-3 set/atleta; campo E-R del mer successivo dimezzato.
+**Contatti stimati**: banda 35-55 / centr-pall 45-65.
 
 ---
 
 **Domenica**: riposo.
 
-### Glossario ruoli — prevenzione W3-4 (forza nel range)
-- **Centrali**: polpaccio carico — heel raise zavorrato, step down.
-- **Schiacciatrici/Opposti**: cuffia sotto carico — extrarotazione eccentrica, trap-3.
-- **Palleggiatrici**: avambraccio carico — wrist roller, farmer polsi.
-- **Libero**: eccentrico — nordic assistito, skater.
+### Budget di salto totale W3 (stima tre fonti)
+| Fonte | Banda | Centr/Pall |
+|---|---|---|
+| Gym plio (Lun mattina box jump) | ~8 | ~4 |
+| Campo A+S Lun pom (attivazione, no jump) | ~0 | ~0 |
+| Campo E-R Mer pom (DJ + balzi lat + navette) | ~25 | ~15 |
+| Campo tecnico Tue (stima) | 40-50 | 50-65 |
+| Campo tecnico Thu (stima) | 35-45 | 45-60 |
+| Amichevole Sab (limitata) | 35-55 | 45-65 |
+| **Totale** | **~143-183** | **~159-209** |
+
+*La stima va aggiornata con i dati reali di Mar/Gio a fine settimana. Se il totale supera 1,5× rispetto a W2 (tetto ~172 banda / ~172 centr), il campo E-R del Mer viene ridotto per compensare.*
+
+### Glossario prevenzione W3-4 (forza nel range)
+- **Centrali**: heel raise zavorrato, step down
+- **Schiacciatrici/Opposti**: extrarotazione eccentrica, trap-3
+- **Palleggiatrici**: wrist roller, farmer polsi
+- **Libero**: nordic assistito, skater

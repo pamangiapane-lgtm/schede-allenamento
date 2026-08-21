@@ -62,14 +62,16 @@ Dove v2 e v3 dicevano cose diverse, ecco cosa vince e perché.
 
 Percentuale del volume settimanale per qualità (somma ≈100):
 
-| Sett. | Forza pesante | Barra veloce/WL | Elastico-reattivo | Metabolico | Simil-gara | Prevenzione |
-|---|---|---|---|---|---|---|
-| W1 | 15 | 10 | 10 | **30** | 10 | 25 |
-| W2 | 15 | 15 | 15 | **25** | 15 | 15 |
-| W3 | **20** | 15 | 15 | 15 | **20** | 15 |
-| W4 | 15 | **20** | 15 | 10 | **25** | 15 |
-| W5 | 10 | 15 | **20** | 5 | **35** | 15 |
-| W6 | 10 | 15 | 15 | — | **45** (gara) | 25 |
+| Sett. | Forza pesante | Barra veloce/WL | Elastico-reattivo | **Agility+Synapse** | Metabolico | Simil-gara | Prevenzione |
+|---|---|---|---|---|---|---|---|
+| W1 | 15 | 10 | 10 | 5 | 25 | 10 | 25 |
+| W2 | 15 | 15 | 15 | 5 | 20 | 15 | 15 |
+| W3 | **20** | 15 | 10 | **10** | 10 | **20** | 15 |
+| W4 | 15 | **20** | 10 | **15** | 5 | **25** | 10 |
+| W5 | 10 | 15 | **15** | **15** | — | **35** | 10 |
+| W6 | 10 | 10 | 10 | 5 | — | **45** (gara) | 20 |
+
+*Agility+Synapse: in W1-W2 come intro nei CM; da W3 come sessione dedicata (campo lunedì pomeriggio). Elastico-reattivo: da W3 spostato nel campo mercoledì pomeriggio — rimane in palestra solo la dose minima di attivazione.*
 
 ---
 
@@ -77,9 +79,11 @@ Percentuale del volume settimanale per qualità (somma ≈100):
 
 | | Lun | Mar | Mer | Gio | Ven | Sab | Dom |
 |---|---|---|---|---|---|---|---|
-| **W1-W2** | Spiaggia + CM (medio) | **Palestra P + CM (alto)** | Spiaggia + CM (medio) | **Palestra V + CM (alto)** | Acqua + CM (basso) | riposo | riposo |
-| **W3-W5** | **Palestra P (alto)** | CM agility (basso) | **Palestra V (alto)** | CM plio ruolo (medio) | Palestra richiamo (basso) | CM att. + **Amichevole (alto)** | riposo |
-| **W6** | recupero attivo | **Palestra P breve** | CM (basso) | **Palestra V breve (72h)** | CM richiamo (48h) | scarico | **GARA (dom 4/10)** |
+| **W1-W2** | Spiaggia (estensiva) | **Gym P + CM agility intro** *(alto)* | Spiaggia + Synapse intro | **Gym V + CM tecnico contato** *(alto)* | Acqua/scarico *(basso)* | riposo | riposo |
+| **W3-W5** | **Gym P + Campo A+S** *(doppia, alto)* | Campo tecnico *(pom.)* | **Gym V + Campo E-R** *(doppia, alto)* | Campo tecnico *(pom.)* | **Gym richiamo + Campo basso** *(doppia, basso — zero salti)* | Risc. + **Amichevole** *(alto)* | riposo |
+| **W6** | recupero attivo | **Gym P breve + Campo leggero** *(doppia)* | Campo tecnico basso | **Gym V breve + Campo** *(72h, doppia)* | Campo richiamo, zero salti *(48h)* | scarico/walkthrough | **GARA (dom 4/10)** |
+
+*A+S = Agility & Synapse (campo Lun pom, condotto dal fitness coach) · E-R = Elastico-Reattivo + Simil-gara (campo Mer pom, condotto dal fitness coach) · "Campo tecnico" = sessione tecnica condotta dal tecnico senza fitness coach, conta nel budget di salto*
 
 ---
 
@@ -131,7 +135,7 @@ Percentuale del volume settimanale per qualità (somma ≈100):
 
 ---
 
-## 8. Carico di salto: scala simil-gara + doppia metrica
+## 8. Carico di salto: scala simil-gara + modello a tre fonti
 
 ### La scala (motore narrativo, decide quanto gioco entra)
 
@@ -144,18 +148,30 @@ Percentuale del volume settimanale per qualità (somma ≈100):
 | W5 | 100% | Amichevole piena + gestione autonoma del riscaldamento (prova dei rituali) |
 | W6 | Gara | Non si prepara più: si esegue |
 
-### La contabilità (verifica il tetto ≤1,5×, per ruolo)
+### Il modello a tre fonti (da W3)
 
-| Sett. | Plio programmata (banda/centr-pall) | Campo tecnico stimato | Amichevole/gara (banda / centr-pall) | **Jump budget totale** (banda / centr) | Ratio vs sett. prec. |
-|---|---|---|---|---|---|
-| W1 | 28 / 28 | 25-35 | — | **55-65 / 55-65** | — |
-| W2 | 40 / 40 | 30-40 (+ blocco 6v6 25-35) | — | **95-115 / 95-115** | 1,5× (limite) |
-| W3 | 34 / 26 | 30-40 | 50-70 / 60-80 (limitata) | **112-142 / 114-144** | 1,2× |
-| W4 | 38 / 28 | 35-45 | 50-70 / 75-95 (piena) | **121-151 / 137-167** | 1,1× / 1,2× |
-| W5 | 42 / 32 | 35-45 | 50-70 / 75-95 (piena) | **125-155 / 140-170** | ~1,05× — picco |
-| W6 | 14 / 14 | 15-20 | 50-70 / 75-95 (gara) | **79-104 / 104-129** | 0,66-0,75× — taper |
+Da W3 il jump budget si alimenta da **tre fonti distinte**. Contare solo la pliometria programmata dal fitness coach è l'errore che porta al sovra-carico non dichiarato.
 
-Box/DJ: si sale in altezza solo con rimbalzo elastico (regola §4.7); tetto 40cm. Sabbia W1-W2 aggiunge contatti estensivi a impatto ridotto, non conteggiati qui ma controllati a vista.
+| Fonte | Chi la governa | Progressione W3→W5 |
+|---|---|---|
+| **Gym plio** — box jump dose minima, DJ in palestra | Fitness coach (Lun/Mer mattina) | Stabile a dose ridotta; la plio principale si sposta nel campo Mer pom |
+| **Campo mio** — A+S lunedì pom + E-R mercoledì pom | Fitness coach | A+S: basso impatto verticale. E-R: progressivo W3→W5, è il blocco plio principale |
+| **Campo tecnico** — sessioni Tue/Thu + amichevole Sab | Tecnico (senza fitness coach) | **Cresce da W3 a W5** — è la fonte che raggiunge il picco per ultima. Il fitness coach la stima (sRPE + conteggio visivo) e la sottrae al budget disponibile prima di programmare la propria |
+
+**Regola operativa**: quando il campo tecnico cresce (W4→W5), la gym plio e il campo E-R si accorciano di conseguenza. La 1,5× si applica al TOTALE delle tre fonti, non alla sola pliometria programmata.
+
+### La contabilità (tre fonti, per ruolo — la 1,5× si applica al totale)
+
+| Sett. | Gym plio banda/centr | Campo mio A+S+E-R banda/centr | Campo tecnico Tue/Thu banda/centr | Amichevole/Gara banda/centr | **Totale banda / centr** | Ratio |
+|---|---|---|---|---|---|---|
+| W1 | 17 / 17 | 16 / 16 *(spiaggia estensiva)* | 20-30 / 20-30 *(CM mini)* | — | **55-65 / 55-65** | — |
+| W2 | 20 / 20 | 30 / 30 *(spiaggia + 6v6)* | 20-25 / 20-25 *(CM)* | — | **95-115 / 95-115** | 1,5× (limite) |
+| W3 | 10 / 7 | 25 / 18 *(A+S basso + E-R inizio)* | 40-55 / 50-65 *(inizio — Tue+Thu)* | 35-55 / 45-65 *(limitata)* | **110-145 / 120-155** | ~1,15× |
+| W4 | 10 / 7 | 28 / 20 | 55-70 / 65-80 *(in crescita)* | 50-70 / 75-95 *(piena)* | **143-178 / 167-202** | ~1,2-1,3× |
+| W5 | 10 / 7 | 30 / 22 *(picco E-R)* | 70-90 / 85-105 *(picco tecnico)* | 50-70 / 75-95 *(piena)* | **160-200 / 189-229** | ~1,05-1,15× — picco |
+| W6 | 6 / 5 | 8 / 5 *(leggero)* | 20-30 / 20-30 *(taper tecnico)* | 50-70 / 75-95 *(gara)* | **84-114 / 105-135** | ~0,6× — taper |
+
+Box/DJ: si sale in altezza solo con rimbalzo elastico (regola §4.7); tetto 40cm. Sabbia W1-W2 aggiunge contatti estensivi a impatto ridotto, parzialmente conteggiati nella colonna "campo mio". I valori del campo tecnico sono stime da verificare settimanalmente via sRPE del tecnico + conteggio visivo dei salti.
 
 ---
 
@@ -229,19 +245,57 @@ Squat 4×2@80%; Clean 3×2@75%; squat veloce@65%; sabbia estensiva +1 serie; int
 
 ## 13. Sedute — Finestra 2 (W3-W5)
 
-**Palestra P (Lun)**: attivazione+CMJ (W3/W5) → prevenzione ruolo (§11, W3-4) → Squat/onda-cluster (§7) → superserie upper → box jump dose ruolo (§8) → core. ~55'.
+**Struttura**: 3 giornate con il fitness coach (Lun/Mer/Ven), ciascuna doppia sessione mattina+pomeriggio. Martedì e giovedì: campo tecnico pomeridiano condotto dal tecnico, senza fitness coach.
 
-**Palestra V (Mer)**: attivazione balistica → Clean (§7) → jump squat/contrasto (§7) → Push Press ss tirata → core dinamico MB. ~52'. Max 2 blocchi RPE≥7 (Clean + jump squat/contrasto).
+---
 
-**Palestra richiamo (Ven)**: prevenzione completa → Hinge leggero 2×3@75% → tirata 2×8 → core. ~40-45'. **Zero salti**: le gambe si consegnano al sabato (regola §4.9).
+**LUNEDÌ — Gym P (mattina, ~50-55') + Campo Agility & Synapse (pomeriggio, ~35-45')**
 
-**CM1 (Mar)**: agility/scaletta, complessità crescente (W3 pattern fisso → W4 +decisione su segnale → W5 +pallone in dual-task).
+*Gym P*: attivazione+CMJ marker → prevenzione ruolo (§11) → Squat/onda-cluster (§7) → superserie upper → box jump dose minima attivazione (2×4 banda / 1×4 centr — la plio principale è nel campo Mer pom) → core.
 
-**CM2 (Gio)**: blocco elastico-reattivo per ruolo (§8, contatti differenziati) + skimmy decelerazione + simil-rally metabolico (W4).
+*Campo A+S* — progressione cognitiva W3→W5, RPE 5-6, zero impatto verticale alto:
+- **W3**: pattern agility fissi per ruolo (scaletta, T-drill 4m, laterale step-passo) + Spatial Maze intro
+- **W4**: + decisione su segnale (cono colore, partner visivo) — direzione di uscita non predefinita
+- **W5**: + pallone in dual-task (ricezione + agility pattern simultanei) — peak cognitivo
 
-**CM3 (Sab)**: attivazione pre-amichevole 18-20', deliberatamente scarica.
+---
 
-**Amichevoli**: W3 limitata (§8-9), W4-W5 piene. Lunedì dopo ogni amichevole: +10' di scarico/mobilità, il CMJ decide se il giorno P resta pesante o scala a richiamo (cruscotto §10).
+**MARTEDÌ — Campo tecnico** (pomeriggio, senza fitness coach)
+
+Sessione tecnica condotta dal tecnico. Raccogliere a fine seduta: sRPE + stima salti (banda ~40-55 / centr ~50-65 in W3, in crescita verso W5). Il fitness coach usa questa stima per calibrare il campo E-R del mercoledì successivo.
+
+---
+
+**MERCOLEDÌ — Gym V (mattina, ~50-55') + Campo Elastico-Reattivo + Simil-gara (pomeriggio, ~35-45')**
+
+*Gym V*: attivazione balistica → Clean (§7) → jump squat/contrasto (§7) → Push Press ss tirata → core dinamico MB. Max 2 blocchi RPE≥7.
+
+*Campo E-R + Simil-gara* — giorno con il carico pomeridiano più alto; non aggiungere sprint o plio fuori programma:
+- **W3**: DJ 25-30cm solo rimbalzo elastico (banda 3×5 / centr 2×4) + COD navette + situazioni 2v2-3v3 contate
+- **W4**: DJ 30-35cm (banda 3×6 / centr 2×5) + COD su segnale + 4v4 rotazioni + simil-rally
+- **W5**: DJ picco/contrasto (banda 3×7 / centr 2×5) + navette alta intensità + simil-rally
+
+*Regola*: se CMJ lunedì <95% o fastidio rotuleo >2/10, il blocco DJ si dimezza e si sostituisce con tecnica.
+
+---
+
+**GIOVEDÌ — Campo tecnico** (pomeriggio, senza fitness coach)
+
+Idem martedì, tipicamente leggermente più leggero nel volume tecnico (giovedì è a 48h dall'amichevole).
+
+---
+
+**VENERDÌ — Gym richiamo (mattina, ~40-45') + Campo tecnico basso (pomeriggio, ~20-25')**
+
+*Gym richiamo*: prevenzione completa → Hinge leggero 2×3@75% → tirata 2×8 → core. Zero salti.
+
+*Campo basso*: tecnica posizionale, walk-through. **Zero salti verticali assoluto** — le gambe appartengono al sabato.
+
+---
+
+**SABATO**: riscaldamento pre-amichevole 18-20' (scarico deliberato) → Amichevole (W3 limitata §8-9; W4-W5 piena).
+
+**Lunedì post-amichevole**: +10' scarico/mobilità in apertura Gym P + CMJ decide se la seduta resta pesante o scala a richiamo (cruscotto §10).
 
 ---
 

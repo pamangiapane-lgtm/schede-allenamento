@@ -1,123 +1,166 @@
-# Scheda Sedute Campo — Settimana 5 (FINALE)
-**Fonte**: Preseason_A2_2026_Programma_FINALE.md — §7 "Progressione forza definitiva", §8 "Carico di salto", §13 "Sedute — Finestra 2 (W3-W5)".
-**Scopo**: solo esecuzione — ordine dei metodi/esercizi, distanze/volumi, intensità, recupero, RPE, varianti.
-**Cosa cambia rispetto a W4**: (1) lo squat di lunedì diventa **VBT** (velocity-based training) invece di una % fissa — si carica finché la barra si muove a 0,5-0,6 m/s, non a un numero deciso a tavolino; (2) il Clean tocca il suo picco 4×1@85%; (3) la barra veloce diventa **contrasto** (squat pesante→jump squat); (4) picco assoluto di contatti pliometrici (42/32); (5) CM1 aggiunge il **pallone in dual-task**; (6) CM3 diventa **prova generale dei rituali**, gestita in autonomia dalle atlete; (7) prevenzione passa a **"velocità nel gesto"**; (8) amichevole piena, scala simil-gara al **100%**.
-**Differenza reale con v3**: v3 usa 3×2@85% fisso su Squat; FINALE usa la VBT — è la differenza dichiarata nel documento sorgente (*"Conversione in velocità, strumento già in uso dal 25/26; volume in scarico pre-taper"*), non un'approssimazione mia. Clean 4×1 qui contro 5×1 di v3 (stesso 85%, un tocco in meno).
-**Continuità da W4**: lunedì la Palestra P mantiene +10' di scarico extra e controllo CMJ.
+# Scheda Sedute — Settimana 5 (FINALE)
+**Fonte**: Preseason_A2_2026_Programma_FINALE.md — §6, §7, §8, §13.
+**Struttura settimana**: identica a W3-W4 (3 doppie Lun/Mer/Ven + campo tecnico Mar/Gio). Amichevole piena a 100% scala simil-gara.
+**Scala simil-gara**: 100% — amichevole piena + prova generale dei rituali di riscaldamento.
+**Cosa cambia rispetto a W4**:
+1. Gym P: Squat diventa **VBT 3×2 @0,5-0,6 m/s** — conversione in velocità, forza in scarico relativo
+2. Gym V: Clean al picco **4×1 @85%** + Contrasto (squat pesante → jump squat) sostituisce il jump squat isolato
+3. Campo A+S: + pallone in dual-task — peak cognitivo del ciclo
+4. Campo E-R: picco DJ + navette ad alta intensità + simil-rally — il mercoledì più carico del ciclo
+5. Campo tecnico Tue/Thu: picco stimato (fonte dominante questa settimana)
+6. Prevenzione: terza onda — **velocità nel gesto**
+7. Sabato: le atlete gestiscono il riscaldamento in autonomia (prova dei rituali)
+8. **Gate W5→W6** (§9): CMJ ≥100% baseline (atteso 103-105%); se non passa → taper più profondo (-60% invece di -50%, plio W6 azzerata)
 
 ---
 
-## LUNEDÌ mattina — PALESTRA P, forza — conversione VBT (~55-58')
+## LUNEDÌ MATTINA — GYM P, forza — **CONVERSIONE VBT** (~55-58')
 
-*Segue l'amichevole piena di W4: stesso protocollo di scarico/controllo di W4.*
+*Segue amichevole piena di W4: stesso protocollo scarico+CMJ.*
 
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Scarico post-amichevole (+10') | Mobilità estesa, decompressione | Assorbe la fatica residua dell'amichevole prima di qualunque carico | — | 10' | — | — | 2-3 |
-| 2 | Attivazione | Mobilità articolare | Prepara il corpo al carico | — | 4' | — | — | 3 |
-| 3 | **Controllo CMJ** | 3 salti, media | Atteso ≥100% baseline — se sotto, la seduta scala | — | 3 salti | — | — | — |
-| 4 | Attivazione specifica | Glutei (banda) | Accende la catena d'anca | — | 4' | — | — | 3-4 |
-| 5 | Prevenzione ruolo (**velocità nel gesto**) | Centrali: pogo mono, atterraggi da muro; Schiacciatrici: lanci MB leggeri sopra il capo; Palleggiatrici: palline reattive, dual-task; Libero: cadute controllate su timing | Terza onda di prevenzione — dal forza-nel-range di W3-4 alla velocità del gesto reale | — | 2-3 serie | RPE5-6 | 60-90" | 5-6 |
-| 6 | Forza — **VBT** | Squat, carico regolato sulla velocità di barra | Non si parte da una % fissa: si sale di carico finché la velocità della barra resta a 0,5-0,6 m/s (misurata con il dispositivo, profilo individuale già tracciato) — corrisponde di norma al 78-82% ma varia atleta per atleta | Box Squat con lo stesso criterio di velocità | 3×2 | **VBT 0,5-0,6 m/s (~78-82%)** | 2'30" | 7 |
-| 7 | Superserie upper | Row 2×4 ss Bench 2×4 | Forza di tirata + spinta orizzontale, volume in ulteriore calo | Row manubri unilaterale · Bench manubri | — | 72% | 90" | 6 |
-| 8 | Elastico-reattivo (picco, dose ruolo) | Box jump + contrasto (squat leggero → salto verticale immediato) | Salto verticale + metodo a contrasto — il picco di reattività dell'intero ciclo | Drop landing da 20cm (solo per chi non ha ancora il rimbalzo elastico) | Banda 3×5 · Centrali/Palleggio 2×5 | — | 90" | 7 |
-| 9 | Core | Pallof | Anti-rotazione del core | — | 2×10+10 | — | 45" | 5 |
-| 10 | Chiusura | Mobilità | Rientro | — | 3' | — | — | 2 |
+| Ord. | Fase | Esercizio | Volume | Intensità | Recupero | RPE | Note |
+|---|---|---|---|---|---|---|---|
+| 1 | **Scarico post-amichevole** | Mobilità estesa | 10' | — | — | 2-3 | — |
+| 2 | Attivazione | Mobilità articolare | 4' | — | — | 3 | — |
+| 3 | **Controllo CMJ** | 3 salti, media | 3 salti | — | — | — | **Atteso ≥100% baseline.** Se <95% → seduta scala a richiamo |
+| 4 | Attivazione specifica | Glutei banda | 4' | — | — | 3-4 | — |
+| 5 | Prevenzione ruolo (**velocità nel gesto**) | Centr: pogo mono, atterraggi da muro · Schiacciatrici: lanci MB leggeri sopra il capo · Palleggio: palline reattive, dual-task · Libero: cadute controllate su timing | 2-3 serie | RPE5-6 | 60-90" | 5-6 | Terza onda: dal forza-nel-range di W3-4 alla velocità del gesto reale |
+| 6 | **Squat VBT** | Non si parte da % fissa: si sale finché la barra scende a 0,5-0,6 m/s (corrisponde ~78-82%) | 3×2 | **VBT 0,5-0,6 m/s** | 2'30" | 7 | Senza dispositivo VBT: usare 80% come riferimento fisso, regolare su RPE7 percepito |
+| 7 | Superserie upper | Row 2×4 ss Bench 2×4 | — | 72% | 90" | 6 | Volume upper in ulteriore calo |
+| 8 | Box jump + **contrasto** | Squat leggero 2 rip → salto verticale immediato 3 rip (PAP) | Banda 3×5 · Centr/Pall 2×5 | Squat: RPE6 / Salto: max | 90" | 7 | Picco reattivo Gym P del ciclo |
+| 9 | Core | Pallof | 2×10+10 | — | 45" | 5 | — |
+| 10 | Chiusura | Mobilità | 3' | — | — | 2 | — |
 
-Totale reale: ~50' + buffer ~8-10' = **~55-58'**. Senza dispositivo VBT disponibile: usare 80% come riferimento fisso e regolare su RPE7 percepito.
-
----
-
-## MARTEDÌ pomeriggio — CM1, agility/scaletta — dual-task con pallone (~30')
-
-*Invariata rispetto a v3 — stesso identico contenuto atletico, non compare differenza tra le due versioni su questo pomeriggio.*
-
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Distanza/Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico caviglia+spalla | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
-| 2 | Attivazione dinamica | Skip basso | Accende il pattern di corsa | Skip laterale · Carioca leggero | 2×15m | RPE4 | 20" | 4 |
-| 3 | Scaletta ruolo + segnale + pallone | Pattern per ruolo, direzione decisa a segnale, **pallone in mano per tutto il percorso** | Dual-task completo: motorio + cognitivo + controllo attrezzo | Pallone passato a un compagno a metà percorso | 4× (6-8m/passaggio) | RPE5-6 | 45" | 5-6 |
-| 4 | T-drill con decisione e pallone | Cambio direzione a coni con pallone in mano, direzione finale a comando | Cambio di direzione sotto carico cognitivo e motorio combinato | 5-10-5 shuttle reattivo con pallone | 4× | RPE5-6 | 45" | 5-6 |
-| 5 | Tecnica pallone | Gesto ruolo-specifico | Richiamo del gesto a bassa intensità | — | 8' | RPE4-5 | — | 4-5 |
-| 6 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
+Totale ~50' + buffer = **~55-58'**.
 
 ---
 
-## MERCOLEDÌ mattina — PALESTRA V, potenza/veloce — contrasto (~52-55')
+## LUNEDÌ POMERIGGIO — CAMPO AGILITY & SYNAPSE — **PEAK COGNITIVO** (~45')
 
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione generale | Mobilità | Prepara il corpo al gesto veloce | — | 4' | — | — | 3 |
-| 2 | Attivazione balistica | Lanci MB, salti bassi | Accende il sistema nervoso senza affaticare | — | 6' | — | — | 4 |
-| 3 | WL (picco della progressione, mai sospeso) | Clean | Weightlifting derivato — il tocco più alto dell'intero ciclo su questo esercizio | Hang Clean | 4×1 | **85%** | 2' | 7-8 |
-| 4 | Contrasto (squat→salto) | Squat pesante 2 rip immediate seguite da jump squat 3 rip | Il carico pesante potenzia neurologicamente il salto immediatamente successivo | A corpo libero il jump squat se non ancora confidenza | 2 rip pesanti + 3 rip salto, ×3 complessi | Squat: RPE8 / Jump: max intent | 2'30" tra complessi | 7-8 |
-| 5 | Superserie | Push Press 2×4 ss Lat/Pull-up 2×6 | Potenza spinta + forza tirata verticale, volume in calo | Push Press bilanciere · Pulley basso | — | RPE7 | 90" | 7 |
-| 6 | Core dinamico | Rotazionale con MB | Potenza di rotazione, transfer al gesto d'attacco | — | 2×6+6 | — | 45" | 5 |
-| 7 | Chiusura | Mobilità | Rientro | — | 3' | — | — | 2 |
+*W5: pallone in dual-task — il livello più complesso del ciclo. RPE 5-6.*
 
-Totale reale: ~45' + buffer ~7-8' = **~52-55'**. Due blocchi RPE≥7-8 (Clean + Contrasto): cap rispettato.
-
----
-
-## GIOVEDÌ pomeriggio — CM2, elastico-reattivo — picco + skimmy + simil-rally (~30')
-
-*Invariata rispetto a v3 — stesso identico contenuto atletico.*
-
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Distanza/Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico spalla/caviglia | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
-| 2 | Attivazione dinamica | Skip + balzi bassi | Accende il pattern di salto | — | 2×15m | RPE4-5 | 20" | 4-5 |
-| 3 | Elastico-reattivo (picco) | Drop Jump 25-30cm | Pliometria reattiva al suo volume più alto del ciclo | — | Banda 3×7 · Centrali/Palleggio 2×5 | — | 60" | 7 |
-| 4 | Elastico-reattivo laterale | Balzi laterali su panca | Potenza laterale, transfer al movimento di blocco/difesa | Banda 2×3/lato · Centrali/Palleggio 2×2/lato | — | — | 45" | 6 |
-| 5 | Skimmy decelerazione | Scivolamento laterale + arresto | Decelerazione frontale in laterale — controllo del ginocchio | Con cambio senso a metà | 2×20"/lato | RPE5-6 | 40" | 5-6 |
-| 6 | Simil-rally metabolico | Scambio a pallone: lavoro breve/recupero incompleto | Condizionamento specifico — ultima settimana prima che il condizionamento lo faccia solo il gioco | — | 8-10× (4-6" lavoro / 15-20" rec) | RPE6-7 | come indicato | 6-7 |
-| 7 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
-
-Contatti indicativi di sessione: banda ~27, centrali/palleggio ~14 (sommati ai 15/10 di Palestra P → banda ~42, centrali/palleggio ~24 — vicino al target 42/32).
+| Ord. | Fase | Esercizio | Volume | Recupero | RPE | Note |
+|---|---|---|---|---|---|---|
+| 1 | Attivazione | Mobilità dinamica + elastico caviglia | 3' | — | 3 | — |
+| 2 | Andature | Skip basso, carioca, laterale | 2×15m | 20" | 4 | — |
+| 3 | Scaletta + segnale + **pallone** | Pattern ruolo, direzione a segnale visivo, **pallone in mano per tutto il percorso** | 4× per atleta | 45" | 5-6 | Dual-task completo: motorio + cognitivo + controllo attrezzo |
+| 4 | T-drill + pallone | Percorso T, direzione finale a comando; atleta porta/riceve pallone nell'ultimo tratto | 4× | 45" | 5-6 | Variante: pallone passato a compagna a metà percorso |
+| 5 | Spatial Maze peak | Tabellone + movimento direzionale + **cambio compito a metà** (task switching) | 2×5' | 60" | 5 | Motor Task Switching ELAV: l'istruttore cambia il tipo di compito a metà sequenza senza preavviso |
+| 6 | Palline reattive (tutti i ruoli) | Lanci a muro a ritmo variabile + spostamento laterale sincrono | 2×3' | 45" | 5-6 | — |
+| 7 | Chiusura | Mobilità | 3' | — | 2 | — |
 
 ---
 
-## VENERDÌ mattina — PALESTRA richiamo, pre-amichevole (~40-45')
+## MARTEDÌ POMERIGGIO — CAMPO TECNICO — PICCO (tecnico — senza fitness coach)
 
-*Invariata nella struttura rispetto a W3-W4. Nessuna pliometria — regola §4.9 del documento sorgente.*
-
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione | Mobilità generale | Prepara il corpo senza affaticare | — | 5' | — | — | 3 |
-| 2 | Prevenzione ruolo (completa, velocità nel gesto) | Menù W5-6 per ruolo (§ glossario) | — | 3 serie | RPE5 | 60-90" | 5 |
-| 3 | Forza leggera | Hinge (Stacco rumeno) | Richiamo della catena posteriore, priorità al Squat questa settimana | — | 2×2 | **78%** | 2' | 6 |
-| 4 | Tirata | Row bilanciere o Lat machine | Richiamo della tirata, volume basso | — | 2×8 | RPE5-6 | 90" | 5-6 |
-| 5 | Core | Deadbug o Pallof (a scelta) | Controllo lombo-pelvico/anti-rotazione | — | 2×30" | — | 45" | 4 |
-| 6 | Chiusura | Mobilità | Rientro | — | 5' | — | — | 2 |
-
-Totale reale: ~35' + buffer ~5-8' = **~40-45'**. **Zero contatti pliometrici**. Nota: l'Hinge qui è 2×2@78% (non 2×3@75% come W3-4) — priorità della settimana resta il Squat VBT del lunedì, questo è solo un richiamo.
+Settimana di picco tecnico. Atteso: **banda ~60-75 / centr-pall ~75-90** — la fonte dominante del budget questa settimana.
+Raccogliere sRPE + stima salti. Se CMJ del martedì (misurato con app in autonomia) <95% baseline → comunicare subito. Il campo E-R di mercoledì può essere alleggerito nel blocco DJ.
 
 ---
 
-## SABATO mattina — CM3, prova generale dei rituali — gestione autonoma (~18-20')
+## MERCOLEDÌ MATTINA — GYM V, potenza — **CONTRASTO** (~52-55')
 
-*Invariata rispetto a v3: stesso conduttore (le atlete), stesso contenuto.*
+| Ord. | Fase | Esercizio | Volume | Intensità | Recupero | RPE | Note |
+|---|---|---|---|---|---|---|---|
+| 1 | Attivazione | Mobilità | 4' | — | — | 3 | — |
+| 2 | Attivazione balistica | Lanci MB, salti bassi | 6' | — | — | 4 | — |
+| 3 | **Clean — picco del ciclo** | WL derivato — il tocco più alto dell'intero ciclo su questo esercizio | 4×1 | **85%** | 2' | 7-8 | Tecnica prioritaria. Variante: Hang Clean |
+| 4 | **Contrasto** | Squat pesante 2 rip + jump squat 3 rip immediati | 3 complessi | Squat: RPE8 / Jump: max intent | 2'30" tra complessi | 7-8 | Il carico pesante potenzia neurologicamente il salto immediatamente successivo (PAP/PAPE) |
+| 5 | Superserie | Push Press 2×4 ss Lat/Pull-up 2×6 | — | RPE7 | 90" | 7 | Volume in calo |
+| 6 | Core dinamico | Rotazionale MB | 2×6+6 | — | 45" | 5 | — |
+| 7 | Chiusura | Mobilità | 3' | — | — | 2 | — |
 
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Intensità | Recupero | RPE |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione (autogestita) | Elastico + mobilità dinamica | Le atlete guidano la sequenza, il tecnico osserva | — | 8' | RPE3-4 | — | 3-4 |
-| 2 | Riattivazione neurale (autogestita) | Balzi bassi/skip | Richiamo neurale, nessun nuovo stimolo | — | 6' | RPE4-5 | — | 4-5 |
-| 3 | Tecnica pre-gara (autogestita) | Gesto specifico, bassa densità | Prontezza tecnica, rituale personale | — | 6' | RPE4 | — | 4 |
+**Cap RPE≥7-8**: 2 blocchi (Clean + Contrasto). Totale ~45' + buffer = **~52-55'**.
 
 ---
 
-## SABATO pomeriggio/sera — AMICHEVOLE, partecipazione PIENA (100% scala simil-gara)
+## MERCOLEDÌ POMERIGGIO — CAMPO ELASTICO-REATTIVO + SIMIL-GARA — **PICCO E-R** (~40-45')
 
-**Formato**: partecipazione piena, come W4.
-**Carico stimato**: 50-70 contatti alto impatto (banda/libero) — 75-95 (centrali/palleggiatrici).
-**Gate collegato** (§9 del documento sorgente): CMJ ≥100% baseline (atteso 103-105%), nessun trend negativo su wellness, jump budget al picco ma dentro la curva — se il gate non passa, il taper di W6 diventa più profondo (-60% invece di -50%, plio azzerata).
+*Il mercoledì pomeriggio più carico del ciclo. Non aggiungere nulla fuori da questo schema.*
+
+| Ord. | Fase | Esercizio | Volume | Recupero | RPE | Note |
+|---|---|---|---|---|---|---|
+| 1 | Attivazione | Mobilità + balzi bassi | 4' | — | 3-4 | — |
+| 2 | **Drop Jump — picco ciclo** | Rimbalzo elastico obbligatorio; contatto <250ms | Banda 3×7 · Centr/Pall 2×5 | 60" | 7 | Altezza: 30-35cm banda / 25-30cm centr (chi non è ancora a rimbalzo stabile resta a 25cm) |
+| 3 | Balzi laterali su panca | Potenza laterale | Banda 2×3/lato · Centr/Pall 2×2/lato | 45" | 6 | — |
+| 4 | Navette ad alta intensità | Shuttle 10m a/r, massima accelerazione + decelerazione | 5×10m a/r | 30" rec 1:2 | 7 | — |
+| 5 | Simil-rally alta intensità | 4-6" lavoro / 15-20" rec, con spostamento laterale obbligatorio tra un colpo e l'altro | 10× | come indicato | 7 | Ultima settimana di simil-rally — da W6 condiziona solo il gioco |
+| 6 | Chiusura | Mobilità | 4' | — | 2 | — |
+
+**Regola**: se CMJ lunedì <95% o campo tecnico martedì ha superato la stima → ridurre DJ a Banda 2×5 / Centr 1×5 e aggiungere 10' di tecnica al posto del blocco tagliato.
+
+**Contatti DJ**: banda ~27 / centr ~14. **Totale giorno Mer** (gym + campo): banda ~36 / centr ~23.
+
+---
+
+## GIOVEDÌ POMERIGGIO — CAMPO TECNICO (tecnico — senza fitness coach)
+
+Giovedì W5: attenzione alla densità — 48h dall'amichevole piena in arrivo sabato. Atteso: **banda ~55-65 / centr-pall ~65-80**.
+
+Se il tecnico percepisce stanchezza accumulata → autorizzato a ridurre il volume di 20-30% senza comunicazione urgente al fitness coach (giovedì è già il giorno più leggero dei due tecnici).
+
+---
+
+## VENERDÌ MATTINA — GYM RICHIAMO (~40-45')
+
+Invariata nel contenuto. Prevenzione sale alla terza onda (velocità nel gesto).
+
+| Ord. | Fase | Esercizio | Volume | Intensità | Recupero | RPE |
+|---|---|---|---|---|---|---|
+| 1 | Attivazione | Mobilità generale | 5' | — | — | 3 |
+| 2 | Prevenzione ruolo (**velocità nel gesto**, completa) | Menù W5-6 per ruolo | 3 serie | RPE5 | 60-90" | 5 |
+| 3 | Hinge | Stacco Rumeno (priorità al Squat VBT questa settimana) | 2×2 | **78%** | 2' | 6 |
+| 4 | Tirata | Row o Lat machine | 2×8 | RPE5-6 | 90" | 5-6 |
+| 5 | Core | Deadbug o Pallof | 2×30" | — | 45" | 4 |
+| 6 | Chiusura | Mobilità | 5' | — | — | 2 |
+
+**Zero contatti pliometrici.**
+
+---
+
+## VENERDÌ POMERIGGIO — CAMPO TECNICO BASSO (~20-25')
+
+Identico a W3-W4. Tecnica posizionale, walk-through. **Zero salti verticali assoluto.**
+
+---
+
+## SABATO MATTINA — RISCALDAMENTO AUTOGESTITO (~18-20') — prova generale rituali
+
+*Le atlete guidano la sequenza. Il tecnico osserva senza intervenire. Il fitness coach non è presente.*
+
+| Ord. | Fase | Descrizione | Volume | RPE |
+|---|---|---|---|---|
+| 1 | Attivazione (autogestita) | Le atlete guidano la propria routine di attivazione | 8' | 3-4 |
+| 2 | Riattivazione neurale (autogestita) | Balzi/skip/skip al ritmo scelto da loro | 6' | 4-5 |
+| 3 | Tecnica pre-gara (autogestita) | Gesto specifico, rituale personale | 6' | 4 |
+
+---
+
+## SABATO — AMICHEVOLE, partecipazione **PIENA** (100% scala simil-gara)
+
+**Gate W5→W6** (§9): CMJ ≥100% baseline, nessun trend negativo wellness, jump budget nella curva.
+**Se il gate non passa**: taper W6 più profondo (-60% volume invece di -50%, plio W6 azzerata).
+**Contatti stimati**: banda 50-70 / centr-pall 75-95.
 
 ---
 
 **Domenica**: riposo.
 
-### Glossario ruoli — prevenzione W5-6 (velocità nel gesto)
-- **Centrali**: reattività caviglia — pogo mono, atterraggi da muro.
-- **Schiacciatrici/Opposti**: overhead veloce — lanci MB leggeri sopra il capo.
-- **Palleggiatrici**: rapidità mani — palline reattive, dual-task.
-- **Libero**: tuffo e rialzata — cadute controllate su timing.
+### Budget di salto totale W5 (stima tre fonti — picco assoluto del ciclo)
+| Fonte | Banda | Centr/Pall |
+|---|---|---|
+| Gym plio (Lun mattina — box contrasto) | ~15 | ~10 |
+| Campo A+S Lun pom (agility, contatti minimi) | ~2 | ~2 |
+| Campo E-R Mer pom (DJ picco + navette) | ~32 | ~18 |
+| Campo tecnico Tue (picco) | 60-75 | 75-90 |
+| Campo tecnico Thu | 55-65 | 65-80 |
+| Amichevole Sab (piena) | 50-70 | 75-95 |
+| **Totale** | **~214-259** | **~245-295** |
+
+*Picco del ciclo. Verificare rispetto a 1,5× di W4. Se la stima del campo tecnico supera il previsto, ridurre il campo E-R Mer tagliando una serie di DJ (non azzerarlo).*
+
+### Glossario prevenzione W5-6 (velocità nel gesto)
+- **Centrali**: pogo mono, atterraggi da muro
+- **Schiacciatrici/Opposti**: lanci MB leggeri sopra il capo
+- **Palleggiatrici**: palline reattive, dual-task
+- **Libero**: cadute controllate su timing, tuffo e rialzata
