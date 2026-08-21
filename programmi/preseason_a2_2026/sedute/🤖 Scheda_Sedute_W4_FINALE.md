@@ -148,8 +148,12 @@ Invariato rispetto a W3. Deliberatamente scarico.
 
 *Verificare rispetto a 1,5× di W3 (tetto ~165-218 banda / ~180-232 centr). Se il campo tecnico Tue/Thu supera la stima, ridurre il campo E-R del Mer successivo.*
 
-### Glossario prevenzione W3-4 (forza nel range)
-- **Centrali**: heel raise zavorrato, step down
-- **Schiacciatrici/Opposti**: extrarotazione eccentrica, trap-3
-- **Palleggiatrici**: wrist roller, farmer polsi
-- **Libero**: nordic assistito, skater
+### Glossario prevenzione W3-4 (forza nel range — spalla integrata)
+*~10-11' totali per sessione: ~5-6' arto inferiore/gesto + ~4-5' spalla/braccio. RPE 5-6 arti inf.; RPE 4-5 spalla. Mai al cedimento. Palleggiatrici: wrist roller ≥60' prima del palleggio.*
+
+| Ruolo | Arto inferiore / gesto | Spalla / braccio |
+|---|---|---|
+| **Centrali** | Heel raise zavorrato 3×12 · Step down 3×8/lato | ER eccentrica decubito lat. 3×8 lento 4-5" (1-2kg) · Serratus punch 2×12 |
+| **Schiacciatrici/Opposti** | *(arto inf. coperto da plio — nessun blocco gamba dedicato)* | ER eccentrica 3×8 (4-5", 1-2kg) · Trap-3 Y raise prone 3×10 (1-2kg) |
+| **Palleggiatrici** | *(priorità avambraccio/polso)* | Wrist roller 2 salite · Farmer polsi 2×20" · Prone Y+T 2×10 (1kg) |
+| **Libero** | Nordic assistito 2×6 · Skater 2×8/lato | ER/IR decubito lat. 0° abd. 3×12 (1kg) · Scapular retraction prone W-position 2×12 (1-2kg) |

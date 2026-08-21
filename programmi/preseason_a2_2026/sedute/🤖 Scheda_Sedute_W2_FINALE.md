@@ -170,8 +170,12 @@ Contatti stimati: 25-35 (dentro il tetto ≤1,5× rispetto al blocco leggero di 
 
 **Sabato/Domenica**: riposo.
 
-### Glossario ruoli — prevenzione W1-2 (dal documento sorgente §11)
-- **Centrali**: caviglia — heel raise deficit, equilibrio su sabbia.
-- **Schiacciatrici/Opposti**: cuffia — extrarotazioni cavo/elastico, mobilità toracica.
-- **Palleggiatrici**: polso/mani — circonduzioni, presa; spalla leggera.
-- **Libero**: anca/ginocchio — Copenhagen, affondo laterale.
+### Glossario ruoli — prevenzione W1-2 (mobilità/capacità — spalla integrata)
+*~10' totali per sessione: ~5' arto inferiore/gesto + ~5' spalla/braccio. RPE ≤ 4. Mai al cedimento.*
+
+| Ruolo | Arto inferiore / gesto | Spalla / braccio |
+|---|---|---|
+| **Centrali** | Heel raise deficit 2×15 · Equilibrio monopodalico su sabbia 2×20" | Thoracic ext. su foam roller 2×8 · Scapular punch (standing) 2×10 |
+| **Schiacciatrici/Opposti** | *(priorità spalla — arto inf. coperto da plio e campo)* | Wall slide 2×12 · Posterior capsule stretch 2×30"/lato · ER cavo/elastico 0° abd. 2×12 lento |
+| **Palleggiatrici** | *(priorità polso/dita — ≥60' prima del palleggio)* | Finger extension elastico 2×15 · Pronazione/supinazione manubrio 1kg 2×15 · Circonduzioni polso 2×10 |
+| **Libero** | Copenhagen 2×8/lato · Affondo laterale 2×10 | Dynamic plank con reach alternato 2×8/lato |

@@ -14,7 +14,7 @@
 |---|---|---|---|---|---|---|---|
 | 1 | Attivazione | Mobilità articolare | 4' | — | — | 3 | — |
 | 2 | Attivazione specifica | Glutei banda + **CMJ marker 3 salti** | 4' | — | — | 3 | CMJ = misura di monitoraggio, non allenamento |
-| 3 | Prevenzione ruolo (forza nel range) | Centr: heel raise zavorrato, step down · Schiacciatrici: extrarot. eccentrica, trap-3 · Palleggio: wrist roller, farmer polsi · Libero: nordic assistito, skater | 2-3 serie | RPE5-6 | 60-90" | 5-6 | — |
+| 3 | Prevenzione ruolo (forza nel range) | **Gamba + spalla integrati per ruolo** — vedi glossario in fondo. ~10-11' totali | 2-3 serie gamba + 2 serie spalla | RPE5-6 gamba / RPE4-5 spalla | 60-90" | 5-6 | Glossario tabellare in fondo alla scheda |
 | 4 | Forza (onda) | **Squat cluster 3×(2+1)** | 3×(2+1) | **82 / 85%** | 2'30" | 7 | 2 rip + pausa intra-serie 20" + 1 rip più pesante. Variante: Box Squat stesso schema |
 | 5 | Superserie upper | Row 3×4 ss Bench 3×4 | — | 75% | 90" | 6 | — |
 | 6 | Box jump (attivazione) | Salto verticale atterraggio pulito | Banda 2×4 · Centr/Pall 1×4 | — | 90" | 6 | Dose minima — la plio principale è nel campo Mer pom. Rimbalzo elastico obbligatorio; tetto 40cm |
@@ -153,8 +153,12 @@ Contenuto: posizionamento fondamentali ruolo (prese, spostamenti laterali, chiam
 
 *La stima va aggiornata con i dati reali di Mar/Gio a fine settimana. Se il totale supera 1,5× rispetto a W2 (tetto ~172 banda / ~172 centr), il campo E-R del Mer viene ridotto per compensare.*
 
-### Glossario prevenzione W3-4 (forza nel range)
-- **Centrali**: heel raise zavorrato, step down
-- **Schiacciatrici/Opposti**: extrarotazione eccentrica, trap-3
-- **Palleggiatrici**: wrist roller, farmer polsi
-- **Libero**: nordic assistito, skater
+### Glossario prevenzione W3-4 (forza nel range — spalla integrata)
+*~10-11' totali per sessione: ~5-6' arto inferiore/gesto + ~4-5' spalla/braccio. RPE 5-6 arti inf.; RPE 4-5 spalla. Mai al cedimento. Palleggiatrici: wrist roller ≥60' prima del palleggio.*
+
+| Ruolo | Arto inferiore / gesto | Spalla / braccio |
+|---|---|---|
+| **Centrali** | Heel raise zavorrato 3×12 · Step down 3×8/lato | ER eccentrica decubito lat. 3×8 lento 4-5" (1-2kg) · Serratus punch 2×12 |
+| **Schiacciatrici/Opposti** | *(arto inf. coperto da plio — nessun blocco gamba dedicato)* | ER eccentrica 3×8 (4-5", 1-2kg) · Trap-3 Y raise prone 3×10 (1-2kg) |
+| **Palleggiatrici** | *(priorità avambraccio/polso)* | Wrist roller 2 salite · Farmer polsi 2×20" · Prone Y+T 2×10 (1kg) |
+| **Libero** | Nordic assistito 2×6 · Skater 2×8/lato | ER/IR decubito lat. 0° abd. 3×12 (1kg) · Scapular retraction prone W-position 2×12 (1-2kg) |

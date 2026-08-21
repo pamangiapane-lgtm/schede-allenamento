@@ -202,12 +202,14 @@ Regola di applicazione: se ≥25% del roster fallisce, il gate vale per tutta la
 
 Tre passaggi lungo le 6 settimane: **mobilità/capacità (W1-2) → forza nel range (W3-4) → velocità nel gesto (W5-6)**.
 
-| Ruolo | W1-W2 | W3-W4 | W5-W6 |
+Ogni blocco prevenzione integra **arto inferiore/gesto + spalla/braccio per ruolo** (~10-11' totali). RPE ≤ 5, mai al cedimento — i tendini rispondono alla frequenza. Palleggiatrici: wrist roller/finger extension ≥60' prima di qualsiasi palleggio.
+
+| Ruolo | W1-W2 (mobilità/capacità) | W3-W4 (forza nel range) | W5-W6 (velocità nel gesto) |
 |---|---|---|---|
-| Centrali | Caviglia: heel raise deficit, equilibrio su sabbia | Polpaccio carico: heel raise zavorrato, step down | Reattività caviglia: pogo mono, atterraggi da muro |
-| Schiacciatrici/Opposti | Cuffia: extrarotazioni cavo/elastico, mobilità toracica | Cuffia sotto carico: extrarot. eccentrica, trap-3 | Overhead veloce: lanci MB sopra il capo |
-| Palleggiatrici | Polso/mani: circonduzioni, presa; spalla leggera | Avambraccio carico: wrist roller, farmer polsi | Rapidità mani: palline reattive, dual-task |
-| Libero | Anca/ginocchio: Copenhagen, affondo laterale | Eccentrico: nordic assistito, skater | Tuffo e rialzata: cadute controllate su timing |
+| Centrali | **Caviglia**: heel raise deficit 2×15, equilibrio su sabbia 2×20" · **Spalla**: thoracic ext. foam roller 2×8 + scapular punch 2×10 | **Polpaccio**: heel raise zav. 3×12, step down 3×8/lato · **Spalla**: ER eccentrica 3×8 lento (4-5", 1-2kg) + serratus punch 2×12 | **Caviglia reattiva**: pogo mono, atterraggi da muro · **Spalla**: reactive arm swing banda 2×8 |
+| Schiacciatrici/Opposti | **Cuffia capacity**: wall slide 2×12, posterior capsule stretch 2×30" · ER cavo/elastico 0° abd. 2×12 lento | **Cuffia carico**: ER eccentrica 3×8 (4-5", 1-2kg) · Trap-3 Y raise prone 3×10 (1-2kg) | **Overhead veloce**: lanci MB leggeri sopra il capo 3×6 (1-2kg) |
+| Palleggiatrici | **Dita/polso**: finger extension elastico 2×15, pronazione/supinazione manubrio 1kg 2×15, circonduzioni polso 2×10 · **Spalla leggera**: prone Y+T 2×10 | **Avambraccio**: wrist roller 2 salite, farmer polsi 2×20" · **Spalla**: prone Y+T 2×10 (mantenimento) | **Rapidità mani**: palline reattive dual-task 2×3' · **Polsi**: wrist roller mantenimento 1 salita |
+| Libero | **Anca/ginocchio**: Copenhagen 2×8/lato, affondo laterale 2×10 · **Spalla**: dynamic plank con reach alternato 2×8/lato | **Eccentrico**: nordic assistito 2×6, skater 2×8/lato · **Spalla**: ER/IR decubito lat. 0° abd. 3×12 (1kg) + scapular retraction prone W-position 2×12 | **Propriocezione**: tuffo e rialzata 2×4, cadute controllate su timing · **Spalla**: scapular retraction prone 2×10 mantenimento |
 
 ---
 

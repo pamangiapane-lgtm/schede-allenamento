@@ -24,7 +24,7 @@
 | 2 | Attivazione | Mobilità articolare | 4' | — | — | 3 | — |
 | 3 | **Controllo CMJ** | 3 salti, media | 3 salti | — | — | — | **Atteso ≥100% baseline.** Se <95% → seduta scala a richiamo |
 | 4 | Attivazione specifica | Glutei banda | 4' | — | — | 3-4 | — |
-| 5 | Prevenzione ruolo (**velocità nel gesto**) | Centr: pogo mono, atterraggi da muro · Schiacciatrici: lanci MB leggeri sopra il capo · Palleggio: palline reattive, dual-task · Libero: cadute controllate su timing | 2-3 serie | RPE5-6 | 60-90" | 5-6 | Terza onda: dal forza-nel-range di W3-4 alla velocità del gesto reale |
+| 5 | Prevenzione ruolo (**velocità nel gesto**) | **Gesto + spalla integrati per ruolo** — vedi glossario in fondo. ~8-9' totali | 2-3 serie gesto + 1-2 serie spalla | RPE5-6 | 60-90" | 5-6 | Terza onda: velocità del gesto + spalla in mantenimento. Glossario tabellare in fondo |
 | 6 | **Squat VBT** | Non si parte da % fissa: si sale finché la barra scende a 0,5-0,6 m/s (corrisponde ~78-82%) | 3×2 | **VBT 0,5-0,6 m/s** | 2'30" | 7 | Senza dispositivo VBT: usare 80% come riferimento fisso, regolare su RPE7 percepito |
 | 7 | Superserie upper | Row 2×4 ss Bench 2×4 | — | 72% | 90" | 6 | Volume upper in ulteriore calo |
 | 8 | Box jump + **contrasto** | Squat leggero 2 rip → salto verticale immediato 3 rip (PAP) | Banda 3×5 · Centr/Pall 2×5 | Squat: RPE6 / Salto: max | 90" | 7 | Picco reattivo Gym P del ciclo |
@@ -159,8 +159,12 @@ Identico a W3-W4. Tecnica posizionale, walk-through. **Zero salti verticali asso
 
 *Picco del ciclo. Verificare rispetto a 1,5× di W4. Se la stima del campo tecnico supera il previsto, ridurre il campo E-R Mer tagliando una serie di DJ (non azzerarlo).*
 
-### Glossario prevenzione W5-6 (velocità nel gesto)
-- **Centrali**: pogo mono, atterraggi da muro
-- **Schiacciatrici/Opposti**: lanci MB leggeri sopra il capo
-- **Palleggiatrici**: palline reattive, dual-task
-- **Libero**: cadute controllate su timing, tuffo e rialzata
+### Glossario prevenzione W5-6 (velocità nel gesto — spalla integrata)
+*~8-9' totali: serie brevi, intento esplosivo/veloce. RPE ≤ 5-6. Volume spalla ridotto — la frequenza mantiene l'adattamento conquistato in W3-4.*
+
+| Ruolo | Arto inferiore / gesto | Spalla / braccio |
+|---|---|---|
+| **Centrali** | Pogo mono 2×10 · Atterraggi da muro 2×5 | Reactive arm swing banda leggera 2×8 (simulazione muro) |
+| **Schiacciatrici/Opposti** | *(nessun blocco gamba dedicato)* | Lanci MB leggeri sopra il capo 3×6 (1-2kg) |
+| **Palleggiatrici** | *(priorità rapidità mani)* | Palline reattive dual-task 2×3' · Wrist roller mantenimento 1 salita |
+| **Libero** | Cadute controllate su timing 2×5 · Tuffo e rialzata 2×4 | Scapular retraction prone 2×10 (1-2kg) — mantenimento |
