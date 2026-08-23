@@ -962,6 +962,7 @@ async function caricaScheda() {
   } catch (err) {
     document.getElementById('loading').innerHTML = `
       <p class="errore-msg">${L.loadError}</p>
+      <p style="font-size:0.75rem;color:#888;word-break:break-all;padding:0 16px">${err && err.message ? err.message : String(err)}</p>
       <button onclick="location.reload()" class="retry-btn">${L.retry}</button>`;
   }
 }
