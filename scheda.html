@@ -754,7 +754,11 @@ async function caricaScheda() {
       return false;
     }).filter(e => {
       const ruoli = String(e.Ruoli || 'tutti').trim();
-      return !ruoli || ruoli === 'tutti' || ruoli === (g.Ruolo || '');
+      if (!ruoli || ruoli === 'tutti') return true;
+      if (ruoli === (g.Ruolo || '')) return true;
+      // Prehab individuale: match per nome (prima parola del campo Nome)
+      const firstName = (g.Nome || '').split(/\s+/)[0];
+      return firstName.length > 0 && ruoli === firstName;
     });
 
     const divSed = document.getElementById('sedute');
