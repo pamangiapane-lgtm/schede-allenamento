@@ -3,6 +3,7 @@
 **Scopo**: solo esecuzione — ordine dei metodi/esercizi, distanze/volumi, intensità, recupero, RPE, varianti. Per obiettivi, standard, gate e razionale vedi il documento sorgente.
 **Nota architettura FINALE**: stessa divisione Palestra P/V di v3, con Squat W1 al 78% (non 80%) — tetto assoluto dell'intero ciclo **87%**, mai superato.
 **Revisione**: sedute integrate con secondo blocco di riscaldamento specifico, accessorio aggiuntivo in palestra, andature scomposte con distanza propria, pomeriggi ridisegnati con più contenuto atletico (velocità, COD, intensità/recupero espliciti), varianti per ogni esercizio principale.
+**Aggiornamento campo**: sedute CM1-CM5 allineate al CSV operativo — blocchi pallone rimossi, Prehab individuale aggiunto a ogni campo, blocco potenza/qualità atletica e Blocco Centrale aggiunti in ogni sessione.
 
 ---
 
@@ -26,16 +27,18 @@ Totale reale: ~48' + buffer rotazione ~10' = **~58-60'**.
 
 ---
 
-## LUNEDÌ pomeriggio — CM1, scaletta/agility ruolo (~30')
+## LUNEDÌ pomeriggio — CM1, scaletta/agility + velocità qualità (~30')
 
 | Ord. | Fase | Esercizio | Descrizione | Varianti | Distanza/Volume | Intensità | Recupero | RPE |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico caviglia+spalla | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
-| 2 | Attivazione dinamica | Skip basso | Accende il pattern di corsa | Skip laterale · Carioca leggero | 2×15m | RPE4 | 20" | 4 |
-| 3 | Scaletta ruolo | Pattern per ruolo (§ glossario) | Coordinazione specifica per ruolo | A ritmo max (gara a coppie) · Con pallone in mano | 4× (6-8m/passaggio) | RPE5-6 | 40" | 5-6 |
-| 4 | T-drill | Cambio direzione a coni | Cambio di direzione multidirezionale | 5-10-5 shuttle · L-drill | 4× | RPE5-6 | 45" | 5-6 |
-| 5 | Tecnica pallone | Gesto ruolo-specifico | Richiamo del gesto a bassa intensità | — | 8' | RPE4-5 | — | 4-5 |
-| 6 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
+| 1 | Prehab individuale | Menù W1-2 per atleta (§ glossario) | Prevenzione individuale prima del gesto | — | ~10' | RPE3-4 | — | 3-4 |
+| 2 | Attivazione articolare | Elastico caviglia+spalla | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
+| 3 | Attivazione dinamica | Skip basso | Accende il pattern di corsa | Skip laterale · Carioca leggero | 2×15m | RPE4 | 20" | 4 |
+| 4 | Scaletta ruolo | Pattern per ruolo (§ glossario) | Coordinazione specifica per ruolo | A ritmo max (gara a coppie) | 4× (6-8m/passaggio) | RPE5-6 | 40" | 5-6 |
+| 5 | Cambio direzione | T-drill a coni | Cambio di direzione multidirezionale | 5-10-5 shuttle · L-drill | 4× | RPE5-6 | 45" | 5-6 |
+| 6 | Velocità qualità | Fly sprint 10m | 20m totali: 10m build-up + 10m in volo a velocità max — recupero camminando | — | 4×20m | RPE6 | walk-back | 6 |
+| 7 | Blocco Centrale | Bird-dog + Hollow hold | Anti-estensione — scarico attivo post-sprint | — | 2×8/lato + 2×15s | RPE3-4 | 20" | 3-4 |
+| 8 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
 
 ---
 
@@ -57,20 +60,20 @@ Nota: il tetto assoluto di forza in questa versione è **87%** (mai superato in 
 
 ---
 
-## MARTEDÌ pomeriggio — CM2, velocità sub-massimale + COD + gioco tecnico contato — 30% carico gara (~30')
+## MARTEDÌ pomeriggio — CM2, sprint sub-max + COD + potenza campo (~30')
 
-*Ridisegnata in chiave atletica ma a intensità contenuta: martedì pomeriggio segue una mattinata pesante (Palestra P, RPE7) — deve restare il contrappeso leggero della giornata, non una seconda seduta di qualità. Sprint e COD danno varietà e contenuto atletico reale (distanze, ripetizioni, recupero) senza toccare l'intento massimale: è questo che tiene la seduta a RPE5-6 e rispetta la regola alto-basso.*
+*Pomeriggio leggero post Palestra P (RPE7 mattina) — sprint e COD a intensità controllata, circuit pliometrico basso volume come bridge potenza palestra-campo. Picco RPE5-6 — rispetta la regola alto-basso.*
 
 | Ord. | Fase | Esercizio | Descrizione | Varianti | Distanza/Volume | Intensità | Recupero | RPE |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico anca/caviglia | Attivazione leggera pre-sprint | — | 2×10 | RPE3-4 | 20" | 3-4 |
-| 2 | Attivazione dinamica | Skip + skip laterale | Accende il pattern di corsa | — | 2×15m | RPE4 | 20" | 4 |
-| 3 | Accelerazione sub-massimale | Sprint da fermo, ~80% velocità percepita (non massimale) | Richiama il pattern di accelerazione senza aggiungere stress nervoso alto | Sprint con partenza da seduto · A coppie, ritmo controllato (no gara) | 3×12m | RPE5-6 | 60" (completo) | 5-6 |
-| 4 | Cambio di direzione | Scaletta reattiva (segnale visivo/vocale), ritmo moderato | Reagire allo stimolo, non anticipare — qualità del movimento, non velocità massima | Reazione a fischio · Reazione a colore cono | 2×(~8m) | RPE5 | 45" | 5 |
-| 5 | Gioco tecnico contato | Situazioni semplificate | Prima esposizione controllata al gioco — contare i salti (10-15) | — | 8-10' | RPE5 | — | 5 |
-| 6 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
-
-Picco seduta: RPE5-6 (era 6-7) — coerente con il pomeriggio "leggero" che bilancia la Palestra P della mattina.
+| 1 | Prehab individuale | Menù W1-2 per atleta (§ glossario) | Prevenzione individuale | — | ~10' | RPE3-4 | — | 3-4 |
+| 2 | Attivazione articolare | Elastico anca/caviglia | Attivazione leggera pre-sprint | — | 2×10 | RPE3-4 | 20" | 3-4 |
+| 3 | Attivazione dinamica | Skip + skip laterale | Accende il pattern di corsa | — | 2×15m | RPE4 | 20" | 4 |
+| 4 | Accelerazione sub-massimale | Sprint da fermo ~80% | Richiama il pattern senza stress nervoso alto | Partenza da seduto · A coppie ritmo controllato | 3×12m | RPE5-6 | 60" | 5-6 |
+| 5 | Cambio di direzione | Scaletta reattiva a segnale visivo | Reagire allo stimolo, non anticipare — qualità del movimento | Reazione a fischio · Reazione a colore cono | 2×~8m | RPE5 | 45" | 5 |
+| 6 | Potenza campo | Circuit pliometrico leggero | 4 CMJ + 5 balzi alternati avanti + 10m sprint in sequenza — non massimale | — | 2×(4CMJ+5balzi+10m) | RPE5-6 | 90" | 5-6 |
+| 7 | Blocco Centrale | Deadbug + Cat-cow | Anti-estensione + mobilità spinale — ponte verso la chiusura | — | 2×25s + 2×8 | RPE3 | 15" | 3 |
+| 8 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
 
 ---
 
@@ -88,16 +91,18 @@ Picco seduta: RPE5-6 (era 6-7) — coerente con il pomeriggio "leggero" che bila
 
 ---
 
-## MERCOLEDÌ pomeriggio — CM3, box/panca/skimmy — familiarizzazione (~30')
+## MERCOLEDÌ pomeriggio — CM3, box/panca/skimmy + potenza laterale (~30')
 
 | Ord. | Fase | Esercizio | Descrizione | Varianti | Distanza/Volume | Intensità | Recupero | RPE |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico spalla/caviglia | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
-| 2 | Attivazione dinamica | Skip basso | Accende il pattern di corsa | — | 2×15m | RPE4 | 20" | 4 |
-| 3 | Familiarizzazione box/panca | Step-down+salto | Familiarizzazione al carico da altezza | Step-down laterale · Salto con arresto | 2×5 | RPE5 | 60" | 5 |
-| 4 | Skimmy laterale | Scivolamento laterale controllato | Decelerazione frontale in laterale | Con cambio senso a metà · + sprint 3m in uscita | 2×20"/lato | RPE5 | 40" | 5 |
-| 5 | Tecnica pallone | Gesto tecnico | Richiamo del gesto specifico | — | 8' | RPE4-5 | — | 5 |
-| 6 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
+| 1 | Prehab individuale | Menù W1-2 per atleta (§ glossario) | Prevenzione individuale | — | ~10' | RPE3-4 | — | 3-4 |
+| 2 | Attivazione articolare | Elastico spalla/caviglia | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
+| 3 | Attivazione dinamica | Skip basso | Accende il pattern di corsa | — | 2×15m | RPE4 | 20" | 4 |
+| 4 | Familiarizzazione box/panca | Step-down+salto | Familiarizzazione al carico da altezza | Step-down laterale · Salto con arresto | 2×5 | RPE5 | 60" | 5 |
+| 5 | Skimmy laterale | Scivolamento laterale controllato | Decelerazione frontale in laterale | Cambio senso a metà · + sprint 3m in uscita | 2×20"/lato | RPE5 | 40" | 5 |
+| 6 | Potenza laterale | Lateral speed complex | 5m skimmy + balzo laterale monopodalico + 10m sprint angolato — qualità atterraggio prima della velocità | — | 3×(5m+balzo+10m) | RPE5-6 | 45" | 5-6 |
+| 7 | Blocco Centrale | Plank laterale + Rotazioni tronco | Coerente con tema laterale — anti-rotazione | MB se disponibile | 2×20s/lato + 2×6+6 | RPE4-5 | 20" | 4-5 |
+| 8 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
 
 ---
 
@@ -119,16 +124,18 @@ Totale reale: ~48' + buffer ~8-10' = **~56-58'**.
 
 ---
 
-## GIOVEDÌ pomeriggio — CM4, navette+reattività (~30')
+## GIOVEDÌ pomeriggio — CM4, navette + reattività + potenza reattiva (~30')
 
 | Ord. | Fase | Esercizio | Descrizione | Varianti | Distanza/Volume | Intensità | Recupero | RPE |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico caviglia+spalla | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
-| 2 | Attivazione dinamica | Skip alto | Accende il pattern di corsa | — | 2×15m | RPE4-5 | 20" | 4-5 |
-| 3 | Navette | Shuttle 5-10-5 | Accelerazione-decelerazione-riaccelerazione | Shuttle 10-5-10 · Con palla in mano | 4× | RPE6 | 60" | 6 |
-| 4 | Reattività | Reazione a segnale | Agility decisionale — parte solo al segnale | — | 4× | RPE5-6 | 45" | 5-6 |
-| 5 | Tecnica combinata | Gesto tecnico | Richiamo tecnico | — | 8' | RPE5 | — | 5 |
-| 6 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
+| 1 | Prehab individuale | Menù W1-2 per atleta (§ glossario) | Prevenzione individuale | — | ~10' | RPE3-4 | — | 3-4 |
+| 2 | Attivazione articolare | Elastico caviglia+spalla | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
+| 3 | Attivazione dinamica | Skip alto | Accende il pattern di corsa | — | 2×15m | RPE4-5 | 20" | 4-5 |
+| 4 | Navette | Shuttle 5-10-5 | Accelerazione-decelerazione-riaccelerazione | Shuttle 10-5-10 | 4× | RPE6 | 60" | 6 |
+| 5 | Reattività | Reazione a segnale visivo/vocale | Agility decisionale — parte solo al segnale | — | 4× | RPE5-6 | 45" | 5-6 |
+| 6 | Potenza reattiva | Reactive power circuit | 3 CMJ + 3 hop laterali alternati + 5m sprint in sequenza — traduce la potenza di GioV in campo | — | 3×(3CMJ+3hop+5m) | RPE6 | 60" | 6 |
+| 7 | Blocco Centrale | Hip bridge + Hollow hold | Scarico attivo post-circuito — gluteo + anti-estensione | — | 2×12 + 2×15s | RPE3-4 | 20" | 3-4 |
+| 8 | Chiusura | Mobilità | Rientro | — | 3' | RPE2 | — | 2 |
 
 ---
 
@@ -146,14 +153,16 @@ Totale reale: ~48' + buffer ~8-10' = **~56-58'**.
 
 ---
 
-## VENERDÌ pomeriggio — CM5, tecnica libera → W2: 6v6 contato, 40% (~27-30')
+## VENERDÌ pomeriggio — CM5, chiusura aerobica + Blocco Centrale (~27-30')
 
 | Ord. | Fase | Esercizio | Descrizione | Varianti | Distanza/Volume | Intensità | Recupero | RPE |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico generale | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
-| 2 | Attivazione dinamica | Skip libero | Accende il pattern di corsa | — | 2×15m | RPE4 | 20" | 4 |
-| 3 | Tecnica libera | Gesto tecnico, bassa densità | Richiamo tecnico bassa intensità (W1); diventa 6v6 controllato in W2 | A scelta tra i pattern già visti | 8-10' | RPE4-5 | — | 4-5 |
-| 4 | Chiusura | Mobilità/stretching | Chiusura settimana | — | 5' | RPE2 | — | 2 |
+| 1 | Prehab individuale | Menù W1-2 per atleta (§ glossario) | Prevenzione individuale | — | ~10' | RPE3-4 | — | 3-4 |
+| 2 | Attivazione articolare | Elastico generale | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
+| 3 | Attivazione dinamica | Skip libero | Accende il pattern di corsa | — | 2×15m | RPE4 | 20" | 4 |
+| 4 | Chiusura aerobica | Tempo run 60m | 60m a ritmo controllato 60-65% — recupero camminando — chiusura metabolica settimana | — | 4×60m | 60-65% | walk-back | 4-5 |
+| 5 | Blocco Centrale | Dead bug + Cat-cow | Anti-estensione leggero + mobilità spinale — chiusura neuromuscolare settimana | — | 1×30s + 1×10 | RPE2-3 | 10" | 2-3 |
+| 6 | Chiusura | Mobilità/stretching catene | Chiusura settimana — stretching prolungato | — | 5' | RPE2 | — | 2 |
 
 ---
 
