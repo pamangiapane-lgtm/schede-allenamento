@@ -301,6 +301,12 @@ function traduciDescMetodo(desc) {
 
 /* ── FASE TABS ── */
 const FASI_DEF = [
+  { id: 'w1', label: 'W1', labelEN: 'W1' },
+  { id: 'w2', label: 'W2', labelEN: 'W2' },
+  { id: 'w3', label: 'W3', labelEN: 'W3' },
+  { id: 'w4', label: 'W4', labelEN: 'W4' },
+  { id: 'w5', label: 'W5', labelEN: 'W5' },
+  { id: 'w6', label: 'W6', labelEN: 'W6' },
   { id: 'base',    label: 'W1-4 Base',  labelEN: 'W1-4 Base'  },
   { id: 'picco',   label: 'W5 Picco',   labelEN: 'W5 Peak'    },
   { id: 'potenza', label: 'W6 Potenza', labelEN: 'W6 Power'   },
@@ -308,11 +314,16 @@ const FASI_DEF = [
 ];
 function faseDa(numSed) {
   const s = String(numSed || '');
+  const mW = s.match(/^(W[1-6])-/i);
+  if (mW) return mW[1].toLowerCase();
   if (s.startsWith('OS4-')) return 'taper';
   if (s.startsWith('OS3-')) return 'potenza';
   if (s.startsWith('OS2-')) return 'picco';
   if (s.startsWith('OS1-')) return 'base';
   return null;
+}
+function nomeSeduta(sed) {
+  return sed.Nome_Seduta || sed.Nome || String(sed.Numero_Seduta || '');
 }
 function switchFase(faseId, scrollToId) {
   document.querySelectorAll('.fase-wrap').forEach(w => w.classList.add('fase-nascosta'));
@@ -719,7 +730,10 @@ async function caricaScheda() {
 
     /* SEDUTE */
     const seduteGioc = (resS.dati || [])
-      .filter(s => String(s.ID_Giocatrice) === String(id) || String(s.ID_Giocatrice) === '0')
+      .filter(s => {
+        const idGioc = String(s.ID_Giocatrice ?? '').trim();
+        return idGioc === String(id) || idGioc === '0' || idGioc === '';
+      })
       .sort((a, b) => {
         const ao = Number(a.Ordine) || 0, bo = Number(b.Ordine) || 0;
         if (ao && bo) return ao - bo;
@@ -730,12 +744,21 @@ async function caricaScheda() {
       });
 
     const eserciziGioc = (resE.dati || []).filter(e => {
-      if (String(e.ID_Giocatrice) === String(id)) return true;
-      if (String(e.ID_Giocatrice) === '0') {
+      const idGioc = String(e.ID_Giocatrice ?? '').trim();
+      if (idGioc === String(id)) return true;
+      if (idGioc === '0') {
         const excl = e.Escludi_ID ? String(e.Escludi_ID).split(',').map(x => x.trim()) : [];
         return !excl.includes(String(id));
       }
+      if (idGioc === '') return true;
       return false;
+    }).filter(e => {
+      const ruoli = String(e.Ruoli || 'tutti').trim();
+      if (!ruoli || ruoli === 'tutti') return true;
+      if (ruoli === (g.Ruolo || '')) return true;
+      // Prehab individuale: match per nome (prima parola del campo Nome)
+      const firstName = (g.Nome || '').split(/\s+/)[0];
+      return firstName.length > 0 && ruoli === firstName;
     });
 
     const divSed = document.getElementById('sedute');
@@ -792,7 +815,7 @@ async function caricaScheda() {
         let html = `
           <div class="seduta-accordion" id="${accId}">
             <button class="seduta-header" onclick="toggleSeduta('${accId}')">
-              <h3>${traduciSeduta(sed.Nome_Seduta)}</h3>
+              <h3>${traduciSeduta(nomeSeduta(sed))}</h3>
               <span class="chevron">▾</span>
             </button>
             <div class="seduta-body">
@@ -892,7 +915,7 @@ async function caricaScheda() {
         pinDiv.innerHTML = `<span class="pin-arrow">→</span>
           <span class="pin-label">${L === EN ? 'Next:' : 'Prossima:'}</span>
           <button class="pin-btn" onclick="switchFase('${faseDef}','${prossimaSed.Numero_Seduta}')">
-            ${traduciSeduta(prossimaSed.Nome_Seduta)}
+            ${traduciSeduta(nomeSeduta(prossimaSed))}
           </button>`;
         divSed.appendChild(pinDiv);
       }
@@ -1238,7 +1261,7 @@ function buildProfilo(g, resE, resP, sedute) {
 
   /* storico per seduta */
   const seduteMap = {};
-  (sedute || []).forEach(s => { seduteMap[s.Numero_Seduta] = s.Nome_Seduta; });
+  (sedute || []).forEach(s => { seduteMap[s.Numero_Seduta] = nomeSeduta(s); });
 
   const SKIP = new Set(['Peso-corporeo', 'RPE-seduta', 'Fatica-seduta']);
   const logPerSeduta = {};

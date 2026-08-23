@@ -25,6 +25,7 @@ Nessun obbligo di seduta strutturata: è il giorno più libero dell'intero ciclo
 | Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Intensità | Recupero | RPE |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Attivazione | Mobilità articolare | Prepara il corpo senza affaticare | — | 6' | — | — | 3 |
+| 1b | Prevenzione spalla (mantenimento) | **1 serie per ruolo** dal menù W5-6 · Centr: arm swing banda · Schiacciatrici: lancio MB 1×6 · Palleggio: palline reattive 1×2' · Libero: scapular retr. 1×10 | Mantenimento minimo — non è allenamento, è segnale | Omettere se il tempo stringe | 1 serie | RPE3-4 | 45" | 3-4 |
 | 2 | Forza (taper) | Squat | Volume dimezzato, stessa intensità delle settimane precedenti | Box Squat (stesso schema) | 2×2 | **80%** | 2'30" | 6-7 |
 | 3 | Upper | Row 2×4 ss Bench 2×4 | Richiamo di tirata e spinta, volume minimo | Row manubri unilaterale · Bench manubri | — | RPE6 | 90" | 6 |
 | 4 | Core | Pallof o Deadbug (a scelta) | Controllo anti-rotazione/lombo-pelvico, chiusura leggera | — | 2×20" | — | 45" | 4-5 |
