@@ -771,6 +771,7 @@ async function caricaScheda() {
     seduteGioc.forEach(sed => {
       const f = faseDa(sed.Numero_Seduta);
       if (!f) { noFaseSed.push(sed); return; }
+      if (/^w\d+$/i.test(f) && String(sed.Luogo || '').trim() !== 'Palestra') return;
       if (!fasiGruppi[f]) fasiGruppi[f] = [];
       fasiGruppi[f].push(sed);
     });
