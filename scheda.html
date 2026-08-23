@@ -573,7 +573,8 @@ function htmlEsercizio(e, logId) {
 
   h += noteBlock(e.Note || '', e.Istruzione || null, logId, e.VideoURL || '');
   const _isFunz    = ['Funzionale','Circuito Funzionale'].includes(e.Metodo);
-  const _hasCardio = e['Intensità'] && (e['Intensità'].includes('BPM') || e['Intensità'].includes('RPE'));
+  const _intStr    = String(e['Intensità'] ?? '');
+  const _hasCardio = _intStr && (_intStr.includes('BPM') || _intStr.includes('RPE'));
   if ((e.Log_Libero === 'SI' || _isFunz) && !parseIntensita(e['Intensità']) && !_hasCardio) {
     h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
   }
@@ -962,7 +963,6 @@ async function caricaScheda() {
   } catch (err) {
     document.getElementById('loading').innerHTML = `
       <p class="errore-msg">${L.loadError}</p>
-      <p style="font-size:0.75rem;color:#888;word-break:break-all;padding:0 16px">${err && err.message ? err.message : String(err)}</p>
       <button onclick="location.reload()" class="retry-btn">${L.retry}</button>`;
   }
 }
