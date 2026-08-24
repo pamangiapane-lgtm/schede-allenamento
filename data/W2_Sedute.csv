@@ -1,11 +1,11 @@
 Numero_Seduta,Nome_Seduta,Settimana,Giorno,Fase,Luogo,Durata_min,Note
-W2-LunSp,Spiaggia A — Stiffness e RDL,W2,Lunedì,Mattina,Spiaggia,60,Prehab W2: calf isoinerziale + Copenhagen dinamico + Spanish squat pulsato + RDL
-W2-LunC1,CM1 — Scaletta e Agility,W2,Lunedì,Pomeriggio,Campo,30,Pattern più veloci — scaletta ruolo + T-drill + tecnica pallone
-W2-MarP,Palestra P — Giorno Pesante,W2,Martedì,Mattina,Palestra,60,Squat 80% × 3 — progressione da W1 78% × 2 — tetto assoluto ancora 87%
-W2-MarC2,CM2 — Velocità e Gioco,W2,Martedì,Pomeriggio,Campo,30,Sprint sub-max + COD + gioco — densità leggermente superiore a W1
-W2-MerSp,Spiaggia B — Coordinazione,W2,Mercoledì,Mattina,Spiaggia,58,Prehab W2: calf + hip perturbazione + Bulgarian protetto + hop doppio
-W2-MerC3,CM3 — Box e Skimmy,W2,Mercoledì,Pomeriggio,Campo,30,Box/panca con più automatismo + skimmy laterale progredito
-W2-GioV,Palestra V — Giorno Veloce,W2,Giovedì,Mattina,Palestra,58,Clean 72% + squat veloce 62% — carichi progrediti da W1
-W2-GioC4,CM4 — Navette e Reattività,W2,Giovedì,Pomeriggio,Campo,30,Shuttle 5-10-5 + reattività decisionale — volume +1 ripetuta
-W2-VenAq,Acqua — Scarico Attivo,W2,Venerdì,Mattina,Piscina,55,Scarico che allena — zero impatti — condizionamento metabolico in acqua
-W2-VenC5,CM5 — Tecnica Libera,W2,Venerdì,Pomeriggio,Campo,30,Tecnica libera bassa densità — chiusura preseason spiaggia
+W2-LunSp,Seduta 1,W2,Lunedì,Mattina,Spiaggia,60,Prehab W2: calf isoinerziale + Copenhagen dinamico + Spanish squat pulsato + RDL
+W2-LunC1,Seduta 2,W2,Lunedì,Pomeriggio,Campo,30,Pattern più veloci — scaletta ruolo + T-drill + tecnica pallone
+W2-MarP,Seduta 1,W2,Martedì,Mattina,Palestra,60,Squat 80% × 3 — progressione da W1 78% × 2 — tetto assoluto ancora 87%
+W2-MarC2,Seduta 2,W2,Martedì,Pomeriggio,Campo,30,Sprint sub-max + COD + gioco — densità leggermente superiore a W1
+W2-MerSp,Seduta 1,W2,Mercoledì,Mattina,Spiaggia,58,Prehab W2: calf + hip perturbazione + Bulgarian protetto + hop doppio
+W2-MerC3,Seduta 2,W2,Mercoledì,Pomeriggio,Campo,30,Box/panca con più automatismo + skimmy laterale progredito
+W2-GioV,Seduta 1,W2,Giovedì,Mattina,Palestra,58,Clean 72% + squat veloce 62% — carichi progrediti da W1
+W2-GioC4,Seduta 2,W2,Giovedì,Pomeriggio,Campo,30,Shuttle 5-10-5 + reattività decisionale — volume +1 ripetuta
+W2-VenAq,Seduta 1,W2,Venerdì,Mattina,Piscina,55,Scarico che allena — zero impatti — condizionamento metabolico in acqua
+W2-VenC5,Seduta 2,W2,Venerdì,Pomeriggio,Campo,30,Tecnica libera bassa densità — chiusura preseason spiaggia

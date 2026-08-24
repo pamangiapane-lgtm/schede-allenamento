@@ -1,11 +1,11 @@
 Numero_Seduta,Nome_Seduta,Settimana,Giorno,Fase,Luogo,Durata_min,Note
-W1-LunSp,Spiaggia A — Piede e Motore,W1,Lunedì,Mattina,Spiaggia,60,Piede/andature/motore — base propriocettiva e metabolica
-W1-LunC1,CM1 — Scaletta e Agility,W1,Lunedì,Pomeriggio,Campo,30,Scaletta ruolo + T-drill + tecnica pallone
-W1-MarP,Palestra P — Giorno Pesante,W1,Martedì,Mattina,Palestra,60,Forza massima bilaterale — tetto assoluto ciclo 87% — mai superare
-W1-MarC2,CM2 — Velocità e Gioco,W1,Martedì,Pomeriggio,Campo,30,Sprint sub-max + COD + gioco tecnico contato — RPE5-6 — bilancia mattina pesante
-W1-MerSp,Spiaggia B — Coordinazione,W1,Mercoledì,Mattina,Spiaggia,58,Coordinazione laterale + pliometria + potenza aerobica
-W1-MerC3,CM3 — Box e Skimmy,W1,Mercoledì,Pomeriggio,Campo,30,Familiarizzazione box/panca + skimmy laterale + tecnica pallone
-W1-GioV,Palestra V — Giorno Veloce,W1,Giovedì,Mattina,Palestra,58,WL derivato + squat veloce intento massimo — accento potenza
-W1-GioC4,CM4 — Navette e Reattività,W1,Giovedì,Pomeriggio,Campo,30,Shuttle 5-10-5 + reattività decisionale + tecnica combinata
-W1-VenAq,Acqua — Scarico Attivo,W1,Venerdì,Mattina,Piscina,55,Scarico che allena — zero impatti — condizionamento metabolico in acqua
-W1-VenC5,CM5 — Tecnica Libera,W1,Venerdì,Pomeriggio,Campo,30,Tecnica libera bassa densità — chiusura settimana
+W1-LunSp,Seduta 1,W1,Lunedì,Mattina,Spiaggia,60,Piede/andature/motore — base propriocettiva e metabolica
+W1-LunC1,Seduta 2,W1,Lunedì,Pomeriggio,Campo,30,Scaletta ruolo + T-drill + tecnica pallone
+W1-MarP,Seduta 1,W1,Martedì,Mattina,Palestra,60,Forza massima bilaterale — tetto assoluto ciclo 87% — mai superare
+W1-MarC2,Seduta 2,W1,Martedì,Pomeriggio,Campo,30,Sprint sub-max + COD + gioco tecnico contato — RPE5-6 — bilancia mattina pesante
+W1-MerSp,Seduta 1,W1,Mercoledì,Mattina,Spiaggia,58,Coordinazione laterale + pliometria + potenza aerobica
+W1-MerC3,Seduta 2,W1,Mercoledì,Pomeriggio,Campo,30,Familiarizzazione box/panca + skimmy laterale + tecnica pallone
+W1-GioV,Seduta 1,W1,Giovedì,Mattina,Palestra,58,WL derivato + squat veloce intento massimo — accento potenza
+W1-GioC4,Seduta 2,W1,Giovedì,Pomeriggio,Campo,30,Shuttle 5-10-5 + reattività decisionale + tecnica combinata
+W1-VenAq,Seduta 1,W1,Venerdì,Mattina,Piscina,55,Scarico che allena — zero impatti — condizionamento metabolico in acqua
+W1-VenC5,Seduta 2,W1,Venerdì,Pomeriggio,Campo,30,Tecnica libera bassa densità — chiusura settimana
