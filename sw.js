@@ -1,11 +1,17 @@
-const CACHE = 'schede-v22';
-// scheda.html esclusa: sempre rete per ricevere aggiornamenti
-const STATIC = ['/', '/index.html', '/style.css', '/logo.jpg', '/icon.svg', '/manifest.json'];
-const NETWORK_ONLY = ['/scheda.html'];
+const CACHE = 'schede-v23';
+const BASE = '/schede-allenamento';
+const STATIC = [
+  BASE + '/', BASE + '/index.html', BASE + '/style.css',
+  BASE + '/logo.jpg', BASE + '/icon.svg', BASE + '/manifest.json'
+];
+// scheda.html: sempre rete, mai cache
+const NETWORK_ONLY_SUFFIX = '/scheda.html';
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(STATIC)).then(() => self.skipWaiting())
+    caches.open(CACHE)
+      .then(c => Promise.allSettled(STATIC.map(u => c.add(u))))
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -31,7 +37,7 @@ self.addEventListener('fetch', e => {
   }
 
   // scheda.html: sempre rete (no cache) per ricevere aggiornamenti
-  if (NETWORK_ONLY.some(p => url.pathname.endsWith(p))) {
+  if (url.pathname.endsWith(NETWORK_ONLY_SUFFIX)) {
     e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
