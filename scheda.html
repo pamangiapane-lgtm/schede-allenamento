@@ -1701,6 +1701,7 @@ async function subscribePush() {
     try { json = JSON.parse(rawText); } catch(_) {}
     if (json.ok) {
       _log('✅ ISCRIZIONE SALVATA!');
+      try { localStorage.setItem('push_ok_' + id, '1'); } catch(_) {}
       setTimeout(() => document.getElementById('push-banner')?.remove(), 3000);
     }
   } catch(err) {
@@ -1718,37 +1719,13 @@ async function initPushBanner() {
     const reg = await navigator.serviceWorker.getRegistration();
     if (!reg) { banner.style.display = 'flex'; return; }
     const sub = await reg.pushManager.getSubscription();
-    if (sub && Notification.permission === 'granted') {
-      // Subscription esiste: salvala silenziosamente (potrebbe non essere nel foglio)
-      banner.style.display = 'none';
-      _salvaPushSubSilent(sub);
-      return;
+    if (sub && Notification.permission === 'granted' && localStorage.getItem('push_ok_' + id)) {
+      banner.style.display = 'none'; return;
     }
   } catch(_) {}
   banner.style.display = 'flex';
 }
 
-async function _salvaPushSubSilent(sub) {
-  try {
-    const j = sub.toJSON();
-    if (!j.keys) return;
-    const intestazioni = ['ID_Giocatrice','Endpoint','P256dh','Auth','Aggiornato'];
-    let righe = [];
-    try {
-      const gr = await fetch(API + '?token=' + encodeURIComponent(TOKEN) + '&azione=leggi&foglio=PushSub');
-      const gj = await gr.json().catch(() => ({}));
-      if (gj.dati) righe = gj.dati.map(r => [r.ID_Giocatrice, r.Endpoint, r.P256dh, r.Auth, r.Aggiornato]);
-    } catch(_) {}
-    const ts = new Date().toISOString();
-    const idx = righe.findIndex(r => String(r[0]) === String(id));
-    if (idx >= 0) { righe[idx] = [id, j.endpoint, j.keys.p256dh, j.keys.auth, ts]; }
-    else { righe.push([id, j.endpoint, j.keys.p256dh, j.keys.auth, ts]); }
-    await fetch(API, {
-      method: 'POST', headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ token: TOKEN, azione: 'scrivi_foglio', foglio: 'PushSub', intestazioni, righe })
-    });
-  } catch(_) {}
-}
 
 // Auto-apri wellness se arrivata da notifica push
 (function checkWellnessParam() {
