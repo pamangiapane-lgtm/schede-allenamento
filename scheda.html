@@ -1632,55 +1632,54 @@ function urlBase64ToUint8Array(b64) {
 }
 
 async function subscribePush() {
-  const _dbgShow = (msg, color) => {
-    const d = document.createElement('div');
-    d.id = 'push-dbg';
-    d.style.cssText = 'position:fixed;top:0;left:0;right:0;background:' + color + ';color:#fff;padding:12px;z-index:99999;font-size:0.75rem;white-space:pre-wrap;word-break:break-all;max-height:50vh;overflow:auto';
-    d.textContent = msg;
-    document.getElementById('push-dbg')?.remove();
-    document.body.appendChild(d);
-    setTimeout(() => d.remove(), 20000);
-  };
-  _dbgShow('▶ subscribePush avviato — controllo PushManager…', '#333');
+  // Banner persistente che accumula tutte le righe — tap per chiudere
+  let dbgDiv = document.getElementById('push-dbg');
+  if (!dbgDiv) {
+    dbgDiv = document.createElement('div');
+    dbgDiv.id = 'push-dbg';
+    dbgDiv.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#111;color:#0f0;padding:12px;z-index:99999;font-size:0.75rem;white-space:pre-wrap;word-break:break-all;max-height:60vh;overflow:auto;cursor:pointer';
+    dbgDiv.title = 'Tap per chiudere';
+    dbgDiv.onclick = () => dbgDiv.remove();
+    document.body.appendChild(dbgDiv);
+  }
+  const _log = (msg) => { dbgDiv.textContent += '\n' + msg; };
+  _log('▶ avviato');
   try {
-    if (!('PushManager' in window)) { _dbgShow('✗ PushManager non disponibile su questo browser', '#700'); return; }
-    _dbgShow('⏳ Richiedo permesso notifiche…', '#333');
+    if (!('PushManager' in window)) { _log('✗ PushManager non disponibile'); return; }
+    _log('⏳ requestPermission…');
     const perm = await Notification.requestPermission();
-    if (perm !== 'granted') { _dbgShow('✗ Permesso notifiche negato: ' + perm, '#700'); return; }
-    _dbgShow('⏳ Attendo serviceWorker.ready…', '#333');
+    _log('permesso: ' + perm);
+    if (perm !== 'granted') return;
+    _log('⏳ serviceWorker.ready…');
     const reg = await navigator.serviceWorker.ready;
-    _dbgShow('⏳ Ottengo subscription Push…', '#333');
+    _log('✓ SW pronto. scope: ' + reg.scope);
+    _log('⏳ getSubscription…');
     let sub = await reg.pushManager.getSubscription();
     if (!sub) {
-      _dbgShow('⏳ Creo nuova subscription…', '#333');
-      sub = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
-      });
+      _log('⏳ subscribe() con VAPID…');
+      sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY) });
     }
     const j = sub.toJSON();
-    if (!j.keys) { _dbgShow('✗ Subscription senza chiavi — SW non aggiornato?', '#700'); return; }
-    _dbgShow('⏳ Invio subscription al server…\nendpoint: ' + j.endpoint.slice(0,60) + '…', '#333');
+    _log('✓ sub endpoint: ' + (j.endpoint || '?').slice(0,80));
+    _log('keys ok: ' + (!!j.keys));
+    if (!j.keys) return;
+    _log('⏳ fetch → API_PUSH…');
     const res = await fetch(API_PUSH, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        token: TOKEN, azione: 'salva_push_sub',
-        id_giocatrice: id,
-        endpoint: j.endpoint,
-        p256dh: j.keys.p256dh,
-        auth: j.keys.auth
-      })
+      body: JSON.stringify({ token: TOKEN, azione: 'salva_push_sub', id_giocatrice: id, endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth })
     });
     const rawText = await res.text().catch(() => '');
+    _log('HTTP ' + res.status + '\n' + (rawText || '(vuoto)'));
     let json = {};
     try { json = JSON.parse(rawText); } catch(_) {}
-    _dbgShow((json.ok ? '✅ OK — iscrizione salvata!\n' : '⚠ Risposta GAS:\n') + (rawText || '(vuoto)'), json.ok ? '#1a5c1a' : '#555');
     if (json.ok) {
+      _log('✅ ISCRIZIONE SALVATA!');
       setTimeout(() => document.getElementById('push-banner')?.remove(), 3000);
     }
   } catch(err) {
-    _dbgShow('✗ ERRORE: ' + err.message, '#700');
+    _log('✗ ERRORE: ' + err.message + '\n' + (err.stack || ''));
+    dbgDiv.style.background = '#700';
   }
 }
 
