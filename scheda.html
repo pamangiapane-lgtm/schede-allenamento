@@ -701,7 +701,10 @@ async function caricaScheda() {
         }
       });
 
-    const g = (resG.dati || []).find(x => String(x.ID) === String(id));
+    let g = (resG.dati || []).find(x => String(x.ID) === String(id));
+    if (!g && String(id) === '99') {
+      g = { ID: 99, Nome: 'Demo Coach', Ruolo: 'Coach', Lingua: 'IT', Fase_Prehab: 'F1', Colonne_Individuali: '' };
+    }
     if (!g) { mostraErrore(L.notFound); return; }
 
     /* LINGUA */
