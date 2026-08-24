@@ -9,7 +9,7 @@ Utilizzo:
 
 Programmazione automatica (Windows Task Scheduler):
     - Programma: python
-    - Argomenti: C:\percorso\schede-allenamento\_strumenti\invia_wellness.py
+    - Argomenti: C:\\percorso\\schede-allenamento\\_strumenti\\invia_wellness.py
     - Avvia in: C:\percorso\schede-allenamento
     - Attivazione: ogni giorno alle 08:00
 """
@@ -34,15 +34,26 @@ NOTIFICA_TESTO  = 'Buongiorno! Compila il questionario di oggi 🌅'
 
 # ── Lettura subscriptions da Google Sheets ──────────────────────────────────
 
+HEADERS = {'User-Agent': 'Mozilla/5.0', 'Accept': 'application/json'}
+
+def gas_get(params, tentativi=4):
+    for i in range(tentativi):
+        try:
+            r = requests.get(GAS_URL, params=params, headers=HEADERS, timeout=30, allow_redirects=True)
+            if r.status_code == 200:
+                return r.json()
+        except Exception:
+            pass
+        import time; time.sleep(2 ** i)
+    return None
+
 print('📋 Caricamento iscrizioni push da Google Sheets...')
-try:
-    r = requests.get(GAS_URL, params={'token': TOKEN, 'azione': 'leggi', 'foglio': 'PushSub'}, timeout=20)
-    r.raise_for_status()
-    subs = r.json().get('dati', [])
-    print(f'   → {len(subs)} iscrizioni trovate')
-except Exception as ex:
-    print(f'❌ Errore lettura Sheets: {ex}')
+risposta = gas_get({'token': TOKEN, 'azione': 'leggi', 'foglio': 'PushSub'})
+if risposta is None:
+    print('❌ Impossibile contattare Google Sheets dopo 4 tentativi.')
     sys.exit(1)
+subs = risposta.get('dati', [])
+print(f'   → {len(subs)} iscrizioni trovate')
 
 if not subs:
     print('⚠️  Nessuna giocatrice iscritta. Le ragazze devono aprire l\'app e toccare "Attiva".')
