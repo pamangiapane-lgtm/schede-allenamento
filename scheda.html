@@ -998,7 +998,7 @@ function toggleSeduta(accId) {
   if (isOpen) {
     document.getElementById(accId).classList.remove('open');
   } else {
-    mostraWellness(accId);
+    apriSedutaConNote(accId);
   }
 }
 
@@ -1497,7 +1497,7 @@ window.addEventListener('beforeunload', e => {
 caricaScheda();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js');
+  navigator.serviceWorker.register('./sw.js').then(() => initPushBanner()).catch(() => {});
 }
 
 // ── WELLNESS ──────────────────────────────────────────────────────────────────
@@ -1507,29 +1507,33 @@ let _wellnessPendingAcc = null;
 const WL = {
   it: {
     title: 'Come stai oggi?',
-    sub: 'Rispondi prima di iniziare la seduta',
-    q1: '🌙 Com\'hai dormito?',
-    q2: '💢 Dolori o fastidi?',
-    q3: '⚡ Energia oggi?',
-    g1: ['Pessimo', 'Ottimo'],
-    g2: ['Nessuno', 'Insopportabile'],
-    g3: ['Esaurita', 'Ottima'],
+    sub: 'Questionario giornaliero — pochi secondi',
+    q1: '🌙 Qualità del sonno',
+    q2: '😓 Fatica percepita',
+    q3: '⚡ Disponibilità all\'allenamento',
+    q4: '💢 Dolori o fastidi',
+    g1: ['Pessima', 'Ottima'],
+    g2: ['Nessuna', 'Esaurita'],
+    g3: ['Nessuna', 'Ottima'],
+    g4: ['Nessuno', 'Forte'],
     noteLabel: '📝 Note (opzionale)',
     notePlaceholder: 'Es. dolore al ginocchio sinistro, mal di testa...',
-    confirm: 'Inizia seduta',
+    confirm: 'Invia',
   },
   en: {
     title: 'How are you feeling today?',
-    sub: 'Answer before starting your session',
-    q1: '🌙 How did you sleep?',
-    q2: '💢 Any pain or discomfort?',
-    q3: '⚡ Energy level today?',
+    sub: 'Daily check-in — takes a few seconds',
+    q1: '🌙 Sleep quality',
+    q2: '😓 Perceived fatigue',
+    q3: '⚡ Readiness to train',
+    q4: '💢 Pain or discomfort',
     g1: ['Very poor', 'Excellent'],
-    g2: ['None', 'Severe'],
-    g3: ['Drained', 'Excellent'],
+    g2: ['None', 'Exhausted'],
+    g3: ['None', 'Excellent'],
+    g4: ['None', 'Severe'],
     noteLabel: '📝 Notes (optional)',
     notePlaceholder: 'E.g. left knee pain, headache...',
-    confirm: 'Start session',
+    confirm: 'Submit',
   }
 };
 
@@ -1543,13 +1547,12 @@ function apriSedutaConNote(accId) {
 }
 
 function mostraWellness(accId) {
-  if (String(id) === '99') { apriSedutaConNote(accId); return; }
+  if (String(id) === '99') { if (accId) apriSedutaConNote(accId); return; }
   if (localStorage.getItem(wellnessKey())) {
-    // Già risposto oggi → apri seduta direttamente
-    apriSedutaConNote(accId);
+    if (accId) apriSedutaConNote(accId);
     return;
   }
-  _wellnessPendingAcc = accId;
+  _wellnessPendingAcc = accId || null;
   const wl = (L === EN) ? WL.en : WL.it;
   const overlay = document.getElementById('wellness-overlay');
   overlay.querySelector('.wellness-title').textContent = wl.title;
@@ -1558,18 +1561,16 @@ function mostraWellness(accId) {
   labels[0].textContent = wl.q1;
   labels[1].textContent = wl.q2;
   labels[2].textContent = wl.q3;
-  // Guide valori
+  labels[3].textContent = wl.q4;
   const guides = overlay.querySelectorAll('.wellness-guide');
-  [[wl.g1],[wl.g2],[wl.g3]].forEach(([g], i) => {
+  [[wl.g1],[wl.g2],[wl.g3],[wl.g4]].forEach(([g], i) => {
     guides[i].children[0].textContent = `1 = ${g[0]}`;
     guides[i].children[1].textContent = `5 = ${g[1]}`;
   });
-  // Label e placeholder note
   overlay.querySelector('.wellness-note-label').textContent    = wl.noteLabel;
   overlay.querySelector('.wellness-note textarea').placeholder = wl.notePlaceholder;
   overlay.querySelector('.wellness-note textarea').value       = '';
   overlay.querySelector('.wellness-confirm').textContent = wl.confirm;
-  // Reset selezioni
   overlay.querySelectorAll('.wellness-stars button').forEach(b => b.classList.remove('sel'));
   overlay.querySelector('.wellness-confirm').disabled = true;
   overlay.classList.add('open');
@@ -1579,8 +1580,7 @@ function wellnessSeleziona(btn, gruppo) {
   document.querySelectorAll(`.wellness-stars[data-gruppo="${gruppo}"] button`)
     .forEach(b => b.classList.remove('sel'));
   btn.classList.add('sel');
-  // Abilita conferma se tutte e 3 selezionate
-  const ok = [1,2,3].every(g =>
+  const ok = [1,2,3,4].every(g =>
     document.querySelector(`.wellness-stars[data-gruppo="${g}"] button.sel`)
   );
   document.querySelector('.wellness-confirm').disabled = !ok;
@@ -1590,22 +1590,20 @@ function confermaWellness() {
   const val = g => parseInt(
     document.querySelector(`.wellness-stars[data-gruppo="${g}"] button.sel`)?.dataset.val || '0'
   );
-  const sonno   = val(1);
-  const dolori  = val(2);
-  const energia = val(3);
-  const note    = document.querySelector('.wellness-note textarea')?.value.trim() || '';
+  const sonno        = val(1);
+  const fatica       = val(2);
+  const disponibilita = val(3);
+  const dolori       = val(4);
+  const note         = document.querySelector('.wellness-note textarea')?.value.trim() || '';
 
-  // Salva localmente per non chiedere più oggi
   localStorage.setItem(wellnessKey(), '1');
   document.getElementById('wellness-overlay').classList.remove('open');
 
-  // Apri la seduta
   if (_wellnessPendingAcc) {
     apriSedutaConNote(_wellnessPendingAcc);
     _wellnessPendingAcc = null;
   }
 
-  // Invia in background (fire-and-forget)
   const oggi = new Date();
   const dataStr = `${oggi.getFullYear()}-${String(oggi.getMonth()+1).padStart(2,'0')}-${String(oggi.getDate()).padStart(2,'0')}`;
   fetch(API, {
@@ -1613,13 +1611,91 @@ function confermaWellness() {
     body: JSON.stringify({
       token: TOKEN, azione: 'log_wellness',
       id_giocatrice: id, data: dataStr,
-      qualita_sonno: sonno, dolori: dolori, energia: energia, note
+      qualita_sonno: sonno, fatica, disponibilita, dolori, note
     })
-  }).catch(() => {}); // silenzioso — non blocca l'atleta
+  }).catch(() => {});
 }
+
+// ── PUSH NOTIFICATIONS ────────────────────────────────────────────────────────
+
+const VAPID_PUBLIC_KEY = 'BHVZrGFRPQlFqKnhSyIolSkeo4uzTupre9kjmh7fhCNG5DwenXry9qzxpb8ZrCG0RBdXKPNHPrPnOfi444Zgg08';
+
+function urlBase64ToUint8Array(b64) {
+  const pad = '='.repeat((4 - b64.length % 4) % 4);
+  const raw = atob((b64 + pad).replace(/-/g, '+').replace(/_/g, '/'));
+  return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
+}
+
+async function subscribePush() {
+  if (!('PushManager' in window)) {
+    alert('Notifiche push non supportate su questo browser.');
+    return;
+  }
+  const perm = await Notification.requestPermission();
+  if (perm !== 'granted') {
+    alert('Permesso negato. Abilita le notifiche nelle impostazioni del browser.');
+    return;
+  }
+  const reg = await navigator.serviceWorker.ready;
+  let sub = await reg.pushManager.getSubscription();
+  if (!sub) {
+    sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+    });
+  }
+  const j = sub.toJSON();
+  await fetch(API, {
+    method: 'POST',
+    body: JSON.stringify({
+      token: TOKEN, azione: 'salva_push_sub',
+      id_giocatrice: id,
+      endpoint: j.endpoint,
+      p256dh: j.keys.p256dh,
+      auth: j.keys.auth
+    })
+  }).catch(() => {});
+  document.getElementById('push-banner')?.remove();
+  const toast = document.createElement('div');
+  toast.textContent = '✅ Notifiche mattutine attivate!';
+  toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a3a6b;color:#fff;padding:10px 20px;border-radius:12px;font-weight:700;z-index:99999;font-size:0.9rem';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+async function initPushBanner() {
+  if (!('PushManager' in window) || !id || String(id) === '99') return;
+  await navigator.serviceWorker.ready;
+  const reg = await navigator.serviceWorker.ready;
+  const sub = await reg.pushManager.getSubscription();
+  if (sub && Notification.permission === 'granted') return;
+  const banner = document.getElementById('push-banner');
+  if (banner) banner.style.display = 'flex';
+}
+
+// Auto-apri wellness se arrivata da notifica push
+(function checkWellnessParam() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('wellness') === '1' && id && String(id) !== '99') {
+    // Attendi che la pagina carichi, poi apri il modal
+    const timer = setInterval(() => {
+      if (document.getElementById('contenuto')?.style.display !== 'none') {
+        clearInterval(timer);
+        if (!localStorage.getItem(wellnessKey())) mostraWellness(null);
+      }
+    }, 200);
+  }
+})();
 
 // ─────────────────────────────────────────────────────────────────────────────
 </script>
+
+<!-- Banner notifiche push (nascosto finché non serve) -->
+<div id="push-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a3a6b;color:#fff;padding:12px 16px;z-index:9998;align-items:center;gap:10px;font-size:0.85rem">
+  <span style="flex:1">🔔 Ricevi il questionario wellness ogni mattina alle 8</span>
+  <button onclick="subscribePush()" style="background:#fff;color:#1a3a6b;border:none;border-radius:8px;padding:7px 14px;font-weight:700;cursor:pointer;font-size:0.82rem;flex-shrink:0">Attiva</button>
+  <button onclick="document.getElementById('push-banner').remove()" style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:0 4px;flex-shrink:0">✕</button>
+</div>
 
 <div id="wellness-overlay">
   <div class="wellness-card">
@@ -1655,6 +1731,17 @@ function confermaWellness() {
         <button data-val="3" onclick="wellnessSeleziona(this,3)">3</button>
         <button data-val="4" onclick="wellnessSeleziona(this,3)">4</button>
         <button data-val="5" onclick="wellnessSeleziona(this,3)">5</button>
+      </div>
+      <div class="wellness-guide"><span></span><span></span></div>
+    </div>
+    <div class="wellness-q">
+      <div class="wellness-q-label"></div>
+      <div class="wellness-stars" data-gruppo="4">
+        <button data-val="1" onclick="wellnessSeleziona(this,4)">1</button>
+        <button data-val="2" onclick="wellnessSeleziona(this,4)">2</button>
+        <button data-val="3" onclick="wellnessSeleziona(this,4)">3</button>
+        <button data-val="4" onclick="wellnessSeleziona(this,4)">4</button>
+        <button data-val="5" onclick="wellnessSeleziona(this,4)">5</button>
       </div>
       <div class="wellness-guide"><span></span><span></span></div>
     </div>
