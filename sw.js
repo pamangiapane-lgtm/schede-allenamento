@@ -1,11 +1,9 @@
-const CACHE = 'schede-v24';
+const CACHE = 'schede-v25';
 const BASE = '/schede-allenamento';
 const STATIC = [
-  BASE + '/', BASE + '/index.html', BASE + '/style.css',
-  BASE + '/logo.jpg', BASE + '/icon.svg', BASE + '/manifest.json'
+  BASE + '/', BASE + '/index.html', BASE + '/scheda.html',
+  BASE + '/style.css', BASE + '/logo.jpg', BASE + '/icon.svg', BASE + '/manifest.json'
 ];
-// scheda.html: sempre rete, mai cache
-const NETWORK_ONLY_SUFFIX = '/scheda.html';
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -38,12 +36,6 @@ self.addEventListener('fetch', e => {
         headers: { 'Content-Type': 'application/json' }
       })
     ));
-    return;
-  }
-
-  // scheda.html: sempre rete (no cache) per ricevere aggiornamenti
-  if (url.pathname.endsWith(NETWORK_ONLY_SUFFIX)) {
-    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
 
