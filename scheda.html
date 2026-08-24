@@ -349,6 +349,13 @@ function parseIntensita(s) {
   return m ? parseFloat(m[1]) / 100 : null;
 }
 
+function formatIntensita(v) {
+  if (!v) return v;
+  const n = parseFloat(v);
+  if (!isNaN(n) && n > 0 && n < 1) return Math.round(n * 100) + '%';
+  return String(v);
+}
+
 function parseReps(s) {
   if (!s) return null;
   const m = String(s).match(/\d+/);
@@ -562,8 +569,8 @@ function htmlEsercizio(e, logId) {
   h += `<tbody>`;
   ROWS.forEach((row, idx) => {
     const vals = multi
-      ? blocchi.map(b => b[row.key])
-      : [idx === 1 ? repsConTempo(e.Reps, e.Note) : blocchi[0][row.key]];
+      ? blocchi.map(b => row.key === 'intensita' ? formatIntensita(b[row.key]) : b[row.key])
+      : [idx === 1 ? repsConTempo(e.Reps, e.Note) : (row.key === 'intensita' ? formatIntensita(blocchi[0][row.key]) : blocchi[0][row.key])];
     if (vals.every(v => !v)) return;
     h += `<tr><td class="mini-tbl-label">${row.label}</td>`;
     vals.forEach(v => { h += `<td class="mini-tbl-val">${v || '—'}</td>`; });
@@ -1320,35 +1327,7 @@ function buildProfilo(g, resE, resP, sedute) {
       <div class="log-salvato" id="ok-peso" style="padding:0 16px 10px">${L.savedOk}</div>
     </div>`;
 
-  /* 3. STORICO PER SEDUTA */
-  const sedKeys = Object.keys(logPerSeduta)
-    .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
-
-  if (sedKeys.length > 0) {
-    html += `<div class="profilo-card"><div class="profilo-header">${L.histTitle}</div>`;
-    sedKeys.forEach(sed => {
-      const nomeSed = seduteMap[sed] || L.sessionFallback(sed);
-      const byEserc = {};
-      logPerSeduta[sed].forEach(p => {
-        if (!byEserc[p.Esercizio]) byEserc[p.Esercizio] = [];
-        byEserc[p.Esercizio].push(p);
-      });
-      html += `<div class="storico-sed-header">${nomeSed}</div>`;
-      Object.entries(byEserc).forEach(([nome, voci]) => {
-        const chips = voci.map(p =>
-          `<span class="storico-chip">${formatData(p.Data)}<br><strong>${p.Valore}</strong></span>`
-        ).join('');
-        html += `
-          <div class="storico-eserc">
-            <div class="storico-nome">${nome}</div>
-            <div class="storico-chips">${chips}</div>
-          </div>`;
-      });
-    });
-    html += `</div>`;
-  }
-
-  /* 4. MASSIMALI */
+  /* 3. MASSIMALI */
   html += `<div class="profilo-card"><div class="profilo-header">${L.maxTitle}</div>`;
   MASSIMALI.forEach(m => {
     const rmKeyM = Object.keys(rmMapManual).find(k => m.alias.some(a => k.includes(a)));
@@ -1372,6 +1351,32 @@ function buildProfilo(g, resE, resP, sedute) {
       </div>`;
   });
   html += `</div>`;
+
+  /* 4. STORICO PER SEDUTA — solo ultimo carico per esercizio */
+  const sedKeys = Object.keys(logPerSeduta)
+    .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
+
+  if (sedKeys.length > 0) {
+    html += `<div class="profilo-card"><div class="profilo-header">${L.histTitle}</div>`;
+    sedKeys.forEach(sed => {
+      const nomeSed = seduteMap[sed] || L.sessionFallback(sed);
+      const byEserc = {};
+      logPerSeduta[sed].forEach(p => {
+        byEserc[p.Esercizio] = p; // sovrascrive — tiene solo l'ultimo (già ordinato per timestamp)
+      });
+      html += `<div class="storico-sed-header">${nomeSed}</div>`;
+      Object.entries(byEserc).forEach(([nome, p]) => {
+        html += `
+          <div class="storico-eserc">
+            <div class="storico-nome">${nome}</div>
+            <div class="storico-chips">
+              <span class="storico-chip">${formatData(p.Data)}<br><strong>${p.Valore}</strong></span>
+            </div>
+          </div>`;
+      });
+    });
+    html += `</div>`;
+  }
 
   /* 5. ANALISI FUNZIONALE + STRATEGIA */
   const afText    = (L === EN && g.Analisi_Funzionale_EN) ? g.Analisi_Funzionale_EN : g.Analisi_Funzionale;
