@@ -842,7 +842,7 @@ async function caricaScheda() {
           const m = metodiMap[key];
           html += `<div class="metodo-block">`;
           if (m.nome === 'Prehab individuale' && g.Link_Prehab) {
-            html += `<div class="metodo-titolo">${traduciMetodo(m.nome)} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>`;
+            html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
             let obiettivoHtml = '';
             const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
             if (_obvSrc) {
@@ -898,7 +898,7 @@ async function caricaScheda() {
               } catch(e) {}
             }
             html += `<div class="metodo-block">
-              <div class="metodo-titolo">${traduciMetodo('Prehab individuale')} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>
+              <div class="metodo-titolo">${traduciMetodo('Prehab individuale')}</div>
               <div class="prehab-wrap">
                 ${obiettivoHtml}
                 <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
