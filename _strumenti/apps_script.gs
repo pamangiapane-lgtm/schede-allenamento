@@ -4,7 +4,7 @@
 // poi clicca Deploy → New deployment → Web app
 // =====================================================
 
-const TOKEN = 'squadra2026'; // puoi cambiarlo se vuoi
+const TOKEN = 'mv26-prd-3xF7wNqK';
 
 function doGet(e) {
   try {
