@@ -39,6 +39,16 @@ function doPost(e) {
       return risposta({ok: true});
     }
 
+    if (azione === 'scrivi_foglio') {
+      scrivi_foglio_bulk(body.foglio, body.intestazioni, body.righe);
+      return risposta({ok: true, scritte: body.righe.length});
+    }
+
+    if (azione === 'aggiungi_righe') {
+      aggiungiRigheBulk(body.foglio, body.righe);
+      return risposta({ok: true, scritte: body.righe.length});
+    }
+
     if (azione === 'aggiungi_esercizio_prehab') {
       aggiungiEsercizioLibreria(body.esercizio);
       return risposta({ok: true});
@@ -140,6 +150,22 @@ function svuotaERiscrivi(nomeFoglio, intestazioni, righe) {
   foglio.clearContents();
   foglio.appendRow(intestazioni);
   righe.forEach(r => foglio.appendRow(r));
+}
+
+function scrivi_foglio_bulk(nomeFoglio, intestazioni, righe) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const foglio = ss.getSheetByName(nomeFoglio);
+  foglio.clearContents();
+  const tutto = [intestazioni, ...righe];
+  foglio.getRange(1, 1, tutto.length, intestazioni.length).setValues(tutto);
+}
+
+function aggiungiRigheBulk(nomeFoglio, righe) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const foglio = ss.getSheetByName(nomeFoglio);
+  const ultimaRiga = foglio.getLastRow();
+  const ncol = righe[0].length;
+  foglio.getRange(ultimaRiga + 1, 1, righe.length, ncol).setValues(righe);
 }
 
 function risposta(obj) {
