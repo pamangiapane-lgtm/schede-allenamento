@@ -1667,7 +1667,7 @@ async function initPushBanner() {
   const banner = document.getElementById('push-banner');
   if (!banner) return;
   // Nascondi se non applicabile
-  if (!id || String(id) === '99') { banner.style.display = 'none'; return; }
+  if (!id) { banner.style.display = 'none'; return; }
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) { banner.style.display = 'none'; return; }
   // Nascondi se già iscritto
   try {
