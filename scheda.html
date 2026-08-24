@@ -1671,11 +1671,29 @@ async function subscribePush() {
     _log('✓ sub endpoint: ' + (j.endpoint || '?').slice(0,80));
     _log('keys ok: ' + (!!j.keys));
     if (!j.keys) return;
-    _log('⏳ fetch → API_PUSH…');
-    const res = await fetch(API_PUSH, {
+    // Leggi PushSub esistente, aggiorna/aggiungi, riscrivi con scrivi_foglio
+    _log('⏳ leggo PushSub esistente…');
+    const intestazioni = ['ID_Giocatrice','Endpoint','P256dh','Auth','Aggiornato'];
+    let righe = [];
+    try {
+      const getUrl = API + '?token=' + encodeURIComponent(TOKEN) + '&azione=leggi&foglio=PushSub';
+      const gr = await fetch(getUrl);
+      const gj = await gr.json().catch(() => ({}));
+      if (gj.dati && Array.isArray(gj.dati)) {
+        righe = gj.dati.map(r => [r.ID_Giocatrice, r.Endpoint, r.P256dh, r.Auth, r.Aggiornato]);
+        _log('PushSub letto: ' + righe.length + ' righe');
+      }
+    } catch(e2) { _log('leggi PushSub fallito (normale se foglio nuovo): ' + e2.message); }
+    // Aggiorna o aggiungi
+    const ts = new Date().toISOString();
+    const idx = righe.findIndex(r => String(r[0]) === String(id));
+    if (idx >= 0) { righe[idx] = [id, j.endpoint, j.keys.p256dh, j.keys.auth, ts]; }
+    else { righe.push([id, j.endpoint, j.keys.p256dh, j.keys.auth, ts]); }
+    _log('⏳ scrivi_foglio PushSub (' + righe.length + ' righe)…');
+    const res = await fetch(API, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ token: TOKEN, azione: 'salva_push_sub', id_giocatrice: id, endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth })
+      body: JSON.stringify({ token: TOKEN, azione: 'scrivi_foglio', foglio: 'PushSub', intestazioni, righe })
     });
     const rawText = await res.text().catch(() => '');
     _log('HTTP ' + res.status + '\n' + (rawText || '(vuoto)'));
