@@ -1664,13 +1664,18 @@ async function subscribePush() {
 }
 
 async function initPushBanner() {
-  if (!('PushManager' in window) || !id || String(id) === '99') return;
-  await navigator.serviceWorker.ready;
-  const reg = await navigator.serviceWorker.ready;
-  const sub = await reg.pushManager.getSubscription();
-  if (sub && Notification.permission === 'granted') return;
   const banner = document.getElementById('push-banner');
-  if (banner) banner.style.display = 'flex';
+  if (!banner) return;
+  // Nascondi se non applicabile
+  if (!id || String(id) === '99') { banner.style.display = 'none'; return; }
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) { banner.style.display = 'none'; return; }
+  // Nascondi se già iscritto
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.getSubscription();
+    if (sub && Notification.permission === 'granted') { banner.style.display = 'none'; return; }
+  } catch(_) {}
+  banner.style.display = 'flex';
 }
 
 // Auto-apri wellness se arrivata da notifica push
@@ -1691,7 +1696,7 @@ async function initPushBanner() {
 </script>
 
 <!-- Banner notifiche push (nascosto finché non serve) -->
-<div id="push-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#1a3a6b;color:#fff;padding:12px 16px;z-index:9998;align-items:center;gap:10px;font-size:0.85rem">
+<div id="push-banner" style="display:flex;position:fixed;bottom:0;left:0;right:0;background:#1a3a6b;color:#fff;padding:12px 16px;z-index:9998;align-items:center;gap:10px;font-size:0.85rem">
   <span style="flex:1">🔔 Ricevi il questionario wellness ogni mattina alle 8</span>
   <button onclick="subscribePush()" style="background:#fff;color:#1a3a6b;border:none;border-radius:8px;padding:7px 14px;font-weight:700;cursor:pointer;font-size:0.82rem;flex-shrink:0">Attiva</button>
   <button onclick="document.getElementById('push-banner').remove()" style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:0 4px;flex-shrink:0">✕</button>
