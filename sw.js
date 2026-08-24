@@ -1,4 +1,4 @@
-const CACHE = 'schede-v23';
+const CACHE = 'schede-v24';
 const BASE = '/schede-allenamento';
 const STATIC = [
   BASE + '/', BASE + '/index.html', BASE + '/style.css',
@@ -28,6 +28,11 @@ self.addEventListener('fetch', e => {
 
   // API Google Apps Script: sempre rete, nessuna cache
   if (url.hostname.includes('script.google.com')) {
+    // AKfycbyxLzbnm: passa direttamente senza fallback (debug CORS)
+    if (url.pathname.includes('AKfycbyxLzbnm')) {
+      e.respondWith(fetch(e.request));
+      return;
+    }
     e.respondWith(fetch(e.request).catch(() =>
       new Response(JSON.stringify({ errore: 'Offline — nessuna connessione' }), {
         headers: { 'Content-Type': 'application/json' }
