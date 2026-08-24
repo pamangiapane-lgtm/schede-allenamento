@@ -1,4 +1,4 @@
-const CACHE = 'schede-v17';
+const CACHE = 'schede-v18';
 const STATIC = ['/', '/index.html', '/scheda.html', '/style.css', '/logo.jpg', '/icon.svg', '/manifest.json'];
 
 self.addEventListener('install', e => {
@@ -37,5 +37,32 @@ self.addEventListener('fetch', e => {
       }
       return res;
     }))
+  );
+});
+
+self.addEventListener('push', e => {
+  const data = e.data ? e.data.json() : {};
+  e.waitUntil(
+    self.registration.showNotification(data.title || '🏐 Marsala Volley', {
+      body: data.body || 'Compila il questionario wellness di oggi',
+      icon: '/schede-allenamento/logo.jpg',
+      badge: '/schede-allenamento/logo.jpg',
+      tag: 'wellness-daily',
+      renotify: false,
+      data: { url: data.url || '/schede-allenamento/scheda.html' }
+    })
+  );
+});
+
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = e.notification.data?.url || '/schede-allenamento/scheda.html';
+  e.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(wins => {
+      for (const w of wins) {
+        if (w.url.includes('scheda.html')) { w.focus(); return w.navigate(url); }
+      }
+      return clients.openWindow(url);
+    })
   );
 });

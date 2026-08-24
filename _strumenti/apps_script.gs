@@ -61,6 +61,41 @@ function doPost(e) {
       return risposta({ok: true});
     }
 
+    if (azione === 'log_wellness') {
+      const riga = [
+        new Date().toISOString(),
+        body.id_giocatrice,
+        body.data,
+        body.qualita_sonno,
+        body.fatica,
+        body.disponibilita,
+        body.dolori,
+        body.note || ''
+      ];
+      scriviRigaFoglio('Wellness',
+        ['Timestamp','ID_Giocatrice','Data','Qualita_Sonno','Fatica','Disponibilita','Dolori','Note'],
+        riga);
+      return risposta({ok: true});
+    }
+
+    if (azione === 'salva_push_sub') {
+      const ss = SpreadsheetApp.getActiveSpreadsheet();
+      let foglio = ss.getSheetByName('PushSub');
+      if (!foglio) {
+        foglio = ss.insertSheet('PushSub');
+        foglio.appendRow(['ID_Giocatrice','Endpoint','P256dh','Auth','Aggiornato']);
+      }
+      const dati = foglio.getDataRange().getValues();
+      for (let i = 1; i < dati.length; i++) {
+        if (String(dati[i][0]) === String(body.id_giocatrice)) {
+          foglio.getRange(i + 1, 2, 1, 4).setValues([[body.endpoint, body.p256dh, body.auth, new Date().toISOString()]]);
+          return risposta({ok: true});
+        }
+      }
+      foglio.appendRow([body.id_giocatrice, body.endpoint, body.p256dh, body.auth, new Date().toISOString()]);
+      return risposta({ok: true});
+    }
+
     return risposta({errore: 'azione non riconosciuta'});
   } catch(err) {
     return risposta({errore: err.message});
@@ -86,6 +121,16 @@ function leggiTutto(nomeFoglio) {
 function scriviRiga(nomeFoglio, riga) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const foglio = ss.getSheetByName(nomeFoglio);
+  foglio.appendRow(riga);
+}
+
+function scriviRigaFoglio(nomeFoglio, intestazioni, riga) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let foglio = ss.getSheetByName(nomeFoglio);
+  if (!foglio) {
+    foglio = ss.insertSheet(nomeFoglio);
+    foglio.appendRow(intestazioni);
+  }
   foglio.appendRow(riga);
 }
 
