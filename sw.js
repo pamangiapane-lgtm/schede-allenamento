@@ -1,5 +1,7 @@
-const CACHE = 'schede-v21';
-const STATIC = ['/', '/index.html', '/scheda.html', '/style.css', '/logo.jpg', '/icon.svg', '/manifest.json'];
+const CACHE = 'schede-v22';
+// scheda.html esclusa: sempre rete per ricevere aggiornamenti
+const STATIC = ['/', '/index.html', '/style.css', '/logo.jpg', '/icon.svg', '/manifest.json'];
+const NETWORK_ONLY = ['/scheda.html'];
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -25,6 +27,12 @@ self.addEventListener('fetch', e => {
         headers: { 'Content-Type': 'application/json' }
       })
     ));
+    return;
+  }
+
+  // scheda.html: sempre rete (no cache) per ricevere aggiornamenti
+  if (NETWORK_ONLY.some(p => url.pathname.endsWith(p))) {
+    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
 
