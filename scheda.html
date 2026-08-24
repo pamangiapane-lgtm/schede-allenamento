@@ -1650,9 +1650,17 @@ async function subscribePush() {
     const perm = await Notification.requestPermission();
     _log('permesso: ' + perm);
     if (perm !== 'granted') return;
-    _log('⏳ serviceWorker.ready…');
-    const reg = await navigator.serviceWorker.ready;
-    _log('✓ SW pronto. scope: ' + reg.scope);
+    _log('⏳ getRegistration…');
+    let reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) {
+      _log('nessuna reg, registro sw.js…');
+      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js');
+      await new Promise(r => setTimeout(r, 2000));
+      reg = await navigator.serviceWorker.getRegistration();
+    }
+    if (!reg) { _log('✗ SW non registrabile'); return; }
+    const sw = reg.active || reg.installing || reg.waiting;
+    _log('✓ SW stato: ' + (reg.active ? 'active' : reg.installing ? 'installing' : reg.waiting ? 'waiting' : '?') + ' scope: ' + reg.scope);
     _log('⏳ getSubscription…');
     let sub = await reg.pushManager.getSubscription();
     if (!sub) {
