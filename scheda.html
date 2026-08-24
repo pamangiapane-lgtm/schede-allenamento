@@ -1712,16 +1712,42 @@ async function subscribePush() {
 async function initPushBanner() {
   const banner = document.getElementById('push-banner');
   if (!banner) return;
-  // Nascondi se non applicabile
-  if (!id) { banner.style.display = 'none'; return; }
+  if (!id || String(id) === '99') { banner.style.display = 'none'; return; }
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) { banner.style.display = 'none'; return; }
-  // Nascondi se già iscritto
   try {
-    const reg = await navigator.serviceWorker.ready;
+    const reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) { banner.style.display = 'flex'; return; }
     const sub = await reg.pushManager.getSubscription();
-    if (sub && Notification.permission === 'granted') { banner.style.display = 'none'; return; }
+    if (sub && Notification.permission === 'granted') {
+      // Subscription esiste: salvala silenziosamente (potrebbe non essere nel foglio)
+      banner.style.display = 'none';
+      _salvaPushSubSilent(sub);
+      return;
+    }
   } catch(_) {}
   banner.style.display = 'flex';
+}
+
+async function _salvaPushSubSilent(sub) {
+  try {
+    const j = sub.toJSON();
+    if (!j.keys) return;
+    const intestazioni = ['ID_Giocatrice','Endpoint','P256dh','Auth','Aggiornato'];
+    let righe = [];
+    try {
+      const gr = await fetch(API + '?token=' + encodeURIComponent(TOKEN) + '&azione=leggi&foglio=PushSub');
+      const gj = await gr.json().catch(() => ({}));
+      if (gj.dati) righe = gj.dati.map(r => [r.ID_Giocatrice, r.Endpoint, r.P256dh, r.Auth, r.Aggiornato]);
+    } catch(_) {}
+    const ts = new Date().toISOString();
+    const idx = righe.findIndex(r => String(r[0]) === String(id));
+    if (idx >= 0) { righe[idx] = [id, j.endpoint, j.keys.p256dh, j.keys.auth, ts]; }
+    else { righe.push([id, j.endpoint, j.keys.p256dh, j.keys.auth, ts]); }
+    await fetch(API, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ token: TOKEN, azione: 'scrivi_foglio', foglio: 'PushSub', intestazioni, righe })
+    });
+  } catch(_) {}
 }
 
 // Auto-apri wellness se arrivata da notifica push
