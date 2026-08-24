@@ -1630,20 +1630,35 @@ function urlBase64ToUint8Array(b64) {
 }
 
 async function subscribePush() {
+  const _dbgShow = (msg, color) => {
+    const d = document.createElement('div');
+    d.id = 'push-dbg';
+    d.style.cssText = 'position:fixed;top:0;left:0;right:0;background:' + color + ';color:#fff;padding:12px;z-index:99999;font-size:0.75rem;white-space:pre-wrap;word-break:break-all;max-height:50vh;overflow:auto';
+    d.textContent = msg;
+    document.getElementById('push-dbg')?.remove();
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), 20000);
+  };
+  _dbgShow('▶ subscribePush avviato — controllo PushManager…', '#333');
   try {
-    if (!('PushManager' in window)) { alert('PushManager non disponibile su questo browser.'); return; }
+    if (!('PushManager' in window)) { _dbgShow('✗ PushManager non disponibile su questo browser', '#700'); return; }
+    _dbgShow('⏳ Richiedo permesso notifiche…', '#333');
     const perm = await Notification.requestPermission();
-    if (perm !== 'granted') { alert('Permesso notifiche negato.'); return; }
+    if (perm !== 'granted') { _dbgShow('✗ Permesso notifiche negato: ' + perm, '#700'); return; }
+    _dbgShow('⏳ Attendo serviceWorker.ready…', '#333');
     const reg = await navigator.serviceWorker.ready;
+    _dbgShow('⏳ Ottengo subscription Push…', '#333');
     let sub = await reg.pushManager.getSubscription();
     if (!sub) {
+      _dbgShow('⏳ Creo nuova subscription…', '#333');
       sub = await reg.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
       });
     }
     const j = sub.toJSON();
-    if (!j.keys) { alert('Errore: subscription senza chiavi. SW non aggiornato?'); return; }
+    if (!j.keys) { _dbgShow('✗ Subscription senza chiavi — SW non aggiornato?', '#700'); return; }
+    _dbgShow('⏳ Invio subscription al server…\nendpoint: ' + j.endpoint.slice(0,60) + '…', '#333');
     const res = await fetch(API, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -1658,20 +1673,12 @@ async function subscribePush() {
     const rawText = await res.text().catch(() => '');
     let json = {};
     try { json = JSON.parse(rawText); } catch(_) {}
-    const dbg = document.createElement('div');
-    dbg.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#111;color:#0f0;padding:12px;z-index:99999;font-size:0.75rem;white-space:pre-wrap;word-break:break-all;max-height:50vh;overflow:auto';
-    dbg.textContent = 'GAS risposta:\n' + (rawText || '(vuoto)');
-    document.body.appendChild(dbg);
-    setTimeout(() => dbg.remove(), 15000);
+    _dbgShow((json.ok ? '✅ OK — iscrizione salvata!\n' : '⚠ Risposta GAS:\n') + (rawText || '(vuoto)'), json.ok ? '#1a5c1a' : '#555');
     if (json.ok) {
-      document.getElementById('push-banner')?.remove();
+      setTimeout(() => document.getElementById('push-banner')?.remove(), 3000);
     }
   } catch(err) {
-    const dbg = document.createElement('div');
-    dbg.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#700;color:#fff;padding:12px;z-index:99999;font-size:0.75rem;word-break:break-all';
-    dbg.textContent = 'ERRORE: ' + err.message;
-    document.body.appendChild(dbg);
-    setTimeout(() => dbg.remove(), 15000);
+    _dbgShow('✗ ERRORE: ' + err.message, '#700');
   }
 }
 
