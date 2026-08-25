@@ -26,7 +26,7 @@ VAPID_PRIVATE_KEY = 'uAbznecLD_rYJcda0RuvKCELWNkbmeHtRfbTr96D2C0'
 VAPID_CLAIMS      = {'sub': 'mailto:pamangiapane@gmail.com'}
 
 GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec'
-TOKEN   = os.environ.get('APP_TOKEN', 'mv26-prd-3xF7wNqK')
+TOKEN   = os.environ.get('APP_TOKEN') or 'mv26-prd-3xF7wNqK'
 
 APP_URL = 'https://pamangiapane-lgtm.github.io/schede-allenamento/scheda.html'
 
