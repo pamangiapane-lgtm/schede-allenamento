@@ -178,16 +178,18 @@ def render_atleta(atleta, sedute_all, esercizi_all, maxes, logs):
                 f'<p>{"Libero" if ruolo == "Libero" else ruolo or "Atleta"} · Marsala Volley 2026/27</p></div>')
 
     # ── Seduta 1 W1 ──
+    # Prima seduta di Palestra W1
     sed1 = next((s for s in sedute_all
-                 if str(s.get("Numero_Seduta","")).strip() == "W1-S1"), None)
-    nome_sed1 = str(sed1.get("Nome_Seduta","")) if sed1 else "Seduta 1"
+                 if str(s.get("Luogo","")).strip() == "Palestra"), None)
+    sed1_id   = str(sed1.get("Numero_Seduta","")) if sed1 else ""
+    nome_sed1 = str(sed1.get("Nome_Seduta","")) if sed1 else "Seduta Palestra"
     es_sed1 = [e for e in esercizi_all
-               if str(e.get("N_Seduta","")).strip() == "W1-S1" and vis(e)]
+               if str(e.get("N_Seduta","")).strip() == sed1_id and vis(e)]
     es_sed1.sort(key=lambda e: (float(e.get("Ord_Metodo",0) or 0),
                                 float(e.get("Ord_Eserc",0) or 0)))
 
     if es_sed1:
-        html.append(f'<div class="section-title">W1-S1 · {esc(nome_sed1)}</div>')
+        html.append(f'<div class="section-title">{esc(sed1_id)} · {esc(nome_sed1)}</div>')
         metodi, seen = [], {}
         for e in es_sed1:
             m = str(e.get("Metodo","")).strip() or "Altro"
