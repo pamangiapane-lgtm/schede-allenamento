@@ -31,7 +31,7 @@ jobs:
         id: get_sub
         run: |
           python3 << 'PYEOF'
-          import asyncio, json, os, sys
+          import asyncio, json, os, sys, tempfile
           from playwright.async_api import async_playwright
 
           VAPID_PUBLIC = 'BHVZrGFRPQlFqKnhSyIolSkeo4uzTupre9kjmh7fhCNG5DwenXry9qzxpb8ZrCG0RBdXKPNHPrPnOfi444Zgg08'
@@ -39,13 +39,16 @@ jobs:
 
           async def main():
               async with async_playwright() as p:
-                  browser = await p.chromium.launch(
+                  # Usa persistent context (non incognito) -- Push API richiede profilo reale
+                  profile_dir = tempfile.mkdtemp()
+                  context = await p.chromium.launch_persistent_context(
+                      profile_dir,
                       headless=True,
                       args=['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+                      permissions=['notifications'],
                   )
-                  context = await browser.new_context()
-                  await context.grant_permissions(['notifications'], origin='http://localhost:8765')
-                  page = await context.new_page()
+
+                  page = context.pages[0] if context.pages else await context.new_page()
 
                   logs = []
                   page.on('console', lambda m: logs.append(f"[{m.type}] {m.text}"))
@@ -67,7 +70,10 @@ jobs:
                               if (!("PushManager" in window)) return {{error: "no PushManager"}};
 
                               let reg = await navigator.serviceWorker.getRegistration();
-                              if (!reg) reg = await navigator.serviceWorker.ready;
+                              if (!reg) {{
+                                  reg = await navigator.serviceWorker.register('./sw.js');
+                                  await navigator.serviceWorker.ready;
+                              }}
 
                               function urlB64(b) {{
                                   const p = "=".repeat((4-b.length%4)%4);
@@ -93,10 +99,10 @@ jobs:
                   """)
 
                   print(f"Console logs:", flush=True)
-                  for l in logs: print(f"  {l}", flush=True)
+                  for l in logs[-10:]: print(f"  {l}", flush=True)
                   print(f"Subscribe result: {json.dumps(result)}", flush=True)
 
-                  await browser.close()
+                  await context.close()
                   return result
 
           r = asyncio.run(main())
@@ -157,7 +163,7 @@ jobs:
               print(f"   FCM response status: {resp.status_code}", flush=True)
               if resp.status_code in (200, 201):
                   print(f"✅ PUSH ACCETTATO DA FCM! Status {resp.status_code}", flush=True)
-                  print(f"   Il messaggio è in coda per la consegna al dispositivo.", flush=True)
+                  print(f"   Il messaggio e in coda per la consegna al dispositivo.", flush=True)
                   print(f"\n\U0001f389 SISTEMA WELLNESS PUSH 100% OPERATIVO", flush=True)
               else:
                   print(f"⚠️  Status inatteso: {resp.status_code}", flush=True)
