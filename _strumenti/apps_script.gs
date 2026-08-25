@@ -49,6 +49,46 @@ function doPost(e) {
       return risposta({ok: true, scritte: body.righe.length});
     }
 
+    if (azione === 'carica_da_github') {
+      // GAS fetcha i 4 CSV da GitHub raw (server-side, zero timeout client).
+      // Usa Utilities.parseCsv() che gestisce correttamente le virgole nei campi quotati.
+      const urls = {
+        sedute_w1:   body.url_sedute_w1,
+        sedute_w2:   body.url_sedute_w2,
+        esercizi_w1: body.url_esercizi_w1,
+        esercizi_w2: body.url_esercizi_w2,
+      };
+
+      function fetchCsv(url) {
+        const resp = UrlFetchApp.fetch(url, {muteHttpExceptions: true});
+        if (resp.getResponseCode() !== 200)
+          throw new Error('fetch fallita ' + resp.getResponseCode() + ': ' + url);
+        const parsed = Utilities.parseCsv(resp.getContentText('UTF-8'));
+        return { intestazioni: parsed[0], dati: parsed.slice(1) };
+      }
+
+      const sw1 = fetchCsv(urls.sedute_w1);
+      const sw2 = fetchCsv(urls.sedute_w2);
+      const ew1 = fetchCsv(urls.esercizi_w1);
+      const ew2 = fetchCsv(urls.esercizi_w2);
+
+      // Sedute W1+W2 con colonna Ordine
+      const tutteSedute = sw1.dati.concat(sw2.dati);
+      const intestSedute = sw1.intestazioni.concat(['Ordine']);
+      const righeSeduteOut = tutteSedute.map((r, i) => r.concat([i + 1]));
+      scrivi_foglio_bulk('Sedute', intestSedute, righeSeduteOut);
+
+      // Esercizi W1+W2
+      const tuttiEsercizi = ew1.dati.concat(ew2.dati);
+      scrivi_foglio_bulk('Esercizi', ew1.intestazioni, tuttiEsercizi);
+
+      return risposta({
+        ok: true,
+        sedute: tutteSedute.length,
+        esercizi: tuttiEsercizi.length,
+      });
+    }
+
     if (azione === 'aggiungi_esercizio_prehab') {
       aggiungiEsercizioLibreria(body.esercizio);
       return risposta({ok: true});
