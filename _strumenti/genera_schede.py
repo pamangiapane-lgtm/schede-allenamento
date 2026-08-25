@@ -100,46 +100,49 @@ def log_carichi(progressi, id_atleta, n=40):
 
 CSS = """
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Arial, Helvetica, sans-serif; font-size: 11px;
-       color: #1e293b; background: #fff; }
-.atleta { width: 100%; padding: 14px 18px 10px; min-height: 100vh; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+       font-size: 14px; color: #1e293b; background: #f1f5f9; }
+.atleta { max-width: 480px; margin: 0 auto; padding: 12px 12px 24px;
+          background: #f1f5f9; }
 @media print {
-  .atleta { page-break-after: always; min-height: unset; padding: 8px 14px; }
-  body { font-size: 9.5px; }
+  body { background: #fff; font-size: 10px; }
+  .atleta { page-break-after: always; max-width: 100%; padding: 6px 10px; background: #fff; }
 }
-.hdr { background: #1a3a6b; color: #fff; padding: 8px 12px;
-       border-radius: 5px; margin-bottom: 10px; }
-.hdr h1 { font-size: 14px; font-weight: 700; margin-bottom: 1px; }
-.hdr p  { font-size: 9px; opacity: .65; letter-spacing: .05em; }
-.section-title { font-size: 8.5px; font-weight: 700; color: #94a3b8;
-                 letter-spacing: .1em; text-transform: uppercase;
-                 margin: 10px 0 4px; }
-/* Seduta */
-.sed-label { display: inline-block; background: #1a3a6b; color: #fff;
-             font-size: 8px; font-weight: 700; padding: 2px 7px;
-             border-radius: 3px; letter-spacing: .04em; margin-bottom: 3px; }
-.sed-nome  { font-size: 10px; font-weight: 600; color: #1a3a6b;
-             margin-bottom: 4px; }
-.metodo-label { font-size: 8px; font-weight: 700; color: #94a3b8;
-                letter-spacing: .08em; text-transform: uppercase;
-                background: #f8fafc; padding: 2px 6px;
-                border-left: 2px solid #1a3a6b; margin: 3px 0 2px; }
-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
-th { font-size: 8px; color: #94a3b8; font-weight: 700;
-     text-transform: uppercase; letter-spacing: .06em;
-     padding: 2px 4px; text-align: left; border-bottom: 1px solid #e2e8f0; }
-td { font-size: 9.5px; padding: 2px 4px; border-bottom: 1px solid #f1f5f9;
-     vertical-align: top; }
-td.nome { font-weight: 500; color: #334155; }
-td.params { color: #1a3a6b; font-weight: 600; white-space: nowrap; }
-td.rec  { color: #64748b; white-space: nowrap; }
-td.note { color: #94a3b8; font-style: italic; font-size: 8.5px; }
-.max-table td { font-size: 9px; }
-.log-table td { font-size: 8.5px; color: #475569; }
-.log-table td.kg { font-weight: 600; color: #1a3a6b; }
-hr { border: none; border-top: 1px solid #e2e8f0; margin: 8px 0; }
-.footer { font-size: 7.5px; color: #cbd5e1; text-align: center;
-          margin-top: 10px; }
+/* Header */
+.hdr { background: #1a3a6b; color: #fff; padding: 14px 16px 12px;
+       border-radius: 12px; margin-bottom: 14px; }
+.hdr h1 { font-size: 20px; font-weight: 700; }
+.hdr p  { font-size: 12px; opacity: .7; margin-top: 2px; }
+/* Section label */
+.section-title { font-size: 11px; font-weight: 700; color: #64748b;
+                 letter-spacing: .08em; text-transform: uppercase;
+                 margin: 14px 0 6px 2px; }
+/* Metodo block */
+.metodo-block { background: #fff; border-radius: 10px; margin-bottom: 10px;
+                overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.07); }
+.metodo-label { font-size: 10px; font-weight: 700; color: #fff;
+                background: #1a3a6b; padding: 5px 12px;
+                letter-spacing: .06em; text-transform: uppercase; }
+/* Exercise row */
+.es-row { display: flex; flex-direction: column; padding: 8px 12px;
+          border-bottom: 1px solid #f1f5f9; }
+.es-row:last-child { border-bottom: none; }
+.es-nome { font-size: 14px; font-weight: 600; color: #1e293b; }
+.es-params { font-size: 13px; color: #1a3a6b; font-weight: 700; margin-top: 2px; }
+.es-meta { display: flex; gap: 10px; margin-top: 2px; }
+.es-rec { font-size: 11px; color: #64748b; }
+.es-note { font-size: 11px; color: #94a3b8; font-style: italic; }
+/* Massimali */
+.max-block { background: #fff; border-radius: 10px; overflow: hidden;
+             box-shadow: 0 1px 3px rgba(0,0,0,.07); margin-bottom: 10px; }
+.max-row { display: flex; justify-content: space-between; align-items: center;
+           padding: 7px 12px; border-bottom: 1px solid #f1f5f9; }
+.max-row:last-child { border-bottom: none; }
+.max-nome { font-size: 13px; color: #334155; flex: 1; }
+.max-kg { font-size: 15px; font-weight: 700; color: #1a3a6b; margin-left: 8px; }
+.max-data { font-size: 10px; color: #94a3b8; margin-left: 8px; white-space: nowrap; }
+hr { border: none; border-top: 1px solid #e2e8f0; margin: 10px 0; }
+.footer { font-size: 10px; color: #cbd5e1; text-align: center; margin-top: 16px; }
 """
 
 def esc(s):
@@ -157,25 +160,76 @@ def params_es(e):
     return base
 
 def render_atleta(atleta, sedute_all, esercizi_all, maxes, logs):
+    id_a  = str(atleta.get("ID",""))
     nome  = str(atleta.get("Nome","")).strip()
     ruolo = str(atleta.get("Ruolo","")).strip()
 
-    html = [f'<div class="atleta">']
+    def vis(e):
+        id_e = str(e.get("ID_Giocatrice","")).strip()
+        if id_e not in ("", "0") and id_e != id_a:
+            return False
+        excl = [x.strip() for x in str(e.get("Escludi_ID","")).split(",") if x.strip()]
+        if id_a in excl:
+            return False
+        return esercizio_visibile(e, atleta)
+
+    html = ['<div class="atleta">']
     html.append(f'<div class="hdr"><h1>{esc(nome)}</h1>'
                 f'<p>{"Libero" if ruolo == "Libero" else ruolo or "Atleta"} · Marsala Volley 2026/27</p></div>')
 
+    # ── Seduta 1 W1 ──
+    sed1 = next((s for s in sedute_all
+                 if str(s.get("Numero_Seduta","")).strip() == "W1-S1"), None)
+    nome_sed1 = str(sed1.get("Nome_Seduta","")) if sed1 else "Seduta 1"
+    es_sed1 = [e for e in esercizi_all
+               if str(e.get("N_Seduta","")).strip() == "W1-S1" and vis(e)]
+    es_sed1.sort(key=lambda e: (float(e.get("Ord_Metodo",0) or 0),
+                                float(e.get("Ord_Eserc",0) or 0)))
+
+    if es_sed1:
+        html.append(f'<div class="section-title">W1-S1 · {esc(nome_sed1)}</div>')
+        metodi, seen = [], {}
+        for e in es_sed1:
+            m = str(e.get("Metodo","")).strip() or "Altro"
+            if m not in seen:
+                seen[m] = len(metodi)
+                metodi.append({"nome": m, "righe": []})
+            metodi[seen[m]]["righe"].append(e)
+
+        for blk in metodi:
+            html.append('<div class="metodo-block">')
+            html.append(f'<div class="metodo-label">{esc(blk["nome"])}</div>')
+            for e in blk["righe"]:
+                es_nome = str(e.get("Esercizio","")).strip()
+                rec     = str(e.get("Recupero","")).strip()
+                note    = str(e.get("Note","")).strip() or str(e.get("Istruzione","")).strip()
+                note    = (note[:60] + "…") if len(note) > 60 else note
+                html.append('<div class="es-row">')
+                html.append(f'<span class="es-nome">{esc(es_nome)}</span>')
+                html.append(f'<span class="es-params">{esc(params_es(e))}</span>')
+                meta = []
+                if rec:
+                    meta.append(f'<span class="es-rec">Rec {esc(rec)}</span>')
+                if note:
+                    meta.append(f'<span class="es-note">{esc(note)}</span>')
+                if meta:
+                    html.append(f'<div class="es-meta">{"".join(meta)}</div>')
+                html.append('</div>')
+            html.append('</div>')
+
     # ── Massimali ──
     if maxes:
-        html.append('<hr><div class="section-title">Massimali per esercizio</div>')
-        html.append('<table class="max-table"><thead><tr>'
-                    '<th>Esercizio</th><th>Max (kg)</th><th>Data</th></tr></thead><tbody>')
+        html.append('<div class="section-title">Massimali</div>')
+        html.append('<div class="max-block">')
         for es_n, (kg, data) in sorted(maxes.items(), key=lambda x: -x[1][0]):
-            html.append(f'<tr><td>{esc(es_n)}</td>'
-                        f'<td class="params">{kg}</td>'
-                        f'<td class="rec">{esc(data)}</td></tr>')
-        html.append('</tbody></table>')
+            html.append(f'<div class="max-row">'
+                        f'<span class="max-nome">{esc(es_n)}</span>'
+                        f'<span class="max-kg">{kg} kg</span>'
+                        f'<span class="max-data">{esc(data)}</span>'
+                        f'</div>')
+        html.append('</div>')
 
-    html.append('<div class="footer">Marsala Volley 2026/27 · Generato automaticamente · Non condividere</div>')
+    html.append('<div class="footer">Marsala Volley 2026/27 · Non condividere</div>')
     html.append('</div>')
     return "\n".join(html)
 
