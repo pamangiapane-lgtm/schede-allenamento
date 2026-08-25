@@ -183,7 +183,8 @@ def render_atleta(atleta, sedute_all, esercizi_all, maxes, logs):
                  if str(s.get("Luogo","")).strip() == "Palestra"), None)
     sed1_id   = str(sed1.get("Numero_Seduta","")) if sed1 else ""
     nome_sed1 = str(sed1.get("Nome_Seduta","")) if sed1 else "Seduta Palestra"
-    SKIP_METODI = {"Attivazione", "Prehab individuale", "Prevenzione"}
+    SKIP_METODI = {"Attivazione", "Prehab individuale", "Prevenzione",
+                   "Rinforzo scapolare Libero"}
     es_sed1 = [e for e in esercizi_all
                if str(e.get("N_Seduta","")).strip() == sed1_id
                and str(e.get("Metodo","")).strip() not in SKIP_METODI
