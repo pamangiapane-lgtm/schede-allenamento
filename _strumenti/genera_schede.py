@@ -303,6 +303,7 @@ def main():
 </html>"""
 
     out = os.path.join(REPO, args.output)
+    os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"\nFatto → {out}")
