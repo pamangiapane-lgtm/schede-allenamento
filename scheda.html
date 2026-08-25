@@ -1631,64 +1631,49 @@ function urlBase64ToUint8Array(b64) {
 }
 
 async function subscribePush() {
-  // Banner persistente che accumula tutte le righe — tap per chiudere
-  let dbgDiv = document.getElementById('push-dbg');
-  if (!dbgDiv) {
-    dbgDiv = document.createElement('div');
-    dbgDiv.id = 'push-dbg';
-    dbgDiv.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#111;color:#0f0;padding:12px;z-index:99999;font-size:0.75rem;white-space:pre-wrap;word-break:break-all;max-height:60vh;overflow:auto;cursor:pointer';
-    dbgDiv.title = 'Tap per chiudere';
-    dbgDiv.onclick = () => dbgDiv.remove();
-    document.body.appendChild(dbgDiv);
-  }
-  const _log = (msg) => { dbgDiv.textContent += '\n' + msg; };
-  _log('▶ avviato');
   try {
-    if (!('PushManager' in window)) { _log('✗ PushManager non disponibile'); return; }
-    _log('⏳ requestPermission…');
+    if (!('PushManager' in window)) { alert('PushManager non disponibile su questo browser.'); return; }
     const perm = await Notification.requestPermission();
-    _log('permesso: ' + perm);
-    if (perm !== 'granted') return;
-    _log('⏳ getRegistration…');
+    if (perm !== 'granted') { alert('Permesso notifiche negato.'); return; }
     let reg = await navigator.serviceWorker.getRegistration();
-    if (!reg) {
-      _log('nessuna reg, registro sw.js…');
-      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js');
-      await new Promise(r => setTimeout(r, 2000));
-      reg = await navigator.serviceWorker.getRegistration();
-    }
-    if (!reg) { _log('✗ SW non registrabile'); return; }
-    const sw = reg.active || reg.installing || reg.waiting;
-    _log('✓ SW stato: ' + (reg.active ? 'active' : reg.installing ? 'installing' : reg.waiting ? 'waiting' : '?') + ' scope: ' + reg.scope);
-    _log('⏳ getSubscription…');
+    if (!reg) reg = await navigator.serviceWorker.ready;
     let sub = await reg.pushManager.getSubscription();
     if (!sub) {
-      _log('⏳ subscribe() con VAPID…');
-      sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY) });
+      sub = await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+      });
     }
-    const j = sub.toJSON();
-    _log('✓ sub endpoint: ' + (j.endpoint || '?').slice(0,80));
-    _log('keys ok: ' + (!!j.keys));
-    if (!j.keys) return;
-    _log('⏳ fetch → API_PUSH (salva_push_sub)…');
-    const res = await fetch(API_PUSH, {
+    await salvaSub_(sub);
+    document.getElementById('push-banner')?.remove();
+    const toast = document.createElement('div');
+    toast.textContent = '✅ Notifiche attivate!';
+    toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a3a6b;color:#fff;padding:10px 20px;border-radius:12px;font-weight:700;z-index:99999;font-size:0.9rem';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+  } catch(err) {
+    alert('Errore attivazione: ' + err.message);
+  }
+}
+async function salvaSub_(sub) {
+  if (!sub || !id || String(id) === '99') return;
+  const j = sub.toJSON();
+  if (!j.keys) return;
+  try {
+    const res = await fetch(API, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ token: TOKEN, azione: 'salva_push_sub', id_giocatrice: id, endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth })
+      body: JSON.stringify({
+        token: TOKEN, azione: 'salva_push_sub',
+        id_giocatrice: id,
+        endpoint: j.endpoint,
+        p256dh: j.keys.p256dh,
+        auth: j.keys.auth
+      })
     });
-    const rawText = await res.text().catch(() => '');
-    _log('HTTP ' + res.status + '\n' + (rawText || '(vuoto)'));
-    let json = {};
-    try { json = JSON.parse(rawText); } catch(_) {}
-    if (json.ok) {
-      _log('✅ ISCRIZIONE SALVATA!');
-      try { localStorage.setItem('push_ok_' + id, '1'); } catch(_) {}
-      setTimeout(() => document.getElementById('push-banner')?.remove(), 3000);
-    }
-  } catch(err) {
-    _log('✗ ERRORE: ' + err.message + '\n' + (err.stack || ''));
-    dbgDiv.style.background = '#700';
-  }
+    const json = await res.json().catch(() => ({}));
+    if (json.ok) localStorage.setItem('push_ok_' + id, '1');
+  } catch(_) {}
 }
 
 async function initPushBanner() {
@@ -1700,8 +1685,10 @@ async function initPushBanner() {
     const reg = await navigator.serviceWorker.getRegistration();
     if (!reg) { banner.style.display = 'flex'; return; }
     const sub = await reg.pushManager.getSubscription();
-    if (sub && Notification.permission === 'granted' && localStorage.getItem('push_ok_' + id)) {
-      banner.style.display = 'none'; return;
+    if (sub && Notification.permission === 'granted') {
+      banner.style.display = 'none';
+      salvaSub_(sub); // ri-salva su GAS ad ogni apertura (idempotente)
+      return;
     }
   } catch(_) {}
   banner.style.display = 'flex';
