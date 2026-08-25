@@ -28,15 +28,15 @@ jobs:
           APP_TOKEN: ${{ secrets.APP_TOKEN }}
         run: python _strumenti/carica_da_github.py --branch ${{ github.ref_name }}
 
-      - name: Genera schede HTML
+      - name: Genera schede HTML (+ aggiorna cache progressi)
         env:
           APP_TOKEN: ${{ secrets.APP_TOKEN }}
         run: python _strumenti/genera_schede.py --output docs/index.html
 
-      - name: Pubblica schede aggiornate
+      - name: Pubblica schede e cache
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/index.html
+          git add docs/index.html data/cache/progressi.json 2>/dev/null || true
           git diff --cached --quiet || git commit -m "Auto: aggiorna schede atleta [skip ci]"
           git push

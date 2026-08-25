@@ -1,12 +1,20 @@
 """
 genera_schede.py — Scheda individuale per ogni atleta.
-Una pagina per atleta: esercizi sedute + massimali + log carichi.
+Una pagina per atleta: esercizi seduta 1 W1 + massimali.
 
 Uso:
-  python _strumenti/genera_schede.py [--output schede.html] [--dev]
+  python _strumenti/genera_schede.py [--output docs/index.html] [--dev] [--offline]
+
+Modalità --offline: nessuna chiamata GAS.
+  - Giocatrici: da data/Giocatrici.csv
+  - Progressi:  da data/cache/progressi.json (se esiste), altrimenti nessun massimale
+  - Utile per iterazioni veloci su layout/esercizi senza attendere la Action
+
+Token GAS (non serve in --offline):
   $env:APP_TOKEN = "mv26-prd-3xF7wNqK"  # PowerShell
+  export APP_TOKEN=mv26-prd-3xF7wNqK    # bash
 """
-import csv, json, os, sys, time, urllib.request, urllib.error, argparse
+import csv, json, os, re, sys, time, urllib.request, urllib.error, argparse
 from collections import defaultdict
 
 PROD_API = (
@@ -17,8 +25,8 @@ DEV_API = (
     "https://script.google.com/macros/s/"
     "AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec"
 )
-TOKEN   = os.environ.get("APP_TOKEN", "")
-REPO    = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TOKEN = os.environ.get("APP_TOKEN", "")
+REPO  = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKIP_ES = {"RPE-seduta", "Fatica-seduta", "Peso-corporeo"}
 
 
@@ -44,7 +52,25 @@ def get_api(api_url, params, tentativo=0):
         raise
 
 
-# ── Filtro Ruoli (replica logica scheda.html:767-777) ────────────────────────
+# ── Config skip_metodi da CSV ─────────────────────────────────────────────────
+
+def carica_skip_metodi():
+    """Legge data/config/skip_metodi.csv. Ritorna (skip_sempre, skip_non_libero)."""
+    path = os.path.join(REPO, "data", "config", "skip_metodi.csv")
+    skip_sempre, skip_non_libero = set(), set()
+    if not os.path.exists(path):
+        return {"Attivazione", "Prehab individuale", "Prevenzione"}, {"Rinforzo scapolare Libero"}
+    for row in leggi_csv(path):
+        metodo = str(row.get("Metodo", "")).strip()
+        regola = str(row.get("Regola", "")).strip()
+        if regola == "sempre":
+            skip_sempre.add(metodo)
+        elif regola == "solo_libero":
+            skip_non_libero.add(metodo)
+    return skip_sempre, skip_non_libero
+
+
+# ── Filtro Ruoli ──────────────────────────────────────────────────────────────
 
 def esercizio_visibile(e, atleta):
     ruoli = str(e.get("Ruoli", "tutti")).strip()
@@ -65,7 +91,6 @@ def esercizio_visibile(e, atleta):
 # ── Progressi ─────────────────────────────────────────────────────────────────
 
 def massimali(progressi, id_atleta):
-    """Ritorna {esercizio: (kg, data)} con il massimo per ogni esercizio."""
     maxes = {}
     for p in progressi:
         if str(p.get("ID_Giocatrice", "")) != str(id_atleta):
@@ -74,26 +99,14 @@ def massimali(progressi, id_atleta):
         if es in SKIP_ES or not es:
             continue
         val = str(p.get("Valore", "")).strip()
-        import re
         m = re.search(r"[\d.]+", val)
         if not m:
             continue
-        kg = float(m.group())
+        kg   = float(m.group())
         data = str(p.get("Data", p.get("Timestamp", ""))[:10])
         if es not in maxes or kg > maxes[es][0]:
             maxes[es] = (kg, data)
     return maxes
-
-def log_carichi(progressi, id_atleta, n=40):
-    """Ultimi n log (no RPE/Fatica/Peso)."""
-    righe = [
-        p for p in progressi
-        if str(p.get("ID_Giocatrice", "")) == str(id_atleta)
-        and str(p.get("Esercizio", "")) not in SKIP_ES
-        and p.get("Valore")
-    ]
-    righe.sort(key=lambda p: str(p.get("Timestamp", "")), reverse=True)
-    return righe[:n]
 
 
 # ── HTML ──────────────────────────────────────────────────────────────────────
@@ -108,22 +121,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
   body { background: #fff; font-size: 10px; }
   .atleta { page-break-after: always; max-width: 100%; padding: 6px 10px; background: #fff; }
 }
-/* Header */
 .hdr { background: #1a3a6b; color: #fff; padding: 14px 16px 12px;
        border-radius: 12px; margin-bottom: 14px; }
 .hdr h1 { font-size: 20px; font-weight: 700; }
 .hdr p  { font-size: 12px; opacity: .7; margin-top: 2px; }
-/* Section label */
 .section-title { font-size: 11px; font-weight: 700; color: #64748b;
                  letter-spacing: .08em; text-transform: uppercase;
                  margin: 14px 0 6px 2px; }
-/* Metodo block */
 .metodo-block { background: #fff; border-radius: 10px; margin-bottom: 10px;
                 overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.07); }
 .metodo-label { font-size: 10px; font-weight: 700; color: #fff;
                 background: #1a3a6b; padding: 5px 12px;
                 letter-spacing: .06em; text-transform: uppercase; }
-/* Exercise row */
 .es-row { display: flex; flex-direction: column; padding: 8px 12px;
           border-bottom: 1px solid #f1f5f9; }
 .es-row:last-child { border-bottom: none; }
@@ -132,7 +141,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 .es-meta { display: flex; gap: 10px; margin-top: 2px; }
 .es-rec { font-size: 11px; color: #64748b; }
 .es-note { font-size: 11px; color: #94a3b8; font-style: italic; }
-/* Massimali */
 .max-block { background: #fff; border-radius: 10px; overflow: hidden;
              box-shadow: 0 1px 3px rgba(0,0,0,.07); margin-bottom: 10px; }
 .max-row { display: flex; justify-content: space-between; align-items: center;
@@ -141,7 +149,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-s
 .max-nome { font-size: 13px; color: #334155; flex: 1; }
 .max-kg { font-size: 15px; font-weight: 700; color: #1a3a6b; margin-left: 8px; }
 .max-data { font-size: 10px; color: #94a3b8; margin-left: 8px; white-space: nowrap; }
-hr { border: none; border-top: 1px solid #e2e8f0; margin: 10px 0; }
 .footer { font-size: 10px; color: #cbd5e1; text-align: center; margin-top: 16px; }
 """
 
@@ -159,7 +166,7 @@ def params_es(e):
         base += f" @ {i}"
     return base
 
-def render_atleta(atleta, sedute_all, esercizi_all, maxes, logs):
+def render_atleta(atleta, sedute_all, esercizi_all, maxes, skip_sempre, skip_non_libero):
     id_a  = str(atleta.get("ID",""))
     nome  = str(atleta.get("Nome","")).strip()
     ruolo = str(atleta.get("Ruolo","")).strip()
@@ -173,26 +180,23 @@ def render_atleta(atleta, sedute_all, esercizi_all, maxes, logs):
             return False
         return esercizio_visibile(e, atleta)
 
-    html = ['<div class="atleta">']
-    html.append(f'<div class="hdr"><h1>{esc(nome)}</h1>'
-                f'<p>{"Libero" if ruolo == "Libero" else ruolo or "Atleta"} · Marsala Volley 2026/27</p></div>')
+    is_libero   = (ruolo == "Libero")
+    skip_metodi = skip_sempre | (set() if is_libero else skip_non_libero)
 
-    # ── Seduta 1 W1 ──
-    # Prima seduta di Palestra W1
-    sed1 = next((s for s in sedute_all
-                 if str(s.get("Luogo","")).strip() == "Palestra"), None)
+    sed1      = next((s for s in sedute_all if str(s.get("Luogo","")).strip() == "Palestra"), None)
     sed1_id   = str(sed1.get("Numero_Seduta","")) if sed1 else ""
     nome_sed1 = str(sed1.get("Nome_Seduta","")) if sed1 else "Seduta Palestra"
-    is_libero = (atleta.get("Ruolo", "").strip() == "Libero")
-    SKIP_METODI = {"Attivazione", "Prehab individuale", "Prevenzione"}
-    if not is_libero:
-        SKIP_METODI.add("Rinforzo scapolare Libero")
+
     es_sed1 = [e for e in esercizi_all
                if str(e.get("N_Seduta","")).strip() == sed1_id
-               and str(e.get("Metodo","")).strip() not in SKIP_METODI
+               and str(e.get("Metodo","")).strip() not in skip_metodi
                and vis(e)]
     es_sed1.sort(key=lambda e: (float(e.get("Ord_Metodo",0) or 0),
                                 float(e.get("Ord_Eserc",0) or 0)))
+
+    html = ['<div class="atleta">']
+    html.append(f'<div class="hdr"><h1>{esc(nome)}</h1>'
+                f'<p>{esc(ruolo or "Atleta")} · Marsala Volley 2026/27</p></div>')
 
     if es_sed1:
         html.append(f'<div class="section-title">{esc(sed1_id)} · {esc(nome_sed1)}</div>')
@@ -225,7 +229,6 @@ def render_atleta(atleta, sedute_all, esercizi_all, maxes, logs):
                 html.append('</div>')
             html.append('</div>')
 
-    # ── Massimali ──
     if maxes:
         html.append('<div class="section-title">Massimali</div>')
         html.append('<div class="max-block">')
@@ -246,48 +249,79 @@ def render_atleta(atleta, sedute_all, esercizi_all, maxes, logs):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", default="schede_atleta.html")
-    parser.add_argument("--dev", action="store_true")
+    parser.add_argument("--output",  default="schede_atleta.html")
+    parser.add_argument("--dev",     action="store_true")
+    parser.add_argument("--offline", action="store_true",
+                        help="Nessuna chiamata GAS: usa Giocatrici.csv e cache progressi")
     args = parser.parse_args()
 
-    api_url = DEV_API if args.dev else PROD_API
+    api_url  = DEV_API if args.dev else PROD_API
+    data_dir = os.path.join(REPO, "data")
 
-    if not TOKEN:
-        print("ERRORE: APP_TOKEN non impostato.")
-        print("  PowerShell: $env:APP_TOKEN = \"mv26-prd-3xF7wNqK\"")
-        sys.exit(1)
-
-    # Leggi CSV locali — solo W1
+    # Leggi CSV locali
     print("Leggo CSV locali…")
-    data_dir  = os.path.join(REPO, "data")
-    sedute    = leggi_csv(os.path.join(data_dir, "W1_Sedute.csv"))
-    esercizi  = leggi_csv(os.path.join(data_dir, "W1_Esercizi.csv"))
+    sedute   = leggi_csv(os.path.join(data_dir, "W1_Sedute.csv"))
+    esercizi = leggi_csv(os.path.join(data_dir, "W1_Esercizi.csv"))
 
-    # Fetch da GAS
-    print("Fetch Giocatrici da GAS…")
-    r = get_api(api_url, {"token": TOKEN, "azione": "leggi", "foglio": "Giocatrici"})
-    if not r.get("ok"):
-        print(f"ERRORE Giocatrici: {r}")
-        sys.exit(1)
-    giocatrici = [g for g in r["dati"]
-                  if str(g.get("ID","")).strip() and str(g.get("ID","")) != "99"]
+    # Config skip metodi
+    skip_sempre, skip_non_libero = carica_skip_metodi()
 
-    print("Fetch Progressi da GAS…")
-    r2 = get_api(api_url, {"token": TOKEN, "azione": "leggi", "foglio": "Progressi"})
-    if not r2.get("ok"):
-        print(f"ERRORE Progressi: {r2}")
-        sys.exit(1)
-    progressi = r2["dati"]
+    # Giocatrici — da CSV locale (Fase 1) o da GAS
+    gioc_csv = os.path.join(data_dir, "Giocatrici.csv")
+    if os.path.exists(gioc_csv):
+        print("Giocatrici da CSV locale…")
+        giocatrici = [g for g in leggi_csv(gioc_csv)
+                      if str(g.get("ID","")).strip() and str(g.get("ID","")) != "99"]
+    else:
+        if args.offline:
+            print("ERRORE: --offline richiede data/Giocatrici.csv")
+            sys.exit(1)
+        if not TOKEN:
+            print("ERRORE: APP_TOKEN non impostato e Giocatrici.csv assente.")
+            sys.exit(1)
+        print("Fetch Giocatrici da GAS…")
+        r = get_api(api_url, {"token": TOKEN, "azione": "leggi", "foglio": "Giocatrici"})
+        if not r.get("ok"):
+            print(f"ERRORE Giocatrici: {r}")
+            sys.exit(1)
+        giocatrici = [g for g in r["dati"]
+                      if str(g.get("ID","")).strip() and str(g.get("ID","")) != "99"]
+
+    # Progressi — da cache JSON (Fase 3) o da GAS
+    cache_path = os.path.join(data_dir, "cache", "progressi.json")
+    if args.offline:
+        if os.path.exists(cache_path):
+            print("Progressi da cache locale…")
+            with open(cache_path, encoding="utf-8") as f:
+                progressi = json.load(f)
+        else:
+            print("  (cache progressi assente — massimali non disponibili)")
+            progressi = []
+    else:
+        if not TOKEN:
+            print("ERRORE: APP_TOKEN non impostato.")
+            print("  Usa --offline per generare senza GAS (massimali dalla cache).")
+            sys.exit(1)
+        print("Fetch Progressi da GAS…")
+        r2 = get_api(api_url, {"token": TOKEN, "azione": "leggi", "foglio": "Progressi"})
+        if not r2.get("ok"):
+            print(f"ERRORE Progressi: {r2}")
+            sys.exit(1)
+        progressi = r2["dati"]
+        # Aggiorna cache per uso --offline futuro
+        os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+        with open(cache_path, "w", encoding="utf-8") as f:
+            json.dump(progressi, f, ensure_ascii=False)
+        print(f"  Cache aggiornata → {cache_path}")
 
     # Genera HTML
     print(f"Genero schede per {len(giocatrici)} atlete…")
     pages = []
     for g in giocatrici:
-        id_a  = str(g.get("ID",""))
-        nome  = str(g.get("Nome","")).strip()
-        print(f"  {nome} (ID={id_a})")
-        mx   = massimali(progressi, id_a)
-        pages.append(render_atleta(g, sedute, esercizi, mx, []))
+        nome = str(g.get("Nome","")).strip()
+        print(f"  {nome} (ID={g.get('ID','')})")
+        mx = massimali(progressi, str(g.get("ID","")))
+        pages.append(render_atleta(g, sedute, esercizi, mx, skip_sempre, skip_non_libero))
 
     html = f"""<!DOCTYPE html>
 <html lang="it">
@@ -307,7 +341,10 @@ def main():
     with open(out, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"\nFatto → {out}")
-    print("Apri nel browser e stampa (Ctrl+P) — una pagina per atleta.")
+    if not args.offline:
+        print("Apri nel browser e stampa (Ctrl+P) — una pagina per atleta.")
+    else:
+        print("Modalità offline — massimali dalla cache (o assenti se cache vuota).")
 
 if __name__ == "__main__":
     main()
