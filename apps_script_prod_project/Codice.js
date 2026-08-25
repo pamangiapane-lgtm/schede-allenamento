@@ -49,8 +49,34 @@ function doPost(e) {
       const nomeCopia = creaBackupManuale_();
       return risposta({ ok: true, nome: nomeCopia });
     }
+    if (azione === 'salva_push_sub') return salvaPushSub_(body);
     return errore('Azione POST non valida: ' + azione);
   } catch (ex) { return errore(ex.toString()); }
+}
+
+// ── Push subscription ────────────────────────────────────────────────────────
+
+function salvaPushSub_(body) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let foglio = ss.getSheetByName('PushSub');
+  if (!foglio) {
+    foglio = ss.insertSheet('PushSub');
+    foglio.appendRow(['ID_Giocatrice','Endpoint','P256dh','Auth','Aggiornato']);
+  }
+  const dati = foglio.getDataRange().getValues();
+  // Aggiorna riga esistente per questa giocatrice
+  for (let i = 1; i < dati.length; i++) {
+    if (String(dati[i][0]) === String(body.id_giocatrice)) {
+      foglio.getRange(i + 1, 2, 1, 4).setValues([
+        [body.endpoint, body.p256dh, body.auth, new Date().toISOString()]
+      ]);
+      return risposta({ ok: true, aggiornato: true });
+    }
+  }
+  foglio.appendRow([
+    body.id_giocatrice, body.endpoint, body.p256dh, body.auth, new Date().toISOString()
+  ]);
+  return risposta({ ok: true, aggiornato: false });
 }
 
 function leggi(nomeFoglio) {

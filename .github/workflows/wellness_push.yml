@@ -1,0 +1,29 @@
+name: Notifica Wellness Mattutina
+
+on:
+  schedule:
+    # 07:00 Italia = 05:00 UTC (ora solare) / 06:00 UTC (ora legale)
+    # Usiamo 05:00 UTC — in estate arriva alle 07:00, in inverno alle 06:00
+    - cron: '0 5 * * *'
+  workflow_dispatch:    # permette esecuzione manuale da GitHub UI
+
+jobs:
+  invia-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/pre-season-app-mods-355hqq
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installa dipendenze
+        run: pip install pywebpush requests
+
+      - name: Invia notifiche wellness
+        env:
+          APP_TOKEN: ${{ secrets.APP_TOKEN }}
+        run: python _strumenti/invia_wellness.py
