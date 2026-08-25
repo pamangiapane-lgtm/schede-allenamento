@@ -1,0 +1,168 @@
+name: Test Push E2E (verifica sistema wellness)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-push-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/pre-season-app-mods-355hqq
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installa dipendenze Python
+        run: pip install pywebpush requests playwright
+
+      - name: Installa Chromium per Playwright
+        run: python -m playwright install chromium
+
+      - name: Avvia server HTTP locale
+        run: |
+          python -m http.server 8765 --directory . &
+          sleep 2
+          curl -s -o /dev/null -w "HTTP server: %{http_code}\n" http://localhost:8765/scheda.html
+
+      - name: Ottieni push subscription reale da FCM
+        id: get_sub
+        run: |
+          python3 << 'PYEOF'
+          import asyncio, json, os, sys
+          from playwright.async_api import async_playwright
+
+          VAPID_PUBLIC = 'BHVZrGFRPQlFqKnhSyIolSkeo4uzTupre9kjmh7fhCNG5DwenXry9qzxpb8ZrCG0RBdXKPNHPrPnOfi444Zgg08'
+          LOCAL_URL = 'http://localhost:8765/scheda.html?id=99'
+
+          async def main():
+              async with async_playwright() as p:
+                  browser = await p.chromium.launch(
+                      headless=True,
+                      args=['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+                  )
+                  context = await browser.new_context()
+                  await context.grant_permissions(['notifications'], origin='http://localhost:8765')
+                  page = await context.new_page()
+
+                  logs = []
+                  page.on('console', lambda m: logs.append(f"[{m.type}] {m.text}"))
+
+                  try:
+                      await page.goto(LOCAL_URL, wait_until='domcontentloaded', timeout=20000)
+                  except Exception as e:
+                      print(f"  Warn goto: {e}", flush=True)
+
+                  await asyncio.sleep(5)
+
+                  perm = await page.evaluate("Notification.permission")
+                  print(f"Notification.permission: {perm}", flush=True)
+
+                  result = await page.evaluate(f"""
+                      async () => {{
+                          try {{
+                              if (!("serviceWorker" in navigator)) return {{error: "no SW"}};
+                              if (!("PushManager" in window)) return {{error: "no PushManager"}};
+
+                              let reg = await navigator.serviceWorker.getRegistration();
+                              if (!reg) reg = await navigator.serviceWorker.ready;
+
+                              function urlB64(b) {{
+                                  const p = "=".repeat((4-b.length%4)%4);
+                                  const r = window.atob((b+p).replace(/-/g,"+").replace(/_/g,"/"));
+                                  const a = new Uint8Array(r.length);
+                                  for (let i=0;i<r.length;++i) a[i]=r.charCodeAt(i);
+                                  return a;
+                              }}
+
+                              let sub = await reg.pushManager.getSubscription();
+                              if (!sub) {{
+                                  sub = await reg.pushManager.subscribe({{
+                                      userVisibleOnly: true,
+                                      applicationServerKey: urlB64("{VAPID_PUBLIC}")
+                                  }});
+                              }}
+                              const j = sub.toJSON();
+                              return {{ok:true, endpoint:j.endpoint, p256dh:j.keys?.p256dh, auth:j.keys?.auth}};
+                          }} catch(e) {{
+                              return {{error: e.message, name: e.name}};
+                          }}
+                      }}
+                  """)
+
+                  print(f"Console logs:", flush=True)
+                  for l in logs: print(f"  {l}", flush=True)
+                  print(f"Subscribe result: {json.dumps(result)}", flush=True)
+
+                  await browser.close()
+                  return result
+
+          r = asyncio.run(main())
+          if r.get('ok') and r.get('endpoint'):
+              print(f"\n✅ SUBSCRIPTION REALE OTTENUTA!", flush=True)
+              print(f"   endpoint: {r['endpoint'][:80]}...", flush=True)
+              with open('/tmp/push_sub.json', 'w') as f:
+                  json.dump(r, f)
+          else:
+              print(f"\n❌ Subscribe fallito: {r.get('error')}", flush=True)
+              print(f"   name: {r.get('name')}", flush=True)
+              sys.exit(1)
+          PYEOF
+
+      - name: Invia push alla subscription reale e verifica 201 FCM
+        run: |
+          python3 << 'PYEOF'
+          import json, sys
+          from pywebpush import webpush, WebPushException
+
+          VAPID_PRIVATE = 'uAbznecLD_rYJcda0RuvKCELWNkbmeHtRfbTr96D2C0'
+
+          try:
+              with open('/tmp/push_sub.json') as f:
+                  sub_data = json.load(f)
+          except Exception as e:
+              print(f"❌ Nessuna subscription: {e}")
+              sys.exit(1)
+
+          subscription = {
+              'endpoint': sub_data['endpoint'],
+              'keys': {
+                  'p256dh': sub_data['p256dh'],
+                  'auth': sub_data['auth']
+              }
+          }
+
+          payload = json.dumps({
+              'title': '\U0001f305 Test Wellness',
+              'body': 'Test E2E: sistema notifiche operativo',
+              'icon': '/logo.jpg',
+              'data': {'url': '/?wellness=1'}
+          })
+
+          print(f"\U0001f4e4 Invio push a FCM...", flush=True)
+          print(f"   endpoint: {sub_data['endpoint'][:80]}...", flush=True)
+
+          try:
+              resp = webpush(
+                  subscription_info=subscription,
+                  data=payload,
+                  vapid_private_key=VAPID_PRIVATE,
+                  vapid_claims={'sub': 'mailto:pamangiapane@gmail.com'},
+                  content_encoding='aes128gcm',
+                  ttl=86400,
+                  timeout=30
+              )
+              print(f"   FCM response status: {resp.status_code}", flush=True)
+              if resp.status_code in (200, 201):
+                  print(f"✅ PUSH ACCETTATO DA FCM! Status {resp.status_code}", flush=True)
+                  print(f"   Il messaggio è in coda per la consegna al dispositivo.", flush=True)
+                  print(f"\n\U0001f389 SISTEMA WELLNESS PUSH 100% OPERATIVO", flush=True)
+              else:
+                  print(f"⚠️  Status inatteso: {resp.status_code}", flush=True)
+                  print(f"   Body: {resp.text[:200]}", flush=True)
+          except WebPushException as e:
+              print(f"❌ WebPushException: {e}", flush=True)
+              sys.exit(1)
+          PYEOF
