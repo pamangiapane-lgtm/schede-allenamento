@@ -157,69 +157,12 @@ def params_es(e):
     return base
 
 def render_atleta(atleta, sedute_all, esercizi_all, maxes, logs):
-    id_a  = str(atleta.get("ID",""))
     nome  = str(atleta.get("Nome","")).strip()
     ruolo = str(atleta.get("Ruolo","")).strip()
-
-    # Esercizi visibili per questa atleta
-    def vis(e):
-        id_e = str(e.get("ID_Giocatrice","")).strip()
-        if id_e not in ("", "0") and id_e != id_a:
-            return False
-        excl = [x.strip() for x in str(e.get("Escludi_ID","")).split(",") if x.strip()]
-        if id_a in excl:
-            return False
-        return esercizio_visibile(e, atleta)
-
-    # Sedute rilevanti per palestra
-    palestra_luogo = {"Palestra"}
-    sedute = [s for s in sedute_all if str(s.get("Luogo","")).strip() in palestra_luogo]
 
     html = [f'<div class="atleta">']
     html.append(f'<div class="hdr"><h1>{esc(nome)}</h1>'
                 f'<p>{"Libero" if ruolo == "Libero" else ruolo or "Atleta"} · Marsala Volley 2026/27</p></div>')
-
-    # ── Sedute palestra ──
-    html.append('<div class="section-title">Programma palestra</div>')
-    for sed in sedute:
-        ns   = str(sed.get("Numero_Seduta",""))
-        nome_sed = str(sed.get("Nome_Seduta",""))
-        # Esercizi della seduta, filtrati
-        es_sed = [e for e in esercizi_all if str(e.get("N_Seduta","")) == ns and vis(e)]
-        if not es_sed:
-            continue
-        es_sed.sort(key=lambda e: (float(e.get("Ord_Metodo",0) or 0),
-                                   float(e.get("Ord_Eserc",0)   or 0)))
-        html.append(f'<span class="sed-label">{esc(ns)}</span> '
-                    f'<span class="sed-nome">{esc(nome_sed)}</span>')
-
-        # Raggruppa per Metodo
-        metodi, seen = [], {}
-        for e in es_sed:
-            m = str(e.get("Metodo","")).strip() or "Altro"
-            if m not in seen:
-                seen[m] = len(metodi)
-                metodi.append({"nome": m, "righe": []})
-            metodi[seen[m]]["righe"].append(e)
-
-        for blk in metodi:
-            html.append(f'<div class="metodo-label">{esc(blk["nome"])}</div>')
-            html.append('<table><thead><tr>'
-                        '<th style="width:38%">Esercizio</th>'
-                        '<th>Serie×Reps @ Int.</th>'
-                        '<th>Rec.</th>'
-                        '<th>Note</th></tr></thead><tbody>')
-            for e in blk["righe"]:
-                es_nome = str(e.get("Esercizio","")).strip()
-                rec     = str(e.get("Recupero","")).strip()
-                note    = str(e.get("Note","")).strip() or str(e.get("Istruzione","")).strip()
-                note    = (note[:70] + "…") if len(note) > 70 else note
-                html.append(f'<tr>'
-                             f'<td class="nome">{esc(es_nome)}</td>'
-                             f'<td class="params">{esc(params_es(e))}</td>'
-                             f'<td class="rec">{esc(rec)}</td>'
-                             f'<td class="note">{esc(note)}</td></tr>')
-            html.append('</tbody></table>')
 
     # ── Massimali ──
     if maxes:
@@ -230,28 +173,6 @@ def render_atleta(atleta, sedute_all, esercizi_all, maxes, logs):
             html.append(f'<tr><td>{esc(es_n)}</td>'
                         f'<td class="params">{kg}</td>'
                         f'<td class="rec">{esc(data)}</td></tr>')
-        html.append('</tbody></table>')
-
-    # ── Log carichi ──
-    if logs:
-        html.append('<hr><div class="section-title">Log carichi (ultimi 40)</div>')
-        html.append('<table class="log-table"><thead><tr>'
-                    '<th>Data</th><th>Seduta</th><th>Esercizio</th>'
-                    '<th>Kg/Val.</th><th>Reps</th><th>RPE</th><th>Note</th>'
-                    '</tr></thead><tbody>')
-        for p in logs:
-            data   = str(p.get("Data", p.get("Timestamp",""))[:10])
-            seduta = str(p.get("N_Seduta",""))
-            es_n   = str(p.get("Esercizio",""))
-            val    = str(p.get("Valore",""))
-            reps   = str(p.get("Reps_Fatte","") or p.get("reps_fatte",""))
-            rpe    = str(p.get("RPE","") or "")
-            note   = str(p.get("Note",""))
-            html.append(f'<tr>'
-                        f'<td>{esc(data)}</td><td>{esc(seduta)}</td>'
-                        f'<td>{esc(es_n)}</td><td class="kg">{esc(val)}</td>'
-                        f'<td>{esc(reps)}</td><td>{esc(rpe)}</td>'
-                        f'<td class="note">{esc(note[:40])}</td></tr>')
         html.append('</tbody></table>')
 
     html.append('<div class="footer">Marsala Volley 2026/27 · Generato automaticamente · Non condividere</div>')
@@ -274,13 +195,11 @@ def main():
         print("  PowerShell: $env:APP_TOKEN = \"mv26-prd-3xF7wNqK\"")
         sys.exit(1)
 
-    # Leggi CSV locali
+    # Leggi CSV locali — solo W1
     print("Leggo CSV locali…")
     data_dir  = os.path.join(REPO, "data")
-    sedute    = leggi_csv(os.path.join(data_dir, "W1_Sedute.csv")) + \
-                leggi_csv(os.path.join(data_dir, "W2_Sedute.csv"))
-    esercizi  = leggi_csv(os.path.join(data_dir, "W1_Esercizi.csv")) + \
-                leggi_csv(os.path.join(data_dir, "W2_Esercizi.csv"))
+    sedute    = leggi_csv(os.path.join(data_dir, "W1_Sedute.csv"))
+    esercizi  = leggi_csv(os.path.join(data_dir, "W1_Esercizi.csv"))
 
     # Fetch da GAS
     print("Fetch Giocatrici da GAS…")
@@ -306,8 +225,7 @@ def main():
         nome  = str(g.get("Nome","")).strip()
         print(f"  {nome} (ID={id_a})")
         mx   = massimali(progressi, id_a)
-        logs = log_carichi(progressi, id_a)
-        pages.append(render_atleta(g, sedute, esercizi, mx, logs))
+        pages.append(render_atleta(g, sedute, esercizi, mx, []))
 
     html = f"""<!DOCTYPE html>
 <html lang="it">
