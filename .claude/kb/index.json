@@ -1,8 +1,8 @@
 {
-  "versione": "1.4",
-  "aggiornato_il": "2026-08-09",
+  "versione": "1.5",
+  "aggiornato_il": "2026-08-25",
   "descrizione": "Indice curato della knowledge base di formazione dell'utente (pamangiapane@gmail.com) su Google Drive. È il 'database interno' del sistema: un catalogo con argomenti, archetipi e riferimenti (Drive id) per recuperare la fonte giusta senza leggere tutto. NON contiene il testo completo: i documenti si aprono on-demand via i tool mcp__Google_Drive__* usando l'id.",
-  "note_accesso": "Ambiente remoto: i PDF NON sono su disco. Si leggono via Google Drive (read_file_content / download_file_content) con l'id. I percorsi locali C:\\Users\\paulo\\Documents\\Formazione\\... corrispondono a questo materiale su Drive e non sono raggiungibili da qui. Da v1.3: molte dispense ELAV (immagine/OCR rumoroso) hanno ora una TRASCRIZIONE-TESTO equivalente (.txt, testo nativo pulito) nella sezione 'trascrizioni': è la fonte preferita per citazioni testuali affidabili.",
+  "note_accesso": "Ambiente remoto: i PDF NON sono su disco. Si leggono via Google Drive (read_file_content / download_file_content) con l'id. Da v1.3: molte dispense ELAV (immagine/OCR rumoroso) hanno una TRASCRIZIONE-TESTO equivalente (.txt) nella sezione 'trascrizioni'. Da v1.5: esiste anche una LIBRERIA_COMPLETA (Corsi/knowledge_base/LIBRERIA_COMPLETA) che raccoglie copie PDF + estrazioni .txt di quasi tutto il materiale, organizzate per tema (01_Fitness, 02_Recovery, 03_Sport, 04_Squillante, 05_Fondamenti, 06_NSCA, 07_Libri_Esterni). Quando un documento ha un campo 'testo_txt', QUELLO è la fonte preferita per leggere/citare: è testo nativo pulito e molto più leggero del PDF.",
   "cartelle": {
     "formazione_root": {
       "id": "12a9-6kPPq5pRrq8ya_KXu-45M5rUuDFa",
@@ -26,11 +26,32 @@
     },
     "elav_moduli_prep": {
       "id": "1PJVxL8ZjsHF0_UR0ke8MfXZG2obDqz2a",
-      "titolo": "Elav — Moduli Preparazione Atletica (1-10)"
+      "titolo": "Elav — Moduli Preparazione Atletica (1-10), 'top Slide'"
+    },
+    "elav_sport": {
+      "id": "1GVAv6WizJM6aJF0UqwS8mf-yt7HtvI4E",
+      "titolo": "Elav/Sport (contiene 'specialist Slide' e 'top Slide')"
     },
     "trascrizioni_root": {
       "id": "1ZJcMcr-aO0gS47URqrPMjSYtd38mDeEe",
       "titolo": "Corsi/Elav/traascizioni (trascrizioni-testo dei video corsi). Sottocartelle: 01_Fitness, 02_Recovery, 03_Sport, 04_Squillante"
+    },
+    "pdf_libri": {
+      "id": "18cYiMj5QD9_B_DG5qC9UYBIjKFClYQxw",
+      "titolo": "Corsi/pdf — libri e monografie esterne (Zatsiorsky, Bompa, Verkhoshansky, Simmons, VBT, Squat University, Weightlifting). NUOVA in v1.5"
+    },
+    "libreria_completa": {
+      "id": "1rUhKWNeae5PbHXvRX8qfoAtXcru5L5cT",
+      "titolo": "Corsi/knowledge_base/LIBRERIA_COMPLETA — mirror tematico con PDF + estrazioni .txt. NUOVA in v1.5",
+      "sottocartelle": {
+        "01_Fitness": "1nXJCBdHyHKmRUP0ZO5uGj0gYAFojrDCQ",
+        "02_Recovery": "1rvW9pICdsEnXwIhaZyoEjkQJ5uOANQj0",
+        "03_Sport": "1AJUXORKGzuusC-Cpwtti2x7rmaOYO5aM",
+        "04_Squillante": "1jR1RXVPP0cLCekxafQpvE---JfaZv7UH",
+        "05_Fondamenti": "1WiWV7j2H_2NJU8Ld0JGzlFe2hcDI5aX4",
+        "06_NSCA": "1HXY3XGJI-Gvg97j1mvFRfy54_IuZfATr",
+        "07_Libri_Esterni": "1rC9SEI3Piyawm6vkRQV2YMz1tLlfCRar"
+      }
     },
     "sc_americano": {
       "id": "1AfLJsz6MMzJ19zffYsDS1kBDBefZ8Xtp",
@@ -79,7 +100,8 @@
         "giovanile",
         "senior"
       ],
-      "note": "Riferimento primario e più autorevole per parametri di carico, periodizzazione e selezione esercizi. Da citare quando serve un'evidenza solida.",
+      "note": "Riferimento primario e più autorevole per parametri di carico, periodizzazione e selezione esercizi. Da citare quando serve un'evidenza solida. v1.5: disponibile estrazione testo integrale (2.5MB) in LIBRERIA_COMPLETA/06_NSCA — usare quella per cercare/citare.",
+      "testo_txt": "1NW-YvONylAGXcL_s8y-34E9W9O4bOMbI",
       "estrazione": "nativo_pulito",
       "utilizzabile": true,
       "richiede_ocr": false
@@ -100,6 +122,7 @@
         "fitness_individuale"
       ],
       "note": "Sintesi/appunti per certificazione.",
+      "testo_txt": "1YADViYda70-zyjRXJrnsr3o3v6VsgJ1q",
       "estrazione": "nativo_pulito",
       "utilizzabile": true,
       "richiede_ocr": false
@@ -118,6 +141,7 @@
         "performance_squadra"
       ],
       "note": "",
+      "testo_txt": "1xUcpx_kM_CKFObxsSS58ttbiXvExVaHw",
       "estrazione": "nativo_pulito",
       "utilizzabile": true,
       "richiede_ocr": false
@@ -133,6 +157,7 @@
       ],
       "archetipi": [],
       "note": "Utile come mappa degli argomenti CSCS.",
+      "testo_txt": "1npE00ryfgBLh8atnUyzb6IlVT8MCUpNQ",
       "estrazione": "nativo_pulito",
       "utilizzabile": true,
       "richiede_ocr": false
@@ -151,7 +176,7 @@
       "archetipi": [
         "fitness_individuale"
       ],
-      "note": "Base teorica del corso PT. Ri-testato 2026-08-08: estrae solo marcatori di pagina, nessun testo reale (scansione senza layer OCR). Non ricaricato dall'utente. Nessuna trascrizione-testo corrispondente al momento.",
+      "note": "Base teorica del corso PT. Scansione senza layer OCR: nessun testo reale. Nessuna trascrizione-testo corrispondente al momento.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -172,7 +197,7 @@
         "fitness_individuale",
         "performance_squadra"
       ],
-      "note": "Metodologia: gestione del carico, principi, adattamenti, zone FCmax/RPE, metodi forza/ipertrofia/metabolici/funzionali. Ri-testato 2026-08-08: testo presente ma rumoroso (watermark ELAV ripetuti). FONTE PREFERITA ORA: trascrizione-testo 'PT Expert — Metodologia dell'Allenamento' (4 parti, testo nativo pulito) nella sezione trascrizioni.",
+      "note": "Metodologia: gestione del carico, principi, adattamenti, zone FCmax/RPE, metodi forza/ipertrofia/metabolici/funzionali. Testo presente ma rumoroso (watermark ELAV). FONTE PREFERITA: trascrizione-testo 'PT Expert — Metodologia dell'Allenamento' (4 parti).",
       "estrazione": "ocr_rumoroso",
       "utilizzabile": true,
       "richiede_ocr": true
@@ -194,10 +219,143 @@
         "fitness_individuale",
         "performance_squadra"
       ],
-      "note": "Riferimento chiave per costruire macro/meso/microcicli. Ri-testato 2026-08-08: testo presente ma rumoroso. FONTE PREFERITA ORA: trascrizione-testo 'PT Expert — Programmazione dell'Allenamento' (6 parti, testo nativo pulito) nella sezione trascrizioni.",
+      "note": "Riferimento chiave per costruire macro/meso/microcicli. Testo rumoroso. FONTE PREFERITA: trascrizione-testo 'PT Expert — Programmazione dell'Allenamento' (6 parti).",
       "estrazione": "ocr_rumoroso",
       "utilizzabile": true,
       "richiede_ocr": true
+    },
+    {
+      "id": "1MiP90jjO-tb6ehp3_3TvDNFq4NrgRgdJ",
+      "titolo": "ELAV Personal Trainer Specialist — 1. Back to Nutrition e Psicologia del Cambiamento",
+      "fonte": "ELAV srl (corso Specialist, indirizzo Slimming & Hypertrophy)",
+      "tipo": "dispensa",
+      "priorita": "media",
+      "argomenti": [
+        "nutrizione",
+        "psicologia_cambiamento",
+        "aderenza",
+        "dimagrimento"
+      ],
+      "archetipi": [
+        "fitness_individuale",
+        "dimagrimento"
+      ],
+      "note": "NUOVO in v1.5 (caricato 2026-08-16). Corso ELAV Specialist finora non indicizzato. Copre nutrizione applicata e gestione del cambiamento comportamentale del cliente: utile per la parte di aderenza/counselling delle schede fitness. Versione OCR.",
+      "in_cartella": "libreria_completa/01_Fitness/PT_Specialist (1_1KKgXFlIpYyFUrCqxY76PM5cbpMNRQ_)",
+      "estrazione": "ocr_rumoroso",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1tqqdd0PI8GnU1SeNDinG8Si5T2oaQJDL",
+      "titolo": "ELAV Personal Trainer Specialist — 2. Biomeccanica degli Esercizi per il Fitness",
+      "fonte": "ELAV srl (corso Specialist)",
+      "tipo": "dispensa",
+      "priorita": "alta",
+      "argomenti": [
+        "biomeccanica",
+        "tecnica_esercizi",
+        "esercizi",
+        "fondamenti"
+      ],
+      "archetipi": [
+        "fitness_individuale",
+        "posturale"
+      ],
+      "note": "NUOVO in v1.5 (caricato 2026-08-16). Biomeccanica specifica degli esercizi da sala pesi: la fonte più diretta per giustificare scelta ed esecuzione degli esercizi nelle schede fitness. Versione OCR (doppio passaggio).",
+      "in_cartella": "libreria_completa/01_Fitness/PT_Specialist (1_1KKgXFlIpYyFUrCqxY76PM5cbpMNRQ_)",
+      "estrazione": "ocr_rumoroso",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1UupEBX4OA_SLABUMtzAlNWclYz-2e0LR",
+      "titolo": "ELAV Personal Trainer Specialist — 3. Hypertrophy Advanced Training (Modulo 1)",
+      "fonte": "ELAV srl (corso Specialist)",
+      "tipo": "dispensa",
+      "priorita": "alta",
+      "argomenti": [
+        "ipertrofia",
+        "stress_meccanico",
+        "stress_metabolico",
+        "volume_allenamento",
+        "ormoni",
+        "metodologia"
+      ],
+      "archetipi": [
+        "fitness_individuale",
+        "ipertrofia"
+      ],
+      "note": "NUOVO in v1.5 (caricato 2026-08-16). Verificato 2026-08-25: OCR leggibile (rumore da watermark). Programma: meccanismi biologici dell'ipertrofia, stress meccanico e metabolico, area ormonale, volume di allenamento, metodi/programmi standardizzati e bio-controllati. È ora la fonte ELAV più specifica sull'ipertrofia, prima coperta solo di sfuggita dalla Metodologia PT Expert.",
+      "in_cartella": "libreria_completa/01_Fitness/PT_Specialist_Hypertropy (1xF8OD1sXx6hAM94u4pr62JJ8moPjOdlM)",
+      "estrazione": "ocr_rumoroso",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1a-4eX7GCxaV_xYgo1rRnQNgtwIzUKfvA",
+      "titolo": "ELAV Personal Trainer Specialist — 4. Hypertrophy Advanced Training (Modulo 2)",
+      "fonte": "ELAV srl (corso Specialist)",
+      "tipo": "dispensa",
+      "priorita": "alta",
+      "argomenti": [
+        "ipertrofia",
+        "metodologia",
+        "programmazione",
+        "volume_allenamento"
+      ],
+      "archetipi": [
+        "fitness_individuale",
+        "ipertrofia"
+      ],
+      "note": "NUOVO in v1.5 (caricato 2026-08-16). Seconda parte del modulo ipertrofia: applicazione e programmi. Versione OCR.",
+      "in_cartella": "libreria_completa/01_Fitness/PT_Specialist_Hypertropy (1xF8OD1sXx6hAM94u4pr62JJ8moPjOdlM)",
+      "estrazione": "ocr_rumoroso",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1nnhvtTp-pJ9lbClC27d8QwtWU9fifSiq",
+      "titolo": "ELAV Personal Trainer Specialist — 5. Slimming Advanced Training (Modulo 1)",
+      "fonte": "ELAV srl (corso Specialist)",
+      "tipo": "dispensa",
+      "priorita": "alta",
+      "argomenti": [
+        "dimagrimento",
+        "condizionamento_metabolico",
+        "composizione_corporea",
+        "metodologia"
+      ],
+      "archetipi": [
+        "fitness_individuale",
+        "dimagrimento"
+      ],
+      "note": "NUOVO in v1.5 (caricato 2026-08-16). Prima fonte dedicata al dimagrimento nella KB: colma una lacuna evidente per l'archetipo fitness_individuale con obiettivo ricomposizione. Versione OCR.",
+      "in_cartella": "libreria_completa/01_Fitness/PT_Specialist_Slimming (11aLlY7oSoHUrLr-5KHfuds8ZzUi6J73F)",
+      "estrazione": "ocr_rumoroso",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1Vtc4TfGq2QE-6RKHPclmyjaeBh2CM_3o",
+      "titolo": "ELAV Personal Trainer Specialist — 6. Slimming Advanced Training (Modulo 2)",
+      "fonte": "ELAV srl (corso Specialist)",
+      "tipo": "dispensa",
+      "priorita": "alta",
+      "argomenti": [
+        "dimagrimento",
+        "condizionamento_metabolico",
+        "programmazione"
+      ],
+      "archetipi": [
+        "fitness_individuale",
+        "dimagrimento"
+      ],
+      "note": "NUOVO in v1.5 (caricato 2026-08-16). Seconda parte del modulo dimagrimento: protocolli e programmazione. Versione OCR.",
+      "in_cartella": "libreria_completa/01_Fitness/PT_Specialist_Slimming (11aLlY7oSoHUrLr-5KHfuds8ZzUi6J73F)",
+      "estrazione": "ocr_rumoroso",
+      "utilizzabile": true,
+      "richiede_ocr": false
     },
     {
       "id": "1_Xw4VbV9M6s6OBdU2JAfl7cACFW168LT",
@@ -215,7 +373,8 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "Base per l'archetipo recupero_infortunio. RICARICATA in versione OCR (id cambiato, prec. 1QIGrvwbFqo_HHNrh6NGAFpHcaBdfXyqJ). Ri-testato 2026-08-08: ~277k caratteri di testo OCR leggibile e strutturato. Disponibile anche trascrizione-testo 'Recovery — Mod.1 Principi e Fondamenti' (8 parti) come fonte alternativa pulita.",
+      "note": "Base per l'archetipo recupero_infortunio. ~277k caratteri di testo OCR leggibile. Disponibile anche la trascrizione 'Recovery — Mod.1' (8 parti) e, da v1.5, l'estrazione testo delle slide 'Slide_Mod1_Principi_Fondamenti.txt'.",
+      "testo_txt": "1WGopxNuhm7Xv3yxa2KxLdWJZRaM5aZBH",
       "estrazione": "ocr_pulito",
       "utilizzabile": true,
       "richiede_ocr": false
@@ -229,6 +388,8 @@
       "argomenti": [
         "anatomia",
         "arto_inferiore",
+        "piede",
+        "caviglia",
         "riabilitazione",
         "esercizi"
       ],
@@ -236,10 +397,11 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "RICARICATA in versione OCR (id cambiato, prec. 1A4lOutm0WM62m7N0aGR3zJZzgMhbyf1A). Ri-testato 2026-08-08 (2 tentativi): estrazione VUOTA, file ~65MB non estraibile. LACUNA ORA COPERTA: usare la trascrizione-testo 'Recovery — Mod.2 Arto Inferiore Piede/Caviglia' (6 parti r21-r26, testo nativo pulito) come fonte preferita per questo contenuto.",
+      "note": "PDF ~65MB non estraibile. LACUNA COPERTA DUE VOLTE: trascrizione 'Recovery — Mod.2 Piede/Caviglia' (6 parti) e, da v1.5, estrazione testo delle slide 'Slide_Mod2_Arto_Inferiore_1.txt' (campo testo_txt).",
+      "testo_txt": "1EB3v-8X7LOc8qBW7QMZ92mTMVGusVsNK",
       "estrazione": "solo_immagine",
-      "utilizzabile": false,
-      "richiede_ocr": true
+      "utilizzabile": true,
+      "richiede_ocr": false
     },
     {
       "id": "1eX07azlo1hftvbB-TYV6gGLFwmRB_3_O",
@@ -250,6 +412,8 @@
       "argomenti": [
         "anatomia",
         "arto_inferiore",
+        "ginocchio",
+        "anca",
         "riabilitazione",
         "esercizi"
       ],
@@ -257,7 +421,8 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "RICARICATA in versione OCR (id cambiato, prec. 1auIC7aY3EacFyUfcEQJMGwR1t_oIzKdW). Ri-testato 2026-08-08: ~285k caratteri di testo OCR molto pulito (anatomia anca/coxofemorale, legamenti, femore). Disponibile anche trascrizione-testo 'Recovery — Mod.3 Arto Inferiore Ginocchio/Anca' (9 parti r31-r36) come fonte alternativa.",
+      "note": "~285k caratteri di testo OCR molto pulito (anca/coxofemorale, legamenti, femore). Da v1.5 anche estrazione slide 'Slide_Mod3_Arto_Inferiore_2.txt'.",
+      "testo_txt": "1uzBNCsQRidMtq2SafqoIrSGFj9b75kIL",
       "estrazione": "ocr_pulito",
       "utilizzabile": true,
       "richiede_ocr": false
@@ -279,7 +444,7 @@
         "posturale",
         "recupero_infortunio"
       ],
-      "note": "Riferimento primario per l'archetipo posturale (rachide). RICARICATA in versione OCR (id cambiato, prec. 1ZvO6brvF3w1a6D-VLDLqHrHE6QvrKYmL). Ri-testato 2026-08-08 (2 tentativi): estrazione VUOTA, file ~95MB non estraibile. LACUNA ORA COPERTA: usare la trascrizione-testo 'Recovery — Mod.4 Colonna Vertebrale' (5 parti r41-r46, testo nativo pulito) come fonte preferita per questo contenuto.",
+      "note": "Riferimento primario per l'archetipo posturale (rachide). PDF ~95MB non estraibile: usare la trascrizione 'Recovery — Mod.4 Colonna Vertebrale' (5 parti). Copia identica in LIBRERIA_COMPLETA/02_Recovery/Mod4 (id 1hxycIYlJmdBsfOjkTXpzzgg3chsmOLQ1), stesso limite.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -301,7 +466,8 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "Utile per sport overhead (pallavolo/basket) e spalla. RICARICATA in versione OCR (id cambiato, prec. 1NIGzFMWR9Dlz5NpgfojZ_JTsIuU_yTho). Ri-testato 2026-08-08: testo OCR presente ma rumoroso. FONTE PREFERITA ORA: trascrizione-testo 'Recovery — Mod.5 Arto Superiore' (6 parti r51-r56, testo nativo pulito) nella sezione trascrizioni.",
+      "note": "Utile per sport overhead (pallavolo/basket) e spalla. Testo OCR rumoroso. FONTE PREFERITA: trascrizione 'Recovery — Mod.5' (6 parti); da v1.5 anche estrazione slide 'Slide_Mod5_Arto_Superiore.txt'.",
+      "testo_txt": "1tBYjZhB71YIuC87KK-pZ6JDccrvgGaVM",
       "estrazione": "ocr_rumoroso",
       "utilizzabile": true,
       "richiede_ocr": true
@@ -321,7 +487,7 @@
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "Ri-testato 2026-08-08: estrazione vuota, ancora solo immagine. Non ricaricato dall'utente. LACUNA ORA COPERTA: usare la trascrizione-testo 'Sport — Mod.3 Forza Condizionale' (9 parti s31-s36, testo nativo pulito) come fonte preferita per questo contenuto.",
+      "note": "Solo immagine. LACUNA COPERTA: trascrizione 'Sport — Mod.3 Forza Condizionale' (9 parti) e, da v1.5, 'Sport TOP — Mod.1 Forza Condizionale' (Top_Forza_Condizionale.txt).",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -341,7 +507,7 @@
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "Non ricaricato dall'utente; resta solo immagine. LACUNA ORA COPERTA: usare la trascrizione-testo 'Sport — Mod.2 Allenamento Metabolico' (8 parti s21-s26, testo nativo pulito) come fonte preferita per questo contenuto.",
+      "note": "Solo immagine. LACUNA COPERTA: trascrizioni 'Sport — Mod.2 Allenamento Metabolico' (8 parti) e 'Sport TOP — Mod.2 Metabolico'.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -360,7 +526,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Non ricaricato dall'utente; resta solo immagine.",
+      "note": "Solo immagine. Da v1.5 il tema è coperto in testo da 'Sport TOP — Mod.3 Cognitivo' e dal modulo 'Funzioni Tissutali' (mobilità/flessibilità/rolling).",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -375,12 +541,13 @@
         "reattivita",
         "tempo_di_reazione",
         "potenza",
-        "neuromuscolare"
+        "neuromuscolare",
+        "agility"
       ],
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Non ricaricato dall'utente; resta solo immagine.",
+      "note": "Solo immagine. LACUNA COPERTA in v1.5: trascrizione 'Sport — Synapse e Agility' (5 parti) e 'Sport TOP — Mod.4 Strobo/Multifrequenza'.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -400,7 +567,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Monitoraggio del carico e composizione corporea. Non ricaricato dall'utente; resta solo immagine.",
+      "note": "Monitoraggio del carico e composizione corporea. Solo immagine. LACUNA COPERTA in v1.5: 'Sport TOP — Mod.5 GPS e Recupero'. Esiste anche una versione PDF più leggera (18MB, id 1zCWyHp8EQjQPCPiAdv-VOE4k0lVpmvk7) in LIBRERIA/03_Sport/Sport_Top/Slide.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -419,7 +586,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Programmazione applicata allo sport di squadra. Non ricaricato dall'utente; resta solo immagine. LACUNA ORA COPERTA: usare la trascrizione-testo 'Sport — Mod.6 Programmazione' (3 parti s62-s64, testo nativo pulito) come fonte preferita per questo contenuto.",
+      "note": "Programmazione applicata allo sport di squadra. Solo immagine. LACUNA COPERTA: trascrizione 'Sport — Mod.6 Programmazione' (3 parti) e, da v1.5, 'Sport TOP — Mod.6 Programmazione Giovanili' (utile anche per l'archetipo giovanile).",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -438,7 +605,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Esempio applicato reale. Non ricaricato dall'utente; resta solo immagine.",
+      "note": "Esempio applicato reale. Solo immagine. LACUNA COPERTA in v1.5: 'Sport TOP — Mod.7 Modello Bologna FC'.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -456,7 +623,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Non ricaricato dall'utente; resta solo immagine.",
+      "note": "Solo immagine. LACUNA COPERTA in v1.5: 'Sport TOP — Mod.9 Dati'.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
@@ -472,10 +639,69 @@
         "evidenze"
       ],
       "archetipi": [],
-      "note": "Non ricaricato dall'utente; resta solo immagine.",
+      "note": "Solo immagine. LACUNA COPERTA in v1.5: 'Sport TOP — Mod.10 Ricerca'.",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
       "richiede_ocr": true
+    },
+    {
+      "id": "1ynOn6emgVbtU8PdW2OU32azc6eXV-4vZ",
+      "titolo": "ELAV Preparazione — Modulo 11: Casi studio",
+      "fonte": "ELAV srl",
+      "tipo": "dispensa",
+      "priorita": "media",
+      "argomenti": [
+        "case_study",
+        "preparazione_squadra",
+        "programmazione"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5: modulo mai indicizzato prima (slide, caricate 2026-04). Casi studio applicati.",
+      "in_cartella": "libreria_completa/03_Sport/Sport_Top/Slide (1LmsypvQPQK-AwlJ5Yn-WyaM3ic0SbVmm)",
+      "estrazione": "ignoto",
+      "utilizzabile": true,
+      "richiede_ocr": "ignoto"
+    },
+    {
+      "id": "1_6FUL1O89MW0nbqzkDn5n1IuknAKwXkb",
+      "titolo": "ELAV Preparazione — Modulo 12: Caso studio e modelli",
+      "fonte": "ELAV srl",
+      "tipo": "dispensa",
+      "priorita": "media",
+      "argomenti": [
+        "case_study",
+        "modelli_prestativi",
+        "preparazione_squadra"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5: modulo mai indicizzato prima. Contenuto disponibile in testo pulito: 'Sport TOP — Mod.12 Caso Studio e Modelli'.",
+      "in_cartella": "libreria_completa/03_Sport/Sport_Top/Slide (1LmsypvQPQK-AwlJ5Yn-WyaM3ic0SbVmm)",
+      "testo_txt": "16_ok0_PU0XaBbZ2dgadwjKthmhcNMNbc",
+      "estrazione": "ignoto",
+      "utilizzabile": true,
+      "richiede_ocr": "ignoto"
+    },
+    {
+      "id": "1f-uzI0XRgsUlS_IQq0Tca5OWNHpra6Ve",
+      "titolo": "ELAV Preparazione — Modulo 13: Mondo del lavoro",
+      "fonte": "ELAV srl",
+      "tipo": "dispensa",
+      "priorita": "bassa",
+      "argomenti": [
+        "professione",
+        "mondo_lavoro"
+      ],
+      "archetipi": [],
+      "note": "NUOVO in v1.5: modulo mai indicizzato prima. Non tecnico-allenante (orientamento professionale). Testo disponibile: 'Sport TOP — Mod.13 Mondo Lavoro'.",
+      "in_cartella": "libreria_completa/03_Sport/Sport_Top/Slide (1LmsypvQPQK-AwlJ5Yn-WyaM3ic0SbVmm)",
+      "testo_txt": "18YOMufuSXg56n2xHrb5GiSbLFW4Ea6n5",
+      "estrazione": "ignoto",
+      "utilizzabile": true,
+      "richiede_ocr": "ignoto"
     },
     {
       "id": "1e6_0inJDktx3g6kOQaXJielvWMAkUYvq",
@@ -494,7 +720,7 @@
         "recupero_infortunio",
         "performance_squadra"
       ],
-      "note": "Nuovo file (cartella Medical), catalogato 2026-08-08. Scheda test funzionali arto inferiore: CMT one leg press, single limb stance, Y-Balance Test, balzi bi/monopodalici, LSI/differenziali. Testo nativo pulito.",
+      "note": "Scheda test funzionali arto inferiore: CMT one leg press, single limb stance, Y-Balance Test, balzi bi/monopodalici, LSI/differenziali. Testo nativo pulito.",
       "in_cartella": "elav_medical",
       "estrazione": "nativo_pulito",
       "utilizzabile": true,
@@ -517,7 +743,7 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "Nuovo file (cartella Medical), catalogato 2026-08-08. Raccolta di scale/questionari validati tradotti in italiano: FADI e FADI Sport, KOOS, Lequesne anca/ginocchio, Roland-Morris, Oswestry, FABQ, Neck Pain Questionnaire, DASH, NRS dolore. Testo nativo pulito. Utile per screening/monitoraggio in rehab.",
+      "note": "Scale/questionari validati in italiano: FADI e FADI Sport, KOOS, Lequesne anca/ginocchio, Roland-Morris, Oswestry, FABQ, Neck Pain Questionnaire, DASH, NRS dolore. Testo nativo pulito.",
       "in_cartella": "elav_medical",
       "estrazione": "nativo_pulito",
       "utilizzabile": true,
@@ -538,7 +764,7 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "Nuovo file (cartella Medical), catalogato 2026-08-08. Versione ridotta dei questionari: estrae solo l'intestazione (NRS dolore, Right/Left Foot), resto solo immagine. Per il contenuto usare 'Questionari clinici (raccolta scale validate)'.",
+      "note": "Versione ridotta dei questionari, quasi tutta immagine. Per il contenuto usare 'Questionari clinici (raccolta scale validate)'.",
       "in_cartella": "elav_medical",
       "estrazione": "solo_immagine",
       "utilizzabile": false,
@@ -622,6 +848,381 @@
       "richiede_ocr": false
     },
     {
+      "id": "14R3mLKrTTRwZGGR8ulE8ugZlARrZwNXU",
+      "titolo": "Science and Practice of Strength Training — Zatsiorsky & Kraemer",
+      "fonte": "libro esterno (Zatsiorsky)",
+      "tipo": "libro",
+      "priorita": "alta",
+      "argomenti": [
+        "forza",
+        "potenza",
+        "metodologia",
+        "periodizzazione",
+        "principi_allenamento",
+        "fondamenti"
+      ],
+      "archetipi": [
+        "performance_squadra",
+        "fitness_individuale"
+      ],
+      "note": "NUOVO in v1.5 (cartella Corsi/pdf). Testo classico sui principi dell'allenamento della forza: metodo degli sforzi massimali/ripetuti/dinamici, deficit di forza, carico ottimale. Complementare a NSCA per la parte teorica sulla forza. Copia anche in LIBRERIA/05_Fondamenti (1rI1JmgQIhJLZY1VsfLbBEx7ShSoySudx). Nessun .txt estratto disponibile.",
+      "in_cartella": "pdf_libri",
+      "estrazione": "ignoto",
+      "utilizzabile": true,
+      "richiede_ocr": "ignoto"
+    },
+    {
+      "id": "1KfXHf0fHd_fkBdWvC0G-_5HE8fZCaRhm",
+      "titolo": "Periodizzazione dell'allenamento sportivo — Bompa",
+      "fonte": "libro esterno (Bompa)",
+      "tipo": "libro",
+      "priorita": "alta",
+      "argomenti": [
+        "periodizzazione",
+        "programmazione",
+        "cicli",
+        "stagione",
+        "fondamenti"
+      ],
+      "archetipi": [
+        "performance_squadra",
+        "fitness_individuale",
+        "giovanile"
+      ],
+      "note": "NUOVO in v1.5. Riferimento storico sulla periodizzazione: macro/meso/microcicli, picco di forma, periodizzazione delle qualità. Da usare insieme a NSCA e alla Programmazione ELAV. Estrazione testo pulita disponibile (testo_txt).",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "1VDtuYA4Zz501uFQr9t216mYfIbELc19Z",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1FjFytzQhAylxrRI_eWe9hARxtSt-mZDg",
+      "titolo": "Superentrenamiento — Verkhoshansky & Siff",
+      "fonte": "libro esterno (Verkhoshansky, ed. spagnola)",
+      "tipo": "libro",
+      "priorita": "media",
+      "argomenti": [
+        "forza",
+        "potenza",
+        "pliometria",
+        "forza_esplosiva",
+        "metodologia",
+        "biomeccanica"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. Trattato avanzato su forza esplosiva, metodo d'urto, allenamento speciale. In spagnolo. Nessun .txt estratto; consultare on-demand per approfondimenti su pliometria e forza speciale.",
+      "in_cartella": "pdf_libri",
+      "estrazione": "ignoto",
+      "utilizzabile": true,
+      "richiede_ocr": "ignoto"
+    },
+    {
+      "id": "1Eoeqe4XMa2PQAo0xQrur-p-5gUeleh-7",
+      "titolo": "Advanced Strength and Conditioning — Comfort et al.",
+      "fonte": "libro esterno (Comfort)",
+      "tipo": "libro",
+      "priorita": "alta",
+      "argomenti": [
+        "forza",
+        "potenza",
+        "programmazione",
+        "valutazione",
+        "monitoraggio_carico",
+        "evidenze"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. Testo moderno e basato su evidenze per S&C avanzata: testing, monitoraggio, programmazione. Ottimo complemento aggiornato a NSCA. Estrazione testo pulita disponibile (1MB).",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "1kSi6a7Goet4ylxQWpRkEInfs1L3rJLjo",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1ZZH12sIPeOj5OvcivYXv5vH82pwWoX8E",
+      "titolo": "Plyometric (manuale pliometria)",
+      "fonte": "libro esterno",
+      "tipo": "libro",
+      "priorita": "alta",
+      "argomenti": [
+        "pliometria",
+        "potenza",
+        "forza_esplosiva",
+        "progressioni",
+        "esercizi"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. Manuale dedicato alla pliometria: progressioni, volumi di contatti, esercizi. Si integra con le trascrizioni Squillante — Pliometria. Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "1-wCKG7v2gBMCAiPAyBsjMVWD3RmxWnus",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1znRau5Cv2O-LqvFGZZROkRQ46O31t1Ua",
+      "titolo": "Manuale per Personal Trainer",
+      "fonte": "libro esterno (italiano)",
+      "tipo": "libro",
+      "priorita": "media",
+      "argomenti": [
+        "fondamenti",
+        "fisiologia_base",
+        "teoria_allenamento",
+        "esercizi"
+      ],
+      "archetipi": [
+        "fitness_individuale"
+      ],
+      "note": "NUOVO in v1.5. Manuale generalista in italiano: utile come fonte di base in italiano quando la Teoria Introduttiva ELAV (solo immagine) non è leggibile. Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "16HA4LVpqP9g7TWEl4-8mSSzqNZxRJfKl",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1Uk46ev5Nxqo6cVUKe3A9OwkBGyTJbW_U",
+      "titolo": "The Squat Bible — Aaron Horschig (Squat University)",
+      "fonte": "libro esterno (Squat University)",
+      "tipo": "libro",
+      "priorita": "alta",
+      "argomenti": [
+        "tecnica_esercizi",
+        "squat",
+        "mobilita",
+        "screening",
+        "prevenzione",
+        "biomeccanica"
+      ],
+      "archetipi": [
+        "fitness_individuale",
+        "posturale",
+        "recupero_infortunio"
+      ],
+      "note": "NUOVO in v1.5. Analisi tecnica e correttiva dello squat, screening di mobilità caviglia/anca, correttivi. Molto pratico per la parte tecnica delle schede. Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "19_ZsMiD8430uVGaiPdM9U5sQOtmons_A",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1uVE61L38_plSkXT_5jlxJ1BEMDJT4RHs",
+      "titolo": "Rebuilding Milo — Aaron Horschig (Squat University)",
+      "fonte": "libro esterno (Squat University)",
+      "tipo": "libro",
+      "priorita": "alta",
+      "argomenti": [
+        "riabilitazione",
+        "prevenzione",
+        "dolore",
+        "esercizi",
+        "screening",
+        "mobilita"
+      ],
+      "archetipi": [
+        "recupero_infortunio",
+        "posturale",
+        "fitness_individuale"
+      ],
+      "note": "NUOVO in v1.5. Manuale sistematico di valutazione e correzione del dolore nell'atleta di forza (spalla, schiena, anca, ginocchio). Ottimo ponte tra materiale rehab ELAV e sala pesi. Estrazione testo disponibile (700KB).",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "1JSUmVWyFO0Vl0wwK28Y9IfB0l2NUWVQI",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "13zzKeJ55T90_Y3ZlMaR1Zolxer_wXq86",
+      "titolo": "The Westside Barbell Book of Methods — Louie Simmons",
+      "fonte": "libro esterno (Simmons)",
+      "tipo": "libro",
+      "priorita": "media",
+      "argomenti": [
+        "forza",
+        "metodo_coniugato",
+        "powerlifting",
+        "metodologia",
+        "programmazione"
+      ],
+      "archetipi": [
+        "fitness_individuale",
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. Metodo coniugato Westside: max effort / dynamic effort, accessori, rotazione esercizi. Utile per programmi forza avanzati. Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "1Cil_PANneHWKxshoRcMVdnq63i6KWhvn",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1QosvLA6nnWKCjtxhYT0F2odxnRx1R4LO",
+      "titolo": "Olympic Weightlifting Strength Manual — Louie Simmons",
+      "fonte": "libro esterno (Simmons)",
+      "tipo": "libro",
+      "priorita": "media",
+      "argomenti": [
+        "weightlifting",
+        "forza",
+        "potenza",
+        "metodo_coniugato",
+        "tecnica_esercizi"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. Applicazione del coniugato al sollevamento olimpico. Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "17lMBg_vQJ4XzZnLDM_mXRA04IrcA943i",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1WreqfWuxa4_qATeutdVCreF7ZkITWjjZ",
+      "titolo": "Conjugate Weightlifting",
+      "fonte": "monografia esterna (Simmons/coniugato)",
+      "tipo": "pdf",
+      "priorita": "bassa",
+      "argomenti": [
+        "weightlifting",
+        "metodo_coniugato",
+        "forza"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. Breve monografia sul coniugato applicato al weightlifting. Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "1f1iQ43NbKL7yD9cGzMc2dK7WjExdfbuB",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1bOLTZ3u7XOUTRo5vcmjgWRQYvLJfaB1K",
+      "titolo": "VBT — basi ed applicazioni",
+      "fonte": "monografia esterna (italiano)",
+      "tipo": "pdf",
+      "priorita": "alta",
+      "argomenti": [
+        "vbt",
+        "velocity_based_training",
+        "forza",
+        "monitoraggio_carico",
+        "valutazione",
+        "profilo_forza_velocita_potenza"
+      ],
+      "archetipi": [
+        "performance_squadra",
+        "fitness_individuale"
+      ],
+      "note": "NUOVO in v1.5. Tema VBT prima assente dalla KB. Basi teoriche e applicazione pratica del velocity based training: zone di velocità, velocity loss, autoregolazione. Si sposa col foglio 'Set. PROFILO FORZA VELOCITA' POTENZA'. Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "1mYVDxxYeGGb_XDzixF0t6Po7C5xR-Gvx",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1qpxyFPrCl4Oa_2wNSXeJFt8j95OpN1Mo",
+      "titolo": "VBT secondo Mann",
+      "fonte": "monografia esterna (Bryan Mann)",
+      "tipo": "pdf",
+      "priorita": "media",
+      "argomenti": [
+        "vbt",
+        "velocity_based_training",
+        "forza",
+        "monitoraggio_carico"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. Approccio di Bryan Mann al VBT (zone di velocità per obiettivo). Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "11IjTK9LibMm15ZpIfynUKj8cKojwJugN",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1FlZIfIFkoB7vgSDYepg6BcWRoZN2xUAq",
+      "titolo": "NSCA e weightlifting",
+      "fonte": "monografia esterna / estratto NSCA",
+      "tipo": "pdf",
+      "priorita": "media",
+      "argomenti": [
+        "weightlifting",
+        "tecnica_esercizi",
+        "potenza",
+        "linee_guida"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. Posizione/indicazioni NSCA sull'uso dei gesti del weightlifting nella preparazione. Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "1fT_FecDdrPKNjzNrqsyH6RaZDowPFIhY",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1tp1nENptR5XC5hhoQJ1fsqpGCUAyUm2g",
+      "titolo": "VBT e weightlifting",
+      "fonte": "monografia esterna",
+      "tipo": "pdf",
+      "priorita": "media",
+      "argomenti": [
+        "vbt",
+        "weightlifting",
+        "potenza",
+        "monitoraggio_carico"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. VBT applicato ai gesti olimpici. Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "11B4z10Y5DpmPArG1cv43g2pdmVIwKahp",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
+      "id": "1IpVEnG1eCMQmys93dncQ96dbisQOWNel",
+      "titolo": "RFD e weightlifting",
+      "fonte": "monografia esterna",
+      "tipo": "pdf",
+      "priorita": "media",
+      "argomenti": [
+        "rfd",
+        "potenza",
+        "forza_esplosiva",
+        "weightlifting",
+        "valutazione"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. Rate of Force Development e weightlifting: tema utile per giustificare esercizi esplosivi negli sport di squadra. Estrazione testo disponibile.",
+      "in_cartella": "pdf_libri",
+      "testo_txt": "19h0TsJuK3p1kaLhIAWwSbS3YOLEQztTb",
+      "estrazione": "nativo_pulito",
+      "utilizzabile": true,
+      "richiede_ocr": false
+    },
+    {
       "id": "1hsGqCxYMhiQVPqAdHHK7F_4CMzT-NDOtw3iq_oeCb3A",
       "titolo": "Standard allenamento forza",
       "fonte": "personale (schede pregresse)",
@@ -651,13 +1252,14 @@
       "argomenti": [
         "valutazione",
         "profilo_forza_velocita_potenza",
-        "test"
+        "test",
+        "vbt"
       ],
       "archetipi": [
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "Griglia di profilazione forza/velocità/potenza.",
+      "note": "Griglia di profilazione forza/velocità/potenza. Da v1.5 si abbina bene alle monografie VBT.",
       "estrazione": "foglio_ok",
       "utilizzabile": true,
       "richiede_ocr": false
@@ -742,7 +1344,7 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "Trascrizione-testo pulita dei Principi e Fondamenti del Recupero Funzionale. Fonte alternativa pulita al PDF (già ocr_pulito).",
+      "note": "Trascrizione-testo pulita dei Principi e Fondamenti del Recupero Funzionale.",
       "estrazione": "testo_nativo",
       "utilizzabile": true,
       "richiede_ocr": false,
@@ -776,7 +1378,7 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "COPRE una lacuna: il PDF corrispondente (ELAV — 2. Arto Inferiore Modulo 1) è ~65MB non estraibile. Questa trascrizione-testo è la fonte utilizzabile per piede/caviglia.",
+      "note": "COPRE una lacuna: il PDF corrispondente è ~65MB non estraibile. Questa trascrizione è la fonte utilizzabile per piede/caviglia.",
       "estrazione": "testo_nativo",
       "utilizzabile": true,
       "richiede_ocr": false,
@@ -808,7 +1410,7 @@
         "recupero_infortunio",
         "posturale"
       ],
-      "note": "Trascrizione-testo pulita per ginocchio/anca. Fonte alternativa al PDF (ELAV — 3. Arto Inferiore Modulo 2, già ocr_pulito).",
+      "note": "Trascrizione-testo pulita per ginocchio/anca.",
       "estrazione": "testo_nativo",
       "utilizzabile": true,
       "richiede_ocr": false,
@@ -842,7 +1444,7 @@
         "posturale",
         "recupero_infortunio"
       ],
-      "note": "COPRE una lacuna importante: il PDF corrispondente (ELAV — 4. Colonna Vertebrale) è ~95MB non estraibile. Questa trascrizione-testo è la fonte primaria utilizzabile per l'archetipo posturale (rachide). Parti r41,r43,r44,r45,r46 (r42 non presente).",
+      "note": "COPRE una lacuna importante: il PDF corrispondente è ~95MB non estraibile. Fonte primaria utilizzabile per l'archetipo posturale (rachide). Parti r41,r43,r44,r45,r46 (r42 non presente). Copia speculare in LIBRERIA_COMPLETA/02_Recovery/Mod4_Colonna_Vertebrale (id cartella 11Ju2if7GUZk04PlJ1foOIJFHvmEcb3Rf).",
       "estrazione": "testo_nativo",
       "utilizzabile": true,
       "richiede_ocr": false,
@@ -886,6 +1488,36 @@
       ]
     },
     {
+      "modulo": "Recovery — Estrazione testo delle SLIDE (dispense Recupero Funzionale)",
+      "fonte": "ELAV (estrazione testo delle dispense/slide)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": null,
+      "cartella_id": "1_7Tu2uzOzeI7Y2E9f50besng3ubu4hcD",
+      "priorita": "alta",
+      "argomenti": [
+        "anatomia",
+        "riabilitazione",
+        "arto_inferiore",
+        "arto_superiore",
+        "recupero_funzionale",
+        "esercizi"
+      ],
+      "archetipi": [
+        "recupero_infortunio",
+        "posturale"
+      ],
+      "note": "NUOVO in v1.5. Non sono trascrizioni video ma il TESTO delle slide/dispense Recovery, estratto in .txt. Prezioso perché restituisce schemi, elenchi e protocolli delle dispense (che nei PDF grandi non erano estraibili). Copre Mod1 Principi, Mod2 Arto Inferiore 1, Mod3 Arto Inferiore 2, Mod5 Arto Superiore. Manca la slide della Colonna (Mod4).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1WGopxNuhm7Xv3yxa2KxLdWJZRaM5aZBH", "titolo": "Slide_Mod1_Principi_Fondamenti" },
+        { "id": "1EB3v-8X7LOc8qBW7QMZ92mTMVGusVsNK", "titolo": "Slide_Mod2_Arto_Inferiore_1 (piede/caviglia)" },
+        { "id": "1uzBNCsQRidMtq2SafqoIrSGFj9b75kIL", "titolo": "Slide_Mod3_Arto_Inferiore_2 (ginocchio/anca)" },
+        { "id": "1tBYjZhB71YIuC87KK-pZ6JDccrvgGaVM", "titolo": "Slide_Mod5_Arto_Superiore" }
+      ]
+    },
+    {
       "modulo": "Sport — Mod.1 Biomeccanica",
       "fonte": "ELAV (trascrizione video corso)",
       "tipo": "trascrizione",
@@ -901,7 +1533,7 @@
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "Nuovo tema non coperto dai PDF indicizzati. Biomeccanica applicata all'allenamento. 10 parti (s11-s15).",
+      "note": "Biomeccanica applicata all'allenamento. 10 parti (s11-s15).",
       "estrazione": "testo_nativo",
       "utilizzabile": true,
       "richiede_ocr": false,
@@ -934,7 +1566,7 @@
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "COPRE una lacuna: il PDF corrispondente (ELAV Preparazione — Modulo 2 Metabolico) è solo immagine. Questa trascrizione-testo è la fonte utilizzabile. 8 parti (s21-s26).",
+      "note": "COPRE una lacuna: il PDF corrispondente è solo immagine. 8 parti (s21-s26).",
       "estrazione": "testo_nativo",
       "utilizzabile": true,
       "richiede_ocr": false,
@@ -965,7 +1597,7 @@
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "COPRE una lacuna: il PDF corrispondente (ELAV Preparazione — Modulo 1 Forza condizionale) è solo immagine. Questa trascrizione-testo è la fonte utilizzabile. 9 parti (s31-s36).",
+      "note": "COPRE una lacuna: il PDF corrispondente è solo immagine. 9 parti (s31-s36).",
       "estrazione": "testo_nativo",
       "utilizzabile": true,
       "richiede_ocr": false,
@@ -996,7 +1628,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "COPRE una lacuna: il PDF corrispondente (ELAV Preparazione — Modulo 6 Programmazione) è solo immagine. Questa trascrizione-testo è la fonte utilizzabile per la programmazione sport di squadra. 3 parti (s62-s64).",
+      "note": "COPRE una lacuna: il PDF corrispondente è solo immagine. 3 parti (s62-s64).",
       "estrazione": "testo_nativo",
       "utilizzabile": true,
       "richiede_ocr": false,
@@ -1004,6 +1636,112 @@
         { "id": "1sBBnI87OqPuR2TcJFgo-swjHYwqwuWAc", "titolo": "Mod6_Programmazione_s62" },
         { "id": "12hKiNKF8G-AvvOWRzPEH3fZ9ZN6XLf1H", "titolo": "Mod6_Programmazione_s63" },
         { "id": "1_KaHuQxA-tG3oAMQeoCPUTASwsH49o43", "titolo": "Mod6_Programmazione_s64" }
+      ]
+    },
+    {
+      "modulo": "Sport — Synapse e Agility",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": "1y3IOlEu7L9KWz5mnRy4igywU5WKaE_GL",
+      "cartella_id": "1gI9lam4IC916I7Te0UjEs0mN9awHXpiG",
+      "priorita": "alta",
+      "argomenti": [
+        "agility",
+        "reattivita",
+        "tempo_di_reazione",
+        "neuromuscolare",
+        "coordinazione",
+        "potenza"
+      ],
+      "archetipi": [
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. COPRE la lacuna del Modulo 4 'Synapse e reaction' (solo immagine). 5 parti di testo nativo, oltre 1.7MB complessivi: cambi di direzione, agility reattiva vs programmata, stimoli cognitivi.",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1i5xtAM-hqj92dVKeKEpNELsxC1hTBZRV", "titolo": "Syn_Agility_1" },
+        { "id": "1xqXgiSLoPLLOlivKlLmMgkglkEkz5Bt6", "titolo": "Syn_Agility_2" },
+        { "id": "1jfmmgq_0UOu8a5hdGG-H_Q2q_5FcL-al", "titolo": "Syn_Agility_3" },
+        { "id": "1rMMIBAb4NH04czkIla4-U3Mde0jyA4ui", "titolo": "Syn_Agility_4" },
+        { "id": "15MSEOJ3RyO0Ejl8JCy1BmbwUTkLVEZe2", "titolo": "Syn_Agility_5" }
+      ]
+    },
+    {
+      "modulo": "Sport — Funzioni Tissutali (mobilità, flessibilità, rolling)",
+      "fonte": "ELAV (trascrizione video corso)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": null,
+      "cartella_id": "165--dVgHLOig7dlQYsXjr6BsNKjT4P7G",
+      "priorita": "alta",
+      "argomenti": [
+        "mobilita",
+        "flessibilita",
+        "foam_rolling",
+        "tessuto_connettivo",
+        "riscaldamento",
+        "prevenzione"
+      ],
+      "archetipi": [
+        "posturale",
+        "recupero_infortunio",
+        "fitness_individuale",
+        "performance_squadra"
+      ],
+      "note": "NUOVO in v1.5. Tema del tutto nuovo per la KB: proprietà dei tessuti, flessibilità vs mobilità, protocolli di rolling. È ora la fonte di riferimento per costruire la parte di mobilità/riscaldamento delle schede. 6 parti.",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1AXdDtbMzKsXFdBLiUK20KEe-1FfdiYBs", "titolo": "FunTiss_1" },
+        { "id": "1kyf9Vsou-3XxAi_9UcSv_87dnXkCTGad", "titolo": "FunTiss_2_1" },
+        { "id": "1l1I-eyNQFy94QWzRXRjLZJ--qNShGM1v", "titolo": "FunTiss_2_2" },
+        { "id": "1et1PTq6-WVopOwaEQjONaS_RfI2fLA2C", "titolo": "FunTiss_3_flexibility" },
+        { "id": "1g4AAvfSJvfuka69GsW1vESyxw6rkWUCZ", "titolo": "FunTiss_3_rolling" },
+        { "id": "13Grf5A85lK_Sp3x2lUlNVSR16nr0ceCw", "titolo": "FunTiss_4_mobilita" }
+      ]
+    },
+    {
+      "modulo": "Sport TOP — Preparazione Atletica (corso completo, 12 moduli)",
+      "fonte": "ELAV (trascrizione video corso, indirizzo TOP)",
+      "tipo": "trascrizione",
+      "corrisponde_a_pdf": null,
+      "cartella_id": "1ZYIjZrapNVYmSm536pcJOH3C_sEBdPwk",
+      "priorita": "alta",
+      "argomenti": [
+        "forza",
+        "condizionamento_metabolico",
+        "programmazione",
+        "periodizzazione",
+        "monitoraggio_carico",
+        "gps",
+        "agility",
+        "case_study",
+        "analisi_dati",
+        "metodologia_ricerca",
+        "giovanile"
+      ],
+      "archetipi": [
+        "performance_squadra",
+        "giovanile"
+      ],
+      "note": "NUOVO in v1.5 e molto rilevante: è la versione TESTO dell'intero corso di Preparazione Atletica (moduli 1-13), che nell'indice esisteva solo come PDF solo-immagine. Ogni modulo è un unico .txt di testo nativo pulito (200-400KB). COPRE in un colpo solo quasi tutte le lacune 'solo_immagine' dei Moduli Preparazione. Nota: il Mod.6 qui è 'Programmazione Giovanili' — è la fonte migliore per l'archetipo giovanile. Le slide PDF corrispondenti stanno nella sottocartella Slide (1LmsypvQPQK-AwlJ5Yn-WyaM3ic0SbVmm).",
+      "estrazione": "testo_nativo",
+      "utilizzabile": true,
+      "richiede_ocr": false,
+      "parti": [
+        { "id": "1H4enppgAINSn8TYUubmHJZZB1iJQxhF0", "titolo": "Top_Forza_Condizionale (Mod.1)" },
+        { "id": "14Yq9DzAzqQrawexWVAe3LGMt1nODd8gO", "titolo": "Top_Metabolico (Mod.2)" },
+        { "id": "1ccFcLwiosPIxwQ3vPucOV_6DSDmWa7kJ", "titolo": "Top_Cognitivo (Mod.3)" },
+        { "id": "1-r_IUKdBTc3KoQ9tRCj0J3pXaRqzAL1o", "titolo": "Top_04_Strobo_Multifrequenza (Mod.4)" },
+        { "id": "1Q_DM_IsY7HdSPK3_owveDILx2aaCrcyI", "titolo": "Top_05_GPS_Recupero (Mod.5)" },
+        { "id": "11pm-njAGSvXxjKK2-7Tss-BlDLnJinLg", "titolo": "Top_06_Programmazione_Giovanili (Mod.6)" },
+        { "id": "1TjM9wjWJvJ43nSUZL2UHFjb2iVwLMr7W", "titolo": "Top_07_Modello_Bologna_FC (Mod.7)" },
+        { "id": "1WRm7FuLerpE-RXvQUhPrxJHT5M-njPqg", "titolo": "Top_09_Dati (Mod.9)" },
+        { "id": "1OyyYdciTM7ux25n3ro5wUDM_-ruIixzG", "titolo": "Top_10_Ricerca (Mod.10)" },
+        { "id": "16_ok0_PU0XaBbZ2dgadwjKthmhcNMNbc", "titolo": "Top_12_Caso_Studio_Modelli (Mod.12)" },
+        { "id": "18YOMufuSXg56n2xHrb5GiSbLFW4Ea6n5", "titolo": "Top_13_Mondo_Lavoro (Mod.13)" }
       ]
     },
     {
@@ -1022,7 +1760,7 @@
         "performance_squadra",
         "fitness_individuale"
       ],
-      "note": "Lezioni Squillante su forza e periodizzazione. Nuovo tema (docente Squillante), non coperto dai PDF indicizzati. 8 parti testo: 2 lezioni originali + 6 nuove trascrizioni YouTube (Prog_YT_1_0..5) aggiunte 2026-08-09 (versione più completa/estesa della programmazione Squillante). Sottocartella frame video ignorata.",
+      "note": "Lezioni Squillante su forza e periodizzazione. 8 parti testo: 2 lezioni originali + 6 trascrizioni YouTube estese. Copia speculare in LIBRERIA_COMPLETA/04_Squillante/Forza_e_Periodizzazione (1sDt8s65dojoooTtVU9hYu4wou7sfSYxs).",
       "estrazione": "testo_nativo",
       "utilizzabile": true,
       "richiede_ocr": false,
@@ -1052,7 +1790,7 @@
       "archetipi": [
         "performance_squadra"
       ],
-      "note": "Lezioni Squillante su pliometria/potenza. Nuovo tema (docente Squillante), non coperto dai PDF indicizzati. 11 parti testo: 6 lezioni originali + 5 nuove trascrizioni YouTube (Plyo_YT_1..5) aggiunte 2026-08-09 (versione più completa/estesa della pliometria Squillante). Sottocartella frame video ignorata.",
+      "note": "Lezioni Squillante su pliometria/potenza. 11 parti testo: 6 lezioni originali + 5 trascrizioni YouTube estese. Da v1.5 si integra col manuale 'Plyometric'. Copia speculare in LIBRERIA_COMPLETA/04_Squillante/Pliometria (1AhOtjCcT6Yu0SLJGemTgfsHnfihaxLTm).",
       "estrazione": "testo_nativo",
       "utilizzabile": true,
       "richiede_ocr": false,
@@ -1073,24 +1811,24 @@
   ],
   "da_catalogare": [
     {
-      "cartella_id": "1GVAv6WizJM6aJF0UqwS8mf-yt7HtvI4E",
-      "titolo": "Elav/Sport",
-      "nota": "Materiali sport-specifici da esplorare al bisogno."
+      "cartella_id": "1XamH8hxUo3y1z6WwjrQLm98_HS_nDQvk",
+      "titolo": "Elav/Sport/specialist Slide",
+      "nota": "Slide del corso Sport 'specialist': da esplorare, potrebbe contenere moduli non ancora indicizzati."
     },
     {
       "cartella_id": "1kyZfEe-sVfDoLagnu9ciodigdlIHdktZ",
       "titolo": "Elav/Medical/Studio",
-      "nota": "Approfondimenti medici."
+      "nota": "Verificata 2026-08-25: contiene ~20 foto (JPG) di appunti/pagine di studio, non testo. Utilizzabile solo aprendo le immagini una a una; non indicizzata come documenti."
     },
     {
       "cartella_id": "1f3liPXiBNH8GivHhguP7Ioc7sqjj5d6A",
       "titolo": "Elav/Medical/extra",
-      "nota": "Sottocartella nuova (creata 2026-08-06) dentro Medical, da esplorare."
+      "nota": "Verificata 2026-08-25: VUOTA."
     },
     {
       "cartella_id": "1as3JGx_FVFMKwT0iLEcHIY8lWWgjyb2u",
       "titolo": "Street Lifting Empire - Claudio Negro",
-      "nota": "Forza a corpo libero / street lifting."
+      "nota": "Forza a corpo libero / street lifting. Unica sottocartella di 'Strength and Various', ancora da aprire."
     },
     {
       "cartella_id": "1TYaOZRTAVitToRrcHJ3-2ZJBgXhh-tYd",
@@ -1098,65 +1836,90 @@
       "nota": "Federazione Italiana Pallacanestro: materiale basket."
     },
     {
-      "cartella_id": "1LnJn2tzMQY3fos2ldsH4lvXLJ3ZU8rze",
-      "titolo": "Elav/Extra",
-      "nota": "Materiale extra."
+      "cartella_id": "1FGWPnLbXFwvHx-gt9WcGDgHoZx2zpB5F",
+      "titolo": "Elav/Extra/Segreti addominali",
+      "nota": "Da esplorare: probabile materiale core/addome."
+    },
+    {
+      "cartella_id": "1QSEiibnImxp4X-uvK0qUc5GktwVurDbv",
+      "titolo": "Elav/Extra/Foot to core",
+      "nota": "Da esplorare: catena piede-core, rilevante per posturale e recupero_infortunio."
+    },
+    {
+      "cartella_id": "1c2eT8nklfhNds-mECOyBziIQwaUbVWIN",
+      "titolo": "Books",
+      "nota": "Contiene anche libri non tecnici (esclusi per policy). Da ri-verificare per eventuali titoli tecnici oltre a FMS."
+    },
+    {
+      "cartella_id": "1sWwP9PLqAg7JC2WlAvxaJaZEIdmtxvLj",
+      "titolo": "Uni",
+      "nota": "Tesi e materiale universitario, non ancora esplorato."
     }
   ],
   "verifica_accessibilita": {
-    "data": "2026-08-09",
-    "esito": "30 documenti + 14 moduli di trascrizioni-testo (93 file .txt) catalogati, tutti accessibili su Drive. v1.4: aggiunte 11 nuove trascrizioni YouTube ai due moduli Squillante (Forza e Periodizzazione +6, Pliometria +5), testo nativo pulito. Nessun nuovo PDF/dispensa: le cartelle dispense (Fitness, Medical, Moduli Prep, S&C americano, Strength/Various) erano già interamente catalogate. L'albero trascrizioni è stato riorganizzato in 4 sottocartelle (01_Fitness, 02_Recovery, 03_Sport, 04_Squillante): gli id dei file/moduli restano invariati.",
+    "data": "2026-08-25",
+    "esito": "Scansione completa v1.5. Scoperte due cartelle mai indicizzate: 'Corsi/pdf' (libri e monografie esterne, creata 2026-08-09) e 'Corsi/knowledge_base/LIBRERIA_COMPLETA' (mirror tematico con PDF + estrazioni .txt, creata 2026-08-24). Aggiunti 25 documenti e 4 moduli di trascrizioni. Le cartelle dispense storiche (Fitness, Medical, Moduli Prep, S&C americano) non contengono nuovi file rispetto a v1.4.",
     "riepilogo": {
-      "nativo_pulito": 10,
-      "ocr_pulito": 2,
-      "ocr_rumoroso": 3,
-      "foglio_ok": 2,
-      "solo_immagine": 13,
-      "trascrizioni_moduli": 14,
-      "trascrizioni_file_testo": 93
+      "documenti_totali": 55,
+      "trascrizioni_moduli": 18,
+      "documenti_aggiunti_v1_5": 25,
+      "moduli_trascrizione_aggiunti_v1_5": 4
     },
-    "trascrizioni_catalogate_2026_08_08": {
-      "moduli": 14,
-      "file_testo": 82,
-      "coperture_lacune": [
-        "ELAV — 2. Arto Inferiore Modulo 1 (~65MB, vuoto) → Recovery Mod.2 Piede/Caviglia (6 parti)",
-        "ELAV — 4. Colonna Vertebrale (~95MB, vuoto) → Recovery Mod.4 Colonna (5 parti)",
-        "ELAV Preparazione — Modulo 1 Forza condizionale (solo immagine) → Sport Mod.3 Forza Condizionale (9 parti)",
-        "ELAV Preparazione — Modulo 2 Metabolico (solo immagine) → Sport Mod.2 Metabolico (8 parti)",
-        "ELAV Preparazione — Modulo 6 Programmazione (solo immagine) → Sport Mod.6 Programmazione (3 parti)"
+    "aggiunti_2026_08_25": {
+      "corso_nuovo": [
+        "ELAV Personal Trainer Specialist (6 dispense OCR, caricate 2026-08-16): Back to Nutrition e Psicologia del Cambiamento, Biomeccanica degli Esercizi per il Fitness, Hypertrophy Advanced Training Mod.1 e Mod.2, Slimming Advanced Training Mod.1 e Mod.2"
       ],
-      "fonti_preferite_su_ocr_rumoroso": [
-        "PT Expert — Metodologia (4 parti) sostituisce citazioni dal PDF 1phcyK11iWLps_j5Tc6yCB6pLrmwL5JYY",
-        "PT Expert — Programmazione (6 parti) sostituisce citazioni dal PDF 1T1QvvsAsGsb1XLOG53iNds1qtENSOdIm",
-        "Recovery Mod.5 Arto Superiore (6 parti) sostituisce citazioni dal PDF 1RWJACNRzzVHozCGYHjwmyN5P4JCRUCFF"
+      "libri_esterni": [
+        "Zatsiorsky — Science and Practice of Strength Training",
+        "Bompa — Periodizzazione",
+        "Verkhoshansky & Siff — Superentrenamiento",
+        "Comfort — Advanced Strength and Conditioning",
+        "Plyometric (manuale pliometria)",
+        "Manuale per Personal Trainer",
+        "Horschig — The Squat Bible",
+        "Horschig — Rebuilding Milo",
+        "Simmons — Westside Barbell Book of Methods",
+        "Simmons — Olympic Weightlifting Strength Manual",
+        "Conjugate Weightlifting",
+        "VBT basi ed applicazioni",
+        "VBT secondo Mann",
+        "NSCA e weightlifting",
+        "VBT e weightlifting",
+        "RFD e weightlifting"
       ],
-      "nuovi_temi": [
-        "Sport Mod.1 Biomeccanica (10 parti)",
-        "Squillante Forza e Periodizzazione (2 parti)",
-        "Squillante Pliometria (6 parti)"
+      "moduli_elav_mai_indicizzati": [
+        "Preparazione — Modulo 11: Casi studio",
+        "Preparazione — Modulo 12: Caso studio e modelli",
+        "Preparazione — Modulo 13: Mondo del lavoro"
       ],
-      "esclusi": "Sottocartelle frame_* e file immagine (fotogrammi video), non testo."
+      "trascrizioni_nuove": [
+        "Sport TOP — Preparazione Atletica, corso completo in testo (11 file .txt, moduli 1-13)",
+        "Sport — Synapse e Agility (5 parti)",
+        "Sport — Funzioni Tissutali: mobilità, flessibilità, rolling (6 parti)",
+        "Recovery — Estrazione testo delle SLIDE (4 parti)"
+      ]
     },
-    "trascrizioni_aggiunte_2026_08_09": {
-      "nuovi_file_testo": 11,
-      "dettaglio": [
-        "Squillante — Forza e Periodizzazione: +6 parti (Squillante_Prog_YT_1_0, _1_2, _2, _3, _4, _5_presentazione_pc) — trascrizioni YouTube estese",
-        "Squillante — Pliometria: +5 parti (Squillante_Plyo_YT_1, _2, _3, _4, _5) — trascrizioni YouTube estese"
-      ],
-      "nuovi_pdf": "nessuno: tutte le dispense erano già catalogate in v1.3",
-      "esclusi": "Sottocartelle frame_presentazione_pc e frame_pliometria_5 (fotogrammi video), non testo."
-    },
-    "diventati_leggibili_2026_08_08": [
-      "ELAV — 1. Principi e Fondamenti del Recupero Funzionale (ocr_pulito)",
-      "ELAV — 3. Arto Inferiore (Modulo 2) (ocr_pulito)",
-      "ELAV — 5. Arto Superiore (ocr_rumoroso)"
+    "temi_nuovi_per_la_kb": [
+      "ipertrofia avanzata (ELAV Specialist)",
+      "dimagrimento / slimming (ELAV Specialist) — prima assente",
+      "nutrizione e psicologia del cambiamento — prima assente",
+      "VBT / velocity based training — prima assente",
+      "RFD e weightlifting — prima assente",
+      "mobilità, flessibilità e foam rolling (Funzioni Tissutali) — prima assente",
+      "agility e stimoli cognitivi (Synapse) — prima solo PDF illeggibile",
+      "programmazione giovanile (Sport TOP Mod.6) — rafforza l'archetipo giovanile"
+    ],
+    "lacune_chiuse_v1_5": [
+      "Moduli Preparazione 1,2,4,5,6,7,9,10,12,13 (PDF solo immagine) → ora leggibili via 'Sport TOP' in testo nativo",
+      "ELAV — 2. Arto Inferiore Mod.1 e — 3. Arto Inferiore Mod.2 → estrazione testo delle slide disponibile (campo testo_txt)",
+      "NSCA Essentials → estrazione testo integrale (2.5MB) per ricerche e citazioni rapide"
     ],
     "ancora_da_ocr": [
-      "ELAV — 2. Arto Inferiore (Modulo 1): PDF ~65MB non estraibile (contenuto ora disponibile via trascrizione Piede/Caviglia)",
-      "ELAV — 4. Colonna Vertebrale: PDF ~95MB non estraibile (contenuto ora disponibile via trascrizione Colonna)",
-      "ELAV PT Expert — 1. Teoria Introduttiva: solo immagine, nessuna trascrizione",
-      "ELAV Preparazione — Moduli 3,4,5,7,9,10: solo immagine, nessuna trascrizione"
+      "ELAV — 4. Colonna Vertebrale: PDF ~95MB non estraibile e nessuna estrazione slide; contenuto disponibile solo via trascrizione video 'Recovery — Mod.4'",
+      "ELAV PT Expert — 1. Teoria Introduttiva: solo immagine, nessuna trascrizione (ripiego: 'Manuale per Personal Trainer')",
+      "ELAV Preparazione — Modulo 3 Skill e funzionale: solo immagine (ripiego parziale: Funzioni Tissutali e Sport TOP Mod.3 Cognitivo)",
+      "Zatsiorsky e Verkhoshansky: PDF senza .txt estratto, estrazione non ancora verificata"
     ],
-    "nota": "I file 'solo_immagine' non hanno layer di testo estraibile. Da v1.3, dove esiste una trascrizione-testo equivalente, quella è la fonte preferita per il retrieval e per le citazioni (testo nativo pulito), mentre il PDF resta con la sua estrazione originale (utilizzabile invariato)."
+    "nota": "Regola di lettura da v1.5: se un documento ha 'testo_txt', leggere quello (testo nativo pulito, leggero). Altrimenti, se esiste una trascrizione corrispondente in 'trascrizioni', preferire quella. Il PDF originale si apre solo se serve la fonte grafica o non esistono alternative. Attenzione ai duplicati: LIBRERIA_COMPLETA contiene copie con id DIVERSI degli stessi PDF già indicizzati; nell'indice sono stati mantenuti gli id originali."
   }
 }
