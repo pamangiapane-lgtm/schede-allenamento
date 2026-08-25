@@ -3,6 +3,7 @@ apps_script_prod_project/
 _strumenti/*
 !_strumenti/carica_programma.py
 !_strumenti/carica_da_github.py
+!_strumenti/genera_schede.py
 !_strumenti/invia_wellness.py
 backup_locale/
 Season_Off/
