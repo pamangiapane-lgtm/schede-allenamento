@@ -90,7 +90,7 @@ Sintassi nel CSV: `!Nelly` = esclude Nelly · `!Nelly,!Libero` = esclude entramb
 
 ### Rigenerare schede manualmente (da PC)
 ```powershell
-cd C:\Users\paulo\Documents\schede-allenamento
+cd "C:\AI\Pallavolo\Marsala volley\sedute extra"
 git pull origin claude/pre-season-app-mods-355hqq
 $env:APP_TOKEN = "mv26-prd-3xF7wNqK"
 python _strumenti/carica_da_github.py
