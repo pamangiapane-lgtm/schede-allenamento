@@ -1671,17 +1671,40 @@ async function subscribePush() {
   }
 }
 
+async function salvaSub_(sub) {
+  if (!sub || !id) return;
+  const j = sub.toJSON();
+  if (!j.keys) return;
+  try {
+    await fetch(API, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        token: TOKEN, azione: 'salva_push_sub',
+        id_giocatrice: id,
+        endpoint: j.endpoint,
+        p256dh: j.keys.p256dh,
+        auth: j.keys.auth
+      })
+    });
+  } catch(_) {}
+}
+
 async function initPushBanner() {
   const banner = document.getElementById('push-banner');
   if (!banner) return;
   // Nascondi se non applicabile
   if (!id) { banner.style.display = 'none'; return; }
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) { banner.style.display = 'none'; return; }
-  // Nascondi se già iscritto
+  // Se già iscritto: ri-salva silenziosamente su GAS (in caso la sub non fosse arrivata) e nascondi banner
   try {
     const reg = await navigator.serviceWorker.ready;
     const sub = await reg.pushManager.getSubscription();
-    if (sub && Notification.permission === 'granted') { banner.style.display = 'none'; return; }
+    if (sub && Notification.permission === 'granted') {
+      banner.style.display = 'none';
+      salvaSub_(sub); // fire-and-forget: aggiorna/crea riga in PushSub
+      return;
+    }
   } catch(_) {}
   banner.style.display = 'flex';
 }
