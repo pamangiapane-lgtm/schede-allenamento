@@ -788,6 +788,10 @@ async function caricaScheda() {
       if (String(e.Codice || '').trim() === 'BREATH-TEAM') {
         return Object.assign({}, e, { Serie: '2', Reps: '10' });
       }
+      // MOB-GEN / MOB-COR: rinomina in "Mobilità libera"
+      if (['MOB-GEN', 'MOB-COR'].includes(String(e.Codice || '').trim())) {
+        return Object.assign({}, e, { Esercizio: 'Mobilità libera', Esercizio_EN: 'Free mobility' });
+      }
       return e;
     });
 
