@@ -1,9 +1,11 @@
-const CACHE = 'schede-v46';
+const CACHE = 'schede-v47';
 const BASE = '/schede-allenamento';
+// scheda.html esclusa da STATIC: usa network-first per ricevere sempre aggiornamenti
 const STATIC = [
-  BASE + '/', BASE + '/index.html', BASE + '/scheda.html',
+  BASE + '/', BASE + '/index.html',
   BASE + '/style.css', BASE + '/logo.jpg', BASE + '/icon.svg', BASE + '/manifest.json'
 ];
+const HTML_NETWORK_FIRST = [BASE + '/scheda.html', BASE + '/'];
 
 self.addEventListener('install', e => {
   e.waitUntil(
@@ -36,6 +38,21 @@ self.addEventListener('fetch', e => {
         headers: { 'Content-Type': 'application/json' }
       })
     ));
+    return;
+  }
+
+  // scheda.html: network-first, fallback cache (aggiornamenti sempre recepiti)
+  const path = url.pathname;
+  if (HTML_NETWORK_FIRST.some(p => path === p || path.endsWith('/scheda.html'))) {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        if (res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
+        return res;
+      }).catch(() => caches.match(e.request))
+    );
     return;
   }
 
