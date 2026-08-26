@@ -1544,7 +1544,7 @@ window.addEventListener('beforeunload', e => {
 caricaScheda();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').then(() => initPushBanner()).catch(() => {});
+  navigator.serviceWorker.register('./sw.js?v=43').then(() => initPushBanner()).catch(() => {});
 }
 
 // ── WELLNESS ──────────────────────────────────────────────────────────────────
@@ -1696,7 +1696,7 @@ async function subscribePush() {
     let reg = await navigator.serviceWorker.getRegistration();
     if (!reg) {
       _log('nessuna reg, registro sw.js…');
-      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js');
+      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=43');
       await new Promise(r => setTimeout(r, 2000));
       reg = await navigator.serviceWorker.getRegistration();
     }
