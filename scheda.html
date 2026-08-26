@@ -144,6 +144,11 @@
   <div id="dev-banner" style="display:none;background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
 </header>
 
+<div id="push-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1a3a6b;color:#fff;padding:12px 16px;align-items:center;justify-content:space-between;gap:12px;font-size:0.9rem;">
+  <span>🔔 Vuoi ricevere promemoria wellness ogni mattina?</span>
+  <button id="push-btn" onclick="subscribePush()" style="background:#e8a020;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-weight:700;cursor:pointer;white-space:nowrap;">Attiva notifiche</button>
+</div>
+
 <div class="container">
 
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
@@ -184,6 +189,7 @@ const IS_DEV = window.location.pathname.includes('/dev/') || window.location.hos
 const API   = IS_DEV
   ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
   : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+const API_PUSH = API; // stessa URL, ha salva_push_sub
 const TOKEN = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
 if (IS_DEV) {
   document.title = '[DEV] ' + document.title;
@@ -608,7 +614,7 @@ function htmlIndividuale(e, sedSuffix) {
 }
 
 /* ---------- cache ---------- */
-const CACHE_V   = 'v2';
+const CACHE_V   = 'v3';
 const CACHE_TTL = 10 * 60 * 1000; // 10 minuti — dopo scade e si ri-fetcha
 function leggiCache(f) {
   try {
@@ -841,7 +847,7 @@ async function caricaScheda() {
           const m = metodiMap[key];
           html += `<div class="metodo-block">`;
           if (m.nome === 'Prehab individuale' && g.Link_Prehab) {
-            html += `<div class="metodo-titolo">${traduciMetodo(m.nome)} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>`;
+            html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
             let obiettivoHtml = '';
             const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
             if (_obvSrc) {
@@ -897,7 +903,7 @@ async function caricaScheda() {
               } catch(e) {}
             }
             html += `<div class="metodo-block">
-              <div class="metodo-titolo">${traduciMetodo('Prehab individuale')} <span class="prehab-freq-badge">${L.prehabFreq}</span></div>
+              <div class="metodo-titolo">${traduciMetodo('Prehab individuale')}</div>
               <div class="prehab-wrap">
                 ${obiettivoHtml}
                 <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
@@ -1630,84 +1636,82 @@ function urlBase64ToUint8Array(b64) {
 }
 
 async function subscribePush() {
+  // Banner persistente che accumula tutte le righe — tap per chiudere
+  let dbgDiv = document.getElementById('push-dbg');
+  if (!dbgDiv) {
+    dbgDiv = document.createElement('div');
+    dbgDiv.id = 'push-dbg';
+    dbgDiv.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#111;color:#0f0;padding:12px;z-index:99999;font-size:0.75rem;white-space:pre-wrap;word-break:break-all;max-height:60vh;overflow:auto;cursor:pointer';
+    dbgDiv.title = 'Tap per chiudere';
+    dbgDiv.onclick = () => dbgDiv.remove();
+    document.body.appendChild(dbgDiv);
+  }
+  const _log = (msg) => { dbgDiv.textContent += '\n' + msg; };
+  _log('▶ avviato');
   try {
-    if (!('PushManager' in window)) { alert('PushManager non disponibile su questo browser.'); return; }
+    if (!('PushManager' in window)) { _log('✗ PushManager non disponibile'); return; }
+    _log('⏳ requestPermission…');
     const perm = await Notification.requestPermission();
-    if (perm !== 'granted') { alert('Permesso notifiche negato.'); return; }
-    const reg = await navigator.serviceWorker.ready;
+    _log('permesso: ' + perm);
+    if (perm !== 'granted') return;
+    _log('⏳ getRegistration…');
+    let reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) {
+      _log('nessuna reg, registro sw.js…');
+      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js');
+      await new Promise(r => setTimeout(r, 2000));
+      reg = await navigator.serviceWorker.getRegistration();
+    }
+    if (!reg) { _log('✗ SW non registrabile'); return; }
+    const sw = reg.active || reg.installing || reg.waiting;
+    _log('✓ SW stato: ' + (reg.active ? 'active' : reg.installing ? 'installing' : reg.waiting ? 'waiting' : '?') + ' scope: ' + reg.scope);
+    _log('⏳ getSubscription…');
     let sub = await reg.pushManager.getSubscription();
     if (!sub) {
-      sub = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
-      });
+      _log('⏳ subscribe() con VAPID…');
+      sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY) });
     }
     const j = sub.toJSON();
-    if (!j.keys) { alert('Errore: subscription senza chiavi. SW non aggiornato?'); return; }
-    const res = await fetch(API, {
+    _log('✓ sub endpoint: ' + (j.endpoint || '?').slice(0,80));
+    _log('keys ok: ' + (!!j.keys));
+    if (!j.keys) return;
+    _log('⏳ fetch → API_PUSH (salva_push_sub)…');
+    const res = await fetch(API_PUSH, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        token: TOKEN, azione: 'salva_push_sub',
-        id_giocatrice: id,
-        endpoint: j.endpoint,
-        p256dh: j.keys.p256dh,
-        auth: j.keys.auth
-      })
+      body: JSON.stringify({ token: TOKEN, azione: 'salva_push_sub', id_giocatrice: id, endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth })
     });
-    const json = await res.json().catch(() => ({}));
+    const rawText = await res.text().catch(() => '');
+    _log('HTTP ' + res.status + '\n' + (rawText || '(vuoto)'));
+    let json = {};
+    try { json = JSON.parse(rawText); } catch(_) {}
     if (json.ok) {
-      document.getElementById('push-banner')?.remove();
-      const toast = document.createElement('div');
-      toast.textContent = '✅ Notifiche attivate!';
-      toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a3a6b;color:#fff;padding:10px 20px;border-radius:12px;font-weight:700;z-index:99999;font-size:0.9rem';
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
-    } else {
-      alert('GAS ha risposto: ' + JSON.stringify(json));
+      _log('✅ ISCRIZIONE SALVATA!');
+      try { localStorage.setItem('push_ok_' + id, '1'); } catch(_) {}
+      setTimeout(() => document.getElementById('push-banner')?.remove(), 3000);
     }
   } catch(err) {
-    alert('Errore attivazione: ' + err.message);
+    _log('✗ ERRORE: ' + err.message + '\n' + (err.stack || ''));
+    dbgDiv.style.background = '#700';
   }
-}
-
-async function salvaSub_(sub) {
-  if (!sub || !id) return;
-  const j = sub.toJSON();
-  if (!j.keys) return;
-  try {
-    await fetch(API, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        token: TOKEN, azione: 'salva_push_sub',
-        id_giocatrice: id,
-        endpoint: j.endpoint,
-        p256dh: j.keys.p256dh,
-        auth: j.keys.auth
-      })
-    });
-  } catch(_) {}
 }
 
 async function initPushBanner() {
   const banner = document.getElementById('push-banner');
   if (!banner) return;
-  // Nascondi se non applicabile
-  if (!id) { banner.style.display = 'none'; return; }
+  if (!id || String(id) === '99') { banner.style.display = 'none'; return; }
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) { banner.style.display = 'none'; return; }
-  // Se già iscritto: ri-salva silenziosamente su GAS (in caso la sub non fosse arrivata) e nascondi banner
   try {
-    const reg = await navigator.serviceWorker.ready;
+    const reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) { banner.style.display = 'flex'; return; }
     const sub = await reg.pushManager.getSubscription();
-    if (sub && Notification.permission === 'granted') {
-      banner.style.display = 'none';
-      salvaSub_(sub); // fire-and-forget: aggiorna/crea riga in PushSub
-      return;
+    if (sub && Notification.permission === 'granted' && localStorage.getItem('push_ok_' + id)) {
+      banner.style.display = 'none'; return;
     }
   } catch(_) {}
   banner.style.display = 'flex';
 }
+
 
 // Auto-apri wellness se arrivata da notifica push
 (function checkWellnessParam() {
@@ -1726,12 +1730,6 @@ async function initPushBanner() {
 // ─────────────────────────────────────────────────────────────────────────────
 </script>
 
-<!-- Banner notifiche push (nascosto finché non serve) -->
-<div id="push-banner" style="display:flex;position:fixed;bottom:0;left:0;right:0;background:#1a3a6b;color:#fff;padding:12px 16px;z-index:9998;align-items:center;gap:10px;font-size:0.85rem">
-  <span style="flex:1">🔔 Ricevi il questionario wellness ogni mattina alle 8</span>
-  <button onclick="subscribePush()" style="background:#fff;color:#1a3a6b;border:none;border-radius:8px;padding:7px 14px;font-weight:700;cursor:pointer;font-size:0.82rem;flex-shrink:0">Attiva</button>
-  <button onclick="document.getElementById('push-banner').remove()" style="background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;padding:0 4px;flex-shrink:0">✕</button>
-</div>
 
 <div id="wellness-overlay">
   <div class="wellness-card">
