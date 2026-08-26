@@ -803,10 +803,6 @@ async function caricaScheda() {
       if (nome === 'Push Press') {
         return Object.assign({}, e, { Intensità: isW1 ? 'RPE 7 (8-12 kg)' : 'RPE 8 (10-14 kg)' });
       }
-      // Lat/Pull-up: RPE + fascia kg
-      if (nome === 'Lat/Pull-up') {
-        return Object.assign({}, e, { Intensità: isW1 ? 'RPE 7 (8-12 kg)' : 'RPE 8 (10-14 kg)' });
-      }
       // Drop-landing: 40cm per tutte; Libero → Reactive step & stick
       if (/drop.landing/i.test(nome)) {
         if (g.Ruolo === 'Libero') {
