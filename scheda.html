@@ -1674,7 +1674,7 @@ async function salvaSub_(sub) {
     });
     const res = await fetch(API, {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: {'Content-Type': 'text/plain'},
       body
     });
     const text = await res.text();

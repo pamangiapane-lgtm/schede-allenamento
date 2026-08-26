@@ -1,4 +1,4 @@
-const CACHE = 'schede-v29';
+const CACHE = 'schede-v30';
 const BASE = '/schede-allenamento';
 const STATIC = [
   BASE + '/', BASE + '/index.html', BASE + '/scheda.html',
