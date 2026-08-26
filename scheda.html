@@ -1665,26 +1665,20 @@ async function salvaSub_(sub) {
   const j = sub.toJSON();
   if (!j.keys) return;
   try {
-    const body = JSON.stringify({
-      token: TOKEN, azione: 'salva_push_sub',
-      id_giocatrice: id,
-      endpoint: j.endpoint,
-      p256dh: j.keys.p256dh,
-      auth: j.keys.auth
-    });
-    const res = await fetch(API, {
+    await fetch(API, {
       method: 'POST',
       headers: {'Content-Type': 'text/plain'},
-      body,
-      mode: 'no-cors'
+      mode: 'no-cors',
+      body: JSON.stringify({
+        token: TOKEN, azione: 'salva_push_sub',
+        id_giocatrice: id,
+        endpoint: j.endpoint,
+        p256dh: j.keys.p256dh,
+        auth: j.keys.auth
+      })
     });
-    // no-cors: risposta opaca, non possiamo leggere lo status
-    // Segniamo come ok ottimisticamente
-    alert('DEBUG: richiesta inviata a GAS (no-cors, opaque response)\nid: ' + id + '\nendpoint: ' + j.endpoint.slice(0,60));
     localStorage.setItem('push_ok_' + id, '1');
-  } catch(err) {
-    alert('DEBUG errore fetch GAS: ' + err.message);
-  }
+  } catch(_) {}
 }
 
 async function initPushBanner() {
