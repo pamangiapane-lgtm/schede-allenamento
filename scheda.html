@@ -1684,7 +1684,7 @@ async function salvaSub_(sub) {
 async function initPushBanner() {
   const banner = document.getElementById('push-banner');
   if (!banner) return;
-  if (!id || String(id) === '99') { banner.style.display = 'none'; return; }
+  if (!id) { banner.style.display = 'none'; return; }
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) { banner.style.display = 'none'; return; }
   try {
     const reg = await navigator.serviceWorker.getRegistration();
