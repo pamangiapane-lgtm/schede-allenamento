@@ -777,8 +777,8 @@ async function caricaScheda() {
       return positives.some(p => p === role || (firstName.length > 0 && p === firstName));
     }).filter(e => {
       const met = String(e.Metodo || '').trim();
-      // Rimuove Prevenzione (mobilità individuale) e Attivazione balistica
-      if (met === 'Prevenzione' || met === 'Attivazione balistica') return false;
+      // Rimuove Prevenzione (mobilità individuale), Attivazione balistica e Prehab individuale Nelly
+      if (met === 'Prevenzione' || met === 'Attivazione balistica' || met === 'Prehab A Nelly') return false;
       return true;
     }).map(e => {
       const cod  = String(e.Codice || '').trim();
