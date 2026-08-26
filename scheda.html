@@ -780,6 +780,15 @@ async function caricaScheda() {
       const positives = parts.filter(p => !p.startsWith('!'));
       if (positives.length === 0) return true;
       return positives.some(p => p === role || (firstName.length > 0 && p === firstName));
+    }).filter(e => {
+      // Rimuove il blocco Prevenzione (mobilità individuale) — non fa parte del modello di seduta
+      return String(e.Metodo || '').trim() !== 'Prevenzione';
+    }).map(e => {
+      // BREATH-TEAM: garantisce sempre 2 serie × 10 rep
+      if (String(e.Codice || '').trim() === 'BREATH-TEAM') {
+        return Object.assign({}, e, { Serie: '2', Reps: '10' });
+      }
+      return e;
     });
 
     const divSed = document.getElementById('sedute');
