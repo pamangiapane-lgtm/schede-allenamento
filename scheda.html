@@ -771,9 +771,11 @@ async function caricaScheda() {
       return false;
     }).filter(e => {
       const ruoli = String(e.Ruoli || 'tutti').trim();
-      if (!ruoli || ruoli === 'tutti') return true;
       const firstName = (g.Nome || '').split(/\s+/)[0];
       const role = g.Ruolo || '';
+      // Programma totalmente individualizzato: vede solo i propri esercizi
+      if (role === 'Nelly' || firstName === 'Nelly') return ruoli === 'Nelly';
+      if (!ruoli || ruoli === 'tutti') return true;
       const parts = ruoli.split(',').map(s => s.trim());
       const exclusions = parts.filter(p => p.startsWith('!')).map(p => p.slice(1));
       if (exclusions.some(ex => ex === role || (firstName.length > 0 && ex === firstName))) return false;
