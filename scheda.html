@@ -1544,7 +1544,21 @@ window.addEventListener('beforeunload', e => {
 caricaScheda();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=43').then(() => initPushBanner()).catch(() => {});
+  navigator.serviceWorker.register('./sw.js?v=43').then(reg => {
+    initPushBanner();
+    // Forza aggiornamento: se c'è un nuovo SW in attesa, ricarica la pagina
+    reg.addEventListener('updatefound', () => {
+      const sw = reg.installing;
+      sw && sw.addEventListener('statechange', () => {
+        if (sw.state === 'activated') location.reload();
+      });
+    });
+    // Controlla subito se c'è un aggiornamento disponibile
+    reg.update();
+    // Se un nuovo SW è già in attesa, attivalo
+    if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+    navigator.serviceWorker.addEventListener('controllerchange', () => location.reload());
+  }).catch(() => {});
 }
 
 // ── WELLNESS ──────────────────────────────────────────────────────────────────

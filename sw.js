@@ -1,4 +1,4 @@
-const CACHE = 'schede-v43';
+const CACHE = 'schede-v44';
 const BASE = '/schede-allenamento';
 const STATIC = [
   BASE + '/', BASE + '/index.html', BASE + '/scheda.html',
@@ -63,6 +63,10 @@ self.addEventListener('push', e => {
       data: { url: data.url || '/schede-allenamento/scheda.html' }
     })
   );
+});
+
+self.addEventListener('message', e => {
+  if (e.data && e.data.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('notificationclick', e => {
