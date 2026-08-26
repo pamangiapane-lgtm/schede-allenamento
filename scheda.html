@@ -585,12 +585,6 @@ function htmlEsercizio(e, logId) {
   h += `</tbody></table></div>`;
 
   h += noteBlock(e.Note || '', e.Istruzione || null, logId, e.VideoURL || '');
-  const _isFunz    = ['Funzionale','Circuito Funzionale'].includes(e.Metodo);
-  const _intStr    = String(e['Intensità'] ?? '');
-  const _hasCardio = _intStr && (_intStr.includes('BPM') || _intStr.includes('RPE'));
-  if ((e.Log_Libero === 'SI' || _isFunz) && !parseIntensita(e['Intensità']) && !_hasCardio) {
-    h += logField(logId, e.Esercizio, e.N_Seduta, e['Intensità'], e.Catena, e.Reps);
-  }
   h += `</div>`;
   return h;
 }
@@ -608,7 +602,6 @@ function htmlIndividuale(e, sedSuffix) {
   if (e.Recupero)   h += param(L.rest, e.Recupero);
   h += `</div>`;
   h += noteBlock(e.Note || '', e.Istruzione, logId, e.VideoURL || '');
-  if (e.Log_Libero === 'SI') h += logField(logId, e.Esercizio, 'ind', e.Intensita, e.Catena, e.Reps);
   h += `</div>`;
   return h;
 }
