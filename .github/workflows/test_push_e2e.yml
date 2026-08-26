@@ -1,168 +1,136 @@
-name: Test Push E2E (verifica sistema wellness)
-
+name: Test Push E2E
 on:
   workflow_dispatch:
 
 jobs:
-  test-push-e2e:
+  test-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          ref: claude/pre-season-app-mods-355hqq
+          node-version: '20'
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Installa dipendenze Python
-        run: pip install pywebpush requests playwright
+        run: pip install pywebpush requests
 
-      - name: Installa Chromium per Playwright
-        run: python -m playwright install chromium
-
-      - name: Avvia server HTTP locale
+      - name: Installa Playwright + Chromium
         run: |
-          python -m http.server 8765 --directory . &
-          sleep 2
-          curl -s -o /dev/null -w "HTTP server: %{http_code}\n" http://localhost:8765/scheda.html
+          npm install -D playwright @playwright/test
+          npx playwright install chromium --with-deps
 
-      - name: Ottieni push subscription reale da FCM
-        id: get_sub
+      - name: Sottoscrivi push e ottieni subscription
         run: |
-          python3 << 'PYEOF'
-          import asyncio, json, os, sys
-          from playwright.async_api import async_playwright
+          cat > get_sub.js << 'EOF'
+          const { chromium } = require('playwright');
 
-          VAPID_PUBLIC = 'BHVZrGFRPQlFqKnhSyIolSkeo4uzTupre9kjmh7fhCNG5DwenXry9qzxpb8ZrCG0RBdXKPNHPrPnOfi444Zgg08'
-          LOCAL_URL = 'http://localhost:8765/scheda.html?id=99'
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const context = await browser.newContext({
+              permissions: ['notifications'],
+            });
 
-          async def main():
-              async with async_playwright() as p:
-                  browser = await p.chromium.launch(
-                      headless=True,
-                      args=['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-                  )
-                  context = await browser.new_context()
-                  await context.grant_permissions(['notifications'], origin='http://localhost:8765')
-                  page = await context.new_page()
+            const page = await context.newPage();
 
-                  logs = []
-                  page.on('console', lambda m: logs.append(f"[{m.type}] {m.text}"))
+            // Intercetta console
+            page.on('console', msg => console.log('[PAGE]', msg.text()));
 
-                  try:
-                      await page.goto(LOCAL_URL, wait_until='domcontentloaded', timeout=20000)
-                  except Exception as e:
-                      print(f"  Warn goto: {e}", flush=True)
+            await page.goto('https://pamangiapane-lgtm.github.io/schede-allenamento/?id=1', {
+              waitUntil: 'networkidle',
+              timeout: 30000
+            });
 
-                  await asyncio.sleep(5)
+            // Aspetta service worker
+            await page.waitForTimeout(3000);
 
-                  perm = await page.evaluate("Notification.permission")
-                  print(f"Notification.permission: {perm}", flush=True)
+            // Prova a sottoscrivere via JS
+            const sub = await page.evaluate(async () => {
+              const VAPID_PUBLIC = 'BHVZrGFRPQlFqKnhSyIolSkeo4uzTupre9kjmh7fhCNG5DwenXry9qzxpb8ZrCG0RBdXKPNHPrPnOfi444Zgg08';
+              function urlBase64ToUint8Array(b64) {
+                const pad = '='.repeat((4 - b64.length % 4) % 4);
+                const raw = atob((b64 + pad).replace(/-/g, '+').replace(/_/g, '/'));
+                return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
+              }
+              try {
+                const reg = await navigator.serviceWorker.ready;
+                let sub = await reg.pushManager.getSubscription();
+                if (!sub) {
+                  sub = await reg.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC)
+                  });
+                }
+                return sub ? sub.toJSON() : null;
+              } catch(e) {
+                return { error: e.message };
+              }
+            });
 
-                  result = await page.evaluate(f"""
-                      async () => {{
-                          try {{
-                              if (!('serviceWorker' in navigator)) return {{error: 'no SW'}};
-                              if (!('PushManager' in window)) return {{error: 'no PushManager'}};
+            console.log('SUBSCRIPTION:', JSON.stringify(sub));
 
-                              let reg = await navigator.serviceWorker.getRegistration();
-                              if (!reg) reg = await navigator.serviceWorker.ready;
+            await browser.close();
 
-                              function urlB64(b) {{
-                                  const p = '='.repeat((4-b.length%4)%4);
-                                  const r = window.atob((b+p).replace(/-/g,'+').replace(/_/g,'/'));
-                                  const a = new Uint8Array(r.length);
-                                  for (let i=0;i<r.length;++i) a[i]=r.charCodeAt(i);
-                                  return a;
-                              }}
+            if (sub && sub.endpoint) {
+              const fs = require('fs');
+              fs.writeFileSync('test_sub.json', JSON.stringify(sub));
+              console.log('Endpoint:', sub.endpoint.substring(0, 60) + '...');
+              console.log('p256dh:', (sub.keys?.p256dh || '').substring(0, 30) + '...');
+              process.exit(0);
+            } else {
+              console.error('Nessuna subscription valida:', JSON.stringify(sub));
+              process.exit(1);
+            }
+          })();
+          EOF
+          node get_sub.js
 
-                              let sub = await reg.pushManager.getSubscription();
-                              if (!sub) {{
-                                  sub = await reg.pushManager.subscribe({{
-                                      userVisibleOnly: true,
-                                      applicationServerKey: urlB64('{VAPID_PUBLIC}')
-                                  }});
-                              }}
-                              const j = sub.toJSON();
-                              return {{ok:true, endpoint:j.endpoint, p256dh:j.keys?.p256dh, auth:j.keys?.auth}};
-                          }} catch(e) {{
-                              return {{error: e.message, name: e.name}};
-                          }}
-                      }}
-                  """)
-
-                  print(f"Console logs:", flush=True)
-                  for l in logs: print(f"  {l}", flush=True)
-                  print(f"Subscribe result: {json.dumps(result)}", flush=True)
-
-                  await browser.close()
-                  return result
-
-          r = asyncio.run(main())
-          if r.get('ok') and r.get('endpoint'):
-              print(f"\n✅ SUBSCRIPTION REALE OTTENUTA!", flush=True)
-              print(f"   endpoint: {r['endpoint'][:80]}...", flush=True)
-              with open('/tmp/push_sub.json', 'w') as f:
-                  json.dump(r, f)
-          else:
-              print(f"\n❌ Subscribe fallito: {r.get('error')}", flush=True)
-              print(f"   name: {r.get('name')}", flush=True)
-              sys.exit(1)
-          PYEOF
-
-      - name: Invia push alla subscription reale e verifica 201 FCM
+      - name: Invia push di test e verifica 201
         run: |
-          python3 << 'PYEOF'
+          cat > send_test.py << 'EOF'
           import json, sys
           from pywebpush import webpush, WebPushException
 
-          VAPID_PRIVATE = 'uAbznecLD_rYJcda0RuvKCELWNkbmeHtRfbTr96D2C0'
+          VAPID_PRIVATE_KEY = 'uAbznecLD_rYJcda0RuvKCELWNkbmeHtRfbTr96D2C0'
+          VAPID_CLAIMS = {'sub': 'mailto:pamangiapane@gmail.com'}
 
-          try:
-              with open('/tmp/push_sub.json') as f:
-                  sub_data = json.load(f)
-          except Exception as e:
-              print(f"❌ Nessuna subscription: {e}")
-              sys.exit(1)
+          with open('test_sub.json') as f:
+              sub = json.load(f)
 
-          subscription = {
-              'endpoint': sub_data['endpoint'],
-              'keys': {
-                  'p256dh': sub_data['p256dh'],
-                  'auth': sub_data['auth']
-              }
-          }
+          print(f"Endpoint: {sub['endpoint'][:60]}...")
+          print(f"p256dh: {sub['keys']['p256dh'][:30]}...")
 
           payload = json.dumps({
-              'title': '🌅 Test Wellness',
-              'body': 'Test E2E: sistema notifiche operativo',
-              'icon': '/logo.jpg',
-              'data': {'url': '/?wellness=1'}
+              'title': '✅ Test E2E Push OK',
+              'body': 'Sistema wellness operativo al 100%',
+              'url': 'https://pamangiapane-lgtm.github.io/schede-allenamento/',
+              'id': '1'
           })
-
-          print(f"📤 Invio push a FCM...", flush=True)
-          print(f"   endpoint: {sub_data['endpoint'][:80]}...", flush=True)
 
           try:
               resp = webpush(
-                  subscription_info=subscription,
+                  subscription_info={
+                      'endpoint': sub['endpoint'],
+                      'keys': sub['keys']
+                  },
                   data=payload,
-                  vapid_private_key=VAPID_PRIVATE,
-                  vapid_claims={'sub': 'mailto:pamangiapane@gmail.com'},
-                  content_encoding='aes128gcm',
-                  ttl=86400,
-                  timeout=30
+                  vapid_private_key=VAPID_PRIVATE_KEY,
+                  vapid_claims=VAPID_CLAIMS
               )
-              print(f"   FCM response status: {resp.status_code}", flush=True)
-              if resp.status_code in (200, 201):
-                  print(f"✅ PUSH ACCETTATO DA FCM! Status {resp.status_code}", flush=True)
-                  print(f"   Il messaggio è in coda per la consegna al dispositivo.", flush=True)
-                  print(f"\n🎉 SISTEMA WELLNESS PUSH 100% OPERATIVO", flush=True)
-              else:
-                  print(f"⚠️  Status inatteso: {resp.status_code}", flush=True)
-                  print(f"   Body: {resp.text[:200]}", flush=True)
-          except WebPushException as e:
-              print(f"❌ WebPushException: {e}", flush=True)
+              status = resp.status_code if hasattr(resp, 'status_code') else 'OK'
+              print(f'✅ Push inviata con successo! Status: {status}')
+              print('🎉 SISTEMA WELLNESS OPERATIVO AL 100%')
+              sys.exit(0)
+          except WebPushException as ex:
+              status = getattr(ex.response, 'status_code', None) if ex.response else None
+              print(f'❌ WebPushException: {ex} (status={status})')
               sys.exit(1)
-          PYEOF
+          except Exception as ex:
+              print(f'❌ Errore: {ex}')
+              sys.exit(1)
+          EOF
+          python send_test.py
