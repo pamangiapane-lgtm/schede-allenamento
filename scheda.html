@@ -607,7 +607,7 @@ function htmlIndividuale(e, sedSuffix) {
 }
 
 /* ---------- cache ---------- */
-const CACHE_V   = 'v4';
+const CACHE_V   = 'v5';
 const CACHE_TTL = 10 * 60 * 1000; // 10 minuti — dopo scade e si ri-fetcha
 function leggiCache(f) {
   try {
@@ -661,6 +661,11 @@ async function fetchApi(foglio, tentativo = 0) {
 }
 
 async function fetchSheet(foglio) {
+  // Esercizi e Sedute: sempre rete (mai da localStorage — evita stale data)
+  if (foglio === 'Esercizi' || foglio === 'Sedute') {
+    const j = await fetchApi(foglio);
+    return j;
+  }
   const cached = leggiCache(foglio);
   if (cached) {
     fetchApi(foglio).then(j => { if (j.ok) scriviCache(foglio, j.dati); }).catch(() => {});
@@ -1544,7 +1549,7 @@ window.addEventListener('beforeunload', e => {
 caricaScheda();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=43').then(reg => {
+  navigator.serviceWorker.register('./sw.js?v=45').then(reg => {
     initPushBanner();
     // Forza aggiornamento: se c'è un nuovo SW in attesa, ricarica la pagina
     reg.addEventListener('updatefound', () => {
@@ -1710,7 +1715,7 @@ async function subscribePush() {
     let reg = await navigator.serviceWorker.getRegistration();
     if (!reg) {
       _log('nessuna reg, registro sw.js…');
-      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=43');
+      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=45');
       await new Promise(r => setTimeout(r, 2000));
       reg = await navigator.serviceWorker.getRegistration();
     }
