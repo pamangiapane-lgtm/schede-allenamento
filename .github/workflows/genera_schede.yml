@@ -11,6 +11,9 @@ on:
       - '_strumenti/genera_schede.py'
       - '_strumenti/carica_da_github.py'
 
+permissions:
+  contents: write
+
 jobs:
   genera:
     runs-on: ubuntu-latest
