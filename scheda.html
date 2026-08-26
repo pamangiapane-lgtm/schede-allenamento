@@ -1661,7 +1661,7 @@ async function subscribePush() {
   }
 }
 async function salvaSub_(sub) {
-  if (!sub || !id || String(id) === '99') return;
+  if (!sub || !id) return;
   const j = sub.toJSON();
   if (!j.keys) return;
   try {
