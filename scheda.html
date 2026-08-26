@@ -781,16 +781,43 @@ async function caricaScheda() {
       if (positives.length === 0) return true;
       return positives.some(p => p === role || (firstName.length > 0 && p === firstName));
     }).filter(e => {
-      // Rimuove il blocco Prevenzione (mobilità individuale) — non fa parte del modello di seduta
-      return String(e.Metodo || '').trim() !== 'Prevenzione';
+      const met = String(e.Metodo || '').trim();
+      // Rimuove Prevenzione (mobilità individuale) e Attivazione balistica
+      if (met === 'Prevenzione' || met === 'Attivazione balistica') return false;
+      return true;
     }).map(e => {
+      const cod  = String(e.Codice || '').trim();
+      const nome = String(e.Esercizio || '').trim();
+      const sed  = String(e.N_Seduta || '');
+      const isW1 = sed.startsWith('W1');
+
       // BREATH-TEAM: garantisce sempre 2 serie × 10 rep
-      if (String(e.Codice || '').trim() === 'BREATH-TEAM') {
+      if (cod === 'BREATH-TEAM') {
         return Object.assign({}, e, { Serie: '2', Reps: '10' });
       }
       // MOB-GEN / MOB-COR: rinomina in "Mobilità libera"
-      if (['MOB-GEN', 'MOB-COR'].includes(String(e.Codice || '').trim())) {
+      if (cod === 'MOB-GEN' || cod === 'MOB-COR') {
         return Object.assign({}, e, { Esercizio: 'Mobilità libera', Esercizio_EN: 'Free mobility' });
+      }
+      // Push Press: aggiunge intensità progressiva W1/W2
+      if (nome === 'Push Press') {
+        return Object.assign({}, e, { Intensità: isW1 ? '58%' : '62%' });
+      }
+      // Lat/Pull-up: aggiunge intensità progressiva W1/W2
+      if (nome === 'Lat/Pull-up') {
+        return Object.assign({}, e, { Intensità: isW1 ? '65%' : '70%' });
+      }
+      // Drop-landing: porta sempre a 40cm, 3×4
+      if (/drop.landing/i.test(nome)) {
+        return Object.assign({}, e, { Esercizio: 'Drop-landing da 40cm', Esercizio_EN: 'Drop-landing from 40cm', Serie: '3', Reps: '4' });
+      }
+      // Deadbug → superserie core, 3×8+8
+      if (nome === 'Deadbug') {
+        return Object.assign({}, e, { Metodo: 'Superserie core', Serie: '3', Reps: '8+8' });
+      }
+      // Pallof in ginocchio → superserie core, 3×10+10
+      if (nome === 'Pallof in ginocchio') {
+        return Object.assign({}, e, { Metodo: 'Superserie core', Serie: '3', Reps: '10+10' });
       }
       return e;
     });
