@@ -129,6 +129,7 @@
     outline: none;
     border-color: var(--primary, #1a3a6b);
   }
+  #push-banner { display: none !important; }
   </style>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1a3a6b">
@@ -1586,7 +1587,7 @@ window.addEventListener('beforeunload', e => {
 caricaScheda();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=45').then(reg => {
+  navigator.serviceWorker.register('./sw.js?v=46').then(reg => {
     initPushBanner();
     // Forza aggiornamento: se c'è un nuovo SW in attesa, ricarica la pagina
     reg.addEventListener('updatefound', () => {
@@ -1752,7 +1753,7 @@ async function subscribePush() {
     let reg = await navigator.serviceWorker.getRegistration();
     if (!reg) {
       _log('nessuna reg, registro sw.js…');
-      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=45');
+      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=46');
       await new Promise(r => setTimeout(r, 2000));
       reg = await navigator.serviceWorker.getRegistration();
     }
