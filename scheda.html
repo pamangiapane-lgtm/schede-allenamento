@@ -807,9 +807,16 @@ async function caricaScheda() {
       if (nome === 'Lat/Pull-up') {
         return Object.assign({}, e, { Intensità: isW1 ? 'RPE 7 (8-12 kg)' : 'RPE 8 (10-14 kg)' });
       }
-      // Drop-landing: porta sempre a 40cm, 3×4
+      // Drop-landing: 40cm per tutte; Libero → Reactive step & stick
       if (/drop.landing/i.test(nome)) {
+        if (g.Ruolo === 'Libero') {
+          return Object.assign({}, e, { Esercizio: 'Reactive step & stick', Esercizio_EN: 'Reactive step & stick', Serie: '3', Reps: '4/lato' });
+        }
         return Object.assign({}, e, { Esercizio: 'Drop-landing da 40cm', Esercizio_EN: 'Drop-landing from 40cm', Serie: '3', Reps: '4' });
+      }
+      // Clean: porta a 4 serie × 2 rep
+      if (nome === 'Clean') {
+        return Object.assign({}, e, { Serie: '4', Reps: '2' });
       }
       // Deadbug → superserie core, 3×8+8
       if (nome === 'Deadbug') {
