@@ -1,6 +1,7 @@
 name: Genera Schede Atleta
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - claude/pre-season-app-mods-355hqq
