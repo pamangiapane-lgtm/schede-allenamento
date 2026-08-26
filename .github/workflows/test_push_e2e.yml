@@ -1,15 +1,16 @@
-name: Test Push E2E (verifica sistema wellness)
-
+name: Test Push E2E
 on:
   workflow_dispatch:
 
 jobs:
-  test-push-e2e:
+  test-push:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          ref: claude/pre-season-app-mods-355hqq
+          node-version: '20'
 
       - uses: actions/setup-python@v5
         with:
@@ -18,100 +19,118 @@ jobs:
       - name: Installa dipendenze Python
         run: pip install pywebpush requests
 
-      - name: Test pipeline pywebpush → FCM con endpoint reale da GAS
+      - name: Installa Playwright + Chromium
         run: |
-          python3 << 'PYEOF'
-          import json, os, sys, base64
-          import requests
-          from cryptography.hazmat.primitives.asymmetric import ec
-          from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+          npm install -D playwright @playwright/test
+          npx playwright install chromium --with-deps
+
+      - name: Sottoscrivi push e ottieni subscription
+        run: |
+          cat > get_sub.js << 'EOF'
+          const { chromium } = require('playwright');
+
+          (async () => {
+            const browser = await chromium.launch({ headless: true });
+            const context = await browser.newContext({
+              permissions: ['notifications'],
+            });
+
+            const page = await context.newPage();
+
+            // Intercetta console
+            page.on('console', msg => console.log('[PAGE]', msg.text()));
+
+            await page.goto('https://pamangiapane-lgtm.github.io/schede-allenamento/?id=1', {
+              waitUntil: 'networkidle',
+              timeout: 30000
+            });
+
+            // Aspetta service worker
+            await page.waitForTimeout(3000);
+
+            // Prova a sottoscrivere via JS
+            const sub = await page.evaluate(async () => {
+              const VAPID_PUBLIC = 'BHVZrGFRPQlFqKnhSyIolSkeo4uzTupre9kjmh7fhCNG5DwenXry9qzxpb8ZrCG0RBdXKPNHPrPnOfi444Zgg08';
+              function urlBase64ToUint8Array(b64) {
+                const pad = '='.repeat((4 - b64.length % 4) % 4);
+                const raw = atob((b64 + pad).replace(/-/g, '+').replace(/_/g, '/'));
+                return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
+              }
+              try {
+                const reg = await navigator.serviceWorker.ready;
+                let sub = await reg.pushManager.getSubscription();
+                if (!sub) {
+                  sub = await reg.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC)
+                  });
+                }
+                return sub ? sub.toJSON() : null;
+              } catch(e) {
+                return { error: e.message };
+              }
+            });
+
+            console.log('SUBSCRIPTION:', JSON.stringify(sub));
+
+            await browser.close();
+
+            if (sub && sub.endpoint) {
+              const fs = require('fs');
+              fs.writeFileSync('test_sub.json', JSON.stringify(sub));
+              console.log('Endpoint:', sub.endpoint.substring(0, 60) + '...');
+              console.log('p256dh:', (sub.keys?.p256dh || '').substring(0, 30) + '...');
+              process.exit(0);
+            } else {
+              console.error('Nessuna subscription valida:', JSON.stringify(sub));
+              process.exit(1);
+            }
+          })();
+          EOF
+          node get_sub.js
+
+      - name: Invia push di test e verifica 201
+        run: |
+          cat > send_test.py << 'EOF'
+          import json, sys
           from pywebpush import webpush, WebPushException
 
-          TOKEN = os.environ.get('APP_TOKEN') or 'mv26-prd-3xF7wNqK'
-          GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec'
-          VAPID_PRIVATE = 'uAbznecLD_rYJcda0RuvKCELWNkbmeHtRfbTr96D2C0'
+          VAPID_PRIVATE_KEY = 'uAbznecLD_rYJcda0RuvKCELWNkbmeHtRfbTr96D2C0'
+          VAPID_CLAIMS = {'sub': 'mailto:pamangiapane@gmail.com'}
 
-          # 1. Leggi subscriptions da GAS
-          print('📋 Lettura subscriptions da GAS...', flush=True)
-          r = requests.get(GAS_URL, params={'token': TOKEN, 'azione': 'leggi', 'foglio': 'PushSub'},
-                          headers={'User-Agent': 'Mozilla/5.0'}, timeout=30, allow_redirects=True)
-          print(f'   GAS status: {r.status_code}', flush=True)
-          data = r.json()
-          subs = data.get('dati', [])
-          print(f'   Subscriptions trovate: {len(subs)}', flush=True)
+          with open('test_sub.json') as f:
+              sub = json.load(f)
 
-          if not subs:
-              print('❌ Nessuna subscription in PushSub. Impossibile testare.', flush=True)
-              sys.exit(1)
+          print(f"Endpoint: {sub['endpoint'][:60]}...")
+          print(f"p256dh: {sub['keys']['p256dh'][:30]}...")
 
-          # Prendi la prima con endpoint HTTPS reale
-          target = None
-          for s in subs:
-              ep = s.get('Endpoint') or s.get('endpoint', '')
-              if ep and ep.startswith('https://'):
-                  target = s
-                  break
-
-          if not target:
-              print('❌ Nessun endpoint HTTPS trovato.', flush=True)
-              sys.exit(1)
-
-          endpoint = target.get('Endpoint') or target.get('endpoint')
-          athlete_id = target.get('ID_Giocatrice') or target.get('id_giocatrice', 'N/A')
-          print(f'   Endpoint selezionato: ID={athlete_id}', flush=True)
-          print(f'   Endpoint URL: {endpoint[:80]}...', flush=True)
-
-          # 2. Genera chiavi EC valide
-          priv = ec.generate_private_key(ec.SECP256R1())
-          pub_bytes = priv.public_key().public_bytes(Encoding.X962, PublicFormat.UncompressedPoint)
-          p256dh = base64.urlsafe_b64encode(pub_bytes).rstrip(b'=').decode()
-          auth = base64.urlsafe_b64encode(os.urandom(16)).rstrip(b'=').decode()
-          print(f'   Chiavi EC generate: p256dh={p256dh[:30]}...', flush=True)
-
-          # 3. Invia push
           payload = json.dumps({
-              'title': '🏐 Test Wellness Pipeline',
-              'body': 'Test E2E: pywebpush → FCM funzionante',
-              'url': '/?wellness=test'
+              'title': '✅ Test E2E Push OK',
+              'body': 'Sistema wellness operativo al 100%',
+              'url': 'https://pamangiapane-lgtm.github.io/schede-allenamento/',
+              'id': '1'
           })
 
-          print(f'\n📤 Invio push a FCM...', flush=True)
           try:
               resp = webpush(
-                  subscription_info={'endpoint': endpoint, 'keys': {'p256dh': p256dh, 'auth': auth}},
+                  subscription_info={
+                      'endpoint': sub['endpoint'],
+                      'keys': sub['keys']
+                  },
                   data=payload,
-                  vapid_private_key=VAPID_PRIVATE,
-                  vapid_claims={'sub': 'mailto:pamangiapane@gmail.com'},
-                  content_encoding='aes128gcm',
-                  ttl=86400,
-                  timeout=30
+                  vapid_private_key=VAPID_PRIVATE_KEY,
+                  vapid_claims=VAPID_CLAIMS
               )
-              print(f'   FCM response status: {resp.status_code}', flush=True)
-              if resp.status_code == 201:
-                  print('\n✅ FCM ACCETTATO (201)! Sistema wellness 100% operativo.', flush=True)
-              elif resp.status_code == 410:
-                  print('\n✅ FCM risposto 410 (subscription fake/scaduta): pywebpush → FCM FUNZIONA.', flush=True)
-              else:
-                  print(f'⚠️  Status: {resp.status_code}', flush=True)
+              status = resp.status_code if hasattr(resp, 'status_code') else 'OK'
+              print(f'✅ Push inviata con successo! Status: {status}')
+              print('🎉 SISTEMA WELLNESS OPERATIVO AL 100%')
+              sys.exit(0)
           except WebPushException as ex:
-              msg = str(ex)
-              # pywebpush a volte non popola ex.response, verifica il messaggio
               status = getattr(ex.response, 'status_code', None) if ex.response else None
-              resp_text = getattr(ex.response, 'text', '') if ex.response else ''
-              print(f'   WebPushException: {msg[:200]}', flush=True)
-              print(f'   status via .response: {status}', flush=True)
-              # 410 nel messaggio = FCM raggiunto, subscription non esiste (OK per test)
-              if '410' in msg or status == 410:
-                  print('\n✅ FCM risposto 410 (subscription scaduta/fake).', flush=True)
-                  print('   pywebpush → FCM: CONNESSIONE VERIFICATA.', flush=True)
-                  print('   Con subscription reale la notifica verrebbe consegnata.', flush=True)
-                  print('\n🎉 SISTEMA WELLNESS PUSH 100% OPERATIVO', flush=True)
-              elif '201' in msg or status == 201:
-                  print('\n✅ FCM ACCETTATO (201)! Sistema operativo.', flush=True)
-              else:
-                  print(f'\n❌ Errore inaspettato: {msg}', flush=True)
-                  print(f'   Response: {resp_text[:200]}', flush=True)
-                  sys.exit(1)
-          PYEOF
-        env:
-          APP_TOKEN: ${{ secrets.APP_TOKEN }}
+              print(f'❌ WebPushException: {ex} (status={status})')
+              sys.exit(1)
+          except Exception as ex:
+              print(f'❌ Errore: {ex}')
+              sys.exit(1)
+          EOF
+          python send_test.py
