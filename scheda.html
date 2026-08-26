@@ -884,7 +884,7 @@ async function caricaScheda() {
         metodiOrd.forEach(key => {
           const m = metodiMap[key];
           html += `<div class="metodo-block">`;
-          if (m.nome === 'Prehab individuale' && g.Link_Prehab) {
+          if (m.nome === 'Prehab individuale' && g.Link_Prehab && g.Ruolo !== 'Nelly') {
             html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
             let obiettivoHtml = '';
             const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
@@ -912,7 +912,7 @@ async function caricaScheda() {
             html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
             if (m.desc) html += `<div class="metodo-desc">${traduciDescMetodo(m.desc)}</div>`;
             m.esercizi.forEach(e => {
-              if (e.Esercizio === 'Prehab individuale' && g.Link_Prehab) {
+              if (e.Esercizio === 'Prehab individuale' && g.Link_Prehab && g.Ruolo !== 'Nelly') {
                 let _obHtml = '';
                 const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
                 if (_obvSrc) { try { const _o = JSON.parse(_obvSrc); const _t = _o[g.Fase_Prehab||'F1']||''; if (_t) _obHtml = `<div class="prehab-obiettivo">${_t}</div>`; } catch(_){} }
@@ -929,7 +929,7 @@ async function caricaScheda() {
         // Fallback: se Prehab individuale non ha righe in Esercizi per questa seduta,
         // mostralo comunque in fondo (evita che versioni mancanti dei dati lo nascondano)
         if (!metodiOrd.includes('Prehab individuale') && !esercSed.some(e => e.Esercizio === 'Prehab individuale')) {
-          if (g.Link_Prehab) {
+          if (g.Link_Prehab && g.Ruolo !== 'Nelly') {
             let obiettivoHtml = '';
             const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
             if (_obvSrc) {
