@@ -1675,13 +1675,13 @@ async function salvaSub_(sub) {
     const res = await fetch(API, {
       method: 'POST',
       headers: {'Content-Type': 'text/plain'},
-      body
+      body,
+      mode: 'no-cors'
     });
-    const text = await res.text();
-    let json = {};
-    try { json = JSON.parse(text); } catch(_) {}
-    alert('DEBUG GAS salva_push_sub\nstatus: ' + res.status + '\nrisposta: ' + text.slice(0,200) + '\nid: ' + id + '\nendpoint: ' + j.endpoint.slice(0,60));
-    if (json.ok) localStorage.setItem('push_ok_' + id, '1');
+    // no-cors: risposta opaca, non possiamo leggere lo status
+    // Segniamo come ok ottimisticamente
+    alert('DEBUG: richiesta inviata a GAS (no-cors, opaque response)\nid: ' + id + '\nendpoint: ' + j.endpoint.slice(0,60));
+    localStorage.setItem('push_ok_' + id, '1');
   } catch(err) {
     alert('DEBUG errore fetch GAS: ' + err.message);
   }
