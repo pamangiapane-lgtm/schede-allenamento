@@ -58,7 +58,7 @@
     color: var(--text-light, #888);
     margin: 0 0 20px;
   }
-  .wellness-q { margin-bottom: 18px; }
+  .wellness-q { margin-bottom: 20px; }
   .wellness-q-label {
     font-size: 0.88rem;
     font-weight: 600;
@@ -67,20 +67,23 @@
   }
   .wellness-stars {
     display: flex;
-    gap: 4px;
+    gap: 3px;
     flex-wrap: nowrap;
+    justify-content: space-between;
   }
   .wellness-stars button {
-    width: 30px; height: 30px;
-    border-radius: 50%;
-    border: 2px solid var(--border, #dde1e9);
+    flex: 1 1 0;
+    min-width: 0;
+    height: 36px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border, #dde1e9);
     background: var(--surface, #f5f7fa);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--text-light, #888);
     cursor: pointer;
     transition: all 0.15s;
-    flex-shrink: 0;
+    padding: 0;
   }
   .wellness-stars button.sel {
     background: var(--primary, #1a3a6b);
@@ -103,10 +106,10 @@
   .wellness-guide {
     display: flex;
     justify-content: space-between;
-    margin-top: 4px;
-    font-size: 0.7rem;
+    margin-top: 5px;
+    font-size: 0.68rem;
     color: var(--text-light, #aaa);
-    padding: 0 2px;
+    padding: 0 1px;
   }
   .wellness-note-label {
     font-size: 0.82rem;
@@ -1667,8 +1670,8 @@ function mostraWellness(accId) {
   labels[3].textContent = wl.q4;
   const guides = overlay.querySelectorAll('.wellness-guide');
   [[wl.g1],[wl.g2],[wl.g3],[wl.g4]].forEach(([g], i) => {
-    guides[i].children[0].textContent = `1 = ${g[0]}`;
-    guides[i].children[1].textContent = `5 = ${g[1]}`;
+    guides[i].children[0].textContent = `0 = ${g[0]}`;
+    guides[i].children[1].textContent = `10 = ${g[1]}`;
   });
   overlay.querySelector('.wellness-note-label').textContent    = wl.noteLabel;
   overlay.querySelector('.wellness-note textarea').placeholder = wl.notePlaceholder;
