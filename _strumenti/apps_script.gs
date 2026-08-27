@@ -39,6 +39,21 @@ function doGet(e) {
       return risposta({ok: true});
     }
 
+    if (azione === 'rimuovi_push_sub') {
+      const ss = SpreadsheetApp.getActiveSpreadsheet();
+      const sh = ss.getSheetByName('PushSub');
+      if (!sh) return risposta({ok: true, rimossa: false});
+      const idG = e.parameter.id_giocatrice;
+      const dati = sh.getDataRange().getValues();
+      for (let i = dati.length - 1; i >= 1; i--) {
+        if (String(dati[i][0]) === String(idG)) {
+          sh.deleteRow(i + 1);
+          return risposta({ok: true, rimossa: true});
+        }
+      }
+      return risposta({ok: true, rimossa: false});
+    }
+
     return risposta({errore: 'azione non riconosciuta'});
   } catch(err) {
     return risposta({errore: err.message});
@@ -134,7 +149,14 @@ function doPost(e) {
     }
 
     if (azione === 'log_wellness') {
-      const riga = [
+      const ss = SpreadsheetApp.getActiveSpreadsheet();
+      let sh = ss.getSheetByName('Wellness');
+      const intestazioni = ['Timestamp','ID_Giocatrice','Data','Qualita_Sonno','Fatica','Disponibilita','Dolori','Note'];
+      if (!sh) {
+        sh = ss.insertSheet('Wellness');
+        sh.appendRow(intestazioni);
+      }
+      const nuovaRiga = [
         new Date().toISOString(),
         body.id_giocatrice,
         body.data,
@@ -144,10 +166,16 @@ function doPost(e) {
         body.dolori,
         body.note || ''
       ];
-      scriviRigaFoglio('Wellness',
-        ['Timestamp','ID_Giocatrice','Data','Qualita_Sonno','Fatica','Disponibilita','Dolori','Note'],
-        riga);
-      return risposta({ok: true});
+      // Deduplicazione: aggiorna se esiste già un record per stesso ID e stessa data
+      const dati = sh.getDataRange().getValues();
+      for (let i = 1; i < dati.length; i++) {
+        if (String(dati[i][1]) === String(body.id_giocatrice) && String(dati[i][2]) === String(body.data)) {
+          sh.getRange(i + 1, 1, 1, nuovaRiga.length).setValues([nuovaRiga]);
+          return risposta({ok: true, aggiornato: true});
+        }
+      }
+      sh.appendRow(nuovaRiga);
+      return risposta({ok: true, aggiornato: false});
     }
 
     if (azione === 'salva_push_sub') {

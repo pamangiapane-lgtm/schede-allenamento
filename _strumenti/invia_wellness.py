@@ -98,7 +98,9 @@ for sub in subs:
         # 410 Gone = subscription scaduta, rimuovere dal db
         status = getattr(ex.response, 'status_code', None) if ex.response else None
         if status == 410:
-            print(f'   ⚠️  ID {athlete_id}: subscription scaduta (410) — la ragazza deve riattivare nell\'app')
+            print(f'   ⚠️  ID {athlete_id}: subscription scaduta (410) — rimuovo dal foglio...')
+            gas_get({'token': TOKEN, 'azione': 'rimuovi_push_sub', 'id_giocatrice': athlete_id})
+            print(f'   ↳ rimossa. La ragazza deve riattivare nell\'app.')
         else:
             print(f'   ❌ ID {athlete_id}: {ex}')
         ko += 1
