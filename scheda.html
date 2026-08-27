@@ -129,7 +129,6 @@
     outline: none;
     border-color: var(--primary, #1a3a6b);
   }
-  #push-banner { display: none !important; }
   </style>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1a3a6b">
@@ -1793,7 +1792,18 @@ async function subscribePush() {
 
 async function initPushBanner() {
   const banner = document.getElementById('push-banner');
-  if (banner) banner.style.display = 'none';
+  if (!banner) return;
+  if (!id || String(id) === '99') { banner.style.display = 'none'; return; }
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) { banner.style.display = 'none'; return; }
+  try {
+    const reg = await navigator.serviceWorker.getRegistration();
+    if (!reg) { banner.style.display = 'flex'; return; }
+    const sub = await reg.pushManager.getSubscription();
+    if (sub && Notification.permission === 'granted' && localStorage.getItem('push_ok_' + id)) {
+      banner.style.display = 'none'; return;
+    }
+  } catch(_) {}
+  banner.style.display = 'flex';
 }
 
 
