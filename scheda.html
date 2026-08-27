@@ -1770,11 +1770,12 @@ async function subscribePush() {
     _log('keys ok: ' + (!!j.keys));
     if (!j.keys) return;
     _log('⏳ fetch → API_PUSH (salva_push_sub)…');
-    const res = await fetch(API_PUSH, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ token: TOKEN, azione: 'salva_push_sub', id_giocatrice: id, endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth })
+    // GAS non risponde a CORS preflight — usiamo GET con parametri
+    const params = new URLSearchParams({
+      token: TOKEN, azione: 'salva_push_sub', id_giocatrice: id,
+      endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth
     });
+    const res = await fetch(API_PUSH + '?' + params.toString());
     const rawText = await res.text().catch(() => '');
     _log('HTTP ' + res.status + '\n' + (rawText || '(vuoto)'));
     let json = {};
