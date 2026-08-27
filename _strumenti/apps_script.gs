@@ -17,6 +17,28 @@ function doGet(e) {
       return risposta({ok: true, dati: dati});
     }
 
+    if (azione === 'salva_push_sub') {
+      const ss = SpreadsheetApp.getActiveSpreadsheet();
+      let foglio = ss.getSheetByName('PushSub');
+      if (!foglio) {
+        foglio = ss.insertSheet('PushSub');
+        foglio.appendRow(['ID_Giocatrice','Endpoint','P256dh','Auth','Aggiornato']);
+      }
+      const dati = foglio.getDataRange().getValues();
+      const idG = e.parameter.id_giocatrice;
+      const endpoint = e.parameter.endpoint;
+      const p256dh = e.parameter.p256dh;
+      const auth = e.parameter.auth;
+      for (let i = 1; i < dati.length; i++) {
+        if (String(dati[i][0]) === String(idG)) {
+          foglio.getRange(i + 1, 2, 1, 4).setValues([[endpoint, p256dh, auth, new Date().toISOString()]]);
+          return risposta({ok: true});
+        }
+      }
+      foglio.appendRow([idG, endpoint, p256dh, auth, new Date().toISOString()]);
+      return risposta({ok: true});
+    }
+
     return risposta({errore: 'azione non riconosciuta'});
   } catch(err) {
     return risposta({errore: err.message});
