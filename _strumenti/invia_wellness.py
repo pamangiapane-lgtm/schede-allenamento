@@ -22,7 +22,7 @@ from pywebpush import webpush, WebPushException
 
 # ── Configurazione ──────────────────────────────────────────────────────────
 
-VAPID_PRIVATE_KEY = 'uAbznecLD_rYJcda0RuvKCELWNkbmeHtRfbTr96D2C0'
+VAPID_PRIVATE_KEY = 'zATHxKAdGDA0u7vWp_0H5dGwXKSNCvn4fJ8NxcRx6Ro'
 VAPID_CLAIMS      = {'sub': 'mailto:pamangiapane@gmail.com'}
 
 GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec'
