@@ -1812,7 +1812,7 @@ async function initPushBanner() {
 // Auto-apri wellness se arrivata da notifica push
 (function checkWellnessParam() {
   const params = new URLSearchParams(window.location.search);
-  if (params.get('wellness') === '1' && id && String(id) !== '99') {
+  if (params.get('wellness') === '1' && id) {
     // Attendi che la pagina carichi, poi apri il modal
     const timer = setInterval(() => {
       if (document.getElementById('contenuto')?.style.display !== 'none') {
