@@ -1,0 +1,25 @@
+name: Invia Notifica Wellness
+
+on:
+  schedule:
+    - cron: '45 6 * * *'   # 08:45 CEST (UTC+2) — cambia in '45 7 * * *' in inverno (CET)
+  workflow_dispatch:         # avvio manuale da GitHub Actions
+
+jobs:
+  invia:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Installa dipendenze
+        run: pip install pywebpush requests
+
+      - name: Invia notifiche wellness
+        env:
+          APP_TOKEN: ${{ secrets.APP_TOKEN }}
+        run: python _strumenti/invia_wellness.py
