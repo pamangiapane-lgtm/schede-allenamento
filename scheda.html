@@ -1820,7 +1820,8 @@ async function initPushBanner() {
     const timer = setInterval(() => {
       if (document.getElementById('contenuto')?.style.display !== 'none') {
         clearInterval(timer);
-        if (!localStorage.getItem(wellnessKey())) mostraWellness(null);
+        const forceW = new URLSearchParams(location.search).get('force') === '1';
+        if (forceW || !localStorage.getItem(wellnessKey())) mostraWellness(null);
       }
     }, 200);
   }
