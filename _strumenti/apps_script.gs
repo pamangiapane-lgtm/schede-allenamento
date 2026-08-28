@@ -159,12 +159,12 @@ function doPost(e) {
       const nuovaRiga = [
         new Date().toISOString(),
         body.id_giocatrice,
-        body.data,
-        body.qualita_sonno,
-        body.fatica,
-        body.disponibilita,
-        body.dolori,
-        body.note || ''
+        body.data ?? '',
+        body.qualita_sonno ?? '',
+        body.fatica ?? '',
+        body.disponibilita ?? '',
+        body.dolori ?? '',
+        body.note ?? ''
       ];
       // Deduplicazione: aggiorna se esiste già un record per stesso ID e stessa data
       const dati = sh.getDataRange().getValues();
