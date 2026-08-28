@@ -1654,7 +1654,8 @@ function apriSedutaConNote(accId) {
 }
 
 function mostraWellness(accId) {
-  if (localStorage.getItem(wellnessKey())) {
+  const force = new URLSearchParams(location.search).get('force') === '1';
+  if (!force && localStorage.getItem(wellnessKey())) {
     if (accId) apriSedutaConNote(accId);
     return;
   }
