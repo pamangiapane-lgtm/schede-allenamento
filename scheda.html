@@ -193,7 +193,6 @@ const IS_DEV = window.location.pathname.includes('/dev/') || window.location.hos
 const API   = IS_DEV
   ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
   : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
-const API_PUSH = API; // stessa URL, ha salva_push_sub
 const TOKEN = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
 if (IS_DEV) {
   document.title = '[DEV] ' + document.title;
@@ -430,29 +429,6 @@ function toggleNote(noteId) {
   }
 }
 
-function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
-  const ultima       = ultimiLog[esercizio];
-  const intensitaPct = parseIntensita(intensita);
-  const reps         = parseReps(repsStr);
-
-  const ultimaKg   = ultima?.kg != null ? `${ultima.kg} kg` : null;
-  const ultimaHtml = ultima
-    ? `<div class="ultima-seduta">${L.last}<em>${ultimaKg ?? ultima.valore}</em></div>`
-    : '';
-
-  return `
-    <div class="log-compact">
-      ${ultimaHtml}
-      <div class="log-compact-row">
-        <input type="number" id="${logId}" class="log-kg-input" placeholder="kg"
-               min="1" step="0.5" oninput="calcolaLive('${logId}')"
-               data-esercizio="${esercizio}" data-seduta="${nSeduta}"
-               data-intensita="${intensitaPct || ''}" data-catena="${catena || ''}"
-               data-reps="${reps || ''}" data-rm="" data-carico="">
-        <span class="log-calc-result" id="rm-${logId}">—</span>
-      </div>
-    </div>`;
-}
 
 /* ---------- media helpers ---------- */
 function ytId(url) {
@@ -1006,7 +982,7 @@ async function caricaScheda() {
           }
         }
 
-        html += htmlFeedbackSeduta(sed.Numero_Seduta, feedbackLog[sed.Numero_Seduta] || {});
+        html += htmlFeedbackSeduta(sed.Numero_Seduta);
         html += htmlFineSeduta(sed.Numero_Seduta);
         html += `</div></div>`;
         wrapper.innerHTML += html;
@@ -1095,95 +1071,6 @@ function toggleSeduta(accId) {
   }
 }
 
-function calcolaLive(logId) {
-  const input = document.getElementById(logId);
-  if (!input) return;
-  const kg   = parseFloat(input.value);
-  const reps = parseInt(input.dataset.reps) || 0;
-  const rmEl = document.getElementById('rm-' + logId);
-
-  if (!(kg > 0 && reps > 0)) {
-    if (rmEl) rmEl.innerHTML = '—';
-    input.dataset.rm = ''; input.dataset.carico = '';
-    return;
-  }
-
-  const catena       = input.dataset.catena;
-  const intensitaPct = parseFloat(input.dataset.intensita) || 0;
-  const bw           = parseFloat(document.getElementById('peso-input')?.value) || 0;
-
-  const rm = catena === 'lower' && bw > 0
-    ? Math.round((kg + bw) * (1 + reps / 30))
-    : Math.round(kg * (1 + reps / 30));
-
-  input.dataset.rm = rm;
-
-  let html = `RM <em>~${rm} kg</em>`;
-  if (intensitaPct > 0) {
-    const carico = catena === 'lower' && bw > 0
-      ? Math.round((rm * intensitaPct - bw) * 2) / 2
-      : Math.round(rm * intensitaPct * 2) / 2;
-    if (carico > 0) {
-      input.dataset.carico = carico;
-      html += ` · <em>${carico} kg</em>`;
-    }
-  }
-  if (rmEl) rmEl.innerHTML = html;
-}
-
-async function salvaLog(inputId, btn) {
-  const input = document.getElementById(inputId);
-  const kg    = parseFloat(input.value);
-  const rm    = parseInt(input.dataset.rm) || null;
-
-  if (!kg || !rm) {
-    input.style.outline = '2px solid #c33';
-    setTimeout(() => input.style.outline = '', 1500);
-    return;
-  }
-
-  const carico    = parseFloat(input.dataset.carico) || null;
-  const reps      = parseInt(input.dataset.reps) || null;
-  const esercizio = input.dataset.esercizio;
-  const nSeduta   = input.dataset.seduta;
-  const valore    = carico != null ? `${carico} kg` : `RM ${rm} kg`;
-
-  btn.textContent = '...';
-  btn.disabled    = true;
-
-  try {
-    await postApi({
-      token: TOKEN, azione: 'log_progressi',
-      id_giocatrice: id, n_seduta: nSeduta, esercizio: esercizio,
-      data: new Date().toLocaleDateString('it-IT'),
-      valore, note: '',
-      kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
-    });
-
-    ultimiLog[esercizio] = { valore, rm, kg };
-    const row      = input.closest('.log-compact');
-    const ultimaEl = row?.querySelector('.ultima-seduta');
-    const dispKg   = `${kg} kg`;
-    if (ultimaEl) {
-      ultimaEl.innerHTML = `${L.last}<em>${dispKg}</em>`;
-    } else if (row) {
-      const div = document.createElement('div');
-      div.className = 'ultima-seduta';
-      div.innerHTML = `${L.last}<em>${dispKg}</em>`;
-      row.prepend(div);
-    }
-
-    btn.textContent = '✓';
-    btn.style.background = 'var(--verde)';
-    const okEl = document.getElementById('ok-' + inputId);
-    if (okEl) okEl.style.display = 'block';
-    _datiModificati = false;
-  } catch {
-    btn.textContent = L.errorBtn;
-  } finally {
-    setTimeout(() => { btn.textContent = L.saveBtn; btn.style.background = ''; btn.disabled = false; }, 2000);
-  }
-}
 
 /* ---------- Fine Seduta ---------- */
 function htmlFineSeduta(nSeduta) {
@@ -1209,39 +1096,6 @@ async function fineSeduta(nSeduta, btn) {
   const salvati  = [];
   const mancanti = [];
   const promises = [];
-
-  /* esercizi con campo kg */
-  document.querySelectorAll(`.log-kg-input[data-seduta="${nSeduta}"]`).forEach(input => {
-    const nome  = input.dataset.esercizio;
-    const kg    = parseFloat(input.value);
-    const rm    = parseInt(input.dataset.rm)    || null;
-    const reps  = parseInt(input.dataset.reps)  || null;
-    const catena = input.dataset.catena;
-
-    if (kg > 0 && rm) {
-      const carico = parseFloat(input.dataset.carico) || null;
-      const valore = carico != null ? `${carico} kg` : `RM ~${rm} kg`;
-      salvati.push({ label: nome, detail: valore });
-      promises.push(postApi({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta,
-        esercizio: nome, data, valore, note: '',
-        kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
-      }));
-      ultimiLog[nome] = { valore, rm, kg };
-    } else if (kg > 0) {
-      /* ha messo il peso ma non le reps — salva solo il kg */
-      salvati.push({ label: nome, detail: `${kg} kg` });
-      promises.push(postApi({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta,
-        esercizio: nome, data, valore: `${kg} kg`, note: '',
-        kg_usati: kg, reps_fatte: '', rm_stimato: '',
-      }));
-    } else {
-      mancanti.push(nome);
-    }
-  });
 
   /* RPE */
   const rpeBtn = document.querySelector(`#rpe-${id}-${nSeduta} .rating-btn.selected`);
@@ -1547,7 +1401,7 @@ async function salvaPeso(btn) {
   setTimeout(() => { btn.textContent = L.saveBtn; btn.disabled = false; }, 2000);
 }
 
-function htmlFeedbackSeduta(nSeduta, prev) {
+function htmlFeedbackSeduta(nSeduta) {
   const rpeId   = `rpe-${id}-${nSeduta}`;
   const fatId   = `fat-${id}-${nSeduta}`;
   let rpeBtn = '', fatBtn = '';
@@ -1773,13 +1627,13 @@ async function subscribePush() {
     _log('✓ sub endpoint: ' + (j.endpoint || '?').slice(0,80));
     _log('keys ok: ' + (!!j.keys));
     if (!j.keys) return;
-    _log('⏳ fetch → API_PUSH (salva_push_sub)…');
+    _log('⏳ fetch → API (salva_push_sub)…');
     // GAS non risponde a CORS preflight — usiamo GET con parametri
     const params = new URLSearchParams({
       token: TOKEN, azione: 'salva_push_sub', id_giocatrice: id,
       endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth
     });
-    const res = await fetch(API_PUSH + '?' + params.toString());
+    const res = await fetch(API + '?' + params.toString());
     const rawText = await res.text().catch(() => '');
     _log('HTTP ' + res.status + '\n' + (rawText || '(vuoto)'));
     let json = {};
