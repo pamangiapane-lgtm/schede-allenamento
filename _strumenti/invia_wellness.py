@@ -90,7 +90,7 @@ for sub in subs:
             },
             data=payload,
             vapid_private_key=VAPID_PRIVATE_KEY,
-            vapid_claims=VAPID_CLAIMS
+            vapid_claims=dict(VAPID_CLAIMS)
         )
         print(f'   ✅ ID {athlete_id}: push inviato')
         ok += 1
