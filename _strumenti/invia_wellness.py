@@ -60,6 +60,11 @@ if not subs:
     print('⚠️  Nessuna giocatrice iscritta. Le ragazze devono aprire l\'app e toccare "Attiva".')
     sys.exit(0)
 
+solo_id = os.environ.get('SOLO_ID', '').strip()
+if solo_id:
+    subs = [s for s in subs if str(s.get('ID_Giocatrice', s.get('id_giocatrice', ''))) == solo_id]
+    print(f'   → Filtro attivo: solo ID {solo_id} ({len(subs)} trovate)')
+
 # ── Invio push ──────────────────────────────────────────────────────────────
 
 ok = 0
