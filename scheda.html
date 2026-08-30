@@ -29,6 +29,40 @@
   .prossima-pin .pin-btn { background: none; border: none; color: var(--blu, #1a3a6b); font-size: 0.82rem; font-weight: 700; cursor: pointer; padding: 0; text-align: left; line-height: 1.3; }
   .prossima-pin .pin-arrow { font-size: 1rem; color: var(--blu, #1a3a6b); flex-shrink: 0; }
   /* ── WELLNESS MODAL ── */
+  #notif-banner {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    background: #eef3ff;
+    border-bottom: 1.5px solid #ccd8ee;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    color: var(--blu, #1a3a6b);
+    flex-wrap: wrap;
+  }
+  #notif-banner .notif-msg { flex: 1; min-width: 0; }
+  #notif-banner .notif-btn {
+    flex-shrink: 0;
+    background: var(--blu, #1a3a6b);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  #notif-banner .notif-close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: #9aa;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 2px;
+    line-height: 1;
+  }
   #wellness-overlay {
     display: none;
     position: fixed;
@@ -194,6 +228,7 @@ const API   = IS_DEV
   ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
   : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
 const TOKEN = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
+const VAPID_PUBLIC_KEY = 'BAk4BYdzjxv-WP-YdpCQIFNa71SMb-5FvwqtOt6UJwn4GCAlwUa9Wsikpgc5OzjPlvK0_gyfko-dh9Z0yXB4guA';
 if (IS_DEV) {
   document.title = '[DEV] ' + document.title;
   document.getElementById('dev-banner').style.display = '';
@@ -1040,6 +1075,7 @@ async function caricaScheda() {
     /* mostra contenuto */
     document.getElementById('loading').style.display  = 'none';
     document.getElementById('contenuto').style.display = '';
+    mostraNotifBanner();
 
   } catch (err) {
     document.getElementById('loading').innerHTML = `
@@ -1067,7 +1103,7 @@ function toggleSeduta(accId) {
   if (isOpen) {
     document.getElementById(accId).classList.remove('open');
   } else {
-    mostraWellness(accId);
+    apriSedutaConNote(accId);
   }
 }
 
@@ -1168,7 +1204,7 @@ async function fineSeduta(nSeduta, btn) {
 }
 
 const MASSIMALI = [
-  { id: 'squat',    nome: 'Squat / Step Up', nomeEN: 'Squat / Step Up', catena: 'lower', alias: ['squat', 'step up'] },
+  { id: 'squat',    nome: 'Squat', nomeEN: 'Squat', catena: 'lower', alias: ['squat', 'step up'] },
   { id: 'lat',      nome: 'Lat Machine',    catena: 'upper', alias: ['lat', 'pullup', 'pull-up', 'trazioni'] },
   { id: 'military', nome: 'Military Press', catena: 'upper', alias: ['military', 'lento avanti'] },
   { id: 'rowbb',    nome: 'Row BB',         catena: 'upper', alias: ['row bb', 'rematore'] },
@@ -1508,33 +1544,7 @@ function apriSedutaConNote(accId) {
 }
 
 function mostraWellness(accId) {
-  const force = new URLSearchParams(location.search).get('force') === '1';
-  if (!force && localStorage.getItem(wellnessKey())) {
-    if (accId) apriSedutaConNote(accId);
-    return;
-  }
-  _wellnessPendingAcc = accId || null;
-  const wl = (L === EN) ? WL.en : WL.it;
-  const overlay = document.getElementById('wellness-overlay');
-  overlay.querySelector('.wellness-title').textContent = wl.title;
-  overlay.querySelector('.wellness-sub').textContent   = wl.sub;
-  const labels = overlay.querySelectorAll('.wellness-q-label');
-  labels[0].textContent = wl.q1;
-  labels[1].textContent = wl.q2;
-  labels[2].textContent = wl.q3;
-  labels[3].textContent = wl.q4;
-  const guides = overlay.querySelectorAll('.wellness-guide');
-  [[wl.g1],[wl.g2],[wl.g3],[wl.g4]].forEach(([g], i) => {
-    guides[i].children[0].textContent = `0 = ${g[0]}`;
-    guides[i].children[1].textContent = `10 = ${g[1]}`;
-  });
-  overlay.querySelector('.wellness-note-label').textContent    = wl.noteLabel;
-  overlay.querySelector('.wellness-note textarea').placeholder = wl.notePlaceholder;
-  overlay.querySelector('.wellness-note textarea').value       = '';
-  overlay.querySelector('.wellness-confirm').textContent = wl.confirm;
-  overlay.querySelectorAll('.wellness-stars button').forEach(b => b.classList.remove('sel'));
-  overlay.querySelector('.wellness-confirm').disabled = true;
-  overlay.classList.add('open');
+  apriSedutaConNote(accId);
 }
 
 function wellnessSeleziona(btn, gruppo) {
@@ -1664,23 +1674,6 @@ async function initPushBanner() {
   } catch(_) {}
   banner.style.display = 'flex';
 }
-
-
-// Auto-apri wellness se arrivata da notifica push
-(function checkWellnessParam() {
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('wellness') === '1' && id) {
-    // Attendi che la pagina carichi, poi apri il modal
-    const timer = setInterval(() => {
-      if (document.getElementById('contenuto')?.style.display !== 'none') {
-        clearInterval(timer);
-        const forceW = new URLSearchParams(location.search).get('force') === '1';
-        if (forceW || !localStorage.getItem(wellnessKey())) mostraWellness(null);
-      }
-    }, 200);
-  }
-})();
-
 // ─────────────────────────────────────────────────────────────────────────────
 </script>
 

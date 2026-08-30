@@ -23,6 +23,26 @@ self.addEventListener('activate', e => {
   );
 });
 
+self.addEventListener('push', event => {
+  const data = event.data ? event.data.json() : {};
+  event.waitUntil(
+    self.registration.showNotification(data.title || 'Marsala Volley 🏐', {
+      body:  data.body  || 'Compila il wellness prima della seduta di oggi!',
+      icon:  '/schede-allenamento/icon.svg',
+      badge: '/schede-allenamento/icon.svg',
+      tag:   'wellness-reminder',
+      data:  { url: data.url || '/schede-allenamento/scheda.html' }
+    })
+  );
+});
+
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  const base = event.notification.data?.url || '/schede-allenamento/scheda.html';
+  const url  = base.includes('?') ? base + '&wellness=1' : base + '?wellness=1';
+  event.waitUntil(clients.openWindow(url));
+});
+
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
 

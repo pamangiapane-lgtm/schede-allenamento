@@ -88,7 +88,7 @@ async function caricaGiocatrici() {
       lista.appendChild(div);
     }
   } catch (err) {
-    lista.innerHTML = `<p class="errore-msg">Errore nel caricamento dati. Riprova.</p>`;
+    lista.innerHTML = `<p class="errore-msg">Errore nel caricamento dati. Riprova.<br><small style="color:#999;font-size:0.7rem">${err.message}</small></p>`;
   }
 }
 
