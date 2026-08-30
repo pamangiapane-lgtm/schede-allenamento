@@ -87,12 +87,28 @@ function renderGiocatrici(dati) {
   }
 }
 
+const SCH_V = 'v5'; // deve corrispondere a CACHE_V in scheda.html
+function scriviCacheScheda(foglio, dati) {
+  try { localStorage.setItem(`sch_${SCH_V}_${foglio}`, JSON.stringify({ _ts: Date.now(), _d: dati })); } catch {}
+}
+
 async function fetchGiocatriciRemote() {
   const res  = await fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=Giocatrici`);
   const json = await res.json();
   if (!json.ok) throw new Error(json.errore);
   try { localStorage.setItem(IDX_CACHE_KEY, JSON.stringify(json.dati)); } catch {}
+  scriviCacheScheda('Giocatrici', json.dati);
   return json.dati;
+}
+
+async function preRiscaldaGAS() {
+  for (const foglio of ['LibreriaIndividuale', 'Progressi']) {
+    try {
+      const res  = await fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=${foglio}`);
+      const json = await res.json();
+      if (json.ok) scriviCacheScheda(foglio, json.dati);
+    } catch {}
+  }
 }
 
 async function caricaGiocatrici() {
@@ -103,10 +119,12 @@ async function caricaGiocatrici() {
   if (cached && cached.length) {
     renderGiocatrici(cached);
     fetchGiocatriciRemote().then(dati => renderGiocatrici(dati)).catch(() => {});
+    preRiscaldaGAS();
   } else {
     try {
       const dati = await fetchGiocatriciRemote();
       renderGiocatrici(dati);
+      preRiscaldaGAS();
     } catch (err) {
       lista.innerHTML = `<p class="errore-msg">Errore nel caricamento dati. Riprova.<br><small style="color:#999;font-size:0.7rem">${err.message}</small></p>`;
     }
