@@ -1576,36 +1576,7 @@ function apriSedutaConNote(accId) {
 }
 
 function mostraWellness(accId) {
-  if (String(id) === '99') { apriSedutaConNote(accId); return; }
-  const daNotifica = new URLSearchParams(location.search).get('wellness') === '1';
-  if (!daNotifica || localStorage.getItem(wellnessKey())) {
-    apriSedutaConNote(accId);
-    return;
-  }
-  _wellnessPendingAcc = accId;
-  const wl = (L === EN) ? WL.en : WL.it;
-  const overlay = document.getElementById('wellness-overlay');
-  overlay.querySelector('.wellness-title').textContent = wl.title;
-  overlay.querySelector('.wellness-sub').textContent   = wl.sub;
-  const labels = overlay.querySelectorAll('.wellness-q-label');
-  labels[0].textContent = wl.q1;
-  labels[1].textContent = wl.q2;
-  labels[2].textContent = wl.q3;
-  // Guide valori
-  const guides = overlay.querySelectorAll('.wellness-guide');
-  [[wl.g1],[wl.g2],[wl.g3]].forEach(([g], i) => {
-    guides[i].children[0].textContent = `1 = ${g[0]}`;
-    guides[i].children[1].textContent = `5 = ${g[1]}`;
-  });
-  // Label e placeholder note
-  overlay.querySelector('.wellness-note-label').textContent    = wl.noteLabel;
-  overlay.querySelector('.wellness-note textarea').placeholder = wl.notePlaceholder;
-  overlay.querySelector('.wellness-note textarea').value       = '';
-  overlay.querySelector('.wellness-confirm').textContent = wl.confirm;
-  // Reset selezioni
-  overlay.querySelectorAll('.wellness-stars button').forEach(b => b.classList.remove('sel'));
-  overlay.querySelector('.wellness-confirm').disabled = true;
-  overlay.classList.add('open');
+  apriSedutaConNote(accId);
 }
 
 function wellnessSeleziona(btn, gruppo) {
