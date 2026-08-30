@@ -36,6 +36,7 @@ function doPost(e) {
     if (token !== TOKEN) return errore('Token non valido');
     if (azione === 'log_progressi')     return logProgressi(body);
     if (azione === 'log_wellness')      return logWellness(body);
+    if (azione === 'salva_push_sub')   return salvaPushSub(body);
     if (azione === 'scrivi_foglio')     return scriviFoglio(body);
     if (azione === 'crea_foglio_info')  return creaFoglioInfo();
     if (azione === 'scrivi_nota_coach') return scriviNotaCoach_(body);
@@ -166,6 +167,30 @@ function logWellness(body) {
   sheet.appendRow(riga);
   SpreadsheetApp.flush();
   return risposta({ ok: true, logged: 1 });
+}
+
+function salvaPushSub(body) {
+  const ss    = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet   = ss.getSheetByName('PushSub');
+  if (!sheet) {
+    sheet = ss.insertSheet('PushSub');
+    sheet.appendRow(['ID_Giocatrice','Endpoint','P256dh','Auth','Aggiornato']);
+  }
+  const id_g     = String(body.id_giocatrice || '').trim();
+  const endpoint = String(body.endpoint      || '').trim();
+  const p256dh   = String(body.p256dh        || '').trim();
+  const auth     = String(body.auth          || '').trim();
+  if (!id_g || !endpoint) return errore('id_giocatrice e endpoint richiesti');
+  const rows   = leggiRighe_(sheet);
+  const rowIdx = rows.findIndex(r => String(r.ID_Giocatrice) === id_g);
+  const now    = new Date().toISOString();
+  if (rowIdx >= 0) {
+    sheet.getRange(rowIdx + 2, 2, 1, 4).setValues([[endpoint, p256dh, auth, now]]);
+  } else {
+    sheet.appendRow([id_g, endpoint, p256dh, auth, now]);
+  }
+  SpreadsheetApp.flush();
+  return risposta({ ok: true });
 }
 
 function leggiTutteNote_() {

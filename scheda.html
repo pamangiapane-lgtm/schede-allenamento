@@ -29,6 +29,40 @@
   .prossima-pin .pin-btn { background: none; border: none; color: var(--blu, #1a3a6b); font-size: 0.82rem; font-weight: 700; cursor: pointer; padding: 0; text-align: left; line-height: 1.3; }
   .prossima-pin .pin-arrow { font-size: 1rem; color: var(--blu, #1a3a6b); flex-shrink: 0; }
   /* ── WELLNESS MODAL ── */
+  #notif-banner {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    background: #eef3ff;
+    border-bottom: 1.5px solid #ccd8ee;
+    padding: 10px 16px;
+    font-size: 0.82rem;
+    color: var(--blu, #1a3a6b);
+    flex-wrap: wrap;
+  }
+  #notif-banner .notif-msg { flex: 1; min-width: 0; }
+  #notif-banner .notif-btn {
+    flex-shrink: 0;
+    background: var(--blu, #1a3a6b);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  #notif-banner .notif-close {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: #9aa;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 2px;
+    line-height: 1;
+  }
   #wellness-overlay {
     display: none;
     position: fixed;
@@ -144,6 +178,12 @@
   <div id="dev-banner" style="display:none;background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
 </header>
 
+<div id="notif-banner">
+  <span class="notif-msg">🔔 Ricevi il promemoria wellness ogni mattina alle 8:45</span>
+  <button class="notif-btn" onclick="attivaNotifiche(this)">Attiva notifiche</button>
+  <button class="notif-close" onclick="dismissNotifBanner()" aria-label="Chiudi">✕</button>
+</div>
+
 <div class="container">
 
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
@@ -185,6 +225,7 @@ const API   = IS_DEV
   ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
   : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
 const TOKEN = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
+const VAPID_PUBLIC_KEY = 'BAk4BYdzjxv-WP-YdpCQIFNa71SMb-5FvwqtOt6UJwn4GCAlwUa9Wsikpgc5OzjPlvK0_gyfko-dh9Z0yXB4guA';
 if (IS_DEV) {
   document.title = '[DEV] ' + document.title;
   document.getElementById('dev-banner').style.display = '';
@@ -960,6 +1001,7 @@ async function caricaScheda() {
     /* mostra contenuto */
     document.getElementById('loading').style.display  = 'none';
     document.getElementById('contenuto').style.display = '';
+    mostraNotifBanner();
 
   } catch (err) {
     document.getElementById('loading').innerHTML = `
@@ -1607,6 +1649,56 @@ function confermaWellness() {
       qualita_sonno: sonno, dolori: dolori, energia: energia, note
     })
   }).catch(() => {}); // silenzioso — non blocca l'atleta
+}
+
+// ── PUSH NOTIFICATIONS ───────────────────────────────────────────────────────
+
+function _vapidKey() {
+  const pad = '='.repeat((4 - VAPID_PUBLIC_KEY.length % 4) % 4);
+  const b64 = (VAPID_PUBLIC_KEY + pad).replace(/-/g, '+').replace(/_/g, '/');
+  return Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+}
+
+function mostraNotifBanner() {
+  if (!('PushManager' in window) || !id) return;
+  if (localStorage.getItem('push_dismissed_' + id)) return;
+  if (Notification.permission === 'denied') return;
+  navigator.serviceWorker.ready
+    .then(reg => reg.pushManager.getSubscription())
+    .then(sub => { if (!sub) document.getElementById('notif-banner').style.display = 'flex'; })
+    .catch(() => {});
+}
+
+async function attivaNotifiche(btn) {
+  btn.textContent = '…';
+  btn.disabled = true;
+  try {
+    const perm = await Notification.requestPermission();
+    if (perm !== 'granted') {
+      btn.textContent = '🔕 Negato';
+      setTimeout(() => { btn.textContent = 'Attiva notifiche'; btn.disabled = false; }, 3000);
+      return;
+    }
+    const reg = await navigator.serviceWorker.ready;
+    const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: _vapidKey() });
+    const s   = sub.toJSON();
+    await fetch(API, {
+      method: 'POST',
+      body: JSON.stringify({
+        token: TOKEN, azione: 'salva_push_sub', id_giocatrice: id,
+        endpoint: s.endpoint, p256dh: s.keys.p256dh, auth: s.keys.auth
+      })
+    });
+    document.getElementById('notif-banner').style.display = 'none';
+  } catch {
+    btn.textContent = 'Attiva notifiche';
+    btn.disabled = false;
+  }
+}
+
+function dismissNotifBanner() {
+  localStorage.setItem('push_dismissed_' + id, '1');
+  document.getElementById('notif-banner').style.display = 'none';
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
