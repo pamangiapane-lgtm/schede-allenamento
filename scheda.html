@@ -1029,7 +1029,7 @@ function toggleSeduta(accId) {
   if (isOpen) {
     document.getElementById(accId).classList.remove('open');
   } else {
-    mostraWellness(accId);
+    apriSedutaConNote(accId);
   }
 }
 
@@ -1252,7 +1252,7 @@ async function fineSeduta(nSeduta, btn) {
 }
 
 const MASSIMALI = [
-  { id: 'squat',    nome: 'Squat / Step Up', nomeEN: 'Squat / Step Up', catena: 'lower', alias: ['squat', 'step up'] },
+  { id: 'squat',    nome: 'Squat', nomeEN: 'Squat', catena: 'lower', alias: ['squat', 'step up'] },
   { id: 'lat',      nome: 'Lat Machine',    catena: 'upper', alias: ['lat', 'pullup', 'pull-up', 'trazioni'] },
   { id: 'military', nome: 'Military Press', catena: 'upper', alias: ['military', 'lento avanti'] },
   { id: 'rowbb',    nome: 'Row BB',         catena: 'upper', alias: ['row bb', 'rematore'] },
