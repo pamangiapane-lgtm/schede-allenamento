@@ -1,0 +1,46 @@
+name: Genera Schede Atleta
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - claude/pre-season-app-mods-355hqq
+      - main
+    paths:
+      - 'data/**'
+      - '_strumenti/genera_schede.py'
+      - '_strumenti/carica_da_github.py'
+
+permissions:
+  contents: write
+
+jobs:
+  genera:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Carica CSV su Google Sheet
+        env:
+          APP_TOKEN: ${{ secrets.APP_TOKEN }}
+        run: python _strumenti/carica_da_github.py --branch ${{ github.ref_name }}
+
+      - name: Genera schede HTML (+ aggiorna cache progressi)
+        env:
+          APP_TOKEN: ${{ secrets.APP_TOKEN }}
+        run: python _strumenti/genera_schede.py --output docs/index.html
+
+      - name: Pubblica schede e cache
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/index.html data/cache/progressi.json 2>/dev/null || true
+          git diff --cached --quiet || git commit -m "Auto: aggiorna schede atleta [skip ci]"
+          git push
