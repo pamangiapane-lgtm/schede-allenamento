@@ -12,15 +12,19 @@
 | Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Recupero | RPE |
 |---|---|---|---|---|---|---|---|
 | 1 | Attivazione generale | Mobilità dinamica a corpo libero | Sblocca le articolazioni prima del carico | — | 4' | — | 3 |
-| 2 | Attivazione con elastico | Extrarotazione spalla + dorsiflessione caviglia | Prepara i punti critici del gesto di gara | Senza elastico: circonduzioni ampie | 2×8/articolazione | 20" | 3 |
-| 3 | Piede/caviglia | Cammino avampiede/tallone, equilibri monopodalici | Rinforza il controllo di caviglia | A occhi chiusi | 2×20m+2×20" | 30" | 3-4 |
+| 2 | **Prehab squadra** (~15') | CARS tibio-tarsica | Mobilità attiva articolare — tutte insieme | — | 2 min bilat | — | 2 |
+| | | Copenhagen isometrico | Adduttore + core laterale — gluteo medio per la meccanica di corsa | Regola altezza panca | 3×22s/lato | 30" | 7 |
+| | | Spanish squat isometrico | Analgesico rotuleo + attivazione VMO | Angolo protetto per chi ha patella | 3×35s | 45" | 6-7 |
+| | | Single-leg balance + reach | Propriocezione — chiude il prehab pre-andature | — | 3×6/lato | 30" | 4-5 |
 | 4 | Andature | Skip basso | Cadenza rapida, appoggio attivo | Skip con braccia opposte · Skip resistito (elastico) | 2×20m | 30" | 4 |
 | 5 | Andature | Skip alto | Ampiezza dell'anca in flessione | Skip alto a frequenza max (burst 5") | 2×20m | 30" | 4-5 |
 | 6 | Andature | Calciata, balzata, accosto, incrocio | Pattern di corsa progressivo, coordinazione laterale | Incrocio avanti/dietro alternati | 4×20m (1 per pattern) | 40" | 4-5 |
 | 7 | Estensiva | Pogo bipodalici | Stiffness di caviglia a basso impatto | Pogo monopodalico assistito | 2×12 | 60" | 6 |
 | 8 | Estensiva | Balzi orizzontali | Spinta di estensione dell'anca | Monopodalico bassa dose | 2×4 | 60" | 6 |
 | 9 | Motore | Intermittente 15"/30": footwork+sprint 15m | Densità metabolica con finale esplosivo | Sprint con cambio direzione a metà percorso | 5 rip | come indicato | 6 |
-| 10 | Core+MB | Plank 2×20"+20" ss lancio frontale 2×8 | Tenuta core + potenza catena posteriore-tronco | Plank con sollevamento gamba | — | 40" | 5 |
+| 10 | **Blocco Centrale** | Plank isometrico | Anti-estensione — stabilità core | — | 3×30s | 40" | 4 |
+| | | Plank laterale | Anti-flessione — catena laterale | — | 3×20s/lato | 20" | 4-5 |
+| | | Dead bug | Anti-estensione lombare — controllo lombo-pelvico | — | 3×20s | 30" | 4 |
 | 11 | Chiusura | — | Rientro parasimpatico | — | 5' | — | 2 |
 
 Totale reale: ~48' + buffer rotazione ~10' = **~58-60'**.
@@ -82,12 +86,18 @@ Nota: il tetto assoluto di forza in questa versione è **87%** (mai superato in 
 | Ord. | Fase | Esercizio | Descrizione | Varianti | Volume | Recupero | RPE |
 |---|---|---|---|---|---|---|---|
 | 1 | Attivazione generale | Mobilità dinamica + corsa blanda | Sblocca le articolazioni | — | 4'+3' | — | 3 |
-| 2 | Andature quadrupedia | Bear crawl | Controllo scapolare e core in appoggio | Bear crawl laterale · Con tocco spalla opposta | 2×10m | rec. camminata | 4-5 |
+| 2 | **Prehab squadra** (~15') | Calf eccentrico monopodalico | Priming eccentrico tendine — prepara la plio che verrà | Velocità discesa -3s | 3×10 | 45" | 6-7 |
+| | | Hip abduction con elastico | Gluteo medio — meccanica atterraggio laterale | Monopodalico su rialzo | 3×12/lato | 30" | 5-6 |
+| | | Spanish squat isometrico | Analgesico rotuleo | Angolo protetto per chi ha patella | 3×35s | 45" | 6-7 |
+| | | Hop basso + stick | Reattività caviglia + controllo atterraggio — bridge pre-plio | Bipodalico chi ha storia | 2×5/lato | 30" | 5 |
+| 3 | Andature quadrupedia | Bear crawl | Controllo scapolare e core in appoggio | Bear crawl laterale · Con tocco spalla opposta | 2×10m | rec. camminata | 4-5 |
 | 3 | Andature reattive | Skip mono doppio impulso | Reattività di caviglia monopodalica | Skip mono singolo impulso · Con cambio gamba a comando | 3×15m | 30" | 5 |
 | 4 | Pliometria laterale | Balzi laterali | Controllo frontale in decelerazione | Con arresto · Continuo, 3 in serie | 2×3/lato | 60" | 6 |
 | 5 | Potenza aerobica | Navette 10m | Cambio di direzione ripetuto | Con cambio a 180° · A coppie | 5 rip (20"/40") | come indicato | 6 |
-| 6 | Core rotazionale | Rotazioni tronco | Potenza di rotazione del tronco | — | 2×6+6 | 30" | 5 |
-| 7 | Defaticante | Stretching | Rientro parasimpatico | — | 5' | — | 2 |
+| 6 | **Blocco Centrale** | Rotazioni tronco | Potenza di rotazione del tronco — tema seduta laterale | — | 2×6+6 | 30" | 5 |
+| | | Hollow hold | Anti-estensione lombare | — | 2×20s | 20" | 4 |
+| | | Hip bridge | Gluteo + stabilità pelvica | — | 2×12 | 20" | 3-4 |
+| 7 | Defaticante | Chiusura — stretching catene | Hip flexor → hamstring → piriformis → gastroc → box breathing | — | 5' | — | 2 |
 
 ---
 
