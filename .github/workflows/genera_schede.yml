@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - claude/pre-season-app-mods-355hqq
+      - claude/schede-allenamento-sessioni-r84mfh
       - main
     paths:
       - 'data/**'

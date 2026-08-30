@@ -837,7 +837,7 @@ async function caricaScheda() {
         if (ao && bo) return ao - bo;
         if (ao) return -1;
         if (bo) return 1;
-        const an = String(a.Numero_Seduta), bn = String(b.Numero_Seduta);
+        const an = String(a.Nome_Seduta || a.Numero_Seduta), bn = String(b.Nome_Seduta || b.Numero_Seduta);
         return an.localeCompare(bn, undefined, { numeric: true });
       });
 
@@ -865,8 +865,9 @@ async function caricaScheda() {
       return positives.some(p => p === role || (firstName.length > 0 && p === firstName));
     }).filter(e => {
       const met = String(e.Metodo || '').trim();
-      // Rimuove Prevenzione (mobilità individuale) e Attivazione balistica
-      if (met === 'Prevenzione' || met === 'Attivazione balistica') return false;
+      // Rimuove Prevenzione, Attivazione balistica, Attivazione specifica, Monitoraggio
+      if (met === 'Prevenzione' || met === 'Attivazione balistica' ||
+          met === 'Attivazione specifica' || met === 'Monitoraggio') return false;
       return true;
     }).map(e => {
       const cod  = String(e.Codice || '').trim();
