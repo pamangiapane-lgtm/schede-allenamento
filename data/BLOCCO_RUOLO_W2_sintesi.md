@@ -2,7 +2,7 @@
 
 **Posizione nel CSV**: Metodo 4 in W2-MarP e W2-GioV  
 **Effetto**: gli attuali Metodi 4→8 slittano a 5→9 in entrambe le sedute  
-**Non approvato** — da validare prima dell'inserimento in W2_Esercizi.csv
+**Inserito** in W2_Esercizi.csv (2026-08-30)
 
 ---
 
