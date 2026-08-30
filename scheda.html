@@ -1490,7 +1490,7 @@ window.addEventListener('beforeunload', e => {
 caricaScheda();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=47').then(reg => {
+  navigator.serviceWorker.register('./sw.js?v=48').then(reg => {
     initPushBanner();
   }).catch(() => {});
 }
@@ -1618,7 +1618,7 @@ async function subscribePush() {
     let reg = await navigator.serviceWorker.getRegistration();
     if (!reg) {
       _log('nessuna reg, registro sw.js…');
-      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=47');
+      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=48');
       await new Promise(r => setTimeout(r, 2000));
       reg = await navigator.serviceWorker.getRegistration();
     }
