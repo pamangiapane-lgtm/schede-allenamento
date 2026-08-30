@@ -1,11 +1,7 @@
 name: Notifica Wellness Mattutina
 
 on:
-  schedule:
-    # 08:45 CEST (UTC+2) — preseason estate
-    # In inverno (CET = UTC+1) cambiare in '45 7 * * *'
-    - cron: '45 6 * * *'
-  workflow_dispatch:    # permette esecuzione manuale da GitHub UI
+  workflow_dispatch:    # triggered da cron-job.org ogni giorno alle 08:45 CEST
 
 jobs:
   invia-push:
