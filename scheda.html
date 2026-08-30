@@ -665,7 +665,7 @@ async function postApi(payload, tentativo = 0) {
 
 /* ---------- caricamento ---------- */
 async function fetchApi(foglio, tentativo = 0) {
-  const TIMEOUT = 28000;
+  const TIMEOUT = 10000;
   const ctrl = new AbortController();
   const tid = setTimeout(() => ctrl.abort(), TIMEOUT);
   try {
@@ -675,8 +675,8 @@ async function fetchApi(foglio, tentativo = 0) {
     return JSON.parse(text);
   } catch (err) {
     clearTimeout(tid);
-    if (tentativo < 2) {
-      await new Promise(res => setTimeout(res, 1500 * (tentativo + 1)));
+    if (tentativo < 1) {
+      await new Promise(res => setTimeout(res, 1500));
       return fetchApi(foglio, tentativo + 1);
     }
     throw err;
@@ -1512,7 +1512,7 @@ window.addEventListener('beforeunload', e => {
 caricaScheda();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=49').then(reg => {
+  navigator.serviceWorker.register('./sw.js?v=50').then(reg => {
     initPushBanner();
   }).catch(() => {});
 }
@@ -1640,7 +1640,7 @@ async function subscribePush() {
     let reg = await navigator.serviceWorker.getRegistration();
     if (!reg) {
       _log('nessuna reg, registro sw.js…');
-      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=49');
+      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=50');
       await new Promise(r => setTimeout(r, 2000));
       reg = await navigator.serviceWorker.getRegistration();
     }

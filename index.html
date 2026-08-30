@@ -131,6 +131,7 @@ async function caricaGiocatrici() {
   }
 }
 
+preRiscaldaGAS(); // avvia subito — non aspetta la lista
 caricaGiocatrici();
 
 if ('serviceWorker' in navigator) {
