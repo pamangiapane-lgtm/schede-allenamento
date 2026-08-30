@@ -623,15 +623,23 @@ function htmlIndividuale(e, sedSuffix) {
 
 /* ---------- cache ---------- */
 const CACHE_V   = 'v5';
-const CACHE_TTL = 10 * 60 * 1000; // 10 minuti — dopo scade e si ri-fetcha
+const CACHE_TTL = 10 * 60 * 1000; // usato solo per sapere se la cache è "fresca"
 function leggiCache(f) {
   try {
     const r = localStorage.getItem(`sch_${CACHE_V}_${f}`);
     if (!r) return null;
     const obj = JSON.parse(r);
     if (!obj || !obj._ts || !obj._d) return null;
-    if (Date.now() - obj._ts > CACHE_TTL) return null; // scaduta
+    if (Date.now() - obj._ts > CACHE_TTL) return null;
     return obj._d;
+  } catch { return null; }
+}
+function leggiCacheStale(f) {
+  try {
+    const r = localStorage.getItem(`sch_${CACHE_V}_${f}`);
+    if (!r) return null;
+    const obj = JSON.parse(r);
+    return (obj && obj._d) ? obj._d : null;
   } catch { return null; }
 }
 function scriviCache(f, dati) {
@@ -718,10 +726,12 @@ async function fetchSheet(foglio) {
   // Esercizi e Sedute: direttamente dal CSV su GitHub (bypassa GAS — dati sempre aggiornati)
   if (foglio === 'Esercizi') return fetchEserciziCSV();
   if (foglio === 'Sedute') return fetchSeduteCSV();
-  const cached = leggiCache(foglio);
-  if (cached) {
+  // Stale-while-revalidate: usa sempre la cache (anche scaduta) e aggiorna in background.
+  // Aspetta GAS solo se non c'è mai stata nessuna cache (prima apertura assoluta).
+  const stale = leggiCacheStale(foglio);
+  if (stale) {
     fetchApi(foglio).then(j => { if (j.ok) scriviCache(foglio, j.dati); }).catch(() => {});
-    return { ok: true, dati: cached };
+    return { ok: true, dati: stale };
   }
   const j = await fetchApi(foglio);
   if (j.ok) scriviCache(foglio, j.dati);
