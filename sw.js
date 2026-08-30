@@ -1,4 +1,4 @@
-const CACHE = 'schede-v49';
+const CACHE = 'schede-v50';
 const BASE = '/schede-allenamento';
 // scheda.html esclusa da STATIC: usa network-first per ricevere sempre aggiornamenti
 const STATIC = [
