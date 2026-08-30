@@ -67,7 +67,7 @@ async function caricaGiocatrici() {
         </div>
         <span class="arrow">›</span>
       `;
-      div.onclick = () => { window.location.href = `scheda.html?id=${g.ID}`; };
+      div.onclick = () => { window.location.href = `app.html?id=${g.ID}`; };
       lista.appendChild(div);
     });
     if (demo) {
@@ -76,19 +76,52 @@ async function caricaGiocatrici() {
       lista.appendChild(sep);
       const div = document.createElement('div');
       div.className = 'giocatrice-card';
-      div.style.cssText = 'opacity:0.6;border-style:dashed;';
+      div.style.cssText = 'opacity:0.85;border-color:var(--mv-amber,#e8a020);';
       div.innerHTML = `
         <div class="giocatrice-info">
-          <strong>${demo.Nome}</strong>
-          <span style="font-size:0.75rem;color:var(--text-light,#888);font-style:italic">Accesso demo — solo coach</span>
+          <strong>📊 Coach Command Center</strong>
+          <span style="font-size:0.75rem;color:var(--text-light,#888)">Accesso Staff Tecnico & Clinico</span>
         </div>
         <span class="arrow">›</span>
       `;
-      div.onclick = () => { window.location.href = `scheda.html?id=99`; };
+      div.onclick = () => { window.location.href = `coach_app.html`; };
       lista.appendChild(div);
     }
   } catch (err) {
-    lista.innerHTML = `<p class="errore-msg">Errore nel caricamento dati. Riprova.</p>`;
+    try {
+      const resLocal = await fetch('data/roster.json');
+      const roster = await resLocal.json();
+      lista.innerHTML = '';
+      roster.filter(g => !isNaN(parseInt(g.id)) && String(g.id) !== '99')
+        .sort((a, b) => a.name.localeCompare(b.name, 'it', {sensitivity:'base'})).forEach(g => {
+          const div = document.createElement('div');
+          div.className = 'giocatrice-card';
+          div.innerHTML = `
+            <div class="giocatrice-info">
+              <strong>${g.name}</strong>
+              ${g.role ? `<span>${g.role}</span>` : ''}
+            </div>
+            <span class="arrow">›</span>
+          `;
+          div.onclick = () => { window.location.href = `app.html?id=${g.id}`; };
+          lista.appendChild(div);
+        });
+      
+      const divCoach = document.createElement('div');
+      divCoach.className = 'giocatrice-card';
+      divCoach.style.cssText = 'margin-top:14px;border-color:#e8a020;';
+      divCoach.innerHTML = `
+        <div class="giocatrice-info">
+          <strong>📊 Coach Command Center</strong>
+          <span style="font-size:0.75rem;color:var(--text-light,#888)">Accesso Staff Tecnico</span>
+        </div>
+        <span class="arrow">›</span>
+      `;
+      divCoach.onclick = () => { window.location.href = `coach_app.html`; };
+      lista.appendChild(divCoach);
+    } catch (_) {
+      lista.innerHTML = `<p class="errore-msg">Errore nel caricamento dati. Riprova.</p>`;
+    }
   }
 }
 

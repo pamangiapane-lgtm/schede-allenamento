@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marsala Volley — Coach Command Center</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="theme-color" content="#0c1f40">
+  <link rel="apple-touch-icon" href="logo.jpg">
+  <style>
+    :root {
+      --mv-navy: #0c1f40;
+      --mv-navy-dark: #071226;
+      --mv-navy-light: #162b55;
+      --mv-amber: #e8a020;
+      --mv-amber-glow: rgba(232, 160, 32, 0.18);
+      --mv-coral: #e84c2b;
+      --mv-emerald: #10b981;
+      --mv-bg: #0b1322;
+      --mv-surface: #111d33;
+      --mv-surface2: #182846;
+      --mv-border: #1e335a;
+      --mv-text: #f1f5f9;
+      --mv-muted: #94a3b8;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--mv-bg);
+      color: var(--mv-text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .coach-header {
+      background: var(--mv-navy-dark);
+      border-bottom: 1px solid var(--mv-border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand-logo { width: 38px; height: 38px; border-radius: 8px; object-fit: cover; }
+    .brand-title { font-size: 1.15rem; font-weight: 800; letter-spacing: 0.5px; color: #fff; }
+    .brand-sub { font-size: 0.72rem; color: var(--mv-muted); }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+
+    /* Top KPI Row */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      padding: 18px 24px;
+    }
+    .kpi-card {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+    .kpi-val { font-size: 1.85rem; font-weight: 800; line-height: 1.1; margin-bottom: 4px; }
+    .kpi-lbl { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--mv-muted); }
+    .kpi-sub { font-size: 0.72rem; color: #64748b; margin-top: 2px; }
+
+    /* Content Area */
+    .main-container { padding: 0 24px 40px; }
+
+    /* Section Bar */
+    .sec-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 18px 0 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .sec-title { font-size: 1.05rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
+    .sec-filter-bar { display: flex; gap: 6px; }
+    .btn-filter {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      color: var(--mv-muted);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-filter.active { background: var(--mv-amber); color: #fff; border-color: var(--mv-amber); }
+
+    /* Athlete Matrix Table */
+    .matrix-wrap {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+    }
+    .matrix-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+    .matrix-tbl th {
+      background: var(--mv-surface2);
+      color: var(--mv-muted);
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--mv-border);
+      white-space: nowrap;
+    }
+    .matrix-tbl td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      white-space: nowrap;
+    }
+    .matrix-tbl tr:last-child td { border-bottom: none; }
+    .matrix-tbl tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .ath-cell { display: flex; align-items: center; gap: 10px; }
+    .ath-num { font-size: 0.72rem; font-weight: 800; color: var(--mv-amber); background: rgba(232,160,32,0.12); padding: 2px 6px; border-radius: 4px; }
+    .ath-name { font-weight: 700; font-size: 0.92rem; color: #fff; text-decoration: none; }
+    .ath-name:hover { color: var(--mv-amber); }
+    .ath-role { font-size: 0.75rem; color: var(--mv-muted); }
+
+    /* Badges */
+    .risk-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .risk-tag.high { background: rgba(232,76,43,0.2); color: #ff8a73; border: 1px solid #e84c2b; }
+    .risk-tag.medium { background: rgba(232,160,32,0.2); color: #ffd175; border: 1px solid #e8a020; }
+    .risk-tag.low { background: rgba(16,185,129,0.2); color: #6ee7b7; border: 1px solid #10b981; }
+
+    .btn-action {
+      background: var(--mv-surface2);
+      border: 1px solid var(--mv-border);
+      color: #fff;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .btn-action:hover { background: var(--mv-navy-light); border-color: var(--mv-amber); }
+
+    /* Modal Prehab Preview */
+    .prehab-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .prehab-modal.open { display: flex; }
+    .prehab-modal-box {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 540px;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 24px;
+    }
+    .prehab-modal-title { font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .prehab-modal-sub { font-size: 0.8rem; color: var(--mv-amber); margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="coach-header">
+    <div class="brand-wrap">
+      <img src="logo.jpg" class="brand-logo" alt="Marsala Volley">
+      <div>
+        <h1 class="brand-title">Marsala Volley · Coach Panel</h1>
+        <div class="brand-sub">Pre-Season 2026/27 — Serie A2 Femminile</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a href="app.html" class="btn-action" target="_blank">📱 Apri Scheda Atleta</a>
+      <a href="index.html" class="btn-action" target="_blank">👥 Roster PWA</a>
+    </div>
+  </header>
+
+  <!-- Top KPI Row -->
+  <section class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-val" style="color:var(--mv-amber)" id="kpi-roster">14</div>
+      <div class="kpi-lbl">Roster Atlete</div>
+      <div class="kpi-sub">13 squadra + Nelly</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val" style="color:#ff8a73" id="kpi-urgent">3</div>
+      <div class="kpi-lbl">Alert Rischio Alto</div>
+      <div class="kpi-sub">Dodi, Nonnati, Allasia</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val" style="color:var(--mv-emerald)">W2</div>
+      <div class="kpi-lbl">Settimana Attiva</div>
+      <div class="kpi-sub">Palestra: Squat 80%, Clean 72%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val" style="color:#60a5fa" id="kpi-prehab-total">13</div>
+      <div class="kpi-lbl">Protocolli Prehab</div>
+      <div class="kpi-sub">Fasi F1 operative</div>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <div class="sec-head">
+      <h2 class="sec-title">📊 Matrice Squadra & Triage Clinico</h2>
+      <div class="sec-filter-bar">
+        <button class="btn-filter active" onclick="filterRisk('all', this)">Tutte</button>
+        <button class="btn-filter" onclick="filterRisk('HIGH', this)">🔴 Rischio Alto</button>
+        <button class="btn-filter" onclick="filterRisk('MEDIUM', this)">🟡 Medio</button>
+        <button class="btn-filter" onclick="filterRisk('LOW', this)">🟢 Basso</button>
+      </div>
+    </div>
+
+    <div class="matrix-wrap">
+      <table class="matrix-tbl">
+        <thead>
+          <tr>
+            <th>Atleta</th>
+            <th>Ruolo</th>
+            <th>Triage Clinico</th>
+            <th>Focus / Problematiche</th>
+            <th>Prehab Assegnato</th>
+            <th>Scheda Diretta</th>
+          </tr>
+        </thead>
+        <tbody id="matrix-tbody">
+          <tr><td colspan="6" style="text-align:center;padding:24px;color:var(--mv-muted)">Caricamento dati...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Prehab Modal -->
+  <div class="prehab-modal" id="prehab-modal" onclick="closePrehabModal(event)">
+    <div class="prehab-modal-box" onclick="event.stopPropagation()">
+      <h3 class="prehab-modal-title" id="pm-name">Nome Atleta</h3>
+      <div class="prehab-modal-sub" id="pm-phase">Fase 1</div>
+      <div id="pm-content"></div>
+      <button class="btn-action" style="margin-top:16px;width:100%;justify-content:center" onclick="closePrehabModal()">Chiudi</button>
+    </div>
+  </div>
+
+  <!-- Load Master Data -->
+  <script src="data.js"></script>
+
+  <script>
+    let currentFilter = 'all';
+
+    function initCoach() {
+      document.getElementById('kpi-roster').textContent = ROSTER.length;
+      const highCount = ROSTER.filter(a => a.risk_level === 'HIGH').length;
+      document.getElementById('kpi-urgent').textContent = highCount;
+
+      renderMatrix();
+    }
+
+    function filterRisk(level, btn) {
+      currentFilter = level;
+      document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderMatrix();
+    }
+
+    function renderMatrix() {
+      const tbody = document.getElementById('matrix-tbody');
+      const filtered = ROSTER.filter(a => currentFilter === 'all' || a.risk_level === currentFilter);
+
+      tbody.innerHTML = filtered.map(a => {
+        const risk = a.risk_level || 'LOW';
+        const riskBadge = `<span class="risk-tag ${risk.toLowerCase()}">${risk === 'HIGH' ? '🔴 ALTO' : risk === 'MEDIUM' ? '🟡 MEDIO' : '🟢 BASSO'}</span>`;
+        const flags = (a.clinical_flags && a.clinical_flags.length > 0) ? a.clinical_flags.join(' · ') : 'Nessuna limitazione attiva';
+        const hasPrehab = PREHAB_DATA[String(a.id)] != null;
+
+        return `
+          <tr>
+            <td>
+              <div class="ath-cell">
+                <span class="ath-num">${a.number || '#'}</span>
+                <div>
+                  <a href="app.html?id=${a.id}" target="_blank" class="ath-name">${a.name}</a>
+                </div>
+              </div>
+            </td>
+            <td><span class="ath-role">${a.role}</span></td>
+            <td>${riskBadge}</td>
+            <td style="max-width:280px;font-size:0.78rem;color:#cbd5e1;white-space:normal">${flags}</td>
+            <td>
+              ${hasPrehab ? `<button class="btn-action" onclick="openPrehabModal(${a.id})">🛡️ Vedi Protocollo F1</button>` : '<span style="color:#64748b">—</span>'}
+            </td>
+            <td>
+              <a href="app.html?id=${a.id}" target="_blank" class="btn-action">↗ Apri Scheda</a>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openPrehabModal(athId) {
+      const a = ROSTER.find(item => item.id === athId);
+      const p = PREHAB_DATA[String(athId)];
+      if (!a || !p) return;
+
+      document.getElementById('pm-name').textContent = a.name;
+      const f1 = p.phases?.F1;
+      if (!f1) return;
+
+      document.getElementById('pm-phase').textContent = `${f1.title} · Obiettivo: ${f1.objective || 'Miglioramento ROM'}`;
+      document.getElementById('pm-content').innerHTML = (f1.exercises || []).map((ex, i) => `
+        <div style="background:var(--mv-surface2);border-radius:8px;padding:10px 12px;margin-bottom:8px;">
+          <div style="font-weight:700;color:#fff;font-size:0.88rem">${i+1}. ${ex.exercise}</div>
+          <div style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;margin:2px 0">🎯 ${ex.params} · ${ex.target}</div>
+          <div style="font-size:0.75rem;color:#94a3b8">${ex.notes}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('prehab-modal').classList.add('open');
+    }
+
+    function closePrehabModal(e) {
+      document.getElementById('prehab-modal').classList.remove('open');
+    }
+
+    window.addEventListener('DOMContentLoaded', initCoach);
+  </script>
+</body>
+</html>

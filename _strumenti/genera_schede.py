@@ -249,19 +249,33 @@ def render_atleta(atleta, sedute_all, esercizi_all, maxes, skip_sempre, skip_non
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output",  default="schede_atleta.html")
+    parser.add_argument("--week",    default="W2",
+                        help="Settimana da caricare (es. W1, W2). Default: W2")
+    parser.add_argument("--output",  default=None)
     parser.add_argument("--dev",     action="store_true")
     parser.add_argument("--offline", action="store_true",
                         help="Nessuna chiamata GAS: usa Giocatrici.csv e cache progressi")
     args = parser.parse_args()
 
+    week = args.week.upper()
+    if not args.output:
+        args.output = f"schede_atleta_{week.lower()}.html"
+
     api_url  = DEV_API if args.dev else PROD_API
     data_dir = os.path.join(REPO, "data")
 
     # Leggi CSV locali
-    print("Leggo CSV locali…")
-    sedute   = leggi_csv(os.path.join(data_dir, "W1_Sedute.csv"))
-    esercizi = leggi_csv(os.path.join(data_dir, "W1_Esercizi.csv"))
+    sedute_csv   = os.path.join(data_dir, f"{week}_Sedute.csv")
+    esercizi_csv = os.path.join(data_dir, f"{week}_Esercizi.csv")
+    if not os.path.exists(sedute_csv) or not os.path.exists(esercizi_csv):
+        print(f"File per {week} non trovati in data/ ({sedute_csv} o {esercizi_csv}). Uso W1 come fallback.")
+        week = "W1"
+        sedute_csv   = os.path.join(data_dir, "W1_Sedute.csv")
+        esercizi_csv = os.path.join(data_dir, "W1_Esercizi.csv")
+
+    print(f"Leggo CSV locali ({week})...")
+    sedute   = leggi_csv(sedute_csv)
+    esercizi = leggi_csv(esercizi_csv)
 
     # Config skip metodi
     skip_sempre, skip_non_libero = carica_skip_metodi()
@@ -340,11 +354,11 @@ def main():
     os.makedirs(os.path.dirname(out), exist_ok=True)
     with open(out, "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"\nFatto → {out}")
+    print(f"\nFatto -> {out}")
     if not args.offline:
-        print("Apri nel browser e stampa (Ctrl+P) — una pagina per atleta.")
+        print("Apri nel browser e stampa (Ctrl+P) - una pagina per atleta.")
     else:
-        print("Modalità offline — massimali dalla cache (o assenti se cache vuota).")
+        print("Modalita offline - massimali dalla cache (o assenti se cache vuota).")
 
 if __name__ == "__main__":
     main()

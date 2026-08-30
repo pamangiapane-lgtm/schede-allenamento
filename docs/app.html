@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Marsala Volley — Scheda Atleta</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0c1f40">
+  <link rel="apple-touch-icon" href="logo.jpg">
+  <style>
+    :root {
+      --mv-navy: #0c1f40;
+      --mv-navy-dark: #071226;
+      --mv-navy-light: #162b55;
+      --mv-amber: #e8a020;
+      --mv-amber-glow: rgba(232, 160, 32, 0.18);
+      --mv-coral: #e84c2b;
+      --mv-emerald: #10b981;
+      --mv-bg: #f4f6fa;
+      --mv-card: #ffffff;
+      --mv-text: #1e293b;
+      --mv-muted: #64748b;
+      --mv-border: #e2e8f0;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--mv-bg);
+      color: var(--mv-text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      padding-bottom: 70px;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: var(--mv-navy);
+      color: #fff;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+    .top-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; }
+    .top-logo { width: 32px; height: 32px; border-radius: 6px; object-fit: cover; }
+    .top-title { font-size: 0.95rem; font-weight: 800; letter-spacing: 0.5px; }
+    .top-sub { font-size: 0.65rem; color: #94a3b8; }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .btn-pill {
+      background: var(--mv-navy-light);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .btn-pill:hover, .btn-pill.active { background: var(--mv-amber); color: #fff; border-color: var(--mv-amber); }
+
+    /* Athlete Hero Card */
+    .athlete-hero {
+      background: linear-gradient(135deg, var(--mv-navy) 0%, var(--mv-navy-light) 100%);
+      color: #fff;
+      margin: 12px 14px 16px;
+      padding: 18px 16px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 16px rgba(12, 31, 64, 0.18);
+    }
+    .hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .hero-name { font-size: 1.35rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.3px; }
+    .hero-role { font-size: 0.8rem; color: var(--mv-amber); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; }
+    .risk-badge {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .risk-badge.high { background: rgba(232, 76, 43, 0.25); color: #ff8a73; border: 1px solid #e84c2b; }
+    .risk-badge.medium { background: rgba(232, 160, 32, 0.25); color: #ffd175; border: 1px solid #e8a020; }
+    .risk-badge.low { background: rgba(16, 185, 129, 0.25); color: #6ee7b7; border: 1px solid #10b981; }
+
+    .clinical-banner {
+      background: rgba(0,0,0,0.22);
+      border-left: 3px solid var(--mv-amber);
+      padding: 8px 10px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.75rem;
+      margin-top: 10px;
+      line-height: 1.35;
+      color: #e2e8f0;
+    }
+    .clinical-banner strong { color: var(--mv-amber); }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      margin: 0 14px 14px;
+      background: #e2e8f0;
+      padding: 4px;
+      border-radius: 12px;
+    }
+    .nav-tab {
+      flex: 1;
+      text-align: center;
+      padding: 8px 4px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--mv-muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .nav-tab.active {
+      background: #fff;
+      color: var(--mv-navy);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    /* Week Filter Bar */
+    .week-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 14px 14px;
+      background: #fff;
+      padding: 8px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--mv-border);
+    }
+    .week-label { font-size: 0.78rem; font-weight: 700; color: var(--mv-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .week-toggle { display: flex; gap: 4px; }
+    .btn-wk {
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--mv-border);
+      background: #f8fafc;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--mv-muted);
+    }
+    .btn-wk.active { background: var(--mv-navy); color: #fff; border-color: var(--mv-navy); }
+
+    /* Session Accordions & Cards */
+    .session-block { margin: 0 14px 16px; }
+    .session-card {
+      background: #fff;
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .session-head {
+      background: #fff;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      border-bottom: 1px solid transparent;
+      user-select: none;
+    }
+    .session-card.open .session-head { border-bottom-color: var(--mv-border); background: #fbfcfe; }
+    .session-title-wrap { display: flex; align-items: center; gap: 8px; }
+    .session-badge {
+      background: var(--mv-amber-glow);
+      color: #b45309;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+    .session-title { font-size: 1rem; font-weight: 800; color: var(--mv-navy); }
+    .session-meta { font-size: 0.75rem; color: var(--mv-muted); margin-top: 1px; }
+    .session-chevron { font-size: 1.1rem; color: var(--mv-muted); transition: transform 0.2s; }
+    .session-card.open .session-chevron { transform: rotate(180deg); }
+    .session-body { display: none; padding: 12px; }
+    .session-card.open .session-body { display: block; }
+
+    /* Method Group inside Session */
+    .method-group { margin-bottom: 16px; }
+    .method-header {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--mv-navy);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin: 8px 4px 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .method-header::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+
+    /* Exercise Item Card */
+    .exercise-card {
+      background: #f8fafc;
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+    .ex-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+    .ex-name { font-size: 0.92rem; font-weight: 700; color: var(--mv-text); line-height: 1.25; }
+    .ex-role-tag { font-size: 0.65rem; background: #e2e8f0; color: #475569; padding: 1px 6px; border-radius: 4px; font-weight: 700; white-space: nowrap; }
+
+    /* Table of Sets & Reps */
+    .ex-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin: 6px 0 10px;
+      background: #fff;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid #edf2f7;
+    }
+    .ex-table th { background: #edf2f7; color: var(--mv-muted); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 5px 8px; text-align: center; }
+    .ex-table td { padding: 6px 8px; text-align: center; font-weight: 700; color: var(--mv-navy); border-top: 1px solid #f1f5f9; }
+    .ex-table td.rest-td { color: #64748b; font-weight: 600; font-size: 0.78rem; }
+
+    /* Target Load Estimation */
+    .ex-target-load {
+      font-size: 0.78rem;
+      color: #0369a1;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 6px;
+      padding: 4px 8px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    /* Log Input Row */
+    .ex-log-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--mv-border);
+    }
+    .log-input {
+      flex: 1;
+      background: #fff;
+      border: 1.5px solid var(--mv-border);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 0.85rem;
+      color: var(--mv-text);
+      font-family: inherit;
+      outline: none;
+    }
+    .log-input:focus { border-color: var(--mv-navy); }
+    .btn-save-log {
+      background: var(--mv-navy);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-save-log:active { background: var(--mv-amber); }
+    .saved-check { color: var(--mv-emerald); font-weight: 700; font-size: 0.78rem; display: none; }
+
+    /* Technical Instructions Accordion */
+    .ex-notes-toggle {
+      background: none;
+      border: none;
+      color: var(--mv-muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+      padding: 2px 0;
+    }
+    .ex-notes-toggle:hover { color: var(--mv-navy); }
+    .ex-notes-body {
+      display: none;
+      background: #fff;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: #334155;
+      border: 1px solid #edf2f7;
+    }
+    .ex-note-sec { margin-bottom: 4px; }
+    .ex-note-sec strong { color: var(--mv-navy); }
+
+    /* Prehab Dedicated Tab */
+    .prehab-card {
+      background: #fff;
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin: 0 14px 16px;
+    }
+    .prehab-phase-title { font-size: 1.1rem; font-weight: 800; color: var(--mv-navy); margin-bottom: 4px; }
+    .prehab-objective { font-size: 0.82rem; color: var(--mv-muted); margin-bottom: 14px; line-height: 1.4; }
+    .prehab-item {
+      background: #f8fafc;
+      border: 1px solid #edf2f7;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+    .prehab-item-name { font-weight: 700; font-size: 0.88rem; color: var(--mv-navy); }
+    .prehab-item-meta { font-size: 0.75rem; color: #0284c7; font-weight: 700; margin: 2px 0; }
+    .prehab-item-desc { font-size: 0.75rem; color: #475569; line-height: 1.35; }
+
+    /* 1RM & Profile Tab */
+    .profile-card {
+      background: #fff;
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      margin: 0 14px 16px;
+    }
+    .rm-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .rm-row:last-child { border-bottom: none; }
+    .rm-name { font-weight: 700; font-size: 0.88rem; }
+    .rm-input-wrap { display: flex; align-items: center; gap: 6px; }
+    .rm-input {
+      width: 70px;
+      text-align: center;
+      padding: 6px 8px;
+      border: 1.5px solid var(--mv-border);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    /* Floating Wellness FAB */
+    .wellness-fab {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      background: var(--mv-amber);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 18px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      box-shadow: 0 4px 16px rgba(232, 160, 32, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 90;
+      transition: transform 0.15s;
+    }
+    .wellness-fab:active { transform: scale(0.95); }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-content {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 380px;
+      padding: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+    }
+    .modal-title { font-size: 1.15rem; font-weight: 800; color: var(--mv-navy); margin-bottom: 4px; }
+    .modal-sub { font-size: 0.78rem; color: var(--mv-muted); margin-bottom: 16px; }
+    .star-group { margin-bottom: 12px; }
+    .star-label { font-size: 0.82rem; font-weight: 700; margin-bottom: 4px; display: flex; justify-content: space-between; }
+    .star-row { display: flex; gap: 8px; }
+    .star-btn {
+      flex: 1;
+      aspect-ratio: 1;
+      border: 1.5px solid var(--mv-border);
+      border-radius: 8px;
+      background: #f8fafc;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--mv-muted);
+      cursor: pointer;
+    }
+    .star-btn.active { background: var(--mv-navy); color: #fff; border-color: var(--mv-navy); }
+    .modal-submit {
+      width: 100%;
+      background: var(--mv-navy);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <a href="index.html" class="top-brand">
+      <img src="logo.jpg" class="top-logo" alt="Marsala Volley">
+      <div>
+        <div class="top-title">Marsala Volley</div>
+        <div class="top-sub">Serie A2 · 2026/27</div>
+      </div>
+    </a>
+    <div class="top-actions">
+      <select id="athlete-select" class="btn-pill" onchange="switchAthlete(this.value)"></select>
+    </div>
+  </header>
+
+  <!-- Hero Profile -->
+  <section class="athlete-hero">
+    <div class="hero-top">
+      <div>
+        <h1 class="hero-name" id="hero-name">Caricamento...</h1>
+        <div class="hero-role" id="hero-role">—</div>
+      </div>
+      <span class="risk-badge" id="risk-badge">RISCHIO</span>
+    </div>
+    <div class="clinical-banner" id="clinical-banner" style="display:none">
+      <strong>Attenzione Clinica:</strong> <span id="clinical-flag-text"></span>
+    </div>
+  </section>
+
+  <!-- Main Navigation Tabs -->
+  <nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('sedute', this)">🏋️ Sedute</button>
+    <button class="nav-tab" onclick="showTab('prehab', this)">🛡️ Prehab Personale</button>
+    <button class="nav-tab" onclick="showTab('massimali', this)">📈 1RM & Profilo</button>
+  </nav>
+
+  <!-- TAB: SEDUTE DI ALLENAMENTO -->
+  <div id="tab-sedute" class="tab-pane">
+    <div class="week-bar">
+      <span class="week-label">Microciclo Pre-Season</span>
+      <div class="week-toggle">
+        <button class="btn-wk" onclick="setWeek('W1', this)">W1</button>
+        <button class="btn-wk active" onclick="setWeek('W2', this)">W2 (Attiva)</button>
+      </div>
+    </div>
+    <div id="sessions-container" class="session-block"></div>
+  </div>
+
+  <!-- TAB: PREHAB PERSONALE -->
+  <div id="tab-prehab" class="tab-pane" style="display:none">
+    <div class="prehab-card" id="prehab-container">
+      <div class="prehab-phase-title" id="prehab-title">Protocollo di Recupero</div>
+      <div class="prehab-objective" id="prehab-obj">Caricamento obiettivi...</div>
+      <div id="prehab-exercises-list"></div>
+    </div>
+  </div>
+
+  <!-- TAB: MASSIMALI (1RM) -->
+  <div id="tab-massimali" class="tab-pane" style="display:none">
+    <div class="profile-card">
+      <h2 style="font-size:1.05rem;font-weight:800;color:var(--mv-navy);margin-bottom:12px">Massimali di Riferimento (1RM)</h2>
+      <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:16px">I carichi delle schede sono calcolati automaticamente da questi valori.</p>
+      
+      <div class="rm-row">
+        <span class="rm-name">Back Squat (kg)</span>
+        <div class="rm-input-wrap">
+          <input type="number" class="rm-input" id="rm-squat" placeholder="es. 85" onchange="saveRM('squat', this.value)">
+        </div>
+      </div>
+      <div class="rm-row">
+        <span class="rm-name">Bench Press (kg)</span>
+        <div class="rm-input-wrap">
+          <input type="number" class="rm-input" id="rm-bench" placeholder="es. 55" onchange="saveRM('bench', this.value)">
+        </div>
+      </div>
+      <div class="rm-row">
+        <span class="rm-name">Power Clean (kg)</span>
+        <div class="rm-input-wrap">
+          <input type="number" class="rm-input" id="rm-clean" placeholder="es. 50" onchange="saveRM('clean', this.value)">
+        </div>
+      </div>
+      <div class="rm-row">
+        <span class="rm-name">Bilanciere Row (kg)</span>
+        <div class="rm-input-wrap">
+          <input type="number" class="rm-input" id="rm-row" placeholder="es. 50" onchange="saveRM('row', this.value)">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Wellness Button -->
+  <button class="wellness-fab" onclick="openWellnessModal()">
+    ⭐ Wellness Oggi
+  </button>
+
+  <!-- Modal Wellness -->
+  <div class="modal-overlay" id="wellness-modal">
+    <div class="modal-content">
+      <h3 class="modal-title">Questionario Wellness</h3>
+      <p class="modal-sub">Compila il tuo stato di prontezza prima della seduta.</p>
+
+      <div class="star-group">
+        <div class="star-label"><span>Qualità del Sonno</span><span id="lbl-sonno">3/5</span></div>
+        <div class="star-row" data-metric="sonno">
+          <button class="star-btn" onclick="setStar('sonno',1)">1</button>
+          <button class="star-btn" onclick="setStar('sonno',2)">2</button>
+          <button class="star-btn active" onclick="setStar('sonno',3)">3</button>
+          <button class="star-btn" onclick="setStar('sonno',4)">4</button>
+          <button class="star-btn" onclick="setStar('sonno',5)">5</button>
+        </div>
+      </div>
+
+      <div class="star-group">
+        <div class="star-label"><span>Livello di Energia / Fatica</span><span id="lbl-fatica">3/5</span></div>
+        <div class="star-row" data-metric="fatica">
+          <button class="star-btn" onclick="setStar('fatica',1)">1</button>
+          <button class="star-btn" onclick="setStar('fatica',2)">2</button>
+          <button class="star-btn active" onclick="setStar('fatica',3)">3</button>
+          <button class="star-btn" onclick="setStar('fatica',4)">4</button>
+          <button class="star-btn" onclick="setStar('fatica',5)">5</button>
+        </div>
+      </div>
+
+      <div class="star-group">
+        <div class="star-label"><span>Indolenzimento Muscolare (Soreness)</span><span id="lbl-dolore">3/5</span></div>
+        <div class="star-row" data-metric="dolore">
+          <button class="star-btn" onclick="setStar('dolore',1)">1</button>
+          <button class="star-btn" onclick="setStar('dolore',2)">2</button>
+          <button class="star-btn active" onclick="setStar('dolore',3)">3</button>
+          <button class="star-btn" onclick="setStar('dolore',4)">4</button>
+          <button class="star-btn" onclick="setStar('dolore',5)">5</button>
+        </div>
+      </div>
+
+      <div class="star-group">
+        <div class="star-label"><span>Umore / Stress</span><span id="lbl-stress">3/5</span></div>
+        <div class="star-row" data-metric="stress">
+          <button class="star-btn" onclick="setStar('stress',1)">1</button>
+          <button class="star-btn" onclick="setStar('stress',2)">2</button>
+          <button class="star-btn active" onclick="setStar('stress',3)">3</button>
+          <button class="star-btn" onclick="setStar('stress',4)">4</button>
+          <button class="star-btn" onclick="setStar('stress',5)">5</button>
+        </div>
+      </div>
+
+      <button class="modal-submit" onclick="saveWellness()">Salva Wellness</button>
+      <button style="width:100%;background:none;border:none;color:#94a3b8;font-size:0.8rem;margin-top:8px;cursor:pointer;" onclick="closeWellnessModal()">Chiudi</button>
+    </div>
+  </div>
+
+  <!-- Load Master Data -->
+  <script src="data.js"></script>
+
+  <script>
+    let currentAthleteId = 1;
+    let currentWeek = 'W2';
+    let currentAthlete = null;
+    let wellnessValues = { sonno: 3, fatica: 3, dolore: 3, stress: 3 };
+
+    function init() {
+      // 1. Check URL parameters for athlete id
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlId = urlParams.get('id');
+      if (urlId && ROSTER.some(a => String(a.id) === String(urlId))) {
+        currentAthleteId = parseInt(urlId);
+      } else {
+        const savedId = localStorage.getItem('mv_last_athlete');
+        if (savedId && ROSTER.some(a => String(a.id) === String(savedId))) {
+          currentAthleteId = parseInt(savedId);
+        }
+      }
+
+      // 2. Populate Athlete Select Dropdown
+      const select = document.getElementById('athlete-select');
+      select.innerHTML = ROSTER.map(a => `<option value="${a.id}" ${a.id === currentAthleteId ? 'selected' : ''}>${a.name}</option>`).join('');
+
+      // 3. Load Current Athlete
+      loadAthlete(currentAthleteId);
+    }
+
+    function switchAthlete(id) {
+      currentAthleteId = parseInt(id);
+      localStorage.setItem('mv_last_athlete', currentAthleteId);
+      window.history.replaceState({}, '', `?id=${currentAthleteId}`);
+      loadAthlete(currentAthleteId);
+    }
+
+    function loadAthlete(id) {
+      currentAthlete = ROSTER.find(a => a.id === id) || ROSTER[0];
+      
+      // Render Hero
+      document.getElementById('hero-name').textContent = currentAthlete.name;
+      document.getElementById('hero-role').textContent = `${currentAthlete.number || ''} · ${currentAthlete.role}`;
+      
+      const badge = document.getElementById('risk-badge');
+      const risk = currentAthlete.risk_level || 'LOW';
+      badge.className = `risk-badge ${risk.toLowerCase()}`;
+      badge.textContent = risk === 'HIGH' ? '🔴 Rischio Alto' : risk === 'MEDIUM' ? '🟡 Rischio Medio' : '🟢 Basso Rischio';
+
+      const flagBanner = document.getElementById('clinical-banner');
+      if (currentAthlete.clinical_flags && currentAthlete.clinical_flags.length > 0 && risk !== 'LOW') {
+        document.getElementById('clinical-flag-text').textContent = currentAthlete.clinical_flags.join(' · ');
+        flagBanner.style.display = 'block';
+      } else {
+        flagBanner.style.display = 'none';
+      }
+
+      // Load Sessions & Prehab & 1RM
+      renderSessions();
+      renderPrehab();
+      loadRMInputs();
+    }
+
+    function showTab(tabName, btn) {
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+      document.getElementById(`tab-${tabName}`).style.display = 'block';
+    }
+
+    function setWeek(wk, btn) {
+      currentWeek = wk;
+      document.querySelectorAll('.btn-wk').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderSessions();
+    }
+
+    function isExerciseVisible(ex, athlete) {
+      const roles = String(ex.Ruoli || 'tutti').trim();
+      if (!roles || roles === 'tutti') return true;
+      const role = athlete.role;
+      const nameFirst = athlete.name.split(' ')[0];
+      const parts = roles.split(',').map(p => p.trim());
+      
+      // Check exclusions (e.g. !Nelly, !Libero)
+      const exclusions = parts.filter(p => p.startsWith('!')).map(p => p.slice(1));
+      if (exclusions.some(excl => excl === role || excl === nameFirst || (excl === 'Nelly' && athlete.role === 'Nelly') || (excl === 'Libero' && athlete.role === 'Libero'))) {
+        return false;
+      }
+      
+      // Check positive match
+      const positives = parts.filter(p => !p.startsWith('!'));
+      if (positives.length === 0) return true;
+      return positives.some(p => p === role || p === nameFirst || (p === 'Nelly' && athlete.role === 'Nelly') || (p === 'Libero' && athlete.role === 'Libero') || (p === 'Schiaccia/Opposto' && (role === 'Banda' || role === 'Opposto')));
+    }
+
+    function renderSessions() {
+      const container = document.getElementById('sessions-container');
+      const weekData = WEEKS_DATA[currentWeek] || SESSIONS_W2;
+      const sedute = weekData.sedute || [];
+      const esercizi = weekData.esercizi || [];
+
+      if (sedute.length === 0) {
+        container.innerHTML = `<p style="color:var(--mv-muted);text-align:center;padding:24px">Nessuna seduta programmata per ${currentWeek}.</p>`;
+        return;
+      }
+
+      container.innerHTML = sedute.map((sed, idx) => {
+        const sedEsercizi = esercizi.filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta) && isExerciseVisible(e, currentAthlete));
+        if (sedEsercizi.length === 0) return '';
+
+        // Group by Method
+        const methodMap = {};
+        sedEsercizi.forEach(e => {
+          const m = e.Metodo || 'Generale';
+          if (!methodMap[m]) methodMap[m] = [];
+          methodMap[m].push(e);
+        });
+
+        const isPalestra = String(sed.Luogo).toLowerCase().includes('palestra');
+        const isOpen = idx === 0 || isPalestra;
+
+        const methodsHtml = Object.keys(methodMap).map(mName => {
+          const exList = methodMap[mName];
+          return `
+            <div class="method-group">
+              <div class="method-header">${mName}</div>
+              ${exList.map(e => renderExerciseCard(e, sed)).join('')}
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="session-card ${isOpen ? 'open' : ''}" id="card-${sed.Numero_Seduta}">
+            <div class="session-head" onclick="toggleSessionCard('${sed.Numero_Seduta}')">
+              <div>
+                <div class="session-title-wrap">
+                  <span class="session-badge">${sed.Giorno || ''}</span>
+                  <span class="session-title">${sed.Nome_Seduta || sed.Numero_Seduta}</span>
+                </div>
+                <div class="session-meta">📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 60} min</div>
+              </div>
+              <div class="session-chevron">▾</div>
+            </div>
+            <div class="session-body">
+              ${methodsHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleSessionCard(sedId) {
+      const el = document.getElementById(`card-${sedId}`);
+      if (el) el.classList.toggle('open');
+    }
+
+    function renderExerciseCard(e, sed) {
+      const logKey = `log_${currentAthleteId}_${e.N_Seduta}_${e.Codice || e.Esercizio}`;
+      const savedVal = localStorage.getItem(logKey) || '';
+
+      // Calculate Target Load if % RM
+      let targetCalc = '';
+      const intStr = e['Intensità'] || e.Intensità || '';
+      if (intStr.includes('%')) {
+        const pctMatch = intStr.match(/(\d+)%/);
+        if (pctMatch) {
+          const pct = parseInt(pctMatch[1]);
+          const rmKey = e.Esercizio.toLowerCase().includes('squat') ? 'squat' :
+                        e.Esercizio.toLowerCase().includes('clean') ? 'clean' :
+                        e.Esercizio.toLowerCase().includes('bench') ? 'bench' :
+                        e.Esercizio.toLowerCase().includes('row') ? 'row' : null;
+          if (rmKey) {
+            const rmVal = parseFloat(localStorage.getItem(`mv_rm_${currentAthleteId}_${rmKey}`) || '0');
+            if (rmVal > 0) {
+              const calcKg = Math.round((rmVal * (pct / 100)) / 2.5) * 2.5;
+              targetCalc = `<div class="ex-target-load">🎯 Carico suggerito (${pct}% di 1RM ${rmVal}kg): <strong>≈ ${calcKg} kg</strong></div>`;
+            }
+          }
+        }
+      }
+
+      // Rest time label
+      const restLabel = e.Recupero ? `rec. ${e.Recupero}` : '—';
+
+      // Notes & Instructions
+      let notesHtml = '';
+      if (e.Istruzione || e.Note) {
+        const uid = Math.random().toString(36).slice(2, 8);
+        notesHtml = `
+          <button class="ex-notes-toggle" onclick="toggleNotes('notes-${uid}')">
+            <span>ℹ️ Dettagli tecnici & esecuzione</span> ▾
+          </button>
+          <div class="ex-notes-body" id="notes-${uid}">
+            ${e.Istruzione ? `<div class="ex-note-sec"><strong>Istruzioni:</strong> ${e.Istruzione}</div>` : ''}
+            ${e.Note ? `<div class="ex-note-sec"><strong>Note Coach:</strong> ${e.Note}</div>` : ''}
+          </div>
+        `;
+      }
+
+      return `
+        <div class="exercise-card">
+          <div class="ex-top">
+            <div class="ex-name">${e.Esercizio}</div>
+            ${e.Ruoli && e.Ruoli !== 'tutti' ? `<span class="ex-role-tag">${e.Ruoli}</span>` : ''}
+          </div>
+          
+          <table class="ex-table">
+            <thead>
+              <tr>
+                <th>Serie</th>
+                <th>Reps</th>
+                <th>Intensità</th>
+                <th>Recupero</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>${e.Serie || '—'}</td>
+                <td>${e.Reps || '—'}</td>
+                <td>${intStr || '—'}</td>
+                <td class="rest-td">${restLabel}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          ${targetCalc}
+
+          <div class="ex-log-row">
+            <input type="text" class="log-input" id="input-${logKey}" 
+                   placeholder="Registra kg usati (es. 65kg)" value="${savedVal}">
+            <button class="btn-save-log" onclick="saveLog('${logKey}')">Salva</button>
+            <span class="saved-check" id="check-${logKey}">✓ Salvato!</span>
+          </div>
+
+          ${notesHtml}
+        </div>
+      `;
+    }
+
+    function toggleNotes(noteId) {
+      const el = document.getElementById(noteId);
+      if (el) el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function saveLog(logKey) {
+      const val = document.getElementById(`input-${logKey}`).value.trim();
+      localStorage.setItem(logKey, val);
+      const chk = document.getElementById(`check-${logKey}`);
+      if (chk) {
+        chk.style.display = 'inline';
+        setTimeout(() => { chk.style.display = 'none'; }, 2000);
+      }
+    }
+
+    function renderPrehab() {
+      const pData = PREHAB_DATA[String(currentAthleteId)];
+      const listEl = document.getElementById('prehab-exercises-list');
+      if (!pData || !pData.phases || !pData.phases.F1) {
+        document.getElementById('prehab-title').textContent = 'Prehab Individuale';
+        document.getElementById('prehab-obj').textContent = 'Protocollo in fase di caricamento.';
+        listEl.innerHTML = '<p style="color:var(--mv-muted)">Nessun protocollo assegnato.</p>';
+        return;
+      }
+
+      const f1 = pData.phases.F1;
+      document.getElementById('prehab-title').textContent = `${f1.title} (Frequenza: 3-4×/sett)`;
+      document.getElementById('prehab-obj').textContent = f1.objective || 'Miglioramento ROM e stabilità articolare.';
+
+      listEl.innerHTML = (f1.exercises || []).map((item, idx) => `
+        <div class="prehab-item">
+          <div class="prehab-item-name">${idx+1}. ${item.exercise}</div>
+          <div class="prehab-item-meta">🎯 ${item.params || '3x10'} · ${item.target || ''}</div>
+          <div class="prehab-item-desc">${item.notes || ''}</div>
+        </div>
+      `).join('');
+    }
+
+    function loadRMInputs() {
+      ['squat', 'bench', 'clean', 'row'].forEach(k => {
+        const val = localStorage.getItem(`mv_rm_${currentAthleteId}_${k}`) || '';
+        const el = document.getElementById(`rm-${k}`);
+        if (el) el.value = val;
+      });
+    }
+
+    function saveRM(type, val) {
+      localStorage.setItem(`mv_rm_${currentAthleteId}_${type}`, val.trim());
+      renderSessions();
+    }
+
+    function openWellnessModal() {
+      document.getElementById('wellness-modal').classList.add('open');
+    }
+    function closeWellnessModal() {
+      document.getElementById('wellness-modal').classList.remove('open');
+    }
+    function setStar(metric, val) {
+      wellnessValues[metric] = val;
+      document.getElementById(`lbl-${metric}`).textContent = `${val}/5`;
+      const row = document.querySelector(`.star-row[data-metric="${metric}"]`);
+      if (row) {
+        row.querySelectorAll('.star-btn').forEach((b, i) => {
+          b.classList.toggle('active', i + 1 === val);
+        });
+      }
+    }
+    function saveWellness() {
+      const today = new Date().toISOString().slice(0, 10);
+      localStorage.setItem(`mv_wellness_${currentAthleteId}_${today}`, JSON.stringify(wellnessValues));
+      closeWellnessModal();
+      alert('✓ Questionario Wellness registrato con successo!');
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

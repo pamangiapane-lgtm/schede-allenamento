@@ -1,0 +1,240 @@
+[
+  {
+    "id": 1,
+    "name": "Veronica Allasia",
+    "role": "Palleggiatrice",
+    "number": "#01",
+    "risk_level": "HIGH",
+    "clinical_flags": [
+      "Instabilita caviglia DX (inversione grave)",
+      "Stress tibiale cronico"
+    ],
+    "focus_areas": [
+      "Attivazione tibiale posteriore/Short Foot SX",
+      "Recupero rotazione interna anca DX",
+      "Mobilita catena posteriore"
+    ],
+    "folder": "01_Veronica_Allasia"
+  },
+  {
+    "id": 2,
+    "name": "Maria Marcuzzi",
+    "role": "Centrale",
+    "number": "#02",
+    "risk_level": "MEDIUM",
+    "clinical_flags": [
+      "Spalla DX debole/ipomobilita scapolare",
+      "Deficit podalico bilaterale (arco basso)"
+    ],
+    "focus_areas": [
+      "Rinforzo arco plantare/Short Foot",
+      "Allungamento flessori anca (ileopsoas/retto femorale DX)",
+      "Core stability IAP",
+      "Mobilita scapolo-toracica DX"
+    ],
+    "folder": "02_Maria_Marcuzzi"
+  },
+  {
+    "id": 3,
+    "name": "Victoria Sassolini",
+    "role": "Banda",
+    "number": "#03",
+    "risk_level": "MEDIUM",
+    "clinical_flags": [
+      "Pregressa frattura tibia DX",
+      "Rigidita anca SX",
+      "Sovraccarico lombare/polpacci"
+    ],
+    "focus_areas": [
+      "Recupero rotazione interna anca DX",
+      "Stabilita monopodalica DX",
+      "Allungamento flessori anca e mobilita lombosacrale"
+    ],
+    "folder": "03_Victoria_Sassolini"
+  },
+  {
+    "id": 4,
+    "name": "Anja Asonja",
+    "role": "Opposto",
+    "number": "#04",
+    "risk_level": "MEDIUM",
+    "clinical_flags": [
+      "Tendinite bilaterale ginocchia (overuse)",
+      "Spalla DX rigida"
+    ],
+    "focus_areas": [
+      "Allungamento flessori anca",
+      "Attivazione tibiale posteriore (DX) e gluteo medio DX",
+      "Mobilita lombare e sblocco spalla DX"
+    ],
+    "folder": "04_Anja_Asonja"
+  },
+  {
+    "id": 5,
+    "name": "Chiara Lo Dico",
+    "role": "Libero",
+    "number": "#05",
+    "risk_level": "MEDIUM",
+    "clinical_flags": [
+      "Osgood-Schlatter ginocchio DX (cronico)",
+      "Valgismo dinamico ginocchio DX in Step Over"
+    ],
+    "focus_areas": [
+      "Sblocco caviglia dorsiflessione",
+      "Allungamento retto femorale DX",
+      "Mobilita anca DX IR",
+      "Attivazione gluteo medio DX",
+      "Rinforzo scapolare Libero"
+    ],
+    "folder": "05_Chiara_Lo_Dico"
+  },
+  {
+    "id": 6,
+    "name": "Gaia Biondi",
+    "role": "Centrale",
+    "number": "#06",
+    "risk_level": "MEDIUM",
+    "clinical_flags": [
+      "Dolore rotuleo attivo ginocchio DX",
+      "Fascite plantare attiva piede SX"
+    ],
+    "focus_areas": [
+      "Stabilizzazione podalica bilaterale (inversione calcaneale)",
+      "Allungamento quadricipite DX",
+      "Mobilita in rotazione esterna anche",
+      "Core stability IAP"
+    ],
+    "folder": "06_Gaia_Biondi"
+  },
+  {
+    "id": 7,
+    "name": "Elisa Bole",
+    "role": "Banda",
+    "number": "#07",
+    "risk_level": "MEDIUM",
+    "clinical_flags": [
+      "Tendinopatia quadricipitale ginocchio SX",
+      "Instabilita podalica e valgismo DX"
+    ],
+    "focus_areas": [
+      "Stabilizzazione podalica DX (Short Foot)",
+      "Controllo valgismo DX",
+      "Mobilita lombo-dorsale",
+      "Allineamento spinta metatarsale DX"
+    ],
+    "folder": "07_Elise_Bole"
+  },
+  {
+    "id": 8,
+    "name": "Federica Nonnati",
+    "role": "Opposto",
+    "number": "#08",
+    "risk_level": "HIGH",
+    "clinical_flags": [
+      "Spalla DX cronica (dolore 4-5/10)",
+      "Retrazione grave retto femorale (flessione ginocchio a 70 deg)",
+      "Storia sublussazione astragalo e edema cuboide SX"
+    ],
+    "focus_areas": [
+      "Allungamento profondo catena anteriore",
+      "Recupero ROM anca SX",
+      "Rieducazione dita e stabilita podalica",
+      "Controllo valgismo"
+    ],
+    "folder": "08_Federica_Nonnati"
+  },
+  {
+    "id": 9,
+    "name": "Sara Dodi",
+    "role": "Banda",
+    "number": "#09",
+    "risk_level": "HIGH",
+    "clinical_flags": [
+      "Ricostruzione LCA + menisco SX (2021)",
+      "Menisco DX (2024)",
+      "Cervicalgia severa con irradiazione"
+    ],
+    "focus_areas": [
+      "Sblocco dorsiflessione caviglia",
+      "Stabilita podalica SX e gluteo medio SX",
+      "Allungamento retto femorale",
+      "Mobilizzazione anca SX ER",
+      "Rieducazione posturale spalla SX"
+    ],
+    "folder": "09_Sara_Dodi"
+  },
+  {
+    "id": 11,
+    "name": "Luna Cicola",
+    "role": "Libero",
+    "number": "#11",
+    "risk_level": "MEDIUM",
+    "clinical_flags": [
+      "Deficit severo rotazione esterna anche",
+      "Valgismo dinamico bilaterale"
+    ],
+    "focus_areas": [
+      "Sblocco rotazione esterna anche bilaterale",
+      "Stabilita podalica DX",
+      "Allungamento quadricipiti",
+      "Mobilita overhead spalla SX",
+      "Rinforzo scapolare Libero"
+    ],
+    "folder": "11_Luna_Cicola"
+  },
+  {
+    "id": 12,
+    "name": "Erin Grippo",
+    "role": "Palleggiatrice",
+    "number": "#12",
+    "risk_level": "LOW",
+    "clinical_flags": [
+      "Squat limitato a 90 deg per dorsiflessione caviglia ridotta",
+      "Spalle anteposte bilateralmente"
+    ],
+    "focus_areas": [
+      "Sblocco dorsiflessione caviglia bilaterale",
+      "Mobilita toracica estensione foam roller",
+      "Rieducazione spinta metatarsale DX",
+      "Allungamento catena posteriore lombare"
+    ],
+    "folder": "12_Erin_Grippo"
+  },
+  {
+    "id": 13,
+    "name": "Giulia Caserta",
+    "role": "Centrale",
+    "number": "#13",
+    "risk_level": "LOW",
+    "clinical_flags": [
+      "Perdita controllo lombo-pelvico squat profondo >110 deg (butt wink)",
+      "Spalla SX anteposta"
+    ],
+    "focus_areas": [
+      "Core stability IAP",
+      "Attivazione scapolare DX",
+      "Mobilita spalla SX ed estensione toracica",
+      "Riequilibrio appoggio podalico SX"
+    ],
+    "folder": "13_Giulia_Caserta"
+  },
+  {
+    "id": 14,
+    "name": "Nelly Adamczewska",
+    "role": "Nelly",
+    "number": "#14",
+    "risk_level": "MEDIUM",
+    "clinical_flags": [
+      "Lassita legamentosa generalizzata",
+      "Cisti ganglionare polso DX",
+      "Jumper knee pregresso"
+    ],
+    "focus_areas": [
+      "Stabilita attiva piede (Short Foot, tibiale post. SX)",
+      "Controllo pelvico/core (Side Plank)",
+      "Coordinamento scapolo-omerale DX",
+      "Programma dedicato Strength/Power Michal"
+    ],
+    "folder": "10_Nelly_Adamczewska"
+  }
+]
