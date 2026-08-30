@@ -7,7 +7,7 @@ const VAPID_PUBLIC_KEY  = 'BAk4BYdzjxv-WP-YdpCQIFNa71SMb-5FvwqtOt6UJwn4GCAlwUa9W
 const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
 const APPS_SCRIPT_URL   = process.env.APPS_SCRIPT_URL;
 const APPS_SCRIPT_TOKEN = process.env.APPS_SCRIPT_TOKEN;
-const APP_URL           = 'https://pamangiapane-lgtm.github.io/schede-allenamento/scheda.html';
+const APP_BASE_URL      = 'https://pamangiapane-lgtm.github.io/schede-allenamento/scheda.html';
 
 if (!VAPID_PRIVATE_KEY || !APPS_SCRIPT_URL || !APPS_SCRIPT_TOKEN) {
   console.error('Variabili mancanti: VAPID_PRIVATE_KEY, APPS_SCRIPT_URL, APPS_SCRIPT_TOKEN');
@@ -22,7 +22,7 @@ async function fetchSheet(foglio) {
   if (!resp.ok) throw new Error(`HTTP ${resp.status} per foglio ${foglio}`);
   const data = await resp.json();
   if (!data.ok) throw new Error(`API error: ${data.errore}`);
-  return data.righe || [];
+  return data.dati || [];
 }
 
 async function main() {
@@ -41,12 +41,6 @@ async function main() {
   );
   console.log(`${today} — ${submittedToday.size} già compilate: [${[...submittedToday].join(', ')}]`);
 
-  const payload = JSON.stringify({
-    title: 'Marsala Volley 🏐',
-    body:  'Compila il wellness prima della seduta di oggi!',
-    url:   APP_URL,
-  });
-
   let sent = 0, skipped = 0, errors = 0;
 
   for (const row of subRows) {
@@ -64,6 +58,13 @@ async function main() {
       endpoint: row.Endpoint,
       keys: { p256dh: row.P256dh, auth: row.Auth },
     };
+
+    // URL personalizzato per aprire direttamente la scheda della giocatrice
+    const payload = JSON.stringify({
+      title: 'Marsala Volley 🏐',
+      body:  'Compila il wellness prima della seduta di oggi!',
+      url:   `${APP_BASE_URL}?id=${idG}`,
+    });
 
     try {
       await webpush.sendNotification(subscription, payload);
