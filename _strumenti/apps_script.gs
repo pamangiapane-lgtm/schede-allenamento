@@ -4,7 +4,7 @@
 // poi clicca Deploy → New deployment → Web app
 // =====================================================
 
-const TOKEN = 'squadra2026'; // puoi cambiarlo se vuoi
+const TOKEN = 'mv26-prd-3xF7wNqK';
 
 function doGet(e) {
   try {
@@ -15,6 +15,43 @@ function doGet(e) {
       const foglio = e.parameter.foglio;
       const dati = leggiTutto(foglio);
       return risposta({ok: true, dati: dati});
+    }
+
+    if (azione === 'salva_push_sub') {
+      const ss = SpreadsheetApp.getActiveSpreadsheet();
+      let foglio = ss.getSheetByName('PushSub');
+      if (!foglio) {
+        foglio = ss.insertSheet('PushSub');
+        foglio.appendRow(['ID_Giocatrice','Endpoint','P256dh','Auth','Aggiornato']);
+      }
+      const dati = foglio.getDataRange().getValues();
+      const idG = e.parameter.id_giocatrice;
+      const endpoint = e.parameter.endpoint;
+      const p256dh = e.parameter.p256dh;
+      const auth = e.parameter.auth;
+      for (let i = 1; i < dati.length; i++) {
+        if (String(dati[i][0]) === String(idG)) {
+          foglio.getRange(i + 1, 2, 1, 4).setValues([[endpoint, p256dh, auth, new Date().toISOString()]]);
+          return risposta({ok: true});
+        }
+      }
+      foglio.appendRow([idG, endpoint, p256dh, auth, new Date().toISOString()]);
+      return risposta({ok: true});
+    }
+
+    if (azione === 'rimuovi_push_sub') {
+      const ss = SpreadsheetApp.getActiveSpreadsheet();
+      const sh = ss.getSheetByName('PushSub');
+      if (!sh) return risposta({ok: true, rimossa: false});
+      const idG = e.parameter.id_giocatrice;
+      const dati = sh.getDataRange().getValues();
+      for (let i = dati.length - 1; i >= 1; i--) {
+        if (String(dati[i][0]) === String(idG)) {
+          sh.deleteRow(i + 1);
+          return risposta({ok: true, rimossa: true});
+        }
+      }
+      return risposta({ok: true, rimossa: false});
     }
 
     return risposta({errore: 'azione non riconosciuta'});
@@ -39,6 +76,56 @@ function doPost(e) {
       return risposta({ok: true});
     }
 
+    if (azione === 'scrivi_foglio') {
+      scrivi_foglio_bulk(body.foglio, body.intestazioni, body.righe);
+      return risposta({ok: true, scritte: body.righe.length});
+    }
+
+    if (azione === 'aggiungi_righe') {
+      aggiungiRigheBulk(body.foglio, body.righe);
+      return risposta({ok: true, scritte: body.righe.length});
+    }
+
+    if (azione === 'carica_da_github') {
+      // GAS fetcha i 4 CSV da GitHub raw (server-side, zero timeout client).
+      // Usa Utilities.parseCsv() che gestisce correttamente le virgole nei campi quotati.
+      const urls = {
+        sedute_w1:   body.url_sedute_w1,
+        sedute_w2:   body.url_sedute_w2,
+        esercizi_w1: body.url_esercizi_w1,
+        esercizi_w2: body.url_esercizi_w2,
+      };
+
+      function fetchCsv(url) {
+        const resp = UrlFetchApp.fetch(url, {muteHttpExceptions: true});
+        if (resp.getResponseCode() !== 200)
+          throw new Error('fetch fallita ' + resp.getResponseCode() + ': ' + url);
+        const parsed = Utilities.parseCsv(resp.getContentText('UTF-8'));
+        return { intestazioni: parsed[0], dati: parsed.slice(1) };
+      }
+
+      const sw1 = fetchCsv(urls.sedute_w1);
+      const sw2 = fetchCsv(urls.sedute_w2);
+      const ew1 = fetchCsv(urls.esercizi_w1);
+      const ew2 = fetchCsv(urls.esercizi_w2);
+
+      // Sedute W1+W2 con colonna Ordine
+      const tutteSedute = sw1.dati.concat(sw2.dati);
+      const intestSedute = sw1.intestazioni.concat(['Ordine']);
+      const righeSeduteOut = tutteSedute.map((r, i) => r.concat([i + 1]));
+      scrivi_foglio_bulk('Sedute', intestSedute, righeSeduteOut);
+
+      // Esercizi W1+W2
+      const tuttiEsercizi = ew1.dati.concat(ew2.dati);
+      scrivi_foglio_bulk('Esercizi', ew1.intestazioni, tuttiEsercizi);
+
+      return risposta({
+        ok: true,
+        sedute: tutteSedute.length,
+        esercizi: tuttiEsercizi.length,
+      });
+    }
+
     if (azione === 'aggiungi_esercizio_prehab') {
       aggiungiEsercizioLibreria(body.esercizio);
       return risposta({ok: true});
@@ -58,6 +145,54 @@ function doPost(e) {
         body.rm_stimato || ''
       ];
       scriviRiga('Progressi', riga);
+      return risposta({ok: true});
+    }
+
+    if (azione === 'log_wellness') {
+      const ss = SpreadsheetApp.getActiveSpreadsheet();
+      let sh = ss.getSheetByName('Wellness');
+      const intestazioni = ['Timestamp','ID_Giocatrice','Data','Qualita_Sonno','Fatica','Disponibilita','Dolori','Note'];
+      if (!sh) {
+        sh = ss.insertSheet('Wellness');
+        sh.appendRow(intestazioni);
+      }
+      const nuovaRiga = [
+        new Date().toISOString(),
+        body.id_giocatrice,
+        body.data ?? '',
+        body.qualita_sonno ?? '',
+        body.fatica ?? '',
+        body.disponibilita ?? '',
+        body.dolori ?? '',
+        body.note ?? ''
+      ];
+      // Deduplicazione: aggiorna se esiste già un record per stesso ID e stessa data
+      const dati = sh.getDataRange().getValues();
+      for (let i = 1; i < dati.length; i++) {
+        if (String(dati[i][1]) === String(body.id_giocatrice) && String(dati[i][2]) === String(body.data)) {
+          sh.getRange(i + 1, 1, 1, nuovaRiga.length).setValues([nuovaRiga]);
+          return risposta({ok: true, aggiornato: true});
+        }
+      }
+      sh.appendRow(nuovaRiga);
+      return risposta({ok: true, aggiornato: false});
+    }
+
+    if (azione === 'salva_push_sub') {
+      const ss = SpreadsheetApp.getActiveSpreadsheet();
+      let foglio = ss.getSheetByName('PushSub');
+      if (!foglio) {
+        foglio = ss.insertSheet('PushSub');
+        foglio.appendRow(['ID_Giocatrice','Endpoint','P256dh','Auth','Aggiornato']);
+      }
+      const dati = foglio.getDataRange().getValues();
+      for (let i = 1; i < dati.length; i++) {
+        if (String(dati[i][0]) === String(body.id_giocatrice)) {
+          foglio.getRange(i + 1, 2, 1, 4).setValues([[body.endpoint, body.p256dh, body.auth, new Date().toISOString()]]);
+          return risposta({ok: true});
+        }
+      }
+      foglio.appendRow([body.id_giocatrice, body.endpoint, body.p256dh, body.auth, new Date().toISOString()]);
       return risposta({ok: true});
     }
 
@@ -89,12 +224,38 @@ function scriviRiga(nomeFoglio, riga) {
   foglio.appendRow(riga);
 }
 
+function scriviRigaFoglio(nomeFoglio, intestazioni, riga) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let foglio = ss.getSheetByName(nomeFoglio);
+  if (!foglio) {
+    foglio = ss.insertSheet(nomeFoglio);
+    foglio.appendRow(intestazioni);
+  }
+  foglio.appendRow(riga);
+}
+
 function svuotaERiscrivi(nomeFoglio, intestazioni, righe) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const foglio = ss.getSheetByName(nomeFoglio);
   foglio.clearContents();
   foglio.appendRow(intestazioni);
   righe.forEach(r => foglio.appendRow(r));
+}
+
+function scrivi_foglio_bulk(nomeFoglio, intestazioni, righe) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const foglio = ss.getSheetByName(nomeFoglio);
+  foglio.clearContents();
+  const tutto = [intestazioni, ...righe];
+  foglio.getRange(1, 1, tutto.length, intestazioni.length).setValues(tutto);
+}
+
+function aggiungiRigheBulk(nomeFoglio, righe) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const foglio = ss.getSheetByName(nomeFoglio);
+  const ultimaRiga = foglio.getLastRow();
+  const ncol = righe[0].length;
+  foglio.getRange(ultimaRiga + 1, 1, righe.length, ncol).setValues(righe);
 }
 
 function risposta(obj) {

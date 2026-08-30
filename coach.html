@@ -700,7 +700,9 @@
     <div class="main-header-left">
       <button class="hamburger" onclick="toggleSidebar()">☰</button>
       <h1 class="page-title" id="page-title">Dashboard</h1>
+      <span id="live-badge" style="display:none;font-size:0.65rem;font-weight:600;letter-spacing:0.5px;color:var(--text-muted);background:var(--surface2);border:1px solid var(--border);padding:3px 8px;border-radius:20px"></span>
     </div>
+    <button class="btn-sm" id="btn-refresh" onclick="refreshManuale()" style="font-size:0.75rem;padding:5px 10px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);cursor:pointer">↻ Aggiorna</button>
   </div>
 
   <div class="main-content">
@@ -1069,6 +1071,7 @@ async function init() {
     renderSrpeTable();
     buildCal(calYear, calMonth);
     renderEmailTab();
+    _aggiornaBadge();
   } catch(err) {
     document.getElementById('lista-note').innerHTML=
       `<p style="color:var(--red)">Errore: ${esc(err.message)}</p>`;
@@ -1990,6 +1993,24 @@ async function testConnessione() {
   }
   btn.disabled = false; btn.textContent = '🔄 Testa ora';
 }
+
+// ── Auto-refresh ───────────────────────────────────────────────────────────
+function _aggiornaBadge() {
+  const b = document.getElementById('live-badge');
+  if (!b) return;
+  const t = new Date();
+  b.textContent = '● ' + t.getHours().toString().padStart(2,'0') + ':' + t.getMinutes().toString().padStart(2,'0');
+  b.style.display = '';
+}
+
+async function refreshManuale() {
+  const btn = document.getElementById('btn-refresh');
+  if (btn) { btn.textContent = '…'; btn.disabled = true; }
+  await init();
+  if (btn) { btn.textContent = '↻ Aggiorna'; btn.disabled = false; }
+}
+
+setInterval(init, 5 * 60 * 1000);
 </script>
 </body>
 </html>

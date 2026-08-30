@@ -65,7 +65,7 @@ def scrivi_foglio(api_url: str, foglio: str, intestazioni: list, righe: list[lis
         "righe": righe,
     })
     if r.get("ok"):
-        print(f" OK ({r.get('scritte', '?')} scritte)")
+        print(f" OK ({r.get('scritte', len(righe))} scritte)")
     else:
         print(f" ERRORE: {r}")
         sys.exit(1)
@@ -92,8 +92,8 @@ def carica_sedute(api_url: str) -> None:
 
     scrivi_foglio(api_url, "Sedute", intestazioni, righe_out)
 
-def carica_esercizi(api_url: str) -> None:
-    """Combina W1 + W2 Esercizi e scrive nel foglio Esercizi."""
+def carica_esercizi(api_url: str, blocco: int = 100) -> None:
+    """Combina W1 + W2 Esercizi e scrive nel foglio Esercizi in blocchi."""
     files = [
         os.path.join(REPO_ROOT, "data", "W1_Esercizi.csv"),
         os.path.join(REPO_ROOT, "data", "W2_Esercizi.csv"),
@@ -106,7 +106,23 @@ def carica_esercizi(api_url: str) -> None:
     intestazioni = col_csv
     righe_out = [[r.get(c, "") for c in col_csv] for r in righe_csv]
 
-    scrivi_foglio(api_url, "Esercizi", intestazioni, righe_out)
+    # Prima chiamata: svuota il foglio e scrivi le intestazioni + primo blocco
+    for i in range(0, len(righe_out), blocco):
+        chunk = righe_out[i:i + blocco]
+        azione = "scrivi_foglio" if i == 0 else "aggiungi_righe"
+        print(f"  Esercizi righe {i+1}-{i+len(chunk)}…", end="", flush=True)
+        r = post_api(api_url, {
+            "token": TOKEN,
+            "azione": azione,
+            "foglio": "Esercizi",
+            "intestazioni": intestazioni,
+            "righe": chunk,
+        })
+        if r.get("ok"):
+            print(f" OK")
+        else:
+            print(f" ERRORE: {r}")
+            sys.exit(1)
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Carica W1+W2 nello Sheet Google.")
