@@ -1577,8 +1577,8 @@ function apriSedutaConNote(accId) {
 
 function mostraWellness(accId) {
   if (String(id) === '99') { apriSedutaConNote(accId); return; }
-  if (localStorage.getItem(wellnessKey())) {
-    // Già risposto oggi → apri seduta direttamente
+  const daNotifica = new URLSearchParams(location.search).get('wellness') === '1';
+  if (!daNotifica || localStorage.getItem(wellnessKey())) {
     apriSedutaConNote(accId);
     return;
   }
