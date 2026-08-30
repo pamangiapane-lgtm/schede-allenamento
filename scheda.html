@@ -707,19 +707,41 @@ function parseCSV(text) {
 }
 
 async function fetchCSV(filename) {
-  const r = await fetch(RAW_BASE + filename + '?t=' + Date.now());
-  if (!r.ok) throw new Error('CSV fetch failed: ' + filename);
-  return parseCSV(await r.text());
+  const ctrl = new AbortController();
+  const tid  = setTimeout(() => ctrl.abort(), 10000);
+  try {
+    const r = await fetch(RAW_BASE + filename + '?t=' + Date.now(), { signal: ctrl.signal });
+    clearTimeout(tid);
+    if (!r.ok) throw new Error('CSV ' + filename + ' non disponibile');
+    return parseCSV(await r.text());
+  } catch (e) {
+    clearTimeout(tid);
+    throw e;
+  }
+}
+
+const CSV_CACHE_KEY = 'sch_csv_v1';
+function leggiCSVCache(key) {
+  try { const r = JSON.parse(localStorage.getItem(CSV_CACHE_KEY + '_' + key)); return r && r._d ? r._d : null; } catch { return null; }
+}
+function scriviCSVCache(key, dati) {
+  try { localStorage.setItem(CSV_CACHE_KEY + '_' + key, JSON.stringify({ _d: dati })); } catch {}
 }
 
 async function fetchEserciziCSV() {
-  const [w1, w2] = await Promise.all([fetchCSV('W1_Esercizi.csv'), fetchCSV('W2_Esercizi.csv')]);
-  return { ok: true, dati: [...w1, ...w2] };
+  const stale = leggiCSVCache('Esercizi');
+  const doFetch = () => Promise.all([fetchCSV('W1_Esercizi.csv'), fetchCSV('W2_Esercizi.csv')])
+    .then(([w1, w2]) => { const dati = [...w1, ...w2]; scriviCSVCache('Esercizi', dati); return { ok: true, dati }; });
+  if (stale) { doFetch().catch(() => {}); return { ok: true, dati: stale }; }
+  return doFetch();
 }
 
 async function fetchSeduteCSV() {
-  const [w1, w2] = await Promise.all([fetchCSV('W1_Sedute.csv'), fetchCSV('W2_Sedute.csv')]);
-  return { ok: true, dati: [...w1, ...w2] };
+  const stale = leggiCSVCache('Sedute');
+  const doFetch = () => Promise.all([fetchCSV('W1_Sedute.csv'), fetchCSV('W2_Sedute.csv')])
+    .then(([w1, w2]) => { const dati = [...w1, ...w2]; scriviCSVCache('Sedute', dati); return { ok: true, dati }; });
+  if (stale) { doFetch().catch(() => {}); return { ok: true, dati: stale }; }
+  return doFetch();
 }
 
 async function fetchSheet(foglio) {
@@ -1490,7 +1512,7 @@ window.addEventListener('beforeunload', e => {
 caricaScheda();
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=48').then(reg => {
+  navigator.serviceWorker.register('./sw.js?v=49').then(reg => {
     initPushBanner();
   }).catch(() => {});
 }
@@ -1618,7 +1640,7 @@ async function subscribePush() {
     let reg = await navigator.serviceWorker.getRegistration();
     if (!reg) {
       _log('nessuna reg, registro sw.js…');
-      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=48');
+      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=49');
       await new Promise(r => setTimeout(r, 2000));
       reg = await navigator.serviceWorker.getRegistration();
     }
