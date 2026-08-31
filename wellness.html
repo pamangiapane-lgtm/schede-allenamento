@@ -35,17 +35,17 @@
       margin: 0 auto;
     }
 
-    /* Brand Header */
+    /* Header */
     .brand-header {
       text-align: center;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .brand-logo {
       width: 52px;
       height: 52px;
       border-radius: 14px;
       object-fit: cover;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       box-shadow: 0 4px 12px rgba(15, 43, 92, 0.15);
     }
     .brand-title { font-size: 1.25rem; font-weight: 800; color: var(--navy); letter-spacing: -0.3px; }
@@ -56,8 +56,8 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 14px 16px;
-      margin-bottom: 16px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
       box-shadow: var(--shadow);
       display: flex;
       align-items: center;
@@ -65,8 +65,8 @@
     }
     .ath-info { display: flex; align-items: center; gap: 10px; }
     .ath-badge {
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 10px;
       background: var(--navy);
       color: #fff;
@@ -74,9 +74,9 @@
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
-    .ath-name { font-size: 1.05rem; font-weight: 800; color: var(--navy); }
+    .ath-name { font-size: 1.02rem; font-weight: 800; color: var(--navy); }
     .ath-role { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
     .ath-select {
       background: #f1f5f9;
@@ -99,7 +99,7 @@
       font-size: 0.82rem;
       font-weight: 700;
       color: #92400e;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     /* Metric Box */
@@ -107,52 +107,51 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
       box-shadow: var(--shadow);
     }
     .metric-head {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
-    .metric-title { font-size: 0.98rem; font-weight: 800; color: var(--navy); }
+    .metric-title { font-size: 0.95rem; font-weight: 800; color: var(--navy); }
     .metric-val-preview {
-      font-size: 0.88rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: var(--gold);
     }
-    .metric-desc { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; }
+    .metric-desc { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 10px; }
 
-    /* Tactical Scale Buttons */
-    .scale-row {
+    /* 0 - 10 Grid Buttons */
+    .scale-row-10 {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
+      grid-template-columns: repeat(11, 1fr);
+      gap: 3px;
     }
-    .btn-scale {
-      aspect-ratio: 1;
+    .btn-scale-10 {
+      height: 38px;
       border: 1.5px solid var(--border);
-      border-radius: 12px;
+      border-radius: 8px;
       background: #f8fafc;
-      font-size: 1.05rem;
+      font-size: 0.88rem;
       font-weight: 800;
       color: var(--text-muted);
       cursor: pointer;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s;
+      transition: all 0.12s;
     }
-    .btn-scale span { font-size: 0.6rem; font-weight: 600; margin-top: 2px; }
-    .btn-scale.active {
+    .btn-scale-10:active { transform: scale(0.92); }
+    .btn-scale-10.active {
       background: var(--navy);
       border-color: var(--navy);
-      color: #fff;
-      box-shadow: 0 4px 10px rgba(15, 43, 92, 0.25);
-      transform: translateY(-2px);
+      color: #ffffff;
+      box-shadow: 0 3px 8px rgba(15, 43, 92, 0.28);
+      transform: translateY(-1px);
     }
 
     /* Notes Area */
@@ -160,20 +159,20 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px;
-      margin-bottom: 20px;
+      padding: 14px;
+      margin-bottom: 18px;
       box-shadow: var(--shadow);
     }
-    .notes-label { font-size: 0.88rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; display: block; }
+    .notes-label { font-size: 0.88rem; font-weight: 800; color: var(--navy); margin-bottom: 3px; display: block; }
     .notes-sub { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px; display: block; }
     .notes-textarea {
       width: 100%;
-      height: 75px;
+      height: 70px;
       background: #f8fafc;
       border: 1.5px solid var(--border);
       border-radius: 10px;
       padding: 10px 12px;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-family: inherit;
       color: var(--text);
       outline: none;
@@ -201,38 +200,29 @@
     }
     .btn-submit-wellness:active { transform: scale(0.98); }
 
-    /* Success Overlay */
+    /* Confirmation Overlay */
     .success-box {
       display: none;
       background: #ecfdf5;
       border: 2px solid #a7f3d0;
       border-radius: var(--radius);
-      padding: 24px 18px;
+      padding: 28px 18px;
       text-align: center;
       margin-top: 16px;
     }
-    .sb-icon { font-size: 2.5rem; margin-bottom: 8px; }
-    .sb-title { font-size: 1.2rem; font-weight: 800; color: #065f46; margin-bottom: 4px; }
-    .sb-sub { font-size: 0.85rem; color: #047857; margin-bottom: 16px; line-height: 1.4; }
-    .sb-score-badge {
-      display: inline-block;
-      background: #059669;
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: 800;
-      padding: 6px 18px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-    }
+    .sb-icon { font-size: 2.8rem; margin-bottom: 10px; }
+    .sb-title { font-size: 1.25rem; font-weight: 800; color: #065f46; margin-bottom: 6px; }
+    .sb-sub { font-size: 0.9rem; color: #047857; margin-bottom: 20px; line-height: 1.5; }
     .btn-open-app {
       display: inline-block;
       background: var(--navy);
       color: #fff;
       text-decoration: none;
       font-weight: 800;
-      font-size: 0.85rem;
-      padding: 10px 20px;
-      border-radius: 10px;
+      font-size: 0.9rem;
+      padding: 12px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(15, 43, 92, 0.25);
     }
   </style>
 </head>
@@ -262,75 +252,51 @@
       📅 Monitoraggio di Oggi: <strong>31 Agosto 2026</strong>
     </div>
 
-    <!-- 1. Qualità del Sonno -->
+    <!-- 1. Qualità del Sonno (0-10) -->
     <div class="metric-card">
       <div class="metric-head">
         <span class="metric-title">1. Qualità del Sonno</span>
-        <span class="metric-val-preview" id="prev-sonno">4 / 5 (Buono)</span>
+        <span class="metric-val-preview" id="prev-sonno">8 / 10</span>
       </div>
-      <p class="metric-desc">1 = Pessimo / Insonne · 5 = Ottimo / Riposato</p>
-      <div class="scale-row" data-metric="sonno">
-        <button class="btn-scale" onclick="setVal('sonno', 1)">1<span>Pessimo</span></button>
-        <button class="btn-scale" onclick="setVal('sonno', 2)">2<span>Scarso</span></button>
-        <button class="btn-scale" onclick="setVal('sonno', 3)">3<span>Medio</span></button>
-        <button class="btn-scale active" onclick="setVal('sonno', 4)">4<span>Buono</span></button>
-        <button class="btn-scale" onclick="setVal('sonno', 5)">5<span>Top</span></button>
-      </div>
+      <p class="metric-desc">0 = Pessimo/Insonne ➔ 10 = Sonno Profondo/Riposato</p>
+      <div class="scale-row-10" data-metric="sonno" id="row-sonno"></div>
     </div>
 
-    <!-- 2. Livello di Fatica -->
+    <!-- 2. Livello di Fatica (0-10) -->
     <div class="metric-card">
       <div class="metric-head">
         <span class="metric-title">2. Livello di Fatica</span>
-        <span class="metric-val-preview" id="prev-fatica">4 / 5 (Fresca)</span>
+        <span class="metric-val-preview" id="prev-fatica">2 / 10</span>
       </div>
-      <p class="metric-desc">1 = Esausta / Molto affaticata · 5 = Piena energia / Fresca</p>
-      <div class="scale-row" data-metric="fatica">
-        <button class="btn-scale" onclick="setVal('fatica', 1)">1<span>Esausta</span></button>
-        <button class="btn-scale" onclick="setVal('fatica', 2)">2<span>Stanca</span></button>
-        <button class="btn-scale" onclick="setVal('fatica', 3)">3<span>Normale</span></button>
-        <button class="btn-scale active" onclick="setVal('fatica', 4)">4<span>Fresca</span></button>
-        <button class="btn-scale" onclick="setVal('fatica', 5)">5<span>Al 100%</span></button>
-      </div>
+      <p class="metric-desc">0 = Nessuna fatica/Fresca ➔ 10 = Esausta/Fatica Estrema</p>
+      <div class="scale-row-10" data-metric="fatica" id="row-fatica"></div>
     </div>
 
-    <!-- 3. Readiness / Prontezza -->
+    <!-- 3. Readiness / Prontezza (0-10) -->
     <div class="metric-card">
       <div class="metric-head">
         <span class="metric-title">3. Readiness / Prontezza</span>
-        <span class="metric-val-preview" id="prev-readiness">4 / 5 (Pronta)</span>
+        <span class="metric-val-preview" id="prev-readiness">8 / 10</span>
       </div>
-      <p class="metric-desc">1 = Scarica / Disconnessa · 5 = Prontissima a spingere</p>
-      <div class="scale-row" data-metric="readiness">
-        <button class="btn-scale" onclick="setVal('readiness', 1)">1<span>Scarica</span></button>
-        <button class="btn-scale" onclick="setVal('readiness', 2)">2<span>Bassa</span></button>
-        <button class="btn-scale" onclick="setVal('readiness', 3)">3<span>Media</span></button>
-        <button class="btn-scale active" onclick="setVal('readiness', 4)">4<span>Pronta</span></button>
-        <button class="btn-scale" onclick="setVal('readiness', 5)">5<span>Top Gas</span></button>
-      </div>
+      <p class="metric-desc">0 = Scarica/Zero energia ➔ 10 = Prontissima al 100%</p>
+      <div class="scale-row-10" data-metric="readiness" id="row-readiness"></div>
     </div>
 
-    <!-- 4. Dolori / Soreness -->
+    <!-- 4. Dolori / Soreness (0-10) -->
     <div class="metric-card">
       <div class="metric-head">
         <span class="metric-title">4. Dolori Muscolari / Soreness</span>
-        <span class="metric-val-preview" id="prev-dolori">5 / 5 (Zero dolori)</span>
+        <span class="metric-val-preview" id="prev-dolori">1 / 10</span>
       </div>
-      <p class="metric-desc">1 = Dolore acuto / Blocco · 5 = Nessun dolore / Integrità</p>
-      <div class="scale-row" data-metric="dolori">
-        <button class="btn-scale" onclick="setVal('dolori', 1)">1<span>Forte</span></button>
-        <button class="btn-scale" onclick="setVal('dolori', 2)">2<span>Medio</span></button>
-        <button class="btn-scale" onclick="setVal('dolori', 3)">3<span>Leggero</span></button>
-        <button class="btn-scale" onclick="setVal('dolori', 4)">4<span>Minimo</span></button>
-        <button class="btn-scale active" onclick="setVal('dolori', 5)">5<span>Zero</span></button>
-      </div>
+      <p class="metric-desc">0 = Nessun dolore ➔ 10 = Dolore Forte/Limitante</p>
+      <div class="scale-row-10" data-metric="dolori" id="row-dolori"></div>
     </div>
 
     <!-- Note / Distretti Dolenti -->
     <div class="notes-card">
       <label class="notes-label" for="wellness-notes">💬 Note / Distretti Muscolari (Opzionale)</label>
       <span class="notes-sub">Segnala se hai fastidi particolari (es. spalla dx, polpaccio, ginocchio)</span>
-      <textarea id="wellness-notes" class="notes-textarea" placeholder="Es. leggero indolenzimento alla spalla dx post-battuta"></textarea>
+      <textarea id="wellness-notes" class="notes-textarea" placeholder="Es. leggero fastidio spalla dx post-battuta"></textarea>
     </div>
 
     <button id="btn-submit" class="btn-submit-wellness" onclick="submitWellness()">
@@ -342,8 +308,7 @@
   <div id="success-screen" class="success-box">
     <div class="sb-icon">✅</div>
     <h2 class="sb-title">Wellness Registrato!</h2>
-    <p class="sb-sub">Grazie <strong id="sb-ath-name">Veronica</strong>! I tuoi dati sono stati registrati e trasmessi a Coach Paulo.</p>
-    <div class="sb-score-badge" id="sb-score">Readiness: 85% (Ottima)</div>
+    <p class="sb-sub">Grazie <strong id="sb-ath-name">Veronica</strong>!<br>I tuoi dati di oggi sono stati registrati con successo per Coach Paulo.</p>
     <div>
       <a href="app.html" id="sb-link" class="btn-open-app">Vai alla Scheda di Allenamento ➔</a>
     </div>
@@ -356,14 +321,21 @@
 
     let currentId = 1;
     let currentAth = null;
-    let values = { sonno: 4, fatica: 4, readiness: 4, dolori: 5 };
+    // Default values (0 to 10)
+    let values = { sonno: 8, fatica: 2, readiness: 8, dolori: 1 };
 
-    const labels = {
-      sonno: { 1:'Pessimo', 2:'Scarso', 3:'Medio', 4:'Buono', 5:'Top' },
-      fatica: { 1:'Esausta', 2:'Stanca', 3:'Normale', 4:'Fresca', 5:'Al 100%' },
-      readiness: { 1:'Scarica', 2:'Bassa', 3:'Media', 4:'Pronta', 5:'Top Gas' },
-      dolori: { 1:'Dolore Forte', 2:'Dolore Medio', 3:'Indolenzimento', 4:'Fastidio Minimo', 5:'Zero Dolore' }
-    };
+    function renderScaleButtons() {
+      const metrics = ['sonno', 'fatica', 'readiness', 'dolori'];
+      metrics.forEach(m => {
+        const row = document.getElementById(`row-${m}`);
+        let btns = '';
+        for (let i = 0; i <= 10; i++) {
+          btns += `<button class="btn-scale-10 ${i === values[m] ? 'active' : ''}" onclick="setVal('${m}', ${i})">${i}</button>`;
+        }
+        row.innerHTML = btns;
+        document.getElementById(`prev-${m}`).textContent = `${values[m]} / 10`;
+      });
+    }
 
     function init() {
       // 1. Date format
@@ -387,6 +359,7 @@
       const sel = document.getElementById('ath-select');
       sel.innerHTML = ROSTER.map(a => `<option value="${a.id}" ${a.id === currentId ? 'selected' : ''}>${a.name}</option>`).join('');
 
+      renderScaleButtons();
       loadAthlete(currentId);
     }
 
@@ -406,11 +379,11 @@
 
     function setVal(metric, val) {
       values[metric] = val;
-      document.getElementById(`prev-${metric}`).textContent = `${val} / 5 (${labels[metric][val]})`;
-      const row = document.querySelector(`.scale-row[data-metric="${metric}"]`);
+      document.getElementById(`prev-${metric}`).textContent = `${val} / 10`;
+      const row = document.getElementById(`row-${metric}`);
       if (row) {
-        row.querySelectorAll('.btn-scale').forEach((btn, idx) => {
-          btn.classList.toggle('active', idx + 1 === val);
+        row.querySelectorAll('.btn-scale-10').forEach((btn, idx) => {
+          btn.classList.toggle('active', idx === val);
         });
       }
     }
@@ -422,7 +395,6 @@
 
       const note = document.getElementById('wellness-notes').value.trim();
       const todayStr = new Date().toISOString().slice(0, 10);
-      const scorePct = Math.round(((values.sonno + values.fatica + values.readiness + values.dolori) / 20) * 100);
 
       const payload = {
         athlete_id: currentId,
@@ -432,7 +404,6 @@
         readiness: values.readiness,
         dolori: values.dolori,
         note: note,
-        score: scorePct,
         timestamp: new Date().toISOString()
       };
 
@@ -467,12 +438,11 @@
         console.warn('Fallback offline sync:', err);
       }
 
-      // Show Success
+      // Show Success (Clean confirmation, zero % displayed)
       document.getElementById('form-container').style.display = 'none';
       const sScreen = document.getElementById('success-screen');
       sScreen.style.display = 'block';
       document.getElementById('sb-ath-name').textContent = currentAth.name.split(' ')[0];
-      document.getElementById('sb-score').textContent = `Readiness Oggi: ${scorePct}% (${scorePct >= 80 ? 'Ottima' : scorePct >= 65 ? 'Buona' : 'Monitorare'})`;
       document.getElementById('sb-link').href = `app.html?id=${currentId}`;
     }
 
