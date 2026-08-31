@@ -1866,6 +1866,2276 @@ const PREHAB_DATA = {
   }
 };
 
+const WELLNESS_HISTORY = {
+  "meta": {
+    "totale_records": 242,
+    "v1_count": 164,
+    "v2_count": 78,
+    "descrizione_v1": "Wellness V1 (Luglio-23 Agosto 2026): Fatica, Dolore, Energia (scala 1-5)",
+    "descrizione_v2": "Wellness V2 (dal 24 Agosto 2026): Qualita Sonno, Fatica, Readiness, Dolori (scala 1-5/1-10) + Note"
+  },
+  "v2_records": [
+    {
+      "date": "2026-08-30",
+      "athlete_id": 4,
+      "sonno": 9.0,
+      "fatica": 4.0,
+      "readiness": 8.0,
+      "dolori": 3.0,
+      "note": "",
+      "timestamp": "30/08/2026"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 13,
+      "sonno": 6.0,
+      "fatica": 1.0,
+      "readiness": 5.0,
+      "dolori": 4.0,
+      "note": "",
+      "timestamp": "2026-08-30T10:09:26.031Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 11,
+      "sonno": 7.0,
+      "fatica": 5.0,
+      "readiness": 7.0,
+      "dolori": 3.0,
+      "note": "",
+      "timestamp": "2026-08-30T10:09:29.057Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 8,
+      "sonno": 8.0,
+      "fatica": 2.0,
+      "readiness": 9.0,
+      "dolori": 2.0,
+      "note": "Federica",
+      "timestamp": "2026-08-30T10:09:36.429Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 5,
+      "sonno": 9.0,
+      "fatica": 1.0,
+      "readiness": 9.0,
+      "dolori": 1.0,
+      "note": "chiara lo dico",
+      "timestamp": "2026-08-30T10:09:40.183Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 3,
+      "sonno": 7.0,
+      "fatica": 1.0,
+      "readiness": 9.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "2026-08-30T10:27:00.310Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 7,
+      "sonno": 9.0,
+      "fatica": 2.0,
+      "readiness": 8.0,
+      "dolori": 0.0,
+      "note": "Elisa Bole",
+      "timestamp": "2026-08-30T10:27:05.752Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 9,
+      "sonno": 8.0,
+      "fatica": 1.0,
+      "readiness": 9.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "2026-08-30T10:36:31.871Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 1,
+      "sonno": 9.0,
+      "fatica": 1.0,
+      "readiness": 9.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "2026-08-30T10:38:55.990Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 6,
+      "sonno": 8.0,
+      "fatica": 3.0,
+      "readiness": 5.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "2026-08-30T10:46:00.614Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 2,
+      "sonno": 7.0,
+      "fatica": 0.0,
+      "readiness": 6.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "2026-08-30T10:47:58.818Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 14,
+      "sonno": 7.0,
+      "fatica": 3.0,
+      "readiness": 9.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "2026-08-30T11:01:17.178Z"
+    },
+    {
+      "date": "2026-08-30",
+      "athlete_id": 12,
+      "sonno": 9.0,
+      "fatica": 2.0,
+      "readiness": 9.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "2026-08-30T12:14:36.993Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 14,
+      "sonno": 6.0,
+      "fatica": 4.0,
+      "readiness": 9.0,
+      "dolori": 3.0,
+      "note": "riferito il 30/08 (yesterday)",
+      "timestamp": "29/08/2026"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 4,
+      "sonno": 8.0,
+      "fatica": 6.0,
+      "readiness": 7.0,
+      "dolori": 3.0,
+      "note": "",
+      "timestamp": "29/08/2026"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 11,
+      "sonno": 6.0,
+      "fatica": 6.0,
+      "readiness": 5.0,
+      "dolori": 4.0,
+      "note": "",
+      "timestamp": "2026-08-29T11:23:51.153Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 6,
+      "sonno": 8.0,
+      "fatica": 3.0,
+      "readiness": 5.0,
+      "dolori": 2.0,
+      "note": "Gaia",
+      "timestamp": "2026-08-29T11:25:23.599Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 8,
+      "sonno": 9.0,
+      "fatica": 4.0,
+      "readiness": 9.0,
+      "dolori": 3.0,
+      "note": "Federica",
+      "timestamp": "2026-08-29T11:26:45.581Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 9,
+      "sonno": 9.0,
+      "fatica": 1.0,
+      "readiness": 8.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "2026-08-29T11:29:07.104Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 1,
+      "sonno": 9.0,
+      "fatica": 4.0,
+      "readiness": 7.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "2026-08-29T11:34:46.385Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 3,
+      "sonno": 9.0,
+      "fatica": 1.0,
+      "readiness": 9.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "2026-08-29T11:49:44.814Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 12,
+      "sonno": 9.0,
+      "fatica": 4.0,
+      "readiness": 8.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "2026-08-29T12:23:47.662Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 5,
+      "sonno": 10.0,
+      "fatica": 3.0,
+      "readiness": 8.0,
+      "dolori": 1.0,
+      "note": "chiara lo dico",
+      "timestamp": "2026-08-29T12:24:18.226Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 2,
+      "sonno": 8.0,
+      "fatica": 3.0,
+      "readiness": 7.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "2026-08-29T12:25:04.162Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 13,
+      "sonno": 6.0,
+      "fatica": 3.0,
+      "readiness": 4.0,
+      "dolori": 6.0,
+      "note": "",
+      "timestamp": "2026-08-29T12:29:08.169Z"
+    },
+    {
+      "date": "2026-08-29",
+      "athlete_id": 7,
+      "sonno": 8.0,
+      "fatica": 4.0,
+      "readiness": 7.0,
+      "dolori": 0.0,
+      "note": "Elisa Bole",
+      "timestamp": "2026-08-29T12:50:26.525Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 4,
+      "sonno": 8.0,
+      "fatica": 6.0,
+      "readiness": 7.0,
+      "dolori": 4.0,
+      "note": "calfs",
+      "timestamp": "27/08/2026"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 14,
+      "sonno": 4.0,
+      "fatica": 5.0,
+      "readiness": 9.0,
+      "dolori": 4.0,
+      "note": "",
+      "timestamp": "27/08/2026"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 12,
+      "sonno": 8.0,
+      "fatica": 3.0,
+      "readiness": 9.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "2026-08-28T10:10:03.758Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 11,
+      "sonno": 4.0,
+      "fatica": 6.0,
+      "readiness": 6.0,
+      "dolori": 4.0,
+      "note": "",
+      "timestamp": "2026-08-28T10:10:19.833Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 2,
+      "sonno": 7.0,
+      "fatica": 3.0,
+      "readiness": 7.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "2026-08-28T10:10:43.227Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 5,
+      "sonno": 7.0,
+      "fatica": 4.0,
+      "readiness": 7.0,
+      "dolori": 2.0,
+      "note": "chiara lo dico",
+      "timestamp": "2026-08-28T10:11:18.848Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 6,
+      "sonno": 7.0,
+      "fatica": 5.0,
+      "readiness": 5.0,
+      "dolori": 2.0,
+      "note": "Gaia",
+      "timestamp": "2026-08-28T10:14:40.461Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 7,
+      "sonno": 7.0,
+      "fatica": 4.0,
+      "readiness": 7.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "2026-08-28T10:19:22.640Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 8,
+      "sonno": 4.0,
+      "fatica": 4.0,
+      "readiness": 8.0,
+      "dolori": 3.0,
+      "note": "Federica",
+      "timestamp": "2026-08-28T10:34:53.726Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 13,
+      "sonno": 8.0,
+      "fatica": 4.0,
+      "readiness": 7.0,
+      "dolori": 6.0,
+      "note": "Giulia 👍🏼",
+      "timestamp": "2026-08-28T11:07:11.825Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 3,
+      "sonno": 9.0,
+      "fatica": 2.0,
+      "readiness": 7.0,
+      "dolori": 8.0,
+      "note": "",
+      "timestamp": "2026-08-28T16:59:13.631Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 1,
+      "sonno": 9.0,
+      "fatica": 4.0,
+      "readiness": 8.0,
+      "dolori": 4.0,
+      "note": "",
+      "timestamp": "2026-08-28T17:02:41.587Z"
+    },
+    {
+      "date": "2026-08-28",
+      "athlete_id": 9,
+      "sonno": 7.0,
+      "fatica": 3.0,
+      "readiness": 9.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "2026-08-28T17:34:04.152Z"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 12,
+      "sonno": 8.0,
+      "fatica": 3.0,
+      "readiness": 9.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "26/08/2026"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 3,
+      "sonno": 7.0,
+      "fatica": 2.0,
+      "readiness": 7.0,
+      "dolori": 4.0,
+      "note": "",
+      "timestamp": "26/08/2026 23.21.00"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 8,
+      "sonno": 7.0,
+      "fatica": 4.0,
+      "readiness": 10.0,
+      "dolori": 4.0,
+      "note": "adduttore sinistro",
+      "timestamp": "26/08/2026"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 9,
+      "sonno": 7.0,
+      "fatica": 2.0,
+      "readiness": 9.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "26/08/2026 23.24.00"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 7,
+      "sonno": 7.0,
+      "fatica": 4.0,
+      "readiness": 7.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "26/08/2026"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 4,
+      "sonno": 8.0,
+      "fatica": 4.0,
+      "readiness": 8.0,
+      "dolori": 3.5,
+      "note": "calfs (3-4)",
+      "timestamp": "26/08/2026"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 11,
+      "sonno": 7.0,
+      "fatica": 5.5,
+      "readiness": 7.0,
+      "dolori": 4.0,
+      "note": "",
+      "timestamp": "26/08/2026 23.43.00"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 13,
+      "sonno": 7.0,
+      "fatica": 5.0,
+      "readiness": 7.0,
+      "dolori": 5.0,
+      "note": "tendine ach sx (dettato a voce da Giulia a Pablo)",
+      "timestamp": "26/08/2026 23.54.00"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 1,
+      "sonno": 9.0,
+      "fatica": 4.0,
+      "readiness": 9.0,
+      "dolori": 4.0,
+      "note": "",
+      "timestamp": "27/08/2026 0.02.00"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 6,
+      "sonno": 8.0,
+      "fatica": 4.0,
+      "readiness": 7.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "27/08/2026 0.10.00"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 2,
+      "sonno": 7.0,
+      "fatica": 4.0,
+      "readiness": 8.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "27/08/2026"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 5,
+      "sonno": 8.0,
+      "fatica": 4.0,
+      "readiness": 8.0,
+      "dolori": 4.0,
+      "note": "",
+      "timestamp": "27/08/2026 0.50.00"
+    },
+    {
+      "date": "2026-08-27",
+      "athlete_id": 14,
+      "sonno": 5.0,
+      "fatica": 3.0,
+      "readiness": 9.0,
+      "dolori": 3.0,
+      "note": "overall 3, wrist 4",
+      "timestamp": "27/08/2026"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 3,
+      "sonno": 5.0,
+      "fatica": 3.0,
+      "readiness": 8.0,
+      "dolori": 3.0,
+      "note": "",
+      "timestamp": "25/08/2026 22.05.00"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 6,
+      "sonno": 7.0,
+      "fatica": 5.0,
+      "readiness": 7.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "25/08/2026 22.07.00"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 11,
+      "sonno": 7.0,
+      "fatica": 5.0,
+      "readiness": 7.5,
+      "dolori": 3.0,
+      "note": "",
+      "timestamp": "25/08/2026 22.09.00"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 7,
+      "sonno": 7.0,
+      "fatica": 3.0,
+      "readiness": 8.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "25/08/2026"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 13,
+      "sonno": 1.0,
+      "fatica": 6.0,
+      "readiness": 7.0,
+      "dolori": 5.0,
+      "note": "tendine d'achille",
+      "timestamp": "25/08/2026 22.12.00"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 1,
+      "sonno": 8.0,
+      "fatica": 4.0,
+      "readiness": 9.0,
+      "dolori": 3.0,
+      "note": "",
+      "timestamp": "25/08/2026 22.13.00"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 5,
+      "sonno": 8.0,
+      "fatica": 4.0,
+      "readiness": 8.0,
+      "dolori": 1.0,
+      "note": "Rettificato sonno a 8 in messaggio successivo",
+      "timestamp": "25/08/2026 22.32.00"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 12,
+      "sonno": 7.0,
+      "fatica": 3.0,
+      "readiness": 8.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "25/08/2026"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 2,
+      "sonno": 7.0,
+      "fatica": 4.0,
+      "readiness": 7.0,
+      "dolori": 2.0,
+      "note": "braccio e mano come ieri",
+      "timestamp": "25/08/2026"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 9,
+      "sonno": 6.0,
+      "fatica": 2.0,
+      "readiness": 9.0,
+      "dolori": 3.0,
+      "note": "",
+      "timestamp": "25/08/2026 22.36.00"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 4,
+      "sonno": 8.0,
+      "fatica": 4.0,
+      "readiness": 8.0,
+      "dolori": 3.0,
+      "note": "",
+      "timestamp": "25/08/2026"
+    },
+    {
+      "date": "2026-08-26",
+      "athlete_id": 14,
+      "sonno": 5.0,
+      "fatica": 3.0,
+      "readiness": 9.0,
+      "dolori": 5.0,
+      "note": "first day of period (wrist 6)",
+      "timestamp": "25/08/2026"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 5,
+      "sonno": 0.0,
+      "fatica": 2.0,
+      "readiness": 9.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "24/08/2026 23.26.00"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 3,
+      "sonno": 0.0,
+      "fatica": 2.0,
+      "readiness": 9.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "24/08/2026 23.27.00"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 6,
+      "sonno": 0.0,
+      "fatica": 5.0,
+      "readiness": 8.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "24/08/2026 23.28.00"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 4,
+      "sonno": 0.0,
+      "fatica": 2.0,
+      "readiness": 9.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "24/08/2026"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 9,
+      "sonno": 0.0,
+      "fatica": 3.0,
+      "readiness": 8.0,
+      "dolori": 3.0,
+      "note": "spalla",
+      "timestamp": "24/08/2026 23.29.00"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 1,
+      "sonno": 0.0,
+      "fatica": 1.0,
+      "readiness": 10.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "24/08/2026 23.31.00"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 2,
+      "sonno": 0.0,
+      "fatica": 7.0,
+      "readiness": 8.0,
+      "dolori": 1.0,
+      "note": "",
+      "timestamp": "24/08/2026"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 13,
+      "sonno": 0.0,
+      "fatica": 4.0,
+      "readiness": 9.0,
+      "dolori": 4.0,
+      "note": "tendine d'Achille",
+      "timestamp": "24/08/2026 23.44.00"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 12,
+      "sonno": 0.0,
+      "fatica": 2.0,
+      "readiness": 8.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "24/08/2026"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 7,
+      "sonno": 0.0,
+      "fatica": 3.0,
+      "readiness": 9.0,
+      "dolori": 0.0,
+      "note": "Fatica rettificata da 9 a 3",
+      "timestamp": "25/08/2026"
+    },
+    {
+      "date": "2026-08-25",
+      "athlete_id": 8,
+      "sonno": 0.0,
+      "fatica": 3.0,
+      "readiness": 10.0,
+      "dolori": 2.0,
+      "note": "",
+      "timestamp": "25/08/2026"
+    },
+    {
+      "date": "2026-08-24",
+      "athlete_id": 12,
+      "sonno": 4.0,
+      "fatica": 1.0,
+      "readiness": 4.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "2026-08-24T11:59:14.189Z"
+    },
+    {
+      "date": "2026-08-24",
+      "athlete_id": 12,
+      "sonno": 4.0,
+      "fatica": 1.0,
+      "readiness": 4.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "2026-08-24T12:18:35.633Z"
+    },
+    {
+      "date": "2026-08-24",
+      "athlete_id": 14,
+      "sonno": 4.0,
+      "fatica": 1.0,
+      "readiness": 4.0,
+      "dolori": 0.0,
+      "note": "",
+      "timestamp": "2026-08-24T13:48:53.005Z"
+    }
+  ],
+  "v1_records": [
+    {
+      "date": "2026-08-21",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-08-21T07:58:17.338Z"
+    },
+    {
+      "date": "2026-08-21",
+      "athlete_id": 11,
+      "fatica": "3",
+      "dolore": "2",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-21T08:03:24.552Z"
+    },
+    {
+      "date": "2026-08-21",
+      "athlete_id": 12,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-08-21T11:16:17.425Z"
+    },
+    {
+      "date": "2026-08-21",
+      "athlete_id": 4,
+      "fatica": "3",
+      "dolore": "3",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-21T15:42:15.445Z"
+    },
+    {
+      "date": "2026-08-21",
+      "athlete_id": 3,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-21T15:45:12.931Z"
+    },
+    {
+      "date": "2026-08-20",
+      "athlete_id": 7,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-20T07:28:33.894Z"
+    },
+    {
+      "date": "2026-08-20",
+      "athlete_id": 3,
+      "fatica": "1",
+      "dolore": "3",
+      "energia": "2",
+      "raw_note": "",
+      "timestamp": "2026-08-20T08:05:05.996Z"
+    },
+    {
+      "date": "2026-08-20",
+      "athlete_id": 7,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-20T08:25:08.063Z"
+    },
+    {
+      "date": "2026-08-19",
+      "athlete_id": 7,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-19T05:43:47.593Z"
+    },
+    {
+      "date": "2026-08-19",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-19T08:34:31.640Z"
+    },
+    {
+      "date": "2026-08-19",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-19T08:48:03.430Z"
+    },
+    {
+      "date": "2026-08-19",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-08-19T08:48:38.066Z"
+    },
+    {
+      "date": "2026-08-19",
+      "athlete_id": 3,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "2",
+      "raw_note": "",
+      "timestamp": "2026-08-19T11:51:11.432Z"
+    },
+    {
+      "date": "2026-08-19",
+      "athlete_id": 6,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-19T12:39:06.324Z"
+    },
+    {
+      "date": "2026-08-19",
+      "athlete_id": 5,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-19T17:32:20.889Z"
+    },
+    {
+      "date": "2026-08-18",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-18T05:59:30.909Z"
+    },
+    {
+      "date": "2026-08-18",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-18T07:05:46.213Z"
+    },
+    {
+      "date": "2026-08-18",
+      "athlete_id": 11,
+      "fatica": "3",
+      "dolore": "2",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-18T07:46:51.806Z"
+    },
+    {
+      "date": "2026-08-18",
+      "athlete_id": 7,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-18T08:41:08.732Z"
+    },
+    {
+      "date": "2026-08-18",
+      "athlete_id": 2,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-18T12:08:57.306Z"
+    },
+    {
+      "date": "2026-08-17",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-16T22:23:03.378Z"
+    },
+    {
+      "date": "2026-08-17",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-17T07:41:45.063Z"
+    },
+    {
+      "date": "2026-08-17",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-17T07:45:39.732Z"
+    },
+    {
+      "date": "2026-08-17",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-17T08:04:46.981Z"
+    },
+    {
+      "date": "2026-08-17",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-17T08:34:22.224Z"
+    },
+    {
+      "date": "2026-08-17",
+      "athlete_id": 5,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-17T12:13:56.076Z"
+    },
+    {
+      "date": "2026-08-17",
+      "athlete_id": 2,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-17T12:17:12.185Z"
+    },
+    {
+      "date": "2026-08-16",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-16T07:20:05.064Z"
+    },
+    {
+      "date": "2026-08-16",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-16T11:34:08.532Z"
+    },
+    {
+      "date": "2026-08-16",
+      "athlete_id": 11,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-16T21:30:40.303Z"
+    },
+    {
+      "date": "2026-08-15",
+      "athlete_id": 5,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-15T10:14:32.170Z"
+    },
+    {
+      "date": "2026-08-15",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-15T10:39:50.286Z"
+    },
+    {
+      "date": "2026-08-14",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-14T06:52:12.520Z"
+    },
+    {
+      "date": "2026-08-14",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-14T07:30:38.088Z"
+    },
+    {
+      "date": "2026-08-14",
+      "athlete_id": 11,
+      "fatica": "2",
+      "dolore": "4",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-14T07:58:20.771Z"
+    },
+    {
+      "date": "2026-08-14",
+      "athlete_id": 7,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-14T12:59:48.892Z"
+    },
+    {
+      "date": "2026-08-14",
+      "athlete_id": 2,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-14T14:20:25.002Z"
+    },
+    {
+      "date": "2026-08-14",
+      "athlete_id": 12,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-14T15:13:36.758Z"
+    },
+    {
+      "date": "2026-08-13",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-13T08:56:59.640Z"
+    },
+    {
+      "date": "2026-08-13",
+      "athlete_id": 12,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-13T10:13:20.780Z"
+    },
+    {
+      "date": "2026-08-13",
+      "athlete_id": 2,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-13T12:18:23.083Z"
+    },
+    {
+      "date": "2026-08-13",
+      "athlete_id": 4,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-13T15:48:49.273Z"
+    },
+    {
+      "date": "2026-08-12",
+      "athlete_id": 11,
+      "fatica": "3",
+      "dolore": "3",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-12T06:00:01.974Z"
+    },
+    {
+      "date": "2026-08-12",
+      "athlete_id": 7,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-12T08:14:59.750Z"
+    },
+    {
+      "date": "2026-08-12",
+      "athlete_id": 6,
+      "fatica": "3",
+      "dolore": "2",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-12T10:09:49.906Z"
+    },
+    {
+      "date": "2026-08-12",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-12T12:59:26.620Z"
+    },
+    {
+      "date": "2026-08-11",
+      "athlete_id": 7,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-11T06:02:49.916Z"
+    },
+    {
+      "date": "2026-08-11",
+      "athlete_id": 7,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-11T07:02:18.473Z"
+    },
+    {
+      "date": "2026-08-11",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-11T08:49:18.866Z"
+    },
+    {
+      "date": "2026-08-11",
+      "athlete_id": 2,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-11T12:11:47.869Z"
+    },
+    {
+      "date": "2026-08-11",
+      "athlete_id": 4,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-11T12:57:18.538Z"
+    },
+    {
+      "date": "2026-08-10",
+      "athlete_id": 11,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-10T07:26:11.650Z"
+    },
+    {
+      "date": "2026-08-10",
+      "athlete_id": 6,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-10T07:53:24.098Z"
+    },
+    {
+      "date": "2026-08-10",
+      "athlete_id": 12,
+      "fatica": "3",
+      "dolore": "3",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-10T08:07:42.308Z"
+    },
+    {
+      "date": "2026-08-10",
+      "athlete_id": 6,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-10T13:40:37.664Z"
+    },
+    {
+      "date": "2026-08-10",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-10T14:35:25.360Z"
+    },
+    {
+      "date": "2026-08-10",
+      "athlete_id": 8,
+      "fatica": "5",
+      "dolore": "5",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-08-10T14:56:18.564Z"
+    },
+    {
+      "date": "2026-08-09",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-09T08:27:47.387Z"
+    },
+    {
+      "date": "2026-08-09",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-09T16:30:43.778Z"
+    },
+    {
+      "date": "2026-08-09",
+      "athlete_id": 11,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-09T17:31:55.255Z"
+    },
+    {
+      "date": "2026-08-08",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-08T14:23:25.015Z"
+    },
+    {
+      "date": "2026-08-07",
+      "athlete_id": 7,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-07T06:53:42.192Z"
+    },
+    {
+      "date": "2026-08-07",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-07T07:11:38.912Z"
+    },
+    {
+      "date": "2026-08-07",
+      "athlete_id": 3,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-07T09:01:02.867Z"
+    },
+    {
+      "date": "2026-08-07",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-07T09:15:19.323Z"
+    },
+    {
+      "date": "2026-08-07",
+      "athlete_id": 3,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-07T09:55:49.710Z"
+    },
+    {
+      "date": "2026-08-07",
+      "athlete_id": 9,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-07T13:57:26.209Z"
+    },
+    {
+      "date": "2026-08-07",
+      "athlete_id": 11,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-07T20:13:32.979Z"
+    },
+    {
+      "date": "2026-08-06",
+      "athlete_id": 8,
+      "fatica": "4",
+      "dolore": "5",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-08-06T08:08:55.159Z"
+    },
+    {
+      "date": "2026-08-06",
+      "athlete_id": 8,
+      "fatica": "5",
+      "dolore": "5",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-08-06T08:26:03.149Z"
+    },
+    {
+      "date": "2026-08-06",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-06T08:29:17.064Z"
+    },
+    {
+      "date": "2026-08-06",
+      "athlete_id": 4,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-08-06T11:53:04.596Z"
+    },
+    {
+      "date": "2026-08-06",
+      "athlete_id": 2,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-06T12:20:04.066Z"
+    },
+    {
+      "date": "2026-08-06",
+      "athlete_id": 2,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-06T12:20:44.209Z"
+    },
+    {
+      "date": "2026-08-05",
+      "athlete_id": 7,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-05T06:13:05.737Z"
+    },
+    {
+      "date": "2026-08-05",
+      "athlete_id": 12,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-05T08:01:05.856Z"
+    },
+    {
+      "date": "2026-08-05",
+      "athlete_id": 3,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-05T08:28:45.926Z"
+    },
+    {
+      "date": "2026-08-05",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-05T08:47:26.700Z"
+    },
+    {
+      "date": "2026-08-05",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-05T12:49:25.747Z"
+    },
+    {
+      "date": "2026-08-04",
+      "athlete_id": 7,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-04T07:38:17.054Z"
+    },
+    {
+      "date": "2026-08-04",
+      "athlete_id": 3,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-04T09:21:09.452Z"
+    },
+    {
+      "date": "2026-08-04",
+      "athlete_id": 2,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-04T12:13:11.247Z"
+    },
+    {
+      "date": "2026-08-04",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-08-04T13:55:10.497Z"
+    },
+    {
+      "date": "2026-08-04",
+      "athlete_id": 12,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-08-04T14:30:39.319Z"
+    },
+    {
+      "date": "2026-08-03",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-03T07:42:53.078Z"
+    },
+    {
+      "date": "2026-08-03",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-03T07:56:22.447Z"
+    },
+    {
+      "date": "2026-08-03",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-03T08:41:40.614Z"
+    },
+    {
+      "date": "2026-08-03",
+      "athlete_id": 9,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-03T09:21:57.654Z"
+    },
+    {
+      "date": "2026-08-03",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-03T09:36:58.187Z"
+    },
+    {
+      "date": "2026-08-03",
+      "athlete_id": 5,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-03T09:40:38.121Z"
+    },
+    {
+      "date": "2026-08-03",
+      "athlete_id": 2,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-03T11:46:54.596Z"
+    },
+    {
+      "date": "2026-08-02",
+      "athlete_id": 14,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-02T21:34:46.614Z"
+    },
+    {
+      "date": "2026-08-01",
+      "athlete_id": 7,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-08-01T07:48:34.851Z"
+    },
+    {
+      "date": "2026-08-01",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-01T08:42:09.907Z"
+    },
+    {
+      "date": "2026-08-01",
+      "athlete_id": 5,
+      "fatica": "5",
+      "dolore": "2",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-01T10:35:35.990Z"
+    },
+    {
+      "date": "2026-08-01",
+      "athlete_id": 3,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-01T11:43:22.024Z"
+    },
+    {
+      "date": "2026-08-01",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "2",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-08-01T14:55:57.212Z"
+    },
+    {
+      "date": "2026-08-01",
+      "athlete_id": 9,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-08-01T16:23:58.234Z"
+    },
+    {
+      "date": "2026-07-31",
+      "athlete_id": 7,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-31T08:31:41.703Z"
+    },
+    {
+      "date": "2026-07-31",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-31T08:36:41.513Z"
+    },
+    {
+      "date": "2026-07-31",
+      "athlete_id": 2,
+      "fatica": "5",
+      "dolore": "2",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-31T12:15:14.694Z"
+    },
+    {
+      "date": "2026-07-30",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-30T07:15:42.367Z"
+    },
+    {
+      "date": "2026-07-30",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-30T07:16:09.054Z"
+    },
+    {
+      "date": "2026-07-30",
+      "athlete_id": 8,
+      "fatica": "4",
+      "dolore": "5",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-07-30T08:31:36.814Z"
+    },
+    {
+      "date": "2026-07-30",
+      "athlete_id": 8,
+      "fatica": "5",
+      "dolore": "5",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-07-30T08:32:08.689Z"
+    },
+    {
+      "date": "2026-07-30",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-30T13:01:48.975Z"
+    },
+    {
+      "date": "2026-07-29",
+      "athlete_id": 9,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-29T06:42:00.081Z"
+    },
+    {
+      "date": "2026-07-29",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-29T11:13:12.949Z"
+    },
+    {
+      "date": "2026-07-29",
+      "athlete_id": 2,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-07-29T12:29:31.043Z"
+    },
+    {
+      "date": "2026-07-29",
+      "athlete_id": 3,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-29T13:02:14.595Z"
+    },
+    {
+      "date": "2026-07-29",
+      "athlete_id": 5,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-29T16:30:22.205Z"
+    },
+    {
+      "date": "2026-07-29",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-29T17:36:03.312Z"
+    },
+    {
+      "date": "2026-07-28",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-28T06:51:40.317Z"
+    },
+    {
+      "date": "2026-07-28",
+      "athlete_id": 3,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-28T07:55:48.112Z"
+    },
+    {
+      "date": "2026-07-28",
+      "athlete_id": 7,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-28T11:24:06.075Z"
+    },
+    {
+      "date": "2026-07-28",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-07-28T11:24:27.383Z"
+    },
+    {
+      "date": "2026-07-28",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-28T14:40:11.650Z"
+    },
+    {
+      "date": "2026-07-28",
+      "athlete_id": 12,
+      "fatica": "2",
+      "dolore": "1",
+      "energia": "2",
+      "raw_note": "",
+      "timestamp": "2026-07-28T14:42:31.727Z"
+    },
+    {
+      "date": "2026-07-28",
+      "athlete_id": 8,
+      "fatica": "4",
+      "dolore": "4",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-28T15:50:40.142Z"
+    },
+    {
+      "date": "2026-07-27",
+      "athlete_id": 13,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-27T10:13:32.736Z"
+    },
+    {
+      "date": "2026-07-27",
+      "athlete_id": 2,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-27T12:29:11.688Z"
+    },
+    {
+      "date": "2026-07-26",
+      "athlete_id": 9,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-26T17:59:05.130Z"
+    },
+    {
+      "date": "2026-07-25",
+      "athlete_id": 7,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-25T08:31:29.243Z"
+    },
+    {
+      "date": "2026-07-25",
+      "athlete_id": 2,
+      "fatica": "4",
+      "dolore": "4",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-25T11:55:00.686Z"
+    },
+    {
+      "date": "2026-07-25",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-25T17:30:21.918Z"
+    },
+    {
+      "date": "2026-07-24",
+      "athlete_id": 9,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-24T06:27:18.181Z"
+    },
+    {
+      "date": "2026-07-24",
+      "athlete_id": 3,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-24T08:08:49.556Z"
+    },
+    {
+      "date": "2026-07-24",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-24T15:38:04.876Z"
+    },
+    {
+      "date": "2026-07-24",
+      "athlete_id": 12,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-24T15:50:02.954Z"
+    },
+    {
+      "date": "2026-07-23",
+      "athlete_id": 7,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-23T07:31:22.432Z"
+    },
+    {
+      "date": "2026-07-23",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "2",
+      "raw_note": "",
+      "timestamp": "2026-07-23T07:46:25.496Z"
+    },
+    {
+      "date": "2026-07-23",
+      "athlete_id": 3,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-23T08:42:15.811Z"
+    },
+    {
+      "date": "2026-07-23",
+      "athlete_id": 8,
+      "fatica": "4",
+      "dolore": "4",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-23T10:47:39.420Z"
+    },
+    {
+      "date": "2026-07-23",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-23T11:04:23.872Z"
+    },
+    {
+      "date": "2026-07-23",
+      "athlete_id": 12,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-23T17:12:33.499Z"
+    },
+    {
+      "date": "2026-07-22",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-22T06:29:04.820Z"
+    },
+    {
+      "date": "2026-07-22",
+      "athlete_id": 3,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-22T09:46:20.146Z"
+    },
+    {
+      "date": "2026-07-22",
+      "athlete_id": 13,
+      "fatica": "2",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-22T09:46:46.094Z"
+    },
+    {
+      "date": "2026-07-22",
+      "athlete_id": 2,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-22T11:35:36.787Z"
+    },
+    {
+      "date": "2026-07-22",
+      "athlete_id": 12,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-22T17:49:46.283Z"
+    },
+    {
+      "date": "2026-07-22",
+      "athlete_id": 12,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-22T17:50:21.716Z"
+    },
+    {
+      "date": "2026-07-22",
+      "athlete_id": 12,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-22T17:50:39.441Z"
+    },
+    {
+      "date": "2026-07-21",
+      "athlete_id": 13,
+      "fatica": "2",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-21T10:17:00.850Z"
+    },
+    {
+      "date": "2026-07-21",
+      "athlete_id": 7,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-21T11:14:43.243Z"
+    },
+    {
+      "date": "2026-07-21",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "3",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-21T11:20:52.583Z"
+    },
+    {
+      "date": "2026-07-21",
+      "athlete_id": 12,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-07-21T15:34:09.830Z"
+    },
+    {
+      "date": "2026-07-21",
+      "athlete_id": 8,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-21T16:01:50.912Z"
+    },
+    {
+      "date": "2026-07-20",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-07-20T07:18:59.655Z"
+    },
+    {
+      "date": "2026-07-20",
+      "athlete_id": 2,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-20T12:04:40.273Z"
+    },
+    {
+      "date": "2026-07-20",
+      "athlete_id": 14,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-20T14:16:13.786Z"
+    },
+    {
+      "date": "2026-07-20",
+      "athlete_id": 12,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-20T16:41:41.798Z"
+    },
+    {
+      "date": "2026-07-19",
+      "athlete_id": 9,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-19T06:14:47.823Z"
+    },
+    {
+      "date": "2026-07-18",
+      "athlete_id": 4,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-18T14:39:42.607Z"
+    },
+    {
+      "date": "2026-07-17",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-17T04:45:56.120Z"
+    },
+    {
+      "date": "2026-07-17",
+      "athlete_id": 2,
+      "fatica": "3",
+      "dolore": "4",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-17T12:05:55.879Z"
+    },
+    {
+      "date": "2026-07-16",
+      "athlete_id": 9,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-16T04:40:44.316Z"
+    },
+    {
+      "date": "2026-07-16",
+      "athlete_id": 4,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-16T10:55:22.507Z"
+    },
+    {
+      "date": "2026-07-16",
+      "athlete_id": 13,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-16T11:36:21.602Z"
+    },
+    {
+      "date": "2026-07-15",
+      "athlete_id": 13,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-15T10:55:37.198Z"
+    },
+    {
+      "date": "2026-07-15",
+      "athlete_id": 1,
+      "fatica": "5",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-15T11:14:44.904Z"
+    },
+    {
+      "date": "2026-07-15",
+      "athlete_id": 2,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "3",
+      "raw_note": "",
+      "timestamp": "2026-07-15T11:57:12.534Z"
+    },
+    {
+      "date": "2026-07-15",
+      "athlete_id": 12,
+      "fatica": "3",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-15T17:19:36.446Z"
+    },
+    {
+      "date": "2026-07-14",
+      "athlete_id": 4,
+      "fatica": "4",
+      "dolore": "2",
+      "energia": "5",
+      "raw_note": "",
+      "timestamp": "2026-07-14T11:45:15.334Z"
+    },
+    {
+      "date": "2026-07-14",
+      "athlete_id": 1,
+      "fatica": "4",
+      "dolore": "1",
+      "energia": "4",
+      "raw_note": "",
+      "timestamp": "2026-07-14T12:25:29.854Z"
+    }
+  ]
+};
+
 const OFFSEASON_DATA = {
   "meta": {
     "programma": "Pre-Season 26 - Off Season Fase 1",
@@ -12992,5 +15262,5 @@ const WEEKS_DATA = {
 
 // Export for node / ES module if needed
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { ROSTER, PREHAB_DATA, OFFSEASON_DATA, SESSIONS_W1, SESSIONS_W2, WEEKS_DATA };
+  module.exports = { ROSTER, PREHAB_DATA, WELLNESS_HISTORY, OFFSEASON_DATA, SESSIONS_W1, SESSIONS_W2, WEEKS_DATA };
 }
