@@ -1183,13 +1183,66 @@ async function salvaLog(inputId, btn) {
 
 /* ---------- Fine Seduta ---------- */
 function htmlFineSeduta(nSeduta) {
+  const isEN = (L === EN);
+  const rpeTitle = isEN ? 'Session Intensity (RPE 0-10)' : 'Intensità Seduta (RPE 0-10)';
+  const rpeHint = isEN ? '0 = No effort / Rest ➔ 10 = Maximal effort' : '0 = Nessuno sforzo ➔ 10 = Sforzo massimale';
+  const fatTitle = isEN ? 'Fatigue Level (0-10)' : 'Livello di Fatica (0-10)';
+  const fatHint = isEN ? '0 = Fresh / High energy ➔ 10 = Exhausted' : '0 = Fresca / Piena energia ➔ 10 = Esausta';
+  const notePh = isEN ? 'Session notes (optional e.g. shoulder felt good...)' : 'Note sulla seduta (opzionale es. buone sensazioni su squat...)';
+
+  let rpeBtns = '';
+  for (let i = 0; i <= 10; i++) {
+    rpeBtns += `<button type="button" class="rating-btn" onclick="selezionaRating('rpe', '${nSeduta}', ${i}, this)">${i}</button>`;
+  }
+  let fatBtns = '';
+  for (let i = 0; i <= 10; i++) {
+    fatBtns += `<button type="button" class="rating-btn" onclick="selezionaRating('fat', '${nSeduta}', ${i}, this)">${i}</button>`;
+  }
+
   return `
-    <div class="fine-seduta-wrap">
-      <button class="fine-seduta-btn" onclick="fineSeduta('${nSeduta}', this)">
+    <div class="fine-seduta-wrap" style="background:var(--surface,#f8fafc);border:1px solid var(--border,#e2e8f0);border-radius:14px;padding:16px;margin-top:20px;">
+      <h3 style="font-size:0.95rem;font-weight:800;color:var(--primary,#1a3a6b);margin-bottom:12px;">🏁 ${isEN ? 'Complete & Save Session' : 'Chiusura & Salvataggio Seduta'}</h3>
+      
+      <div class="rating-group" id="rpe-${id}-${nSeduta}" style="margin-bottom:14px;">
+        <div style="font-size:0.82rem;font-weight:700;color:var(--text,#1e293b);display:flex;justify-content:space-between;">
+          <span>${rpeTitle}</span>
+          <span id="rpe-val-${nSeduta}" style="color:var(--primary,#1a3a6b);font-weight:800;">— / 10</span>
+        </div>
+        <div style="font-size:0.72rem;color:#64748b;margin:2px 0 6px;">${rpeHint}</div>
+        <div style="display:grid;grid-template-columns:repeat(11,1fr);gap:2px;">${rpeBtns}</div>
+      </div>
+
+      <div class="rating-group" id="fat-${id}-${nSeduta}" style="margin-bottom:14px;">
+        <div style="font-size:0.82rem;font-weight:700;color:var(--text,#1e293b);display:flex;justify-content:space-between;">
+          <span>${fatTitle}</span>
+          <span id="fat-val-${nSeduta}" style="color:var(--primary,#1a3a6b);font-weight:800;">— / 10</span>
+        </div>
+        <div style="font-size:0.72rem;color:#64748b;margin:2px 0 6px;">${fatHint}</div>
+        <div style="display:grid;grid-template-columns:repeat(11,1fr);gap:2px;">${fatBtns}</div>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <textarea id="note-seduta-${nSeduta}" style="width:100%;border:1px solid #cbd5e1;border-radius:8px;padding:8px 10px;font-size:0.82rem;min-height:55px;outline:none;font-family:inherit;" placeholder="${notePh}"></textarea>
+      </div>
+
+      <button class="fine-seduta-btn" onclick="fineSeduta('${nSeduta}', this)" style="width:100%;background:var(--primary,#1a3a6b);color:#fff;border:none;border-radius:10px;padding:12px;font-size:0.92rem;font-weight:800;cursor:pointer;">
         ${L.endSession}
       </button>
-      <div class="fine-seduta-report" id="report-${nSeduta}" style="display:none"></div>
+      <div class="fine-seduta-report" id="report-${nSeduta}" style="display:none;margin-top:10px;font-size:0.8rem;"></div>
     </div>`;
+}
+
+function selezionaRating(tipo, nSeduta, val, btn) {
+  const container = btn.parentElement;
+  container.querySelectorAll('.rating-btn').forEach(b => {
+    b.classList.remove('selected');
+    b.style.background = '';
+    b.style.color = '';
+  });
+  btn.classList.add('selected');
+  btn.style.background = 'var(--primary,#1a3a6b)';
+  btn.style.color = '#fff';
+  document.getElementById(`${tipo}-val-${nSeduta}`).textContent = `${val} / 10`;
 }
 
 async function fineSeduta(nSeduta, btn) {
@@ -1310,13 +1363,11 @@ async function fineSeduta(nSeduta, btn) {
 }
 
 const MASSIMALI = [
-  { id: 'squat',    nome: 'Squat / Step Up', nomeEN: 'Squat / Step Up', catena: 'lower', alias: ['squat', 'step up'] },
-  { id: 'lat',      nome: 'Lat Machine',    catena: 'upper', alias: ['lat', 'pullup', 'pull-up', 'trazioni'] },
-  { id: 'military', nome: 'Military Press', catena: 'upper', alias: ['military', 'lento avanti'] },
-  { id: 'rowbb',    nome: 'Row BB',         catena: 'upper', alias: ['row bb', 'rematore'] },
-  { id: 'bench',    nome: 'Bench Press',    catena: 'upper', alias: ['bench', 'panca'] },
-  { id: 'clean',    nome: 'Clean',          catena: 'upper', alias: ['clean'] },
-  { id: 'rdl',      nome: 'Stacchi Rumeni', nomeEN: 'Romanian Deadlifts', catena: 'upper', alias: ['stacchi', 'rdl'] },
+  { id: 'squat', nome: 'Back Squat',  nomeEN: 'Back Squat',  catena: 'lower', alias: ['squat / step up', 'squat', 'step up'], baselineKey: 'Squat / Step Up' },
+  { id: 'bench', nome: 'Bench Press', nomeEN: 'Bench Press', catena: 'upper', alias: ['bench press', 'bench', 'panca'],       baselineKey: 'Bench Press' },
+  { id: 'clean', nome: 'Power Clean', nomeEN: 'Power Clean', catena: 'upper', alias: ['clean', 'power clean', 'girata'],      baselineKey: 'Clean' },
+  { id: 'rowbb', nome: 'Row (Rematore)', nomeEN: 'Barbell Row', catena: 'upper', alias: ['row bb', 'row', 'rematore'],      baselineKey: 'Row BB' },
+  { id: 'lat',   nome: 'Lat (Lat Machine / Trazioni)', nomeEN: 'Lat Pulldown / Pullups', catena: 'upper', alias: ['lat machine', 'lat', 'trazioni', 'pullup'], baselineKey: 'Lat Machine' }
 ];
 
 function calcolaTabellaHtml(rm, catena) {
@@ -1423,9 +1474,15 @@ function buildProfilo(g, resE, resP, sedute) {
   /* 3. MASSIMALI */
   html += `<div class="profilo-card"><div class="profilo-header">${L.maxTitle}</div>`;
   MASSIMALI.forEach(m => {
+    // Precompila con priorità: 1) Off-season baseline reale, 2) Salvataggio manuale, 3) Sessione
+    const osBaseline = (typeof OFFSEASON_DATA !== 'undefined' && OFFSEASON_DATA.baselines_1rm && OFFSEASON_DATA.baselines_1rm[String(id)])
+      ? (OFFSEASON_DATA.baselines_1rm[String(id)].rms || {})
+      : {};
+    const baseVal = m.baselineKey && osBaseline[m.baselineKey] ? osBaseline[m.baselineKey] : null;
+
     const rmKeyM = Object.keys(rmMapManual).find(k => m.alias.some(a => k.includes(a)));
     const rmKeyS = Object.keys(rmMapSession).find(k => m.alias.some(a => k.includes(a)));
-    const rmVal  = rmKeyM ? rmMapManual[rmKeyM] : (rmKeyS ? rmMapSession[rmKeyS] : '');
+    const rmVal  = rmKeyM ? rmMapManual[rmKeyM] : (rmKeyS ? rmMapSession[rmKeyS] : (baseVal || ''));
     const badge = m.catena === 'lower' ? ' <span class="catena-badge">+ BW</span>' : '';
     html += `
       <div class="massimale-row">
