@@ -323,7 +323,7 @@
       gap: 6px;
     }
 
-    /* Exercise Card */
+    /* Standard Exercise Card */
     .exercise-card {
       background: var(--mv-surface2);
       border: 1px solid var(--mv-border);
@@ -333,7 +333,7 @@
     }
     .ex-head-row {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       gap: 8px;
       margin-bottom: 10px;
@@ -350,7 +350,34 @@
       white-space: nowrap;
     }
 
-    /* Set Table Layout for Mobile */
+    /* Standard 4-Item Grid for Team */
+    .ex-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .ex-grid-item {
+      background: #090f1d;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 8px 4px;
+      text-align: center;
+    }
+    .ex-grid-item .lbl {
+      font-size: 0.68rem;
+      color: var(--mv-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .ex-grid-item .val {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    /* Set Table Layout (Exclusively for Nelly) */
     .set-table {
       width: 100%;
       border-collapse: separate;
@@ -401,10 +428,7 @@
     .set-load-val {
       color: var(--mv-amber);
       font-weight: 800;
-      font-size: 0.85rem;
-      display: inline-block;
-      max-width: 100%;
-      word-break: break-word;
+      font-size: 0.86rem;
     }
     .tempo-badge {
       display: inline-flex;
@@ -609,7 +633,7 @@
 
   </main>
 
-  <script src="data.js?v=20260901v12"></script>
+  <script src="data.js?v=20260901v14"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -860,7 +884,7 @@
       renderSessions();
     }
 
-    // CATEGORIZZAZIONE
+    // CATEGORIZZAZIONE ESERCIZI SQUADRA
     function categorizeExercise(e) {
       const nome = (e.Esercizio || '').toLowerCase();
       const metodo = (e.Metodo || '').toLowerCase();
@@ -887,37 +911,9 @@
       return 'Accessori';
     }
 
-    function extractTempo(e) {
-      const text = (e.Istruzione || '') + ' ' + (e.Note || '') + ' ' + (e.Reps || '');
-      const m = text.match(/(?:tempo\s*|·\s*)(\d{4}|\d{2}X\d|\bX\b)/i);
-      return m ? m[1].toUpperCase() : '';
-    }
-
-    function parseExerciseRows(e) {
-      const nSets = parseInt(e.Serie) || 1;
-      const repsStr = String(e.Reps || '').trim();
-      let intStr = String(e['Intensità'] || e.Intensità || '').trim();
-      // Pulisci diciture prolisse
-      intStr = intStr.replace(/\(.*?\)/g, '').replace(/medball/gi, '').trim();
-      if (intStr.toLowerCase() === 'bodyweight') intStr = 'BW';
-      const tempoStr = extractTempo(e);
-
-      const repsList = repsStr.includes('|') ? repsStr.split('|').map(s => s.trim()) : (repsStr.includes('·') ? repsStr.split('·').map(s => s.trim()) : []);
-      const intList = intStr.includes('|') ? intStr.split('|').map(s => s.trim()) : (intStr.includes('·') ? intStr.split('·').map(s => s.trim()) : []);
-      
-      const rows = [];
-      for (let i = 0; i < nSets; i++) {
-        const rVal = repsList[i] || (repsList.length > 0 ? repsList[repsList.length - 1] : repsStr) || '—';
-        const iVal = intList[i] || (intList.length > 0 ? intList[intList.length - 1] : intStr) || '—';
-        rows.push({ set: i + 1, reps: rVal, load: iVal, tempo: tempoStr });
-      }
-      return rows;
-    }
-
-    function renderExerciseCard(e, sed) {
+    // ESERCIZIO CARD STANDARD PER TUTTA LA SQUADRA (LAYOUT A GRIGLIA PULITA)
+    function renderStandardExerciseCard(e, sed) {
       const exName = (isEN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
-      const rows = parseExerciseRows(e);
-      const hasTempo = rows.some(r => r.tempo && r.tempo.length > 0);
 
       // Target load calc
       let targetHtml = '';
@@ -948,16 +944,93 @@
         const uid = Math.random().toString(36).slice(2, 7);
         notesHtml = `
           <button class="ex-notes-toggle" onclick="toggleNotes('n-${uid}')">
-            <span>ℹ️ ${isEN ? 'Technical instructions & cues' : 'Istruzioni tecniche & note coach'}</span> ▾
+            <span>ℹ️ Istruzioni tecniche & note coach</span> ▾
           </button>
           <div class="ex-notes-body" id="n-${uid}">
-            ${e.Istruzione ? `<div><strong>${isEN ? 'Cues:' : 'Istruzioni:'}</strong> ${e.Istruzione}</div>` : ''}
-            ${e.Note ? `<div style="margin-top:4px;color:var(--mv-amber)"><strong>${isEN ? 'Notes:' : 'Note:'}</strong> ${e.Note}</div>` : ''}
+            ${e.Istruzione ? `<div><strong>Istruzioni:</strong> ${e.Istruzione}</div>` : ''}
+            ${e.Note ? `<div style="margin-top:4px;color:var(--mv-amber)"><strong>Note:</strong> ${e.Note}</div>` : ''}
           </div>
         `;
       }
 
-      // Costruisci le righe della tabella set per set
+      return `
+        <div class="exercise-card">
+          <div class="ex-head-row">
+            <div class="ex-name">${exName}</div>
+            ${e.Recupero ? `<div class="ex-rest-badge">⏱ Rec. ${e.Recupero}</div>` : ''}
+          </div>
+
+          <div class="ex-grid">
+            <div class="ex-grid-item">
+              <div class="lbl">Serie</div>
+              <div class="val">${e.Serie || '—'}</div>
+            </div>
+            <div class="ex-grid-item">
+              <div class="lbl">Reps</div>
+              <div class="val">${e.Reps || '—'}</div>
+            </div>
+            <div class="ex-grid-item">
+              <div class="lbl">Intensità</div>
+              <div class="val" style="color:var(--mv-amber)">${e['Intensità'] || '—'}</div>
+            </div>
+            <div class="ex-grid-item">
+              <div class="lbl">Recupero</div>
+              <div class="val">${e.Recupero || '—'}</div>
+            </div>
+          </div>
+
+          ${targetHtml}
+          ${notesHtml}
+        </div>
+      `;
+    }
+
+    // ESERCIZIO CARD TABELLARE RISERVATO A NELLY
+    function extractTempo(e) {
+      const text = (e.Istruzione || '') + ' ' + (e.Note || '') + ' ' + (e.Reps || '');
+      const m = text.match(/(?:tempo\s*|·\s*)(\d{4}|\d{2}X\d|\bX\b)/i);
+      return m ? m[1].toUpperCase() : '';
+    }
+
+    function parseExerciseRows(e) {
+      const nSets = parseInt(e.Serie) || 1;
+      const repsStr = String(e.Reps || '').trim();
+      let intStr = String(e['Intensità'] || e.Intensità || '').trim();
+      intStr = intStr.replace(/\(.*?\)/g, '').replace(/medball/gi, '').trim();
+      if (intStr.toLowerCase() === 'bodyweight') intStr = 'BW';
+      const tempoStr = extractTempo(e);
+
+      const repsList = repsStr.includes('|') ? repsStr.split('|').map(s => s.trim()) : (repsStr.includes('·') ? repsStr.split('·').map(s => s.trim()) : []);
+      const intList = intStr.includes('|') ? intStr.split('|').map(s => s.trim()) : (intStr.includes('·') ? intStr.split('·').map(s => s.trim()) : []);
+      
+      const rows = [];
+      for (let i = 0; i < nSets; i++) {
+        const rVal = repsList[i] || (repsList.length > 0 ? repsList[repsList.length - 1] : repsStr) || '—';
+        const iVal = intList[i] || (intList.length > 0 ? intList[intList.length - 1] : intStr) || '—';
+        rows.push({ set: i + 1, reps: rVal, load: iVal, tempo: tempoStr });
+      }
+      return rows;
+    }
+
+    function renderNellyExerciseCard(e, sed) {
+      const exName = e.Esercizio_EN || e.Esercizio;
+      const rows = parseExerciseRows(e);
+      const hasTempo = rows.some(r => r.tempo && r.tempo.length > 0);
+
+      let notesHtml = '';
+      if (e.Istruzione || e.Note) {
+        const uid = Math.random().toString(36).slice(2, 7);
+        notesHtml = `
+          <button class="ex-notes-toggle" onclick="toggleNotes('n-${uid}')">
+            <span>ℹ️ Technical instructions & cues</span> ▾
+          </button>
+          <div class="ex-notes-body" id="n-${uid}">
+            ${e.Istruzione ? `<div><strong>Cues:</strong> ${e.Istruzione}</div>` : ''}
+            ${e.Note ? `<div style="margin-top:4px;color:var(--mv-amber)"><strong>Notes:</strong> ${e.Note}</div>` : ''}
+          </div>
+        `;
+      }
+
       const rowsHtml = rows.map(r => {
         const tempoCell = hasTempo ? `<td>${r.tempo ? `<span class="tempo-badge">${r.tempo}</span>` : '—'}</td>` : '';
         return `
@@ -974,15 +1047,15 @@
         <div class="exercise-card">
           <div class="ex-head-row">
             <div class="ex-name">${exName}</div>
-            ${e.Recupero ? `<div class="ex-rest-badge">⏱ ${isEN ? 'Rest' : 'Rec.'} ${e.Recupero}</div>` : ''}
+            ${e.Recupero ? `<div class="ex-rest-badge">⏱ Rest ${e.Recupero}</div>` : ''}
           </div>
 
           <table class="set-table">
             <thead>
               <tr>
-                <th style="width:${hasTempo ? '18%' : '20%'}">${isEN ? 'SET' : 'SET'}</th>
-                <th style="width:${hasTempo ? '24%' : '35%'}">${isEN ? 'REPS' : 'REPS'}</th>
-                <th style="width:${hasTempo ? '32%' : '45%'}">${isEN ? 'LOAD' : 'CARICO'}</th>
+                <th style="width:${hasTempo ? '18%' : '25%'}">SET</th>
+                <th style="width:${hasTempo ? '24%' : '35%'}">REPS</th>
+                <th style="width:${hasTempo ? '32%' : '40%'}">LOAD</th>
                 ${hasTempo ? `<th style="width:26%">TEMPO</th>` : ''}
               </tr>
             </thead>
@@ -991,7 +1064,6 @@
             </tbody>
           </table>
 
-          ${targetHtml}
           ${notesHtml}
         </div>
       `;
@@ -1017,7 +1089,7 @@
       const isNelly = (currentAthlete.id === 14 || currentAthlete.name.toLowerCase().includes('nelly'));
 
       container.innerHTML = sessions.map((sed, idx) => {
-        // Se è Nelly, mostriamo la sua scheda dedicata strutturata nei 4 blocchi esatti
+        // Se è Nelly, mostriamo la sua scheda dedicata strutturata nei 4 blocchi
         if (isNelly) {
           const nellyEx = allExercises.filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta) && (e.Ruoli === 'Nelly' || (e.Metodo && e.Metodo.includes('Nelly')) || e.Metodo === 'Prehab' || e.Metodo === 'Main Exercises' || e.Metodo === 'Accessories' || e.Metodo === 'Abdominals + Transfer'));
 
@@ -1034,7 +1106,7 @@
             return `
               <div class="method-group">
                 <div class="method-title">${b.icon} ${b.title}</div>
-                ${list.map(e => renderExerciseCard(e, sed)).join('')}
+                ${list.map(e => renderNellyExerciseCard(e, sed)).join('')}
               </div>
             `;
           }).join('');
@@ -1057,14 +1129,14 @@
           `;
         }
 
-        // Per tutte le altre atlete della squadra
+        // PER TUTTE LE ALTRE ATLETE DELLA SQUADRA (LAYOUT CLASSICO STANDARD)
         const sedEsercizi = allExercises
           .filter(e => {
             if (String(e.N_Seduta) !== String(sed.Numero_Seduta)) return false;
             const nLow = (e.Esercizio || '').toLowerCase();
             const mLow = (e.Metodo || '').toLowerCase();
 
-            if (mLow.includes('prevenzione') || mLow.includes('blocco ruolo') || mLow.includes('accessori') || mLow.includes('rinforzo scapolare') || mLow.includes('monitoraggio') || mLow.includes('nelly')) {
+            if (mLow.includes('prevenzione') || mLow.includes('blocco ruolo') || mLow.includes('accessori') || mLow.includes('rinforzo scapolare') || mLow.includes('monitoraggio') || mLow.includes('nelly') || e.Ruoli === 'Nelly') {
               return false;
             }
             if (nLow.includes('heel raise') || nLow.includes('equilibrio') || nLow.includes('foam roller') || nLow.includes('scapular punch') || nLow.includes('wall slide') || nLow.includes('capsule stretch') || nLow.includes('finger') || nLow.includes('pronazione') || nLow.includes('circonduzioni') || nLow.includes('cmj marker')) {
@@ -1090,25 +1162,24 @@
                 <!-- 1. Respirazione di squadra -->
                 <div class="exercise-card">
                   <div class="ex-name">Respirazione di squadra (Box Breathing)</div>
-                  <table class="set-table">
-                    <thead><tr><th>Serie</th><th>Reps</th><th>Intensità</th><th>Recupero</th></tr></thead>
-                    <tbody>
-                      <tr><td><span class="set-num-badge">#1</span></td><td><strong>10 cicli</strong></td><td><span class="set-load-val">Controllo</span></td><td>30s</td></tr>
-                      <tr><td><span class="set-num-badge">#2</span></td><td><strong>10 cicli</strong></td><td><span class="set-load-val">Controllo</span></td><td>30s</td></tr>
-                    </tbody>
-                  </table>
+                  <div class="ex-grid">
+                    <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">10 cicli</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val">Controllo</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Recupero</div><div class="val">30s</div></div>
+                  </div>
                   <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">In cerchio con la squadra: 4s inspira, 4s trattieni, 4s espira, 4s vuoto. Attivazione parasimpatica e focus.</div>
                 </div>
 
                 <!-- 2. Mobilità libera -->
                 <div class="exercise-card">
                   <div class="ex-name">Mobilità Dinamica Libera</div>
-                  <table class="set-table">
-                    <thead><tr><th>Serie</th><th>Durata</th><th>Intensità</th><th>Focus</th></tr></thead>
-                    <tbody>
-                      <tr><td><span class="set-num-badge">#1</span></td><td><strong>5 min</strong></td><td><span class="set-load-val">Fluida</span></td><td>Articolare</td></tr>
-                    </tbody>
-                  </table>
+                  <div class="ex-grid">
+                    <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">1</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Durata</div><div class="val">5 min</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val">Fluida</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Focus</div><div class="val">Articolare</div></div>
+                  </div>
                   <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">Mobilità libera e mirata per anche, caviglie, colonna toracica e spalle prima del carico.</div>
                 </div>
 
@@ -1130,7 +1201,7 @@
           return `
             <div class="method-group">
               <div class="method-title">${catDef.icon} ${catDef.label}</div>
-              ${exList.map(e => renderExerciseCard(e, sed)).join('')}
+              ${exList.map(e => renderStandardExerciseCard(e, sed)).join('')}
             </div>
           `;
         }).join('');
