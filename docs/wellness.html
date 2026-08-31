@@ -446,7 +446,7 @@
     }
 
     
-    const VAPID_PUBLIC_KEY = 'BI5QhB9e3vI-k_l6U2_5eZ7tKzQ1S7v2vE9r8tY1uI3oP5a7s9d1f3g5h7j9k1l3z5x7c9v1b3n5m7q9w1e3r5t7'; // standard public
+    const VAPID_PUBLIC_KEY = 'BC8k3B_czFbc_dySae4Le6tgtyEpcyilthMSrD7sZvz7TRVqwkfKzIHnsDtfy39i7N2n9El6cbxlVfRCzOmr4mU';
 
     function urlBase64ToUint8Array(base64String) {
       const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -462,10 +462,10 @@
     async function subscribeAndTestPush() {
       const btn = document.getElementById('btn-push-test');
       const msg = document.getElementById('push-status-msg');
-      btn.innerHTML = '⏳ Attivazione in corso...';
+      btn.innerHTML = '⏳ Attivazione Notifiche...';
 
-      if (!('serviceWorker' in navigator) || !('Notification' in window)) {
-        alert('Il tuo browser non supporta le notifiche push.');
+      if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+        alert('Il browser non supporta le notifiche push.');
         btn.innerHTML = '🔔 Ricevi Notifica Push di Prova qui';
         return;
       }
@@ -473,27 +473,54 @@
       try {
         const perm = await Notification.requestPermission();
         if (perm !== 'granted') {
-          alert('Devi consentire le notifiche per ricevere il test.');
+          alert('Devi consentire le notifiche per ricevere il messaggio.');
           btn.innerHTML = '🔔 Ricevi Notifica Push di Prova qui';
           return;
         }
 
-        // Register ServiceWorker
-        let reg = await navigator.serviceWorker.register('sw.js');
+        let reg = await navigator.serviceWorker.getRegistration();
+        if (!reg) {
+          reg = await navigator.serviceWorker.register('sw.js');
+          await new Promise(r => setTimeout(r, 1000));
+          reg = await navigator.serviceWorker.getRegistration();
+        }
         await navigator.serviceWorker.ready;
 
-        // Show immediate local test notification banner
+        let sub = await reg.pushManager.getSubscription();
+        if (!sub) {
+          sub = await reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+          });
+        }
+
+        const subJson = sub.toJSON();
+        
+        // Salva l'iscrizione su Google Sheets
+        if (subJson.keys) {
+          const params = new URLSearchParams({
+            token: TOKEN,
+            azione: 'salva_push_sub',
+            id_giocatrice: currentId,
+            endpoint: subJson.endpoint,
+            p256dh: subJson.keys.p256dh,
+            auth: subJson.keys.auth
+          });
+          fetch(GAS_URL + '?' + params.toString(), { mode: 'no-cors' }).catch(() => {});
+        }
+
+        // Mostra notifica sul dispositivo
         await reg.showNotification('🏐 Marsala Volley — Morning Wellness', {
-          body: `Buongiorno Coach Paulo! 🌅 Ecco la tua notifica push di prova: tocca per aprire il Wellness.`,
+          body: 'Coach Paulo, notifica push collegata con successo! 🌅',
           icon: 'logo.jpg',
           badge: 'logo.jpg',
-          tag: 'wellness-test',
+          tag: 'wellness-coach-alert',
           data: { url: window.location.href }
         });
 
         msg.style.display = 'block';
-        msg.textContent = '✅ Notifica inviata con successo sul tuo schermo!';
-        btn.innerHTML = '✓ Notifica Ricevuta!';
+        msg.textContent = '✅ Notifica push attivata e collegata al database!';
+        btn.innerHTML = '✓ Notifiche Attive!';
         btn.style.background = '#059669';
       } catch (err) {
         console.error('Errore push:', err);
