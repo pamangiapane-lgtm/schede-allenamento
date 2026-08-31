@@ -383,7 +383,7 @@
           <tr>
             <th>Atleta</th>
             <th>Ruolo</th>
-            <th>Triage Rischio</th>
+            
             <th>Focus Clinico</th>
             <th>Morning Wellness Oggi (0-10)</th>
             <th>1RM Massimali Baseline</th>
@@ -507,7 +507,7 @@
         alertGrid.innerHTML = alerts.map(al => `
           <div class="alert-item">
             <div class="alert-ath">
-              <span class="ath-num">${al.athlete.number || '#'}</span>
+              
               <span>${al.athlete.name} (${al.athlete.role})</span>
             </div>
             <div style="display:flex;align-items:center;gap:10px;">
@@ -557,8 +557,8 @@
       }
 
       tbody.innerHTML = filtered.map(a => {
-        const risk = a.risk_level || 'LOW';
-        const riskBadge = `<span class="risk-tag ${risk.toLowerCase()}">${risk === 'HIGH' ? '🔴 ALTO' : risk === 'MEDIUM' ? '🟡 MEDIO' : '🟢 BASSO'}</span>`;
+        
+        
         const flags = (a.clinical_flags && a.clinical_flags.length > 0) ? a.clinical_flags.join(' · ') : '<span style="color:#64748b">—</span>';
         
         // 1RM baseline
@@ -599,14 +599,14 @@
           <tr>
             <td>
               <div class="ath-cell">
-                <span class="ath-num">${a.number || '#'}</span>
+                
                 <div>
                   <a href="../index.html?id=${a.id}" target="_blank" class="ath-name">${a.name}</a>
                 </div>
               </div>
             </td>
             <td><span class="ath-role">${a.role}</span></td>
-            <td>${riskBadge}</td>
+            
             <td style="max-width:220px;font-size:0.78rem;color:#cbd5e1;white-space:normal">${flags}</td>
             <td>${wellnessHtml}</td>
             <td>
