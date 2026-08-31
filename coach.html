@@ -3,106 +3,176 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Marsala Volley — Coach Command Center</title>
+  <title>Marsala Volley — Coach Command Center 2.0</title>
   <link rel="stylesheet" href="style.css">
   <meta name="theme-color" content="#0c1f40">
   <link rel="apple-touch-icon" href="logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --mv-navy: #0c1f40;
       --mv-navy-dark: #071226;
       --mv-navy-light: #162b55;
       --mv-amber: #e8a020;
-      --mv-amber-glow: rgba(232, 160, 32, 0.18);
-      --mv-coral: #e84c2b;
+      --mv-coral: #ef4444;
       --mv-emerald: #10b981;
-      --mv-bg: #0b1322;
-      --mv-surface: #111d33;
-      --mv-surface2: #182846;
-      --mv-border: #1e335a;
-      --mv-text: #f1f5f9;
+      --mv-blue: #3b82f6;
+      --mv-bg: #090f1d;
+      --mv-surface: #0f192d;
+      --mv-surface2: #16243f;
+      --mv-surface3: #1e3155;
+      --mv-border: #1f365d;
+      --mv-text: #f8fafc;
       --mv-muted: #94a3b8;
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
     body {
       background: var(--mv-bg);
       color: var(--mv-text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-size: 14px;
       line-height: 1.5;
       min-height: 100vh;
+      padding-bottom: 60px;
     }
 
     /* Header */
     .coach-header {
       background: var(--mv-navy-dark);
       border-bottom: 1px solid var(--mv-border);
-      padding: 16px 24px;
+      padding: 16px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 14px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-    .brand-wrap { display: flex; align-items: center; gap: 12px; }
-    .brand-logo { width: 38px; height: 38px; border-radius: 8px; object-fit: cover; }
-    .brand-title { font-size: 1.15rem; font-weight: 800; letter-spacing: 0.5px; color: #fff; }
-    .brand-sub { font-size: 0.72rem; color: var(--mv-muted); }
-    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .brand-wrap { display: flex; align-items: center; gap: 14px; }
+    .brand-logo { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .brand-title { font-size: 1.25rem; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .brand-sub { font-size: 0.75rem; color: var(--mv-amber); font-weight: 700; }
+    .header-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    .btn-action {
+      background: var(--mv-surface2);
+      border: 1px solid var(--mv-border);
+      color: #fff;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-action:hover { background: var(--mv-surface3); border-color: var(--mv-amber); color: #fff; }
+    .btn-action.primary { background: var(--mv-amber); color: #000; border-color: var(--mv-amber); font-weight: 800; }
+    .btn-action.primary:hover { background: #d97706; }
 
     /* Top KPI Row */
     .kpi-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 12px;
-      padding: 18px 24px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      padding: 20px 28px;
     }
     .kpi-card {
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
-      border-radius: var(--radius-md);
-      padding: 14px 16px;
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    .kpi-val { font-size: 1.85rem; font-weight: 800; line-height: 1.1; margin-bottom: 4px; }
-    .kpi-lbl { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--mv-muted); }
-    .kpi-sub { font-size: 0.72rem; color: #64748b; margin-top: 2px; }
+    .kpi-val { font-size: 2rem; font-weight: 800; line-height: 1.1; margin-bottom: 4px; }
+    .kpi-lbl { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--mv-muted); }
+    .kpi-sub { font-size: 0.78rem; color: #94a3b8; margin-top: 4px; font-weight: 600; }
 
-    /* Content Area */
-    .main-container { padding: 0 24px 40px; }
-
-    /* Section Bar */
-    .sec-head {
+    /* Daily Alerts Box */
+    .alert-section {
+      margin: 0 28px 20px;
+      background: rgba(239, 68, 68, 0.08);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+    }
+    .alert-section.clean {
+      background: rgba(16, 185, 129, 0.08);
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+    .alert-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .alert-title { font-size: 0.95rem; font-weight: 800; display: flex; align-items: center; gap: 8px; color: #fca5a5; }
+    .alert-section.clean .alert-title { color: #6ee7b7; }
+    .alert-grid { display: flex; flex-direction: column; gap: 8px; }
+    .alert-item {
+      background: rgba(15, 25, 45, 0.7);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 18px 0 12px;
       flex-wrap: wrap;
       gap: 8px;
     }
-    .sec-title { font-size: 1.05rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
-    .sec-filter-bar { display: flex; gap: 6px; }
-    .btn-filter {
+    .alert-ath { font-weight: 800; font-size: 0.95rem; color: #fff; display: flex; align-items: center; gap: 8px; }
+    .alert-details { font-size: 0.82rem; color: #fca5a5; font-weight: 700; }
+    .alert-note { font-size: 0.8rem; color: #fbbf24; font-style: italic; background: rgba(251,191,36,0.1); padding: 2px 8px; border-radius: 4px; }
+
+    /* Content Area */
+    .main-container { padding: 0 28px; }
+
+    /* Filter Toolbar */
+    .toolbar-wrap {
       background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .filter-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .filter-label { font-size: 0.75rem; font-weight: 800; color: var(--mv-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn-filter {
+      background: var(--mv-surface2);
       border: 1px solid var(--mv-border);
       color: var(--mv-muted);
       border-radius: 6px;
-      padding: 5px 12px;
-      font-size: 0.75rem;
+      padding: 6px 12px;
+      font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
+      transition: all 0.15s;
     }
-    .btn-filter.active { background: var(--mv-amber); color: #fff; border-color: var(--mv-amber); }
+    .btn-filter:hover { background: var(--mv-surface3); color: #fff; }
+    .btn-filter.active { background: var(--mv-amber); color: #000; border-color: var(--mv-amber); font-weight: 800; }
 
-    /* Athlete Matrix Table */
+    /* Matrix Table */
     .matrix-wrap {
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-lg);
       overflow-x: auto;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
     }
     .matrix-tbl {
       width: 100%;
@@ -113,70 +183,107 @@
     .matrix-tbl th {
       background: var(--mv-surface2);
       color: var(--mv-muted);
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      padding: 12px 14px;
+      padding: 14px 16px;
       border-bottom: 1px solid var(--mv-border);
       white-space: nowrap;
     }
     .matrix-tbl td {
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
       white-space: nowrap;
+      vertical-align: middle;
     }
     .matrix-tbl tr:last-child td { border-bottom: none; }
     .matrix-tbl tr:hover td { background: rgba(255,255,255,0.02); }
 
-    .ath-cell { display: flex; align-items: center; gap: 10px; }
-    .ath-num { font-size: 0.72rem; font-weight: 800; color: var(--mv-amber); background: rgba(232,160,32,0.12); padding: 2px 6px; border-radius: 4px; }
-    .ath-name { font-weight: 700; font-size: 0.92rem; color: #fff; text-decoration: none; }
+    .ath-cell { display: flex; align-items: center; gap: 12px; }
+    .ath-num {
+      width: 32px;
+      height: 32px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--mv-amber);
+      background: rgba(232,160,32,0.12);
+      border: 1px solid rgba(232,160,32,0.25);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ath-name { font-weight: 800; font-size: 0.95rem; color: #fff; text-decoration: none; display: block; }
     .ath-name:hover { color: var(--mv-amber); }
-    .ath-role { font-size: 0.75rem; color: var(--mv-muted); }
+    .ath-role { font-size: 0.72rem; color: var(--mv-muted); font-weight: 600; }
 
-    /* Badges */
+    /* Risk Badge */
     .risk-tag {
-      font-size: 0.65rem;
+      font-size: 0.68rem;
       font-weight: 800;
       padding: 3px 8px;
       border-radius: 6px;
-      letter-spacing: 0.4px;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
-    .risk-tag.high { background: rgba(232,76,43,0.2); color: #ff8a73; border: 1px solid #e84c2b; }
-    .risk-tag.medium { background: rgba(232,160,32,0.2); color: #ffd175; border: 1px solid #e8a020; }
-    .risk-tag.low { background: rgba(16,185,129,0.2); color: #6ee7b7; border: 1px solid #10b981; }
+    .risk-tag.high { background: rgba(239,68,68,0.18); color: #fca5a5; border: 1px solid #ef4444; }
+    .risk-tag.medium { background: rgba(245,158,11,0.18); color: #fde68a; border: 1px solid #f59e0b; }
+    .risk-tag.low { background: rgba(16,185,129,0.18); color: #6ee7b7; border: 1px solid #10b981; }
 
-    .btn-action {
+    /* Wellness Cells */
+    .wellness-pill-box {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .wellness-pills-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .w-pill {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 5px;
       background: var(--mv-surface2);
       border: 1px solid var(--mv-border);
-      color: #fff;
-      border-radius: 6px;
-      padding: 5px 10px;
+      color: #cbd5e1;
+    }
+    .w-pill.good { color: #6ee7b7; border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.1); }
+    .w-pill.warn { color: #fde68a; border-color: rgba(245,158,11,0.4); background: rgba(245,158,11,0.1); }
+    .w-pill.bad { color: #fca5a5; border-color: rgba(239,68,68,0.4); background: rgba(239,68,68,0.15); }
+    .w-missing { font-size: 0.75rem; color: #64748b; font-weight: 700; font-style: italic; }
+
+    /* 1RM Box */
+    .rm-box {
+      display: flex;
+      gap: 8px;
       font-size: 0.75rem;
       font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: all 0.15s;
     }
-    .btn-action:hover { background: var(--mv-navy-light); border-color: var(--mv-amber); }
+    .rm-item {
+      background: var(--mv-surface2);
+      border: 1px solid var(--mv-border);
+      padding: 2px 7px;
+      border-radius: 5px;
+      color: #93c5fd;
+    }
+    .rm-item span { color: #fff; font-weight: 800; }
 
-    /* Modal Prehab Preview */
+    /* Modal */
     .prehab-modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.75);
       z-index: 1000;
       align-items: center;
       justify-content: center;
       padding: 16px;
+      backdrop-filter: blur(4px);
     }
     .prehab-modal.open { display: flex; }
     .prehab-modal-box {
@@ -184,13 +291,14 @@
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-lg);
       width: 100%;
-      max-width: 540px;
+      max-width: 580px;
       max-height: 85vh;
       overflow-y: auto;
       padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
-    .prehab-modal-title { font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
-    .prehab-modal-sub { font-size: 0.8rem; color: var(--mv-amber); margin-bottom: 16px; }
+    .prehab-modal-title { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .prehab-modal-sub { font-size: 0.82rem; color: var(--mv-amber); margin-bottom: 16px; font-weight: 700; }
   </style>
 </head>
 <body>
@@ -200,13 +308,14 @@
     <div class="brand-wrap">
       <img src="logo.jpg" class="brand-logo" alt="Marsala Volley">
       <div>
-        <h1 class="brand-title">Marsala Volley · Coach Panel</h1>
+        <h1 class="brand-title">Marsala Volley · Coach Command Center</h1>
         <div class="brand-sub">Pre-Season 2026/27 — Serie A2 Femminile</div>
       </div>
     </div>
     <div class="header-actions">
-      <a href="index.html" class="btn-action" target="_blank">📱 Apri Scheda Atleta</a>
-      <a href="index.html" class="btn-action" target="_blank">👥 Roster PWA</a>
+      <button class="btn-action primary" onclick="refreshLiveWellness()">🔄 Aggiorna Dati Live</button>
+      <a href="index.html" class="btn-action" target="_blank">📱 Scheda Atlete</a>
+      <a href="wellness.html" class="btn-action" target="_blank">🌅 Modulo Wellness</a>
     </div>
   </header>
 
@@ -214,53 +323,75 @@
   <section class="kpi-row">
     <div class="kpi-card">
       <div class="kpi-val" style="color:var(--mv-amber)" id="kpi-roster">14</div>
-      <div class="kpi-lbl">Roster Atlete</div>
-      <div class="kpi-sub">13 squadra + Nelly</div>
+      <div class="kpi-lbl">Roster Completo</div>
+      <div class="kpi-sub">13 Squadra + Nelly</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-val" style="color:#ff8a73" id="kpi-urgent">3</div>
-      <div class="kpi-lbl">Alert Rischio Alto</div>
-      <div class="kpi-sub">Dodi, Nonnati, Allasia</div>
+      <div class="kpi-val" style="color:var(--mv-blue)" id="kpi-compliance">-- / 13</div>
+      <div class="kpi-lbl">Wellness Compilati Oggi</div>
+      <div class="kpi-sub" id="kpi-compliance-sub">Caricamento risposte...</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-val" style="color:var(--mv-coral)" id="kpi-alerts">0</div>
+      <div class="kpi-lbl">Alert Dolori / Fatica</div>
+      <div class="kpi-sub" id="kpi-alerts-sub">Nessun fastidio critico</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-val" style="color:var(--mv-emerald)">W2</div>
       <div class="kpi-lbl">Settimana Attiva</div>
-      <div class="kpi-sub">Palestra: Squat 80%, Clean 72%</div>
+      <div class="kpi-sub">Squat 80% · Clean 72%</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-val" style="color:#60a5fa" id="kpi-prehab-total">13</div>
-      <div class="kpi-lbl">Protocolli Prehab</div>
-      <div class="kpi-sub">Fasi F1 operative</div>
+  </section>
+
+  <!-- Daily Early-Warning Alerts -->
+  <section class="alert-section" id="alert-box">
+    <div class="alert-head">
+      <h3 class="alert-title" id="alert-title">🚨 Segnalazioni e Dolori di Oggi (Pre-Allenamento)</h3>
+      <span style="font-size:0.75rem;color:var(--mv-muted)" id="last-sync-time">Sincronizzato: adesso</span>
+    </div>
+    <div class="alert-grid" id="alert-grid">
+      <div style="font-size:0.85rem;color:#cbd5e1">Controllo segnalazioni in corso...</div>
     </div>
   </section>
 
   <!-- Main Container -->
   <main class="main-container">
-    <div class="sec-head">
-      <h2 class="sec-title">📊 Matrice Squadra & Triage Clinico</h2>
-      <div class="sec-filter-bar">
-        <button class="btn-filter active" onclick="filterRisk('all', this)">Tutte</button>
-        <button class="btn-filter" onclick="filterRisk('HIGH', this)">🔴 Rischio Alto</button>
-        <button class="btn-filter" onclick="filterRisk('MEDIUM', this)">🟡 Medio</button>
-        <button class="btn-filter" onclick="filterRisk('LOW', this)">🟢 Basso</button>
+    <!-- Toolbar -->
+    <div class="toolbar-wrap">
+      <div class="filter-group">
+        <span class="filter-label">Filtro Stato:</span>
+        <button class="btn-filter active" onclick="setFilter('status', 'all', this)">Tutte</button>
+        <button class="btn-filter" onclick="setFilter('status', 'alert', this)">🚨 Con Alert/Dolori</button>
+        <button class="btn-filter" onclick="setFilter('status', 'done', this)">✅ Compilato Oggi</button>
+        <button class="btn-filter" onclick="setFilter('status', 'missing', this)">⏳ Da Compilare</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Ruolo:</span>
+        <button class="btn-filter active" onclick="setFilter('role', 'all', this)">Tutti</button>
+        <button class="btn-filter" onclick="setFilter('role', 'Schiacciatrice', this)">Schiacciatrici</button>
+        <button class="btn-filter" onclick="setFilter('role', 'Centrale', this)">Centrali</button>
+        <button class="btn-filter" onclick="setFilter('role', 'Palleggiatrice', this)">Palleggiatrici</button>
+        <button class="btn-filter" onclick="setFilter('role', 'Libero', this)">Liberi</button>
       </div>
     </div>
 
+    <!-- Matrix Table -->
     <div class="matrix-wrap">
       <table class="matrix-tbl">
         <thead>
           <tr>
             <th>Atleta</th>
             <th>Ruolo</th>
-            <th>Triage Clinico</th>
-            <th>Focus / Problematiche</th>
-            <th>Prehab Assegnato</th>
-            <th>Wellness & Readiness</th>
-            <th>Scheda Diretta</th>
+            <th>Triage Rischio</th>
+            <th>Focus Clinico</th>
+            <th>Morning Wellness Oggi (0-10)</th>
+            <th>1RM Massimali Baseline</th>
+            <th>Prehab F1</th>
+            <th>Scheda</th>
           </tr>
         </thead>
         <tbody id="matrix-tbody">
-          <tr><td colspan="6" style="text-align:center;padding:24px;color:var(--mv-muted)">Caricamento dati...</td></tr>
+          <tr><td colspan="8" style="text-align:center;padding:24px;color:var(--mv-muted)">Caricamento matrice squadra...</td></tr>
         </tbody>
       </table>
     </div>
@@ -276,35 +407,191 @@
     </div>
   </div>
 
-  <!-- Load Master Data -->
-  <script src="data.js"></script>
-
+  <script src="data.js?v=20260831v2"></script>
   <script>
-    let currentFilter = 'all';
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+    const TOKEN   = 'mv26-prd-3xF7wNqK';
 
-    function initCoach() {
+    let liveWellnessData = {};
+    let filters = { status: 'all', role: 'all' };
+
+    async function initCoach() {
       document.getElementById('kpi-roster').textContent = ROSTER.length;
-      const highCount = ROSTER.filter(a => a.risk_level === 'HIGH').length;
-      document.getElementById('kpi-urgent').textContent = highCount;
+      await refreshLiveWellness();
+    }
 
+    async function refreshLiveWellness() {
+      const alertGrid = document.getElementById('alert-grid');
+      document.getElementById('last-sync-time').textContent = 'Sincronizzazione in corso...';
+
+      try {
+        const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Wellness`);
+        const json = await res.json();
+        const rows = json.dati || [];
+        
+        // Mappa le ultime risposte per ciascun atleta
+        liveWellnessData = {};
+        const todayStr = new Date().toISOString().slice(0, 10);
+
+        rows.forEach(r => {
+          const aid = parseInt(r.ID_Giocatrice);
+          const rDate = (r.Data || '').slice(0, 10);
+          // Se la riga è di oggi o è l'ultimo record inserito
+          if (!liveWellnessData[aid] || r.Timestamp > liveWellnessData[aid].timestamp) {
+            liveWellnessData[aid] = {
+              date: rDate,
+              sonno: r.Qualita_Sonno !== '' ? parseInt(r.Qualita_Sonno) : null,
+              fatica: r.Fatica !== '' ? parseInt(r.Fatica) : null,
+              readiness: (r.Readines !== '' && r.Readines != null) ? parseInt(r.Readines) : (r.Disponibilita ? parseInt(r.Disponibilita) : null),
+              dolori: r.Dolori !== '' ? parseInt(r.Dolori) : null,
+              stress: r.Stress !== '' ? parseInt(r.Stress) : null,
+              note: r.Note || '',
+              timestamp: r.Timestamp,
+              isToday: (rDate === todayStr || (r.Timestamp && r.Timestamp.startsWith(todayStr)))
+            };
+          }
+        });
+
+        document.getElementById('last-sync-time').textContent = `Ultimo agg: ${new Date().toLocaleTimeString('it-IT')}`;
+      } catch (err) {
+        console.warn('Errore lettura live Google Sheets, uso dati cache:', err);
+        document.getElementById('last-sync-time').textContent = 'Modalità Cache Locale';
+      }
+
+      updateKPIsAndAlerts();
       renderMatrix();
     }
 
-    function filterRisk(level, btn) {
-      currentFilter = level;
-      document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+    function updateKPIsAndAlerts() {
+      const todayStr = new Date().toISOString().slice(0, 10);
+      let countToday = 0;
+      let alerts = [];
+
+      ROSTER.forEach(a => {
+        const w = liveWellnessData[a.id];
+        if (w && w.isToday) {
+          countToday++;
+          const dolori = w.dolori || 0;
+          const fatica = w.fatica || 0;
+          const readiness = w.readiness || 10;
+          const hasNote = w.note && w.note.trim().length > 0;
+
+          if (dolori >= 4 || fatica >= 7 || readiness <= 4 || hasNote) {
+            alerts.push({
+              athlete: a,
+              wellness: w,
+              reason: dolori >= 4 ? `Dolori ${dolori}/10` : (fatica >= 7 ? `Fatica ${fatica}/10` : `Readiness ${readiness}/10`),
+              note: w.note
+            });
+          }
+        }
+      });
+
+      // Update KPI Cards
+      document.getElementById('kpi-compliance').textContent = `${countToday} / ${ROSTER.length}`;
+      const pct = Math.round((countToday / ROSTER.length) * 100);
+      document.getElementById('kpi-compliance-sub').textContent = `${pct}% della squadra ha risposto`;
+
+      document.getElementById('kpi-alerts').textContent = alerts.length;
+      document.getElementById('kpi-alerts-sub').textContent = alerts.length > 0 ? `${alerts.length} atlete con criticità` : 'Tutte pronte';
+
+      // Update Alert Box
+      const alertBox = document.getElementById('alert-box');
+      const alertTitle = document.getElementById('alert-title');
+      const alertGrid = document.getElementById('alert-grid');
+
+      if (alerts.length > 0) {
+        alertBox.className = 'alert-section';
+        alertTitle.innerHTML = `🚨 ${alerts.length} Segnalazioni Fisiche / Dolori Ricevute Oggi:`;
+        alertGrid.innerHTML = alerts.map(al => `
+          <div class="alert-item">
+            <div class="alert-ath">
+              <span class="ath-num">${al.athlete.number || '#'}</span>
+              <span>${al.athlete.name} (${al.athlete.role})</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="alert-details">⚠️ ${al.reason}</span>
+              ${al.note ? `<span class="alert-note">Nota: "${al.note}"</span>` : ''}
+              <button class="btn-action" onclick="openPrehabModal(${al.athlete.id})">🛡️ Prehab</button>
+              <a href="index.html?id=${al.athlete.id}" target="_blank" class="btn-action">↗ Scheda</a>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        alertBox.className = 'alert-section clean';
+        alertTitle.innerHTML = `🟢 Nessun Alert Critico: Tutte le ${countToday} atlete che hanno compilato sono pronte!`;
+        alertGrid.innerHTML = `<div style="font-size:0.85rem;color:#6ee7b7">Nessuna atleta ha riportato dolori &ge; 4 o fatica elevata.</div>`;
+      }
+    }
+
+    function setFilter(type, val, btn) {
+      filters[type] = val;
+      btn.parentElement.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       renderMatrix();
     }
 
     function renderMatrix() {
       const tbody = document.getElementById('matrix-tbody');
-      const filtered = ROSTER.filter(a => currentFilter === 'all' || a.risk_level === currentFilter);
+      
+      const filtered = ROSTER.filter(a => {
+        // Filtro Ruolo
+        if (filters.role !== 'all' && a.role !== filters.role) return false;
+
+        const w = liveWellnessData[a.id];
+        const isDone = w && w.isToday;
+        const hasAlert = isDone && ((w.dolori >= 4) || (w.fatica >= 7) || (w.readiness <= 4) || (w.note && w.note.trim().length > 0));
+
+        // Filtro Stato
+        if (filters.status === 'done' && !isDone) return false;
+        if (filters.status === 'missing' && isDone) return false;
+        if (filters.status === 'alert' && !hasAlert) return false;
+
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--mv-muted)">Nessuna atleta corrisponde ai filtri selezionati.</td></tr>`;
+        return;
+      }
 
       tbody.innerHTML = filtered.map(a => {
         const risk = a.risk_level || 'LOW';
         const riskBadge = `<span class="risk-tag ${risk.toLowerCase()}">${risk === 'HIGH' ? '🔴 ALTO' : risk === 'MEDIUM' ? '🟡 MEDIO' : '🟢 BASSO'}</span>`;
-        const flags = (a.clinical_flags && a.clinical_flags.length > 0) ? a.clinical_flags.join(' · ') : 'Nessuna limitazione attiva';
+        const flags = (a.clinical_flags && a.clinical_flags.length > 0) ? a.clinical_flags.join(' · ') : '<span style="color:#64748b">—</span>';
+        
+        // 1RM baseline
+        const os = a.offseason_baseline || {};
+        const rmSquat = os.squat_1rm ? `${os.squat_1rm}k` : '—';
+        const rmClean = os.clean_1rm ? `${os.clean_1rm}k` : '—';
+        const rmBench = os.bench_1rm ? `${os.bench_1rm}k` : '—';
+
+        // Wellness
+        const w = liveWellnessData[a.id];
+        let wellnessHtml = '';
+        if (w && w.isToday) {
+          const sClass = (w.sonno >= 7) ? 'good' : (w.sonno <= 4 ? 'bad' : 'warn');
+          const fClass = (w.fatica <= 3) ? 'good' : (w.fatica >= 7 ? 'bad' : 'warn');
+          const rClass = (w.readiness >= 7) ? 'good' : (w.readiness <= 4 ? 'bad' : 'warn');
+          const dClass = (w.dolori === 0 || w.dolori === null) ? 'good' : (w.dolori >= 4 ? 'bad' : 'warn');
+          const stClass = (w.stress <= 3 || w.stress === null) ? 'good' : (w.stress >= 7 ? 'bad' : 'warn');
+
+          wellnessHtml = `
+            <div class="wellness-pill-box">
+              <div class="wellness-pills-row">
+                <span class="w-pill ${sClass}" title="Sonno">💤 ${w.sonno ?? '-'}</span>
+                <span class="w-pill ${fClass}" title="Fatica">⚡ ${w.fatica ?? '-'}</span>
+                <span class="w-pill ${rClass}" title="Readiness">🛡️ ${w.readiness ?? '-'}</span>
+                <span class="w-pill ${dClass}" title="Dolori">💥 ${w.dolori ?? '-'}</span>
+                <span class="w-pill ${stClass}" title="Stress">🧠 ${w.stress ?? '-'}</span>
+              </div>
+              ${w.note ? `<div style="font-size:0.75rem;color:#fde68a;font-style:italic;margin-top:2px;">"${w.note}"</div>` : ''}
+            </div>
+          `;
+        } else {
+          wellnessHtml = `<span class="w-missing">⏳ Non compilato oggi</span>`;
+        }
+
         const hasPrehab = PREHAB_DATA[String(a.id)] != null;
 
         return `
@@ -319,18 +606,20 @@
             </td>
             <td><span class="ath-role">${a.role}</span></td>
             <td>${riskBadge}</td>
-            <td style="max-width:280px;font-size:0.78rem;color:#cbd5e1;white-space:normal">${flags}</td>
+            <td style="max-width:220px;font-size:0.78rem;color:#cbd5e1;white-space:normal">${flags}</td>
+            <td>${wellnessHtml}</td>
             <td>
-              ${hasPrehab ? `<button class="btn-action" onclick="openPrehabModal(${a.id})">🛡️ Vedi Protocollo F1</button>` : '<span style="color:#64748b">—</span>'}
-            </td>
-            <td>
-              <div style="display:flex;align-items:center;gap:6px">
-                <span class="risk-tag low" style="font-size:0.75rem">85% Pronto</span>
-                <span style="font-size:0.7rem;color:var(--mv-muted)">💤4 ⚡4 🛡️4 💥5</span>
+              <div class="rm-box">
+                <span class="rm-item">SQ: <span>${rmSquat}</span></span>
+                <span class="rm-item">CL: <span>${rmClean}</span></span>
+                <span class="rm-item">BP: <span>${rmBench}</span></span>
               </div>
             </td>
             <td>
-              <a href="index.html?id=${a.id}" target="_blank" class="btn-action">↗ Apri Scheda</a>
+              ${hasPrehab ? `<button class="btn-action" onclick="openPrehabModal(${a.id})">🛡️ Protocollo F1</button>` : '<span style="color:#64748b">—</span>'}
+            </td>
+            <td>
+              <a href="index.html?id=${a.id}" target="_blank" class="btn-action">↗ Apri</a>
             </td>
           </tr>
         `;
@@ -342,15 +631,15 @@
       const p = PREHAB_DATA[String(athId)];
       if (!a || !p) return;
 
-      document.getElementById('pm-name').textContent = a.name;
+      document.getElementById('pm-name').textContent = `${a.name} (#${a.number || a.id})`;
       const f1 = p.phases?.F1;
       if (!f1) return;
 
-      document.getElementById('pm-phase').textContent = `${f1.title} · Obiettivo: ${f1.objective || 'Miglioramento ROM'}`;
+      document.getElementById('pm-phase').textContent = `${f1.title} · Obiettivo: ${f1.objective || 'Miglioramento ROM & Stabilità'}`;
       document.getElementById('pm-content').innerHTML = (f1.exercises || []).map((ex, i) => `
-        <div style="background:var(--mv-surface2);border-radius:8px;padding:10px 12px;margin-bottom:8px;">
-          <div style="font-weight:700;color:#fff;font-size:0.88rem">${i+1}. ${ex.exercise}</div>
-          <div style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;margin:2px 0">🎯 ${ex.params} · ${ex.target}</div>
+        <div style="background:var(--mv-surface2);border:1px solid var(--mv-border);border-radius:10px;padding:12px 14px;margin-bottom:10px;">
+          <div style="font-weight:800;color:#fff;font-size:0.92rem">${i+1}. ${ex.exercise}</div>
+          <div style="font-size:0.78rem;color:var(--mv-amber);font-weight:800;margin:3px 0">🎯 ${ex.params} · Target: ${ex.target}</div>
           <div style="font-size:0.75rem;color:#94a3b8">${ex.notes}</div>
         </div>
       `).join('');
