@@ -1,3 +1,4 @@
+.github/scripts/node_modules/
 apps_script_dev_project/
 apps_script_prod_project/
 _strumenti/*
