@@ -19,8 +19,17 @@ webpush.setVapidDetails('mailto:pamangiapane@gmail.com', VAPID_PUBLIC_KEY, VAPID
 async function fetchSheet(foglio) {
   const url  = `${APPS_SCRIPT_URL}?token=${APPS_SCRIPT_TOKEN}&azione=leggi&foglio=${foglio}`;
   const resp = await fetch(url);
-  if (!resp.ok) throw new Error(`HTTP ${resp.status} per foglio ${foglio}`);
-  const data = await resp.json();
+  const text = await resp.text();
+  if (!resp.ok) {
+    console.error(`HTTP ${resp.status} per foglio ${foglio}. Risposta: ${text.slice(0, 300)}`);
+    throw new Error(`HTTP ${resp.status} per foglio ${foglio}`);
+  }
+  if (text.trim().startsWith('<')) {
+    console.error(`GAS ha risposto con HTML invece di JSON (URL potrebbe essere errato o sessione scaduta):`);
+    console.error(text.slice(0, 500));
+    throw new Error(`Risposta HTML inattesa dal GAS per foglio ${foglio}`);
+  }
+  const data = JSON.parse(text);
   if (!data.ok) throw new Error(`API error: ${data.errore}`);
   return data.dati || [];
 }
