@@ -27,6 +27,7 @@ jobs:
         run: node wellness-notify.js
         working-directory: .github/scripts
         env:
-          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
-          APPS_SCRIPT_URL:   ${{ secrets.APPS_SCRIPT_URL }}
-          APPS_SCRIPT_TOKEN: ${{ secrets.APPS_SCRIPT_TOKEN }}
+          VAPID_PRIVATE_KEY:   ${{ secrets.VAPID_PRIVATE_KEY }}
+          APPS_SCRIPT_URL:     ${{ secrets.APPS_SCRIPT_URL }}
+          APPS_SCRIPT_TOKEN:   ${{ secrets.APPS_SCRIPT_TOKEN }}
+          PUSH_SUBSCRIPTIONS:  ${{ secrets.PUSH_SUBSCRIPTIONS }}
