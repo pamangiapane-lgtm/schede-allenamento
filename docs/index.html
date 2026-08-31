@@ -329,23 +329,85 @@
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-md);
       padding: 14px;
+      margin-bottom: 12px;
+    }
+    .ex-head-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
       margin-bottom: 10px;
     }
-    .ex-name { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
-    
-    .ex-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
+    .ex-name { font-size: 0.96rem; font-weight: 800; color: #fff; }
+    .ex-rest-badge {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--mv-muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    /* Set Table Layout for Mobile */
+    .set-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
       background: #090f1d;
       border-radius: 8px;
-      padding: 8px;
-      margin-bottom: 10px;
-      border: 1px solid rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 8px;
+      overflow: hidden;
+      font-size: 0.82rem;
+    }
+    .set-table th {
+      background: rgba(255,255,255,0.04);
+      color: var(--mv-muted);
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 6px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
       text-align: center;
     }
-    .ex-grid-item .lbl { font-size: 0.65rem; color: var(--mv-muted); font-weight: 700; text-transform: uppercase; }
-    .ex-grid-item .val { font-size: 0.85rem; color: #fff; font-weight: 800; margin-top: 2px; }
+    .set-table th:first-child { text-align: left; padding-left: 12px; }
+    .set-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      color: #fff;
+      font-weight: 700;
+      text-align: center;
+    }
+    .set-table td:first-child { text-align: left; padding-left: 12px; }
+    .set-table tr:last-child td { border-bottom: none; }
+
+    .set-num-badge {
+      background: rgba(59,130,246,0.15);
+      color: #93c5fd;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid rgba(59,130,246,0.25);
+    }
+    .set-load-val {
+      color: var(--mv-amber);
+      font-weight: 800;
+    }
+    .tempo-badge {
+      background: rgba(16,185,129,0.15);
+      color: #6ee7b7;
+      border: 1px solid rgba(16,185,129,0.3);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      letter-spacing: 0.5px;
+    }
 
     .ex-target-box {
       background: rgba(232,160,32,0.1);
@@ -355,7 +417,7 @@
       font-size: 0.82rem;
       color: #fde68a;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -380,7 +442,7 @@
       font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 8px;
+      margin-top: 6px;
       padding: 0;
       display: flex;
       align-items: center;
@@ -534,7 +596,7 @@
 
   </main>
 
-  <script src="data.js?v=20260831v9"></script>
+  <script src="data.js?v=20260831v10"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -545,7 +607,6 @@
       12: 63.5, 13: 68.0, 14: 70.0
     };
 
-    // I MASSIMALI AUTOREVOLI REALI ESTRATTI DALLO STORICO
     const TRUE_BASELINES = {
       1:  { squat: 75,  bench: 30, clean: 40,   row: 20, lat: 35 },
       2:  { squat: 95,  bench: 40, clean: 35,   row: 50, lat: 45 },
@@ -786,37 +847,143 @@
       renderSessions();
     }
 
-    // CATEGORIZZAZIONE SCIENTIFICA (Bench Press è SPINTA)
+    // CATEGORIZZAZIONE
     function categorizeExercise(e) {
       const nome = (e.Esercizio || '').toLowerCase();
       const metodo = (e.Metodo || '').toLowerCase();
       const tipo = (e.Tipo_Esercizio || '').toLowerCase();
 
-      // Spinta: Bench Press, Push Press, Military, Dips, Push up
       if (nome.includes('bench') || nome.includes('panca') || nome.includes('push press') || nome.includes('military') || nome.includes('lento') || nome.includes('dip') || nome.includes('push up') || tipo.includes('spinta')) {
         return 'Spinta';
       }
-      // Tirata: Row, Rematore, Lat, Pull-up, Trazioni, Pulley, Face pull
       if (nome.includes('row') || nome.includes('rematore') || nome.includes('lat') || nome.includes('pull-up') || nome.includes('pullup') || nome.includes('trazioni') || nome.includes('pulley') || nome.includes('pull over') || tipo.includes('tirata')) {
         return 'Tirata';
       }
-      // Potenza: Box jump, Clean, Power Clean, Squat veloce, Drop-landing
       if (nome.includes('box jump') || nome.includes('clean') || nome.includes('squat veloce') || nome.includes('drop-landing') || metodo.includes('pliometria') || metodo.includes('wl derivato') || metodo.includes('forza veloce') || metodo.includes('atterraggi')) {
         return 'Potenza';
       }
-      // Forza Principale: Back Squat, Box squat, Stacco
       if (nome.includes('squat') || nome.includes('stacco') || nome.includes('rdl') || metodo.includes('forza massima')) {
         return 'Forza';
       }
-      // Core: Pallof, Superman, Deadbug, Addominali
       if (nome.includes('pallof') || nome.includes('superman') || nome.includes('deadbug') || nome.includes('addominali') || metodo.includes('core') || tipo.includes('core')) {
         return 'Core';
       }
-      // Attivazione
       if (metodo.includes('attivazione') || metodo.includes('prehab') || tipo.includes('respirazione') || tipo.includes('mobilità')) {
         return 'Attivazione';
       }
       return 'Accessori';
+    }
+
+    function extractTempo(e) {
+      const text = (e.Istruzione || '') + ' ' + (e.Note || '') + ' ' + (e.Reps || '');
+      const m = text.match(/(?:tempo\s*|·\s*)(\d{4}|\d{2}X\d|\bX\b)/i);
+      return m ? m[1].toUpperCase() : '';
+    }
+
+    function parseExerciseRows(e) {
+      const nSets = parseInt(e.Serie) || 1;
+      const repsStr = String(e.Reps || '').trim();
+      const intStr = String(e['Intensità'] || e.Intensità || '').trim();
+      const tempoStr = extractTempo(e);
+
+      const repsList = repsStr.includes('|') ? repsStr.split('|').map(s => s.trim()) : (repsStr.includes('·') ? repsStr.split('·').map(s => s.trim()) : []);
+      const intList = intStr.includes('|') ? intStr.split('|').map(s => s.trim()) : (intStr.includes('·') ? intStr.split('·').map(s => s.trim()) : []);
+      
+      const rows = [];
+      for (let i = 0; i < nSets; i++) {
+        const rVal = repsList[i] || (repsList.length > 0 ? repsList[repsList.length - 1] : repsStr) || '—';
+        const iVal = intList[i] || (intList.length > 0 ? intList[intList.length - 1] : intStr) || '—';
+        rows.push({ set: i + 1, reps: rVal, load: iVal, tempo: tempoStr });
+      }
+      return rows;
+    }
+
+    function renderExerciseCard(e, sed) {
+      const exName = (isEN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
+      const rows = parseExerciseRows(e);
+      const hasTempo = rows.some(r => r.tempo && r.tempo.length > 0);
+
+      // Target load calc
+      let targetHtml = '';
+      const intStr = e['Intensità'] || e.Intensità || '';
+      const matchPct = intStr.match(/(\d+)%/);
+      if (matchPct) {
+        const pct = parseInt(matchPct[1]);
+        const exLow = e.Esercizio.toLowerCase();
+        const rmObj = RM_KEYS.find(k => exLow.includes(k.id) || exLow.includes(k.name.toLowerCase()));
+        if (rmObj) {
+          const rmVal = getAthlete1RM(rmObj);
+          if (rmVal > 0) {
+            const targetKg = calcTargetLoad(rmObj, rmVal, pct);
+            const extraNote = rmObj.hasBW ? ' (include BW)' : '';
+            targetHtml = `
+              <div class="ex-target-box">
+                <span>🎯 Carico Calcolato (${pct}% di 1RM ${rmVal}kg${extraNote}):</span>
+                <strong>≈ ${targetKg} kg</strong>
+              </div>
+            `;
+          }
+        }
+      }
+
+      // Notes
+      let notesHtml = '';
+      if (e.Istruzione || e.Note) {
+        const uid = Math.random().toString(36).slice(2, 7);
+        notesHtml = `
+          <button class="ex-notes-toggle" onclick="toggleNotes('n-${uid}')">
+            <span>ℹ️ ${isEN ? 'Technical instructions & cues' : 'Istruzioni tecniche & note coach'}</span> ▾
+          </button>
+          <div class="ex-notes-body" id="n-${uid}">
+            ${e.Istruzione ? `<div><strong>${isEN ? 'Cues:' : 'Istruzioni:'}</strong> ${e.Istruzione}</div>` : ''}
+            ${e.Note ? `<div style="margin-top:4px;color:var(--mv-amber)"><strong>${isEN ? 'Notes:' : 'Note:'}</strong> ${e.Note}</div>` : ''}
+          </div>
+        `;
+      }
+
+      // Costruisci le righe della tabella set per set
+      const rowsHtml = rows.map(r => {
+        const tempoCell = hasTempo ? `<td>${r.tempo ? `<span class="tempo-badge">${r.tempo}</span>` : '—'}</td>` : '';
+        return `
+          <tr>
+            <td><span class="set-num-badge">Set ${r.set}</span></td>
+            <td><strong>${r.reps}</strong></td>
+            <td><span class="set-load-val">${r.load}</span></td>
+            ${tempoCell}
+          </tr>
+        `;
+      }).join('');
+
+      return `
+        <div class="exercise-card">
+          <div class="ex-head-row">
+            <div class="ex-name">${exName}</div>
+            ${e.Recupero ? `<div class="ex-rest-badge">⏱ ${isEN ? 'Rest' : 'Rec.'} ${e.Recupero}</div>` : ''}
+          </div>
+
+          <table class="set-table">
+            <thead>
+              <tr>
+                <th>${isEN ? 'Set' : 'Serie'}</th>
+                <th>${isEN ? 'Reps' : 'Reps'}</th>
+                <th>${isEN ? 'Load / Intensity' : 'Carico / Intensità'}</th>
+                ${hasTempo ? `<th>Tempo</th>` : ''}
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml}
+            </tbody>
+          </table>
+
+          ${targetHtml}
+          ${notesHtml}
+        </div>
+      `;
+    }
+
+    function toggleNotes(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
 
     function renderSessions() {
@@ -874,24 +1041,19 @@
           `;
         }
 
-        // Filtra gli esercizi principali della seduta (escludendo accessori/prevenzione per W2-MarP e W1-MarP)
+        // Per tutte le altre atlete della squadra
         const sedEsercizi = allExercises
           .filter(e => {
             if (String(e.N_Seduta) !== String(sed.Numero_Seduta)) return false;
-            
             const nLow = (e.Esercizio || '').toLowerCase();
             const mLow = (e.Metodo || '').toLowerCase();
 
-            // Escludi esercizi di prevenzione ruolo o accessori non voluti per la squadra
-            if (mLow.includes('prevenzione') || mLow.includes('blocco ruolo') || mLow.includes('accessori') || mLow.includes('rinforzo scapolare') || mLow.includes('monitoraggio')) {
+            if (mLow.includes('prevenzione') || mLow.includes('blocco ruolo') || mLow.includes('accessori') || mLow.includes('rinforzo scapolare') || mLow.includes('monitoraggio') || mLow.includes('nelly')) {
               return false;
             }
             if (nLow.includes('heel raise') || nLow.includes('equilibrio') || nLow.includes('foam roller') || nLow.includes('scapular punch') || nLow.includes('wall slide') || nLow.includes('capsule stretch') || nLow.includes('finger') || nLow.includes('pronazione') || nLow.includes('circonduzioni') || nLow.includes('cmj marker')) {
               return false;
             }
-            if (!isNelly && mLow.includes('nelly')) return false;
-            if (isNelly && !mLow.includes('nelly') && !mLow.includes('attivazione')) return false;
-
             return true;
           })
           .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
@@ -904,7 +1066,6 @@
         });
 
         const categoriesHtml = ORDERED_CATEGORIES.map(catDef => {
-          // Blocco Fisso Attivazione & Prehab Individuale
           if (catDef.id === 'Attivazione') {
             return `
               <div class="method-group">
@@ -913,24 +1074,25 @@
                 <!-- 1. Respirazione di squadra -->
                 <div class="exercise-card">
                   <div class="ex-name">Respirazione di squadra (Box Breathing)</div>
-                  <div class="ex-grid">
-                    <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">10 cicli</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val">Controllo</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Recupero</div><div class="val">30s</div></div>
-                  </div>
+                  <table class="set-table">
+                    <thead><tr><th>Serie</th><th>Reps</th><th>Intensità</th><th>Recupero</th></tr></thead>
+                    <tbody>
+                      <tr><td><span class="set-num-badge">Set 1</span></td><td><strong>10 cicli</strong></td><td><span class="set-load-val">Controllo</span></td><td>30s</td></tr>
+                      <tr><td><span class="set-num-badge">Set 2</span></td><td><strong>10 cicli</strong></td><td><span class="set-load-val">Controllo</span></td><td>30s</td></tr>
+                    </tbody>
+                  </table>
                   <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">In cerchio con la squadra: 4s inspira, 4s trattieni, 4s espira, 4s vuoto. Attivazione parasimpatica e focus.</div>
                 </div>
 
                 <!-- 2. Mobilità libera -->
                 <div class="exercise-card">
                   <div class="ex-name">Mobilità Dinamica Libera</div>
-                  <div class="ex-grid">
-                    <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">1</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Durata</div><div class="val">5 min</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val">Fluida</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Focus</div><div class="val">Articolare</div></div>
-                  </div>
+                  <table class="set-table">
+                    <thead><tr><th>Serie</th><th>Durata</th><th>Intensità</th><th>Focus</th></tr></thead>
+                    <tbody>
+                      <tr><td><span class="set-num-badge">Set 1</span></td><td><strong>5 min</strong></td><td><span class="set-load-val">Fluida</span></td><td>Articolare</td></tr>
+                    </tbody>
+                  </table>
                   <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">Mobilità libera e mirata per anche, caviglie, colonna toracica e spalle prima del carico.</div>
                 </div>
 
@@ -978,63 +1140,6 @@
 
     function toggleSession(sedId) {
       document.getElementById(`card-${sedId}`).classList.toggle('open');
-    }
-
-    function renderExerciseCard(e, sed) {
-      let targetHtml = '';
-      const intStr = e['Intensità'] || e.Intensità || '';
-      const matchPct = intStr.match(/(\d+)%/);
-      if (matchPct) {
-        const pct = parseInt(matchPct[1]);
-        const exLow = e.Esercizio.toLowerCase();
-        const rmObj = RM_KEYS.find(k => exLow.includes(k.id) || exLow.includes(k.name.toLowerCase()));
-        if (rmObj) {
-          const rmVal = getAthlete1RM(rmObj);
-          if (rmVal > 0) {
-            const targetKg = calcTargetLoad(rmObj, rmVal, pct);
-            const extraNote = rmObj.hasBW ? ' (include BW)' : '';
-            targetHtml = `
-              <div class="ex-target-box">
-                <span>🎯 Carico Calcolato (${pct}% di 1RM ${rmVal}kg${extraNote}):</span>
-                <strong>≈ ${targetKg} kg</strong>
-              </div>
-            `;
-          }
-        }
-      }
-
-      let notesHtml = '';
-      if (e.Istruzione || e.Note) {
-        const uid = Math.random().toString(36).slice(2, 7);
-        notesHtml = `
-          <button class="ex-notes-toggle" onclick="toggleNotes('n-${uid}')">
-            <span>ℹ️ Istruzioni tecniche & note coach</span> ▾
-          </button>
-          <div class="ex-notes-body" id="n-${uid}">
-            ${e.Istruzione ? `<div><strong>Istruzioni:</strong> ${e.Istruzione}</div>` : ''}
-            ${e.Note ? `<div style="margin-top:4px;color:var(--mv-amber)"><strong>Note:</strong> ${e.Note}</div>` : ''}
-          </div>
-        `;
-      }
-
-      return `
-        <div class="exercise-card">
-          <div class="ex-name">${(isEN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio}</div>
-          <div class="ex-grid">
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val">${e.Serie || '—'}</div></div>
-            <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">${e.Reps || '—'}</div></div>
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val">${intStr || '—'}</div></div>
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Rest' : 'Recupero'}</div><div class="val">${e.Recupero || '—'}</div></div>
-          </div>
-          ${targetHtml}
-          ${notesHtml}
-        </div>
-      `;
-    }
-
-    function toggleNotes(id) {
-      const el = document.getElementById(id);
-      el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
 
     function renderSessionEnd(nSeduta) {
