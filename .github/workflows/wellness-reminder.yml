@@ -1,11 +1,10 @@
-name: Wellness Reminder Push
+name: Wellness Reminder Email
 
 on:
   schedule:
-    # 8:45 CEST (UTC+2) — valido per preseason estate (ago-ott)
-    # In inverno (CET = UTC+1) cambiare in '45 7 * * *'
+    # 8:45 CEST (UTC+2) — valido ago-ott; in inverno (CET) cambia in '45 7 * * *'
     - cron: '45 6 * * *'
-  workflow_dispatch:   # permette test manuale dalla UI di GitHub
+  workflow_dispatch:
 
 jobs:
   notify:
@@ -23,11 +22,11 @@ jobs:
         run: npm install
         working-directory: .github/scripts
 
-      - name: Invia notifiche wellness
-        run: node wellness-notify.js
+      - name: Invia email wellness
+        run: node wellness-email.js
         working-directory: .github/scripts
         env:
-          VAPID_PRIVATE_KEY:   ${{ secrets.VAPID_PRIVATE_KEY }}
+          GMAIL_USER:          ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD:  ${{ secrets.GMAIL_APP_PASSWORD }}
           APPS_SCRIPT_URL:     ${{ secrets.APPS_SCRIPT_URL }}
           APPS_SCRIPT_TOKEN:   ${{ secrets.APPS_SCRIPT_TOKEN }}
-          PUSH_SUBSCRIPTIONS:  ${{ secrets.PUSH_SUBSCRIPTIONS }}

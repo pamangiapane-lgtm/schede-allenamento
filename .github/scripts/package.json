@@ -1,7 +1,7 @@
 {
-  "name": "wellness-notify",
+  "name": "wellness-email",
   "private": true,
   "dependencies": {
-    "web-push": "^3.6.7"
+    "nodemailer": "^6.9.16"
   }
 }
