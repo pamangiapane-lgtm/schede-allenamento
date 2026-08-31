@@ -581,14 +581,51 @@
             <div class="rm-head">
               <span class="rm-name">${rm.name}</span>
               <div class="rm-val-box">
-                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg" onchange="save1RM('${rm.id}', this.value)">
+                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg">
                 <span style="font-size:0.8rem;color:var(--mv-muted);font-weight:700">kg</span>
+                <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="save1RMClick('${rm.id}', this)">${isEN ? 'Save' : 'Salva'}</button>
+                <span id="toast-1rm-${rm.id}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.8rem;">✓</span>
               </div>
             </div>
             <div class="rm-pcts">${pcts}</div>
           </div>
         `;
       }).join('');
+    }
+
+    async function save1RMClick(rmId, btn) {
+      const input = document.getElementById(`input-1rm-${rmId}`);
+      const val = input.value.trim();
+      if (!val) return;
+
+      localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, val);
+      
+      const toast = document.getElementById(`toast-1rm-${rmId}`);
+      if (toast) {
+        toast.style.display = 'inline';
+        setTimeout(() => { toast.style.display = 'none'; }, 2000);
+      }
+
+      // Sincronizza su Google Sheets
+      try {
+        fetch(`${GAS_URL}?token=${TOKEN}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            azione: 'log_progressi',
+            id_giocatrice: currentAthlete.id,
+            n_seduta: 0,
+            esercizio: `1RM-${rmId}`,
+            data: new Date().toISOString().slice(0, 10),
+            valore: `${val} kg`,
+            rm_stimato: parseFloat(val) || ''
+          })
+        });
+      } catch (err) {}
+
+      render1RMProfile();
+      renderSessions();
     }
 
     function save1RM(rmId, val) {
@@ -599,15 +636,17 @@
 
     function renderSessions() {
       const container = document.getElementById('sessions-container');
-      const sessions = (currentWeek === 'W1' ? SESSIONS_W1 : SESSIONS_W2) || [];
+      const weekObj = (typeof WEEKS_DATA !== 'undefined' && WEEKS_DATA[currentWeek]) ? WEEKS_DATA[currentWeek] : null;
+      const sessions = weekObj ? (weekObj.sedute || []) : [];
+      const allExercises = weekObj ? (weekObj.esercizi || []) : [];
 
       if (sessions.length === 0) {
-        container.innerHTML = `<div style="text-align:center;padding:30px;color:var(--mv-muted)">Nessuna seduta programmata per questa settimana.</div>`;
+        container.innerHTML = `<div style="text-align:center;padding:30px;color:var(--mv-muted)">Nessuna seduta programmata per ${currentWeek}.</div>`;
         return;
       }
 
       container.innerHTML = sessions.map((sed, idx) => {
-        const sedEsercizi = (typeof ESERCIZI !== 'undefined' ? ESERCIZI : [])
+        const sedEsercizi = allExercises
           .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta))
           .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
 
