@@ -168,6 +168,18 @@ function doPost(e) {
       return risposta({ok: true});
     }
 
+    if (azione === 'invia_email') {
+      const dest = body.destinatario || 'pamangiapane@gmail.com';
+      const ogg = body.oggetto || '🏐 Marsala Volley — Morning Wellness';
+      const html = body.html || '<p>Test Morning Wellness</p>';
+      MailApp.sendEmail({
+        to: dest,
+        subject: ogg,
+        htmlBody: html
+      });
+      return risposta({ok: true, inviata_a: dest});
+    }
+
     return risposta({errore: 'azione non riconosciuta'});
   } catch(err) {
     return risposta({errore: err.message});
