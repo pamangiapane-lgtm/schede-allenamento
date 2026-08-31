@@ -132,6 +132,9 @@
       gap: 3px;
     }
     .btn-scale-10 {
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
       height: 38px;
       border: 1.5px solid var(--border);
       border-radius: 8px;
@@ -310,11 +313,11 @@
     </button>
   </div>
 
-  <!-- Success Confirmation Screen (Pulito, Nessun Link Esterno) -->
-  <div id="success-screen" class="success-box">
-    <div class="sb-icon">✅</div>
-    <h2 class="sb-title">Wellness Registrato!</h2>
-    <p class="sb-sub">Grazie <strong id="sb-ath-name">Veronica</strong>!<br>I tuoi dati di oggi sono stati registrati con successo per Coach Paulo.</p>
+  <!-- Success Confirmation Screen (Semplice Ringraziamento) -->
+  <div id="success-screen" class="success-box" style="padding:40px 20px;">
+    <div class="sb-icon" style="font-size:3rem;margin-bottom:12px;">✅</div>
+    <h2 class="sb-title" style="font-size:1.6rem;font-weight:800;color:#065f46;margin-bottom:6px;">Grazie!</h2>
+    <p class="sb-sub" style="font-size:0.95rem;color:#047857;margin:0;">Buona giornata!</p>
   </div>
 
   <script src="data.js"></script>
@@ -325,7 +328,7 @@
     let currentId = 1;
     let currentAth = null;
     // Default values (0 to 10)
-    let values = { sonno: 8, fatica: 2, readiness: 8, dolori: 1 };
+    let values = { sonno: 5, fatica: 5, readiness: 5, dolori: 0 };
 
     function renderScaleButtons() {
       const metrics = ['sonno', 'fatica', 'readiness', 'dolori'];
@@ -333,7 +336,7 @@
         const row = document.getElementById(`row-${m}`);
         let btns = '';
         for (let i = 0; i <= 10; i++) {
-          btns += `<button class="btn-scale-10 ${i === values[m] ? 'active' : ''}" onclick="setVal('${m}', ${i})">${i}</button>`;
+          btns += `<button type="button" class="btn-scale-10 ${i === values[m] ? 'active' : ''}" onclick="setVal('${m}', ${i})">${i}</button>`;
         }
         row.innerHTML = btns;
         document.getElementById(`prev-${m}`).textContent = `${values[m]} / 10`;
@@ -439,7 +442,7 @@
       document.getElementById('form-container').style.display = 'none';
       const sScreen = document.getElementById('success-screen');
       sScreen.style.display = 'block';
-      document.getElementById('sb-ath-name').textContent = currentAth.name.split(' ')[0];
+      
     }
 
     
