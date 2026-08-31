@@ -2,8 +2,8 @@ name: Daily Morning Wellness Dispatch
 
 on:
   schedule:
-    # 06:00 UTC = 08:00 CEST (Ora di Roma)
-    - cron: '0 6 * * *'
+    # 06:30 UTC = 08:30 CEST (Ora di Roma)
+    - cron: '30 6 * * *'
   workflow_dispatch: # Permette l'esecuzione manuale con 1 click
 
 jobs:
