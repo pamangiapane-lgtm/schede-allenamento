@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marsala Volley — Scheda Emergenza W2 S1</title>
+  <style>
+    :root {
+      --mv-bg: #090f1d;
+      --mv-surface: #0f192d;
+      --mv-surface2: #16243f;
+      --mv-border: #23385d;
+      --mv-amber: #f59e0b;
+      --mv-emerald: #10b981;
+      --mv-blue: #3b82f6;
+      --mv-text: #f8fafc;
+      --mv-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: var(--mv-bg); color: var(--mv-text); padding: 16px; font-size: 14px; line-height: 1.5; max-width: 800px; margin: 0 auto; }
+    .header { text-align: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--mv-border); }
+    .header h1 { font-size: 1.4rem; color: #fff; margin-bottom: 4px; }
+    .header p { font-size: 0.85rem; color: var(--mv-amber); font-weight: bold; }
+    .emergency-badge { background: #ef4444; color: #fff; font-size: 0.72rem; font-weight: 800; padding: 3px 8px; border-radius: 4px; display: inline-block; margin-bottom: 8px; text-transform: uppercase; }
+    
+    .card { background: var(--mv-surface); border: 1px solid var(--mv-border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+    .card-title { font-size: 1.05rem; font-weight: 800; color: var(--mv-amber); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--mv-border); padding-bottom: 8px; }
+    
+    .table-box { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 0.84rem; }
+    .table-box th { background: var(--mv-surface2); color: var(--mv-muted); text-align: left; padding: 8px; font-weight: 700; border-bottom: 1px solid var(--mv-border); }
+    .table-box td { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #fff; }
+    .table-box tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+    
+    .load-val { color: var(--mv-amber); font-weight: 800; }
+    .tempo-val { color: #6ee7b7; font-family: monospace; font-weight: 700; background: rgba(16,185,129,0.15); padding: 2px 6px; border-radius: 4px; }
+    .note-text { font-size: 0.76rem; color: var(--mv-muted); margin-top: 4px; }
+    
+    .roster-table th { text-align: center; }
+    .roster-table td { text-align: center; }
+    .roster-table td:first-child { text-align: left; font-weight: bold; }
+    .roster-table td:nth-child(2) { text-align: left; color: var(--mv-muted); font-size: 0.78rem; }
+    
+    .btn-print { background: var(--mv-blue); color: #fff; border: none; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; display: block; width: 100%; margin-bottom: 16px; text-align: center; }
+    
+    @media print {
+      body { background: #fff; color: #000; padding: 0; }
+      .card { border: 1px solid #ccc; background: #fff; page-break-inside: avoid; }
+      .table-box th { background: #eee; color: #000; }
+      .table-box td { color: #000; border-bottom: 1px solid #eee; }
+      .load-val { color: #000; }
+      .tempo-val { background: #eee; color: #000; }
+      .btn-print, .emergency-badge { display: none; }
+      .card-title { color: #000; border-bottom: 1px solid #000; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="emergency-badge">FILE DI EMERGENZA OFFLINE</div>
+    <h1>MARSALA VOLLEY — SETTIMANA 2 · SEDUTA 1</h1>
+    <p>Guida Rapida Completa di Squadra & Carichi Calcolati 1RM</p>
+    <div style="font-size:0.75rem;color:var(--mv-muted);margin-top:4px;">Salva questa pagina tra i preferiti o come PDF sul telefono per l'accesso senza connessione.</div>
+  </div>
+
+  <button class="btn-print" onclick="window.print()">🖨️ Stampa / Salva come PDF sul Telefono</button>
+
+  <!-- 1. PROTOCOLLO SQUADRA -->
+  <div class="card">
+    <div class="card-title">📋 1. PROTOCOLLO GENERALE SQUADRA (W2 S1)</div>
+    
+    <table class="table-box">
+      <thead>
+        <tr>
+          <th>Fase</th>
+          <th>Esercizio</th>
+          <th>Serie × Reps</th>
+          <th>Carico Target</th>
+          <th>Tempo / Cues</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>🔥 Attivazione</strong></td>
+          <td>Box Breathing Squadra</td>
+          <td>2 × 10 cicli</td>
+          <td>Controllo</td>
+          <td>4s in - 4s hold - 4s out - 4s hold</td>
+        </tr>
+        <tr>
+          <td><strong>🔥 Mobilità</strong></td>
+          <td>Mobilità Dinamica Libera</td>
+          <td>1 × 5 min</td>
+          <td>Fluida</td>
+          <td>Anche, caviglie, torace, spalle</td>
+        </tr>
+        <tr>
+          <td><strong>🛡️ Prehab</strong></td>
+          <td>Prehab Individuale</td>
+          <td>5 Esercizi</td>
+          <td>Correttivo</td>
+          <td>Protocollo personalizzato The Prehab Guys</td>
+        </tr>
+        <tr>
+          <td><strong>⚡ Potenza</strong></td>
+          <td>Box Jump atterraggio pulito</td>
+          <td>3 × 4 reps</td>
+          <td>Bodyweight</td>
+          <td>Ammortizza 2s all'atterraggio (no rimbalzo)</td>
+        </tr>
+        <tr>
+          <td><strong>🏋️ Forza</strong></td>
+          <td>Back Squat</td>
+          <td>4 × 3 reps</td>
+          <td class="load-val">80% 1RM (v. tabella)</td>
+          <td><span class="tempo-val">2010</span> — Drive esplosivo</td>
+        </tr>
+        <tr>
+          <td><strong>🏹 Spinta</strong></td>
+          <td>Bench Press (in superserie)</td>
+          <td>3 × 5 reps</td>
+          <td class="load-val">74% 1RM (v. tabella)</td>
+          <td>Superserie con Row bilanciere</td>
+        </tr>
+        <tr>
+          <td><strong>🎯 Tirata</strong></td>
+          <td>Row Bilanciere (in superserie)</td>
+          <td>3 × 5 reps</td>
+          <td class="load-val">74% 1RM (v. tabella)</td>
+          <td>Tirata gomiti al bacino</td>
+        </tr>
+        <tr>
+          <td><strong>🛡️ Core</strong></td>
+          <td>Pallof Press cavo/elastico</td>
+          <td>3 × 8+8 reps</td>
+          <td>Elastico / Cavo</td>
+          <td>2s tenuta al picco</td>
+        </tr>
+        <tr>
+          <td><strong>🛡️ Core</strong></td>
+          <td>Superman Isometrico</td>
+          <td>3 × 20s</td>
+          <td>Bodyweight</td>
+          <td>Estensione colonna toracica e glutei</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 2. MATRICE CARICHI SQUADRA -->
+  <div class="card">
+    <div class="card-title">📊 2. TABELLA CARICHI CALCOLATI SQUADRA (W2 S1)</div>
+    <table class="table-box roster-table">
+      <thead>
+        <tr>
+          <th>Atleta</th>
+          <th>Ruolo</th>
+          <th>Peso (BW)</th>
+          <th>Back Squat (80%)*</th>
+          <th>Bench Press (74%)</th>
+          <th>Row Bilanciere (74%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Veronica Allasia</td><td>Palleggiatrice</td><td>63.5 kg</td><td class="load-val">47.5 kg</td><td class="load-val">22.5 kg</td><td class="load-val">15.0 kg</td>
+        </tr>
+        <tr>
+          <td>Maria Marcuzzi</td><td>Centrale</td><td>66.8 kg</td><td class="load-val">62.5 kg</td><td class="load-val">30.0 kg</td><td class="load-val">37.0 kg</td>
+        </tr>
+        <tr>
+          <td>Victoria Sassolini</td><td>Schiacciatrice</td><td>74.0 kg</td><td class="load-val">81.0 kg</td><td class="load-val">44.5 kg</td><td class="load-val">46.5 kg</td>
+        </tr>
+        <tr>
+          <td>Anja Asonja</td><td>Schiacciatrice</td><td>73.0 kg</td><td class="load-val">49.5 kg</td><td class="load-val">37.0 kg</td><td class="load-val">32.0 kg</td>
+        </tr>
+        <tr>
+          <td>Chiara Lo Dico</td><td>Libero</td><td>55.5 kg</td><td class="load-val">61.0 kg</td><td class="load-val">30.0 kg</td><td class="load-val">22.5 kg</td>
+        </tr>
+        <tr>
+          <td>Gaia Biondi</td><td>Centrale</td><td>69.0 kg</td><td class="load-val">50.0 kg</td><td class="load-val">26.0 kg</td><td class="load-val">33.5 kg</td>
+        </tr>
+        <tr>
+          <td>Elisa Bole</td><td>Schiacciatrice</td><td>78.0 kg</td><td class="load-val">72.5 kg</td><td class="load-val">26.0 kg</td><td class="load-val">40.5 kg</td>
+        </tr>
+        <tr>
+          <td>Federica Nonnati</td><td>Schiacciatrice</td><td>77.0 kg</td><td class="load-val">68.5 kg</td><td class="load-val">37.0 kg</td><td class="load-val">44.5 kg</td>
+        </tr>
+        <tr>
+          <td>Sara Dodi</td><td>Schiacciatrice</td><td>66.0 kg</td><td class="load-val">75.0 kg</td><td class="load-val">33.5 kg</td><td class="load-val">33.5 kg</td>
+        </tr>
+        <tr>
+          <td>Luna Cicola</td><td>Libero</td><td>60.0 kg</td><td class="load-val">72.0 kg</td><td class="load-val">22.5 kg</td><td class="load-val">22.5 kg</td>
+        </tr>
+        <tr>
+          <td>Erin Grippo</td><td>Palleggiatrice</td><td>63.5 kg</td><td class="load-val">85.0 kg</td><td class="load-val">38.0 kg</td><td class="load-val">44.5 kg</td>
+        </tr>
+        <tr>
+          <td>Giulia Caserta</td><td>Centrale</td><td>68.0 kg</td><td class="load-val">53.5 kg</td><td class="load-val">26.0 kg</td><td class="load-val">28.0 kg</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note-text">*Formula Squat con peso corporeo: 80% × (1RM + BW) - BW. Per Panca e Rematore: 74% × 1RM.</div>
+  </div>
+
+  <!-- 3. SCHEDA PERSONALIZZATA NELLY -->
+  <div class="card">
+    <div class="card-title">🇵🇱 3. STRENGTH 2 — NELLY ADAMCZEWSKA (#22 OH)</div>
+    
+    <div style="font-weight:800;color:var(--mv-blue);margin-bottom:6px;font-size:0.9rem;">🛡️ Phase 1: Prehab Protocol</div>
+    <table class="table-box">
+      <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Load</th><th>Tempo / Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Stiff leg deadlift</td><td>3 × 5 reps</td><td class="load-val">30k | 35k | 40k</td><td><span class="tempo-val">3010</span> — Spine neutral</td></tr>
+        <tr><td>Twists with BB (sitting)</td><td>2 × 5+5 reps</td><td class="load-val">30-40 kg</td><td>Superset with 1-leg DL</td></tr>
+        <tr><td>One leg deadlift DB</td><td>2 × 5+5 reps</td><td class="load-val">DB</td><td><span class="tempo-val">2010</span> — Single leg balance</td></tr>
+        <tr><td>Clean squat single leg stand</td><td>2 × 5+5 reps</td><td class="load-val">15 kg</td><td><span class="tempo-val">3010</span> — Controlled catch</td></tr>
+      </tbody>
+    </table>
+
+    <div style="font-weight:800;color:var(--mv-blue);margin:14px 0 6px;font-size:0.9rem;">🏋️ Phase 2: Main Exercises (Strength)</div>
+    <table class="table-box">
+      <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Progression Load</th><th>Tempo / Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Box Squat</td><td>4 sets: 5 - 4 - 3 - 3</td><td class="load-val">12k | 8k | 6k | 4k</td><td><span class="tempo-val">2010</span> — Sit on box, drive</td></tr>
+        <tr><td>Pull Over</td><td>4 sets: 5 - 4 - 3 - 3</td><td class="load-val">12k | 8k | 6k | 4k</td><td><span class="tempo-val">2010</span> — Lat stretch</td></tr>
+        <tr><td>One hand DB row</td><td>4 sets: 5 - 4 - 3 - 3</td><td class="load-val">12k | 8k | 6k | 4k</td><td><span class="tempo-val">1030</span> — 3s lower to hip</td></tr>
+      </tbody>
+    </table>
+
+    <div style="font-weight:800;color:var(--mv-blue);margin:14px 0 6px;font-size:0.9rem;">🧩 Phase 3: Accessories (3 Sets)</div>
+    <table class="table-box">
+      <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Load</th><th>Tempo / Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Hamstring Ball curl</td><td>3 × 6 reps</td><td class="load-val">BW</td><td><span class="tempo-val">1030</span> — Swiss ball curl</td></tr>
+        <tr><td>Calf Raises (standing)</td><td>3 × 5 reps</td><td class="load-val">12k | 10k | 8k</td><td><span class="tempo-val">1020</span> — 2s peak hold</td></tr>
+        <tr><td>Lat pull down - front</td><td>3 × 6 reps</td><td class="load-val">12k | 10k | 8k</td><td><span class="tempo-val">1030</span> — 3s eccentric</td></tr>
+      </tbody>
+    </table>
+
+    <div style="font-weight:800;color:var(--mv-blue);margin:14px 0 6px;font-size:0.9rem;">⚡ Phase 4: Abdominals & Transfer</div>
+    <table class="table-box">
+      <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Load</th><th>Tempo / Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Abdominals (self routine)</td><td>2 sets</td><td class="load-val">BW</td><td>Individual core routine</td></tr>
+        <tr><td>Clean to 1/4 squat</td><td>4 × 4 reps</td><td class="load-val">30 kg</td><td><span class="tempo-val">10X0</span> — Explosive extension</td></tr>
+        <tr><td>Floor ball throws</td><td>4 sets: 4 - 3 - 4 - 3</td><td class="load-val">3 kg</td><td><span class="tempo-val">X</span> — Max power slam</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
