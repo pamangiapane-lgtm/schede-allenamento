@@ -534,7 +534,7 @@
 
   </main>
 
-  <script src="data.js?v=20260831v6"></script>
+  <script src="data.js?v=20260831v7"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -572,12 +572,11 @@
 
     const ORDERED_CATEGORIES = [
       { id: 'Attivazione', icon: '🔥', label: 'Attivazione & Prehab' },
-      { id: 'Potenza',     icon: '⚡', label: 'Potenza & Pliometria' },
+      { id: 'Potenza',     icon: '⚡', label: 'Potenza' },
       { id: 'Forza',       icon: '🏋️', label: 'Forza Principale' },
       { id: 'Spinta',      icon: '🏹', label: 'Spinta' },
       { id: 'Tirata',      icon: '🎯', label: 'Tirata' },
-      { id: 'Core',        icon: '🛡️', label: 'Core & Stabilità' },
-      { id: 'Accessori',   icon: '🧩', label: 'Accessori & Prevenzione' }
+      { id: 'Core',        icon: '🛡️', label: 'Core & Stabilità' }
     ];
 
     let currentAthlete = null;
@@ -787,50 +786,35 @@
       renderSessions();
     }
 
-    // FILTRO RUOLO RIGOROSO PER SALA PESI
-    function matchesRole(eRuoli, aRole, isNelly) {
-      if (!eRuoli || eRuoli === 'tutti') return true;
-      const rLow = eRuoli.toLowerCase();
-      
-      if (isNelly) {
-        return rLow.includes('nelly') && !rLow.includes('!nelly');
-      } else {
-        if (rLow.includes('nelly') && !rLow.includes('!nelly')) return false;
-      }
-      
-      if (rLow.includes('!libero') && aRole.toLowerCase() === 'libero') return false;
-      
-      const aLow = aRole.toLowerCase();
-      if (aLow === 'centrale') return rLow.includes('centrale') || rLow.includes('tutti') || rLow.includes('!nelly');
-      if (aLow.includes('schiaccia')) return rLow.includes('schiaccia') || rLow.includes('banda') || rLow.includes('opposto') || rLow.includes('tutti') || rLow.includes('!nelly');
-      if (aLow.includes('pallegg')) return rLow.includes('pallegg') || rLow.includes('tutti') || rLow.includes('!nelly');
-      if (aLow === 'libero') return rLow.includes('libero') || rLow.includes('tutti') || rLow.includes('!nelly');
-      
-      return true;
-    }
-
+    // CATEGORIZZAZIONE SCIENTIFICA (Bench Press è SPINTA)
     function categorizeExercise(e) {
       const nome = (e.Esercizio || '').toLowerCase();
       const metodo = (e.Metodo || '').toLowerCase();
       const tipo = (e.Tipo_Esercizio || '').toLowerCase();
 
-      if (metodo.includes('attivazione') || metodo.includes('prehab') || tipo.includes('respirazione') || tipo.includes('mobilità') || nome.includes('respirazione') || nome.includes('skip') || nome.includes('elastico') || nome.includes('andature')) {
-        return 'Attivazione';
-      }
-      if (metodo.includes('potenza') || metodo.includes('plio') || metodo.includes('wl derivato') || metodo.includes('forza veloce') || metodo.includes('atterraggi') || tipo.includes('salto') || tipo.includes('wl derivato') || tipo.includes('atterraggio') || nome.includes('clean') || nome.includes('jump') || nome.includes('drop-landing') || (nome.includes('squat') && nome.includes('veloce')) || nome.includes('snatch')) {
-        return 'Potenza';
-      }
-      if (metodo.includes('forza massima') || (nome.includes('squat') && !nome.includes('veloce')) || nome.includes('stacco') || nome.includes('rdl') || (nome.includes('bench') && !nome.includes('step')) || (nome.includes('panca') && !nome.includes('inclinata'))) {
-        return 'Forza';
-      }
-      if (tipo.includes('spinta') || nome.includes('push press') || nome.includes('military') || nome.includes('lento') || nome.includes('dip') || nome.includes('push up') || nome.includes('spinta') || nome.includes('inclinata')) {
+      // Spinta: Bench Press, Push Press, Military, Dips, Push up
+      if (nome.includes('bench') || nome.includes('panca') || nome.includes('push press') || nome.includes('military') || nome.includes('lento') || nome.includes('dip') || nome.includes('push up') || tipo.includes('spinta')) {
         return 'Spinta';
       }
-      if (tipo.includes('tirata') || nome.includes('row') || nome.includes('rematore') || nome.includes('lat') || nome.includes('pull-up') || nome.includes('pullup') || nome.includes('trazioni') || nome.includes('pulley') || nome.includes('face pull')) {
+      // Tirata: Row, Rematore, Lat, Pull-up, Trazioni, Pulley, Face pull
+      if (nome.includes('row') || nome.includes('rematore') || nome.includes('lat') || nome.includes('pull-up') || nome.includes('pullup') || nome.includes('trazioni') || nome.includes('pulley') || nome.includes('pull over') || tipo.includes('tirata')) {
         return 'Tirata';
       }
-      if (metodo.includes('core') || tipo.includes('core') || tipo.includes('anti-estensione') || tipo.includes('anti-rotazione') || nome.includes('deadbug') || nome.includes('pallof') || nome.includes('plank') || nome.includes('hollow')) {
+      // Potenza: Box jump, Clean, Power Clean, Squat veloce, Drop-landing
+      if (nome.includes('box jump') || nome.includes('clean') || nome.includes('squat veloce') || nome.includes('drop-landing') || metodo.includes('pliometria') || metodo.includes('wl derivato') || metodo.includes('forza veloce') || metodo.includes('atterraggi')) {
+        return 'Potenza';
+      }
+      // Forza Principale: Back Squat, Box squat, Stacco
+      if (nome.includes('squat') || nome.includes('stacco') || nome.includes('rdl') || metodo.includes('forza massima')) {
+        return 'Forza';
+      }
+      // Core: Pallof, Superman, Deadbug, Addominali
+      if (nome.includes('pallof') || nome.includes('superman') || nome.includes('deadbug') || nome.includes('addominali') || metodo.includes('core') || tipo.includes('core')) {
         return 'Core';
+      }
+      // Attivazione
+      if (metodo.includes('attivazione') || metodo.includes('prehab') || tipo.includes('respirazione') || tipo.includes('mobilità')) {
+        return 'Attivazione';
       }
       return 'Accessori';
     }
@@ -850,9 +834,26 @@
       const isNelly = (currentAthlete.id === 14 || currentAthlete.name.toLowerCase().includes('nelly'));
 
       container.innerHTML = sessions.map((sed, idx) => {
-        // Filtra rigorosamente solo gli esercizi per il ruolo dell'atleta
+        // Filtra gli esercizi principali della seduta (escludendo accessori/prevenzione per W2-MarP e W1-MarP)
         const sedEsercizi = allExercises
-          .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta) && matchesRole(e.Ruoli, currentAthlete.role, isNelly))
+          .filter(e => {
+            if (String(e.N_Seduta) !== String(sed.Numero_Seduta)) return false;
+            
+            const nLow = (e.Esercizio || '').toLowerCase();
+            const mLow = (e.Metodo || '').toLowerCase();
+
+            // Escludi esercizi di prevenzione ruolo o accessori non voluti per la squadra
+            if (mLow.includes('prevenzione') || mLow.includes('blocco ruolo') || mLow.includes('accessori') || mLow.includes('rinforzo scapolare') || mLow.includes('monitoraggio')) {
+              return false;
+            }
+            if (nLow.includes('heel raise') || nLow.includes('equilibrio') || nLow.includes('foam roller') || nLow.includes('scapular punch') || nLow.includes('wall slide') || nLow.includes('capsule stretch') || nLow.includes('finger') || nLow.includes('pronazione') || nLow.includes('circonduzioni') || nLow.includes('cmj marker')) {
+              return false;
+            }
+            if (!isNelly && mLow.includes('nelly')) return false;
+            if (isNelly && !mLow.includes('nelly') && !mLow.includes('attivazione')) return false;
+
+            return true;
+          })
           .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
 
         const catMap = {};
@@ -863,9 +864,8 @@
         });
 
         const categoriesHtml = ORDERED_CATEGORIES.map(catDef => {
-          // Blocco speciale fisso per Attivazione
+          // Blocco Fisso Attivazione & Prehab Individuale
           if (catDef.id === 'Attivazione') {
-            const extraAttiv = (catMap['Attivazione'] || []).filter(e => !e.Esercizio.toLowerCase().includes('respirazione') && !e.Esercizio.toLowerCase().includes('prehab') && !e.Esercizio.toLowerCase().includes('mobilità'));
             return `
               <div class="method-group">
                 <div class="method-title">🔥 Attivazione & Prehab</div>
@@ -902,8 +902,6 @@
                   </div>
                   <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#fff;color:#1e3a8a;font-weight:800;font-size:0.82rem;padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.2);">Apri Portale ↗</a>
                 </div>
-
-                ${extraAttiv.map(e => renderExerciseCard(e, sed)).join('')}
               </div>
             `;
           }
