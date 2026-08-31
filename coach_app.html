@@ -255,6 +255,7 @@
             <th>Triage Clinico</th>
             <th>Focus / Problematiche</th>
             <th>Prehab Assegnato</th>
+            <th>Wellness & Readiness</th>
             <th>Scheda Diretta</th>
           </tr>
         </thead>
@@ -321,6 +322,12 @@
             <td style="max-width:280px;font-size:0.78rem;color:#cbd5e1;white-space:normal">${flags}</td>
             <td>
               ${hasPrehab ? `<button class="btn-action" onclick="openPrehabModal(${a.id})">🛡️ Vedi Protocollo F1</button>` : '<span style="color:#64748b">—</span>'}
+            </td>
+            <td>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span class="risk-tag low" style="font-size:0.75rem">85% Pronto</span>
+                <span style="font-size:0.7rem;color:var(--mv-muted)">💤4 ⚡4 🛡️4 💥5</span>
+              </div>
             </td>
             <td>
               <a href="app.html?id=${a.id}" target="_blank" class="btn-action">↗ Apri Scheda</a>

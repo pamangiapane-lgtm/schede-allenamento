@@ -533,11 +533,11 @@
     ⭐ Wellness Oggi
   </button>
 
-  <!-- Modal Wellness -->
+  <!-- Modal Wellness (Standard dal 24 Agosto) -->
   <div class="modal-overlay" id="wellness-modal">
     <div class="modal-content">
-      <h3 class="modal-title">Questionario Wellness</h3>
-      <p class="modal-sub">Compila il tuo stato di prontezza prima della seduta.</p>
+      <h3 class="modal-title">🌅 Monitoraggio Wellness</h3>
+      <p class="modal-sub">Valuta il tuo stato psicofisico prima della seduta odierna.</p>
 
       <div class="star-group">
         <div class="star-label"><span>Qualità del Sonno</span><span id="lbl-sonno">3/5</span></div>
@@ -551,7 +551,7 @@
       </div>
 
       <div class="star-group">
-        <div class="star-label"><span>Livello di Energia / Fatica</span><span id="lbl-fatica">3/5</span></div>
+        <div class="star-label"><span>Livello di Fatica (1=Esausta, 5=Fresca)</span><span id="lbl-fatica">3/5</span></div>
         <div class="star-row" data-metric="fatica">
           <button class="star-btn" onclick="setStar('fatica',1)">1</button>
           <button class="star-btn" onclick="setStar('fatica',2)">2</button>
@@ -562,28 +562,33 @@
       </div>
 
       <div class="star-group">
-        <div class="star-label"><span>Indolenzimento Muscolare (Soreness)</span><span id="lbl-dolore">3/5</span></div>
-        <div class="star-row" data-metric="dolore">
-          <button class="star-btn" onclick="setStar('dolore',1)">1</button>
-          <button class="star-btn" onclick="setStar('dolore',2)">2</button>
-          <button class="star-btn active" onclick="setStar('dolore',3)">3</button>
-          <button class="star-btn" onclick="setStar('dolore',4)">4</button>
-          <button class="star-btn" onclick="setStar('dolore',5)">5</button>
+        <div class="star-label"><span>Readiness / Prontezza (1=Scarica, 5=Prontissima)</span><span id="lbl-readiness">3/5</span></div>
+        <div class="star-row" data-metric="readiness">
+          <button class="star-btn" onclick="setStar('readiness',1)">1</button>
+          <button class="star-btn" onclick="setStar('readiness',2)">2</button>
+          <button class="star-btn active" onclick="setStar('readiness',3)">3</button>
+          <button class="star-btn" onclick="setStar('readiness',4)">4</button>
+          <button class="star-btn" onclick="setStar('readiness',5)">5</button>
         </div>
       </div>
 
       <div class="star-group">
-        <div class="star-label"><span>Umore / Stress</span><span id="lbl-stress">3/5</span></div>
-        <div class="star-row" data-metric="stress">
-          <button class="star-btn" onclick="setStar('stress',1)">1</button>
-          <button class="star-btn" onclick="setStar('stress',2)">2</button>
-          <button class="star-btn active" onclick="setStar('stress',3)">3</button>
-          <button class="star-btn" onclick="setStar('stress',4)">4</button>
-          <button class="star-btn" onclick="setStar('stress',5)">5</button>
+        <div class="star-label"><span>Dolori / Soreness (1=Dolore Forte, 5=Zero Dolore)</span><span id="lbl-dolori">3/5</span></div>
+        <div class="star-row" data-metric="dolori">
+          <button class="star-btn" onclick="setStar('dolori',1)">1</button>
+          <button class="star-btn" onclick="setStar('dolori',2)">2</button>
+          <button class="star-btn active" onclick="setStar('dolori',3)">3</button>
+          <button class="star-btn" onclick="setStar('dolori',4)">4</button>
+          <button class="star-btn" onclick="setStar('dolori',5)">5</button>
         </div>
       </div>
 
-      <button class="modal-submit" onclick="saveWellness()">Salva Wellness</button>
+      <div style="margin-top:10px;">
+        <label style="font-size:0.78rem;font-weight:700;color:var(--mv-navy);display:block;margin-bottom:4px">Note / Distretti Dolenti (Opzionale):</label>
+        <input type="text" id="wellness-note" placeholder="Es. leggero fastidio spalla dx post-battuta" style="width:100%;padding:8px 10px;border:1.5px solid var(--mv-border);border-radius:8px;font-size:0.8rem;outline:none;">
+      </div>
+
+      <button class="modal-submit" onclick="saveWellness()">Salva Wellness Oggi</button>
       <button style="width:100%;background:none;border:none;color:#94a3b8;font-size:0.8rem;margin-top:8px;cursor:pointer;" onclick="closeWellnessModal()">Chiudi</button>
     </div>
   </div>
@@ -595,7 +600,7 @@
     let currentAthleteId = 1;
     let currentWeek = 'W2';
     let currentAthlete = null;
-    let wellnessValues = { sonno: 3, fatica: 3, dolore: 3, stress: 3 };
+    let wellnessValues = { sonno: 3, fatica: 3, readiness: 3, dolori: 3, note: '' };
 
     function init() {
       // 1. Check URL parameters for athlete id
@@ -897,6 +902,8 @@
     }
     function saveWellness() {
       const today = new Date().toISOString().slice(0, 10);
+      wellnessValues.note = document.getElementById('wellness-note').value.trim();
+      wellnessValues.score = ((wellnessValues.sonno + wellnessValues.fatica + wellnessValues.readiness + wellnessValues.dolori) / 20 * 100).toFixed(0);
       localStorage.setItem(`mv_wellness_${currentAthleteId}_${today}`, JSON.stringify(wellnessValues));
       closeWellnessModal();
       alert('✓ Questionario Wellness registrato con successo!');
