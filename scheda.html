@@ -29,40 +29,6 @@
   .prossima-pin .pin-btn { background: none; border: none; color: var(--blu, #1a3a6b); font-size: 0.82rem; font-weight: 700; cursor: pointer; padding: 0; text-align: left; line-height: 1.3; }
   .prossima-pin .pin-arrow { font-size: 1rem; color: var(--blu, #1a3a6b); flex-shrink: 0; }
   /* ── WELLNESS MODAL ── */
-  #notif-banner {
-    display: none;
-    align-items: center;
-    gap: 10px;
-    background: #eef3ff;
-    border-bottom: 1.5px solid #ccd8ee;
-    padding: 10px 16px;
-    font-size: 0.82rem;
-    color: var(--blu, #1a3a6b);
-    flex-wrap: wrap;
-  }
-  #notif-banner .notif-msg { flex: 1; min-width: 0; }
-  #notif-banner .notif-btn {
-    flex-shrink: 0;
-    background: var(--blu, #1a3a6b);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 5px 14px;
-    font-size: 0.78rem;
-    font-weight: 700;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  #notif-banner .notif-close {
-    flex-shrink: 0;
-    background: none;
-    border: none;
-    color: #9aa;
-    cursor: pointer;
-    font-size: 1rem;
-    padding: 0 2px;
-    line-height: 1;
-  }
   #wellness-overlay {
     display: none;
     position: fixed;
@@ -182,10 +148,6 @@
   <div id="dev-banner" style="display:none;background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
 </header>
 
-<div id="push-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1a3a6b;color:#fff;padding:12px 16px;align-items:center;justify-content:space-between;gap:12px;font-size:0.9rem;">
-  <span>🔔 Vuoi ricevere promemoria wellness ogni mattina?</span>
-  <button id="push-btn" onclick="subscribePush()" style="background:#e8a020;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-weight:700;cursor:pointer;white-space:nowrap;">Attiva notifiche</button>
-</div>
 
 <div class="container">
 
@@ -1107,8 +1069,6 @@ async function caricaScheda() {
     /* mostra contenuto */
     document.getElementById('loading').style.display  = 'none';
     document.getElementById('contenuto').style.display = '';
-    mostraNotifBanner();
-
   } catch (err) {
     document.getElementById('loading').innerHTML = `
       <p class="errore-msg">${L.loadError}</p>
@@ -1511,12 +1471,6 @@ window.addEventListener('beforeunload', e => {
 
 caricaScheda();
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=50').then(reg => {
-    initPushBanner();
-  }).catch(() => {});
-}
-
 // ── WELLNESS ──────────────────────────────────────────────────────────────────
 
 let _wellnessPendingAcc = null;
@@ -1607,93 +1561,6 @@ function confermaWellness() {
   }).catch(() => {});
 }
 
-// ── PUSH NOTIFICATIONS ────────────────────────────────────────────────────────
-
-const VAPID_PUBLIC_KEY = 'BFGr0LDq_rDf4A1R1b_pbOQ7o0vSorfUKD5aXz10P463doezbAbdhv-5TKf0mc_2nXp6MGk1zgknLu-CoPJQBQM';
-
-function urlBase64ToUint8Array(b64) {
-  const pad = '='.repeat((4 - b64.length % 4) % 4);
-  const raw = atob((b64 + pad).replace(/-/g, '+').replace(/_/g, '/'));
-  return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
-}
-
-async function subscribePush() {
-  // Banner persistente che accumula tutte le righe — tap per chiudere
-  let dbgDiv = document.getElementById('push-dbg');
-  if (!dbgDiv) {
-    dbgDiv = document.createElement('div');
-    dbgDiv.id = 'push-dbg';
-    dbgDiv.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#111;color:#0f0;padding:12px;z-index:99999;font-size:0.75rem;white-space:pre-wrap;word-break:break-all;max-height:60vh;overflow:auto;cursor:pointer';
-    dbgDiv.title = 'Tap per chiudere';
-    dbgDiv.onclick = () => dbgDiv.remove();
-    document.body.appendChild(dbgDiv);
-  }
-  const _log = (msg) => { dbgDiv.textContent += '\n' + msg; };
-  _log('▶ avviato');
-  try {
-    if (!('PushManager' in window)) { _log('✗ PushManager non disponibile'); return; }
-    _log('⏳ requestPermission…');
-    const perm = await Notification.requestPermission();
-    _log('permesso: ' + perm);
-    if (perm !== 'granted') return;
-    _log('⏳ getRegistration…');
-    let reg = await navigator.serviceWorker.getRegistration();
-    if (!reg) {
-      _log('nessuna reg, registro sw.js…');
-      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=50');
-      await new Promise(r => setTimeout(r, 2000));
-      reg = await navigator.serviceWorker.getRegistration();
-    }
-    if (!reg) { _log('✗ SW non registrabile'); return; }
-    const sw = reg.active || reg.installing || reg.waiting;
-    _log('✓ SW stato: ' + (reg.active ? 'active' : reg.installing ? 'installing' : reg.waiting ? 'waiting' : '?') + ' scope: ' + reg.scope);
-    _log('⏳ getSubscription…');
-    let sub = await reg.pushManager.getSubscription();
-    if (!sub) {
-      _log('⏳ subscribe() con VAPID…');
-      sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY) });
-    }
-    const j = sub.toJSON();
-    _log('✓ sub endpoint: ' + (j.endpoint || '?').slice(0,80));
-    _log('keys ok: ' + (!!j.keys));
-    if (!j.keys) return;
-    _log('⏳ fetch → API (salva_push_sub)…');
-    // GAS non risponde a CORS preflight — usiamo GET con parametri
-    const params = new URLSearchParams({
-      token: TOKEN, azione: 'salva_push_sub', id_giocatrice: id,
-      endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth
-    });
-    const res = await fetch(API + '?' + params.toString());
-    const rawText = await res.text().catch(() => '');
-    _log('HTTP ' + res.status + '\n' + (rawText || '(vuoto)'));
-    let json = {};
-    try { json = JSON.parse(rawText); } catch(_) {}
-    if (json.ok) {
-      _log('✅ ISCRIZIONE SALVATA!');
-      try { localStorage.setItem('push_ok_' + id, '1'); } catch(_) {}
-      setTimeout(() => document.getElementById('push-banner')?.remove(), 3000);
-    }
-  } catch(err) {
-    _log('✗ ERRORE: ' + err.message + '\n' + (err.stack || ''));
-    dbgDiv.style.background = '#700';
-  }
-}
-
-async function initPushBanner() {
-  const banner = document.getElementById('push-banner');
-  if (!banner) return;
-  if (!id) { banner.style.display = 'none'; return; }
-  if (!('serviceWorker' in navigator) || !('PushManager' in window)) { banner.style.display = 'none'; return; }
-  try {
-    const reg = await navigator.serviceWorker.getRegistration();
-    if (!reg) { banner.style.display = 'flex'; return; }
-    const sub = await reg.pushManager.getSubscription();
-    if (sub && Notification.permission === 'granted' && localStorage.getItem('push_ok_' + id)) {
-      banner.style.display = 'none'; return;
-    }
-  } catch(_) {}
-  banner.style.display = 'flex';
-}
 // ─────────────────────────────────────────────────────────────────────────────
 </script>
 
