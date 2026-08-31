@@ -633,7 +633,7 @@
 
   </main>
 
-  <script src="data.js?v=20260901v14"></script>
+  <script src="data.js?v=20260901v15"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -911,9 +911,54 @@
       return 'Accessori';
     }
 
-    // ESERCIZIO CARD STANDARD PER TUTTA LA SQUADRA (LAYOUT A GRIGLIA PULITA)
+    function getExerciseTempo(e) {
+      const nome = (e.Esercizio || '').toLowerCase();
+      const metodo = (e.Metodo || '').toLowerCase();
+      const tipo = (e.Tipo_Esercizio || '').toLowerCase();
+      const text = (e.Istruzione || '') + ' ' + (e.Note || '') + ' ' + (e.Reps || '');
+
+      // 1. Controlla se c'è un tempo esplicito nel testo
+      const m = text.match(/(?:tempo\s*|·\s*)(\d{4}|\d{2}X\d|\bX\b)/i);
+      if (m) return m[1].toUpperCase();
+
+      // 2. Mappatura scientifica congruente
+      if (nome.includes('box jump') || nome.includes('pogo') || nome.includes('balz') || nome.includes('slam') || nome.includes('throw') || nome.includes('lanci mb') || nome.includes('hop') || metodo.includes('pliometria') || metodo.includes('atterraggi') || metodo.includes('forza veloce')) {
+        return 'X';
+      }
+      if (nome.includes('clean') || nome.includes('snatch') || nome.includes('push press') || metodo.includes('wl derivato')) {
+        return '10X0';
+      }
+      if (nome.includes('stiff leg') || nome.includes('single-leg rdl') || nome.includes('rdl') || nome.includes('clean squat with stand')) {
+        return '3010';
+      }
+      if (nome.includes('row') || nome.includes('rematore') || nome.includes('lat') || nome.includes('pull-up') || nome.includes('pull over') || nome.includes('hamstring')) {
+        return '1030';
+      }
+      if (nome.includes('calf') || nome.includes('heel raise')) {
+        return '1020';
+      }
+      if (nome.includes('squat') || nome.includes('bench') || nome.includes('panca') || nome.includes('split') || metodo.includes('forza massima')) {
+        return '2010';
+      }
+      if (nome.includes('pallof') || nome.includes('deadbug') || nome.includes('dead bug') || nome.includes('bird-dog') || nome.includes('twists') || nome.includes('rotazion')) {
+        return '2020';
+      }
+      if (nome.includes('plank') || nome.includes('superman') || nome.includes('copenhagen') || nome.includes('spanish squat') || nome.includes('hollow') || nome.includes('bridge') || nome.includes('isometrico') || nome.includes('hold')) {
+        return 'Iso';
+      }
+      if (nome.includes('respirazione') || nome.includes('mobilità') || nome.includes('stretching') || nome.includes('cars') || nome.includes('wall slide') || nome.includes('roller') || nome.includes('cat-cow') || nome.includes('decompressione')) {
+        return 'Fluido';
+      }
+      if (nome.includes('skip') || nome.includes('scaletta') || nome.includes('sprint') || nome.includes('navett') || nome.includes('agility') || nome.includes('t-drill')) {
+        return 'Dinamico';
+      }
+      return '2010';
+    }
+
+    // ESERCIZIO CARD STANDARD PER TUTTA LA SQUADRA (CON TEMPO AL 4° BOX)
     function renderStandardExerciseCard(e, sed) {
       const exName = (isEN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
+      const tempoVal = getExerciseTempo(e);
 
       // Target load calc
       let targetHtml = '';
@@ -974,8 +1019,8 @@
               <div class="val" style="color:var(--mv-amber)">${e['Intensità'] || '—'}</div>
             </div>
             <div class="ex-grid-item">
-              <div class="lbl">Recupero</div>
-              <div class="val">${e.Recupero || '—'}</div>
+              <div class="lbl">Tempo</div>
+              <div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800">${tempoVal}</div>
             </div>
           </div>
 
