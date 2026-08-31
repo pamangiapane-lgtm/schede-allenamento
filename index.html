@@ -115,7 +115,7 @@
     }
     .btn-change-ath:hover { color: #fff; border-color: var(--mv-amber); }
 
-    /* Athlete Hero Card (NO NUMBERS, NO RISK TAGS) */
+    /* Athlete Hero Card */
     .athlete-hero {
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
@@ -126,26 +126,6 @@
     }
     .ath-name { font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
     .ath-role { font-size: 0.85rem; color: var(--mv-amber); font-weight: 700; }
-
-    /* Prehab Guys Portal Button */
-    .prehab-btn-external {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: linear-gradient(135deg, #1e3a8a, #2563eb);
-      border: 1px solid #3b82f6;
-      border-radius: var(--radius-md);
-      color: #fff;
-      text-decoration: none;
-      padding: 14px;
-      font-size: 0.92rem;
-      font-weight: 800;
-      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
-      margin-bottom: 16px;
-      transition: transform 0.15s;
-    }
-    .prehab-btn-external:active { transform: scale(0.98); }
 
     /* Navigation Tabs */
     .nav-tabs {
@@ -332,7 +312,7 @@
     /* Method Group */
     .method-group { margin-bottom: 18px; }
     .method-title {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 800;
       color: var(--mv-amber);
       text-transform: uppercase;
@@ -502,7 +482,7 @@
 
   <main class="container">
     
-    <!-- 1. ROSTER SELECTION VIEW (When no ID or user clicks change) -->
+    <!-- 1. ROSTER SELECTION VIEW -->
     <div class="roster-view" id="roster-view">
       <h2 class="roster-title">👥 Seleziona la tua Scheda</h2>
       <p class="roster-sub">Tocca il tuo nome per accedere alle tue sedute e ai tuoi massimali.</p>
@@ -516,17 +496,11 @@
         <button class="btn-change-ath" onclick="showRosterSelection()">← Cambia Atleta</button>
       </div>
 
-      <!-- Athlete Hero Card (Name and Role only) -->
+      <!-- Athlete Hero Card -->
       <div class="athlete-hero">
         <h2 class="ath-name" id="ath-name">Nome Atleta</h2>
         <div class="ath-role" id="ath-role">Ruolo Atleta</div>
       </div>
-
-      <!-- Prehab Guys Portal Button -->
-      <a href="#" target="_blank" rel="noopener" class="prehab-btn-external" id="btn-prehab-external">
-        <span>🛡️ Apri il Portale Prehab Personale (The Prehab Guys)</span>
-        <span>↗</span>
-      </a>
 
       <!-- Nav Tabs -->
       <div class="nav-tabs">
@@ -574,7 +548,7 @@
 
   </main>
 
-  <script src="data.js?v=20260831v4"></script>
+  <script src="data.js?v=20260831v5"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -586,11 +560,21 @@
     };
 
     const RM_KEYS = [
-      { id: 'squat', name: 'Back Squat', baseline: 'Squat / Step Up' },
-      { id: 'bench', name: 'Bench Press', baseline: 'Bench Press' },
-      { id: 'clean', name: 'Power Clean', baseline: 'Clean' },
-      { id: 'row',   name: 'Row (Rematore)', baseline: 'Row BB' },
-      { id: 'lat',   name: 'Lat (Lat Machine / Trazioni)', baseline: 'Lat Machine' }
+      { id: 'squat', name: 'Back Squat', baseline: 'Squat / Step Up', hasBW: true },
+      { id: 'bench', name: 'Bench Press', baseline: 'Bench Press', hasBW: false },
+      { id: 'clean', name: 'Power Clean', baseline: 'Clean', hasBW: false },
+      { id: 'row',   name: 'Row (Rematore)', baseline: 'Row BB', hasBW: false },
+      { id: 'lat',   name: 'Lat (Lat Machine / Trazioni)', baseline: 'Lat Machine', hasBW: false }
+    ];
+
+    const ORDERED_CATEGORIES = [
+      { id: 'Attivazione', icon: '🔥', label: 'Attivazione & Prehab' },
+      { id: 'Potenza',     icon: '⚡', label: 'Potenza & Pliometria' },
+      { id: 'Forza',       icon: '🏋️', label: 'Forza Principale' },
+      { id: 'Spinta',      icon: '🏹', label: 'Spinta' },
+      { id: 'Tirata',      icon: '🎯', label: 'Tirata' },
+      { id: 'Core',        icon: '🛡️', label: 'Core & Stabilità' },
+      { id: 'Accessori',   icon: '🧩', label: 'Accessori & Prevenzione' }
     ];
 
     let currentAthlete = null;
@@ -631,7 +615,6 @@
       localStorage.setItem('mv_selected_athlete', currentAthlete.id);
       isEN = (currentAthlete.id === 4 || currentAthlete.id === 14);
 
-      // Update URL without reload
       const newUrl = window.location.pathname + '?id=' + currentAthlete.id;
       window.history.replaceState({ path: newUrl }, '', newUrl);
 
@@ -648,10 +631,6 @@
       document.getElementById('ath-name').textContent = currentAthlete.name;
       document.getElementById('ath-role').textContent = `${currentAthlete.role} · Marsala Volley`;
 
-      // Prehab link
-      const link = currentAthlete.Link_Prehab || currentAthlete.link_prehab || 'https://pro.theprehabguys.com';
-      document.getElementById('btn-prehab-external').href = link;
-
       if (isEN) {
         document.getElementById('tab-btn-profilo').textContent = '📊 Profile & 1RM Estimation';
       } else {
@@ -659,10 +638,15 @@
       }
     }
 
-    function renderBodyWeight() {
+    function getAthleteBW() {
       const savedBw = localStorage.getItem(`mv_bw_${currentAthlete.id}`);
-      const baseBw = BASELINE_WEIGHTS[currentAthlete.id] || '';
-      document.getElementById('input-bw').value = savedBw || baseBw;
+      if (savedBw) return parseFloat(savedBw);
+      return BASELINE_WEIGHTS[currentAthlete.id] || 65;
+    }
+
+    function renderBodyWeight() {
+      const bw = getAthleteBW();
+      document.getElementById('input-bw').value = bw;
     }
 
     async function saveBodyWeight(btn) {
@@ -689,6 +673,9 @@
           })
         });
       } catch (err) {}
+
+      render1RMProfile();
+      renderSessions();
     }
 
     function switchNav(tab, btn) {
@@ -715,24 +702,44 @@
       return osBaseline[rmKey.baseline] || 0;
     }
 
+    // FORMULA CALCOLO CARICHI (Squat: pct * (1RM + BW) - BW)
+    function calcTargetLoad(rmKey, rmVal, pct) {
+      if (rmVal <= 0) return null;
+      if (rmKey.hasBW) {
+        const bw = getAthleteBW();
+        const load = (pct / 100) * (rmVal + bw) - bw;
+        return Math.max(0, Math.round(load * 2) / 2);
+      } else {
+        const load = (pct / 100) * rmVal;
+        return Math.round(load * 2) / 2;
+      }
+    }
+
     function render1RMProfile() {
       const container = document.getElementById('rm-grid-container');
+      const bw = getAthleteBW();
+
       container.innerHTML = RM_KEYS.map(rm => {
         const val = getAthlete1RM(rm);
         const pcts = [50, 60, 70, 75, 80, 85, 90].map(p => {
-          const kg = val > 0 ? (Math.round((val * (p / 100)) * 2) / 2) : '—';
+          const kg = val > 0 ? calcTargetLoad(rm, val, p) : '—';
           return `
             <div class="rm-pct-pill">
               <span class="rm-pct-lbl">${p}%</span>
-              <span class="rm-pct-kg">${kg}k</span>
+              <span class="rm-pct-kg">${kg !== '—' ? kg + 'k' : '—'}</span>
             </div>
           `;
         }).join('');
 
+        const bwFormulaNote = rm.hasBW ? `<div style="font-size:0.68rem;color:var(--mv-amber);margin-top:2px;">*Formula con peso (${bw}kg): % × (1RM+BW) - BW</div>` : '';
+
         return `
           <div class="rm-card">
             <div class="rm-head">
-              <span class="rm-name">${rm.name}</span>
+              <div>
+                <span class="rm-name">${rm.name}</span>
+                ${bwFormulaNote}
+              </div>
               <div class="rm-val-box">
                 <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg">
                 <span style="font-size:0.8rem;color:var(--mv-muted);font-weight:700">kg</span>
@@ -780,6 +787,33 @@
       renderSessions();
     }
 
+    // CATEGORIZZAZIONE IN 7 FASI
+    function categorizeExercise(e) {
+      const nome = (e.Esercizio || '').toLowerCase();
+      const metodo = (e.Metodo || '').toLowerCase();
+      const tipo = (e.Tipo_Esercizio || '').toLowerCase();
+
+      if (metodo.includes('attivazione') || metodo.includes('prehab') || tipo.includes('respirazione') || tipo.includes('mobilità') || nome.includes('respirazione') || nome.includes('skip') || nome.includes('elastico') || nome.includes('andature')) {
+        return 'Attivazione';
+      }
+      if (metodo.includes('potenza') || metodo.includes('plio') || metodo.includes('wl derivato') || metodo.includes('forza veloce') || metodo.includes('atterraggi') || tipo.includes('salto') || tipo.includes('wl derivato') || tipo.includes('atterraggio') || nome.includes('clean') || nome.includes('jump') || nome.includes('drop-landing') || (nome.includes('squat') && nome.includes('veloce')) || nome.includes('snatch')) {
+        return 'Potenza';
+      }
+      if (metodo.includes('forza massima') || (nome.includes('squat') && !nome.includes('veloce')) || nome.includes('stacco') || nome.includes('rdl') || (nome.includes('bench') && !nome.includes('step')) || (nome.includes('panca') && !nome.includes('inclinata'))) {
+        return 'Forza';
+      }
+      if (tipo.includes('spinta') || nome.includes('push press') || nome.includes('military') || nome.includes('lento') || nome.includes('dip') || nome.includes('push up') || nome.includes('spinta') || nome.includes('inclinata')) {
+        return 'Spinta';
+      }
+      if (tipo.includes('tirata') || nome.includes('row') || nome.includes('rematore') || nome.includes('lat') || nome.includes('pull-up') || nome.includes('pullup') || nome.includes('trazioni') || nome.includes('pulley') || nome.includes('face pull')) {
+        return 'Tirata';
+      }
+      if (metodo.includes('core') || tipo.includes('core') || tipo.includes('anti-estensione') || tipo.includes('anti-rotazione') || nome.includes('deadbug') || nome.includes('pallof') || nome.includes('plank') || nome.includes('hollow')) {
+        return 'Core';
+      }
+      return 'Accessori';
+    }
+
     function renderSessions() {
       const container = document.getElementById('sessions-container');
       const weekObj = (typeof WEEKS_DATA !== 'undefined' && WEEKS_DATA[currentWeek]) ? WEEKS_DATA[currentWeek] : null;
@@ -791,24 +825,44 @@
         return;
       }
 
-      // SESSIONS ARE ALWAYS COLLAPSED BY DEFAULT (open class is NOT added)
+      const prehabLink = currentAthlete.Link_Prehab || currentAthlete.link_prehab || 'https://pro.theprehabguys.com';
+
+      // SESSIONS ARE ALWAYS COLLAPSED BY DEFAULT
       container.innerHTML = sessions.map((sed, idx) => {
         const sedEsercizi = allExercises
           .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta))
           .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
 
-        const methodMap = {};
+        // Raggruppa per le 7 Categorie
+        const catMap = {};
         sedEsercizi.forEach(e => {
-          const m = e.Metodo || 'Potenziamento';
-          if (!methodMap[m]) methodMap[m] = [];
-          methodMap[m].push(e);
+          const cat = categorizeExercise(e);
+          if (!catMap[cat]) catMap[cat] = [];
+          catMap[cat].push(e);
         });
 
-        const methodsHtml = Object.keys(methodMap).map(mName => {
-          const exList = methodMap[mName];
+        const categoriesHtml = ORDERED_CATEGORIES.map(catDef => {
+          const exList = catMap[catDef.id];
+          if (!exList || exList.length === 0) return '';
+
+          // Se è la categoria Attivazione, inserisci il banner del Prehab Individuale
+          let prehabCardHtml = '';
+          if (catDef.id === 'Attivazione') {
+            prehabCardHtml = `
+              <div style="background:linear-gradient(135deg,#1e3a8a,#2563eb);border:1px solid #3b82f6;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                <div>
+                  <div style="font-weight:800;color:#fff;font-size:0.88rem">🛡️ Protocollo Prehab Individuale</div>
+                  <div style="font-size:0.75rem;color:#bfdbfe">Esegui il tuo programma prima dei carichi</div>
+                </div>
+                <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#fff;color:#1e3a8a;font-weight:800;font-size:0.78rem;padding:7px 12px;border-radius:6px;text-decoration:none;white-space:nowrap;">Apri Portale ↗</a>
+              </div>
+            `;
+          }
+
           return `
             <div class="method-group">
-              <div class="method-title">⚡ ${mName}</div>
+              <div class="method-title">${catDef.icon} ${catDef.label}</div>
+              ${prehabCardHtml}
               ${exList.map(e => renderExerciseCard(e, sed)).join('')}
             </div>
           `;
@@ -825,7 +879,7 @@
               <div class="session-chevron">▾</div>
             </div>
             <div class="session-body">
-              ${methodsHtml}
+              ${categoriesHtml}
               ${renderSessionEnd(sed.Numero_Seduta)}
             </div>
           </div>
@@ -841,10 +895,10 @@
       const logKey = `log_${currentAthlete.id}_${sed.Numero_Seduta}_${e.Codice || e.Esercizio}`;
       const savedKg = localStorage.getItem(logKey) || '';
 
-      // Target load calc
+      // Target load calc (con formula Squat corretta)
       let targetHtml = '';
       const intStr = e['Intensità'] || e.Intensità || '';
-      const matchPct = intStr.match(/(\d+)%/);
+      const matchPct = intStr.match(/(\\d+)%/);
       if (matchPct) {
         const pct = parseInt(matchPct[1]);
         const exLow = e.Esercizio.toLowerCase();
@@ -852,10 +906,11 @@
         if (rmObj) {
           const rmVal = getAthlete1RM(rmObj);
           if (rmVal > 0) {
-            const targetKg = Math.round((rmVal * (pct / 100)) * 2) / 2;
+            const targetKg = calcTargetLoad(rmObj, rmVal, pct);
+            const extraNote = rmObj.hasBW ? ' (include BW)' : '';
             targetHtml = `
               <div class="ex-target-box">
-                <span>🎯 Carico Calcolato (${pct}% di 1RM ${rmVal}kg):</span>
+                <span>🎯 Carico Calcolato (${pct}% di 1RM ${rmVal}kg${extraNote}):</span>
                 <strong>≈ ${targetKg} kg</strong>
               </div>
             `;
