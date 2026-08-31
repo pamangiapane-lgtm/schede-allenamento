@@ -310,7 +310,7 @@
     <h2 class="sb-title">Wellness Registrato!</h2>
     <p class="sb-sub">Grazie <strong id="sb-ath-name">Veronica</strong>!<br>I tuoi dati di oggi sono stati registrati con successo per Coach Paulo.</p>
     <div>
-      <a href="app.html" id="sb-link" class="btn-open-app">Vai alla Scheda di Allenamento ➔</a>
+      <a href="index.html" id="sb-link" class="btn-open-app">Vai alla Scheda di Allenamento ➔</a>
     </div>
   </div>
 
@@ -443,7 +443,7 @@
       const sScreen = document.getElementById('success-screen');
       sScreen.style.display = 'block';
       document.getElementById('sb-ath-name').textContent = currentAth.name.split(' ')[0];
-      document.getElementById('sb-link').href = `app.html?id=${currentId}`;
+      document.getElementById('sb-link').href = `index.html?id=${currentId}`;
     }
 
     window.addEventListener('DOMContentLoaded', init);
