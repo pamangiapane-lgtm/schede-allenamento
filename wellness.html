@@ -3,241 +3,302 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Marsala Volley — Morning Wellness</title>
+  <title>Morning Wellness — Marsala Volley</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0c1f40">
+  <meta name="theme-color" content="#0f2b5c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Wellness MV">
   <link rel="apple-touch-icon" href="logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --border: #e2e8f0;
       --navy: #0f2b5c;
-      --gold: #d97706;
-      --gold-light: #fffbeb;
-      --gold-border: #fde68a;
-      --emerald: #059669;
+      --navy-light: #1e3a8a;
+      --amber: #f59e0b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
       --text: #0f172a;
-      --text-muted: #64748b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --green: #10b981;
+      --red: #ef4444;
       --radius: 16px;
-      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-      font-size: 15px;
-      line-height: 1.45;
-      padding: 16px 14px 40px;
-      max-width: 480px;
-      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px 12px 60px;
     }
 
-    /* Header */
     .brand-header {
       text-align: center;
       margin-bottom: 16px;
+      width: 100%;
+      max-width: 480px;
     }
     .brand-logo {
       width: 52px;
       height: 52px;
       border-radius: 14px;
-      object-fit: cover;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       box-shadow: 0 4px 12px rgba(15, 43, 92, 0.15);
+      object-fit: cover;
     }
-    .brand-title { font-size: 1.25rem; font-weight: 800; color: var(--navy); letter-spacing: -0.3px; }
-    .brand-sub { font-size: 0.78rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+    .brand-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.5px;
+    }
+    .brand-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    #form-container {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
     /* Athlete Card */
     .ath-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--navy);
+      color: #fff;
       border-radius: var(--radius);
-      padding: 12px 14px;
-      margin-bottom: 14px;
-      box-shadow: var(--shadow);
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      box-shadow: 0 6px 20px rgba(15, 43, 92, 0.2);
     }
-    .ath-info { display: flex; align-items: center; gap: 10px; }
+    .ath-info { display: flex; align-items: center; gap: 12px; }
     .ath-badge {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: var(--navy);
-      color: #fff;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 0.9rem;
+      font-size: 1.1rem;
+      color: #fff;
     }
-    .ath-name { font-size: 1.02rem; font-weight: 800; color: var(--navy); }
-    .ath-role { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+    .ath-name { font-size: 1.05rem; font-weight: 800; line-height: 1.2; }
+    .ath-role { font-size: 0.75rem; color: #93c5fd; font-weight: 600; }
     .ath-select {
-      background: #f1f5f9;
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
       border-radius: 8px;
-      padding: 6px 8px;
+      padding: 6px 10px;
       font-size: 0.8rem;
       font-weight: 700;
-      color: var(--navy);
       outline: none;
+      cursor: pointer;
     }
+    .ath-select option { color: #000; }
 
-    /* Date Pill */
     .date-banner {
-      background: var(--gold-light);
-      border: 1px solid var(--gold-border);
-      border-radius: 10px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
       padding: 8px 12px;
-      text-align: center;
+      border-radius: 10px;
       font-size: 0.82rem;
-      font-weight: 700;
-      color: #92400e;
-      margin-bottom: 16px;
+      text-align: center;
+      font-weight: 600;
     }
 
-    /* Metric Box */
+    /* Metric Cards */
     .metric-card {
-      background: var(--surface);
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 14px;
-      margin-bottom: 12px;
-      box-shadow: var(--shadow);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      transition: border-color 0.2s;
+    }
+    .metric-card.unfilled {
+      border-color: #fca5a5;
+      background: #fff5f5;
     }
     .metric-head {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 2px;
+      align-items: center;
+      margin-bottom: 4px;
     }
-    .metric-title { font-size: 0.95rem; font-weight: 800; color: var(--navy); }
-    .metric-val-preview {
-      font-size: 1.05rem;
+    .metric-title {
+      font-size: 0.92rem;
       font-weight: 800;
-      color: var(--gold);
+      color: var(--navy);
     }
-    .metric-desc { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 10px; }
+    .metric-val-preview {
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: var(--muted);
+    }
+    .metric-val-preview.selected {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+    .metric-desc {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
 
-    /* 0 - 10 Grid Buttons */
+    /* 0 to 10 Button Grid */
     .scale-row-10 {
       display: grid;
       grid-template-columns: repeat(11, 1fr);
       gap: 3px;
     }
     .btn-scale-10 {
-      touch-action: manipulation;
-      user-select: none;
-      -webkit-user-select: none;
       height: 38px;
-      border: 1.5px solid var(--border);
       border-radius: 8px;
+      border: 1px solid var(--border);
       background: #f8fafc;
-      font-size: 0.88rem;
-      font-weight: 800;
-      color: var(--text-muted);
+      color: #334155;
+      font-size: 0.82rem;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.12s;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: all 0.15s ease;
     }
-    .btn-scale-10:active { transform: scale(0.92); }
+    .btn-scale-10:active {
+      transform: scale(0.92);
+    }
     .btn-scale-10.active {
       background: var(--navy);
+      color: #fff;
       border-color: var(--navy);
-      color: #ffffff;
-      box-shadow: 0 3px 8px rgba(15, 43, 92, 0.28);
-      transform: translateY(-1px);
+      font-weight: 800;
+      box-shadow: 0 2px 6px rgba(15,43,92,0.3);
+      transform: scale(1.04);
     }
 
-    /* Notes Area */
+    /* Notes section */
     .notes-card {
-      background: var(--surface);
+      background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 14px;
-      margin-bottom: 18px;
-      box-shadow: var(--shadow);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
-    .notes-label { font-size: 0.88rem; font-weight: 800; color: var(--navy); margin-bottom: 3px; display: block; }
-    .notes-sub { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px; display: block; }
+    .notes-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+      display: block;
+    }
     .notes-textarea {
       width: 100%;
-      height: 70px;
-      background: #f8fafc;
-      border: 1.5px solid var(--border);
+      border: 1px solid var(--border);
       border-radius: 10px;
       padding: 10px 12px;
       font-size: 0.85rem;
-      font-family: inherit;
-      color: var(--text);
+      resize: vertical;
+      min-height: 70px;
       outline: none;
-      resize: none;
     }
-    .notes-textarea:focus { border-color: var(--navy); }
+    .notes-textarea:focus {
+      border-color: var(--navy-light);
+    }
 
     /* Submit Button */
     .btn-submit-wellness {
-      width: 100%;
       background: var(--navy);
       color: #fff;
       border: none;
-      border-radius: 14px;
+      border-radius: var(--radius);
       padding: 16px;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(15, 43, 92, 0.3);
+      box-shadow: 0 6px 18px rgba(15, 43, 92, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: all 0.15s;
+      touch-action: manipulation;
+      transition: transform 0.15s, background-color 0.15s;
     }
-    .btn-submit-wellness:active { transform: scale(0.98); }
+    .btn-submit-wellness:active {
+      transform: scale(0.98);
+    }
+    .btn-submit-wellness:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
 
-    /* Confirmation Overlay */
+    .error-banner {
+      background: #fee2e2;
+      border: 1px solid #f87171;
+      color: #991b1b;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+      display: none;
+    }
+
+    /* Success Screen */
     .success-box {
       display: none;
+      width: 100%;
+      max-width: 480px;
       background: #ecfdf5;
       border: 2px solid #a7f3d0;
       border-radius: var(--radius);
-      padding: 28px 18px;
+      padding: 40px 20px;
       text-align: center;
-      margin-top: 16px;
+      margin-top: 30px;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
     }
-    .sb-icon { font-size: 2.8rem; margin-bottom: 10px; }
-    .sb-title { font-size: 1.25rem; font-weight: 800; color: #065f46; margin-bottom: 6px; }
-    .sb-sub { font-size: 0.9rem; color: #047857; margin-bottom: 20px; line-height: 1.5; }
-    .btn-open-app {
-      display: inline-block;
-      background: var(--navy);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 800;
-      font-size: 0.9rem;
-      padding: 12px 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(15, 43, 92, 0.25);
-    }
+    .sb-icon { font-size: 3.2rem; margin-bottom: 12px; }
+    .sb-title { font-size: 1.7rem; font-weight: 800; color: #065f46; margin-bottom: 6px; }
+    .sb-sub { font-size: 1rem; color: #047857; font-weight: 600; }
   </style>
 </head>
 <body>
 
   <header class="brand-header">
     <img src="logo.jpg" class="brand-logo" alt="Marsala Volley">
-    <h1 class="brand-title">Morning Wellness</h1>
-    <div class="brand-sub">Marsala Volley · Serie A2</div>
+    <h1 class="brand-title" id="ui-brand-title">Morning Wellness</h1>
+    <div class="brand-sub" id="ui-brand-sub">Marsala Volley · Serie A2</div>
     <div style="margin-top:10px;">
       <button id="btn-push-test" onclick="subscribeAndTestPush()" style="background:#0f2b5c;color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(15,43,92,0.2);">
-        <span>🔔</span> Ricevi Notifica Push di Prova qui
+        <span>🔔</span> <span id="ui-push-btn">Attiva Notifiche Push su questo telefono</span>
       </button>
       <div id="push-status-msg" style="font-size:0.75rem;color:#059669;margin-top:4px;font-weight:700;display:none;"></div>
     </div>
@@ -257,99 +318,198 @@
     </div>
 
     <!-- Today Date -->
-    <div class="date-banner" id="date-banner">
-      📅 Monitoraggio di Oggi: <strong>31 Agosto 2026</strong>
-    </div>
+    <div class="date-banner" id="date-banner"></div>
+
+    <!-- Error Banner -->
+    <div class="error-banner" id="error-banner"></div>
 
     <!-- 1. Qualità del Sonno (0-10) -->
-    <div class="metric-card">
+    <div class="metric-card" id="card-sonno">
       <div class="metric-head">
-        <span class="metric-title">1. Qualità del Sonno</span>
-        <span class="metric-val-preview" id="prev-sonno">8 / 10</span>
+        <span class="metric-title" id="t-sonno">1. Qualità del Sonno</span>
+        <span class="metric-val-preview" id="prev-sonno">Seleziona (0-10)</span>
       </div>
-      <p class="metric-desc">0 = Pessimo/Insonne ➔ 10 = Sonno Profondo/Riposato</p>
+      <p class="metric-desc" id="d-sonno">0 = Pessimo/Insonne ➔ 10 = Sonno Profondo/Riposato</p>
       <div class="scale-row-10" data-metric="sonno" id="row-sonno"></div>
     </div>
 
     <!-- 2. Livello di Fatica (0-10) -->
-    <div class="metric-card">
+    <div class="metric-card" id="card-fatica">
       <div class="metric-head">
-        <span class="metric-title">2. Livello di Fatica</span>
-        <span class="metric-val-preview" id="prev-fatica">2 / 10</span>
+        <span class="metric-title" id="t-fatica">2. Livello di Fatica</span>
+        <span class="metric-val-preview" id="prev-fatica">Seleziona (0-10)</span>
       </div>
-      <p class="metric-desc">0 = Nessuna fatica/Fresca ➔ 10 = Esausta/Fatica Estrema</p>
+      <p class="metric-desc" id="d-fatica">0 = Nessuna fatica/Fresca ➔ 10 = Esausta/Fatica Estrema</p>
       <div class="scale-row-10" data-metric="fatica" id="row-fatica"></div>
     </div>
 
     <!-- 3. Readiness / Prontezza (0-10) -->
-    <div class="metric-card">
+    <div class="metric-card" id="card-readiness">
       <div class="metric-head">
-        <span class="metric-title">3. Readiness / Prontezza</span>
-        <span class="metric-val-preview" id="prev-readiness">8 / 10</span>
+        <span class="metric-title" id="t-readiness">3. Readiness / Prontezza</span>
+        <span class="metric-val-preview" id="prev-readiness">Seleziona (0-10)</span>
       </div>
-      <p class="metric-desc">0 = Scarica/Zero energia ➔ 10 = Prontissima al 100%</p>
+      <p class="metric-desc" id="d-readiness">0 = Bassa energia/Impreparata ➔ 10 = Massima prontezza</p>
       <div class="scale-row-10" data-metric="readiness" id="row-readiness"></div>
     </div>
 
-    <!-- 4. Dolori / Soreness (0-10) -->
-    <div class="metric-card">
+    <!-- 4. Dolori Muscolari / Soreness (0-10) -->
+    <div class="metric-card" id="card-dolori">
       <div class="metric-head">
-        <span class="metric-title">4. Dolori Muscolari / Soreness</span>
-        <span class="metric-val-preview" id="prev-dolori">1 / 10</span>
+        <span class="metric-title" id="t-dolori">4. Dolori Muscolari / Fastidi</span>
+        <span class="metric-val-preview" id="prev-dolori">Seleziona (0-10)</span>
       </div>
-      <p class="metric-desc">0 = Nessun dolore ➔ 10 = Dolore Forte/Limitante</p>
+      <p class="metric-desc" id="d-dolori">0 = Nessun dolore/Muscoli freschi ➔ 10 = Dolore acuto/Limitante</p>
       <div class="scale-row-10" data-metric="dolori" id="row-dolori"></div>
     </div>
 
-    <!-- Note / Distretti Dolenti -->
+    <!-- 5. Livello di Stress (0-10) -->
+    <div class="metric-card" id="card-stress">
+      <div class="metric-head">
+        <span class="metric-title" id="t-stress">5. Livello di Stress</span>
+        <span class="metric-val-preview" id="prev-stress">Seleziona (0-10)</span>
+      </div>
+      <p class="metric-desc" id="d-stress">0 = Nessuno stress/Calma totale ➔ 10 = Stress altissimo/Tensione estrema</p>
+      <div class="scale-row-10" data-metric="stress" id="row-stress"></div>
+    </div>
+
+    <!-- Note & Distretti Muscolari -->
     <div class="notes-card">
-      <label class="notes-label" for="wellness-notes">💬 Note / Distretti Muscolari (Opzionale)</label>
-      <span class="notes-sub">Segnala se hai fastidi particolari (es. spalla dx, polpaccio, ginocchio)</span>
-      <textarea id="wellness-notes" class="notes-textarea" placeholder="Es. leggero fastidio spalla dx post-battuta"></textarea>
+      <label class="notes-label" for="wellness-notes" id="ui-notes-label">Segnala i dolori dal 4 in poi o altro:</label>
+      <textarea id="wellness-notes" class="notes-textarea" placeholder="Es. leggero fastidio spalla dx post-battuta, affaticamento polpacci..."></textarea>
     </div>
 
     <button id="btn-submit" class="btn-submit-wellness" onclick="submitWellness()">
-      <span>Invia Wellness di Oggi</span> ➔
+      <span id="ui-submit-btn">Invia Wellness di Oggi</span> ➔
     </button>
   </div>
 
-  <!-- Success Confirmation Screen (Semplice Ringraziamento) -->
-  <div id="success-screen" class="success-box" style="padding:40px 20px;">
-    <div class="sb-icon" style="font-size:3rem;margin-bottom:12px;">✅</div>
-    <h2 class="sb-title" style="font-size:1.6rem;font-weight:800;color:#065f46;margin-bottom:6px;">Grazie!</h2>
-    <p class="sb-sub" style="font-size:0.95rem;color:#047857;margin:0;">Buona giornata!</p>
+  <!-- Success Confirmation Screen -->
+  <div id="success-screen" class="success-box">
+    <div class="sb-icon">✅</div>
+    <h2 class="sb-title" id="ui-success-title">Grazie!</h2>
+    <p class="sb-sub" id="ui-success-sub">Buona giornata e buon allenamento!</p>
   </div>
 
   <script src="data.js"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN = 'mv26-prd-3xF7wNqK';
+    const VAPID_PUBLIC_KEY = 'BC8k3B_czFbc_dySae4Le6tgtyEpcyilthMSrD7sZvz7TRVqwkfKzIHnsDtfy39i7N2n9El6cbxlVfRCzOmr4mU';
 
     let currentId = 1;
     let currentAth = null;
-    // Default values (0 to 10)
-    let values = { sonno: 5, fatica: 5, readiness: 5, dolori: 0 };
+    let isEnglish = false;
+
+    // NESSUN VALORE PRE-EVIDENZIATO: Iniziano tutti a null
+    let values = { sonno: null, fatica: null, readiness: null, dolori: null, stress: null };
+
+    const I18N = {
+      it: {
+        dateLabel: '📅 Monitoraggio di Oggi:',
+        prevDefault: 'Seleziona (0-10)',
+        tSonno: '1. Qualità del Sonno',
+        dSonno: '0 = Pessimo/Insonne ➔ 10 = Sonno Profondo/Riposato',
+        tFatica: '2. Livello di Fatica',
+        dFatica: '0 = Nessuna fatica/Fresca ➔ 10 = Esausta/Fatica Estrema',
+        tReadiness: '3. Readiness / Prontezza',
+        dReadiness: '0 = Bassa energia/Impreparata ➔ 10 = Massima prontezza',
+        tDolori: '4. Dolori Muscolari / Fastidi',
+        dDolori: '0 = Nessun dolore/Muscoli freschi ➔ 10 = Dolore acuto/Limitante',
+        tStress: '5. Livello di Stress',
+        dStress: '0 = Nessuno stress/Calma totale ➔ 10 = Stress altissimo/Tensione estrema',
+        notesLabel: 'Segnala i dolori dal 4 in poi o altro:',
+        notesPlaceholder: 'Es. leggero fastidio spalla dx post-battuta, ginocchio...',
+        submitBtn: 'Invia Wellness di Oggi',
+        submitting: 'Invio in corso... ⏳',
+        successTitle: 'Grazie!',
+        successSub: 'Buona giornata e buon allenamento!',
+        pushBtn: 'Attiva Notifiche Push su questo telefono',
+        errorFill: '⚠️ Seleziona tutti i 5 parametri prima di inviare.'
+      },
+      en: {
+        dateLabel: '📅 Today\'s Wellness Monitoring:',
+        prevDefault: 'Select (0-10)',
+        tSonno: '1. Sleep Quality',
+        dSonno: '0 = Terrible / Insomnia ➔ 10 = Deep & Fully Rested',
+        tFatica: '2. Fatigue Level',
+        dFatica: '0 = No fatigue / Fresh ➔ 10 = Exhausted / Extreme fatigue',
+        tReadiness: '3. Readiness / Physical Preparedness',
+        dReadiness: '0 = Low energy / Unprepared ➔ 10 = 100% Ready to perform',
+        tDolori: '4. Muscle Soreness / Pain',
+        dDolori: '0 = No soreness / Fresh muscles ➔ 10 = Severe pain / Limiting',
+        tStress: '5. Stress Level',
+        dStress: '0 = No stress / Totally relaxed ➔ 10 = Extreme stress / High tension',
+        notesLabel: 'Report pain/soreness from 4 and above or other notes:',
+        notesPlaceholder: 'E.g. slight right shoulder soreness after spiking, knee...',
+        submitBtn: 'Submit Today\'s Wellness',
+        submitting: 'Submitting... ⏳',
+        successTitle: 'Thank You!',
+        successSub: 'Have a great day and a great training session!',
+        pushBtn: 'Enable Push Notifications on this phone',
+        errorFill: '⚠️ Please select all 5 parameters before submitting.'
+      }
+    };
 
     function renderScaleButtons() {
-      const metrics = ['sonno', 'fatica', 'readiness', 'dolori'];
+      const metrics = ['sonno', 'fatica', 'readiness', 'dolori', 'stress'];
+      const lang = isEnglish ? I18N.en : I18N.it;
       metrics.forEach(m => {
         const row = document.getElementById(`row-${m}`);
         let btns = '';
         for (let i = 0; i <= 10; i++) {
-          btns += `<button type="button" class="btn-scale-10 ${i === values[m] ? 'active' : ''}" onclick="setVal('${m}', ${i})">${i}</button>`;
+          const isActive = values[m] === i ? 'active' : '';
+          btns += `<button type="button" class="btn-scale-10 ${isActive}" onclick="setVal('${m}', ${i})">${i}</button>`;
         }
         row.innerHTML = btns;
-        document.getElementById(`prev-${m}`).textContent = `${values[m]} / 10`;
+        
+        const prevEl = document.getElementById(`prev-${m}`);
+        if (values[m] !== null) {
+          prevEl.textContent = `${values[m]} / 10`;
+          prevEl.classList.add('selected');
+        } else {
+          prevEl.textContent = lang.prevDefault;
+          prevEl.classList.remove('selected');
+        }
       });
     }
 
-    function init() {
-      // 1. Date format
-      const now = new Date();
-      const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-      document.getElementById('date-banner').innerHTML = `📅 Monitoraggio di Oggi: <strong>${now.toLocaleDateString('it-IT', options)}</strong>`;
+    function applyLanguage() {
+      // Anja Asonja (#4) e Nelly Adamczewska (#14) in Inglese
+      isEnglish = (currentId === 4 || currentId === 14);
+      const t = isEnglish ? I18N.en : I18N.it;
 
-      // 2. Check URL ?id=X
+      const now = new Date();
+      const dateOpts = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+      const dateStr = now.toLocaleDateString(isEnglish ? 'en-US' : 'it-IT', dateOpts);
+      document.getElementById('date-banner').innerHTML = `${t.dateLabel} <strong>${dateStr}</strong>`;
+
+      document.getElementById('t-sonno').textContent = t.tSonno;
+      document.getElementById('d-sonno').textContent = t.dSonno;
+
+      document.getElementById('t-fatica').textContent = t.tFatica;
+      document.getElementById('d-fatica').textContent = t.dFatica;
+
+      document.getElementById('t-readiness').textContent = t.tReadiness;
+      document.getElementById('d-readiness').textContent = t.dReadiness;
+
+      document.getElementById('t-dolori').textContent = t.tDolori;
+      document.getElementById('d-dolori').textContent = t.dDolori;
+
+      document.getElementById('t-stress').textContent = t.tStress;
+      document.getElementById('d-stress').textContent = t.dStress;
+
+      document.getElementById('ui-notes-label').textContent = t.notesLabel;
+      document.getElementById('wellness-notes').placeholder = t.notesPlaceholder;
+      document.getElementById('ui-submit-btn').textContent = t.submitBtn;
+      document.getElementById('ui-push-btn').textContent = t.pushBtn;
+
+      document.getElementById('ui-success-title').textContent = t.successTitle;
+      document.getElementById('ui-success-sub').textContent = t.successSub;
+    }
+
+    function init() {
+      // Check URL ?id=X
       const params = new URLSearchParams(window.location.search);
       const urlId = params.get('id');
       if (urlId && ROSTER.some(a => String(a.id) === String(urlId))) {
@@ -361,11 +521,10 @@
         }
       }
 
-      // 3. Populate dropdown
+      // Populate dropdown
       const sel = document.getElementById('ath-select');
       sel.innerHTML = ROSTER.map(a => `<option value="${a.id}" ${a.id === currentId ? 'selected' : ''}>${a.name}</option>`).join('');
 
-      renderScaleButtons();
       loadAthlete(currentId);
     }
 
@@ -373,6 +532,8 @@
       currentId = parseInt(id);
       localStorage.setItem('mv_last_athlete', currentId);
       window.history.replaceState({}, '', `?id=${currentId}`);
+      // Reset selections on athlete change
+      values = { sonno: null, fatica: null, readiness: null, dolori: null, stress: null };
       loadAthlete(currentId);
     }
 
@@ -381,23 +542,58 @@
       document.getElementById('ath-badge').textContent = currentAth.number || `#${currentAth.id}`;
       document.getElementById('ath-name').textContent = currentAth.name;
       document.getElementById('ath-role').textContent = currentAth.role || 'Marsala Volley';
+
+      applyLanguage();
+      renderScaleButtons();
     }
 
     function setVal(metric, val) {
       values[metric] = val;
-      document.getElementById(`prev-${metric}`).textContent = `${val} / 10`;
+      const prevEl = document.getElementById(`prev-${metric}`);
+      prevEl.textContent = `${val} / 10`;
+      prevEl.classList.add('selected');
+
+      const card = document.getElementById(`card-${metric}`);
+      if (card) card.classList.remove('unfilled');
+
       const row = document.getElementById(`row-${metric}`);
       if (row) {
         row.querySelectorAll('.btn-scale-10').forEach((btn, idx) => {
           btn.classList.toggle('active', idx === val);
         });
       }
+
+      // Nascondi eventuale errore
+      document.getElementById('error-banner').style.display = 'none';
     }
 
     async function submitWellness() {
+      const errBanner = document.getElementById('error-banner');
+      const lang = isEnglish ? I18N.en : I18N.it;
+
+      // Valida che tutti i 5 parametri siano stati selezionati
+      const metrics = ['sonno', 'fatica', 'readiness', 'dolori', 'stress'];
+      let missing = false;
+      metrics.forEach(m => {
+        const card = document.getElementById(`card-${m}`);
+        if (values[m] === null) {
+          missing = true;
+          if (card) card.classList.add('unfilled');
+        } else {
+          if (card) card.classList.remove('unfilled');
+        }
+      });
+
+      if (missing) {
+        errBanner.textContent = lang.errorFill;
+        errBanner.style.display = 'block';
+        errBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
       const btn = document.getElementById('btn-submit');
       btn.disabled = true;
-      btn.innerHTML = 'Invio in corso... ⏳';
+      btn.innerHTML = lang.submitting;
 
       const note = document.getElementById('wellness-notes').value.trim();
       const todayStr = new Date().toISOString().slice(0, 10);
@@ -409,14 +605,15 @@
         fatica: values.fatica,
         readiness: values.readiness,
         dolori: values.dolori,
+        stress: values.stress,
         note: note,
         timestamp: new Date().toISOString()
       };
 
-      // Save locally
+      // Salvataggio locale
       localStorage.setItem(`mv_wellness_${currentId}_${todayStr}`, JSON.stringify(payload));
 
-      // Send to Google Sheets (tab Wellness) via GAS API with official action 'log_wellness'
+      // Invio a Google Sheets (tab Wellness)
       try {
         await fetch(GAS_URL, {
           method: 'POST',
@@ -431,6 +628,7 @@
             fatica: values.fatica,
             disponibilita: values.readiness,
             dolori: values.dolori,
+            stress: values.stress,
             note: note
           })
         });
@@ -438,15 +636,11 @@
         console.warn('Fallback offline sync:', err);
       }
 
-      // Show Success (Clean confirmation, zero % displayed, zero link sedute)
+      // Mostra schermata finale semplice (Grazie! Buona giornata!)
       document.getElementById('form-container').style.display = 'none';
       const sScreen = document.getElementById('success-screen');
       sScreen.style.display = 'block';
-      
     }
-
-    
-    const VAPID_PUBLIC_KEY = 'BC8k3B_czFbc_dySae4Le6tgtyEpcyilthMSrD7sZvz7TRVqwkfKzIHnsDtfy39i7N2n9El6cbxlVfRCzOmr4mU';
 
     function urlBase64ToUint8Array(base64String) {
       const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -465,8 +659,8 @@
       btn.innerHTML = '⏳ Attivazione Notifiche...';
 
       if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-        alert('Il browser non supporta le notifiche push.');
-        btn.innerHTML = '🔔 Ricevi Notifica Push di Prova qui';
+        alert('Il browser non supporta le notifiche push. Su iPhone: aggiungi prima la pagina alla schermata Home.');
+        btn.innerHTML = '🔔 ' + (isEnglish ? I18N.en.pushBtn : I18N.it.pushBtn);
         return;
       }
 
@@ -474,7 +668,7 @@
         const perm = await Notification.requestPermission();
         if (perm !== 'granted') {
           alert('Devi consentire le notifiche per ricevere il messaggio.');
-          btn.innerHTML = '🔔 Ricevi Notifica Push di Prova qui';
+          btn.innerHTML = '🔔 ' + (isEnglish ? I18N.en.pushBtn : I18N.it.pushBtn);
           return;
         }
 
@@ -496,7 +690,7 @@
 
         const subJson = sub.toJSON();
         
-        // Salva l'iscrizione su Google Sheets
+        // Salva l'iscrizione su Google Sheets tab PushSub
         if (subJson.keys) {
           const params = new URLSearchParams({
             token: TOKEN,
@@ -511,7 +705,7 @@
 
         // Mostra notifica sul dispositivo
         await reg.showNotification('🏐 Marsala Volley — Morning Wellness', {
-          body: 'Coach Paulo, notifica push collegata con successo! 🌅',
+          body: 'Notifica push collegata con successo! 🌅',
           icon: 'logo.jpg',
           badge: 'logo.jpg',
           tag: 'wellness-coach-alert',
@@ -519,8 +713,8 @@
         });
 
         msg.style.display = 'block';
-        msg.textContent = '✅ Notifica push attivata e collegata al database!';
-        btn.innerHTML = '✓ Notifiche Attive!';
+        msg.textContent = '✅ Notifiche attive sul tuo telefono!';
+        btn.innerHTML = '✓ Notifiche Attive';
         btn.style.background = '#059669';
       } catch (err) {
         console.error('Errore push:', err);
