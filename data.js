@@ -1,6 +1,6 @@
 // ============================================================
 // Marsala Volley 2026/27 — Unified Master Data (App Architecture)
-// Single Source of Truth for Roster, Prehab, W1 & W2 Sessions
+// Complete Database: Roster, Prehab, Off-Season Baseline, W1 & W2
 // ============================================================
 
 const ROSTER = [
@@ -19,7 +19,17 @@ const ROSTER = [
       "Recupero rotazione interna anca DX",
       "Mobilita catena posteriore"
     ],
-    "folder": "01_Veronica_Allasia"
+    "folder": "01_Veronica_Allasia",
+    "baseline_1rm": {
+      "Bench Press": 30,
+      "Clean": 40,
+      "Lat Machine": 35,
+      "Military Press": 24,
+      "Row BB": 20,
+      "Squat / Step Up": 75,
+      "Stacchi Rumeni": 60
+    },
+    "offseason_sessions": 4
   },
   {
     "id": 2,
@@ -37,7 +47,17 @@ const ROSTER = [
       "Core stability IAP",
       "Mobilita scapolo-toracica DX"
     ],
-    "folder": "02_Maria_Marcuzzi"
+    "folder": "02_Maria_Marcuzzi",
+    "baseline_1rm": {
+      "Bench Press": 40,
+      "Clean": 20,
+      "Lat Machine": 45,
+      "Military Press": 20,
+      "Row BB": 50,
+      "Squat / Step Up": 80,
+      "Stacchi Rumeni": 40
+    },
+    "offseason_sessions": 13
   },
   {
     "id": 3,
@@ -55,7 +75,17 @@ const ROSTER = [
       "Stabilita monopodalica DX",
       "Allungamento flessori anca e mobilita lombosacrale"
     ],
-    "folder": "03_Victoria_Sassolini"
+    "folder": "03_Victoria_Sassolini",
+    "baseline_1rm": {
+      "Bench Press": 50,
+      "Clean": 70,
+      "Lat Machine": 56,
+      "Military Press": 44,
+      "Row BB": 60,
+      "Squat / Step Up": 110,
+      "Stacchi Rumeni": 70
+    },
+    "offseason_sessions": 14
   },
   {
     "id": 4,
@@ -72,7 +102,17 @@ const ROSTER = [
       "Attivazione tibiale posteriore (DX) e gluteo medio DX",
       "Mobilita lombare e sblocco spalla DX"
     ],
-    "folder": "04_Anja_Asonja"
+    "folder": "04_Anja_Asonja",
+    "baseline_1rm": {
+      "Bench Press": 50,
+      "Clean": 50,
+      "Lat Machine": 45,
+      "Military Press": 28,
+      "Row BB": 43,
+      "Squat / Step Up": 80,
+      "Stacchi Rumeni": 45
+    },
+    "offseason_sessions": 15
   },
   {
     "id": 5,
@@ -91,7 +131,16 @@ const ROSTER = [
       "Attivazione gluteo medio DX",
       "Rinforzo scapolare Libero"
     ],
-    "folder": "05_Chiara_Lo_Dico"
+    "folder": "05_Chiara_Lo_Dico",
+    "baseline_1rm": {
+      "Bench Press": 40,
+      "Lat Machine": 35,
+      "Military Press": 25,
+      "Row BB": 30,
+      "Squat / Step Up": 70,
+      "Stacchi Rumeni": 50
+    },
+    "offseason_sessions": 5
   },
   {
     "id": 6,
@@ -109,7 +158,14 @@ const ROSTER = [
       "Mobilita in rotazione esterna anche",
       "Core stability IAP"
     ],
-    "folder": "06_Gaia_Biondi"
+    "folder": "06_Gaia_Biondi",
+    "baseline_1rm": {
+      "Squat / Step Up": 75,
+      "Bench Press": 35,
+      "Row BB": 40,
+      "Clean": 40
+    },
+    "offseason_sessions": 0
   },
   {
     "id": 7,
@@ -127,7 +183,17 @@ const ROSTER = [
       "Mobilita lombo-dorsale",
       "Allineamento spinta metatarsale DX"
     ],
-    "folder": "07_Elise_Bole"
+    "folder": "07_Elise_Bole",
+    "baseline_1rm": {
+      "Bench Press": 35,
+      "Clean": 60,
+      "Lat Machine": 50,
+      "Military Press": 40,
+      "Row BB": 55,
+      "Squat / Step Up": 110,
+      "Stacchi Rumeni": 50
+    },
+    "offseason_sessions": 11
   },
   {
     "id": 8,
@@ -146,7 +212,14 @@ const ROSTER = [
       "Rieducazione dita e stabilita podalica",
       "Controllo valgismo"
     ],
-    "folder": "08_Federica_Nonnati"
+    "folder": "08_Federica_Nonnati",
+    "baseline_1rm": {
+      "Squat / Step Up": 70,
+      "Bench Press": 35,
+      "Row BB": 35,
+      "Clean": 35
+    },
+    "offseason_sessions": 0
   },
   {
     "id": 9,
@@ -166,7 +239,17 @@ const ROSTER = [
       "Mobilizzazione anca SX ER",
       "Rieducazione posturale spalla SX"
     ],
-    "folder": "09_Sara_Dodi"
+    "folder": "09_Sara_Dodi",
+    "baseline_1rm": {
+      "Bench Press": 40,
+      "Clean": 40,
+      "Lat Machine": 35,
+      "Military Press": 10,
+      "Row BB": 40,
+      "Squat / Step Up": 40,
+      "Stacchi Rumeni": 25
+    },
+    "offseason_sessions": 17
   },
   {
     "id": 11,
@@ -185,7 +268,14 @@ const ROSTER = [
       "Mobilita overhead spalla SX",
       "Rinforzo scapolare Libero"
     ],
-    "folder": "11_Luna_Cicola"
+    "folder": "11_Luna_Cicola",
+    "baseline_1rm": {
+      "Squat / Step Up": 65,
+      "Bench Press": 30,
+      "Row BB": 30,
+      "Clean": 30
+    },
+    "offseason_sessions": 0
   },
   {
     "id": 12,
@@ -203,7 +293,16 @@ const ROSTER = [
       "Rieducazione spinta metatarsale DX",
       "Allungamento catena posteriore lombare"
     ],
-    "folder": "12_Erin_Grippo"
+    "folder": "12_Erin_Grippo",
+    "baseline_1rm": {
+      "Bench Press": 51,
+      "Clean": 40,
+      "Military Press": 35,
+      "Row BB": 57,
+      "Squat / Step Up": 117,
+      "Stacchi Rumeni": 83
+    },
+    "offseason_sessions": 13
   },
   {
     "id": 13,
@@ -221,7 +320,17 @@ const ROSTER = [
       "Mobilita spalla SX ed estensione toracica",
       "Riequilibrio appoggio podalico SX"
     ],
-    "folder": "13_Giulia_Caserta"
+    "folder": "13_Giulia_Caserta",
+    "baseline_1rm": {
+      "Bench Press": 30,
+      "Clean": 44,
+      "Lat Machine": 48,
+      "Military Press": 22,
+      "Row BB": 38,
+      "Squat / Step Up": 84,
+      "Stacchi Rumeni": 84
+    },
+    "offseason_sessions": 13
   },
   {
     "id": 14,
@@ -240,7 +349,14 @@ const ROSTER = [
       "Coordinamento scapolo-omerale DX",
       "Programma dedicato Strength/Power Michal"
     ],
-    "folder": "10_Nelly_Adamczewska"
+    "folder": "10_Nelly_Adamczewska",
+    "baseline_1rm": {
+      "Squat / Step Up": 95,
+      "Bench Press": 55,
+      "Row BB": 55,
+      "Clean": 60
+    },
+    "offseason_sessions": 0
   }
 ];
 
@@ -1747,6 +1863,247 @@ const PREHAB_DATA = {
         ]
       }
     }
+  }
+};
+
+const OFFSEASON_DATA = {
+  "meta": {
+    "programma": "Pre-Season 26 - Off Season Fase 1",
+    "squadra": "Mogliano Veneto Volley U18",
+    "coach": "Paolo Mangiapane",
+    "periodo": "6 luglio 2026 - 26 luglio 2026 (W1-W3)",
+    "n_atlete": 9,
+    "generato": "2026-07-27",
+    "scale": {
+      "rpe": "1-10 (sforzo percepito post-seduta, dichiarato dall'atleta)",
+      "fatica": "1-5 (fatica soggettiva post-seduta)",
+      "sonno": "1-5 (qualita' sonno; 5=ottima)",
+      "energia": "1-5 (energia percepita; 5=massima)",
+      "dolori": "1-5 (dolori/indolenzimento; 1=assente)",
+      "rm": "1-rep max stimato in kg"
+    },
+    "nota_rm": "forza_baseline contiene le misurazioni 1RM per atleta. Le intensita' in OS1-S2 si calcolano su questi valori (es. 75% RM Clean).",
+    "struttura_sessioni": {
+      "OS1-S1": "Attivazione + prehab: riscaldamento diaframmatico, lavori prehab individuali, metabolico incrementale 3x2min, FDM bicarico Step Up/Row/Bench (blocco A 1x11 50%RM Rec45\", blocco B 1x6 70%RM Rec130\", 2 cicli), circuito funzionale 30\" (Halo KB, Single Leg Pallof, TRX Row, Pogos Rec30\")",
+      "OS1-S2": "Compound + potenza: riscaldamento, prehab, metabolico, lanci (Plyo spalla 4x8+8 Rec15\", Med shot put 3x4+4 Rec75\"), weightlifting Clean/Snatch (1x3@75% 1x2@80% 1x1@85% Rec90\"), FM Squat (stesso schema Rec90\"/180\"), Pull-up 4x3@80-85% Rec90\", Military Press 4x3@80-85% Rec90\"",
+      "OS1-S3": "Complementare + metabolico finale 16': Stacchi Rumeni 4x6, Squat Jump 4x4, Birddog Row 3x8+8, Croci manubri 3x6, Side Plank Row 3x12+12, Chop da affondo 3x8+8, metabolico pyramid 4'+3'+2'+3'+4'@150-170BPM",
+      "12-F4": "Erin individuale funzionale: Turkish Get-Up 3x3@RPE7, Split Squat 4x8@RPE8, Pallof elastico 3x10@RPE6, Landmine Press 3x10@RPE7, Bear Crawl 3x15m@RPE7, Bike 6min RPE5-8",
+      "12-F5": "Erin individuale forza: Deadlift 4x5@RPE8-9, Push Press manubri 3x8@RPE8, Med Ball rotational 3x8@RPE7, Suitcase Carry 3x20m@RPE7, Cossack Squat+Reach 3x8@RPE7, Bike 6min"
+    }
+  },
+  "baselines_1rm": {
+    "1": {
+      "name": "Veronica Allasia",
+      "rms": {
+        "Bench Press": 30,
+        "Clean": 40,
+        "Lat Machine": 35,
+        "Military Press": 24,
+        "Row BB": 20,
+        "Squat / Step Up": 75,
+        "Stacchi Rumeni": 60
+      },
+      "total_sessions": 4,
+      "avg_rpe": 4.5,
+      "avg_fatigue": 4.0,
+      "avg_sleep": 4.5
+    },
+    "2": {
+      "name": "Maria Marcuzzi",
+      "rms": {
+        "Bench Press": 40,
+        "Clean": 20,
+        "Lat Machine": 45,
+        "Military Press": 20,
+        "Row BB": 50,
+        "Squat / Step Up": 80,
+        "Stacchi Rumeni": 40
+      },
+      "total_sessions": 13,
+      "avg_rpe": 4.7,
+      "avg_fatigue": 3.7,
+      "avg_sleep": 4.2
+    },
+    "3": {
+      "name": "Victoria Sassolini",
+      "rms": {
+        "Bench Press": 50,
+        "Clean": 70,
+        "Lat Machine": 56,
+        "Military Press": 44,
+        "Row BB": 60,
+        "Squat / Step Up": 110,
+        "Stacchi Rumeni": 70
+      },
+      "total_sessions": 14,
+      "avg_rpe": 4.6,
+      "avg_fatigue": 2.8,
+      "avg_sleep": 4.0
+    },
+    "4": {
+      "name": "Anja Asonja",
+      "rms": {
+        "Bench Press": 50,
+        "Clean": 50,
+        "Lat Machine": 45,
+        "Military Press": 28,
+        "Row BB": 43,
+        "Squat / Step Up": 80,
+        "Stacchi Rumeni": 45
+      },
+      "total_sessions": 15,
+      "avg_rpe": 5.7,
+      "avg_fatigue": 4.0,
+      "avg_sleep": 4.7
+    },
+    "5": {
+      "name": "Chiara Lo Dico",
+      "rms": {
+        "Bench Press": 40,
+        "Lat Machine": 35,
+        "Military Press": 25,
+        "Row BB": 30,
+        "Squat / Step Up": 70,
+        "Stacchi Rumeni": 50
+      },
+      "total_sessions": 5,
+      "avg_rpe": 6.3,
+      "avg_fatigue": 3.0,
+      "avg_sleep": null
+    },
+    "7": {
+      "name": "Elisa Bole",
+      "rms": {
+        "Bench Press": 35,
+        "Clean": 60,
+        "Lat Machine": 50,
+        "Military Press": 40,
+        "Row BB": 55,
+        "Squat / Step Up": 110,
+        "Stacchi Rumeni": 50
+      },
+      "total_sessions": 11,
+      "avg_rpe": 4.6,
+      "avg_fatigue": 3.8,
+      "avg_sleep": 3.3
+    },
+    "9": {
+      "name": "Sara Dodi",
+      "rms": {
+        "Bench Press": 40,
+        "Clean": 40,
+        "Lat Machine": 35,
+        "Military Press": 10,
+        "Row BB": 40,
+        "Squat / Step Up": 40,
+        "Stacchi Rumeni": 25
+      },
+      "total_sessions": 17,
+      "avg_rpe": 5.7,
+      "avg_fatigue": 3.4,
+      "avg_sleep": 4.1
+    },
+    "12": {
+      "name": "Erin Grippo",
+      "rms": {
+        "Bench Press": 51,
+        "Clean": 40,
+        "Military Press": 35,
+        "Row BB": 57,
+        "Squat / Step Up": 117,
+        "Stacchi Rumeni": 83
+      },
+      "total_sessions": 13,
+      "avg_rpe": 5.7,
+      "avg_fatigue": 3.2,
+      "avg_sleep": 4.6
+    },
+    "13": {
+      "name": "Giulia Caserta",
+      "rms": {
+        "Bench Press": 30,
+        "Clean": 44,
+        "Lat Machine": 48,
+        "Military Press": 22,
+        "Row BB": 38,
+        "Squat / Step Up": 84,
+        "Stacchi Rumeni": 84
+      },
+      "total_sessions": 13,
+      "avg_rpe": 5.0,
+      "avg_fatigue": 3.5,
+      "avg_sleep": 3.1
+    },
+    "8": {
+      "name": "Federica Nonnati",
+      "rms": {
+        "Squat / Step Up": 70,
+        "Bench Press": 35,
+        "Row BB": 35,
+        "Clean": 35
+      }
+    },
+    "6": {
+      "name": "Gaia Biondi",
+      "rms": {
+        "Squat / Step Up": 75,
+        "Bench Press": 35,
+        "Row BB": 40,
+        "Clean": 40
+      }
+    },
+    "11": {
+      "name": "Luna Cicola",
+      "rms": {
+        "Squat / Step Up": 65,
+        "Bench Press": 30,
+        "Row BB": 30,
+        "Clean": 30
+      }
+    },
+    "14": {
+      "name": "Nelly Adamczewska",
+      "rms": {
+        "Squat / Step Up": 95,
+        "Bench Press": 55,
+        "Row BB": 55,
+        "Clean": 60
+      }
+    }
+  },
+  "jump_volumes": {
+    "OS1_Base": {
+      "s1_estensiva": 38,
+      "s3_intensiva": 30,
+      "totale_settimana": 48
+    },
+    "OS2_Picco": {
+      "s1_estensiva": 38,
+      "s3_intensiva": 30,
+      "totale_settimana": 68
+    },
+    "OS3_Potenza": {
+      "s1_estensiva": 50,
+      "s3_intensiva": 38,
+      "totale_settimana": 88
+    },
+    "OS4_Ultima": {
+      "s1_estensiva": 60,
+      "s3_intensiva": 48,
+      "totale_settimana": 108
+    }
+  },
+  "structure": {
+    "OS1": "Base W1-W4 (Forza ~70-75% RM, Weightlifting introduttivo)",
+    "OS2": "Picco W5 (Intensita 78-82% RM, introduzione PAP)",
+    "OS3": "Potenza W6 (Picco Clean 85-90%, Squat FM 85-88%)",
+    "OS4": "Rampa W7 (Massimo volume salti 108/sett, transizione a Preseason)"
+  },
+  "special_cases": {
+    "Grippo_12": "5 sedute settimanali (OS1-S1/S2/S3 + 12-F4 Upper/Core + 12-F5 Posterior Chain/Potenza)",
+    "Anja_4": "Programma EN tradotto completo + Prehab individuale",
+    "Cicola_11": "Ingresso da W6 graduato (RPE invece di %, volumi dimezzati)",
+    "Nelly_14": "Programma dedicato forza/potenza (Michal - Polonia)"
   }
 };
 
@@ -12635,5 +12992,5 @@ const WEEKS_DATA = {
 
 // Export for node / ES module if needed
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { ROSTER, PREHAB_DATA, SESSIONS_W1, SESSIONS_W2, WEEKS_DATA };
+  module.exports = { ROSTER, PREHAB_DATA, OFFSEASON_DATA, SESSIONS_W1, SESSIONS_W2, WEEKS_DATA };
 }

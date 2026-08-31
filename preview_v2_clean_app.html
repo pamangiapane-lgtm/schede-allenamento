@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Marsala Volley — Pro Experience (V2)</title>
+  <meta name="theme-color" content="#ffffff">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-subtle: #f1f5f9;
+      --border: #e2e8f0;
+      --border-subtle: #edf2f7;
+      --navy-900: #0f2b5c;
+      --navy-800: #1e3a8a;
+      --navy-700: #1d4ed8;
+      --gold-600: #d97706;
+      --gold-500: #f59e0b;
+      --gold-50: #fffbeb;
+      --gold-border: #fde68a;
+      --emerald-600: #059669;
+      --emerald-50: #ecfdf5;
+      --emerald-border: #a7f3d0;
+      --rose-600: #e11d48;
+      --rose-50: #fff1f2;
+      --rose-border: #fecdd3;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+      --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+      --shadow-lg: 0 10px 25px -3px rgba(15, 23, 42, 0.08), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      padding-bottom: 90px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Minimalist Top App Bar */
+    .app-top {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-group { display: flex; align-items: center; gap: 10px; }
+    .brand-logo { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; }
+    .brand-name { font-size: 0.95rem; font-weight: 800; color: var(--navy-900); letter-spacing: -0.2px; }
+    .brand-season { font-size: 0.68rem; font-weight: 700; color: var(--gold-600); text-transform: uppercase; letter-spacing: 0.6px; }
+
+    .ath-select-chip {
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--navy-900);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Horizontal Week Calendar Timeline */
+    .week-strip {
+      display: flex;
+      gap: 8px;
+      padding: 14px 18px 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .week-strip::-webkit-scrollbar { display: none; }
+    
+    .day-pill {
+      flex: 0 0 auto;
+      min-width: 62px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 10px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+    }
+    .day-pill.active {
+      background: var(--navy-900);
+      border-color: var(--navy-900);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .day-name { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); }
+    .day-pill.active .day-name { color: #94a3b8; }
+    .day-num { font-size: 1.15rem; font-weight: 800; line-height: 1.2; margin: 2px 0; color: var(--navy-900); }
+    .day-pill.active .day-num { color: #fff; }
+    .day-type { font-size: 0.62rem; font-weight: 700; color: var(--gold-600); }
+    .day-pill.active .day-type { color: var(--gold-500); }
+
+    /* Compact Profile Hero */
+    .profile-hero {
+      margin: 6px 18px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ph-left { display: flex; align-items: center; gap: 14px; }
+    .ph-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      box-shadow: 0 4px 10px rgba(15, 43, 92, 0.2);
+    }
+    .ph-name { font-size: 1.15rem; font-weight: 800; color: var(--navy-900); letter-spacing: -0.3px; line-height: 1.2; }
+    .ph-meta { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+    
+    .triage-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.4px;
+    }
+    .triage-chip.high { background: var(--rose-50); color: var(--rose-600); border: 1px solid var(--rose-border); }
+    .triage-chip.medium { background: var(--gold-50); color: var(--gold-600); border: 1px solid var(--gold-border); }
+    .triage-chip.low { background: var(--emerald-50); color: var(--emerald-600); border: 1px solid var(--emerald-border); }
+
+    /* Prehab Activation Smart Card */
+    .prehab-accordion {
+      margin: 0 18px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .prehab-head {
+      padding: 12px 16px;
+      background: var(--surface-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+    .prehab-title-row { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.88rem; color: var(--navy-900); }
+    .prehab-progress-pill {
+      font-size: 0.68rem;
+      font-weight: 800;
+      background: #e2e8f0;
+      color: var(--navy-900);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .prehab-body { display: none; padding: 12px 16px; border-top: 1px solid var(--border); }
+    .prehab-accordion.open .prehab-body { display: block; }
+    .prehab-check-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .prehab-check-item:last-child { border-bottom: none; }
+    .pci-text { font-size: 0.82rem; font-weight: 700; color: var(--text-main); }
+    .pci-param { font-size: 0.72rem; color: var(--text-muted); margin-top: 1px; }
+    .pci-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 800;
+      transition: all 0.15s;
+    }
+    .pci-btn.done { background: var(--emerald-600); border-color: var(--emerald-600); color: #fff; }
+
+    /* Section Header */
+    .session-title-bar {
+      margin: 0 18px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stb-main { font-size: 1.05rem; font-weight: 800; color: var(--navy-900); }
+    .stb-sub { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+
+    /* Exercise Interactive Card */
+    .exercise-box {
+      margin: 0 18px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-md);
+    }
+    .eb-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .eb-title { font-size: 1.08rem; font-weight: 800; color: var(--navy-900); letter-spacing: -0.2px; line-height: 1.25; }
+    .eb-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 3px;
+    }
+    .eb-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: var(--surface-subtle);
+      color: var(--text-muted);
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .eb-rest {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold-600);
+      background: var(--gold-50);
+      border: 1px solid var(--gold-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Target Load Highlight */
+    .target-box {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .tb-label { font-size: 0.78rem; font-weight: 700; color: #166534; }
+    .tb-val { font-size: 1.15rem; font-weight: 800; color: #14532d; }
+
+    /* Interactive Set Pills Container */
+    .sets-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .set-row-pill {
+      background: var(--surface-subtle);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    .set-row-pill.completed {
+      background: var(--emerald-50);
+      border-color: var(--emerald-border);
+    }
+    .srp-left { display: flex; align-items: center; gap: 10px; }
+    .srp-idx {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--navy-900);
+    }
+    .set-row-pill.completed .srp-idx {
+      background: var(--emerald-600);
+      border-color: var(--emerald-600);
+      color: #fff;
+    }
+    .srp-details { font-size: 0.88rem; font-weight: 800; color: var(--navy-900); }
+    .srp-sub { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; }
+
+    /* Stepper Controls */
+    .stepper-wrap {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-step {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--navy-900);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-step:active { transform: scale(0.92); }
+    .step-val {
+      min-width: 52px;
+      text-align: center;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--navy-900);
+    }
+    .btn-check-set {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: none;
+      background: var(--navy-900);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 4px;
+      transition: all 0.2s;
+    }
+    .set-row-pill.completed .btn-check-set {
+      background: var(--emerald-600);
+    }
+
+    /* Floating Done Bar */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 90;
+    }
+    .bb-stat { font-size: 0.8rem; font-weight: 700; color: var(--navy-900); }
+    .btn-complete-all {
+      background: var(--navy-900);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(15, 43, 92, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top App Bar -->
+  <header class="app-top">
+    <div class="brand-group">
+      <img src="logo.jpg" class="brand-logo" alt="Marsala Volley">
+      <div>
+        <div class="brand-name">Marsala Volley</div>
+        <div class="brand-season">Serie A2 · Season 2026/27</div>
+      </div>
+    </div>
+    <select class="ath-select-chip" onchange="switchAth(this.value)">
+      <option value="1">Veronica Allasia</option>
+      <option value="8">Federica Nonnati</option>
+      <option value="9">Sara Dodi</option>
+      <option value="14">Nelly Adamczewska</option>
+    </select>
+  </header>
+
+  <!-- Horizontal Week Calendar Timeline -->
+  <nav class="week-strip">
+    <div class="day-pill" onclick="selectDay('LUN', this)">
+      <div class="day-name">Lun</div>
+      <div class="day-num">25</div>
+      <div class="day-type">Sabbia</div>
+    </div>
+    <div class="day-pill active" onclick="selectDay('MAR', this)">
+      <div class="day-name">Mar</div>
+      <div class="day-num">26</div>
+      <div class="day-type">Palestra</div>
+    </div>
+    <div class="day-pill" onclick="selectDay('MER', this)">
+      <div class="day-name">Mer</div>
+      <div class="day-num">27</div>
+      <div class="day-type">Campo</div>
+    </div>
+    <div class="day-pill" onclick="selectDay('GIO', this)">
+      <div class="day-name">Gio</div>
+      <div class="day-num">28</div>
+      <div class="day-type">Palestra</div>
+    </div>
+    <div class="day-pill" onclick="selectDay('VEN', this)">
+      <div class="day-name">Ven</div>
+      <div class="day-num">29</div>
+      <div class="day-type">Piscina</div>
+    </div>
+  </nav>
+
+  <!-- Compact Athlete Profile -->
+  <section class="profile-hero">
+    <div class="ph-left">
+      <div class="ph-avatar">#01</div>
+      <div>
+        <h1 class="ph-name">Veronica Allasia</h1>
+        <div class="ph-meta">Palleggiatrice · Microciclo W2</div>
+      </div>
+    </div>
+    <span class="triage-chip high">🔴 Rischio Caviglia DX</span>
+  </section>
+
+  <!-- Prehab Activation Smart Card -->
+  <section class="prehab-accordion open" id="prehab-acc">
+    <div class="prehab-head" onclick="document.getElementById('prehab-acc').classList.toggle('open')">
+      <div class="prehab-title-row">
+        <span>🛡️ Prehab Personale (Fase 1)</span>
+        <span class="prehab-progress-pill" id="prehab-status">2/5 Fatti</span>
+      </div>
+      <span style="font-size:0.8rem;color:var(--text-muted)">▾</span>
+    </div>
+    <div class="prehab-body">
+      <div class="prehab-check-item">
+        <div>
+          <div class="pci-text">1. SMR Combo Piede Sx + Pettorale Sx</div>
+          <div class="pci-param">1x2 min per zona · Tempo Lento</div>
+        </div>
+        <button class="pci-btn done" onclick="togglePrehab(this)">✓</button>
+      </div>
+      <div class="prehab-check-item">
+        <div>
+          <div class="pci-text">2. Cat-Cow Selettivo Lombare & IAP</div>
+          <div class="pci-param">3x10 · Tempo 3-1-1-0 · RPE 7</div>
+        </div>
+        <button class="pci-btn done" onclick="togglePrehab(this)">✓</button>
+      </div>
+      <div class="prehab-check-item">
+        <div>
+          <div class="pci-text">3. Rotazione Interna Anca Dx in prono</div>
+          <div class="pci-param">3x10 · Tempo 3-1-1-0 · RPE 7</div>
+        </div>
+        <button class="pci-btn" onclick="togglePrehab(this)">✓</button>
+      </div>
+      <div class="prehab-check-item">
+        <div>
+          <div class="pci-text">4. Depressione Scapolare Sx & Short Foot</div>
+          <div class="pci-param">3x15 · Tempo 3-2-1-0</div>
+        </div>
+        <button class="pci-btn" onclick="togglePrehab(this)">✓</button>
+      </div>
+      <div class="prehab-check-item">
+        <div>
+          <div class="pci-text">5. Clamshell con elastico Sx</div>
+          <div class="pci-param">3x12 · Tempo 3-1-1-0</div>
+        </div>
+        <button class="pci-btn" onclick="togglePrehab(this)">✓</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Session Title -->
+  <div class="session-title-bar">
+    <div>
+      <h2 class="stb-main">W2-MarP · Palestra Forza & Potenza</h2>
+      <div class="stb-sub">Sala Pesi · ~55 min · Squat al 80% 1RM</div>
+    </div>
+  </div>
+
+  <!-- Exercise 1: Back Squat -->
+  <article class="exercise-box">
+    <div class="eb-head">
+      <div>
+        <h3 class="eb-title">Back Squat (Bilanciere)</h3>
+        <div class="eb-meta">
+          <span class="eb-tag">Forza Massima</span>
+          <span class="eb-tag">Progressione W2</span>
+        </div>
+      </div>
+      <span class="eb-rest">⏱️ 2' 30" rec.</span>
+    </div>
+
+    <div class="target-box">
+      <div>
+        <div class="tb-label">🎯 Carico Target Suggerito</div>
+        <div style="font-size:0.72rem;color:#15803d">80% da 1RM (85 kg)</div>
+      </div>
+      <div class="tb-val">67.5 kg</div>
+    </div>
+
+    <!-- Interactive Set Pills -->
+    <div class="sets-container">
+      <!-- Set 1 (Done) -->
+      <div class="set-row-pill completed">
+        <div class="srp-left">
+          <div class="srp-idx">1</div>
+          <div>
+            <div class="srp-details">5 reps @ 67.5 kg</div>
+            <div class="srp-sub">Target completato</div>
+          </div>
+        </div>
+        <button class="btn-check-set" onclick="toggleSet(this)">✓</button>
+      </div>
+
+      <!-- Set 2 (Interactive Stepper) -->
+      <div class="set-row-pill">
+        <div class="srp-left">
+          <div class="srp-idx">2</div>
+          <div>
+            <div class="srp-details">5 reps</div>
+            <div class="srp-sub">In corso</div>
+          </div>
+        </div>
+        <div class="stepper-wrap">
+          <button class="btn-step" onclick="adjustKg('s2', -2.5)">-</button>
+          <span class="step-val" id="s2-kg">67.5kg</span>
+          <button class="btn-step" onclick="adjustKg('s2', 2.5)">+</button>
+          <button class="btn-check-set" onclick="toggleSet(this)">✓</button>
+        </div>
+      </div>
+
+      <!-- Set 3 -->
+      <div class="set-row-pill">
+        <div class="srp-left">
+          <div class="srp-idx">3</div>
+          <div>
+            <div class="srp-details">5 reps</div>
+            <div class="srp-sub">Da eseguire</div>
+          </div>
+        </div>
+        <div class="stepper-wrap">
+          <button class="btn-step" onclick="adjustKg('s3', -2.5)">-</button>
+          <span class="step-val" id="s3-kg">67.5kg</span>
+          <button class="btn-step" onclick="adjustKg('s3', 2.5)">+</button>
+          <button class="btn-check-set" onclick="toggleSet(this)">✓</button>
+        </div>
+      </div>
+
+      <!-- Set 4 -->
+      <div class="set-row-pill">
+        <div class="srp-left">
+          <div class="srp-idx">4</div>
+          <div>
+            <div class="srp-details">5 reps</div>
+            <div class="srp-sub">Da eseguire</div>
+          </div>
+        </div>
+        <div class="stepper-wrap">
+          <button class="btn-step" onclick="adjustKg('s4', -2.5)">-</button>
+          <span class="step-val" id="s4-kg">67.5kg</span>
+          <button class="btn-step" onclick="adjustKg('s4', 2.5)">+</button>
+          <button class="btn-check-set" onclick="toggleSet(this)">✓</button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Exercise 2: Superserie Pendlay Row + DB Bench -->
+  <article class="exercise-box">
+    <div class="eb-head">
+      <div>
+        <h3 class="eb-title">Pendlay Row + Panca Piana DB</h3>
+        <div class="eb-meta">
+          <span class="eb-tag">Superserie Antagonista</span>
+          <span class="eb-tag">Upper Body</span>
+        </div>
+      </div>
+      <span class="eb-rest">⏱️ 90s rec.</span>
+    </div>
+
+    <div class="sets-container">
+      <div class="set-row-pill">
+        <div class="srp-left">
+          <div class="srp-idx">1</div>
+          <div>
+            <div class="srp-details">6 row + 8 bench</div>
+            <div class="srp-sub">RPE 8</div>
+          </div>
+        </div>
+        <div class="stepper-wrap">
+          <button class="btn-step">-</button>
+          <span class="step-val">45kg</span>
+          <button class="btn-step">+</button>
+          <button class="btn-check-set" onclick="toggleSet(this)">✓</button>
+        </div>
+      </div>
+      <div class="set-row-pill">
+        <div class="srp-left">
+          <div class="srp-idx">2</div>
+          <div>
+            <div class="srp-details">6 row + 8 bench</div>
+            <div class="srp-sub">RPE 8</div>
+          </div>
+        </div>
+        <div class="stepper-wrap">
+          <button class="btn-step">-</button>
+          <span class="step-val">45kg</span>
+          <button class="btn-step">+</button>
+          <button class="btn-check-set" onclick="toggleSet(this)">✓</button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Floating Summary Bar -->
+  <footer class="bottom-bar">
+    <div>
+      <div class="bb-stat">Volume Totale: <strong>1.350 kg</strong></div>
+      <div style="font-size:0.68rem;color:var(--text-muted)">1 di 6 esercizi completati</div>
+    </div>
+    <button class="btn-complete-all" onclick="alert('Sessione registrata con successo!')">Fine Seduta</button>
+  </footer>
+
+  <script>
+    function selectDay(day, el) {
+      document.querySelectorAll('.day-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function togglePrehab(btn) {
+      btn.classList.toggle('done');
+      const totalDone = document.querySelectorAll('.pci-btn.done').length;
+      document.getElementById('prehab-status').textContent = `${totalDone}/5 Fatti`;
+    }
+
+    function toggleSet(btn) {
+      const pill = btn.closest('.set-row-pill');
+      pill.classList.toggle('completed');
+    }
+
+    function adjustKg(id, delta) {
+      const el = document.getElementById(`${id}-kg`);
+      let val = parseFloat(el.textContent) || 67.5;
+      val = Math.max(0, val + delta);
+      el.textContent = `${val.toFixed(1)}kg`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Marsala Volley — Scheda Atleta (Impeccable Design)</title>
+  <meta name="theme-color" content="#060e1e">
+  <style>
+    :root {
+      --mv-deep-navy: #060e1e;
+      --mv-navy-card: #0b172e;
+      --mv-navy-card-border: #152547;
+      --mv-gold: #e5a932;
+      --mv-gold-glow: rgba(229, 169, 50, 0.16);
+      --mv-gold-border: rgba(229, 169, 50, 0.35);
+      --mv-red-risk: #f43f5e;
+      --mv-red-glow: rgba(244, 63, 94, 0.15);
+      --mv-green: #10b981;
+      --mv-green-glow: rgba(16, 185, 129, 0.15);
+      --mv-text-primary: #f8fafc;
+      --mv-text-secondary: #94a3b8;
+      --mv-text-muted: #64748b;
+      --font-stack: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', Roboto, sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--mv-deep-navy);
+      color: var(--mv-text-primary);
+      font-family: var(--font-stack);
+      font-size: 14px;
+      line-height: 1.5;
+      padding-bottom: 84px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient Header */
+    .app-header {
+      background: rgba(6, 14, 30, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--mv-navy-card-border);
+      padding: 14px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-brand { display: flex; align-items: center; gap: 12px; }
+    .header-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid var(--mv-gold-border);
+    }
+    .header-titles { display: flex; flex-direction: column; }
+    .header-team { font-size: 0.95rem; font-weight: 800; letter-spacing: 0.3px; color: #fff; line-height: 1.2; }
+    .header-sub { font-size: 0.68rem; font-weight: 600; color: var(--mv-gold); letter-spacing: 0.5px; text-transform: uppercase; }
+
+    .athlete-selector {
+      background: var(--mv-navy-card);
+      color: #fff;
+      border: 1px solid var(--mv-navy-card-border);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Hero Athlete Card */
+    .hero-athlete {
+      margin: 14px 16px;
+      background: linear-gradient(145deg, #0d1d3a 0%, #081329 100%);
+      border: 1px solid var(--mv-navy-card-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-athlete::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, var(--mv-gold-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-main { display: flex; justify-content: space-between; align-items: flex-start; }
+    .hero-num-role {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--mv-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 4px;
+    }
+    .hero-name { font-size: 1.45rem; font-weight: 800; letter-spacing: -0.4px; color: #fff; line-height: 1.15; }
+    
+    .badge-triage {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      flex-shrink: 0;
+    }
+    .badge-triage.high { background: var(--mv-red-glow); color: #fda4af; border: 1px solid rgba(244,63,94,0.4); }
+    .badge-triage.medium { background: var(--mv-gold-glow); color: #fde047; border: 1px solid var(--mv-gold-border); }
+    .badge-triage.low { background: var(--mv-green-glow); color: #86efac; border: 1px solid rgba(16,185,129,0.4); }
+
+    .hero-clinical-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .tag-clinical {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+
+    /* Navigation Segments */
+    .segment-bar {
+      display: flex;
+      margin: 0 16px 16px;
+      background: var(--mv-navy-card);
+      border: 1px solid var(--mv-navy-card-border);
+      border-radius: var(--radius-md);
+      padding: 3px;
+    }
+    .segment-btn {
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--mv-text-muted);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 9px 4px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .segment-btn.active {
+      background: #17294e;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    /* Microcycle Subheader */
+    .microcycle-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 16px 14px;
+      padding: 0 4px;
+    }
+    .micro-title { font-size: 0.78rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--mv-text-muted); }
+    .week-pills { display: flex; gap: 6px; }
+    .wk-pill {
+      border: 1px solid var(--mv-navy-card-border);
+      background: var(--mv-navy-card);
+      color: var(--mv-text-secondary);
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .wk-pill.active {
+      background: var(--mv-gold);
+      color: var(--mv-deep-navy);
+      border-color: var(--mv-gold);
+    }
+
+    /* Session Card */
+    .session-group { margin: 0 16px 20px; }
+    .session-module {
+      background: var(--mv-navy-card);
+      border: 1px solid var(--mv-navy-card-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .session-module-head {
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      background: #0e1d3b;
+      border-bottom: 1px solid var(--mv-navy-card-border);
+    }
+    .smh-title { font-size: 1.05rem; font-weight: 800; color: #fff; }
+    .smh-meta { font-size: 0.75rem; color: var(--mv-text-secondary); margin-top: 2px; }
+    .smh-badge {
+      background: var(--mv-gold-glow);
+      color: var(--mv-gold);
+      border: 1px solid var(--mv-gold-border);
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    /* Exercise Modern Tile */
+    .exercise-tile {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--mv-navy-card-border);
+    }
+    .exercise-tile:last-child { border-bottom: none; }
+    .ex-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+    .ex-name { font-size: 0.98rem; font-weight: 800; color: #fff; line-height: 1.25; }
+    .ex-method { font-size: 0.65rem; font-weight: 700; color: var(--mv-text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-top: 2px; }
+
+    /* Tactical Set Grid */
+    .set-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--mv-navy-card-border);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+    .sg-col { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .sg-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--mv-text-muted); margin-bottom: 2px; }
+    .sg-value { font-size: 0.95rem; font-weight: 800; color: #fff; }
+    .sg-value.gold { color: var(--mv-gold); }
+    .sg-value.muted { font-size: 0.8rem; color: var(--mv-text-secondary); font-weight: 600; }
+
+    /* Target Load Banner */
+    .target-callout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(229, 169, 50, 0.08);
+      border: 1px solid var(--mv-gold-border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      font-size: 0.78rem;
+    }
+    .tc-left { color: #fde047; font-weight: 600; }
+    .tc-right { color: #fff; font-weight: 800; font-size: 0.9rem; }
+
+    /* Tactile Log Action */
+    .log-strip {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .log-field {
+      flex: 1;
+      background: #071021;
+      border: 1px solid var(--mv-navy-card-border);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .log-field:focus { border-color: var(--mv-gold); }
+    .btn-log-action {
+      background: var(--mv-gold);
+      color: var(--mv-deep-navy);
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 10px 18px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s;
+    }
+    .btn-log-action:active { transform: scale(0.96); }
+
+    /* Prehab Dedicated Section */
+    .prehab-flow-card {
+      margin: 0 16px 16px;
+      background: var(--mv-navy-card);
+      border: 1px solid var(--mv-navy-card-border);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px;
+    }
+    .pfc-title { font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .pfc-sub { font-size: 0.8rem; color: var(--mv-gold); font-weight: 700; margin-bottom: 8px; }
+    .pfc-obj { font-size: 0.8rem; color: var(--mv-text-secondary); line-height: 1.4; margin-bottom: 16px; }
+
+    .pfc-item {
+      background: rgba(0,0,0,0.22);
+      border: 1px solid var(--mv-navy-card-border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+    .pfc-item-name { font-size: 0.92rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .pfc-item-params { font-size: 0.75rem; font-weight: 800; color: var(--mv-gold); margin-bottom: 4px; }
+    .pfc-item-notes { font-size: 0.75rem; color: var(--mv-text-secondary); line-height: 1.35; }
+  </style>
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <img src="logo.jpg" class="header-logo" alt="Marsala Volley">
+      <div class="header-titles">
+        <span class="header-team">Marsala Volley</span>
+        <span class="header-sub">Serie A2 Femminile</span>
+      </div>
+    </div>
+    <select class="athlete-selector" onchange="switchAth(this.value)">
+      <option value="1">Veronica Allasia</option>
+      <option value="8">Federica Nonnati</option>
+      <option value="9">Sara Dodi</option>
+      <option value="14">Nelly Adamczewska</option>
+    </select>
+  </header>
+
+  <!-- Hero Profile -->
+  <section class="hero-athlete">
+    <div class="hero-main">
+      <div>
+        <div class="hero-num-role">#01 · Palleggiatrice</div>
+        <h1 class="hero-name">Veronica Allasia</h1>
+      </div>
+      <span class="badge-triage high">🔴 Alto Rischio</span>
+    </div>
+    <div class="hero-clinical-tags">
+      <span class="tag-clinical">⚠️ Instabilità Caviglia DX</span>
+      <span class="tag-clinical">Valgismo Ginocchio SX</span>
+      <span class="tag-clinical">Deficit Rotazione Anca DX</span>
+    </div>
+  </section>
+
+  <!-- Segment Bar -->
+  <nav class="segment-bar">
+    <button class="segment-btn active" onclick="tab('sedute', this)">🏋️ Sedute</button>
+    <button class="segment-btn" onclick="tab('prehab', this)">🛡️ Prehab Personale</button>
+    <button class="segment-btn" onclick="tab('rm', this)">📈 1RM & Profilo</button>
+  </nav>
+
+  <!-- Microcycle Selector -->
+  <div class="microcycle-header">
+    <span class="micro-title">Programmazione Pre-Season</span>
+    <div class="week-pills">
+      <button class="wk-pill">W1</button>
+      <button class="wk-pill active">W2 (Attiva)</button>
+    </div>
+  </div>
+
+  <!-- Content: Session -->
+  <main id="pane-sedute" class="session-group">
+    
+    <div class="session-module">
+      <div class="session-module-head">
+        <div>
+          <div class="smh-title">W2-MarP · Palestra Forza & Potenza</div>
+          <div class="smh-meta">📍 Sala Pesi · ⏱ ~60 min · Focus: Squat 80% & Superserie</div>
+        </div>
+        <span class="smh-badge">Martedì</span>
+      </div>
+
+      <!-- Exercise 1 -->
+      <div class="exercise-tile">
+        <div class="ex-header">
+          <div>
+            <div class="ex-name">Back Squat (Bilanciere)</div>
+            <div class="ex-method">Forza Massima · Progressione W2</div>
+          </div>
+        </div>
+
+        <div class="set-grid">
+          <div class="sg-col">
+            <span class="sg-label">Serie</span>
+            <span class="sg-value">4</span>
+          </div>
+          <div class="sg-col">
+            <span class="sg-label">Reps</span>
+            <span class="sg-value">5</span>
+          </div>
+          <div class="sg-col">
+            <span class="sg-label">Intensità</span>
+            <span class="sg-value gold">80% RM</span>
+          </div>
+          <div class="sg-col">
+            <span class="sg-label">Recupero</span>
+            <span class="sg-value muted">2' 30"</span>
+          </div>
+        </div>
+
+        <div class="target-callout">
+          <span class="tc-left">🎯 Carico suggerito (80% da 1RM 85kg)</span>
+          <span class="tc-right">≈ 67.5 kg</span>
+        </div>
+
+        <div class="log-strip">
+          <input type="text" class="log-field" placeholder="Es. 67.5kg (4 serie)">
+          <button class="btn-log-action">✓ Salva</button>
+        </div>
+      </div>
+
+      <!-- Exercise 2 -->
+      <div class="exercise-tile">
+        <div class="ex-header">
+          <div>
+            <div class="ex-name">Pendlay Row + Panca Piana DB</div>
+            <div class="ex-method">Superserie Antagonista (Upper)</div>
+          </div>
+        </div>
+
+        <div class="set-grid">
+          <div class="sg-col">
+            <span class="sg-label">Serie</span>
+            <span class="sg-value">3</span>
+          </div>
+          <div class="sg-col">
+            <span class="sg-label">Reps</span>
+            <span class="sg-value">6 + 8</span>
+          </div>
+          <div class="sg-col">
+            <span class="sg-label">Intensità</span>
+            <span class="sg-value gold">RPE 8</span>
+          </div>
+          <div class="sg-col">
+            <span class="sg-label">Recupero</span>
+            <span class="sg-value muted">90s</span>
+          </div>
+        </div>
+
+        <div class="log-strip">
+          <input type="text" class="log-field" placeholder="Es. 45kg row / 18kg panca">
+          <button class="btn-log-action">✓ Salva</button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Content: Prehab -->
+  <main id="pane-prehab" class="session-group" style="display:none">
+    <div class="prehab-flow-card">
+      <div class="pfc-title">Protocollo di Recupero Funzionale</div>
+      <div class="pfc-sub">Fase 1: Rilascio, ROM e Attivazione Selettiva (3-4×/sett)</div>
+      <div class="pfc-obj">Obiettivo: Allungare le catene rigide, sbloccare l'anca destra e la lombare, attivare selettivamente il tibiale posteriore e il gluteo medio.</div>
+
+      <div class="pfc-item">
+        <div class="pfc-item-name">1. SMR Combo (Pianta Piede Sx + Pettorale Sx)</div>
+        <div class="pfc-item-params">🎯 1x2 min per zona · Tempo Lento</div>
+        <div class="pfc-item-notes">Uso pallina contro il muro per il petto e foam roller/pallina sotto il piede sx.</div>
+      </div>
+
+      <div class="pfc-item">
+        <div class="pfc-item-name">2. Cat-Cow Selettivo (Lombare) & IAP</div>
+        <div class="pfc-item-params">🎯 3x10 · Tempo 3-1-1-0 · RPE 7</div>
+        <div class="pfc-item-notes">Cat-Cow lento sul bacino associato a respirazione diaframmatica con pressione intra-addominale.</div>
+      </div>
+
+      <div class="pfc-item">
+        <div class="pfc-item-name">3. Rotazione Interna Anca Dx in prono</div>
+        <div class="pfc-item-params">🎯 3x10 · Tempo 3-1-1-0 · RPE 7</div>
+        <div class="pfc-item-notes">Proni, ginocchio dx a 90°. Lasciar cadere il piede all'esterno mantenendo il bacino fisso.</div>
+      </div>
+
+      <div class="pfc-item">
+        <div class="pfc-item-name">4. Depressione Scapolare (Sx) & Short Foot (Sx)</div>
+        <div class="pfc-item-params">🎯 3x15 · Tempo 3-2-1-0 · RPE 7</div>
+        <div class="pfc-item-notes">Deprimere la scapola sx stando seduti, abbinando il Foot Doming a terra per il piede sx.</div>
+      </div>
+
+      <div class="pfc-item">
+        <div class="pfc-item-name">5. Clamshell con elastico leggero (Sx)</div>
+        <div class="pfc-item-params">🎯 3x12 · Tempo 3-1-1-0 · RPE 7</div>
+        <div class="pfc-item-notes">Decubito laterale destro, ginocchia a 90°. Aprire il ginocchio sx senza ruotare il bacino.</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function tab(name, btn) {
+      document.querySelectorAll('.segment-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('pane-sedute').style.display = name === 'sedute' ? 'block' : 'none';
+      document.getElementById('pane-prehab').style.display = name === 'prehab' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
