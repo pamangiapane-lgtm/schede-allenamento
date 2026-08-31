@@ -2,1942 +2,832 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scheda Giocatrice</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Marsala Volley — Scheda Allenamento</title>
+  <meta name="theme-color" content="#071226">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="logo.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    .mass-save-btn {
-      flex-shrink: 0;
-      background: var(--blu, #1a3a6b);
+    :root {
+      --mv-navy: #0c1f40;
+      --mv-navy-dark: #071226;
+      --mv-amber: #e8a020;
+      --mv-coral: #ef4444;
+      --mv-emerald: #10b981;
+      --mv-blue: #3b82f6;
+      --mv-bg: #090f1d;
+      --mv-surface: #0f192d;
+      --mv-surface2: #16243f;
+      --mv-surface3: #1e3155;
+      --mv-border: #1f365d;
+      --mv-text: #f8fafc;
+      --mv-muted: #94a3b8;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--mv-bg);
+      color: var(--mv-text);
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    /* Top App Header */
+    .app-header {
+      background: var(--mv-navy-dark);
+      border-bottom: 1px solid var(--mv-border);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    }
+    .header-brand { display: flex; align-items: center; gap: 12px; }
+    .site-logo { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    .app-title { font-size: 1.15rem; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .app-sub { font-size: 0.72rem; color: var(--mv-amber); font-weight: 700; }
+
+    .container { max-width: 680px; margin: 0 auto; padding: 16px; }
+
+    /* Athlete Hero Card */
+    .athlete-card {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .ath-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .ath-num-pill {
+      background: rgba(232,160,32,0.15);
+      border: 1px solid rgba(232,160,32,0.3);
+      color: var(--mv-amber);
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 6px;
+    }
+    .ath-risk-tag {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.4px;
+    }
+    .ath-risk-tag.high { background: rgba(239,68,68,0.18); color: #fca5a5; border: 1px solid #ef4444; }
+    .ath-risk-tag.medium { background: rgba(245,158,11,0.18); color: #fde68a; border: 1px solid #f59e0b; }
+    .ath-risk-tag.low { background: rgba(16,185,129,0.18); color: #6ee7b7; border: 1px solid #10b981; }
+
+    .ath-name { font-size: 1.45rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .ath-role { font-size: 0.82rem; color: var(--mv-muted); font-weight: 600; }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .nav-tab-btn {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      color: var(--mv-muted);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+    .nav-tab-btn.active {
+      background: var(--mv-amber);
+      color: #000;
+      border-color: var(--mv-amber);
+    }
+
+    /* Week Pill Switcher */
+    .week-switcher {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      background: var(--mv-surface);
+      padding: 6px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--mv-border);
+    }
+    .week-pill {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--mv-muted);
+      padding: 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+    }
+    .week-pill.active {
+      background: var(--mv-blue);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(59,130,246,0.4);
+    }
+
+    /* Section Panels */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* 1RM Profile Card */
+    .card-box {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rm-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .rm-card {
+      background: var(--mv-surface2);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+    }
+    .rm-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .rm-name { font-weight: 800; font-size: 0.92rem; color: #fff; }
+    .rm-val-box { display: flex; align-items: center; gap: 6px; }
+    .rm-input {
+      background: #090f1d;
+      border: 1px solid var(--mv-border);
+      color: var(--mv-amber);
+      font-size: 1rem;
+      font-weight: 800;
+      width: 70px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .rm-pcts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin-top: 6px;
+    }
+    .rm-pct-pill {
+      background: #090f1d;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 5px;
+      padding: 3px 4px;
+      text-align: center;
+    }
+    .rm-pct-lbl { font-size: 0.65rem; color: var(--mv-muted); font-weight: 700; display: block; }
+    .rm-pct-kg { font-size: 0.75rem; color: #fff; font-weight: 800; }
+
+    /* Prehab External Button */
+    .prehab-btn-external {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      border: 1px solid #3b82f6;
+      border-radius: var(--radius-md);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+      margin-bottom: 16px;
+      transition: transform 0.15s;
+    }
+    .prehab-btn-external:active { transform: scale(0.98); }
+
+    /* Session Accordions */
+    .session-card {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-lg);
+      margin-bottom: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .session-head {
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      background: var(--mv-surface);
+    }
+    .session-head:hover { background: var(--mv-surface2); }
+    .session-badge {
+      background: rgba(59,130,246,0.18);
+      border: 1px solid rgba(59,130,246,0.35);
+      color: #93c5fd;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 5px;
+      text-transform: uppercase;
+    }
+    .session-title { font-size: 1.05rem; font-weight: 800; color: #fff; margin-top: 4px; }
+    .session-meta { font-size: 0.75rem; color: var(--mv-muted); margin-top: 2px; }
+    .session-chevron { font-size: 1.2rem; color: var(--mv-muted); transition: transform 0.2s; }
+    .session-card.open .session-chevron { transform: rotate(180deg); color: var(--mv-amber); }
+    .session-body { display: none; padding: 14px 16px 20px; border-top: 1px solid var(--mv-border); }
+    .session-card.open .session-body { display: block; }
+
+    /* Method Group */
+    .method-group { margin-bottom: 18px; }
+    .method-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--mv-amber);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Exercise Card */
+    .exercise-card {
+      background: var(--mv-surface2);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .ex-name { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    
+    .ex-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      background: #090f1d;
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid rgba(255,255,255,0.04);
+      text-align: center;
+    }
+    .ex-grid-item .lbl { font-size: 0.65rem; color: var(--mv-muted); font-weight: 700; text-transform: uppercase; }
+    .ex-grid-item .val { font-size: 0.85rem; color: #fff; font-weight: 800; margin-top: 2px; }
+
+    .ex-target-box {
+      background: rgba(232,160,32,0.1);
+      border: 1px solid rgba(232,160,32,0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      color: #fde68a;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ex-target-box strong { color: var(--mv-amber); font-size: 0.95rem; }
+
+    .ex-log-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .log-input {
+      flex: 1;
+      background: #090f1d;
+      border: 1px solid var(--mv-border);
+      color: #fff;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      outline: none;
+    }
+    .log-input:focus { border-color: var(--mv-amber); }
+    .btn-save-log {
+      background: var(--mv-blue);
       color: #fff;
       border: none;
       border-radius: 8px;
-      padding: 4px 10px;
+      padding: 9px 16px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .saved-toast {
+      color: var(--mv-emerald);
+      font-size: 0.78rem;
+      font-weight: 800;
+      display: none;
+    }
+
+    .ex-notes-toggle {
+      background: transparent;
+      border: none;
+      color: var(--mv-muted);
       font-size: 0.75rem;
       font-weight: 700;
       cursor: pointer;
-      margin-left: 4px;
+      margin-top: 8px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
-    .mass-save-btn:active { opacity: 0.85; }
-  /* ── FASE TABS ── */
-  .fase-tabs { display: flex; gap: 6px; padding: 4px 16px 10px; flex-wrap: wrap; }
-  .fase-tab { padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--blu-chiaro, #ccd8ee); background: none; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: var(--text-light, #888); transition: background 0.15s, color 0.15s; }
-  .fase-tab.active { background: var(--blu, #1a3a6b); color: #fff; border-color: var(--blu, #1a3a6b); }
-  .fase-nascosta { display: none; }
-  .prossima-pin { display: flex; align-items: center; gap: 8px; margin: 10px 16px 2px; padding: 9px 14px; background: #eef3ff; border-radius: 10px; border: 1px solid #ccd8ee; }
-  .prossima-pin .pin-label { font-size: 0.78rem; color: var(--text-light, #888); white-space: nowrap; }
-  .prossima-pin .pin-btn { background: none; border: none; color: var(--blu, #1a3a6b); font-size: 0.82rem; font-weight: 700; cursor: pointer; padding: 0; text-align: left; line-height: 1.3; }
-  .prossima-pin .pin-arrow { font-size: 1rem; color: var(--blu, #1a3a6b); flex-shrink: 0; }
-  /* ── WELLNESS MODAL ── */
-  #wellness-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-  }
-  #wellness-overlay.open { display: flex; }
-  .wellness-card {
-    background: var(--bg, #fff);
-    border-radius: 18px;
-    padding: 28px 24px 20px;
-    max-width: 360px;
-    width: 90%;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.22);
-  }
-  .wellness-title {
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: var(--primary, #1a3a6b);
-    margin: 0 0 4px;
-  }
-  .wellness-sub {
-    font-size: 0.8rem;
-    color: var(--text-light, #888);
-    margin: 0 0 20px;
-  }
-  .wellness-q { margin-bottom: 18px; }
-  .wellness-q-label {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--text, #1a1a2e);
-    margin-bottom: 8px;
-  }
-  .wellness-stars {
-    display: flex;
-    gap: 8px;
-  }
-  .wellness-stars button {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    border: 2px solid var(--border, #dde1e9);
-    background: var(--surface, #f5f7fa);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-light, #888);
-    cursor: pointer;
-    transition: all 0.15s;
-    flex-shrink: 0;
-  }
-  .wellness-stars button.sel {
-    background: var(--primary, #1a3a6b);
-    border-color: var(--primary, #1a3a6b);
-    color: #fff;
-  }
-  .wellness-confirm {
-    width: 100%;
-    padding: 13px;
-    border-radius: 12px;
-    border: none;
-    background: var(--primary, #1a3a6b);
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 6px;
-  }
-  .wellness-confirm:disabled { opacity: 0.4; cursor: default; }
-  .wellness-guide {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 4px;
-    font-size: 0.7rem;
-    color: var(--text-light, #aaa);
-    padding: 0 2px;
-  }
-  .wellness-note-label {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--text, #1a1a2e);
-    margin: 4px 0 6px;
-  }
-  .wellness-note textarea {
-    width: 100%;
-    border: 1px solid var(--border, #dde1e9);
-    border-radius: 8px;
-    padding: 8px 10px;
-    font-size: 0.85rem;
-    font-family: inherit;
-    color: var(--text, #1a1a2e);
-    background: var(--surface, #f5f7fa);
-    resize: none;
-    box-sizing: border-box;
-  }
-  .wellness-note textarea:focus {
-    outline: none;
-    border-color: var(--primary, #1a3a6b);
-  }
+    .ex-notes-toggle:hover { color: #fff; }
+    .ex-notes-body {
+      display: none;
+      background: #090f1d;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    /* Session End Box 0-10 */
+    .session-end-card {
+      background: var(--mv-surface2);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      margin-top: 20px;
+    }
+    .end-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 14px; }
+    .rating-row { margin-bottom: 14px; }
+    .rating-head { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .rating-hint { font-size: 0.7rem; color: var(--mv-muted); margin-bottom: 6px; }
+    .rating-bar { display: grid; grid-template-columns: repeat(11, 1fr); gap: 3px; }
+    .r-btn {
+      background: #090f1d;
+      border: 1px solid var(--mv-border);
+      color: #cbd5e1;
+      padding: 7px 0;
+      font-size: 0.78rem;
+      font-weight: 800;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .r-btn.active {
+      background: var(--mv-amber) !important;
+      color: #000 !important;
+      border-color: var(--mv-amber) !important;
+    }
+    .end-textarea {
+      width: 100%;
+      background: #090f1d;
+      border: 1px solid var(--mv-border);
+      color: #fff;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.82rem;
+      min-height: 55px;
+      outline: none;
+      margin-bottom: 14px;
+    }
+    .btn-save-session {
+      width: 100%;
+      background: var(--mv-amber);
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-save-session:active { background: #d97706; }
   </style>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1a3a6b">
-  <link rel="apple-touch-icon" href="logo.jpg">
 </head>
 <body>
 
-<header>
-  <div class="header-brand">
-    <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
-    <h1>Schede Allenamento</h1>
-  </div>
-  <div id="dev-banner" style="display:none;background:#e8a000;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0;margin-top:6px;">⚠ AMBIENTE DI TEST — NON UFFICIALE</div>
-</header>
-
-<div id="push-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1a3a6b;color:#fff;padding:12px 16px;align-items:center;justify-content:space-between;gap:12px;font-size:0.9rem;">
-  <span>🔔 Vuoi ricevere promemoria wellness ogni mattina?</span>
-  <button id="push-btn" onclick="subscribePush()" style="background:#e8a020;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-weight:700;cursor:pointer;white-space:nowrap;">Attiva notifiche</button>
-</div>
-
-<div class="container">
-
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-    <a class="back-link" href="index.html" style="margin-bottom:0">← Tutte le giocatrici</a>
-    <a id="storico-link" href="#" style="font-size:.82rem;color:var(--blu-medio);text-decoration:none;font-weight:600;display:none">📈 Il mio storico</a>
-  </div>
-
-  <div id="loading" class="loading-msg">Caricamento scheda...</div>
-
-  <div id="contenuto" style="display:none">
-
-    <!-- HERO -->
-    <div class="scheda-hero">
-      <div class="hero-info">
-        <h2 id="hero-nome"></h2>
-        <p id="hero-ruolo"></p>
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
+      <div>
+        <h1 class="app-title">Marsala Volley</h1>
+        <div class="app-sub">Schede Allenamento 2026/27</div>
       </div>
     </div>
+  </header>
 
-    <!-- TAB -->
-    <div class="tabs">
-      <button class="tab-btn active" onclick="mostraSezione('profilo', this)">Profilo</button>
-      <button class="tab-btn" onclick="mostraSezione('sedute', this)">Sedute</button>
+  <main class="container">
+    <!-- Athlete Hero Card -->
+    <div class="athlete-card" id="athlete-card">
+      <div class="ath-top">
+        <span class="ath-num-pill" id="ath-number">#--</span>
+        <span class="ath-risk-tag low" id="ath-risk">RISCHIO BASSO</span>
+      </div>
+      <h2 class="ath-name" id="ath-name">Caricamento atleta...</h2>
+      <div class="ath-role" id="ath-role">Serie A2 Femminile</div>
     </div>
 
-    <!-- SEZIONE PROFILO -->
-    <div id="profilo" class="sezione active"></div>
+    <!-- Prehab Guys Portal Button -->
+    <a href="#" target="_blank" rel="noopener" class="prehab-btn-external" id="btn-prehab-external">
+      <span>🛡️ Apri il Portale Prehab Personale (The Prehab Guys)</span>
+      <span>↗</span>
+    </a>
 
-    <!-- SEZIONE SEDUTE -->
-    <div id="sedute" class="sezione"></div>
+    <!-- Nav Tabs -->
+    <div class="nav-tabs">
+      <button class="nav-tab-btn active" onclick="switchNav('sedute', this)">🏋️ Sedute di Allenamento</button>
+      <button class="nav-tab-btn" onclick="switchNav('profilo', this)">📊 Stima 1RM & Profilo</button>
+    </div>
 
-  </div><!-- fine contenuto -->
-
-</div><!-- fine container -->
-
-<script>
-const IS_DEV = window.location.pathname.includes('/dev/') || window.location.hostname === 'localhost';
-const API   = IS_DEV
-  ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
-  : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
-const API_PUSH = API; // stessa URL, ha salva_push_sub
-const TOKEN = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
-if (IS_DEV) {
-  document.title = '[DEV] ' + document.title;
-  document.getElementById('dev-banner').style.display = '';
-}
-const id    = new URLSearchParams(window.location.search).get('id');
-let ultimiLog   = {};
-let feedbackLog = {};
-
-/* ---------- i18n ---------- */
-const IT = {
-  loading:'Caricamento scheda...', back:'← Tutte le giocatrici',
-  tabProfile:'Profilo', tabSessions:'Sedute', appTitle:'Schede Allenamento',
-  notes:'Note', noteOpen:'Note ▾', noteClose:'Note ▸', noteCoach:'Messaggio del coach',
-  instructions:'ℹ️ Istruzioni ▸', instrOpen:'ℹ️ Istruzioni ▾',
-  howTo:'Come fare', feel:'Sensazione', avoid:'Evitare',
-  videoBtn:'▶ Video / Istruzione', openVideo:'▶ Apri video esercizio',
-  repeat: n=>`Ripeti ${n}×`, endSession:'Fine Seduta — Salva tutto',
-  saving:'Salvataggio…', saved:'✓ Salvato!', errorBtn:'Errore — riprova',
-  savedAt:(d,t)=>`✓ Salvato — ${d} ore ${t}`,
-  loggedN: n=>`Compilati (${n})`, missedN: n=>`Non compilati (${n})`,
-  rpeLabel:'Intensità seduta', rpeHint:'1 facile · 10 al limite',
-  fatLabel:'Come ti senti', fatHint:'1 esausta · 5 perfetta',
-  last:'Ultima: ', instrSection:'Istruzioni',
-  instrP1:'Inserisci il tuo <strong>peso corporeo</strong> qui sotto e tienilo aggiornato quando cambia — serve a calcolare i carichi per gli esercizi con sovraccarico.',
-  instrP2:'Dopo ogni seduta <strong>aggiorna il massimale (1RM)</strong> nella sezione qui sotto in base al carico spostato durante la seduta. I carichi in scheda si calcolano da quel valore.',
-  instrP3:'Compila i <strong>kg usati</strong> per ogni esercizio nella sezione Sedute e premi <strong>Salva</strong> per tenere lo storico aggiornato.',
-  bwTitle:'Peso corporeo', bwPlaceholder:'es. 65', saveBtn:'Salva', savedOk:'✓ Salvato!',
-  histTitle:'Storico carichi', sessionFallback: n=>`Seduta ${n}`, storicoLink:'Il mio storico',
-  maxTitle:'Massimali', enterRM:'Inserisci il tuo RM',
-  afTitle:'Analisi Funzionale', stratTitle:'Strategia',
-  prehabTitle:'Programma Prehab', prehabBtn:'Apri il programma personale',
-  prehabFreq:'5× / sett.',
-  serie:'Serie', intensity:'Intensità', rest:'Recupero', rec:'rec',
-  retry:'↺ Riprova',
-  notFound:'Giocatrice non trovata.', loadError:'Errore nel caricamento. Riprova.',
-  months:['gen','feb','mar','apr','mag','giu','lug','ago','set','ott','nov','dic'],
-};
-const EN = {
-  loading:'Loading...', back:'← All athletes',
-  tabProfile:'Profile', tabSessions:'Sessions', appTitle:'Training Program',
-  notes:'Notes', noteOpen:'Notes ▾', noteClose:'Notes ▸', noteCoach:'Coach message',
-  instructions:'ℹ️ Instructions ▸', instrOpen:'ℹ️ Instructions ▾',
-  howTo:'How to', feel:'Feel', avoid:'Avoid',
-  videoBtn:'▶ Video / Instructions', openVideo:'▶ Open exercise video',
-  repeat: n=>`Repeat ${n}×`, endSession:'End Session — Save all',
-  saving:'Saving…', saved:'✓ Saved!', errorBtn:'Error — try again',
-  savedAt:(d,t)=>`✓ Saved — ${d} at ${t}`,
-  loggedN: n=>`Logged (${n})`, missedN: n=>`Not logged (${n})`,
-  rpeLabel:'Session intensity', rpeHint:'1 easy · 10 max effort',
-  fatLabel:'How do you feel', fatHint:'1 exhausted · 5 great',
-  last:'Last: ', instrSection:'Instructions',
-  instrP1:'Enter your <strong>body weight</strong> below and keep it updated whenever it changes — it\'s used to calculate loads for barbell exercises.',
-  instrP2:'After each session, <strong>update your 1RM</strong> in the section below based on how the exercise felt. Your program loads are calculated from that value.',
-  instrP3:'Fill in the <strong>kg used</strong> for each exercise in the Sessions tab and press <strong>Save</strong> to keep your history up to date.',
-  bwTitle:'Body weight', bwPlaceholder:'e.g. 65', saveBtn:'Save', savedOk:'✓ Saved!',
-  histTitle:'Load History', sessionFallback: n=>`Session ${n}`, storicoLink:'My progress',
-  maxTitle:'1RM Maxes', enterRM:'Enter your 1RM',
-  afTitle:'Functional Assessment', stratTitle:'Strategy',
-  prehabTitle:'Prehab Program', prehabBtn:'Open personal program',
-  prehabFreq:'5× / week',
-  serie:'Sets', intensity:'Intensity', rest:'Rest', rec:'Rest',
-  retry:'↺ Retry',
-  notFound:'Player not found.', loadError:'Loading error. Try again.',
-  months:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-};
-let L = IT;
-
-const METODO_EN = {
-  'Riscaldamento':      'Warm-up',
-  'Prehab individuale': 'Individual Prehab',
-  'Metabolico':         'Conditioning',
-  'Circuito Funzionale':'Functional Circuit',
-  'Funzionale':         'Functional',
-  'FDM':                'FDM',
-  'FM':                 'FM',
-  'Weightlifting':      'Weightlifting',
-  'Lanci (shot put)':   'Shot Put Throws',
-};
-function traduciMetodo(nome) {
-  if (L !== EN) return nome;
-  return METODO_EN[nome] || nome;
-}
-function traduciSeduta(nome) {
-  if (L !== EN) return nome;
-  return nome.replace(/\bSeduta\b/g, 'Session');
-}
-
-const DESC_METODO_EN = {
-  'Bilanciere — Metabolico':            'Barbell — Conditioning',
-  'Fine seduta':                        'End of session',
-  'Esecuzione massima velocità concentrica — mantieni la velocità per tutta la serie.':
-    'Maximum concentric speed — maintain velocity throughout the set.',
-  'Esecuzione massima velocità concentrica - mantieni la velocità per tutta la serie.':
-    'Maximum concentric speed — maintain velocity throughout the set.',
-  'Sposta il carico alla massima velocità possibile. Se non riesci a terminare la serie, cambia esercizio.':
-    'Move the load at maximum speed. If you cannot complete the set, switch exercises.',
-  'Metabolico - tapis roulant, bike o step.':
-    'Conditioning – treadmill, bike or step machine.',
-  'Circuito — rispetta l\'ampiezza di movimento su tutti gli esercizi.':
-    'Circuit — full range of motion on every exercise.',
-  'Ripeti il circuito 4 volte.':
-    'Repeat the circuit 4 times.',
-  'Rispetta l\'ampiezza di movimento su tutti gli esercizi.':
-    'Full range of motion on every exercise.',
-  'Rispetta le note nelle esecuzioni.':
-    'Follow the coaching notes for each exercise.',
-  'Se non conosci il tuo massimale incrementa gradualmente i carichi, aggiorna il tab RM nelle info, se non hai mai fatto clean scrivimi.':
-    'If you don\'t know your 1RM, gradually increase the load and update the 1RM tab in your profile. If you\'ve never done cleans, message me.',
-};
-function traduciDescMetodo(desc) {
-  if (L !== EN || !desc) return desc;
-  return DESC_METODO_EN[desc] || desc;
-}
-
-/* ── FASE TABS ── */
-const FASI_DEF = [
-  { id: 'w1', label: 'W1', labelEN: 'W1' },
-  { id: 'w2', label: 'W2', labelEN: 'W2' },
-  { id: 'w3', label: 'W3', labelEN: 'W3' },
-  { id: 'w4', label: 'W4', labelEN: 'W4' },
-  { id: 'w5', label: 'W5', labelEN: 'W5' },
-  { id: 'w6', label: 'W6', labelEN: 'W6' },
-  { id: 'base',    label: 'W1-4 Base',  labelEN: 'W1-4 Base'  },
-  { id: 'picco',   label: 'W5 Picco',   labelEN: 'W5 Peak'    },
-  { id: 'potenza', label: 'W6 Potenza', labelEN: 'W6 Power'   },
-  { id: 'taper',   label: 'W7 Taper',   labelEN: 'W7 Taper'   },
-];
-function faseDa(numSed) {
-  const s = String(numSed || '');
-  const mW = s.match(/^(W[1-6])-/i);
-  if (mW) return mW[1].toLowerCase();
-  if (s.startsWith('OS4-')) return 'taper';
-  if (s.startsWith('OS3-')) return 'potenza';
-  if (s.startsWith('OS2-')) return 'picco';
-  if (s.startsWith('OS1-')) return 'base';
-  return null;
-}
-function nomeSeduta(sed) {
-  return sed.Nome_Seduta || sed.Nome || String(sed.Numero_Seduta || '');
-}
-function switchFase(faseId, scrollToId) {
-  document.querySelectorAll('.fase-wrap').forEach(w => w.classList.add('fase-nascosta'));
-  document.querySelectorAll('.fase-tab').forEach(t => t.classList.remove('active'));
-  const wrap = document.getElementById('fase-wrap-' + faseId);
-  if (wrap) wrap.classList.remove('fase-nascosta');
-  const tab = document.querySelector(`.fase-tab[data-fase="${faseId}"]`);
-  if (tab) tab.classList.add('active');
-  if (scrollToId) setTimeout(() => {
-    const el = document.getElementById('acc-' + scrollToId);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 50);
-}
-
-/* ---------- helpers ---------- */
-function param(label, val) {
-  return `<div class="param"><div class="param-label">${label}</div><div class="param-value">${val}</div></div>`;
-}
-
-function parseIntensita(s) {
-  if (!s) return null;
-  const m = String(s).match(/(\d+(?:\.\d+)?)\s*%/);
-  return m ? parseFloat(m[1]) / 100 : null;
-}
-
-function formatIntensita(v) {
-  if (!v) return v;
-  const n = parseFloat(v);
-  if (!isNaN(n) && n > 0 && n < 1) return Math.round(n * 100) + '%';
-  return String(v);
-}
-
-function parseReps(s) {
-  if (!s) return null;
-  const m = String(s).match(/\d+/);
-  return m ? parseInt(m[0]) : null;
-}
-
-function formatData(s) {
-  if (!s) return '—';
-  const mesi = L.months;
-  let d, mo;
-  if (typeof s === 'string' && s.includes('/')) {
-    const p = s.split('/'); d = +p[0]; mo = +p[1] - 1;
-  } else {
-    const dt = new Date(s); d = dt.getDate(); mo = dt.getMonth();
-  }
-  return isNaN(d) ? String(s) : `${d} ${mesi[mo] || ''}`;
-}
-
-function parseLato(note) {
-  if (!note) return '';
-  const m = String(note).match(/^Lato:\s*([^.]+)/);
-  return m ? m[1].trim() : '';
-}
-
-function parseEcc(note) {
-  if (!note) return '';
-  const m = String(note).match(/Ecc:\s*([^."]+)/);
-  return m ? m[1].trim() : '';
-}
-
-function noteBlock(note, istruzione, uid, mediaUrl) {
-  let desc = null;
-  if (istruzione) { try { desc = JSON.parse(istruzione); } catch {} }
-  const hasDesc = desc && (desc.h || desc.f || desc.a);
-  const hasImg  = mediaUrl && isImage(mediaUrl);
-  if (!hasDesc && !note && !hasImg) return '';
-  let content = '';
-  if (hasDesc) {
-    const isEN = (L === EN);
-    const dh = (isEN && desc.h_en) ? desc.h_en : desc.h;
-    const df = (isEN && desc.f_en) ? desc.f_en : desc.f;
-    const da = (isEN && desc.a_en) ? desc.a_en : desc.a;
-    if (dh) content += `<div class="nb-row"><span class="nb-badge nb-how">${L.howTo}</span><span class="nb-text">${dh}</span></div>`;
-    if (df) content += `<div class="nb-row"><span class="nb-badge nb-feel">${L.feel}</span><span class="nb-text">${df}</span></div>`;
-    if (da) content += `<div class="nb-row"><span class="nb-badge nb-avoid">${L.avoid}</span><span class="nb-text">${da}</span></div>`;
-  }
-  if (hasImg)  content += `<img src="${mediaUrl}" alt="Exercise" class="nb-img" onclick="zoomImg(this)">`;
-  if (note)    content += `<div class="nb-coach">${note}</div>`;
-  return `<button class="nb-toggle" onclick="toggleNote('nb-${uid}')">${L.noteClose}</button>
-    <div class="nb-panel" id="nb-${uid}" style="display:none">${content}</div>`;
-}
-
-function toggleNote(noteId) {
-  const el = document.getElementById(noteId);
-  if (!el) return;
-  const open = el.style.display !== 'none';
-  el.style.display = open ? 'none' : 'block';
-  const btn = el.previousElementSibling;
-  if (btn) {
-    const t = btn.textContent;
-    btn.textContent = open ? t.replace('▾','▸') : t.replace('▸','▾');
-  }
-}
-
-function logField(logId, esercizio, nSeduta, intensita, catena, repsStr) {
-  const ultima       = ultimiLog[esercizio];
-  const intensitaPct = parseIntensita(intensita);
-  const reps         = parseReps(repsStr);
-
-  const ultimaKg   = ultima?.kg != null ? `${ultima.kg} kg` : null;
-  const ultimaHtml = ultima
-    ? `<div class="ultima-seduta">${L.last}<em>${ultimaKg ?? ultima.valore}</em></div>`
-    : '';
-
-  return `
-    <div class="log-compact">
-      ${ultimaHtml}
-      <div class="log-compact-row">
-        <input type="number" id="${logId}" class="log-kg-input" placeholder="kg"
-               min="1" step="0.5" oninput="calcolaLive('${logId}')"
-               data-esercizio="${esercizio}" data-seduta="${nSeduta}"
-               data-intensita="${intensitaPct || ''}" data-catena="${catena || ''}"
-               data-reps="${reps || ''}" data-rm="" data-carico="">
-        <span class="log-calc-result" id="rm-${logId}">—</span>
+    <!-- Tab Sedute -->
+    <div class="tab-panel active" id="tab-sedute">
+      <!-- Week Switcher -->
+      <div class="week-switcher">
+        <button class="week-pill active" onclick="switchWeek('W1', this)">Settimana 1 (W1)</button>
+        <button class="week-pill" onclick="switchWeek('W2', this)">Settimana 2 (W2)</button>
       </div>
-    </div>`;
-}
 
-/* ---------- media helpers ---------- */
-function ytId(url) {
-  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([A-Za-z0-9_-]{11})/);
-  return m ? m[1] : null;
-}
+      <!-- Sessions Container -->
+      <div id="sessions-container"></div>
+    </div>
 
-function isImage(url) {
-  return /\.(jpe?g|png|gif|webp|svg)(\?|$)/i.test(url);
-}
+    <!-- Tab Profilo & 1RM -->
+    <div class="tab-panel" id="tab-profilo">
+      <div class="card-box">
+        <h3 class="card-title">🏋️ Stima Massimali 1RM & Percentuali</h3>
+        <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:14px;">I valori sono precompilati in base alle registrazioni raccolte. Puoi aggiornarli se migliori il tuo carico.</p>
+        <div class="rm-grid" id="rm-grid-container"></div>
+      </div>
+    </div>
+  </main>
 
-function mediaBlock(url, uid) {
-  if (!url) return '';
-  const panelId = 'media-' + uid;
-  let content;
-  const yt = ytId(url);
-  if (yt) {
-    content = `<div class="video-wrap"><iframe data-src="https://www.youtube.com/embed/${yt}?playsinline=1" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe></div>`;
-  } else if (isImage(url)) {
-    content = `<img src="${url}" alt="Exercise" class="media-img" onclick="zoomImg(this)">`;
-  } else if (url.includes('mediadelivery.net')) {
-    content = `<a href="${url}" target="_blank" rel="noopener" class="media-link">${L.openVideo}</a>`;
-  } else {
-    content = `<div class="video-wrap"><iframe data-src="${url}" frameborder="0" allowfullscreen allow="autoplay"></iframe></div>`;
-  }
-  return `
-    <button class="media-toggle" onclick="toggleMedia('${panelId}')" aria-label="Video">
-      <span class="media-toggle-icon">▶</span> ${L.videoBtn}
-    </button>
-    <div class="media-panel" id="${panelId}" style="display:none">${content}</div>`;
-}
+  <script src="data.js?v=20260831v3"></script>
+  <script>
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+    const TOKEN   = 'mv26-prd-3xF7wNqK';
 
-function zoomImg(img) {
-  let ov = document.getElementById('img-overlay');
-  if (!ov) {
-    ov = document.createElement('div');
-    ov.id = 'img-overlay';
-    ov.onclick = () => ov.style.display = 'none';
-    ov.appendChild(document.createElement('img'));
-    document.body.appendChild(ov);
-  }
-  ov.querySelector('img').src = img.src;
-  ov.style.display = 'flex';
-}
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentId = parseInt(urlParams.get('id') || '12');
+    const isEN = (currentId === 4 || currentId === 14);
 
-function toggleMedia(panelId) {
-  const panel = document.getElementById(panelId);
-  if (!panel) return;
-  const open = panel.style.display !== 'none';
-  panel.style.display = open ? 'none' : 'block';
-  const btn = panel.previousElementSibling;
-  if (btn) btn.classList.toggle('media-toggle-open', !open);
-  if (!open) {
-    const iframe = panel.querySelector('iframe[data-src]');
-    if (iframe && !iframe.src) iframe.src = iframe.dataset.src;
-  } else {
-    const iframe = panel.querySelector('iframe');
-    if (iframe) iframe.src = '';
-  }
-}
+    let currentWeek = 'W1';
+    let currentAthlete = null;
 
-/* ---------- exercise rendering ---------- */
-function repsConTempo(reps, note) {
-  const lato = parseLato(note);
-  const ecc  = parseEcc(note);
-  let display = reps || '';
-  if (lato === 'Alt' && /^\d+$/.test(String(reps))) {
-    display = `${reps}+${reps}`;
-  } else if (lato && lato !== 'Bil' && lato !== 'Alt') {
-    display += ` · ${lato}`;
-  }
-  if (ecc && ecc !== '—') display += ` · ${ecc}`;
-  return display;
-}
-
-function sanitizeVal(v) {
-  if (!v) return v;
-  const s = String(v);
-  return /^\d{4}-\d{2}-\d{2}T/.test(s) ? '' : s;
-}
-
-function parseBlocchi(e) {
-  const hasPipe = s => s && String(s).includes('|');
-  const split   = s => s ? String(sanitizeVal(s)).split('|').map(v => v.trim()) : [];
-  if (hasPipe(e.Serie) || hasPipe(e.Reps) || hasPipe(e['Intensità']) || hasPipe(e.Recupero)) {
-    const sr = split(e.Serie), rp = split(e.Reps);
-    const it = split(e['Intensità']), rc = split(e.Recupero);
-    const n  = Math.max(sr.length, rp.length, it.length, rc.length);
-    return Array.from({ length: n }, (_, i) => ({
-      serie: sr[i] || '', reps: rp[i] || '', intensita: it[i] || '', recupero: rc[i] || '',
-    }));
-  }
-  if (e.Tipo_Esercizio === 'bicarico') {
-    return [
-      { serie: e.Serie  || '', reps: e.Reps  || '', intensita: e['Intensità']  || '', recupero: e.Recupero  || '' },
-      { serie: e.SerieB || '', reps: e.RepsB || '', intensita: e['IntensitàB'] || '', recupero: e.RecuperoB || '' },
+    const RM_KEYS = [
+      { id: 'squat', name: 'Back Squat', baseline: 'Squat / Step Up' },
+      { id: 'bench', name: 'Bench Press', baseline: 'Bench Press' },
+      { id: 'clean', name: 'Power Clean', baseline: 'Clean' },
+      { id: 'row',   name: 'Row (Rematore)', baseline: 'Row BB' },
+      { id: 'lat',   name: 'Lat (Lat Machine / Trazioni)', baseline: 'Lat Machine' }
     ];
-  }
-  return [{ serie: e.Serie || '', reps: e.Reps || '', intensita: e['Intensità'] || '', recupero: e.Recupero || '' }];
-}
 
-function htmlEsercizio(e, logId) {
-  const nome    = (L === EN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
-  const blocchi = parseBlocchi(e);
-  const multi   = blocchi.length > 1;
-  const ROWS    = [
-    { label: L.serie,     key: 'serie'     },
-    { label: 'Reps',      key: 'reps'      },
-    { label: L.intensity, key: 'intensita' },
-    { label: L.rest,      key: 'recupero'  },
-  ];
-
-  let h = `<div class="esercizio">`;
-  h += `<div class="eserc-nome">${nome}`;
-  if (e.Num_Ripetizioni) h += ` <span class="ripeti-badge">${L.repeat(e.Num_Ripetizioni)}</span>`;
-  h += `</div>`;
-
-  h += `<div class="mini-tbl-wrap"><table class="mini-tbl">`;
-  if (multi) {
-    h += `<thead><tr><th></th>`;
-    blocchi.forEach((_, i) => { h += `<th>${String.fromCharCode(65 + i)}</th>`; });
-    h += `</tr></thead>`;
-  }
-  h += `<tbody>`;
-  ROWS.forEach((row, idx) => {
-    const vals = multi
-      ? blocchi.map(b => row.key === 'intensita' ? formatIntensita(b[row.key]) : b[row.key])
-      : [idx === 1 ? repsConTempo(e.Reps, e.Note) : (row.key === 'intensita' ? formatIntensita(blocchi[0][row.key]) : blocchi[0][row.key])];
-    if (vals.every(v => !v)) return;
-    h += `<tr><td class="mini-tbl-label">${row.label}</td>`;
-    vals.forEach(v => { h += `<td class="mini-tbl-val">${v || '—'}</td>`; });
-    h += `</tr>`;
-  });
-  h += `</tbody></table></div>`;
-
-  h += noteBlock(e.Note || '', e.Istruzione || null, logId, e.VideoURL || '');
-  h += `</div>`;
-  return h;
-}
-
-function htmlIndividuale(e, sedSuffix) {
-  const nome = (L === EN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
-  const logId      = `log-ind-${id}-${e.Codice}-${e.Ordine}${sedSuffix ? '-' + sedSuffix : ''}`;
-  const repsDisplay = repsConTempo(e.Reps, e.Note);
-  let h = `<div class="esercizio">`;
-  h += `<div class="eserc-nome">${nome}</div>`;
-  h += `<div class="eserc-params">`;
-  if (e.Serie)      h += param(L.serie, e.Serie);
-  if (repsDisplay)  h += param('Reps', repsDisplay);
-  if (e.Intensita)  h += param(L.intensity, e.Intensita);
-  if (e.Recupero)   h += param(L.rest, e.Recupero);
-  h += `</div>`;
-  h += noteBlock(e.Note || '', e.Istruzione, logId, e.VideoURL || '');
-  h += `</div>`;
-  return h;
-}
-
-/* ---------- cache ---------- */
-const CACHE_V   = 'v5';
-const CACHE_TTL = 10 * 60 * 1000; // 10 minuti — dopo scade e si ri-fetcha
-function leggiCache(f) {
-  try {
-    const r = localStorage.getItem(`sch_${CACHE_V}_${f}`);
-    if (!r) return null;
-    const obj = JSON.parse(r);
-    if (!obj || !obj._ts || !obj._d) return null;
-    if (Date.now() - obj._ts > CACHE_TTL) return null; // scaduta
-    return obj._d;
-  } catch { return null; }
-}
-function scriviCache(f, dati) {
-  try { localStorage.setItem(`sch_${CACHE_V}_${f}`, JSON.stringify({ _ts: Date.now(), _d: dati })); } catch {}
-}
-
-/* ---------- POST con retry e controllo ok ---------- */
-async function postApi(payload, tentativo = 0) {
-  const MAX = 2;
-  try {
-    const r    = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
-    const json = await r.json().catch(() => ({}));
-    if (json.ok === false) throw new Error(json.errore || 'server error');
-    return json;
-  } catch (err) {
-    if (tentativo < MAX) {
-      await new Promise(res => setTimeout(res, 1500 * (tentativo + 1)));
-      return postApi(payload, tentativo + 1);
-    }
-    throw err;
-  }
-}
-
-/* ---------- caricamento ---------- */
-async function fetchApi(foglio, tentativo = 0) {
-  const TIMEOUT = 28000;
-  const ctrl = new AbortController();
-  const tid = setTimeout(() => ctrl.abort(), TIMEOUT);
-  try {
-    const r = await fetch(`${API}?token=${TOKEN}&azione=leggi&foglio=${foglio}`, { signal: ctrl.signal });
-    const text = await r.text();
-    clearTimeout(tid);
-    return JSON.parse(text);
-  } catch (err) {
-    clearTimeout(tid);
-    if (tentativo < 2) {
-      await new Promise(res => setTimeout(res, 1500 * (tentativo + 1)));
-      return fetchApi(foglio, tentativo + 1);
-    }
-    throw err;
-  }
-}
-
-/* ---------- CSV da GitHub raw (Esercizi e Sedute) ---------- */
-const RAW_BASE = 'https://raw.githubusercontent.com/pamangiapane-lgtm/schede-allenamento/main/data/';
-
-function parseCSV(text) {
-  const lines = text.split(/\r?\n/).filter(l => l.trim());
-  if (lines.length < 2) return [];
-  const headers = lines[0].split(',');
-  return lines.slice(1).map(line => {
-    const vals = [];
-    let cur = '', inQ = false;
-    for (let i = 0; i < line.length; i++) {
-      const c = line[i];
-      if (c === '"') { inQ = !inQ; }
-      else if (c === ',' && !inQ) { vals.push(cur); cur = ''; }
-      else cur += c;
-    }
-    vals.push(cur);
-    const row = {};
-    headers.forEach((h, i) => { row[h.trim()] = (vals[i] || '').trim(); });
-    return row;
-  });
-}
-
-async function fetchCSV(filename) {
-  const r = await fetch(RAW_BASE + filename + '?t=' + Date.now());
-  if (!r.ok) throw new Error('CSV fetch failed: ' + filename);
-  return parseCSV(await r.text());
-}
-
-async function fetchEserciziCSV() {
-  const [w1, w2] = await Promise.all([fetchCSV('W1_Esercizi.csv'), fetchCSV('W2_Esercizi.csv')]);
-  return { ok: true, dati: [...w1, ...w2] };
-}
-
-async function fetchSeduteCSV() {
-  const [w1, w2] = await Promise.all([fetchCSV('W1_Sedute.csv'), fetchCSV('W2_Sedute.csv')]);
-  return { ok: true, dati: [...w1, ...w2] };
-}
-
-async function fetchSheet(foglio) {
-  // Esercizi e Sedute: direttamente dal CSV su GitHub (bypassa GAS — dati sempre aggiornati)
-  if (foglio === 'Esercizi') return fetchEserciziCSV();
-  if (foglio === 'Sedute') return fetchSeduteCSV();
-  const cached = leggiCache(foglio);
-  if (cached) {
-    fetchApi(foglio).then(j => { if (j.ok) scriviCache(foglio, j.dati); }).catch(() => {});
-    return { ok: true, dati: cached };
-  }
-  const j = await fetchApi(foglio);
-  if (j.ok) scriviCache(foglio, j.dati);
-  return j;
-}
-
-async function caricaScheda() {
-  if (!id) { window.location.href = 'index.html'; return; }
-
-  try {
-    const [resG, resL, resS, resE, resP] = await Promise.all([
-      fetchSheet('Giocatrici'),
-      fetchSheet('LibreriaIndividuale'),
-      fetchSheet('Sedute'),
-      fetchSheet('Esercizi'),
-      fetchSheet('Progressi'),
-    ]);
-
-    /* costruisce mappa ultimo log e feedback per seduta */
-    (resP.dati || [])
-      .filter(p => String(p.ID_Giocatrice) === String(id))
-      .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
-      .forEach(p => {
-        if (p.Esercizio === 'RPE-seduta' || p.Esercizio === 'Fatica-seduta') {
-          if (!feedbackLog[p.N_Seduta]) feedbackLog[p.N_Seduta] = {};
-          feedbackLog[p.N_Seduta][p.Esercizio] = Number(p.Valore);
-        } else if (p.Valore) {
-          ultimiLog[p.Esercizio] = {
-            valore: p.Valore,
-            rm: p.RM_Stimato ? Math.round(Number(p.RM_Stimato)) : null,
-            kg: p.Kg_Usati ? Number(p.Kg_Usati) : null,
-          };
-        }
-      });
-
-    let g = (resG.dati || []).find(x => String(x.ID) === String(id));
-    if (!g && String(id) === '99') {
-      g = { ID: 99, Nome: 'Demo Coach', Ruolo: 'Coach', Lingua: 'IT', Fase_Prehab: 'F1', Colonne_Individuali: '' };
-    }
-    if (!g) { mostraErrore(L.notFound); return; }
-
-    /* LINGUA */
-    L = (g.Lingua === 'EN') ? EN : IT;
-    document.querySelector('h1').textContent = L.appTitle;
-    document.querySelector('.back-link').textContent = L.back;
-    const sl = document.getElementById('storico-link');
-    if (sl && id) { sl.href = 'storico.html?id=' + encodeURIComponent(id); sl.textContent = '📈 ' + L.storicoLink; sl.style.display = ''; }
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    if (tabBtns[0]) tabBtns[0].textContent = L.tabProfile;
-    if (tabBtns[1]) tabBtns[1].textContent = L.tabSessions;
-    document.documentElement.lang = (L === EN) ? 'en' : 'it';
-
-    /* HERO */
-    document.getElementById('hero-nome').textContent  = g.Nome;
-    document.getElementById('hero-ruolo').textContent = g.Ruolo || '';
-    document.title = g.Nome + ' — ' + L.appTitle;
-
-    /* LIBRERIA INDIVIDUALE: mappa codice → { titolo, esercizi[] } */
-    const libMap = {};
-    (resL.dati || []).forEach(e => {
-      if (!libMap[e.Codice]) libMap[e.Codice] = { titolo: e.Titolo_Colonna, esercizi: [] };
-      libMap[e.Codice].esercizi.push(e);
-    });
-
-    /* Fase prehab attiva (config manuale nel Sheet) */
-    const fasePrehab = g.Fase_Prehab || 'F1';
-    const codici     = (g.Colonne_Individuali || '').split(',').map(c => c.trim()).filter(Boolean);
-    const faseCodice = codici.find(c => c.endsWith(fasePrehab)) || codici[0] || null;
-    const faseAttiva = faseCodice && libMap[faseCodice] ? libMap[faseCodice] : null;
-    if (faseAttiva) {
-      faseAttiva.esercizi.sort((a, b) => Number(a.Ordine) - Number(b.Ordine));
+    function init() {
+      currentAthlete = ROSTER.find(a => a.id === currentId) || ROSTER[0];
+      renderHero();
+      render1RMProfile();
+      renderSessions();
     }
 
-    /* SEDUTE */
-    const seduteGioc = (resS.dati || [])
-      .filter(s => {
-        const idGioc = String(s.ID_Giocatrice ?? '').trim();
-        return idGioc === String(id) || idGioc === '0' || idGioc === '';
-      })
-      .sort((a, b) => {
-        const ao = Number(a.Ordine) || 0, bo = Number(b.Ordine) || 0;
-        if (ao && bo) return ao - bo;
-        if (ao) return -1;
-        if (bo) return 1;
-        const an = String(a.Numero_Seduta), bn = String(b.Numero_Seduta);
-        return an.localeCompare(bn, undefined, { numeric: true });
-      });
+    function renderHero() {
+      document.getElementById('ath-number').textContent = `#${currentAthlete.number || currentAthlete.id}`;
+      document.getElementById('ath-name').textContent = currentAthlete.name;
+      document.getElementById('ath-role').textContent = `${currentAthlete.role} · Marsala Volley`;
 
-    const eserciziGioc = (resE.dati || []).filter(e => {
-      const idGioc = String(e.ID_Giocatrice ?? '').trim();
-      if (idGioc === String(id)) return true;
-      if (idGioc === '0') {
-        const excl = e.Escludi_ID ? String(e.Escludi_ID).split(',').map(x => x.trim()) : [];
-        return !excl.includes(String(id));
-      }
-      if (idGioc === '') return true;
-      return false;
-    }).filter(e => {
-      const ruoli = String(e.Ruoli || 'tutti').trim();
-      const firstName = (g.Nome || '').split(/\s+/)[0];
-      const role = g.Ruolo || '';
-      // Programma totalmente individualizzato: vede solo i propri esercizi
-      if (role === 'Nelly' || firstName === 'Nelly') return ruoli === 'Nelly';
-      if (!ruoli || ruoli === 'tutti') return true;
-      const parts = ruoli.split(',').map(s => s.trim());
-      const exclusions = parts.filter(p => p.startsWith('!')).map(p => p.slice(1));
-      if (exclusions.some(ex => ex === role || (firstName.length > 0 && ex === firstName))) return false;
-      const positives = parts.filter(p => !p.startsWith('!'));
-      if (positives.length === 0) return true;
-      return positives.some(p => p === role || (firstName.length > 0 && p === firstName));
-    }).filter(e => {
-      const met = String(e.Metodo || '').trim();
-      // Rimuove Prevenzione (mobilità individuale) e Attivazione balistica
-      if (met === 'Prevenzione' || met === 'Attivazione balistica') return false;
-      return true;
-    }).map(e => {
-      const cod  = String(e.Codice || '').trim();
-      const nome = String(e.Esercizio || '').trim();
-      const sed  = String(e.N_Seduta || '');
-      const isW1 = sed.startsWith('W1');
+      const risk = currentAthlete.risk_level || 'LOW';
+      const riskEl = document.getElementById('ath-risk');
+      riskEl.className = `ath-risk-tag ${risk.toLowerCase()}`;
+      riskEl.textContent = risk === 'HIGH' ? '🔴 RISCHIO ALTO' : (risk === 'MEDIUM' ? '🟡 RISCHIO MEDIO' : '🟢 RISCHIO BASSO');
 
-      // BREATH-TEAM: garantisce sempre 2 serie × 10 rep
-      if (cod === 'BREATH-TEAM') {
-        return Object.assign({}, e, { Serie: '2', Reps: '10' });
-      }
-      // MOB-GEN / MOB-COR: rinomina in "Mobilità libera"
-      if (cod === 'MOB-GEN' || cod === 'MOB-COR') {
-        return Object.assign({}, e, { Esercizio: 'Mobilità libera', Esercizio_EN: 'Free mobility' });
-      }
-      // Push Press: RPE + fascia kg con manubri
-      if (nome === 'Push Press') {
-        return Object.assign({}, e, { Intensità: isW1 ? 'RPE 7 (8-12 kg)' : 'RPE 8 (10-14 kg)' });
-      }
-      // Drop-landing: 40cm per tutte; Libero → Reactive step & stick
-      if (/drop.landing/i.test(nome)) {
-        if (g.Ruolo === 'Libero') {
-          return Object.assign({}, e, { Esercizio: 'Reactive step & stick', Esercizio_EN: 'Reactive step & stick', Serie: '3', Reps: '4/lato' });
-        }
-        return Object.assign({}, e, { Esercizio: 'Drop-landing da 40cm', Esercizio_EN: 'Drop-landing from 40cm', Serie: '3', Reps: '4' });
-      }
-      // Clean: porta a 4 serie × 2 rep
-      if (nome === 'Clean') {
-        return Object.assign({}, e, { Serie: '4', Reps: '2' });
-      }
-      // Deadbug → superserie core, 3×8+8
-      if (nome === 'Deadbug') {
-        return Object.assign({}, e, { Metodo: 'Superserie core', Serie: '3', Reps: '8+8' });
-      }
-      // Pallof in ginocchio → superserie core, 3×10+10
-      if (nome === 'Pallof in ginocchio') {
-        return Object.assign({}, e, { Metodo: 'Superserie core', Serie: '3', Reps: '10+10' });
-      }
-      return e;
-    });
-
-    const divSed = document.getElementById('sedute');
-    divSed.innerHTML = '';
-
-    /* ── Raggruppa sedute per fase ── */
-    const fasiGruppi = {};
-    const noFaseSed = [];
-    seduteGioc.forEach(sed => {
-      const f = faseDa(sed.Numero_Seduta);
-      if (!f) { noFaseSed.push(sed); return; }
-      if (/^w\d+$/i.test(f) && String(sed.Luogo || '').trim() !== 'Palestra') return;
-      if (!fasiGruppi[f]) fasiGruppi[f] = [];
-      fasiGruppi[f].push(sed);
-    });
-    const faseOrdine = FASI_DEF.map(f => f.id).filter(id => fasiGruppi[id]);
-    const hasFasi = faseOrdine.length > 1;
-
-    /* Trova la prima seduta non ancora completata */
-    let faseDef = faseOrdine[0] || null;
-    let prossimaSed = null;
-    if (hasFasi) {
-      const completate = new Set(
-        Object.keys(feedbackLog).filter(k =>
-          feedbackLog[k]?.['RPE-seduta'] || feedbackLog[k]?.['Fatica-seduta']
-        )
-      );
-      outer: for (const fId of faseOrdine) {
-        for (const sed of (fasiGruppi[fId] || [])) {
-          if (!completate.has(String(sed.Numero_Seduta))) {
-            prossimaSed = sed; faseDef = fId; break outer;
-          }
-        }
-      }
+      // Prehab Link
+      const link = currentAthlete.Link_Prehab || currentAthlete.link_prehab || 'https://pro.theprehabguys.com';
+      document.getElementById('btn-prehab-external').href = link;
     }
 
-    /* Helper: renderizza lista sedute nel wrapper dato */
-    const renderSedute = (lista, wrapper) => {
-      lista.forEach(sed => {
-        const esercSed = eserciziGioc
+    function switchNav(tab, btn) {
+      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`tab-${tab}`).classList.add('active');
+    }
+
+    function switchWeek(week, btn) {
+      currentWeek = week;
+      document.querySelectorAll('.week-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderSessions();
+    }
+
+    function getAthlete1RM(rmKey) {
+      const saved = localStorage.getItem(`mv_1rm_${currentAthlete.id}_${rmKey.id}`);
+      if (saved) return parseFloat(saved);
+
+      const osBaseline = (typeof OFFSEASON_DATA !== 'undefined' && OFFSEASON_DATA.baselines_1rm && OFFSEASON_DATA.baselines_1rm[String(currentAthlete.id)])
+        ? (OFFSEASON_DATA.baselines_1rm[String(currentAthlete.id)].rms || {})
+        : {};
+      return osBaseline[rmKey.baseline] || 0;
+    }
+
+    function render1RMProfile() {
+      const container = document.getElementById('rm-grid-container');
+      container.innerHTML = RM_KEYS.map(rm => {
+        const val = getAthlete1RM(rm);
+        const pcts = [50, 60, 70, 75, 80, 85, 90].map(p => {
+          const kg = val > 0 ? (Math.round((val * (p / 100)) * 2) / 2) : '—';
+          return `
+            <div class="rm-pct-pill">
+              <span class="rm-pct-lbl">${p}%</span>
+              <span class="rm-pct-kg">${kg}k</span>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="rm-card">
+            <div class="rm-head">
+              <span class="rm-name">${rm.name}</span>
+              <div class="rm-val-box">
+                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg" onchange="save1RM('${rm.id}', this.value)">
+                <span style="font-size:0.8rem;color:var(--mv-muted);font-weight:700">kg</span>
+              </div>
+            </div>
+            <div class="rm-pcts">${pcts}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function save1RM(rmId, val) {
+      localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, val);
+      render1RMProfile();
+      renderSessions();
+    }
+
+    function renderSessions() {
+      const container = document.getElementById('sessions-container');
+      const sessions = (currentWeek === 'W1' ? SESSIONS_W1 : SESSIONS_W2) || [];
+
+      if (sessions.length === 0) {
+        container.innerHTML = `<div style="text-align:center;padding:30px;color:var(--mv-muted)">Nessuna seduta programmata per questa settimana.</div>`;
+        return;
+      }
+
+      container.innerHTML = sessions.map((sed, idx) => {
+        const sedEsercizi = (typeof ESERCIZI !== 'undefined' ? ESERCIZI : [])
           .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta))
           .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
 
-        const metodiOrd = [];
-        const metodiMap = {};
-        esercSed.forEach(e => {
-          if (!metodiMap[e.Metodo]) {
-            metodiMap[e.Metodo] = { nome: e.Metodo, desc: e.Desc_Metodo, esercizi: [] };
-            metodiOrd.push(e.Metodo);
-          }
-          metodiMap[e.Metodo].esercizi.push(e);
+        const methodMap = {};
+        sedEsercizi.forEach(e => {
+          const m = e.Metodo || 'Potenziamento';
+          if (!methodMap[m]) methodMap[m] = [];
+          methodMap[m].push(e);
         });
 
-        const accId = `acc-${sed.Numero_Seduta}`;
-        let html = `
-          <div class="seduta-accordion" id="${accId}">
-            <button class="seduta-header" onclick="toggleSeduta('${accId}')">
-              <h3>${traduciSeduta(nomeSeduta(sed))}</h3>
-              <span class="chevron">▾</span>
-            </button>
-            <div class="seduta-body">
-            <div class="coach-notes-area" id="notes-${sed.Numero_Seduta}"></div>`;
+        const isOpen = idx === 0;
 
-        metodiOrd.forEach(key => {
-          const m = metodiMap[key];
-          html += `<div class="metodo-block">`;
-          if (m.nome === 'Prehab individuale' && g.Link_Prehab && g.Ruolo !== 'Nelly') {
-            html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
-            let obiettivoHtml = '';
-            const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
-            if (_obvSrc) {
-              try {
-                const obv = JSON.parse(_obvSrc);
-                const fase = g.Fase_Prehab || 'F1';
-                const testo = obv[fase] || '';
-                if (testo) obiettivoHtml = `<div class="prehab-obiettivo">${testo}</div>`;
-              } catch(e) {}
-            }
-            html += `<div class="prehab-wrap">
-              ${obiettivoHtml}
-              <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
-                <span class="prehab-link-dot"></span>
-                ${L.prehabBtn}
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-              </a>
-            </div>`;
-          } else if (m.nome === 'Prehab individuale' && faseAttiva) {
-            html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
-            html += `<div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
-            faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
-          } else {
-            html += `<div class="metodo-titolo">${traduciMetodo(m.nome)}</div>`;
-            if (m.desc) html += `<div class="metodo-desc">${traduciDescMetodo(m.desc)}</div>`;
-            m.esercizi.forEach(e => {
-              if (e.Esercizio === 'Prehab individuale' && g.Link_Prehab && g.Ruolo !== 'Nelly') {
-                let _obHtml = '';
-                const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
-                if (_obvSrc) { try { const _o = JSON.parse(_obvSrc); const _t = _o[g.Fase_Prehab||'F1']||''; if (_t) _obHtml = `<div class="prehab-obiettivo">${_t}</div>`; } catch(_){} }
-                html += `<div class="prehab-wrap">${_obHtml}<a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn"><span class="prehab-link-dot"></span>${L.prehabBtn}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></a></div>`;
-              } else {
-                const logId = `log-${id}-${e.N_Seduta}-${e.Ord_Metodo}-${e.Ord_Eserc}`;
-                html += htmlEsercizio(e, logId);
-              }
-            });
-          }
-          html += `</div>`;
-        });
+        const methodsHtml = Object.keys(methodMap).map(mName => {
+          const exList = methodMap[mName];
+          return `
+            <div class="method-group">
+              <div class="method-title">⚡ ${mName}</div>
+              ${exList.map(e => renderExerciseCard(e, sed)).join('')}
+            </div>
+          `;
+        }).join('');
 
-        // Fallback: se Prehab individuale non ha righe in Esercizi per questa seduta,
-        // mostralo comunque in fondo (evita che versioni mancanti dei dati lo nascondano)
-        if (!metodiOrd.includes('Prehab individuale') && !esercSed.some(e => e.Esercizio === 'Prehab individuale')) {
-          if (g.Link_Prehab && g.Ruolo !== 'Nelly') {
-            let obiettivoHtml = '';
-            const _obvSrc = (L === EN && g.Obiettivi_Prehab_EN) ? g.Obiettivi_Prehab_EN : g.Obiettivi_Prehab;
-            if (_obvSrc) {
-              try {
-                const obv = JSON.parse(_obvSrc);
-                const fase = g.Fase_Prehab || 'F1';
-                const testo = obv[fase] || '';
-                if (testo) obiettivoHtml = `<div class="prehab-obiettivo">${testo}</div>`;
-              } catch(e) {}
-            }
-            html += `<div class="metodo-block">
-              <div class="metodo-titolo">${traduciMetodo('Prehab individuale')}</div>
-              <div class="prehab-wrap">
-                ${obiettivoHtml}
-                <a href="${g.Link_Prehab}" target="_blank" rel="noopener" class="prehab-link-btn">
-                  <span class="prehab-link-dot"></span>
-                  ${L.prehabBtn}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-                </a>
+        return `
+          <div class="session-card ${isOpen ? 'open' : ''}" id="card-${sed.Numero_Seduta}">
+            <div class="session-head" onclick="toggleSession('${sed.Numero_Seduta}')">
+              <div>
+                <span class="session-badge">${sed.Giorno || `Seduta ${idx+1}`}</span>
+                <div class="session-title">${sed.Nome_Seduta || `Seduta ${sed.Numero_Seduta}`}</div>
+                <div class="session-meta">📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 60} min</div>
               </div>
-            </div>`;
-          } else if (faseAttiva) {
-            html += `<div class="metodo-block">
-              <div class="metodo-titolo">${traduciMetodo('Prehab individuale')}</div>
-              <div class="metodo-desc prehab-fase-label">${faseAttiva.titolo}</div>`;
-            faseAttiva.esercizi.forEach(e => { html += htmlIndividuale(e, sed.Numero_Seduta); });
-            html += `</div>`;
+              <div class="session-chevron">▾</div>
+            </div>
+            <div class="session-body">
+              ${methodsHtml}
+              ${renderSessionEnd(sed.Numero_Seduta)}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleSession(sedId) {
+      document.getElementById(`card-${sedId}`).classList.toggle('open');
+    }
+
+    function renderExerciseCard(e, sed) {
+      const logKey = `log_${currentAthlete.id}_${sed.Numero_Seduta}_${e.Codice || e.Esercizio}`;
+      const savedKg = localStorage.getItem(logKey) || '';
+
+      // Target load calc
+      let targetHtml = '';
+      const intStr = e['Intensità'] || e.Intensità || '';
+      const matchPct = intStr.match(/(\d+)%/);
+      if (matchPct) {
+        const pct = parseInt(matchPct[1]);
+        const exLow = e.Esercizio.toLowerCase();
+        const rmObj = RM_KEYS.find(k => exLow.includes(k.id) || exLow.includes(k.name.toLowerCase()) || exLow.includes(k.baseline.toLowerCase()));
+        if (rmObj) {
+          const rmVal = getAthlete1RM(rmObj);
+          if (rmVal > 0) {
+            const targetKg = Math.round((rmVal * (pct / 100)) * 2) / 2;
+            targetHtml = `
+              <div class="ex-target-box">
+                <span>🎯 Carico Calcolato (${pct}% di 1RM ${rmVal}kg):</span>
+                <strong>≈ ${targetKg} kg</strong>
+              </div>
+            `;
           }
         }
-
-        html += htmlFeedbackSeduta(sed.Numero_Seduta, feedbackLog[sed.Numero_Seduta] || {});
-        html += htmlFineSeduta(sed.Numero_Seduta);
-        html += `</div></div>`;
-        wrapper.innerHTML += html;
-      });
-    };
-
-    if (hasFasi) {
-      /* Pin prossima seduta */
-      if (prossimaSed) {
-        const pinDiv = document.createElement('div');
-        pinDiv.className = 'prossima-pin';
-        pinDiv.innerHTML = `<span class="pin-arrow">→</span>
-          <span class="pin-label">${L === EN ? 'Next:' : 'Prossima:'}</span>
-          <button class="pin-btn" onclick="switchFase('${faseDef}','${prossimaSed.Numero_Seduta}')">
-            ${traduciSeduta(nomeSeduta(prossimaSed))}
-          </button>`;
-        divSed.appendChild(pinDiv);
       }
 
-      /* Tab bar per fase */
-      const tabDiv = document.createElement('div');
-      tabDiv.className = 'fase-tabs';
-      FASI_DEF.filter(f => fasiGruppi[f.id]).forEach(f => {
-        const btn = document.createElement('button');
-        btn.className = 'fase-tab' + (f.id === faseDef ? ' active' : '');
-        btn.dataset.fase = f.id;
-        btn.textContent = (L === EN ? f.labelEN : f.label);
-        btn.setAttribute('onclick', `switchFase('${f.id}')`);
-        tabDiv.appendChild(btn);
-      });
-      divSed.appendChild(tabDiv);
-
-      /* Contenuto per fase */
-      faseOrdine.forEach(fId => {
-        const wrap = document.createElement('div');
-        wrap.className = 'fase-wrap' + (fId === faseDef ? '' : ' fase-nascosta');
-        wrap.id = `fase-wrap-${fId}`;
-        renderSedute(fasiGruppi[fId], wrap);
-        divSed.appendChild(wrap);
-      });
-
-      /* Sedute personali senza fase — sempre visibili */
-      if (noFaseSed.length) {
-        const wrapNoFase = document.createElement('div');
-        renderSedute(noFaseSed, wrapNoFase);
-        divSed.appendChild(wrapNoFase);
+      // Notes
+      let notesHtml = '';
+      if (e.Istruzione || e.Note) {
+        const uid = Math.random().toString(36).slice(2, 7);
+        notesHtml = `
+          <button class="ex-notes-toggle" onclick="toggleNotes('n-${uid}')">
+            <span>ℹ️ Istruzioni tecniche & note coach</span> ▾
+          </button>
+          <div class="ex-notes-body" id="n-${uid}">
+            ${e.Istruzione ? `<div><strong>Istruzioni:</strong> ${e.Istruzione}</div>` : ''}
+            ${e.Note ? `<div style="margin-top:4px;color:var(--mv-amber)"><strong>Note:</strong> ${e.Note}</div>` : ''}
+          </div>
+        `;
       }
-    } else {
-      renderSedute(seduteGioc, divSed);
-    }
 
-    /* PROFILO */
-    document.getElementById('profilo').innerHTML = buildProfilo(g, resE, resP, seduteGioc);
-
-    /* mostra contenuto */
-    document.getElementById('loading').style.display  = 'none';
-    document.getElementById('contenuto').style.display = '';
-
-  } catch (err) {
-    document.getElementById('loading').innerHTML = `
-      <p class="errore-msg">${L.loadError}</p>
-      <button onclick="location.reload()" class="retry-btn">${L.retry}</button>`;
-  }
-}
-
-function mostraErrore(msg) {
-  document.getElementById('loading').innerHTML = `
-    <p class="errore-msg">${msg}</p>
-    <button onclick="location.reload()" class="retry-btn">↺ Riprova</button>`;
-}
-
-/* ---------- interazioni ---------- */
-function mostraSezione(sezioneId, btn) {
-  document.querySelectorAll('.sezione').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(sezioneId).classList.add('active');
-  btn.classList.add('active');
-}
-
-function toggleSeduta(accId) {
-  const isOpen = document.getElementById(accId).classList.contains('open');
-  if (isOpen) {
-    document.getElementById(accId).classList.remove('open');
-  } else {
-    apriSedutaConNote(accId);
-  }
-}
-
-function calcolaLive(logId) {
-  const input = document.getElementById(logId);
-  if (!input) return;
-  const kg   = parseFloat(input.value);
-  const reps = parseInt(input.dataset.reps) || 0;
-  const rmEl = document.getElementById('rm-' + logId);
-
-  if (!(kg > 0 && reps > 0)) {
-    if (rmEl) rmEl.innerHTML = '—';
-    input.dataset.rm = ''; input.dataset.carico = '';
-    return;
-  }
-
-  const catena       = input.dataset.catena;
-  const intensitaPct = parseFloat(input.dataset.intensita) || 0;
-  const bw           = parseFloat(document.getElementById('peso-input')?.value) || 0;
-
-  const rm = catena === 'lower' && bw > 0
-    ? Math.round((kg + bw) * (1 + reps / 30))
-    : Math.round(kg * (1 + reps / 30));
-
-  input.dataset.rm = rm;
-
-  let html = `RM <em>~${rm} kg</em>`;
-  if (intensitaPct > 0) {
-    const carico = catena === 'lower' && bw > 0
-      ? Math.round((rm * intensitaPct - bw) * 2) / 2
-      : Math.round(rm * intensitaPct * 2) / 2;
-    if (carico > 0) {
-      input.dataset.carico = carico;
-      html += ` · <em>${carico} kg</em>`;
-    }
-  }
-  if (rmEl) rmEl.innerHTML = html;
-}
-
-async function salvaLog(inputId, btn) {
-  const input = document.getElementById(inputId);
-  const kg    = parseFloat(input.value);
-  const rm    = parseInt(input.dataset.rm) || null;
-
-  if (!kg || !rm) {
-    input.style.outline = '2px solid #c33';
-    setTimeout(() => input.style.outline = '', 1500);
-    return;
-  }
-
-  const carico    = parseFloat(input.dataset.carico) || null;
-  const reps      = parseInt(input.dataset.reps) || null;
-  const esercizio = input.dataset.esercizio;
-  const nSeduta   = input.dataset.seduta;
-  const valore    = carico != null ? `${carico} kg` : `RM ${rm} kg`;
-
-  btn.textContent = '...';
-  btn.disabled    = true;
-
-  try {
-    await postApi({
-      token: TOKEN, azione: 'log_progressi',
-      id_giocatrice: id, n_seduta: nSeduta, esercizio: esercizio,
-      data: new Date().toLocaleDateString('it-IT'),
-      valore, note: '',
-      kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
-    });
-
-    ultimiLog[esercizio] = { valore, rm, kg };
-    const row      = input.closest('.log-compact');
-    const ultimaEl = row?.querySelector('.ultima-seduta');
-    const dispKg   = `${kg} kg`;
-    if (ultimaEl) {
-      ultimaEl.innerHTML = `${L.last}<em>${dispKg}</em>`;
-    } else if (row) {
-      const div = document.createElement('div');
-      div.className = 'ultima-seduta';
-      div.innerHTML = `${L.last}<em>${dispKg}</em>`;
-      row.prepend(div);
-    }
-
-    btn.textContent = '✓';
-    btn.style.background = 'var(--verde)';
-    const okEl = document.getElementById('ok-' + inputId);
-    if (okEl) okEl.style.display = 'block';
-    _datiModificati = false;
-  } catch {
-    btn.textContent = L.errorBtn;
-  } finally {
-    setTimeout(() => { btn.textContent = L.saveBtn; btn.style.background = ''; btn.disabled = false; }, 2000);
-  }
-}
-
-/* ---------- Fine Seduta ---------- */
-function htmlFineSeduta(nSeduta) {
-  const isEN = (L === EN);
-  const rpeTitle = isEN ? 'Session Intensity (RPE 0-10)' : 'Intensità Seduta (RPE 0-10)';
-  const rpeHint = isEN ? '0 = No effort / Rest ➔ 10 = Maximal effort' : '0 = Nessuno sforzo ➔ 10 = Sforzo massimale';
-  const fatTitle = isEN ? 'Fatigue Level (0-10)' : 'Livello di Fatica (0-10)';
-  const fatHint = isEN ? '0 = Fresh / High energy ➔ 10 = Exhausted' : '0 = Fresca / Piena energia ➔ 10 = Esausta';
-  const notePh = isEN ? 'Session notes (optional e.g. shoulder felt good...)' : 'Note sulla seduta (opzionale es. buone sensazioni su squat...)';
-
-  let rpeBtns = '';
-  for (let i = 0; i <= 10; i++) {
-    rpeBtns += `<button type="button" class="rating-btn" onclick="selezionaRating('rpe', '${nSeduta}', ${i}, this)">${i}</button>`;
-  }
-  let fatBtns = '';
-  for (let i = 0; i <= 10; i++) {
-    fatBtns += `<button type="button" class="rating-btn" onclick="selezionaRating('fat', '${nSeduta}', ${i}, this)">${i}</button>`;
-  }
-
-  return `
-    <div class="fine-seduta-wrap" style="background:var(--surface,#f8fafc);border:1px solid var(--border,#e2e8f0);border-radius:14px;padding:16px;margin-top:20px;">
-      <h3 style="font-size:0.95rem;font-weight:800;color:var(--primary,#1a3a6b);margin-bottom:12px;">🏁 ${isEN ? 'Complete & Save Session' : 'Chiusura & Salvataggio Seduta'}</h3>
-      
-      <div class="rating-group" id="rpe-${id}-${nSeduta}" style="margin-bottom:14px;">
-        <div style="font-size:0.82rem;font-weight:700;color:var(--text,#1e293b);display:flex;justify-content:space-between;">
-          <span>${rpeTitle}</span>
-          <span id="rpe-val-${nSeduta}" style="color:var(--primary,#1a3a6b);font-weight:800;">— / 10</span>
+      return `
+        <div class="exercise-card">
+          <div class="ex-name">${(isEN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio}</div>
+          <div class="ex-grid">
+            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val">${e.Serie || '—'}</div></div>
+            <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">${e.Reps || '—'}</div></div>
+            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val">${intStr || '—'}</div></div>
+            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Rest' : 'Recupero'}</div><div class="val">${e.Recupero || '—'}</div></div>
+          </div>
+          ${targetHtml}
+          <div class="ex-log-box">
+            <input type="text" class="log-input" id="input-${logKey}" value="${savedKg}" placeholder="${isEN ? 'Logged kg (e.g. 65kg)' : 'Kg usati (es. 65kg)'}">
+            <button class="btn-save-log" onclick="saveExLog('${logKey}', '${sed.Numero_Seduta}', '${e.Esercizio}')">${isEN ? 'Save' : 'Salva'}</button>
+            <span class="saved-toast" id="toast-${logKey}">✓</span>
+          </div>
+          ${notesHtml}
         </div>
-        <div style="font-size:0.72rem;color:#64748b;margin:2px 0 6px;">${rpeHint}</div>
-        <div style="display:grid;grid-template-columns:repeat(11,1fr);gap:2px;">${rpeBtns}</div>
-      </div>
-
-      <div class="rating-group" id="fat-${id}-${nSeduta}" style="margin-bottom:14px;">
-        <div style="font-size:0.82rem;font-weight:700;color:var(--text,#1e293b);display:flex;justify-content:space-between;">
-          <span>${fatTitle}</span>
-          <span id="fat-val-${nSeduta}" style="color:var(--primary,#1a3a6b);font-weight:800;">— / 10</span>
-        </div>
-        <div style="font-size:0.72rem;color:#64748b;margin:2px 0 6px;">${fatHint}</div>
-        <div style="display:grid;grid-template-columns:repeat(11,1fr);gap:2px;">${fatBtns}</div>
-      </div>
-
-      <div style="margin-bottom:14px;">
-        <textarea id="note-seduta-${nSeduta}" style="width:100%;border:1px solid #cbd5e1;border-radius:8px;padding:8px 10px;font-size:0.82rem;min-height:55px;outline:none;font-family:inherit;" placeholder="${notePh}"></textarea>
-      </div>
-
-      <button class="fine-seduta-btn" onclick="fineSeduta('${nSeduta}', this)" style="width:100%;background:var(--primary,#1a3a6b);color:#fff;border:none;border-radius:10px;padding:12px;font-size:0.92rem;font-weight:800;cursor:pointer;">
-        ${L.endSession}
-      </button>
-      <div class="fine-seduta-report" id="report-${nSeduta}" style="display:none;margin-top:10px;font-size:0.8rem;"></div>
-    </div>`;
-}
-
-function selezionaRating(tipo, nSeduta, val, btn) {
-  const container = btn.parentElement;
-  container.querySelectorAll('.rating-btn').forEach(b => {
-    b.classList.remove('selected');
-    b.style.background = '';
-    b.style.color = '';
-  });
-  btn.classList.add('selected');
-  btn.style.background = 'var(--primary,#1a3a6b)';
-  btn.style.color = '#fff';
-  document.getElementById(`${tipo}-val-${nSeduta}`).textContent = `${val} / 10`;
-}
-
-async function fineSeduta(nSeduta, btn) {
-  btn.disabled    = true;
-  btn.textContent = L.saving;
-
-  const ora      = new Date();
-  const locale   = L === EN ? 'en-GB' : 'it-IT';
-  const data     = ora.toLocaleDateString(locale);
-  const orario   = ora.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
-  const bw       = parseFloat(document.getElementById('peso-input')?.value) || 0;
-
-  const salvati  = [];
-  const mancanti = [];
-  const promises = [];
-
-  /* esercizi con campo kg */
-  document.querySelectorAll(`.log-kg-input[data-seduta="${nSeduta}"]`).forEach(input => {
-    const nome  = input.dataset.esercizio;
-    const kg    = parseFloat(input.value);
-    const rm    = parseInt(input.dataset.rm)    || null;
-    const reps  = parseInt(input.dataset.reps)  || null;
-    const catena = input.dataset.catena;
-
-    if (kg > 0 && rm) {
-      const carico = parseFloat(input.dataset.carico) || null;
-      const valore = carico != null ? `${carico} kg` : `RM ~${rm} kg`;
-      salvati.push({ label: nome, detail: valore });
-      promises.push(postApi({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta,
-        esercizio: nome, data, valore, note: '',
-        kg_usati: kg, reps_fatte: reps || '', rm_stimato: rm,
-      }));
-      ultimiLog[nome] = { valore, rm, kg };
-    } else if (kg > 0) {
-      /* ha messo il peso ma non le reps — salva solo il kg */
-      salvati.push({ label: nome, detail: `${kg} kg` });
-      promises.push(postApi({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: nSeduta,
-        esercizio: nome, data, valore: `${kg} kg`, note: '',
-        kg_usati: kg, reps_fatte: '', rm_stimato: '',
-      }));
-    } else {
-      mancanti.push(nome);
-    }
-  });
-
-  /* RPE */
-  const rpeBtn = document.querySelector(`#rpe-${id}-${nSeduta} .rating-btn.selected`);
-  if (rpeBtn) {
-    const val = rpeBtn.textContent.trim();
-    salvati.push({ label: L.rpeLabel, detail: `${val}/10` });
-    promises.push(postApi({
-      token: TOKEN, azione: 'log_progressi',
-      id_giocatrice: id, n_seduta: nSeduta, esercizio: 'RPE-seduta',
-      data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
-    }));
-  } else {
-    mancanti.push(L.rpeLabel);
-  }
-
-  /* Fatica */
-  const fatBtn = document.querySelector(`#fat-${id}-${nSeduta} .rating-btn.selected`);
-  if (fatBtn) {
-    const val = fatBtn.textContent.trim();
-    salvati.push({ label: L.fatLabel, detail: `${val}/5` });
-    promises.push(postApi({
-      token: TOKEN, azione: 'log_progressi',
-      id_giocatrice: id, n_seduta: nSeduta, esercizio: 'Fatica-seduta',
-      data, valore: val, note: '', kg_usati: '', reps_fatte: '', rm_stimato: '',
-    }));
-  } else {
-    mancanti.push(L.fatLabel);
-  }
-
-  try {
-    await Promise.all(promises);
-
-    let report = `<div class="report-ts">${L.savedAt(data, orario)}</div>`;
-
-    if (salvati.length) {
-      report += `<div class="report-section">`;
-      report += `<div class="report-label report-ok-label">${L.loggedN(salvati.length)}</div>`;
-      salvati.forEach(s => {
-        report += `<div class="report-item">✓ ${s.label} <em>${s.detail}</em></div>`;
-      });
-      report += `</div>`;
+      `;
     }
 
-    if (mancanti.length) {
-      report += `<div class="report-section">`;
-      report += `<div class="report-label report-miss-label">${L.missedN(mancanti.length)}</div>`;
-      mancanti.forEach(m => {
-        report += `<div class="report-item report-miss">— ${m}</div>`;
-      });
-      report += `</div>`;
+    function toggleNotes(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
 
-    const reportEl = document.getElementById(`report-${nSeduta}`);
-    if (reportEl) { reportEl.innerHTML = report; reportEl.style.display = 'block'; }
+    async function saveExLog(logKey, nSeduta, esercizio) {
+      const val = document.getElementById(`input-${logKey}`).value.trim();
+      localStorage.setItem(logKey, val);
+      const toast = document.getElementById(`toast-${logKey}`);
+      toast.style.display = 'inline';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
 
-    btn.closest('.seduta-accordion')?.querySelectorAll('.rating-btn')
-      .forEach(b => b.classList.remove('selected'));
-
-    btn.textContent      = L.saved;
-    btn.style.background = 'var(--verde)';
-    btn.style.color      = '#fff';
-    _datiModificati      = false;
-    localStorage.removeItem(wellnessKey());
-
-  } catch {
-    btn.textContent      = L.errorBtn;
-    btn.style.background = '#c33';
-    btn.disabled         = false;
-  }
-}
-
-const MASSIMALI = [
-  { id: 'squat', nome: 'Back Squat',  nomeEN: 'Back Squat',  catena: 'lower', alias: ['squat / step up', 'squat', 'step up'], baselineKey: 'Squat / Step Up' },
-  { id: 'bench', nome: 'Bench Press', nomeEN: 'Bench Press', catena: 'upper', alias: ['bench press', 'bench', 'panca'],       baselineKey: 'Bench Press' },
-  { id: 'clean', nome: 'Power Clean', nomeEN: 'Power Clean', catena: 'upper', alias: ['clean', 'power clean', 'girata'],      baselineKey: 'Clean' },
-  { id: 'rowbb', nome: 'Row (Rematore)', nomeEN: 'Barbell Row', catena: 'upper', alias: ['row bb', 'row', 'rematore'],      baselineKey: 'Row BB' },
-  { id: 'lat',   nome: 'Lat (Lat Machine / Trazioni)', nomeEN: 'Lat Pulldown / Pullups', catena: 'upper', alias: ['lat machine', 'lat', 'trazioni', 'pullup'], baselineKey: 'Lat Machine' }
-];
-
-function calcolaTabellaHtml(rm, catena) {
-  const bw   = parseFloat(document.getElementById('peso-input')?.value) || 0;
-  const PCTS = [50, 60, 65, 70, 75, 80, 85, 90];
-  return PCTS.map(pct => {
-    let carico;
-    if (catena === 'lower' && bw > 0) {
-      carico = Math.round((pct / 100 * (rm + bw) - bw) * 2) / 2;
-    } else {
-      carico = Math.round(pct / 100 * rm * 2) / 2;
+      // Invia anche a Google Sheets
+      try {
+        fetch(`${GAS_URL}?token=${TOKEN}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            azione: 'log_progressi',
+            id_giocatrice: currentAthlete.id,
+            n_seduta: nSeduta,
+            esercizio: esercizio,
+            data: new Date().toISOString().slice(0, 10),
+            valore: val,
+            kg_usati: parseFloat(val) || ''
+          })
+        });
+      } catch (err) {}
     }
-    const cls = pct >= 80 ? ' pct-high' : '';
-    const val = carico > 0 ? carico + ' kg' : '—';
-    return `<div class="pct-cell${cls}"><span class="pct-label">${pct}%</span><span class="pct-val">${val}</span></div>`;
-  }).join('');
-}
 
-function calcolaMassimale(mId, catena) {
-  const rm    = parseFloat(document.getElementById('rm-' + mId)?.value) || 0;
-  const table = document.getElementById('table-' + mId);
-  if (!table) return;
-  table.innerHTML = rm
-    ? calcolaTabellaHtml(rm, catena)
-    : `<span class="mass-empty">${L.enterRM}</span>`;
-}
+    function renderSessionEnd(nSeduta) {
+      let rpeBtns = '';
+      for (let i = 0; i <= 10; i++) {
+        rpeBtns += `<button type="button" class="r-btn" onclick="setRating('rpe', '${nSeduta}', ${i}, this)">${i}</button>`;
+      }
+      let fatBtns = '';
+      for (let i = 0; i <= 10; i++) {
+        fatBtns += `<button type="button" class="r-btn" onclick="setRating('fat', '${nSeduta}', ${i}, this)">${i}</button>`;
+      }
 
-function toggleIstruzioni(btn) {
-  const panel = btn.nextElementSibling;
-  const open  = panel.style.display !== 'none';
-  panel.style.display = open ? 'none' : 'block';
-  const ch = btn.querySelector('.istr-chevron');
-  if (ch) ch.textContent = open ? '▸' : '▾';
-}
-
-function buildProfilo(g, resE, resP, sedute) {
-  const progressi = (resP.dati || []).filter(p => String(p.ID_Giocatrice) === String(id));
-
-  /* peso */
-  const pesoLogs  = progressi
-    .filter(p => p.Esercizio === 'Peso-corporeo')
-    .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp));
-  const ultimoPeso = pesoLogs.length ? pesoLogs[pesoLogs.length - 1].Valore : '';
-
-  /* storico per seduta */
-  const seduteMap = {};
-  (sedute || []).forEach(s => { seduteMap[s.Numero_Seduta] = nomeSeduta(s); });
-
-  const SKIP = new Set(['Peso-corporeo', 'RPE-seduta', 'Fatica-seduta']);
-  const logPerSeduta = {};
-  progressi
-    .filter(p => p.Valore && !SKIP.has(p.Esercizio))
-    .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
-    .forEach(p => {
-      const sed = p.N_Seduta || '—';
-      if (!logPerSeduta[sed]) logPerSeduta[sed] = [];
-      logPerSeduta[sed].push(p);
-    });
-
-  /* RM lookup — due mappe separate: sessioni e salvataggi manuali (n_seduta=0)
-     La chiave può differire ("step up bb" vs "squat / step up"), quindi il find()
-     su una mappa unica restituiva sempre la chiave di sessione. Ora si consulta
-     prima rmMapManual e solo come fallback rmMapSession. */
-  const rmMapSession = {};
-  progressi
-    .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio) && String(p.N_Seduta) !== '0')
-    .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
-    .forEach(p => { rmMapSession[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
-  const rmMapManual = {};
-  progressi
-    .filter(p => p.RM_Stimato && !SKIP.has(p.Esercizio) && String(p.N_Seduta) === '0')
-    .sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp))
-    .forEach(p => { rmMapManual[p.Esercizio.toLowerCase()] = Number(p.RM_Stimato); });
-
-  /* ---- HTML ---- */
-  let html = '';
-
-  /* 1. ISTRUZIONI */
-  html += `
-    <div class="profilo-card istr-card">
-      <button class="istr-toggle" onclick="toggleIstruzioni(this)">
-        <span>${L.instrSection}</span><span class="istr-chevron">▾</span>
-      </button>
-      <div class="istr-panel">
-        <p>${L.instrP1}</p>
-        <p>${L.instrP2}</p>
-        <p>${L.instrP3}</p>
-      </div>
-    </div>`;
-
-  /* 2. PESO */
-  html += `
-    <div class="profilo-card">
-      <div class="profilo-header">${L.bwTitle}</div>
-      <div class="peso-input-row">
-        <input type="number" id="peso-input" placeholder="${L.bwPlaceholder}" min="30" max="150" step="0.5" value="${ultimoPeso}"
-               oninput="aggiornaTabelleMassimali()">
-        <span class="peso-unit">kg</span>
-        <button onclick="salvaPeso(this)">${L.saveBtn}</button>
-      </div>
-      <div class="log-salvato" id="ok-peso" style="padding:0 16px 10px">${L.savedOk}</div>
-    </div>`;
-
-  /* 3. MASSIMALI */
-  html += `<div class="profilo-card"><div class="profilo-header">${L.maxTitle}</div>`;
-  MASSIMALI.forEach(m => {
-    // Precompila con priorità: 1) Off-season baseline reale, 2) Salvataggio manuale, 3) Sessione
-    const osBaseline = (typeof OFFSEASON_DATA !== 'undefined' && OFFSEASON_DATA.baselines_1rm && OFFSEASON_DATA.baselines_1rm[String(id)])
-      ? (OFFSEASON_DATA.baselines_1rm[String(id)].rms || {})
-      : {};
-    const baseVal = m.baselineKey && osBaseline[m.baselineKey] ? osBaseline[m.baselineKey] : null;
-
-    const rmKeyM = Object.keys(rmMapManual).find(k => m.alias.some(a => k.includes(a)));
-    const rmKeyS = Object.keys(rmMapSession).find(k => m.alias.some(a => k.includes(a)));
-    const rmVal  = rmKeyM ? rmMapManual[rmKeyM] : (rmKeyS ? rmMapSession[rmKeyS] : (baseVal || ''));
-    const badge = m.catena === 'lower' ? ' <span class="catena-badge">+ BW</span>' : '';
-    html += `
-      <div class="massimale-row">
-        <div class="mass-nome">${(L === EN && m.nomeEN) ? m.nomeEN : m.nome}${badge}</div>
-        <div class="mass-rm-row">
-          <span class="mass-rm-label">RM</span>
-          <input type="number" class="mass-rm-input" id="rm-${m.id}"
-                 placeholder="—" value="${rmVal}" min="1" step="0.5"
-                 oninput="calcolaMassimale('${m.id}','${m.catena}')">
-          <span class="mass-rm-unit">kg</span>
-          <button class="mass-save-btn" onclick="salvaMassimale('${m.id}','${m.nome}',this)">${L.saveBtn}</button>
-        </div>
-        <div class="mass-pct-table" id="table-${m.id}">
-          ${rmVal ? calcolaTabellaHtml(Number(rmVal), m.catena) : `<span class="mass-empty">${L.enterRM}</span>`}
-        </div>
-      </div>`;
-  });
-  html += `</div>`;
-
-  /* 4. STORICO PER SEDUTA — solo ultimo carico per esercizio */
-  const sedKeys = Object.keys(logPerSeduta)
-    .sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
-
-  if (sedKeys.length > 0) {
-    html += `<div class="profilo-card"><div class="profilo-header">${L.histTitle}</div>`;
-    sedKeys.forEach(sed => {
-      const nomeSed = seduteMap[sed] || L.sessionFallback(sed);
-      const byEserc = {};
-      logPerSeduta[sed].forEach(p => {
-        byEserc[p.Esercizio] = p; // sovrascrive — tiene solo l'ultimo (già ordinato per timestamp)
-      });
-      html += `<div class="storico-sed-header">${nomeSed}</div>`;
-      Object.entries(byEserc).forEach(([nome, p]) => {
-        html += `
-          <div class="storico-eserc">
-            <div class="storico-nome">${nome}</div>
-            <div class="storico-chips">
-              <span class="storico-chip">${formatData(p.Data)}<br><strong>${p.Valore}</strong></span>
+      return `
+        <div class="session-end-card">
+          <div class="end-title">🏁 ${isEN ? 'Complete & Save Session' : 'Chiusura & Salvataggio Seduta'}</div>
+          
+          <div class="rating-row">
+            <div class="rating-head">
+              <span>${isEN ? 'Session Intensity (RPE 0-10)' : 'Intensità Seduta (RPE 0-10)'}</span>
+              <span id="lbl-rpe-${nSeduta}" style="color:var(--mv-amber)">— / 10</span>
             </div>
-          </div>`;
-      });
-    });
-    html += `</div>`;
-  }
+            <div class="rating-hint">${isEN ? '0 = No effort / Rest ➔ 10 = Maximal effort' : '0 = Nessuno sforzo ➔ 10 = Sforzo massimale'}</div>
+            <div class="rating-bar">${rpeBtns}</div>
+          </div>
 
-  /* 5. ANALISI FUNZIONALE + STRATEGIA */
-  const afText    = (L === EN && g.Analisi_Funzionale_EN) ? g.Analisi_Funzionale_EN : g.Analisi_Funzionale;
-  const stratText = (L === EN && g.Strategia_EN)          ? g.Strategia_EN          : g.Strategia;
-  if (afText) {
-    const stratHtml = stratText
-      ? `<div class="af-subheader">${L.stratTitle}</div><div class="af-content">${stratText}</div>`
-      : '';
-    html += `
-      <div class="profilo-card">
-        <div class="profilo-header">${L.afTitle}</div>
-        <div class="af-content">${afText}</div>
-        ${stratHtml}
-      </div>`;
-  }
+          <div class="rating-row">
+            <div class="rating-head">
+              <span>${isEN ? 'Fatigue Level (0-10)' : 'Livello di Fatica (0-10)'}</span>
+              <span id="lbl-fat-${nSeduta}" style="color:var(--mv-amber)">— / 10</span>
+            </div>
+            <div class="rating-hint">${isEN ? '0 = Fresh / High energy ➔ 10 = Exhausted' : '0 = Fresca / Piena energia ➔ 10 = Esausta'}</div>
+            <div class="rating-bar">${fatBtns}</div>
+          </div>
 
-  return html;
-}
-
-async function salvaMassimale(mId, nome, btn) {
-  const input = document.getElementById('rm-' + mId);
-  const rm = parseFloat(input.value);
-  if (!rm || rm < 1) { input.style.outline = '2px solid #c33'; setTimeout(() => input.style.outline = '', 1500); return; }
-  btn.textContent = '...';
-  btn.disabled = true;
-  try {
-    await postApi({
-      token: TOKEN, azione: 'log_progressi',
-      id_giocatrice: id, n_seduta: '0', esercizio: nome,
-      data: new Date().toLocaleDateString('it-IT'),
-      valore: `RM ${rm} kg`, note: '',
-      kg_usati: '', reps_fatte: '', rm_stimato: rm,
-    });
-    btn.textContent = '✓';
-    btn.style.background = 'var(--verde)';
-  } catch {
-    btn.textContent = L.errorBtn;
-  } finally {
-    setTimeout(() => { btn.textContent = L.saveBtn; btn.style.background = ''; btn.disabled = false; }, 2000);
-  }
-}
-
-function aggiornaTabelleMassimali() {
-  MASSIMALI.forEach(m => {
-    const rm = parseFloat(document.getElementById('rm-' + m.id)?.value) || 0;
-    if (rm) calcolaMassimale(m.id, m.catena);
-  });
-}
-
-async function salvaPeso(btn) {
-  const input = document.getElementById('peso-input');
-  const val   = parseFloat(input.value);
-  if (!val || val < 30 || val > 150) return;
-  btn.textContent = '...';
-  btn.disabled    = true;
-  try {
-    await fetch(API, {
-      method:  'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        token: TOKEN, azione: 'log_progressi',
-        id_giocatrice: id, n_seduta: '0', esercizio: 'Peso-corporeo',
-        data: new Date().toLocaleDateString('it-IT'),
-        valore: String(val), note: '',
-        kg_usati: '', reps_fatte: '', rm_stimato: '',
-      }),
-    });
-    const okEl = document.getElementById('ok-peso');
-    if (okEl) { okEl.style.display = 'block'; setTimeout(() => okEl.style.display = 'none', 1500); }
-  } catch {}
-  setTimeout(() => { btn.textContent = L.saveBtn; btn.disabled = false; }, 2000);
-}
-
-function htmlFeedbackSeduta(nSeduta, prev) {
-  const rpeId   = `rpe-${id}-${nSeduta}`;
-  const fatId   = `fat-${id}-${nSeduta}`;
-  let rpeBtn = '', fatBtn = '';
-  for (let i = 1; i <= 10; i++) {
-    rpeBtn += `<button class="rating-btn" onclick="salvaRating(this,'${rpeId}',${i},'RPE-seduta','${nSeduta}')">${i}</button>`;
-  }
-  for (let i = 1; i <= 5; i++) {
-    fatBtn += `<button class="rating-btn" onclick="salvaRating(this,'${fatId}',${i},'Fatica-seduta','${nSeduta}')">${i}</button>`;
-  }
-
-  return `
-    <div class="feedback-seduta">
-      <div class="feedback-row">
-        <span class="feedback-label">${L.rpeLabel} <span class="feedback-hint">${L.rpeHint}</span></span>
-        <div class="rating-group" id="${rpeId}">${rpeBtn}</div>
-      </div>
-      <div class="feedback-row">
-        <span class="feedback-label">${L.fatLabel} <span class="feedback-hint">${L.fatHint}</span></span>
-        <div class="rating-group" id="${fatId}">${fatBtn}</div>
-      </div>
-    </div>`;
-}
-
-function salvaRating(btn, groupId, val, esercizio, nSeduta) {
-  const group = document.getElementById(groupId);
-  group.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  if (!feedbackLog[nSeduta]) feedbackLog[nSeduta] = {};
-  feedbackLog[nSeduta][esercizio] = val;
-  _datiModificati = true;
-}
-
-/* ---------- avviso dati non salvati ---------- */
-let _datiModificati = false;
-document.addEventListener('input',  () => { _datiModificati = true; });
-window.addEventListener('beforeunload', e => {
-  if (_datiModificati) { e.preventDefault(); e.returnValue = ''; }
-});
-
-caricaScheda();
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js?v=47').then(reg => {
-    initPushBanner();
-    // Forza aggiornamento: se c'è un nuovo SW in attesa, ricarica la pagina
-    reg.addEventListener('updatefound', () => {
-      const sw = reg.installing;
-      sw && sw.addEventListener('statechange', () => {
-        if (sw.state === 'activated') location.reload();
-      });
-    });
-    // Controlla subito se c'è un aggiornamento disponibile
-    reg.update();
-    // Se un nuovo SW è già in attesa, attivalo
-    if (reg.waiting) reg.waiting.postMessage({ type: 'SKIP_WAITING' });
-    navigator.serviceWorker.addEventListener('controllerchange', () => location.reload());
-  }).catch(() => {});
-}
-
-// ── WELLNESS ──────────────────────────────────────────────────────────────────
-
-let _wellnessPendingAcc = null;
-
-const WL = {
-  it: {
-    title: 'Come stai oggi?',
-    sub: 'Questionario giornaliero — pochi secondi',
-    q1: '🌙 Qualità del sonno',
-    q2: '😓 Fatica percepita',
-    q3: '⚡ Disponibilità all\'allenamento',
-    q4: '💢 Dolori o fastidi',
-    g1: ['Pessima', 'Ottima'],
-    g2: ['Nessuna', 'Esaurita'],
-    g3: ['Nessuna', 'Ottima'],
-    g4: ['Nessuno', 'Forte'],
-    noteLabel: '📝 Note (opzionale)',
-    notePlaceholder: 'Es. dolore al ginocchio sinistro, mal di testa...',
-    confirm: 'Invia',
-  },
-  en: {
-    title: 'How are you feeling today?',
-    sub: 'Daily check-in — takes a few seconds',
-    q1: '🌙 Sleep quality',
-    q2: '😓 Perceived fatigue',
-    q3: '⚡ Readiness to train',
-    q4: '💢 Pain or discomfort',
-    g1: ['Very poor', 'Excellent'],
-    g2: ['None', 'Exhausted'],
-    g3: ['None', 'Excellent'],
-    g4: ['None', 'Severe'],
-    noteLabel: '📝 Notes (optional)',
-    notePlaceholder: 'E.g. left knee pain, headache...',
-    confirm: 'Submit',
-  }
-};
-
-function wellnessKey() {
-  const d = new Date();
-  return `wellness_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}_${id}`;
-}
-
-function apriSedutaConNote(accId) {
-  document.getElementById(accId).classList.add('open');
-}
-
-function mostraWellness(accId) {
-  if (String(id) === '99') { if (accId) apriSedutaConNote(accId); return; }
-  if (localStorage.getItem(wellnessKey())) {
-    if (accId) apriSedutaConNote(accId);
-    return;
-  }
-  _wellnessPendingAcc = accId || null;
-  const wl = (L === EN) ? WL.en : WL.it;
-  const overlay = document.getElementById('wellness-overlay');
-  overlay.querySelector('.wellness-title').textContent = wl.title;
-  overlay.querySelector('.wellness-sub').textContent   = wl.sub;
-  const labels = overlay.querySelectorAll('.wellness-q-label');
-  labels[0].textContent = wl.q1;
-  labels[1].textContent = wl.q2;
-  labels[2].textContent = wl.q3;
-  labels[3].textContent = wl.q4;
-  const guides = overlay.querySelectorAll('.wellness-guide');
-  [[wl.g1],[wl.g2],[wl.g3],[wl.g4]].forEach(([g], i) => {
-    guides[i].children[0].textContent = `1 = ${g[0]}`;
-    guides[i].children[1].textContent = `5 = ${g[1]}`;
-  });
-  overlay.querySelector('.wellness-note-label').textContent    = wl.noteLabel;
-  overlay.querySelector('.wellness-note textarea').placeholder = wl.notePlaceholder;
-  overlay.querySelector('.wellness-note textarea').value       = '';
-  overlay.querySelector('.wellness-confirm').textContent = wl.confirm;
-  overlay.querySelectorAll('.wellness-stars button').forEach(b => b.classList.remove('sel'));
-  overlay.querySelector('.wellness-confirm').disabled = true;
-  overlay.classList.add('open');
-}
-
-function wellnessSeleziona(btn, gruppo) {
-  document.querySelectorAll(`.wellness-stars[data-gruppo="${gruppo}"] button`)
-    .forEach(b => b.classList.remove('sel'));
-  btn.classList.add('sel');
-  const ok = [1,2,3,4].every(g =>
-    document.querySelector(`.wellness-stars[data-gruppo="${g}"] button.sel`)
-  );
-  document.querySelector('.wellness-confirm').disabled = !ok;
-}
-
-function confermaWellness() {
-  const val = g => parseInt(
-    document.querySelector(`.wellness-stars[data-gruppo="${g}"] button.sel`)?.dataset.val || '0'
-  );
-  const sonno        = val(1);
-  const fatica       = val(2);
-  const disponibilita = val(3);
-  const dolori       = val(4);
-  const note         = document.querySelector('.wellness-note textarea')?.value.trim() || '';
-
-  localStorage.setItem(wellnessKey(), '1');
-  document.getElementById('wellness-overlay').classList.remove('open');
-
-  if (_wellnessPendingAcc) {
-    apriSedutaConNote(_wellnessPendingAcc);
-    _wellnessPendingAcc = null;
-  }
-
-  const oggi = new Date();
-  const dataStr = `${oggi.getFullYear()}-${String(oggi.getMonth()+1).padStart(2,'0')}-${String(oggi.getDate()).padStart(2,'0')}`;
-  fetch(API, {
-    method: 'POST',
-    body: JSON.stringify({
-      token: TOKEN, azione: 'log_wellness',
-      id_giocatrice: id, data: dataStr,
-      qualita_sonno: sonno, fatica, disponibilita, dolori, note
-    })
-  }).catch(() => {});
-}
-
-// ── PUSH NOTIFICATIONS ────────────────────────────────────────────────────────
-
-const VAPID_PUBLIC_KEY = 'BC8k3B_czFbc_dySae4Le6tgtyEpcyilthMSrD7sZvz7TRVqwkfKzIHnsDtfy39i7N2n9El6cbxlVfRCzOmr4mU';
-
-function urlBase64ToUint8Array(b64) {
-  const pad = '='.repeat((4 - b64.length % 4) % 4);
-  const raw = atob((b64 + pad).replace(/-/g, '+').replace(/_/g, '/'));
-  return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
-}
-
-async function subscribePush() {
-  // Banner persistente che accumula tutte le righe — tap per chiudere
-  let dbgDiv = document.getElementById('push-dbg');
-  if (!dbgDiv) {
-    dbgDiv = document.createElement('div');
-    dbgDiv.id = 'push-dbg';
-    dbgDiv.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#111;color:#0f0;padding:12px;z-index:99999;font-size:0.75rem;white-space:pre-wrap;word-break:break-all;max-height:60vh;overflow:auto;cursor:pointer';
-    dbgDiv.title = 'Tap per chiudere';
-    dbgDiv.onclick = () => dbgDiv.remove();
-    document.body.appendChild(dbgDiv);
-  }
-  const _log = (msg) => { dbgDiv.textContent += '\n' + msg; };
-  _log('▶ avviato');
-  try {
-    if (!('PushManager' in window)) { _log('✗ PushManager non disponibile'); return; }
-    _log('⏳ requestPermission…');
-    const perm = await Notification.requestPermission();
-    _log('permesso: ' + perm);
-    if (perm !== 'granted') return;
-    _log('⏳ getRegistration…');
-    let reg = await navigator.serviceWorker.getRegistration();
-    if (!reg) {
-      _log('nessuna reg, registro sw.js…');
-      reg = await navigator.serviceWorker.register('/schede-allenamento/sw.js?v=47');
-      await new Promise(r => setTimeout(r, 2000));
-      reg = await navigator.serviceWorker.getRegistration();
+          <textarea class="end-textarea" id="note-end-${nSeduta}" placeholder="${isEN ? 'Session notes (optional)...' : 'Note sulla seduta (opzionale)...'}"></textarea>
+          
+          <button class="btn-save-session" onclick="submitSession('${nSeduta}', this)">${isEN ? 'Save Session' : 'Fine Seduta — Salva Tutto'}</button>
+          <div id="save-msg-${nSeduta}" style="text-align:center;font-weight:800;color:var(--mv-emerald);margin-top:10px;display:none;">✓ Seduta registrata con successo!</div>
+        </div>
+      `;
     }
-    if (!reg) { _log('✗ SW non registrabile'); return; }
-    const sw = reg.active || reg.installing || reg.waiting;
-    _log('✓ SW stato: ' + (reg.active ? 'active' : reg.installing ? 'installing' : reg.waiting ? 'waiting' : '?') + ' scope: ' + reg.scope);
-    _log('⏳ getSubscription…');
-    let sub = await reg.pushManager.getSubscription();
-    if (!sub) {
-      _log('⏳ subscribe() con VAPID…');
-      sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY) });
+
+    let sessionRatings = {};
+
+    function setRating(type, nSeduta, val, btn) {
+      if (!sessionRatings[nSeduta]) sessionRatings[nSeduta] = {};
+      sessionRatings[nSeduta][type] = val;
+
+      btn.parentElement.querySelectorAll('.r-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(`lbl-${type}-${nSeduta}`).textContent = `${val} / 10`;
     }
-    const j = sub.toJSON();
-    _log('✓ sub endpoint: ' + (j.endpoint || '?').slice(0,80));
-    _log('keys ok: ' + (!!j.keys));
-    if (!j.keys) return;
-    _log('⏳ fetch → API_PUSH (salva_push_sub)…');
-    // GAS non risponde a CORS preflight — usiamo GET con parametri
-    const params = new URLSearchParams({
-      token: TOKEN, azione: 'salva_push_sub', id_giocatrice: id,
-      endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth
-    });
-    const res = await fetch(API_PUSH + '?' + params.toString());
-    const rawText = await res.text().catch(() => '');
-    _log('HTTP ' + res.status + '\n' + (rawText || '(vuoto)'));
-    let json = {};
-    try { json = JSON.parse(rawText); } catch(_) {}
-    if (json.ok) {
-      _log('✅ ISCRIZIONE SALVATA!');
-      try { localStorage.setItem('push_ok_' + id, '1'); } catch(_) {}
-      setTimeout(() => document.getElementById('push-banner')?.remove(), 3000);
+
+    async function submitSession(nSeduta, btn) {
+      btn.disabled = true;
+      btn.textContent = isEN ? 'Saving...' : 'Salvataggio in corso...';
+
+      const rpe = sessionRatings[nSeduta]?.rpe || 5;
+      const fat = sessionRatings[nSeduta]?.fat || 5;
+      const note = document.getElementById(`note-end-${nSeduta}`).value.trim();
+
+      try {
+        await fetch(`${GAS_URL}?token=${TOKEN}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            azione: 'log_progressi',
+            id_giocatrice: currentAthlete.id,
+            n_seduta: nSeduta,
+            esercizio: 'Chiusura-Seduta',
+            data: new Date().toISOString().slice(0, 10),
+            valore: `RPE ${rpe}/10 · Fatica ${fat}/10`,
+            note: note
+          })
+        });
+      } catch (err) {}
+
+      btn.textContent = '✓ Salvato!';
+      btn.style.background = 'var(--mv-emerald)';
+      btn.style.color = '#fff';
+      document.getElementById(`save-msg-${nSeduta}`).style.display = 'block';
     }
-  } catch(err) {
-    _log('✗ ERRORE: ' + err.message + '\n' + (err.stack || ''));
-    dbgDiv.style.background = '#700';
-  }
-}
 
-async function initPushBanner() {
-  const banner = document.getElementById('push-banner');
-  if (!banner) return;
-  if (!id || String(id) !== '99') { banner.style.display = 'none'; return; }
-  if (!('serviceWorker' in navigator) || !('PushManager' in window)) { banner.style.display = 'none'; return; }
-  try {
-    const reg = await navigator.serviceWorker.getRegistration();
-    if (!reg) { banner.style.display = 'flex'; return; }
-    const sub = await reg.pushManager.getSubscription();
-    if (sub && Notification.permission === 'granted' && localStorage.getItem('push_ok_' + id)) {
-      banner.style.display = 'none'; return;
-    }
-  } catch(_) {}
-  banner.style.display = 'flex';
-}
-
-
-// Auto-apri wellness se arrivata da notifica push
-(function checkWellnessParam() {
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('wellness') === '1' && id && String(id) !== '99') {
-    // Attendi che la pagina carichi, poi apri il modal
-    const timer = setInterval(() => {
-      if (document.getElementById('contenuto')?.style.display !== 'none') {
-        clearInterval(timer);
-        if (!localStorage.getItem(wellnessKey())) mostraWellness(null);
-      }
-    }, 200);
-  }
-})();
-
-// ─────────────────────────────────────────────────────────────────────────────
-</script>
-
-
-<div id="wellness-overlay">
-  <div class="wellness-card">
-    <p class="wellness-title"></p>
-    <p class="wellness-sub"></p>
-    <div class="wellness-q">
-      <div class="wellness-q-label"></div>
-      <div class="wellness-stars" data-gruppo="1">
-        <button data-val="1" onclick="wellnessSeleziona(this,1)">1</button>
-        <button data-val="2" onclick="wellnessSeleziona(this,1)">2</button>
-        <button data-val="3" onclick="wellnessSeleziona(this,1)">3</button>
-        <button data-val="4" onclick="wellnessSeleziona(this,1)">4</button>
-        <button data-val="5" onclick="wellnessSeleziona(this,1)">5</button>
-      </div>
-      <div class="wellness-guide"><span></span><span></span></div>
-    </div>
-    <div class="wellness-q">
-      <div class="wellness-q-label"></div>
-      <div class="wellness-stars" data-gruppo="2">
-        <button data-val="1" onclick="wellnessSeleziona(this,2)">1</button>
-        <button data-val="2" onclick="wellnessSeleziona(this,2)">2</button>
-        <button data-val="3" onclick="wellnessSeleziona(this,2)">3</button>
-        <button data-val="4" onclick="wellnessSeleziona(this,2)">4</button>
-        <button data-val="5" onclick="wellnessSeleziona(this,2)">5</button>
-      </div>
-      <div class="wellness-guide"><span></span><span></span></div>
-    </div>
-    <div class="wellness-q">
-      <div class="wellness-q-label"></div>
-      <div class="wellness-stars" data-gruppo="3">
-        <button data-val="1" onclick="wellnessSeleziona(this,3)">1</button>
-        <button data-val="2" onclick="wellnessSeleziona(this,3)">2</button>
-        <button data-val="3" onclick="wellnessSeleziona(this,3)">3</button>
-        <button data-val="4" onclick="wellnessSeleziona(this,3)">4</button>
-        <button data-val="5" onclick="wellnessSeleziona(this,3)">5</button>
-      </div>
-      <div class="wellness-guide"><span></span><span></span></div>
-    </div>
-    <div class="wellness-q">
-      <div class="wellness-q-label"></div>
-      <div class="wellness-stars" data-gruppo="4">
-        <button data-val="1" onclick="wellnessSeleziona(this,4)">1</button>
-        <button data-val="2" onclick="wellnessSeleziona(this,4)">2</button>
-        <button data-val="3" onclick="wellnessSeleziona(this,4)">3</button>
-        <button data-val="4" onclick="wellnessSeleziona(this,4)">4</button>
-        <button data-val="5" onclick="wellnessSeleziona(this,4)">5</button>
-      </div>
-      <div class="wellness-guide"><span></span><span></span></div>
-    </div>
-    <div class="wellness-note">
-      <div class="wellness-note-label"></div>
-      <textarea rows="2" placeholder=""></textarea>
-    </div>
-    <button class="wellness-confirm" onclick="confermaWellness()" disabled></button>
-  </div>
-</div>
-
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
 </body>
 </html>
