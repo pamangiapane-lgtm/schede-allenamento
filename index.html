@@ -534,7 +534,7 @@
 
   </main>
 
-  <script src="data.js?v=20260831v8"></script>
+  <script src="data.js?v=20260831v9"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -834,6 +834,46 @@
       const isNelly = (currentAthlete.id === 14 || currentAthlete.name.toLowerCase().includes('nelly'));
 
       container.innerHTML = sessions.map((sed, idx) => {
+        // Se è Nelly, mostriamo la sua scheda dedicata strutturata nei 4 blocchi esatti
+        if (isNelly) {
+          const nellyEx = allExercises.filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta) && (e.Ruoli === 'Nelly' || (e.Metodo && e.Metodo.includes('Nelly')) || e.Metodo === 'Prehab' || e.Metodo === 'Main Exercises' || e.Metodo === 'Accessories' || e.Metodo === 'Abdominals + Transfer'));
+
+          const nellyBlocks = [
+            { name: 'Prehab', icon: '🛡️', title: 'Prehab Protocol' },
+            { name: 'Main Exercises', icon: '🏋️', title: 'Main Exercises (Strength)' },
+            { name: 'Accessories', icon: '🧩', title: 'Accessories (3 Sets)' },
+            { name: 'Abdominals + Transfer', icon: '⚡', title: 'Abdominals & Transfer' }
+          ];
+
+          const nellyHtml = nellyBlocks.map(b => {
+            const list = nellyEx.filter(e => (e.Metodo || '').toLowerCase().includes(b.name.toLowerCase()));
+            if (list.length === 0) return '';
+            return `
+              <div class="method-group">
+                <div class="method-title">${b.icon} ${b.title}</div>
+                ${list.map(e => renderExerciseCard(e, sed)).join('')}
+              </div>
+            `;
+          }).join('');
+
+          return `
+            <div class="session-card" id="card-${sed.Numero_Seduta}">
+              <div class="session-head" onclick="toggleSession('${sed.Numero_Seduta}')">
+                <div>
+                  <span class="session-badge">${sed.Giorno || `Session ${idx+1}`}</span>
+                  <div class="session-title">${sed.Numero_Seduta === 'W2-MarP' ? 'Strength 2 — Nelly Adamczewska' : (sed.Nome_Seduta || `Session ${sed.Numero_Seduta}`)}</div>
+                  <div class="session-meta">📍 Gym · ⏱ ~60 min</div>
+                </div>
+                <div class="session-chevron">▾</div>
+              </div>
+              <div class="session-body">
+                ${nellyHtml}
+                ${renderSessionEnd(sed.Numero_Seduta)}
+              </div>
+            </div>
+          `;
+        }
+
         // Filtra gli esercizi principali della seduta (escludendo accessori/prevenzione per W2-MarP e W1-MarP)
         const sedEsercizi = allExercises
           .filter(e => {
