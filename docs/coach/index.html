@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Marsala Volley — Coach Command Center 2.0</title>
-  <link rel="manifest" href="manifest-coach.json?v=2">
-  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="../style.css">
   <meta name="theme-color" content="#0c1f40">
-  <link rel="apple-touch-icon" href="logo.jpg">
+  <link rel="apple-touch-icon" href="../logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -307,7 +307,7 @@
   <!-- Header -->
   <header class="coach-header">
     <div class="brand-wrap">
-      <img src="logo.jpg" class="brand-logo" alt="Marsala Volley">
+      <img src="../logo.jpg" class="brand-logo" alt="Marsala Volley">
       <div>
         <h1 class="brand-title">Marsala Volley · Coach Command Center</h1>
         <div class="brand-sub">Pre-Season 2026/27 — Serie A2 Femminile</div>
@@ -315,8 +315,8 @@
     </div>
     <div class="header-actions">
       <button class="btn-action primary" onclick="refreshLiveWellness()">🔄 Aggiorna Dati Live</button>
-      <a href="index.html" class="btn-action" target="_blank">📱 Scheda Atlete</a>
-      <a href="wellness.html" class="btn-action" target="_blank">🌅 Modulo Wellness</a>
+      <a href="../index.html" class="btn-action" target="_blank">📱 Scheda Atlete</a>
+      <a href="../wellness.html" class="btn-action" target="_blank">🌅 Modulo Wellness</a>
     </div>
   </header>
 
@@ -408,7 +408,7 @@
     </div>
   </div>
 
-  <script src="data.js?v=20260831v2"></script>
+  <script src="../data.js?v=20260831v2"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -514,7 +514,7 @@
               <span class="alert-details">⚠️ ${al.reason}</span>
               ${al.note ? `<span class="alert-note">Nota: "${al.note}"</span>` : ''}
               <button class="btn-action" onclick="openPrehabModal(${al.athlete.id})">🛡️ Prehab</button>
-              <a href="index.html?id=${al.athlete.id}" target="_blank" class="btn-action">↗ Scheda</a>
+              <a href="../index.html?id=${al.athlete.id}" target="_blank" class="btn-action">↗ Scheda</a>
             </div>
           </div>
         `).join('');
@@ -601,7 +601,7 @@
               <div class="ath-cell">
                 <span class="ath-num">${a.number || '#'}</span>
                 <div>
-                  <a href="index.html?id=${a.id}" target="_blank" class="ath-name">${a.name}</a>
+                  <a href="../index.html?id=${a.id}" target="_blank" class="ath-name">${a.name}</a>
                 </div>
               </div>
             </td>
@@ -620,7 +620,7 @@
               ${hasPrehab ? `<button class="btn-action" onclick="openPrehabModal(${a.id})">🛡️ Protocollo F1</button>` : '<span style="color:#64748b">—</span>'}
             </td>
             <td>
-              <a href="index.html?id=${a.id}" target="_blank" class="btn-action">↗ Apri</a>
+              <a href="../index.html?id=${a.id}" target="_blank" class="btn-action">↗ Apri</a>
             </td>
           </tr>
         `;

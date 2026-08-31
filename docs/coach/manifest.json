@@ -1,0 +1,19 @@
+{
+  "name": "Coach Command Center — Marsala Volley",
+  "short_name": "Coach MV",
+  "description": "Cabina di regia e triage squadra per Coach Paulo",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#071226",
+  "theme_color": "#071226",
+  "icons": [
+    {
+      "src": "../logo.jpg",
+      "sizes": "720x720",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
