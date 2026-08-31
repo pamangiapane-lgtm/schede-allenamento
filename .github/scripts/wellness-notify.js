@@ -4,7 +4,7 @@
 
 const webpush = require('web-push');
 
-const VAPID_PUBLIC_KEY   = 'BC8k3B_czFbc_dySae4Le6tgtyEpcyilthMSrD7sZvz7TRVqwkfKzIHnsDtfy39i7N2n9El6cbxlVfRCzOmr4mU';
+const VAPID_PUBLIC_KEY   = 'BFGr0LDq_rDf4A1R1b_pbOQ7o0vSorfUKD5aXz10P463doezbAbdhv-5TKf0mc_2nXp6MGk1zgknLu-CoPJQBQM';
 const VAPID_PRIVATE_KEY  = process.env.VAPID_PRIVATE_KEY;
 const APPS_SCRIPT_URL    = process.env.APPS_SCRIPT_URL;
 const APPS_SCRIPT_TOKEN  = process.env.APPS_SCRIPT_TOKEN;
