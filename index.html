@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Marsala Volley — Scheda Allenamento</title>
+  <title>Marsala Volley — Schede Allenamento</title>
   <meta name="theme-color" content="#071226">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="logo.jpg">
@@ -61,8 +61,62 @@
 
     .container { max-width: 680px; margin: 0 auto; padding: 16px; }
 
-    /* Athlete Hero Card */
-    .athlete-card {
+    /* Roster Selection View */
+    .roster-view { display: none; }
+    .roster-view.active { display: block; }
+    .roster-title { font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .roster-sub { font-size: 0.8rem; color: var(--mv-muted); margin-bottom: 16px; }
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 10px;
+    }
+    .athlete-card-btn {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 80px;
+      text-decoration: none;
+    }
+    .athlete-card-btn:hover { background: var(--mv-surface2); border-color: var(--mv-amber); }
+    .athlete-card-btn:active { transform: scale(0.98); }
+    .ac-name { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .ac-role { font-size: 0.75rem; color: var(--mv-amber); font-weight: 700; }
+
+    /* Single Athlete View */
+    .athlete-view { display: none; }
+    .athlete-view.active { display: block; }
+
+    .nav-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .btn-change-ath {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      color: var(--mv-muted);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-change-ath:hover { color: #fff; border-color: var(--mv-amber); }
+
+    /* Athlete Hero Card (NO NUMBERS, NO RISK TAGS) */
+    .athlete-hero {
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-lg);
@@ -70,29 +124,28 @@
       margin-bottom: 16px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.25);
     }
-    .ath-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-    .ath-num-pill {
-      background: rgba(232,160,32,0.15);
-      border: 1px solid rgba(232,160,32,0.3);
-      color: var(--mv-amber);
-      font-size: 0.82rem;
-      font-weight: 800;
-      padding: 3px 10px;
-      border-radius: 6px;
-    }
-    .ath-risk-tag {
-      font-size: 0.7rem;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 6px;
-      letter-spacing: 0.4px;
-    }
-    .ath-risk-tag.high { background: rgba(239,68,68,0.18); color: #fca5a5; border: 1px solid #ef4444; }
-    .ath-risk-tag.medium { background: rgba(245,158,11,0.18); color: #fde68a; border: 1px solid #f59e0b; }
-    .ath-risk-tag.low { background: rgba(16,185,129,0.18); color: #6ee7b7; border: 1px solid #10b981; }
+    .ath-name { font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .ath-role { font-size: 0.85rem; color: var(--mv-amber); font-weight: 700; }
 
-    .ath-name { font-size: 1.45rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
-    .ath-role { font-size: 0.82rem; color: var(--mv-muted); font-weight: 600; }
+    /* Prehab Guys Portal Button */
+    .prehab-btn-external {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      border: 1px solid #3b82f6;
+      border-radius: var(--radius-md);
+      color: #fff;
+      text-decoration: none;
+      padding: 14px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
+      margin-bottom: 16px;
+      transition: transform 0.15s;
+    }
+    .prehab-btn-external:active { transform: scale(0.98); }
 
     /* Navigation Tabs */
     .nav-tabs {
@@ -155,7 +208,7 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* 1RM Profile Card */
+    /* Cards */
     .card-box {
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
@@ -168,33 +221,58 @@
       font-size: 1rem;
       font-weight: 800;
       color: #fff;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .rm-grid {
+    /* Body Weight Box (At the top of Profile) */
+    .bw-box {
+      background: var(--mv-surface2);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
       gap: 10px;
     }
+    .bw-info { font-size: 0.88rem; font-weight: 800; color: #fff; }
+    .bw-sub { font-size: 0.72rem; color: var(--mv-muted); }
+    .bw-input-row { display: flex; align-items: center; gap: 8px; }
+    .bw-input {
+      background: #090f1d;
+      border: 1px solid var(--mv-border);
+      color: var(--mv-amber);
+      font-size: 1rem;
+      font-weight: 800;
+      width: 75px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    /* 1RM Cards */
+    .rm-grid { display: flex; flex-direction: column; gap: 10px; }
     .rm-card {
       background: var(--mv-surface2);
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-md);
       padding: 12px 14px;
     }
-    .rm-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .rm-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
     .rm-name { font-weight: 800; font-size: 0.92rem; color: #fff; }
     .rm-val-box { display: flex; align-items: center; gap: 6px; }
     .rm-input {
       background: #090f1d;
       border: 1px solid var(--mv-border);
       color: var(--mv-amber);
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 800;
-      width: 70px;
+      width: 65px;
       padding: 5px 8px;
       border-radius: 6px;
       text-align: center;
@@ -215,27 +293,7 @@
     .rm-pct-lbl { font-size: 0.65rem; color: var(--mv-muted); font-weight: 700; display: block; }
     .rm-pct-kg { font-size: 0.75rem; color: #fff; font-weight: 800; }
 
-    /* Prehab External Button */
-    .prehab-btn-external {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: linear-gradient(135deg, #1e3a8a, #2563eb);
-      border: 1px solid #3b82f6;
-      border-radius: var(--radius-md);
-      color: #fff;
-      text-decoration: none;
-      padding: 14px;
-      font-size: 0.92rem;
-      font-weight: 800;
-      box-shadow: 0 4px 16px rgba(37,99,235,0.35);
-      margin-bottom: 16px;
-      transition: transform 0.15s;
-    }
-    .prehab-btn-external:active { transform: scale(0.98); }
-
-    /* Session Accordions */
+    /* Session Accordions (ALWAYS COLLAPSED BY DEFAULT) */
     .session-card {
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
@@ -324,11 +382,7 @@
     }
     .ex-target-box strong { color: var(--mv-amber); font-size: 0.95rem; }
 
-    .ex-log-box {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .ex-log-box { display: flex; align-items: center; gap: 8px; }
     .log-input {
       flex: 1;
       background: #090f1d;
@@ -351,12 +405,7 @@
       font-weight: 800;
       cursor: pointer;
     }
-    .saved-toast {
-      color: var(--mv-emerald);
-      font-size: 0.78rem;
-      font-weight: 800;
-      display: none;
-    }
+    .saved-toast { color: var(--mv-emerald); font-size: 0.78rem; font-weight: 800; display: none; }
 
     .ex-notes-toggle {
       background: transparent;
@@ -452,61 +501,89 @@
   </header>
 
   <main class="container">
-    <!-- Athlete Hero Card -->
-    <div class="athlete-card" id="athlete-card">
-      <div class="ath-top">
-        <span class="ath-num-pill" id="ath-number">#--</span>
-        <span class="ath-risk-tag low" id="ath-risk">RISCHIO BASSO</span>
-      </div>
-      <h2 class="ath-name" id="ath-name">Caricamento atleta...</h2>
-      <div class="ath-role" id="ath-role">Serie A2 Femminile</div>
+    
+    <!-- 1. ROSTER SELECTION VIEW (When no ID or user clicks change) -->
+    <div class="roster-view" id="roster-view">
+      <h2 class="roster-title">👥 Seleziona la tua Scheda</h2>
+      <p class="roster-sub">Tocca il tuo nome per accedere alle tue sedute e ai tuoi massimali.</p>
+      <div class="roster-grid" id="roster-grid"></div>
     </div>
 
-    <!-- Prehab Guys Portal Button -->
-    <a href="#" target="_blank" rel="noopener" class="prehab-btn-external" id="btn-prehab-external">
-      <span>🛡️ Apri il Portale Prehab Personale (The Prehab Guys)</span>
-      <span>↗</span>
-    </a>
-
-    <!-- Nav Tabs -->
-    <div class="nav-tabs">
-      <button class="nav-tab-btn active" onclick="switchNav('sedute', this)">🏋️ Sedute di Allenamento</button>
-      <button class="nav-tab-btn" onclick="switchNav('profilo', this)">📊 Stima 1RM & Profilo</button>
-    </div>
-
-    <!-- Tab Sedute -->
-    <div class="tab-panel active" id="tab-sedute">
-      <!-- Week Switcher -->
-      <div class="week-switcher">
-        <button class="week-pill active" onclick="switchWeek('W1', this)">Settimana 1 (W1)</button>
-        <button class="week-pill" onclick="switchWeek('W2', this)">Settimana 2 (W2)</button>
+    <!-- 2. SINGLE ATHLETE VIEW -->
+    <div class="athlete-view" id="athlete-view">
+      
+      <div class="nav-top-bar">
+        <button class="btn-change-ath" onclick="showRosterSelection()">← Cambia Atleta</button>
       </div>
 
-      <!-- Sessions Container -->
-      <div id="sessions-container"></div>
+      <!-- Athlete Hero Card (Name and Role only) -->
+      <div class="athlete-hero">
+        <h2 class="ath-name" id="ath-name">Nome Atleta</h2>
+        <div class="ath-role" id="ath-role">Ruolo Atleta</div>
+      </div>
+
+      <!-- Prehab Guys Portal Button -->
+      <a href="#" target="_blank" rel="noopener" class="prehab-btn-external" id="btn-prehab-external">
+        <span>🛡️ Apri il Portale Prehab Personale (The Prehab Guys)</span>
+        <span>↗</span>
+      </a>
+
+      <!-- Nav Tabs -->
+      <div class="nav-tabs">
+        <button class="nav-tab-btn active" onclick="switchNav('sedute', this)">🏋️ Sedute di Allenamento</button>
+        <button class="nav-tab-btn" onclick="switchNav('profilo', this)" id="tab-btn-profilo">📊 Profilo e Stima 1RM</button>
+      </div>
+
+      <!-- Tab Sedute -->
+      <div class="tab-panel active" id="tab-sedute">
+        <!-- Week Switcher -->
+        <div class="week-switcher">
+          <button class="week-pill active" onclick="switchWeek('W1', this)">Settimana 1 (W1)</button>
+          <button class="week-pill" onclick="switchWeek('W2', this)">Settimana 2 (W2)</button>
+        </div>
+
+        <!-- Sessions Container -->
+        <div id="sessions-container"></div>
+      </div>
+
+      <!-- Tab Profilo e Stima 1RM -->
+      <div class="tab-panel" id="tab-profilo">
+        <!-- Body Weight Box -->
+        <div class="bw-box">
+          <div>
+            <div class="bw-info">⚖️ Peso Corporeo</div>
+            <div class="bw-sub">Monitora il tuo peso per il calcolo dei carichi</div>
+          </div>
+          <div class="bw-input-row">
+            <input type="number" class="bw-input" id="input-bw" placeholder="kg" step="0.1">
+            <span style="font-size:0.8rem;color:var(--mv-muted);font-weight:700">kg</span>
+            <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="saveBodyWeight(this)">Salva</button>
+            <span id="toast-bw" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.8rem;">✓</span>
+          </div>
+        </div>
+
+        <!-- 1RM Cards Box -->
+        <div class="card-box">
+          <h3 class="card-title">🏋️ Stima Massimali 1RM & Percentuali</h3>
+          <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:14px;">I valori sono precompilati in base alle registrazioni raccolte. Puoi aggiornarli se migliori il tuo carico.</p>
+          <div class="rm-grid" id="rm-grid-container"></div>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Tab Profilo & 1RM -->
-    <div class="tab-panel" id="tab-profilo">
-      <div class="card-box">
-        <h3 class="card-title">🏋️ Stima Massimali 1RM & Percentuali</h3>
-        <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:14px;">I valori sono precompilati in base alle registrazioni raccolte. Puoi aggiornarli se migliori il tuo carico.</p>
-        <div class="rm-grid" id="rm-grid-container"></div>
-      </div>
-    </div>
   </main>
 
-  <script src="data.js?v=20260831v3"></script>
+  <script src="data.js?v=20260831v4"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentId = parseInt(urlParams.get('id') || '12');
-    const isEN = (currentId === 4 || currentId === 14);
-
-    let currentWeek = 'W1';
-    let currentAthlete = null;
+    const BASELINE_WEIGHTS = {
+      1: 63.5, 2: 66.8, 3: 74.0, 4: 73.0, 5: 55.5,
+      6: 69.0, 7: 78.0, 8: 77.0, 9: 66.0, 11: 60.0,
+      12: 63.5, 13: 68.0, 14: 70.0
+    };
 
     const RM_KEYS = [
       { id: 'squat', name: 'Back Squat', baseline: 'Squat / Step Up' },
@@ -516,26 +593,102 @@
       { id: 'lat',   name: 'Lat (Lat Machine / Trazioni)', baseline: 'Lat Machine' }
     ];
 
+    let currentAthlete = null;
+    let currentWeek = 'W1';
+    let isEN = false;
+
     function init() {
-      currentAthlete = ROSTER.find(a => a.id === currentId) || ROSTER[0];
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlId = urlParams.get('id');
+
+      if (urlId) {
+        selectAthlete(parseInt(urlId));
+      } else {
+        const savedId = localStorage.getItem('mv_selected_athlete');
+        if (savedId) {
+          selectAthlete(parseInt(savedId));
+        } else {
+          showRosterSelection();
+        }
+      }
+    }
+
+    function showRosterSelection() {
+      document.getElementById('athlete-view').classList.remove('active');
+      document.getElementById('roster-view').classList.add('active');
+
+      const grid = document.getElementById('roster-grid');
+      grid.innerHTML = ROSTER.map(a => `
+        <div class="athlete-card-btn" onclick="selectAthlete(${a.id})">
+          <div class="ac-name">${a.name}</div>
+          <div class="ac-role">${a.role}</div>
+        </div>
+      `).join('');
+    }
+
+    function selectAthlete(athId) {
+      currentAthlete = ROSTER.find(a => a.id === athId) || ROSTER[0];
+      localStorage.setItem('mv_selected_athlete', currentAthlete.id);
+      isEN = (currentAthlete.id === 4 || currentAthlete.id === 14);
+
+      // Update URL without reload
+      const newUrl = window.location.pathname + '?id=' + currentAthlete.id;
+      window.history.replaceState({ path: newUrl }, '', newUrl);
+
+      document.getElementById('roster-view').classList.remove('active');
+      document.getElementById('athlete-view').classList.add('active');
+
       renderHero();
+      renderBodyWeight();
       render1RMProfile();
       renderSessions();
     }
 
     function renderHero() {
-      document.getElementById('ath-number').textContent = `#${currentAthlete.number || currentAthlete.id}`;
       document.getElementById('ath-name').textContent = currentAthlete.name;
       document.getElementById('ath-role').textContent = `${currentAthlete.role} · Marsala Volley`;
 
-      const risk = currentAthlete.risk_level || 'LOW';
-      const riskEl = document.getElementById('ath-risk');
-      riskEl.className = `ath-risk-tag ${risk.toLowerCase()}`;
-      riskEl.textContent = risk === 'HIGH' ? '🔴 RISCHIO ALTO' : (risk === 'MEDIUM' ? '🟡 RISCHIO MEDIO' : '🟢 RISCHIO BASSO');
-
-      // Prehab Link
+      // Prehab link
       const link = currentAthlete.Link_Prehab || currentAthlete.link_prehab || 'https://pro.theprehabguys.com';
       document.getElementById('btn-prehab-external').href = link;
+
+      if (isEN) {
+        document.getElementById('tab-btn-profilo').textContent = '📊 Profile & 1RM Estimation';
+      } else {
+        document.getElementById('tab-btn-profilo').textContent = '📊 Profilo e Stima 1RM';
+      }
+    }
+
+    function renderBodyWeight() {
+      const savedBw = localStorage.getItem(`mv_bw_${currentAthlete.id}`);
+      const baseBw = BASELINE_WEIGHTS[currentAthlete.id] || '';
+      document.getElementById('input-bw').value = savedBw || baseBw;
+    }
+
+    async function saveBodyWeight(btn) {
+      const val = document.getElementById('input-bw').value.trim();
+      if (!val) return;
+
+      localStorage.setItem(`mv_bw_${currentAthlete.id}`, val);
+      const toast = document.getElementById('toast-bw');
+      toast.style.display = 'inline';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+
+      try {
+        fetch(`${GAS_URL}?token=${TOKEN}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            azione: 'log_progressi',
+            id_giocatrice: currentAthlete.id,
+            n_seduta: 0,
+            esercizio: 'Peso-corporeo',
+            data: new Date().toISOString().slice(0, 10),
+            valore: `${val} kg`
+          })
+        });
+      } catch (err) {}
     }
 
     function switchNav(tab, btn) {
@@ -606,7 +759,6 @@
         setTimeout(() => { toast.style.display = 'none'; }, 2000);
       }
 
-      // Sincronizza su Google Sheets
       try {
         fetch(`${GAS_URL}?token=${TOKEN}`, {
           method: 'POST',
@@ -628,12 +780,6 @@
       renderSessions();
     }
 
-    function save1RM(rmId, val) {
-      localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, val);
-      render1RMProfile();
-      renderSessions();
-    }
-
     function renderSessions() {
       const container = document.getElementById('sessions-container');
       const weekObj = (typeof WEEKS_DATA !== 'undefined' && WEEKS_DATA[currentWeek]) ? WEEKS_DATA[currentWeek] : null;
@@ -645,6 +791,7 @@
         return;
       }
 
+      // SESSIONS ARE ALWAYS COLLAPSED BY DEFAULT (open class is NOT added)
       container.innerHTML = sessions.map((sed, idx) => {
         const sedEsercizi = allExercises
           .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta))
@@ -657,8 +804,6 @@
           methodMap[m].push(e);
         });
 
-        const isOpen = idx === 0;
-
         const methodsHtml = Object.keys(methodMap).map(mName => {
           const exList = methodMap[mName];
           return `
@@ -670,7 +815,7 @@
         }).join('');
 
         return `
-          <div class="session-card ${isOpen ? 'open' : ''}" id="card-${sed.Numero_Seduta}">
+          <div class="session-card" id="card-${sed.Numero_Seduta}">
             <div class="session-head" onclick="toggleSession('${sed.Numero_Seduta}')">
               <div>
                 <span class="session-badge">${sed.Giorno || `Seduta ${idx+1}`}</span>
@@ -765,7 +910,6 @@
       toast.style.display = 'inline';
       setTimeout(() => { toast.style.display = 'none'; }, 2000);
 
-      // Invia anche a Google Sheets
       try {
         fetch(`${GAS_URL}?token=${TOKEN}`, {
           method: 'POST',
@@ -867,17 +1011,6 @@
     }
 
     window.addEventListener('DOMContentLoaded', init);
-  </script>
-  <script>
-    // Forza aggiornamento immediato del Service Worker e pulizia cache
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js?v=50').then(reg => {
-        reg.update();
-      });
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        console.log('[App] Nuova versione rilevata, ricaricamento automatico...');
-      });
-    }
   </script>
 </body>
 </html>
