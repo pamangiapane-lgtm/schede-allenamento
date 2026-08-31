@@ -207,7 +207,7 @@
       gap: 8px;
     }
 
-    /* Body Weight Box (At the top of Profile) */
+    /* Body Weight Box */
     .bw-box {
       background: var(--mv-surface2);
       border: 1px solid var(--mv-border);
@@ -362,19 +362,6 @@
     }
     .ex-target-box strong { color: var(--mv-amber); font-size: 0.95rem; }
 
-    .ex-log-box { display: flex; align-items: center; gap: 8px; }
-    .log-input {
-      flex: 1;
-      background: #090f1d;
-      border: 1px solid var(--mv-border);
-      color: #fff;
-      border-radius: 8px;
-      padding: 9px 12px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      outline: none;
-    }
-    .log-input:focus { border-color: var(--mv-amber); }
     .btn-save-log {
       background: var(--mv-blue);
       color: #fff;
@@ -385,7 +372,6 @@
       font-weight: 800;
       cursor: pointer;
     }
-    .saved-toast { color: var(--mv-emerald); font-size: 0.78rem; font-weight: 800; display: none; }
 
     .ex-notes-toggle {
       background: transparent;
@@ -539,7 +525,7 @@
         <!-- 1RM Cards Box -->
         <div class="card-box">
           <h3 class="card-title">🏋️ Stima Massimali 1RM & Percentuali</h3>
-          <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:14px;">I valori sono precompilati in base alle registrazioni raccolte. Puoi aggiornarli se migliori il tuo carico.</p>
+          <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:14px;">I valori sono precompilati in base ai test storici. Puoi aggiornarli se migliori il tuo carico.</p>
           <div class="rm-grid" id="rm-grid-container"></div>
         </div>
       </div>
@@ -548,7 +534,7 @@
 
   </main>
 
-  <script src="data.js?v=20260831v5"></script>
+  <script src="data.js?v=20260831v6"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -559,12 +545,29 @@
       12: 63.5, 13: 68.0, 14: 70.0
     };
 
+    // I MASSIMALI AUTOREVOLI REALI ESTRATTI DALLO STORICO
+    const TRUE_BASELINES = {
+      1:  { squat: 75,  bench: 30, clean: 40,   row: 20, lat: 35 },
+      2:  { squat: 95,  bench: 40, clean: 35,   row: 50, lat: 45 },
+      3:  { squat: 120, bench: 60, clean: 70,   row: 63, lat: 56 },
+      4:  { squat: 80,  bench: 50, clean: 50,   row: 43, lat: 45 },
+      5:  { squat: 90,  bench: 40, clean: 30,   row: 30, lat: 45 },
+      6:  { squat: 80,  bench: 35, clean: 50,   row: 45, lat: 35 },
+      7:  { squat: 110, bench: 35, clean: 62.5, row: 55, lat: 50 },
+      8:  { squat: 105, bench: 50, clean: 35,   row: 60, lat: 50 },
+      9:  { squat: 110, bench: 45, clean: 50,   row: 45, lat: 36 },
+      11: { squat: 105, bench: 30, clean: 50,   row: 30, lat: 43 },
+      12: { squat: 122, bench: 51, clean: 42.5, row: 60, lat: 45 },
+      13: { squat: 84,  bench: 35, clean: 44,   row: 38, lat: 48 },
+      14: { squat: 120, bench: 55, clean: 55,   row: 50, lat: 45 }
+    };
+
     const RM_KEYS = [
-      { id: 'squat', name: 'Back Squat', baseline: 'Squat / Step Up', hasBW: true },
-      { id: 'bench', name: 'Bench Press', baseline: 'Bench Press', hasBW: false },
-      { id: 'clean', name: 'Power Clean', baseline: 'Clean', hasBW: false },
-      { id: 'row',   name: 'Row (Rematore)', baseline: 'Row BB', hasBW: false },
-      { id: 'lat',   name: 'Lat (Lat Machine / Trazioni)', baseline: 'Lat Machine', hasBW: false }
+      { id: 'squat', name: 'Back Squat', baseline: 'squat', hasBW: true },
+      { id: 'bench', name: 'Bench Press', baseline: 'bench', hasBW: false },
+      { id: 'clean', name: 'Power Clean', baseline: 'clean', hasBW: false },
+      { id: 'row',   name: 'Row (Rematore)', baseline: 'row', hasBW: false },
+      { id: 'lat',   name: 'Lat (Lat Machine / Trazioni)', baseline: 'lat', hasBW: false }
     ];
 
     const ORDERED_CATEGORIES = [
@@ -694,15 +697,12 @@
 
     function getAthlete1RM(rmKey) {
       const saved = localStorage.getItem(`mv_1rm_${currentAthlete.id}_${rmKey.id}`);
-      if (saved) return parseFloat(saved);
+      if (saved && parseFloat(saved) > 0) return parseFloat(saved);
 
-      const osBaseline = (typeof OFFSEASON_DATA !== 'undefined' && OFFSEASON_DATA.baselines_1rm && OFFSEASON_DATA.baselines_1rm[String(currentAthlete.id)])
-        ? (OFFSEASON_DATA.baselines_1rm[String(currentAthlete.id)].rms || {})
-        : {};
-      return osBaseline[rmKey.baseline] || 0;
+      const base = TRUE_BASELINES[currentAthlete.id] || {};
+      return base[rmKey.id] || 0;
     }
 
-    // FORMULA CALCOLO CARICHI (Squat: pct * (1RM + BW) - BW)
     function calcTargetLoad(rmKey, rmVal, pct) {
       if (rmVal <= 0) return null;
       if (rmKey.hasBW) {
@@ -787,7 +787,28 @@
       renderSessions();
     }
 
-    // CATEGORIZZAZIONE IN 7 FASI
+    // FILTRO RUOLO RIGOROSO PER SALA PESI
+    function matchesRole(eRuoli, aRole, isNelly) {
+      if (!eRuoli || eRuoli === 'tutti') return true;
+      const rLow = eRuoli.toLowerCase();
+      
+      if (isNelly) {
+        return rLow.includes('nelly') && !rLow.includes('!nelly');
+      } else {
+        if (rLow.includes('nelly') && !rLow.includes('!nelly')) return false;
+      }
+      
+      if (rLow.includes('!libero') && aRole.toLowerCase() === 'libero') return false;
+      
+      const aLow = aRole.toLowerCase();
+      if (aLow === 'centrale') return rLow.includes('centrale') || rLow.includes('tutti') || rLow.includes('!nelly');
+      if (aLow.includes('schiaccia')) return rLow.includes('schiaccia') || rLow.includes('banda') || rLow.includes('opposto') || rLow.includes('tutti') || rLow.includes('!nelly');
+      if (aLow.includes('pallegg')) return rLow.includes('pallegg') || rLow.includes('tutti') || rLow.includes('!nelly');
+      if (aLow === 'libero') return rLow.includes('libero') || rLow.includes('tutti') || rLow.includes('!nelly');
+      
+      return true;
+    }
+
     function categorizeExercise(e) {
       const nome = (e.Esercizio || '').toLowerCase();
       const metodo = (e.Metodo || '').toLowerCase();
@@ -826,14 +847,14 @@
       }
 
       const prehabLink = currentAthlete.Link_Prehab || currentAthlete.link_prehab || 'https://pro.theprehabguys.com';
+      const isNelly = (currentAthlete.id === 14 || currentAthlete.name.toLowerCase().includes('nelly'));
 
-      // SESSIONS ARE ALWAYS COLLAPSED BY DEFAULT
       container.innerHTML = sessions.map((sed, idx) => {
+        // Filtra rigorosamente solo gli esercizi per il ruolo dell'atleta
         const sedEsercizi = allExercises
-          .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta))
+          .filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta) && matchesRole(e.Ruoli, currentAthlete.role, isNelly))
           .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
 
-        // Raggruppa per le 7 Categorie
         const catMap = {};
         sedEsercizi.forEach(e => {
           const cat = categorizeExercise(e);
@@ -842,27 +863,57 @@
         });
 
         const categoriesHtml = ORDERED_CATEGORIES.map(catDef => {
-          const exList = catMap[catDef.id];
-          if (!exList || exList.length === 0) return '';
-
-          // Se è la categoria Attivazione, inserisci il banner del Prehab Individuale
-          let prehabCardHtml = '';
+          // Blocco speciale fisso per Attivazione
           if (catDef.id === 'Attivazione') {
-            prehabCardHtml = `
-              <div style="background:linear-gradient(135deg,#1e3a8a,#2563eb);border:1px solid #3b82f6;border-radius:10px;padding:12px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
-                <div>
-                  <div style="font-weight:800;color:#fff;font-size:0.88rem">🛡️ Protocollo Prehab Individuale</div>
-                  <div style="font-size:0.75rem;color:#bfdbfe">Esegui il tuo programma prima dei carichi</div>
+            const extraAttiv = (catMap['Attivazione'] || []).filter(e => !e.Esercizio.toLowerCase().includes('respirazione') && !e.Esercizio.toLowerCase().includes('prehab') && !e.Esercizio.toLowerCase().includes('mobilità'));
+            return `
+              <div class="method-group">
+                <div class="method-title">🔥 Attivazione & Prehab</div>
+                
+                <!-- 1. Respirazione di squadra -->
+                <div class="exercise-card">
+                  <div class="ex-name">Respirazione di squadra (Box Breathing)</div>
+                  <div class="ex-grid">
+                    <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">10 cicli</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val">Controllo</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Recupero</div><div class="val">30s</div></div>
+                  </div>
+                  <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">In cerchio con la squadra: 4s inspira, 4s trattieni, 4s espira, 4s vuoto. Attivazione parasimpatica e focus.</div>
                 </div>
-                <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#fff;color:#1e3a8a;font-weight:800;font-size:0.78rem;padding:7px 12px;border-radius:6px;text-decoration:none;white-space:nowrap;">Apri Portale ↗</a>
+
+                <!-- 2. Mobilità libera -->
+                <div class="exercise-card">
+                  <div class="ex-name">Mobilità Dinamica Libera</div>
+                  <div class="ex-grid">
+                    <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">1</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Durata</div><div class="val">5 min</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val">Fluida</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Focus</div><div class="val">Articolare</div></div>
+                  </div>
+                  <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">Mobilità libera e mirata per anche, caviglie, colonna toracica e spalle prima del carico.</div>
+                </div>
+
+                <!-- 3. Protocollo Prehab Individuale The Prehab Guys -->
+                <div style="background:linear-gradient(135deg,#1e3a8a,#2563eb);border:1px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+                  <div>
+                    <div style="font-weight:800;color:#fff;font-size:0.92rem">🛡️ Protocollo Prehab Individuale</div>
+                    <div style="font-size:0.75rem;color:#bfdbfe">Esegui i tuoi 5 esercizi correttivi assegnati</div>
+                  </div>
+                  <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#fff;color:#1e3a8a;font-weight:800;font-size:0.82rem;padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.2);">Apri Portale ↗</a>
+                </div>
+
+                ${extraAttiv.map(e => renderExerciseCard(e, sed)).join('')}
               </div>
             `;
           }
 
+          const exList = catMap[catDef.id];
+          if (!exList || exList.length === 0) return '';
+
           return `
             <div class="method-group">
               <div class="method-title">${catDef.icon} ${catDef.label}</div>
-              ${prehabCardHtml}
               ${exList.map(e => renderExerciseCard(e, sed)).join('')}
             </div>
           `;
@@ -892,17 +943,13 @@
     }
 
     function renderExerciseCard(e, sed) {
-      const logKey = `log_${currentAthlete.id}_${sed.Numero_Seduta}_${e.Codice || e.Esercizio}`;
-      const savedKg = localStorage.getItem(logKey) || '';
-
-      // Target load calc (con formula Squat corretta)
       let targetHtml = '';
       const intStr = e['Intensità'] || e.Intensità || '';
-      const matchPct = intStr.match(/(\\d+)%/);
+      const matchPct = intStr.match(/(\d+)%/);
       if (matchPct) {
         const pct = parseInt(matchPct[1]);
         const exLow = e.Esercizio.toLowerCase();
-        const rmObj = RM_KEYS.find(k => exLow.includes(k.id) || exLow.includes(k.name.toLowerCase()) || exLow.includes(k.baseline.toLowerCase()));
+        const rmObj = RM_KEYS.find(k => exLow.includes(k.id) || exLow.includes(k.name.toLowerCase()));
         if (rmObj) {
           const rmVal = getAthlete1RM(rmObj);
           if (rmVal > 0) {
@@ -918,7 +965,6 @@
         }
       }
 
-      // Notes
       let notesHtml = '';
       if (e.Istruzione || e.Note) {
         const uid = Math.random().toString(36).slice(2, 7);
@@ -951,31 +997,6 @@
     function toggleNotes(id) {
       const el = document.getElementById(id);
       el.style.display = el.style.display === 'block' ? 'none' : 'block';
-    }
-
-    async function saveExLog(logKey, nSeduta, esercizio) {
-      const val = document.getElementById(`input-${logKey}`).value.trim();
-      localStorage.setItem(logKey, val);
-      const toast = document.getElementById(`toast-${logKey}`);
-      toast.style.display = 'inline';
-      setTimeout(() => { toast.style.display = 'none'; }, 2000);
-
-      try {
-        fetch(`${GAS_URL}?token=${TOKEN}`, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            azione: 'log_progressi',
-            id_giocatrice: currentAthlete.id,
-            n_seduta: nSeduta,
-            esercizio: esercizio,
-            data: new Date().toISOString().slice(0, 10),
-            valore: val,
-            kg_usati: parseFloat(val) || ''
-          })
-        });
-      } catch (err) {}
     }
 
     function renderSessionEnd(nSeduta) {
