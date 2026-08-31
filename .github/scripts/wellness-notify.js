@@ -18,7 +18,9 @@ webpush.setVapidDetails('mailto:pamangiapane@gmail.com', VAPID_PUBLIC_KEY, VAPID
 
 async function fetchSheet(foglio) {
   const url  = `${APPS_SCRIPT_URL}?token=${APPS_SCRIPT_TOKEN}&azione=leggi&foglio=${foglio}`;
-  const resp = await fetch(url);
+  const resp = await fetch(url, {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; GitHub-Actions-Wellness/1.0)' },
+  });
   const text = await resp.text();
   if (!resp.ok) {
     console.error(`HTTP ${resp.status} per foglio ${foglio}. Risposta: ${text.slice(0, 300)}`);
