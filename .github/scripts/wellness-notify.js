@@ -96,7 +96,7 @@ async function main() {
     });
 
     try {
-      await webpush.sendNotification(subscription, payload);
+      await webpush.sendNotification(subscription, payload, { timeout: 10000 });
       console.log(`  ✓ ID ${idG} — notifica inviata`);
       sent++;
     } catch (err) {
