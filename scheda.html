@@ -1069,6 +1069,9 @@ async function caricaScheda() {
     /* mostra contenuto */
     document.getElementById('loading').style.display  = 'none';
     document.getElementById('contenuto').style.display = '';
+
+    /* mostra wellness al caricamento se non ancora compilato oggi */
+    setTimeout(() => mostraWellness(null), 400);
   } catch (err) {
     document.getElementById('loading').innerHTML = `
       <p class="errore-msg">${L.loadError}</p>
@@ -1095,7 +1098,7 @@ function toggleSeduta(accId) {
   if (isOpen) {
     document.getElementById(accId).classList.remove('open');
   } else {
-    apriSedutaConNote(accId);
+    mostraWellness(accId);
   }
 }
 
@@ -1518,7 +1521,35 @@ function apriSedutaConNote(accId) {
 }
 
 function mostraWellness(accId) {
-  apriSedutaConNote(accId);
+  if (localStorage.getItem(wellnessKey())) {
+    if (accId) apriSedutaConNote(accId);
+    return;
+  }
+  _wellnessPendingAcc = accId || null;
+
+  const wl = WL[L === EN ? 'en' : 'it'];
+  document.querySelector('.wellness-title').textContent = wl.title;
+  document.querySelector('.wellness-sub').textContent   = wl.sub;
+
+  const qlabels = document.querySelectorAll('.wellness-q-label');
+  [wl.q1, wl.q2, wl.q3, wl.q4].forEach((q, i) => { if (qlabels[i]) qlabels[i].textContent = q; });
+
+  const guides = document.querySelectorAll('.wellness-guide');
+  [wl.g1, wl.g2, wl.g3, wl.g4].forEach((g, i) => {
+    if (guides[i] && guides[i].children.length >= 2) {
+      guides[i].children[0].textContent = g[0];
+      guides[i].children[1].textContent = g[1];
+    }
+  });
+
+  const noteLabel = document.querySelector('.wellness-note-label');
+  if (noteLabel) noteLabel.textContent = wl.noteLabel;
+  const noteTa = document.querySelector('.wellness-note textarea');
+  if (noteTa) noteTa.placeholder = wl.notePlaceholder;
+  const confirmBtn = document.querySelector('.wellness-confirm');
+  if (confirmBtn) confirmBtn.textContent = wl.confirm;
+
+  document.getElementById('wellness-overlay').classList.add('open');
 }
 
 function wellnessSeleziona(btn, gruppo) {
