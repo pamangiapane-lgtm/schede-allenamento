@@ -829,5 +829,16 @@
 
     window.addEventListener('DOMContentLoaded', init);
   </script>
+  <script>
+    // Forza aggiornamento immediato del Service Worker e pulizia cache
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js?v=50').then(reg => {
+        reg.update();
+      });
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('[App] Nuova versione rilevata, ricaricamento automatico...');
+      });
+    }
+  </script>
 </body>
 </html>

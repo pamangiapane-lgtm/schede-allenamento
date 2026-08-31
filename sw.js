@@ -1,100 +1,88 @@
-const CACHE = 'schede-v47';
-const BASE = '/schede-allenamento';
-// scheda.html esclusa da STATIC: usa network-first per ricevere sempre aggiornamenti
-const STATIC = [
-  BASE + '/', BASE + '/index.html',
-  BASE + '/style.css', BASE + '/logo.jpg', BASE + '/icon.svg', BASE + '/manifest.json'
+// Marsala Volley — Service Worker v50 (Network-First per Aggiornamenti Immediati)
+const CACHE_NAME = 'marsala-v50-live';
+
+const STATIC_ASSETS = [
+  './logo.jpg',
+  './manifest.json'
 ];
-const HTML_NETWORK_FIRST = [BASE + '/scheda.html', BASE + '/'];
 
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE)
-      .then(c => Promise.allSettled(STATIC.map(u => c.add(u))))
-      .then(() => self.skipWaiting())
+self.addEventListener('install', event => {
+  // Salta immediatamente l'attesa per attivarsi subito
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
   );
 });
 
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-    ).then(() => self.clients.claim())
+self.addEventListener('activate', event => {
+  // Elimina TUTTE le vecchie cache (es. schede-v47, vecchie versioni)
+  event.waitUntil(
+    caches.keys().then(keys => {
+      return Promise.all(
+        keys.filter(key => key !== CACHE_NAME).map(key => {
+          console.log('[SW] Rimozione vecchia cache:', key);
+          return caches.delete(key);
+        })
+      );
+    }).then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', e => {
-  const url = new URL(e.request.url);
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
 
-  // API Google Apps Script: sempre rete, nessuna cache
+  // Per chiamate API Google Apps Script: solo rete diretta
   if (url.hostname.includes('script.google.com')) {
-    // AKfycbyxLzbnm: passa direttamente senza fallback (debug CORS)
-    if (url.pathname.includes('AKfycbyxLzbnm')) {
-      e.respondWith(fetch(e.request));
-      return;
-    }
-    e.respondWith(fetch(e.request).catch(() =>
-      new Response(JSON.stringify({ errore: 'Offline — nessuna connessione' }), {
-        headers: { 'Content-Type': 'application/json' }
-      })
-    ));
+    event.respondWith(fetch(event.request));
     return;
   }
 
-  // scheda.html: network-first, fallback cache (aggiornamenti sempre recepiti)
-  const path = url.pathname;
-  if (HTML_NETWORK_FIRST.some(p => path === p || path.endsWith('/scheda.html'))) {
-    e.respondWith(
-      fetch(e.request).then(res => {
-        if (res.ok) {
-          const clone = res.clone();
-          caches.open(CACHE).then(c => c.put(e.request, clone));
+  // Per TUTTO il resto (HTML, CSS, JS): NETWORK-FIRST (sempre ultima versione online, fallback cache se offline)
+  event.respondWith(
+    fetch(event.request)
+      .then(response => {
+        if (response && response.status === 200 && response.type === 'basic') {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
         }
-        return res;
-      }).catch(() => caches.match(e.request))
-    );
-    return;
-  }
-
-  // Risorse statiche: cache-first, fallback rete
-  e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request).then(res => {
-      if (res.ok) {
-        const clone = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, clone));
-      }
-      return res;
-    }))
+        return response;
+      })
+      .catch(() => {
+        // Se offline in palestra, usa la cache salvata
+        return caches.match(event.request);
+      })
   );
 });
 
-self.addEventListener('push', e => {
-  const data = e.data ? e.data.json() : {};
-  e.waitUntil(
+// Push Notifications
+self.addEventListener('push', event => {
+  const data = event.data ? event.data.json() : {};
+  event.waitUntil(
     self.registration.showNotification(data.title || '🏐 Marsala Volley', {
       body: data.body || 'Compila il questionario wellness di oggi',
-      icon: '/schede-allenamento/logo.jpg',
-      badge: '/schede-allenamento/logo.jpg',
+      icon: './logo.jpg',
+      badge: './logo.jpg',
       tag: 'wellness-daily',
-      renotify: false,
-      data: { url: data.url || '/schede-allenamento/scheda.html' }
+      renotify: true,
+      data: { url: data.url || './wellness.html' }
     })
   );
 });
 
-self.addEventListener('message', e => {
-  if (e.data && e.data.type === 'SKIP_WAITING') self.skipWaiting();
-});
-
-self.addEventListener('notificationclick', e => {
-  e.notification.close();
-  const url = e.notification.data?.url || '/schede-allenamento/scheda.html';
-  e.waitUntil(
-    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(wins => {
-      for (const w of wins) {
-        if (w.url.includes('scheda.html')) { w.focus(); return w.navigate(url); }
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  const targetUrl = event.notification.data?.url || './wellness.html';
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
+      for (let client of windowClients) {
+        if (client.url.includes('wellness.html') || client.url.includes('schede-allenamento')) {
+          client.focus();
+          return client.navigate(targetUrl);
+        }
       }
-      return clients.openWindow(url);
+      return clients.openWindow(targetUrl);
     })
   );
 });
