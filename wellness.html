@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Marsala Volley — Morning Wellness</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0c1f40">
+  <link rel="apple-touch-icon" href="logo.jpg">
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --navy: #0f2b5c;
+      --gold: #d97706;
+      --gold-light: #fffbeb;
+      --gold-border: #fde68a;
+      --emerald: #059669;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --radius: 16px;
+      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+      padding: 16px 14px 40px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* Brand Header */
+    .brand-header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .brand-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      object-fit: cover;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 12px rgba(15, 43, 92, 0.15);
+    }
+    .brand-title { font-size: 1.25rem; font-weight: 800; color: var(--navy); letter-spacing: -0.3px; }
+    .brand-sub { font-size: 0.78rem; color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+
+    /* Athlete Card */
+    .ath-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ath-info { display: flex; align-items: center; gap: 10px; }
+    .ath-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--navy);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .ath-name { font-size: 1.05rem; font-weight: 800; color: var(--navy); }
+    .ath-role { font-size: 0.72rem; color: var(--text-muted); font-weight: 600; }
+    .ath-select {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--navy);
+      outline: none;
+    }
+
+    /* Date Pill */
+    .date-banner {
+      background: var(--gold-light);
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #92400e;
+      margin-bottom: 18px;
+    }
+
+    /* Metric Box */
+    .metric-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+    }
+    .metric-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+    .metric-title { font-size: 0.98rem; font-weight: 800; color: var(--navy); }
+    .metric-val-preview {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .metric-desc { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; }
+
+    /* Tactical Scale Buttons */
+    .scale-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+    .btn-scale {
+      aspect-ratio: 1;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .btn-scale span { font-size: 0.6rem; font-weight: 600; margin-top: 2px; }
+    .btn-scale.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(15, 43, 92, 0.25);
+      transform: translateY(-2px);
+    }
+
+    /* Notes Area */
+    .notes-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .notes-label { font-size: 0.88rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; display: block; }
+    .notes-sub { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 8px; display: block; }
+    .notes-textarea {
+      width: 100%;
+      height: 75px;
+      background: #f8fafc;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+      resize: none;
+    }
+    .notes-textarea:focus { border-color: var(--navy); }
+
+    /* Submit Button */
+    .btn-submit-wellness {
+      width: 100%;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(15, 43, 92, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+    .btn-submit-wellness:active { transform: scale(0.98); }
+
+    /* Success Overlay */
+    .success-box {
+      display: none;
+      background: #ecfdf5;
+      border: 2px solid #a7f3d0;
+      border-radius: var(--radius);
+      padding: 24px 18px;
+      text-align: center;
+      margin-top: 16px;
+    }
+    .sb-icon { font-size: 2.5rem; margin-bottom: 8px; }
+    .sb-title { font-size: 1.2rem; font-weight: 800; color: #065f46; margin-bottom: 4px; }
+    .sb-sub { font-size: 0.85rem; color: #047857; margin-bottom: 16px; line-height: 1.4; }
+    .sb-score-badge {
+      display: inline-block;
+      background: #059669;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 800;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .btn-open-app {
+      display: inline-block;
+      background: var(--navy);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="brand-header">
+    <img src="logo.jpg" class="brand-logo" alt="Marsala Volley">
+    <h1 class="brand-title">Morning Wellness</h1>
+    <div class="brand-sub">Marsala Volley · Serie A2</div>
+  </header>
+
+  <div id="form-container">
+    <!-- Athlete Selection -->
+    <div class="ath-card">
+      <div class="ath-info">
+        <div class="ath-badge" id="ath-badge">#01</div>
+        <div>
+          <div class="ath-name" id="ath-name">Veronica Allasia</div>
+          <div class="ath-role" id="ath-role">Palleggiatrice</div>
+        </div>
+      </div>
+      <select id="ath-select" class="ath-select" onchange="onSelectAthlete(this.value)"></select>
+    </div>
+
+    <!-- Today Date -->
+    <div class="date-banner" id="date-banner">
+      📅 Monitoraggio di Oggi: <strong>31 Agosto 2026</strong>
+    </div>
+
+    <!-- 1. Qualità del Sonno -->
+    <div class="metric-card">
+      <div class="metric-head">
+        <span class="metric-title">1. Qualità del Sonno</span>
+        <span class="metric-val-preview" id="prev-sonno">4 / 5 (Buono)</span>
+      </div>
+      <p class="metric-desc">1 = Pessimo / Insonne · 5 = Ottimo / Riposato</p>
+      <div class="scale-row" data-metric="sonno">
+        <button class="btn-scale" onclick="setVal('sonno', 1)">1<span>Pessimo</span></button>
+        <button class="btn-scale" onclick="setVal('sonno', 2)">2<span>Scarso</span></button>
+        <button class="btn-scale" onclick="setVal('sonno', 3)">3<span>Medio</span></button>
+        <button class="btn-scale active" onclick="setVal('sonno', 4)">4<span>Buono</span></button>
+        <button class="btn-scale" onclick="setVal('sonno', 5)">5<span>Top</span></button>
+      </div>
+    </div>
+
+    <!-- 2. Livello di Fatica -->
+    <div class="metric-card">
+      <div class="metric-head">
+        <span class="metric-title">2. Livello di Fatica</span>
+        <span class="metric-val-preview" id="prev-fatica">4 / 5 (Fresca)</span>
+      </div>
+      <p class="metric-desc">1 = Esausta / Molto affaticata · 5 = Piena energia / Fresca</p>
+      <div class="scale-row" data-metric="fatica">
+        <button class="btn-scale" onclick="setVal('fatica', 1)">1<span>Esausta</span></button>
+        <button class="btn-scale" onclick="setVal('fatica', 2)">2<span>Stanca</span></button>
+        <button class="btn-scale" onclick="setVal('fatica', 3)">3<span>Normale</span></button>
+        <button class="btn-scale active" onclick="setVal('fatica', 4)">4<span>Fresca</span></button>
+        <button class="btn-scale" onclick="setVal('fatica', 5)">5<span>Al 100%</span></button>
+      </div>
+    </div>
+
+    <!-- 3. Readiness / Prontezza -->
+    <div class="metric-card">
+      <div class="metric-head">
+        <span class="metric-title">3. Readiness / Prontezza</span>
+        <span class="metric-val-preview" id="prev-readiness">4 / 5 (Pronta)</span>
+      </div>
+      <p class="metric-desc">1 = Scarica / Disconnessa · 5 = Prontissima a spingere</p>
+      <div class="scale-row" data-metric="readiness">
+        <button class="btn-scale" onclick="setVal('readiness', 1)">1<span>Scarica</span></button>
+        <button class="btn-scale" onclick="setVal('readiness', 2)">2<span>Bassa</span></button>
+        <button class="btn-scale" onclick="setVal('readiness', 3)">3<span>Media</span></button>
+        <button class="btn-scale active" onclick="setVal('readiness', 4)">4<span>Pronta</span></button>
+        <button class="btn-scale" onclick="setVal('readiness', 5)">5<span>Top Gas</span></button>
+      </div>
+    </div>
+
+    <!-- 4. Dolori / Soreness -->
+    <div class="metric-card">
+      <div class="metric-head">
+        <span class="metric-title">4. Dolori Muscolari / Soreness</span>
+        <span class="metric-val-preview" id="prev-dolori">5 / 5 (Zero dolori)</span>
+      </div>
+      <p class="metric-desc">1 = Dolore acuto / Blocco · 5 = Nessun dolore / Integrità</p>
+      <div class="scale-row" data-metric="dolori">
+        <button class="btn-scale" onclick="setVal('dolori', 1)">1<span>Forte</span></button>
+        <button class="btn-scale" onclick="setVal('dolori', 2)">2<span>Medio</span></button>
+        <button class="btn-scale" onclick="setVal('dolori', 3)">3<span>Leggero</span></button>
+        <button class="btn-scale" onclick="setVal('dolori', 4)">4<span>Minimo</span></button>
+        <button class="btn-scale active" onclick="setVal('dolori', 5)">5<span>Zero</span></button>
+      </div>
+    </div>
+
+    <!-- Note / Distretti Dolenti -->
+    <div class="notes-card">
+      <label class="notes-label" for="wellness-notes">💬 Note / Distretti Muscolari (Opzionale)</label>
+      <span class="notes-sub">Segnala se hai fastidi particolari (es. spalla dx, polpaccio, ginocchio)</span>
+      <textarea id="wellness-notes" class="notes-textarea" placeholder="Es. leggero indolenzimento alla spalla dx post-battuta"></textarea>
+    </div>
+
+    <button id="btn-submit" class="btn-submit-wellness" onclick="submitWellness()">
+      <span>Invia Wellness di Oggi</span> ➔
+    </button>
+  </div>
+
+  <!-- Success Confirmation Screen -->
+  <div id="success-screen" class="success-box">
+    <div class="sb-icon">✅</div>
+    <h2 class="sb-title">Wellness Registrato!</h2>
+    <p class="sb-sub">Grazie <strong id="sb-ath-name">Veronica</strong>! I tuoi dati sono stati registrati e trasmessi a Coach Paulo.</p>
+    <div class="sb-score-badge" id="sb-score">Readiness: 85% (Ottima)</div>
+    <div>
+      <a href="app.html" id="sb-link" class="btn-open-app">Vai alla Scheda di Allenamento ➔</a>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+    const TOKEN = 'mv26-prd-3xF7wNqK';
+
+    let currentId = 1;
+    let currentAth = null;
+    let values = { sonno: 4, fatica: 4, readiness: 4, dolori: 5 };
+
+    const labels = {
+      sonno: { 1:'Pessimo', 2:'Scarso', 3:'Medio', 4:'Buono', 5:'Top' },
+      fatica: { 1:'Esausta', 2:'Stanca', 3:'Normale', 4:'Fresca', 5:'Al 100%' },
+      readiness: { 1:'Scarica', 2:'Bassa', 3:'Media', 4:'Pronta', 5:'Top Gas' },
+      dolori: { 1:'Dolore Forte', 2:'Dolore Medio', 3:'Indolenzimento', 4:'Fastidio Minimo', 5:'Zero Dolore' }
+    };
+
+    function init() {
+      // 1. Date format
+      const now = new Date();
+      const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+      document.getElementById('date-banner').innerHTML = `📅 Monitoraggio di Oggi: <strong>${now.toLocaleDateString('it-IT', options)}</strong>`;
+
+      // 2. Check URL ?id=X
+      const params = new URLSearchParams(window.location.search);
+      const urlId = params.get('id');
+      if (urlId && ROSTER.some(a => String(a.id) === String(urlId))) {
+        currentId = parseInt(urlId);
+      } else {
+        const saved = localStorage.getItem('mv_last_athlete');
+        if (saved && ROSTER.some(a => String(a.id) === String(saved))) {
+          currentId = parseInt(saved);
+        }
+      }
+
+      // 3. Populate dropdown
+      const sel = document.getElementById('ath-select');
+      sel.innerHTML = ROSTER.map(a => `<option value="${a.id}" ${a.id === currentId ? 'selected' : ''}>${a.name}</option>`).join('');
+
+      loadAthlete(currentId);
+    }
+
+    function onSelectAthlete(id) {
+      currentId = parseInt(id);
+      localStorage.setItem('mv_last_athlete', currentId);
+      window.history.replaceState({}, '', `?id=${currentId}`);
+      loadAthlete(currentId);
+    }
+
+    function loadAthlete(id) {
+      currentAth = ROSTER.find(a => a.id === id) || ROSTER[0];
+      document.getElementById('ath-badge').textContent = currentAth.number || `#${currentAth.id}`;
+      document.getElementById('ath-name').textContent = currentAth.name;
+      document.getElementById('ath-role').textContent = currentAth.role || 'Marsala Volley';
+    }
+
+    function setVal(metric, val) {
+      values[metric] = val;
+      document.getElementById(`prev-${metric}`).textContent = `${val} / 5 (${labels[metric][val]})`;
+      const row = document.querySelector(`.scale-row[data-metric="${metric}"]`);
+      if (row) {
+        row.querySelectorAll('.btn-scale').forEach((btn, idx) => {
+          btn.classList.toggle('active', idx + 1 === val);
+        });
+      }
+    }
+
+    async function submitWellness() {
+      const btn = document.getElementById('btn-submit');
+      btn.disabled = true;
+      btn.innerHTML = 'Invio in corso... ⏳';
+
+      const note = document.getElementById('wellness-notes').value.trim();
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const scorePct = Math.round(((values.sonno + values.fatica + values.readiness + values.dolori) / 20) * 100);
+
+      const payload = {
+        athlete_id: currentId,
+        date: todayStr,
+        sonno: values.sonno,
+        fatica: values.fatica,
+        readiness: values.readiness,
+        dolori: values.dolori,
+        note: note,
+        score: scorePct,
+        timestamp: new Date().toISOString()
+      };
+
+      // Save locally
+      localStorage.setItem(`mv_wellness_${currentId}_${todayStr}`, JSON.stringify(payload));
+
+      // Send to Google Sheets (tab Wellness) via GAS API
+      const rowData = [
+        new Date().toISOString(),
+        currentId,
+        todayStr,
+        values.sonno,
+        values.fatica,
+        values.readiness,
+        values.dolori,
+        note
+      ];
+
+      try {
+        await fetch(GAS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            token: TOKEN,
+            azione: 'scrivi_riga',
+            foglio: 'Wellness',
+            riga: rowData
+          })
+        });
+      } catch (err) {
+        console.warn('Fallback offline sync:', err);
+      }
+
+      // Show Success
+      document.getElementById('form-container').style.display = 'none';
+      const sScreen = document.getElementById('success-screen');
+      sScreen.style.display = 'block';
+      document.getElementById('sb-ath-name').textContent = currentAth.name.split(' ')[0];
+      document.getElementById('sb-score').textContent = `Readiness Oggi: ${scorePct}% (${scorePct >= 80 ? 'Ottima' : scorePct >= 65 ? 'Buona' : 'Monitorare'})`;
+      document.getElementById('sb-link').href = `app.html?id=${currentId}`;
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
