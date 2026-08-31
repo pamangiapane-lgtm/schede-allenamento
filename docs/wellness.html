@@ -292,6 +292,25 @@
     .sb-title { font-size: 1.7rem; font-weight: 800; color: #065f46; margin-bottom: 6px; }
     .sb-sub { font-size: 1rem; color: #047857; font-weight: 600; }
   </style>
+  <script>
+    // Pulizia automatica della vecchia cache di Safari/WhatsApp
+    if ('caches' in window) {
+      caches.keys().then(keys => {
+        keys.forEach(k => {
+          if (k.includes('schede') || k.includes('v47') || k.includes('marsala')) {
+            caches.delete(k);
+          }
+        });
+      });
+    }
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(regs => {
+        for (let reg of regs) {
+          reg.update();
+        }
+      });
+    }
+  </script>
 </head>
 <body>
 
