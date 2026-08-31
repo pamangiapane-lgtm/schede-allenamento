@@ -12834,184 +12834,137 @@ const OFFSEASON_DATA = {
   },
   "baselines_1rm": {
     "1": {
-      "name": "Veronica Allasia",
-      "rms": {
-        "Bench Press": 30,
-        "Clean": 40,
-        "Lat Machine": 35,
-        "Military Press": 24,
-        "Row BB": 20,
-        "Squat / Step Up": 75,
-        "Stacchi Rumeni": 60
-      },
-      "total_sessions": 4,
-      "avg_rpe": 4.5,
-      "avg_fatigue": 4.0,
-      "avg_sleep": 4.5
+        "name": "Veronica Allasia",
+        "rms": {
+            "Squat / Step Up": 75,
+            "Bench Press": 30,
+            "Clean": 40,
+            "Row BB": 20,
+            "Lat Machine": 35
+        }
     },
     "2": {
-      "name": "Maria Marcuzzi",
-      "rms": {
-        "Bench Press": 40,
-        "Clean": 20,
-        "Lat Machine": 45,
-        "Military Press": 20,
-        "Row BB": 50,
-        "Squat / Step Up": 80,
-        "Stacchi Rumeni": 40
-      },
-      "total_sessions": 13,
-      "avg_rpe": 4.7,
-      "avg_fatigue": 3.7,
-      "avg_sleep": 4.2
+        "name": "Maria Marcuzzi",
+        "rms": {
+            "Squat / Step Up": 95,
+            "Bench Press": 40,
+            "Clean": 35,
+            "Row BB": 50,
+            "Lat Machine": 45
+        }
     },
     "3": {
-      "name": "Victoria Sassolini",
-      "rms": {
-        "Bench Press": 50,
-        "Clean": 70,
-        "Lat Machine": 56,
-        "Military Press": 44,
-        "Row BB": 60,
-        "Squat / Step Up": 110,
-        "Stacchi Rumeni": 70
-      },
-      "total_sessions": 14,
-      "avg_rpe": 4.6,
-      "avg_fatigue": 2.8,
-      "avg_sleep": 4.0
+        "name": "Victoria Sassolini",
+        "rms": {
+            "Squat / Step Up": 120,
+            "Bench Press": 60,
+            "Clean": 70,
+            "Row BB": 63,
+            "Lat Machine": 56
+        }
     },
     "4": {
-      "name": "Anja Asonja",
-      "rms": {
-        "Bench Press": 50,
-        "Clean": 50,
-        "Lat Machine": 45,
-        "Military Press": 28,
-        "Row BB": 43,
-        "Squat / Step Up": 80,
-        "Stacchi Rumeni": 45
-      },
-      "total_sessions": 15,
-      "avg_rpe": 5.7,
-      "avg_fatigue": 4.0,
-      "avg_sleep": 4.7
+        "name": "Anja Asonja",
+        "rms": {
+            "Squat / Step Up": 80,
+            "Bench Press": 50,
+            "Clean": 50,
+            "Row BB": 43,
+            "Lat Machine": 45
+        }
     },
     "5": {
-      "name": "Chiara Lo Dico",
-      "rms": {
-        "Bench Press": 40,
-        "Lat Machine": 35,
-        "Military Press": 25,
-        "Row BB": 30,
-        "Squat / Step Up": 70,
-        "Stacchi Rumeni": 50
-      },
-      "total_sessions": 5,
-      "avg_rpe": 6.3,
-      "avg_fatigue": 3.0,
-      "avg_sleep": null
-    },
-    "7": {
-      "name": "Elisa Bole",
-      "rms": {
-        "Bench Press": 35,
-        "Clean": 60,
-        "Lat Machine": 50,
-        "Military Press": 40,
-        "Row BB": 55,
-        "Squat / Step Up": 110,
-        "Stacchi Rumeni": 50
-      },
-      "total_sessions": 11,
-      "avg_rpe": 4.6,
-      "avg_fatigue": 3.8,
-      "avg_sleep": 3.3
-    },
-    "9": {
-      "name": "Sara Dodi",
-      "rms": {
-        "Bench Press": 40,
-        "Clean": 40,
-        "Lat Machine": 35,
-        "Military Press": 10,
-        "Row BB": 40,
-        "Squat / Step Up": 40,
-        "Stacchi Rumeni": 25
-      },
-      "total_sessions": 17,
-      "avg_rpe": 5.7,
-      "avg_fatigue": 3.4,
-      "avg_sleep": 4.1
-    },
-    "12": {
-      "name": "Erin Grippo",
-      "rms": {
-        "Bench Press": 51,
-        "Clean": 40,
-        "Military Press": 35,
-        "Row BB": 57,
-        "Squat / Step Up": 117,
-        "Stacchi Rumeni": 83
-      },
-      "total_sessions": 13,
-      "avg_rpe": 5.7,
-      "avg_fatigue": 3.2,
-      "avg_sleep": 4.6
-    },
-    "13": {
-      "name": "Giulia Caserta",
-      "rms": {
-        "Bench Press": 30,
-        "Clean": 44,
-        "Lat Machine": 48,
-        "Military Press": 22,
-        "Row BB": 38,
-        "Squat / Step Up": 84,
-        "Stacchi Rumeni": 84
-      },
-      "total_sessions": 13,
-      "avg_rpe": 5.0,
-      "avg_fatigue": 3.5,
-      "avg_sleep": 3.1
-    },
-    "8": {
-      "name": "Federica Nonnati",
-      "rms": {
-        "Squat / Step Up": 70,
-        "Bench Press": 35,
-        "Row BB": 35,
-        "Clean": 35
-      }
+        "name": "Chiara Lo Dico",
+        "rms": {
+            "Squat / Step Up": 90,
+            "Bench Press": 40,
+            "Clean": 30,
+            "Row BB": 30,
+            "Lat Machine": 45
+        }
     },
     "6": {
-      "name": "Gaia Biondi",
-      "rms": {
-        "Squat / Step Up": 75,
-        "Bench Press": 35,
-        "Row BB": 40,
-        "Clean": 40
-      }
+        "name": "Gaia Biondi",
+        "rms": {
+            "Squat / Step Up": 80,
+            "Bench Press": 35,
+            "Clean": 50,
+            "Row BB": 45,
+            "Lat Machine": 35
+        }
+    },
+    "7": {
+        "name": "Elisa Bole",
+        "rms": {
+            "Squat / Step Up": 110,
+            "Bench Press": 35,
+            "Clean": 62.5,
+            "Row BB": 55,
+            "Lat Machine": 50
+        }
+    },
+    "8": {
+        "name": "Federica Nonnati",
+        "rms": {
+            "Squat / Step Up": 105,
+            "Bench Press": 50,
+            "Clean": 35,
+            "Row BB": 60,
+            "Lat Machine": 50
+        }
+    },
+    "9": {
+        "name": "Sara Dodi",
+        "rms": {
+            "Squat / Step Up": 110,
+            "Bench Press": 45,
+            "Clean": 50,
+            "Row BB": 45,
+            "Lat Machine": 36
+        }
     },
     "11": {
-      "name": "Luna Cicola",
-      "rms": {
-        "Squat / Step Up": 65,
-        "Bench Press": 30,
-        "Row BB": 30,
-        "Clean": 30
-      }
+        "name": "Luna Cicola",
+        "rms": {
+            "Squat / Step Up": 105,
+            "Bench Press": 30,
+            "Clean": 50,
+            "Row BB": 30,
+            "Lat Machine": 43
+        }
+    },
+    "12": {
+        "name": "Erin Grippo",
+        "rms": {
+            "Squat / Step Up": 122,
+            "Bench Press": 51,
+            "Clean": 42.5,
+            "Row BB": 60,
+            "Lat Machine": 45
+        }
+    },
+    "13": {
+        "name": "Giulia Caserta",
+        "rms": {
+            "Squat / Step Up": 84,
+            "Bench Press": 35,
+            "Clean": 44,
+            "Row BB": 38,
+            "Lat Machine": 48
+        }
     },
     "14": {
-      "name": "Nelly Adamczewska",
-      "rms": {
-        "Squat / Step Up": 95,
-        "Bench Press": 55,
-        "Row BB": 55,
-        "Clean": 60
-      }
+        "name": "Nelly Adamczewska",
+        "rms": {
+            "Squat / Step Up": 120,
+            "Bench Press": 55,
+            "Clean": 55,
+            "Row BB": 50,
+            "Lat Machine": 45
+        }
     }
-  },
+},
+    
   "jump_volumes": {
     "OS1_Base": {
       "s1_estensiva": 38,
@@ -13210,7 +13163,7 @@ const SESSIONS_W1 = {
     "Codice": "PREHAB-LUN3",
     "Ruoli": "tutti",
     "Istruzione": "Elastico o corda ancorata — ginocchio a 60-70° — spinta attiva contro la resistenza — tibia verticale — tronco eretto",
-    "Note": "Analgesico per Valentina/Daniela/Alessandra — angolo max 70° — attivazione VMO per le altre",
+    "Note": "Analgesico per atlete con fastidio rotuleo — angolo max 70° — attivazione VMO per le altre",
     "SerieB": "",
     "RepsB": "",
     "IntensitàB": "",
@@ -13664,7 +13617,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Isometrico",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL1",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Elastico ancorato — angolo MAX 80° DX — mai cedere oltre — spinta attiva — tibia verticale",
     "Note": "Condropatia femoro-rotulea DX — isometrico analgesico — angolo tassativo non superare",
     "SerieB": "",
@@ -13688,7 +13641,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Isometrico",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL2",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Seduta — cilindretto sotto il ginocchio DX — spingi verso il basso contraendo il VMO — nessun valgo",
     "Note": "Attivazione specifica vasto mediale obliquo — prevenzione carico rotuleo",
     "SerieB": "",
@@ -13712,7 +13665,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Rinforzo",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL3",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Supina — gamba SX flessa — solleva gamba DX tesa a 45° — contrai il quad prima di sollevare",
     "Note": "Rinforzo quadricipite senza carico articolare — compatibile con condropatia",
     "SerieB": "",
@@ -15368,7 +15321,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Isometrico",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL1",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Elastico ancorato — angolo MAX 80° DX — mai cedere oltre — spinta attiva — tibia verticale",
     "Note": "Condropatia femoro-rotulea DX — isometrico analgesico — angolo tassativo non superare",
     "SerieB": "",
@@ -15392,7 +15345,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Isometrico",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL2",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Seduta — cilindretto sotto il ginocchio DX — spingi verso il basso contraendo il VMO — nessun valgo",
     "Note": "Attivazione specifica vasto mediale obliquo — prevenzione carico rotuleo",
     "SerieB": "",
@@ -15416,7 +15369,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Rinforzo",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL3",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Supina — gamba SX flessa — solleva gamba DX tesa a 45° — contrai il quad prima di sollevare",
     "Note": "Rinforzo quadricipite senza carico articolare — compatibile con condropatia",
     "SerieB": "",
@@ -16760,7 +16713,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Isometrico",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL1",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Elastico ancorato — angolo MAX 80° DX — mai cedere oltre — spinta attiva — tibia verticale",
     "Note": "Condropatia femoro-rotulea DX — isometrico analgesico — angolo tassativo non superare",
     "SerieB": "",
@@ -16784,7 +16737,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Isometrico",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL2",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Seduta — cilindretto sotto il ginocchio DX — spingi verso il basso contraendo il VMO — nessun valgo",
     "Note": "Attivazione specifica vasto mediale obliquo — prevenzione carico rotuleo",
     "SerieB": "",
@@ -16808,7 +16761,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Rinforzo",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL3",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Supina — gamba SX flessa — solleva gamba DX tesa a 45° — contrai il quad prima di sollevare",
     "Note": "Rinforzo quadricipite senza carico articolare — compatibile con condropatia",
     "SerieB": "",
@@ -18152,7 +18105,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Isometrico",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL1",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Elastico ancorato — angolo MAX 80° DX — mai cedere oltre — spinta attiva — tibia verticale",
     "Note": "Condropatia femoro-rotulea DX — isometrico analgesico — angolo tassativo non superare",
     "SerieB": "",
@@ -18176,7 +18129,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Isometrico",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL2",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Seduta — cilindretto sotto il ginocchio DX — spingi verso il basso contraendo il VMO — nessun valgo",
     "Note": "Attivazione specifica vasto mediale obliquo — prevenzione carico rotuleo",
     "SerieB": "",
@@ -18200,7 +18153,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Rinforzo",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL3",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Supina — gamba SX flessa — solleva gamba DX tesa a 45° — contrai il quad prima di sollevare",
     "Note": "Rinforzo quadricipite senza carico articolare — compatibile con condropatia",
     "SerieB": "",
@@ -19400,7 +19353,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Isometrico",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL1",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Elastico ancorato — angolo MAX 80° DX — mai cedere oltre — spinta attiva — tibia verticale",
     "Note": "Condropatia femoro-rotulea DX — isometrico analgesico — angolo tassativo non superare",
     "SerieB": "",
@@ -19424,7 +19377,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Isometrico",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL2",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Seduta — cilindretto sotto il ginocchio DX — spingi verso il basso contraendo il VMO — nessun valgo",
     "Note": "Attivazione specifica vasto mediale obliquo — prevenzione carico rotuleo",
     "SerieB": "",
@@ -19448,7 +19401,7 @@ const SESSIONS_W1 = {
     "Tipo_Esercizio": "Rinforzo",
     "Catena": "Inferiore",
     "Codice": "PREV-IND-VAL3",
-    "Ruoli": "Valentina",
+    "Ruoli": "atleta",
     "Istruzione": "Supina — gamba SX flessa — solleva gamba DX tesa a 45° — contrai il quad prima di sollevare",
     "Note": "Rinforzo quadricipite senza carico articolare — compatibile con condropatia",
     "SerieB": "",
@@ -20820,7 +20773,7 @@ const SESSIONS_W2 = {
     "Catena": "Inferiore",
     "Codice": "PREHAB-LUN3-W2",
     "Ruoli": "tutti",
-    "Istruzione": "Stesso angolo W1 60-70° — aggiungi micro-oscillazioni 2-3 cm ogni 5 secondi — angolo mai oltre 70° per Valentina/Daniela/Alessandra — tibia verticale",
+    "Istruzione": "Stesso angolo W1 60-70° — aggiungi micro-oscillazioni 2-3 cm ogni 5 secondi — angolo mai oltre 70° per atlete con fastidio rotuleo — tibia verticale",
     "Note": "Pulsed isometric — stimolo meccanico superiore all'isometrico puro — angolo costante garantisce protezione",
     "SerieB": "",
     "RepsB": "",
@@ -22236,7 +22189,7 @@ const SESSIONS_W2 = {
     "Catena": "Inferiore",
     "Codice": "PREHAB-MER3-W2",
     "Ruoli": "tutti",
-    "Istruzione": "Stesso angolo W1 60-70° — micro-oscillazioni 2-3 cm ogni 5 secondi — angolo max 70° per Valentina/Daniela/Alessandra — costante su entrambe le spiagge",
+    "Istruzione": "Stesso angolo W1 60-70° — micro-oscillazioni 2-3 cm ogni 5 secondi — angolo max 70° per atlete con fastidio rotuleo — costante su entrambe le spiagge",
     "Note": "Costante analgesico su LunSp e MerSp — pulsed isometric come progressione W2 — angolo protetto invariato",
     "SerieB": "",
     "RepsB": "",
@@ -22261,7 +22214,7 @@ const SESSIONS_W2 = {
     "Codice": "PREHAB-MER4-W2",
     "Ruoli": "tutti",
     "Istruzione": "Piede posteriore su panca bassa — ginocchio anteriore max 80° — tronco verticale — discesa controllata 3 contaggi — solo corpo libero in W2",
-    "Note": "Progressione dal hop monopodalico W1 — Valentina/Daniela/Alessandra: angolo max 70° — angolo protetto valido per tutte in W2 — Greta: versione bipodalica",
+    "Note": "Progressione dal hop monopodalico W1 — atlete con fastidio rotuleo: angolo max 70° — angolo protetto valido per tutte in W2 — Variante: versione bipodalica se necessario",
     "SerieB": "",
     "RepsB": "",
     "IntensitàB": "",

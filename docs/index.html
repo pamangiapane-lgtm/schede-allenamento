@@ -943,11 +943,6 @@
             <div class="ex-grid-item"><div class="lbl">${isEN ? 'Rest' : 'Recupero'}</div><div class="val">${e.Recupero || '—'}</div></div>
           </div>
           ${targetHtml}
-          <div class="ex-log-box">
-            <input type="text" class="log-input" id="input-${logKey}" value="${savedKg}" placeholder="${isEN ? 'Logged kg (e.g. 65kg)' : 'Kg usati (es. 65kg)'}">
-            <button class="btn-save-log" onclick="saveExLog('${logKey}', '${sed.Numero_Seduta}', '${e.Esercizio}')">${isEN ? 'Save' : 'Salva'}</button>
-            <span class="saved-toast" id="toast-${logKey}">✓</span>
-          </div>
           ${notesHtml}
         </div>
       `;
