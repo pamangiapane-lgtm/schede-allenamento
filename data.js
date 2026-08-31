@@ -62,7 +62,7 @@ const ROSTER = [
   {
     "id": 3,
     "name": "Victoria Sassolini",
-    "role": "Banda",
+    "role": "Schiacciatrice",
     "number": "#03",
     "risk_level": "MEDIUM",
     "clinical_flags": [
@@ -90,7 +90,7 @@ const ROSTER = [
   {
     "id": 4,
     "name": "Anja Asonja",
-    "role": "Opposto",
+    "role": "Schiacciatrice",
     "number": "#04",
     "risk_level": "MEDIUM",
     "clinical_flags": [
@@ -170,7 +170,7 @@ const ROSTER = [
   {
     "id": 7,
     "name": "Elisa Bole",
-    "role": "Banda",
+    "role": "Schiacciatrice",
     "number": "#07",
     "risk_level": "MEDIUM",
     "clinical_flags": [
@@ -198,7 +198,7 @@ const ROSTER = [
   {
     "id": 8,
     "name": "Federica Nonnati",
-    "role": "Opposto",
+    "role": "Schiacciatrice",
     "number": "#08",
     "risk_level": "HIGH",
     "clinical_flags": [
@@ -224,7 +224,7 @@ const ROSTER = [
   {
     "id": 9,
     "name": "Sara Dodi",
-    "role": "Banda",
+    "role": "Schiacciatrice",
     "number": "#09",
     "risk_level": "HIGH",
     "clinical_flags": [
@@ -335,7 +335,7 @@ const ROSTER = [
   {
     "id": 14,
     "name": "Nelly Adamczewska",
-    "role": "Nelly",
+    "role": "Schiacciatrice",
     "number": "#14",
     "risk_level": "MEDIUM",
     "clinical_flags": [
