@@ -142,10 +142,11 @@ function doPost(e) {
         body.fatica,
         body.disponibilita,
         body.dolori,
+        body.stress != null ? body.stress : '',
         body.note || ''
       ];
       scriviRigaFoglio('Wellness',
-        ['Timestamp','ID_Giocatrice','Data','Qualita_Sonno','Fatica','Disponibilita','Dolori','Note'],
+        ['Timestamp','ID_Giocatrice','Data','Qualita_Sonno','Fatica','Disponibilita','Dolori','Stress','Note'],
         riga);
       return risposta({ok: true});
     }
