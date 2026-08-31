@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Morning Wellness — Marsala Volley</title>
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="manifest-wellness.json?v=2">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -641,6 +641,7 @@
 
       // Mostra schermata finale semplice (Grazie! Buona giornata!)
       document.getElementById('form-container').style.display = 'none';
+      document.querySelector('.brand-header').style.display = 'none';
       const sScreen = document.getElementById('success-screen');
       sScreen.style.display = 'block';
     }

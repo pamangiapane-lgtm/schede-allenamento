@@ -1,0 +1,19 @@
+{
+  "name": "Morning Wellness — Marsala Volley",
+  "short_name": "Wellness",
+  "description": "Questionario Morning Wellness Marsala Volley Serie A2",
+  "start_url": "./wellness.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f2b5c",
+  "theme_color": "#0f2b5c",
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "720x720",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
