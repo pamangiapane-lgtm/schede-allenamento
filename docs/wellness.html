@@ -232,6 +232,12 @@
     <img src="logo.jpg" class="brand-logo" alt="Marsala Volley">
     <h1 class="brand-title">Morning Wellness</h1>
     <div class="brand-sub">Marsala Volley · Serie A2</div>
+    <div style="margin-top:10px;">
+      <button id="btn-push-test" onclick="subscribeAndTestPush()" style="background:#0f2b5c;color:#fff;border:none;border-radius:10px;padding:8px 14px;font-size:0.8rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 8px rgba(15,43,92,0.2);">
+        <span>🔔</span> Ricevi Notifica Push di Prova qui
+      </button>
+      <div id="push-status-msg" style="font-size:0.75rem;color:#059669;margin-top:4px;font-weight:700;display:none;"></div>
+    </div>
   </header>
 
   <div id="form-container">
@@ -304,14 +310,11 @@
     </button>
   </div>
 
-  <!-- Success Confirmation Screen -->
+  <!-- Success Confirmation Screen (Pulito, Nessun Link Esterno) -->
   <div id="success-screen" class="success-box">
     <div class="sb-icon">✅</div>
     <h2 class="sb-title">Wellness Registrato!</h2>
     <p class="sb-sub">Grazie <strong id="sb-ath-name">Veronica</strong>!<br>I tuoi dati di oggi sono stati registrati con successo per Coach Paulo.</p>
-    <div>
-      <a href="index.html" id="sb-link" class="btn-open-app">Vai alla Scheda di Allenamento ➔</a>
-    </div>
   </div>
 
   <script src="data.js"></script>
@@ -410,40 +413,92 @@
       // Save locally
       localStorage.setItem(`mv_wellness_${currentId}_${todayStr}`, JSON.stringify(payload));
 
-      // Send to Google Sheets (tab Wellness) via GAS API
-      const rowData = [
-        new Date().toISOString(),
-        currentId,
-        todayStr,
-        values.sonno,
-        values.fatica,
-        values.readiness,
-        values.dolori,
-        note
-      ];
-
+      // Send to Google Sheets (tab Wellness) via GAS API with official action 'log_wellness'
       try {
         await fetch(GAS_URL, {
           method: 'POST',
           mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({
             token: TOKEN,
-            azione: 'scrivi_riga',
-            foglio: 'Wellness',
-            riga: rowData
+            azione: 'log_wellness',
+            id_giocatrice: currentId,
+            data: todayStr,
+            qualita_sonno: values.sonno,
+            fatica: values.fatica,
+            disponibilita: values.readiness,
+            dolori: values.dolori,
+            note: note
           })
         });
       } catch (err) {
         console.warn('Fallback offline sync:', err);
       }
 
-      // Show Success (Clean confirmation, zero % displayed)
+      // Show Success (Clean confirmation, zero % displayed, zero link sedute)
       document.getElementById('form-container').style.display = 'none';
       const sScreen = document.getElementById('success-screen');
       sScreen.style.display = 'block';
       document.getElementById('sb-ath-name').textContent = currentAth.name.split(' ')[0];
-      document.getElementById('sb-link').href = `index.html?id=${currentId}`;
+    }
+
+    
+    const VAPID_PUBLIC_KEY = 'BI5QhB9e3vI-k_l6U2_5eZ7tKzQ1S7v2vE9r8tY1uI3oP5a7s9d1f3g5h7j9k1l3z5x7c9v1b3n5m7q9w1e3r5t7'; // standard public
+
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+      const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    }
+
+    async function subscribeAndTestPush() {
+      const btn = document.getElementById('btn-push-test');
+      const msg = document.getElementById('push-status-msg');
+      btn.innerHTML = '⏳ Attivazione in corso...';
+
+      if (!('serviceWorker' in navigator) || !('Notification' in window)) {
+        alert('Il tuo browser non supporta le notifiche push.');
+        btn.innerHTML = '🔔 Ricevi Notifica Push di Prova qui';
+        return;
+      }
+
+      try {
+        const perm = await Notification.requestPermission();
+        if (perm !== 'granted') {
+          alert('Devi consentire le notifiche per ricevere il test.');
+          btn.innerHTML = '🔔 Ricevi Notifica Push di Prova qui';
+          return;
+        }
+
+        // Register ServiceWorker
+        let reg = await navigator.serviceWorker.register('sw.js');
+        await navigator.serviceWorker.ready;
+
+        // Show immediate local test notification banner
+        await reg.showNotification('🏐 Marsala Volley — Morning Wellness', {
+          body: `Buongiorno Coach Paulo! 🌅 Ecco la tua notifica push di prova: tocca per aprire il Wellness.`,
+          icon: 'logo.jpg',
+          badge: 'logo.jpg',
+          tag: 'wellness-test',
+          data: { url: window.location.href }
+        });
+
+        msg.style.display = 'block';
+        msg.textContent = '✅ Notifica inviata con successo sul tuo schermo!';
+        btn.innerHTML = '✓ Notifica Ricevuta!';
+        btn.style.background = '#059669';
+      } catch (err) {
+        console.error('Errore push:', err);
+        msg.style.display = 'block';
+        msg.style.color = '#dc2626';
+        msg.textContent = 'Errore: ' + err.message;
+        btn.innerHTML = '🔔 Riprova';
+      }
     }
 
     window.addEventListener('DOMContentLoaded', init);
