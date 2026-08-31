@@ -18,17 +18,30 @@ webpush.setVapidDetails('mailto:pamangiapane@gmail.com', VAPID_PUBLIC_KEY, VAPID
 
 async function fetchSheet(foglio) {
   const url  = `${APPS_SCRIPT_URL}?token=${APPS_SCRIPT_TOKEN}&azione=leggi&foglio=${foglio}`;
+  // Prima prova: senza seguire redirect, per vedere dove reindirizza
+  const probe = await fetch(url, {
+    redirect: 'manual',
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36',
+      'Accept': 'application/json,text/html',
+    },
+  });
+  console.log(`[${foglio}] status=${probe.status} location=${probe.headers.get('location') || '(nessuno)'} url=${probe.url}`);
+
   const resp = await fetch(url, {
-    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; GitHub-Actions-Wellness/1.0)' },
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36',
+      'Accept': 'application/json,text/html',
+    },
   });
   const text = await resp.text();
+  console.log(`[${foglio}] final status=${resp.status} final url=${resp.url}`);
   if (!resp.ok) {
     console.error(`HTTP ${resp.status} per foglio ${foglio}. Risposta: ${text.slice(0, 300)}`);
     throw new Error(`HTTP ${resp.status} per foglio ${foglio}`);
   }
   if (text.trim().startsWith('<')) {
-    console.error(`GAS ha risposto con HTML invece di JSON (URL potrebbe essere errato o sessione scaduta):`);
-    console.error(text.slice(0, 500));
+    console.error(`GAS ha risposto con HTML (primi 300 car): ${text.slice(0, 300)}`);
     throw new Error(`Risposta HTML inattesa dal GAS per foglio ${foglio}`);
   }
   const data = JSON.parse(text);
