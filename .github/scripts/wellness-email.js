@@ -11,7 +11,7 @@ const GMAIL_USER        = process.env.GMAIL_USER;
 const GMAIL_APP_PASS    = process.env.GMAIL_APP_PASSWORD;
 const APPS_SCRIPT_URL   = process.env.APPS_SCRIPT_URL;
 const APPS_SCRIPT_TOKEN = process.env.APPS_SCRIPT_TOKEN;
-const APP_BASE_URL      = 'https://pamangiapane-lgtm.github.io/schede-allenamento/scheda.html';
+const APP_BASE_URL      = 'https://pamangiapane-lgtm.github.io/schede-allenamento/wellness.html';
 
 if (!GMAIL_USER || !GMAIL_APP_PASS) {
   console.error('Variabili mancanti: GMAIL_USER e/o GMAIL_APP_PASSWORD');

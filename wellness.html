@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Wellness — Marsala Volley</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0c1f40;
+      --amber:  #e8a020;
+      --bg:     #f0f4f8;
+      --card:   #ffffff;
+      --text:   #1a2e42;
+      --muted:  #4a6a8a;
+      --border: #dde6f0;
+      --sel:    #0c1f40;
+      --sel-fg: #ffffff;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── header ── */
+    header {
+      background: var(--navy);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-mark { font-size: 22px; line-height: 1; }
+    .logo-text { color: var(--amber); font-size: .85rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+
+    /* ── screens ── */
+    .screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px 16px 32px; }
+
+    /* ── loading ── */
+    #screen-loading { justify-content: center; align-items: center; }
+    .spinner {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 3px solid var(--border);
+      border-top-color: var(--amber);
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── error ── */
+    #screen-error { justify-content: center; align-items: center; text-align: center; gap: 12px; }
+    .err-icon { font-size: 2.4rem; }
+    .err-msg { color: var(--muted); font-size: .9rem; line-height: 1.5; max-width: 280px; }
+    .retry-btn {
+      margin-top: 4px;
+      padding: 10px 24px; border-radius: 8px; border: none;
+      background: var(--navy); color: #fff;
+      font-size: .9rem; font-weight: 600; cursor: pointer;
+    }
+
+    /* ── form ── */
+    #screen-form { gap: 0; }
+
+    .greeting {
+      width: 100%; max-width: 480px;
+      padding: 16px 4px 12px;
+      font-size: 1.05rem; color: var(--muted);
+    }
+    .greeting strong { color: var(--navy); }
+
+    .card {
+      width: 100%; max-width: 480px;
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      overflow: hidden;
+    }
+
+    .q-block {
+      padding: 18px 18px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .q-block:last-of-type { border-bottom: none; }
+
+    .q-label {
+      font-size: .88rem; font-weight: 600; color: var(--text);
+      margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .q-selected { font-weight: 700; color: var(--navy); font-size: .88rem; }
+
+    .scale {
+      display: grid;
+      grid-template-columns: repeat(11, 1fr);
+      gap: 3px;
+    }
+    .scale button {
+      height: 38px; border-radius: 7px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      font-size: .75rem; font-weight: 600; color: var(--muted);
+      cursor: pointer; transition: background .1s, border-color .1s, color .1s;
+      padding: 0; line-height: 1;
+    }
+    .scale button:active { opacity: .8; }
+    .scale button.sel {
+      background: var(--sel); border-color: var(--sel); color: var(--sel-fg);
+    }
+
+    .guide {
+      display: flex; justify-content: space-between;
+      margin-top: 5px;
+      font-size: .68rem; color: var(--muted);
+    }
+
+    /* note */
+    .note-block { padding: 18px; }
+    .note-label { font-size: .82rem; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+    .note-block textarea {
+      width: 100%; resize: none; border-radius: 8px;
+      border: 1.5px solid var(--border); padding: 10px 12px;
+      font-size: .88rem; font-family: inherit; color: var(--text);
+      background: var(--bg);
+      transition: border-color .15s;
+    }
+    .note-block textarea:focus { outline: none; border-color: var(--navy); }
+
+    .submit-wrap { width: 100%; max-width: 480px; margin-top: 20px; }
+    .submit-btn {
+      width: 100%; padding: 15px;
+      border-radius: 12px; border: none;
+      background: var(--amber); color: var(--navy);
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      transition: opacity .15s;
+    }
+    .submit-btn:disabled { opacity: .35; cursor: default; }
+    .submit-btn:not(:disabled):active { opacity: .8; }
+
+    .already-done {
+      width: 100%; max-width: 480px; margin-top: 8px;
+      text-align: center; font-size: .78rem; color: var(--muted);
+    }
+
+    /* ── success ── */
+    #screen-success { justify-content: center; align-items: center; text-align: center; gap: 0; }
+    .ok-circle {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: #d4f0d0; display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; margin-bottom: 20px;
+    }
+    .ok-title { font-size: 1.25rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .ok-sub { font-size: .9rem; color: var(--muted); line-height: 1.5; max-width: 260px; }
+    .ok-close {
+      margin-top: 28px; padding: 12px 32px; border-radius: 10px; border: none;
+      background: var(--navy); color: #fff;
+      font-size: .9rem; font-weight: 600; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="logo-mark">🏐</span>
+  <span class="logo-text">Marsala Volley</span>
+</header>
+
+<!-- loading -->
+<div class="screen" id="screen-loading">
+  <div class="spinner"></div>
+</div>
+
+<!-- error -->
+<div class="screen" id="screen-error" hidden>
+  <span class="err-icon">⚠️</span>
+  <p class="err-msg" id="err-msg">Errore nel caricamento. Controlla la connessione e riprova.</p>
+  <button class="retry-btn" onclick="location.reload()">↺ Riprova</button>
+</div>
+
+<!-- form -->
+<div class="screen" id="screen-form" hidden>
+  <p class="greeting" id="greeting">Come stai oggi?</p>
+
+  <div class="card">
+    <!-- Q1 sonno -->
+    <div class="q-block">
+      <div class="q-label">
+        <span>🌙 Qualità del sonno</span>
+        <span class="q-selected" id="lbl-1"></span>
+      </div>
+      <div class="scale" id="sc-1"></div>
+      <div class="guide"><span>Pessima</span><span>Ottima</span></div>
+    </div>
+    <!-- Q2 fatica -->
+    <div class="q-block">
+      <div class="q-label">
+        <span>😓 Fatica percepita</span>
+        <span class="q-selected" id="lbl-2"></span>
+      </div>
+      <div class="scale" id="sc-2"></div>
+      <div class="guide"><span>Nessuna</span><span>Esaurita</span></div>
+    </div>
+    <!-- Q3 disponibilità -->
+    <div class="q-block">
+      <div class="q-label">
+        <span>⚡ Disponibilità all'allenamento</span>
+        <span class="q-selected" id="lbl-3"></span>
+      </div>
+      <div class="scale" id="sc-3"></div>
+      <div class="guide"><span>Nessuna</span><span>Ottima</span></div>
+    </div>
+    <!-- Q4 dolori -->
+    <div class="q-block">
+      <div class="q-label">
+        <span>💢 Dolori o fastidi</span>
+        <span class="q-selected" id="lbl-4"></span>
+      </div>
+      <div class="scale" id="sc-4"></div>
+      <div class="guide"><span>Nessuno</span><span>Forte</span></div>
+    </div>
+    <!-- note -->
+    <div class="note-block">
+      <div class="note-label">📝 Note (opzionale)</div>
+      <textarea id="note-ta" rows="2" placeholder="Es. dolore al ginocchio sinistro, mal di testa…"></textarea>
+    </div>
+  </div>
+
+  <div class="submit-wrap">
+    <button class="submit-btn" id="submit-btn" disabled onclick="inviaWellness()">Invia</button>
+  </div>
+  <p class="already-done" id="already-msg" hidden>✓ Wellness già compilato oggi</p>
+</div>
+
+<!-- success -->
+<div class="screen" id="screen-success" hidden>
+  <div class="ok-circle">✓</div>
+  <p class="ok-title">Grazie!</p>
+  <p class="ok-sub">Il tuo wellness è stato registrato. A dopo in palestra!</p>
+  <button class="ok-close" onclick="window.close()">Chiudi</button>
+</div>
+
+<script>
+  const IS_DEV = window.location.hostname === 'localhost' || window.location.pathname.includes('/dev/');
+  const API   = IS_DEV
+    ? 'https://script.google.com/macros/s/AKfycbzq2km30SYxJVeEF6UzT16raAoN06Ghx-MURyLjTqra-6SctVjAfp_wbNwdH4WuNOiO/exec'
+    : 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+  const TOKEN = IS_DEV ? 'mv26-dev-9kR4tLqB' : 'mv26-prd-3xF7wNqK';
+
+  const id = new URLSearchParams(window.location.search).get('id');
+  const sel = { 1: null, 2: null, 3: null, 4: null };
+
+  function show(screenId) {
+    ['screen-loading','screen-error','screen-form','screen-success']
+      .forEach(s => document.getElementById(s).hidden = (s !== screenId));
+  }
+
+  function buildScale(containerId, gruppo) {
+    const div = document.getElementById(containerId);
+    for (let v = 0; v <= 10; v++) {
+      const btn = document.createElement('button');
+      btn.textContent = v;
+      btn.addEventListener('click', () => {
+        div.querySelectorAll('button').forEach(b => b.classList.remove('sel'));
+        btn.classList.add('sel');
+        sel[gruppo] = v;
+        document.getElementById(`lbl-${gruppo}`).textContent = v;
+        checkReady();
+      });
+      div.appendChild(btn);
+    }
+  }
+
+  function checkReady() {
+    const ok = [1,2,3,4].every(g => sel[g] !== null);
+    document.getElementById('submit-btn').disabled = !ok;
+  }
+
+  function wellnessKey() {
+    const d = new Date();
+    return `wellness_${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}_${id}`;
+  }
+
+  async function fetchNome() {
+    try {
+      const r = await fetch('data/Giocatrici.csv?t=' + Date.now(), { signal: AbortSignal.timeout(5000) });
+      if (!r.ok) return null;
+      const text = await r.text();
+      const lines = text.trim().split('\n');
+      const header = lines[0].split(',').map(h => h.trim());
+      const idxId   = header.indexOf('ID');
+      const idxNome = header.indexOf('Nome');
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(',');
+        if ((cols[idxId] || '').trim() === String(id)) {
+          return (cols[idxNome] || '').trim().split(' ')[0];
+        }
+      }
+    } catch (_) {}
+    return null;
+  }
+
+  async function init() {
+    if (!id) { show('screen-error'); document.getElementById('err-msg').textContent = 'Link non valido. Usa il link ricevuto via email.'; return; }
+
+    buildScale('sc-1', 1);
+    buildScale('sc-2', 2);
+    buildScale('sc-3', 3);
+    buildScale('sc-4', 4);
+
+    const nome = await fetchNome();
+    if (nome) document.getElementById('greeting').innerHTML = `Ciao <strong>${nome}</strong>, come stai oggi?`;
+
+    if (localStorage.getItem(wellnessKey())) {
+      document.getElementById('submit-btn').disabled = true;
+      document.getElementById('already-msg').hidden = false;
+    }
+
+    show('screen-form');
+  }
+
+  async function inviaWellness() {
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Invio…';
+
+    const oggi = new Date();
+    const data = `${oggi.getFullYear()}-${String(oggi.getMonth()+1).padStart(2,'0')}-${String(oggi.getDate()).padStart(2,'0')}`;
+    const note = document.getElementById('note-ta').value.trim();
+
+    try {
+      await fetch(API, {
+        method: 'POST',
+        body: JSON.stringify({
+          token: TOKEN, azione: 'log_wellness',
+          id_giocatrice: id, data,
+          qualita_sonno: sel[1], fatica: sel[2],
+          disponibilita: sel[3], dolori: sel[4], note
+        })
+      });
+    } catch (_) {}
+
+    localStorage.setItem(wellnessKey(), '1');
+    show('screen-success');
+  }
+
+  init();
+</script>
+</body>
+</html>
