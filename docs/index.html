@@ -1580,7 +1580,7 @@
               <div class="session-head" onclick="toggleSession('${sed.Numero_Seduta}')">
                 <div>
                   <span class="session-badge">${sed.Giorno || `Session ${idx+1}`}</span>
-                  <div class="session-title">${sed.Numero_Seduta === 'W2-MarP' ? 'Strength 2 — Nelly Adamczewska' : (sed.Nome_Seduta || `Session ${sed.Numero_Seduta}`)}</div>
+                  <div class="session-title">${sed.Numero_Seduta === 'W2-MarP' ? 'Strength 2 — Nelly Adamczewska' : (sed.Numero_Seduta === 'W2-GioV' ? 'Power 2 — Nelly Adamczewska' : (sed.Nome_Seduta || `Session ${sed.Numero_Seduta}`))}</div>
                   <div class="session-meta">📍 Gym · ⏱ ~60 min</div>
                 </div>
                 <div class="session-chevron">▾</div>
