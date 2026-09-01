@@ -664,6 +664,62 @@
       font-size: 0.72rem;
       color: var(--mv-muted);
     }
+    /* Superset Card Styling */
+    .superset-card {
+      background: var(--mv-surface2);
+      border: 1px solid rgba(232, 160, 32, 0.35);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .superset-badge {
+      background: rgba(232, 160, 32, 0.2);
+      border: 1px solid rgba(232, 160, 32, 0.4);
+      color: #fde68a;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .superset-sub-item {
+      background: #090f1d;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 8px;
+    }
+    .superset-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 8px 0;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--mv-amber);
+    }
+    .superset-sub-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .ss-num-badge {
+      background: rgba(59,130,246,0.2);
+      color: #93c5fd;
+      border: 1px solid rgba(59,130,246,0.4);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 5px;
+    }
+
   </style>
 </head>
 <body>
@@ -1651,29 +1707,65 @@
                   </div>
                   <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#fff;color:#1e3a8a;font-weight:800;font-size:0.82rem;padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.2);">Apri Portale ↗</a>
                 </div>
+              </div>
 
-                <div class="exercise-card">
+              <!-- BLOCCO ESPLOSIVITÀ (SUPERSET SEPARATO DALL'ATTIVAZIONE) -->
+              <div class="method-group">
+                <div class="method-title">⚡ Esplosività (Superset Balistico)</div>
+                
+                <div class="superset-card">
                   <div class="ex-head-row">
-                    <div class="ex-name">Attivazione Balistica (Lanci MB + Salti Bassi)</div>
-                    <div class="ex-rest-badge">⏱ Rec. 60s</div>
+                    <div>
+                      <span class="superset-badge">🔗 Superset 1A + 1B</span>
+                      <div style="font-size:0.72rem;color:var(--mv-muted);margin-top:3px;">Esegui 1A e passa subito a 1B senza pausa. Riposo 60s alla fine del giro.</div>
+                    </div>
+                    <div class="ex-rest-badge">⏱ Rec. 60s dopo 1B</div>
                   </div>
-                  <div class="ex-grid">
-                    <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">6 + 6</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber)">MB 3kg · Reattivo</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800">X</div></div>
-                  </div>
-                  <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">Lanci esplosivi della palla medica (rotazionali o slam a terra) abbinati a salti bassi reattivi (pogo jumps) per preparare il SNC e la rigidità elastica tendinea.</div>
-                  <div class="ex-load-log-box">
-                    <span class="ex-load-log-lbl">📝 Carico MB Usato:</span>
-                    <div class="ex-load-input-wrap">
-                      <input type="text" class="ex-load-input" id="ex-log-Attivazione_Balistica" placeholder="es. 3 kg" value="${localStorage.getItem(`mv_load_${currentAthlete.id}_Attivazione_Balistica`) || '3 kg'}">
-                      <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('Attivazione Balistica (Lanci MB)', 'ex-log-Attivazione_Balistica', '${sed.Numero_Seduta}')">Salva</button>
-                      <span id="toast-ex-log-Attivazione_Balistica" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+
+                  <!-- 1A. Lanci Palla Medica -->
+                  <div class="superset-sub-item">
+                    <div class="superset-sub-title">
+                      <span class="ss-num-badge">1A</span>
+                      <span>Lanci Palla Medica (Rotazionali / Slam a Terra)</span>
+                    </div>
+                    <div class="ex-grid">
+                      <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
+                      <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">6 / lato</div></div>
+                      <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber)">MB 3-4 kg</div></div>
+                      <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800">X</div></div>
+                    </div>
+                    <div style="font-size:0.75rem;color:#cbd5e1;line-height:1.35;">Potenza rotazionale ed esplosione del tronco contro il muro o verso terra.</div>
+                    <div class="ex-load-log-box" style="margin-top:8px;">
+                      <span class="ex-load-log-lbl">📝 Peso MB (1A):</span>
+                      <div class="ex-load-input-wrap">
+                        <input type="text" class="ex-load-input" id="ex-log-MB_Throws" placeholder="es. 3 kg" value="${localStorage.getItem(`mv_load_${currentAthlete.id}_MB_Throws`) || '3 kg'}">
+                        <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('Lanci Palla Medica (1A)', 'ex-log-MB_Throws', '${sed.Numero_Seduta}')">Salva</button>
+                        <span id="toast-ex-log-MB_Throws" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
+                  <!-- Connettore Superset -->
+                  <div class="superset-connector">
+                    <span>⬇️ SUBITO IN SUPERSET SENZA PAUSA ⬇️</span>
+                  </div>
+
+                  <!-- 1B. Salti Bassi Reattivi -->
+                  <div class="superset-sub-item">
+                    <div class="superset-sub-title">
+                      <span class="ss-num-badge">1B</span>
+                      <span>Salti Bassi Reattivi (Pogo Jumps / Ankle Stiffness)</span>
+                    </div>
+                    <div class="ex-grid">
+                      <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
+                      <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">8 balzi</div></div>
+                      <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber)">Reattivo (BW)</div></div>
+                      <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800">X</div></div>
+                    </div>
+                    <div style="font-size:0.75rem;color:#cbd5e1;line-height:1.35;">Minimo tempo di contatto al suolo: rimbalzo elastico reattivo dai piedi con caviglie rigide.</div>
+                  </div>
+
+                </div>
               </div>
             `;
           }
