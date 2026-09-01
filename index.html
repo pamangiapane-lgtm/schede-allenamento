@@ -1354,12 +1354,31 @@
         }
       }
 
-      // Cella di registrazione carico per esercizi con carico (tranne mobilità pura e tranne Nelly)
+      // Cella di registrazione carico solo per esercizi che NON fanno parte dei massimali 1RM e non sono mobilità/BW pura
       let customLoadLogHtml = '';
       const nomeLow = e.Esercizio.toLowerCase();
-      const isMobility = nomeLow.includes('respirazione') || nomeLow.includes('mobilità') || nomeLow.includes('stretching') || nomeLow.includes('cars') || nomeLow.includes('wall slide') || nomeLow.includes('prehab');
+      const intLow = (e['Intensità'] || e.Intensità || '').toLowerCase();
+      
+      // Controllo se fa parte dei Big Lift 1RM
+      const is1RMFamily = (
+        (nomeLow.includes('squat') && !nomeLow.includes('split') && !nomeLow.includes('bulgarian') && !nomeLow.includes('spanish')) ||
+        (nomeLow.includes('bench') || nomeLow.includes('panca')) ||
+        (nomeLow.includes('military') || nomeLow.includes('shoulder press')) ||
+        (nomeLow.includes('clean') && !nomeLow.includes('split')) ||
+        (nomeLow === 'row bilanciere' || (nomeLow.includes('rematore') && !nomeLow.includes('manubr') && !nomeLow.includes('cavo'))) ||
+        (nomeLow.includes('lat machine'))
+      );
 
-      if (!isNelly && !isMobility) {
+      // Controllo se è mobilità / a corpo libero puro
+      const isMobilityOrBW = (
+        nomeLow.includes('respirazione') || nomeLow.includes('mobilità') || nomeLow.includes('stretching') ||
+        nomeLow.includes('cars') || nomeLow.includes('wall slide') || nomeLow.includes('prehab') ||
+        nomeLow.includes('deadbug') || nomeLow.includes('bird-dog') || nomeLow.includes('plank') ||
+        nomeLow.includes('pogo') || nomeLow.includes('box jump') || nomeLow.includes('depth') ||
+        (intLow === 'bodyweight' || intLow === 'bw') && !nomeLow.includes('med ball') && !nomeLow.includes('slam') && !nomeLow.includes('hip thrust')
+      );
+
+      if (!isNelly && !is1RMFamily && !isMobilityOrBW) {
         const safeExId = e.Esercizio.replace(/[^a-zA-Z0-9]/g, '_');
         const savedLoad = localStorage.getItem(`mv_load_${currentAthlete.id}_${e.Esercizio}`) || '';
         customLoadLogHtml = `
