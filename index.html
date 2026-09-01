@@ -831,7 +831,7 @@
 
   </main>
 
-  <script src="data.js?v=20260901v30"></script>
+  <script src="data.js?v=20260901v35"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -844,27 +844,28 @@
     };
 
     const TRUE_BASELINES = {
-      1:  { squat: 75,  bench: 30, clean: 40,   row: 20, lat: 35 },
-      2:  { squat: 95,  bench: 40, clean: 35,   row: 50, lat: 45 },
-      3:  { squat: 120, bench: 60, clean: 70,   row: 63, lat: 56 },
-      4:  { squat: 80,  bench: 50, clean: 50,   row: 43, lat: 45 },
-      5:  { squat: 90,  bench: 40, clean: 30,   row: 30, lat: 45 },
-      6:  { squat: 80,  bench: 35, clean: 50,   row: 45, lat: 35 },
-      7:  { squat: 110, bench: 42, clean: 62.5, row: 55, lat: 50 },
-      8:  { squat: 105, bench: 50, clean: 35,   row: 60, lat: 50 },
-      9:  { squat: 150, bench: 45, clean: 50,   row: 45, lat: 36 },
-      11: { squat: 105, bench: 30, clean: 50,   row: 30, lat: 43 },
-      12: { squat: 122, bench: 51, clean: 42.5, row: 60, lat: 45 },
-      13: { squat: 84,  bench: 35, clean: 44,   row: 38, lat: 48 },
-      14: { squat: 120, bench: 55, clean: 55,   row: 50, lat: 45 }
+      1:  { squat: 75,  bench: 30, military: 24, clean: 40,   row: 20, lat: 35 },
+      2:  { squat: 95,  bench: 40, military: 20, clean: 35,   row: 50, lat: 45 },
+      3:  { squat: 120, bench: 60, military: 44, clean: 70,   row: 63, lat: 56 },
+      4:  { squat: 80,  bench: 50, military: 28, clean: 50,   row: 43, lat: 45 },
+      5:  { squat: 90,  bench: 40, military: 25, clean: 30,   row: 30, lat: 45 },
+      6:  { squat: 80,  bench: 35, military: 26, clean: 50,   row: 45, lat: 35 },
+      7:  { squat: 110, bench: 42, military: 40, clean: 62.5, row: 55, lat: 50 },
+      8:  { squat: 105, bench: 50, military: 32, clean: 35,   row: 60, lat: 50 },
+      9:  { squat: 150, bench: 45, military: 30, clean: 50,   row: 45, lat: 36 },
+      11: { squat: 105, bench: 30, military: 22, clean: 50,   row: 30, lat: 43 },
+      12: { squat: 122, bench: 51, military: 35, clean: 42.5, row: 60, lat: 45 },
+      13: { squat: 84,  bench: 35, military: 25, clean: 44,   row: 38, lat: 48 },
+      14: { squat: 120, bench: 55, military: 35, clean: 55,   row: 50, lat: 45 }
     };
 
     const RM_KEYS = [
-      { id: 'squat', name: 'Back Squat', baseline: 'squat', hasBW: true },
-      { id: 'bench', name: 'Bench Press', baseline: 'bench', hasBW: false },
-      { id: 'clean', name: 'Power Clean', baseline: 'clean', hasBW: false },
-      { id: 'row',   name: 'Row Bilanciere', baseline: 'row', hasBW: false },
-      { id: 'lat',   name: 'Lat Machine', baseline: 'lat', hasBW: false }
+      { id: 'squat',    name: 'Back Squat',     baseline: 'squat',    hasBW: true },
+      { id: 'bench',    name: 'Bench Press',    baseline: 'bench',    hasBW: false },
+      { id: 'military', name: 'Military Press', baseline: 'military', hasBW: false },
+      { id: 'clean',    name: 'Power Clean',    baseline: 'clean',    hasBW: false },
+      { id: 'row',      name: 'Row Bilanciere', baseline: 'row',      hasBW: false },
+      { id: 'lat',      name: 'Lat Machine',    baseline: 'lat',      hasBW: false }
     ];
 
     const ORDERED_CATEGORIES = [
@@ -921,6 +922,7 @@
               if (ex.includes('squat')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_squat`, val);
               if (ex.includes('clean')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_clean`, val);
               if (ex.includes('bench') || ex.includes('panca')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_bench`, val);
+              if (ex.includes('military') || ex.includes('shoulder')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_military`, val);
               if (ex.includes('row') || ex.includes('rematore')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_row`, val);
               if (ex.includes('lat')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_lat`, val);
               if (ex.includes('peso') || ex.includes('bw')) localStorage.setItem(`mv_bw_${currentAthlete.id}`, val);

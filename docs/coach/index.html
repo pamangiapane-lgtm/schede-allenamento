@@ -441,6 +441,7 @@
             if (ex.includes('squat')) live1RMData[aid].squat = val;
             if (ex.includes('clean')) live1RMData[aid].clean = val;
             if (ex.includes('bench') || ex.includes('panca')) live1RMData[aid].bench = val;
+            if (ex.includes('military') || ex.includes('shoulder')) live1RMData[aid].military = val;
             if (ex.includes('peso') || ex.includes('bw')) live1RMData[aid].bw = val;
           }
         });
@@ -606,12 +607,14 @@
         const live = live1RMData[a.id] || {};
         const base = TRUE_BASE[a.id] || (a.offseason_baseline || {});
         const sqVal = live.squat || base.squat || base.squat_1rm;
-        const clVal = live.clean || base.clean || base.clean_1rm;
         const bpVal = live.bench || base.bench || base.bench_1rm;
+        const mpVal = live.military || base.military || 25;
+        const clVal = live.clean || base.clean || base.clean_1rm;
 
         const rmSquat = sqVal ? `${sqVal}k` : '—';
-        const rmClean = clVal ? `${clVal}k` : '—';
         const rmBench = bpVal ? `${bpVal}k` : '—';
+        const rmMilitary = mpVal ? `${mpVal}k` : '—';
+        const rmClean = clVal ? `${clVal}k` : '—';
 
         // Wellness
         const w = liveWellnessData[a.id];
@@ -658,8 +661,9 @@
             <td>
               <div class="rm-box">
                 <span class="rm-item">SQ: <span>${rmSquat}</span></span>
-                <span class="rm-item">CL: <span>${rmClean}</span></span>
                 <span class="rm-item">BP: <span>${rmBench}</span></span>
+                <span class="rm-item">MP: <span>${rmMilitary}</span></span>
+                <span class="rm-item">CL: <span>${rmClean}</span></span>
               </div>
             </td>
             <td>
