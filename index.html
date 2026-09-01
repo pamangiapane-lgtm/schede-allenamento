@@ -1381,11 +1381,12 @@
       if (!isNelly && !is1RMFamily && !isMobilityOrBW) {
         const safeExId = e.Esercizio.replace(/[^a-zA-Z0-9]/g, '_');
         const savedLoad = localStorage.getItem(`mv_load_${currentAthlete.id}_${e.Esercizio}`) || '';
+        const placeholderText = savedLoad ? `Ultimo: ${savedLoad}` : 'es. kg';
         customLoadLogHtml = `
           <div class="ex-load-log-box">
-            <span class="ex-load-log-lbl">📝 Carico Usato Oggi:</span>
+            <span class="ex-load-log-lbl">📝 Carico Usato:</span>
             <div class="ex-load-input-wrap">
-              <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="es. 12 kg" value="${savedLoad}">
+              <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" title="Ultimo carico registrato">
               <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${e.Esercizio}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">Salva</button>
               <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
             </div>
