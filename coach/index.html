@@ -416,9 +416,35 @@
     let liveWellnessData = {};
     let filters = { status: 'all', role: 'all' };
 
+    let live1RMData = {};
+
     async function initCoach() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw-coach.js', { scope: './' }).then(reg => reg.update()).catch(() => {});
+      }
       document.getElementById('kpi-roster').textContent = ROSTER.length;
+      await refreshLiveProgressi();
       await refreshLiveWellness();
+    }
+
+    async function refreshLiveProgressi() {
+      try {
+        const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Progressi`);
+        const json = await res.json();
+        const rows = json.dati || [];
+        rows.forEach(r => {
+          const aid = parseInt(r.ID_Giocatrice || r.id_giocatrice);
+          const ex = (r.Esercizio || r.esercizio || '').toLowerCase();
+          const val = parseFloat(r.Valore || r.valore || r.rm_stimato || 0);
+          if (aid && val > 0) {
+            if (!live1RMData[aid]) live1RMData[aid] = {};
+            if (ex.includes('squat')) live1RMData[aid].squat = val;
+            if (ex.includes('clean')) live1RMData[aid].clean = val;
+            if (ex.includes('bench') || ex.includes('panca')) live1RMData[aid].bench = val;
+            if (ex.includes('peso') || ex.includes('bw')) live1RMData[aid].bw = val;
+          }
+        });
+      } catch (e) {}
     }
 
     async function refreshLiveWellness() {
@@ -561,11 +587,31 @@
         
         const flags = (a.clinical_flags && a.clinical_flags.length > 0) ? a.clinical_flags.join(' · ') : '<span style="color:#64748b">—</span>';
         
-        // 1RM baseline
-        const os = a.offseason_baseline || {};
-        const rmSquat = os.squat_1rm ? `${os.squat_1rm}k` : '—';
-        const rmClean = os.clean_1rm ? `${os.clean_1rm}k` : '—';
-        const rmBench = os.bench_1rm ? `${os.bench_1rm}k` : '—';
+        // 1RM baseline (con fallback da TRUE_BASELINES e live1RMData)
+        const TRUE_BASE = {
+          1:  { squat: 75,  bench: 30, clean: 40,   row: 20, lat: 35 },
+          2:  { squat: 95,  bench: 40, clean: 35,   row: 50, lat: 45 },
+          3:  { squat: 120, bench: 60, clean: 70,   row: 63, lat: 56 },
+          4:  { squat: 80,  bench: 50, clean: 50,   row: 43, lat: 45 },
+          5:  { squat: 90,  bench: 40, clean: 30,   row: 30, lat: 45 },
+          6:  { squat: 80,  bench: 35, clean: 50,   row: 45, lat: 35 },
+          7:  { squat: 110, bench: 35, clean: 62.5, row: 55, lat: 50 },
+          8:  { squat: 105, bench: 50, clean: 35,   row: 60, lat: 50 },
+          9:  { squat: 110, bench: 45, clean: 50,   row: 45, lat: 36 },
+          11: { squat: 105, bench: 30, clean: 50,   row: 30, lat: 43 },
+          12: { squat: 122, bench: 51, clean: 42.5, row: 60, lat: 45 },
+          13: { squat: 84,  bench: 35, clean: 44,   row: 38, lat: 48 },
+          14: { squat: 120, bench: 55, clean: 55,   row: 50, lat: 45 }
+        };
+        const live = live1RMData[a.id] || {};
+        const base = TRUE_BASE[a.id] || (a.offseason_baseline || {});
+        const sqVal = live.squat || base.squat || base.squat_1rm;
+        const clVal = live.clean || base.clean || base.clean_1rm;
+        const bpVal = live.bench || base.bench || base.bench_1rm;
+
+        const rmSquat = sqVal ? `${sqVal}k` : '—';
+        const rmClean = clVal ? `${clVal}k` : '—';
+        const rmBench = bpVal ? `${bpVal}k` : '—';
 
         // Wellness
         const w = liveWellnessData[a.id];

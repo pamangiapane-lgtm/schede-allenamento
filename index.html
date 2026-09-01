@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Marsala Volley — Schede Allenamento</title>
+  <title>Marsala Volley — App Ufficiale</title>
   <meta name="theme-color" content="#071226">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="logo.jpg">
@@ -45,7 +45,7 @@
     .app-header {
       background: var(--mv-navy-dark);
       border-bottom: 1px solid var(--mv-border);
-      padding: 14px 20px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -59,13 +59,27 @@
     .app-title { font-size: 1.15rem; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
     .app-sub { font-size: 0.72rem; color: var(--mv-amber); font-weight: 700; }
 
+    .btn-refresh {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--mv-border);
+      color: var(--mv-muted);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
     .container { max-width: 680px; margin: 0 auto; padding: 16px; }
 
     /* Roster Selection View */
     .roster-view { display: none; }
     .roster-view.active { display: block; }
-    .roster-title { font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
-    .roster-sub { font-size: 0.8rem; color: var(--mv-muted); margin-bottom: 16px; }
+    .roster-title { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .roster-sub { font-size: 0.82rem; color: var(--mv-muted); margin-bottom: 18px; }
     .roster-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -109,9 +123,6 @@
       font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
     }
     .btn-change-ath:hover { color: #fff; border-color: var(--mv-amber); }
 
@@ -120,18 +131,21 @@
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-lg);
-      padding: 18px 20px;
+      padding: 16px 18px;
       margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       box-shadow: 0 4px 16px rgba(0,0,0,0.25);
     }
-    .ath-name { font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
-    .ath-role { font-size: 0.85rem; color: var(--mv-amber); font-weight: 700; }
+    .ath-name { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .ath-role { font-size: 0.82rem; color: var(--mv-amber); font-weight: 700; }
 
-    /* Navigation Tabs */
+    /* 3 Navigation Tabs */
     .nav-tabs {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
       margin-bottom: 16px;
     }
     .nav-tab-btn {
@@ -139,14 +153,15 @@
       border: 1px solid var(--mv-border);
       color: var(--mv-muted);
       border-radius: var(--radius-md);
-      padding: 12px;
-      font-size: 0.88rem;
+      padding: 10px 4px;
+      font-size: 0.78rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      text-align: center;
+      gap: 4px;
       transition: all 0.15s;
     }
     .nav-tab-btn.active {
@@ -227,9 +242,9 @@
       background: #090f1d;
       border: 1px solid var(--mv-border);
       color: var(--mv-amber);
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 800;
-      width: 75px;
+      width: 80px;
       padding: 6px 10px;
       border-radius: 6px;
       text-align: center;
@@ -250,10 +265,10 @@
       background: #090f1d;
       border: 1px solid var(--mv-border);
       color: var(--mv-amber);
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 800;
-      width: 65px;
-      padding: 5px 8px;
+      width: 70px;
+      padding: 6px 8px;
       border-radius: 6px;
       text-align: center;
     }
@@ -267,11 +282,11 @@
       background: #090f1d;
       border: 1px solid rgba(255,255,255,0.06);
       border-radius: 5px;
-      padding: 3px 4px;
+      padding: 4px 4px;
       text-align: center;
     }
     .rm-pct-lbl { font-size: 0.65rem; color: var(--mv-muted); font-weight: 700; display: block; }
-    .rm-pct-kg { font-size: 0.75rem; color: #fff; font-weight: 800; }
+    .rm-pct-kg { font-size: 0.78rem; color: #fff; font-weight: 800; }
 
     /* Session Accordions (ALWAYS COLLAPSED BY DEFAULT) */
     .session-card {
@@ -425,11 +440,7 @@
       border: 1px solid rgba(59,130,246,0.35);
       white-space: nowrap;
     }
-    .set-load-val {
-      color: var(--mv-amber);
-      font-weight: 800;
-      font-size: 0.86rem;
-    }
+    .set-load-val { color: var(--mv-amber); font-weight: 800; font-size: 0.86rem; }
     .tempo-badge {
       display: inline-flex;
       align-items: center;
@@ -466,8 +477,8 @@
       color: #fff;
       border: none;
       border-radius: 8px;
-      padding: 9px 16px;
-      font-size: 0.82rem;
+      padding: 8px 14px;
+      font-size: 0.8rem;
       font-weight: 800;
       cursor: pointer;
     }
@@ -497,59 +508,74 @@
       line-height: 1.4;
     }
 
-    /* Session End Box 0-10 */
-    .session-end-card {
+    /* Morning Wellness Form Styles */
+    .wellness-card {
       background: var(--mv-surface2);
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-lg);
       padding: 18px;
-      margin-top: 20px;
+      margin-bottom: 14px;
     }
-    .end-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 14px; }
-    .rating-row { margin-bottom: 14px; }
-    .rating-head { display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
-    .rating-hint { font-size: 0.7rem; color: var(--mv-muted); margin-bottom: 6px; }
-    .rating-bar { display: grid; grid-template-columns: repeat(11, 1fr); gap: 3px; }
-    .r-btn {
+    .w-question-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+    .w-question-hint { font-size: 0.72rem; color: var(--mv-muted); margin-bottom: 10px; }
+    .w-rating-bar {
+      display: grid;
+      grid-template-columns: repeat(11, 1fr);
+      gap: 3px;
+      margin-bottom: 4px;
+    }
+    .w-btn {
       background: #090f1d;
       border: 1px solid var(--mv-border);
       color: #cbd5e1;
-      padding: 7px 0;
-      font-size: 0.78rem;
+      padding: 8px 0;
+      font-size: 0.8rem;
       font-weight: 800;
       border-radius: 6px;
       cursor: pointer;
+      text-align: center;
+      transition: all 0.1s;
     }
-    .r-btn.active {
+    .w-btn.active {
       background: var(--mv-amber) !important;
       color: #000 !important;
       border-color: var(--mv-amber) !important;
+      transform: scale(1.05);
     }
-    .end-textarea {
-      width: 100%;
-      background: #090f1d;
-      border: 1px solid var(--mv-border);
-      color: #fff;
-      border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 0.82rem;
-      min-height: 55px;
-      outline: none;
-      margin-bottom: 14px;
-    }
-    .btn-save-session {
-      width: 100%;
-      background: var(--mv-amber);
-      color: #000;
-      border: none;
-      border-radius: 10px;
-      padding: 14px;
-      font-size: 0.95rem;
+    .w-val-badge {
+      font-size: 0.85rem;
       font-weight: 800;
-      cursor: pointer;
-      transition: background 0.15s;
+      color: var(--mv-amber);
     }
-    .btn-save-session:active { background: #d97706; }
+
+    /* Push Permission Banner */
+    .push-banner {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      border: 1px solid #3b82f6;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* Footer App Version */
+    .app-footer {
+      text-align: center;
+      padding: 24px 0 10px;
+      font-size: 0.72rem;
+      color: var(--mv-muted);
+    }
   </style>
 </head>
 <body>
@@ -560,17 +586,20 @@
       <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
       <div>
         <h1 class="app-title">Marsala Volley</h1>
-        <div class="app-sub">Schede Allenamento 2026/27</div>
+        <div class="app-sub">App Ufficiale 2026/27</div>
       </div>
     </div>
+    <button class="btn-refresh" onclick="forceAppRefresh()">
+      <span>🔄 Aggiorna</span>
+    </button>
   </header>
 
   <main class="container">
     
     <!-- 1. ROSTER SELECTION VIEW -->
     <div class="roster-view" id="roster-view">
-      <h2 class="roster-title">👥 Seleziona la tua Scheda</h2>
-      <p class="roster-sub">Tocca il tuo nome per accedere alle tue sedute e ai tuoi massimali.</p>
+      <h2 class="roster-title">👥 Seleziona il tuo Profilo</h2>
+      <p class="roster-sub">Tocca il tuo nome per accedere a Morning Wellness, Schede Allenamento e Stima 1RM.</p>
       <div class="roster-grid" id="roster-grid"></div>
     </div>
 
@@ -583,40 +612,50 @@
 
       <!-- Athlete Hero Card -->
       <div class="athlete-hero">
-        <h2 class="ath-name" id="ath-name">Nome Atleta</h2>
-        <div class="ath-role" id="ath-role">Ruolo Atleta</div>
+        <div>
+          <h2 class="ath-name" id="ath-name">Nome Atleta</h2>
+          <div class="ath-role" id="ath-role">Ruolo Atleta</div>
+        </div>
       </div>
 
-      <!-- Nav Tabs -->
+      <!-- Push Notification Enrollment Banner (se non iscritto) -->
+      <div class="push-banner" id="push-banner" style="display:none;">
+        <div style="font-size:0.8rem;color:#fff;font-weight:700;">
+          🔔 <strong>Attiva le Notifiche Mattutine</strong> (ore 08:30)
+        </div>
+        <button class="btn-save-log" style="background:#fff;color:#1e3a8a;font-weight:800;padding:6px 12px;" onclick="enablePushNotifications()">Attiva Ora</button>
+      </div>
+
+      <!-- 3 Navigation Tabs -->
       <div class="nav-tabs">
-        <button class="nav-tab-btn active" onclick="switchNav('sedute', this)">🏋️ Sedute di Allenamento</button>
-        <button class="nav-tab-btn" onclick="switchNav('profilo', this)" id="tab-btn-profilo">📊 Profilo e Stima 1RM</button>
+        <button class="nav-tab-btn active" id="tab-btn-sedute" onclick="switchNav('sedute', this)">🏋️ Sedute</button>
+        <button class="nav-tab-btn" id="tab-btn-profilo" onclick="switchNav('profilo', this)">📊 Stima 1RM</button>
+        <button class="nav-tab-btn" id="tab-btn-wellness" onclick="switchNav('wellness', this)">🌅 Wellness</button>
       </div>
 
-      <!-- Tab Sedute -->
+      <!-- TAB 1: SEDUTE DI ALLENAMENTO -->
       <div class="tab-panel active" id="tab-sedute">
         <!-- Week Switcher -->
         <div class="week-switcher">
           <button class="week-pill active" onclick="switchWeek('W1', this)">Settimana 1 (W1)</button>
           <button class="week-pill" onclick="switchWeek('W2', this)">Settimana 2 (W2)</button>
         </div>
-
         <!-- Sessions Container -->
         <div id="sessions-container"></div>
       </div>
 
-      <!-- Tab Profilo e Stima 1RM -->
+      <!-- TAB 2: PROFILO E STIMA 1RM (INTERATTIVO LIVE CON ONINPUT) -->
       <div class="tab-panel" id="tab-profilo">
         <!-- Body Weight Box -->
         <div class="bw-box">
           <div>
-            <div class="bw-info">⚖️ Peso Corporeo</div>
-            <div class="bw-sub">Monitora il tuo peso per il calcolo dei carichi</div>
+            <div class="bw-info">⚖️ Peso Corporeo (BW)</div>
+            <div class="bw-sub">Modifica per ricalcolare istantaneamente lo Squat</div>
           </div>
           <div class="bw-input-row">
-            <input type="number" class="bw-input" id="input-bw" placeholder="kg" step="0.1">
-            <span style="font-size:0.8rem;color:var(--mv-muted);font-weight:700">kg</span>
-            <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="saveBodyWeight(this)">Salva</button>
+            <input type="number" class="bw-input" id="input-bw" placeholder="kg" step="0.1" oninput="recalcBWLive(this.value)">
+            <span style="font-size:0.82rem;color:var(--mv-muted);font-weight:700">kg</span>
+            <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="saveBodyWeight()">Salva</button>
             <span id="toast-bw" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.8rem;">✓</span>
           </div>
         </div>
@@ -624,19 +663,96 @@
         <!-- 1RM Cards Box -->
         <div class="card-box">
           <h3 class="card-title">🏋️ Stima Massimali 1RM & Percentuali</h3>
-          <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:14px;">I valori sono precompilati in base ai test storici. Puoi aggiornarli se migliori il tuo carico.</p>
+          <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:14px;">I carichi si ricalcolano <strong>in tempo reale ad ogni digitazione</strong>. Clicca Salva per sincronizzare con il Coach.</p>
           <div class="rm-grid" id="rm-grid-container"></div>
+        </div>
+      </div>
+
+      <!-- TAB 3: MORNING WELLNESS INTEGRATO (5 VOCI 0-10) -->
+      <div class="tab-panel" id="tab-wellness">
+        <div class="card-box">
+          <h3 class="card-title">🌅 Questionario Morning Wellness</h3>
+          <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:16px;">Compila ogni mattina al risveglio (0-10) per calcolare la tua disponibilità all'allenamento.</p>
+
+          <!-- 1. Qualità del Sonno -->
+          <div class="wellness-card">
+            <div class="w-question-title">
+              <span>💤 1. Qualità del Sonno</span>
+              <span class="w-val-badge" id="lbl-w-sonno">— / 10</span>
+            </div>
+            <div class="w-question-hint">0 = Insonnia / Pessimo ➔ 10 = Sonno profondo e rigenerante</div>
+            <div class="w-rating-bar" id="bar-w-sonno"></div>
+          </div>
+
+          <!-- 2. Livello di Fatica -->
+          <div class="wellness-card">
+            <div class="w-question-title">
+              <span>⚡ 2. Livello di Fatica / Energia</span>
+              <span class="w-val-badge" id="lbl-w-fatica">— / 10</span>
+            </div>
+            <div class="w-question-hint">0 = Esausta / Nessuna energia ➔ 10 = Fresca e piena di energia</div>
+            <div class="w-rating-bar" id="bar-w-fatica"></div>
+          </div>
+
+          <!-- 3. Dolori / Fastidi Muscolari -->
+          <div class="wellness-card">
+            <div class="w-question-title">
+              <span>🩹 3. Dolori / Fastidi Articolari-Muscolari</span>
+              <span class="w-val-badge" id="lbl-w-dolori">— / 10</span>
+            </div>
+            <div class="w-question-hint">0 = Nessun dolore ➔ 10 = Dolore o fastidio acuto</div>
+            <div class="w-rating-bar" id="bar-w-dolori"></div>
+          </div>
+
+          <!-- 4. Livello di Stress -->
+          <div class="wellness-card">
+            <div class="w-question-title">
+              <span>🧠 4. Livello di Stress / Tensione</span>
+              <span class="w-val-badge" id="lbl-w-stress">— / 10</span>
+            </div>
+            <div class="w-question-hint">0 = Completamente rilassata ➔ 10 = Molto tesa o stressata</div>
+            <div class="w-rating-bar" id="bar-w-stress"></div>
+          </div>
+
+          <!-- 5. Disponibilità / Readiness -->
+          <div class="wellness-card">
+            <div class="w-question-title">
+              <span>🎯 5. Disponibilità all'Allenamento (Readiness)</span>
+              <span class="w-val-badge" id="lbl-w-readiness">— / 10</span>
+            </div>
+            <div class="w-question-hint">0 = Per nulla pronta ➔ 10 = Prontissima a dare il 100%</div>
+            <div class="w-rating-bar" id="bar-w-readiness"></div>
+          </div>
+
+          <!-- Note opzionali -->
+          <div style="margin-bottom:14px;">
+            <label style="font-size:0.8rem;font-weight:700;color:var(--mv-muted);display:block;margin-bottom:4px;">Note, dolori specifici o segnalazioni per il Coach (opzionale):</label>
+            <textarea id="note-wellness" style="width:100%;background:#090f1d;border:1px solid var(--mv-border);color:#fff;border-radius:8px;padding:8px 10px;font-size:0.82rem;min-height:55px;outline:none;" placeholder="Es. leggero fastidio al tendine rotuleo destro..."></textarea>
+          </div>
+
+          <button class="btn-save-log" style="width:100%;padding:14px;font-size:0.95rem;background:var(--mv-amber);color:#000;" onclick="submitMorningWellness(this)">
+            Invia Morning Wellness 🚀
+          </button>
+          <div id="msg-wellness-ok" style="display:none;text-align:center;font-weight:800;color:var(--mv-emerald);margin-top:10px;font-size:0.9rem;">
+            ✓ Wellness inviato con successo al Coach!
+          </div>
         </div>
       </div>
 
     </div>
 
+    <footer class="app-footer">
+      <div>Marsala Volley · Stagione 2026/2027</div>
+      <div style="color:var(--mv-amber);margin-top:2px;">Versione Ufficiale Unificata 2026.2</div>
+    </footer>
+
   </main>
 
-  <script src="data.js?v=20260901v15"></script>
+  <script src="data.js?v=20260901v20"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
+    const VAPID_PUBLIC_KEY = 'BPPf4h519sQxYF81gC2zATHxKAdGDA0u7vWp_0H5dGwXKSNCvn4fJ8NxcRx6RoU3p3s08B2uE16n07K5XoYq_4';
 
     const BASELINE_WEIGHTS = {
       1: 63.5, 2: 66.8, 3: 74.0, 4: 73.0, 5: 55.5,
@@ -680,10 +796,19 @@
     let currentAthlete = null;
     let currentWeek = 'W1';
     let isEN = false;
+    let wellnessRatings = { sonno: 8, fatica: 8, dolori: 0, stress: 2, readiness: 8 };
 
     function init() {
+      // Registra Service Worker con auto-update
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          reg.update();
+        }).catch(() => {});
+      }
+
       const urlParams = new URLSearchParams(window.location.search);
       const urlId = urlParams.get('id');
+      const openWellness = urlParams.get('wellness');
 
       if (urlId) {
         selectAthlete(parseInt(urlId));
@@ -694,6 +819,24 @@
         } else {
           showRosterSelection();
         }
+      }
+
+      if (openWellness) {
+        const btnW = document.getElementById('tab-btn-wellness');
+        if (btnW) switchNav('wellness', btnW);
+      }
+
+      initWellnessRatingBars();
+      checkPushSubscriptionState();
+    }
+
+    function forceAppRefresh() {
+      if ('caches' in window) {
+        caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k)))).then(() => {
+          window.location.reload(true);
+        });
+      } else {
+        window.location.reload(true);
       }
     }
 
@@ -732,15 +875,14 @@
       document.getElementById('ath-role').textContent = `${currentAthlete.role} · Marsala Volley`;
 
       if (isEN) {
-        document.getElementById('tab-btn-profilo').textContent = '📊 Profile & 1RM Estimation';
-      } else {
-        document.getElementById('tab-btn-profilo').textContent = '📊 Profilo e Stima 1RM';
+        document.getElementById('tab-btn-profilo').textContent = '📊 1RM Profile';
+        document.getElementById('tab-btn-sedute').textContent = '🏋️ Sessions';
       }
     }
 
     function getAthleteBW() {
       const savedBw = localStorage.getItem(`mv_bw_${currentAthlete.id}`);
-      if (savedBw) return parseFloat(savedBw);
+      if (savedBw && parseFloat(savedBw) > 0) return parseFloat(savedBw);
       return BASELINE_WEIGHTS[currentAthlete.id] || 65;
     }
 
@@ -749,7 +891,16 @@
       document.getElementById('input-bw').value = bw;
     }
 
-    async function saveBodyWeight(btn) {
+    function recalcBWLive(val) {
+      const parsed = parseFloat(val) || 0;
+      if (parsed > 0) {
+        localStorage.setItem(`mv_bw_${currentAthlete.id}`, parsed);
+        render1RMProfile();
+        renderSessions();
+      }
+    }
+
+    async function saveBodyWeight() {
       const val = document.getElementById('input-bw').value.trim();
       if (!val) return;
 
@@ -812,6 +963,24 @@
       }
     }
 
+    function recalc1RMLive(rmId, val) {
+      const parsed = parseFloat(val) || 0;
+      localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, parsed);
+
+      // Aggiorna pills percentuali live
+      const rmObj = RM_KEYS.find(k => k.id === rmId);
+      if (rmObj) {
+        [50, 60, 70, 75, 80, 85, 90].forEach(p => {
+          const kg = parsed > 0 ? calcTargetLoad(rmObj, parsed, p) : '—';
+          const el = document.getElementById(`pct-${rmId}-${p}`);
+          if (el) el.textContent = kg !== '—' ? `${kg}k` : '—';
+        });
+      }
+
+      // Ricalcola carichi di seduta
+      renderSessions();
+    }
+
     function render1RMProfile() {
       const container = document.getElementById('rm-grid-container');
       const bw = getAthleteBW();
@@ -823,7 +992,7 @@
           return `
             <div class="rm-pct-pill">
               <span class="rm-pct-lbl">${p}%</span>
-              <span class="rm-pct-kg">${kg !== '—' ? kg + 'k' : '—'}</span>
+              <span class="rm-pct-kg" id="pct-${rm.id}-${p}">${kg !== '—' ? kg + 'k' : '—'}</span>
             </div>
           `;
         }).join('');
@@ -838,7 +1007,7 @@
                 ${bwFormulaNote}
               </div>
               <div class="rm-val-box">
-                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg">
+                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg" oninput="recalc1RMLive('${rm.id}', this.value)">
                 <span style="font-size:0.8rem;color:var(--mv-muted);font-weight:700">kg</span>
                 <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="save1RMClick('${rm.id}', this)">${isEN ? 'Save' : 'Salva'}</button>
                 <span id="toast-1rm-${rm.id}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.8rem;">✓</span>
@@ -884,44 +1053,14 @@
       renderSessions();
     }
 
-    // CATEGORIZZAZIONE ESERCIZI SQUADRA
-    function categorizeExercise(e) {
-      const nome = (e.Esercizio || '').toLowerCase();
-      const metodo = (e.Metodo || '').toLowerCase();
-      const tipo = (e.Tipo_Esercizio || '').toLowerCase();
-
-      if (nome.includes('bench') || nome.includes('panca') || nome.includes('push press') || nome.includes('military') || nome.includes('lento') || nome.includes('dip') || nome.includes('push up') || tipo.includes('spinta')) {
-        return 'Spinta';
-      }
-      if (nome.includes('row') || nome.includes('rematore') || nome.includes('lat') || nome.includes('pull-up') || nome.includes('pullup') || nome.includes('trazioni') || nome.includes('pulley') || nome.includes('pull over') || tipo.includes('tirata')) {
-        return 'Tirata';
-      }
-      if (nome.includes('box jump') || nome.includes('clean') || nome.includes('squat veloce') || nome.includes('drop-landing') || metodo.includes('pliometria') || metodo.includes('wl derivato') || metodo.includes('forza veloce') || metodo.includes('atterraggi')) {
-        return 'Potenza';
-      }
-      if (nome.includes('squat') || nome.includes('stacco') || nome.includes('rdl') || metodo.includes('forza massima')) {
-        return 'Forza';
-      }
-      if (nome.includes('pallof') || nome.includes('superman') || nome.includes('deadbug') || nome.includes('addominali') || metodo.includes('core') || tipo.includes('core')) {
-        return 'Core';
-      }
-      if (metodo.includes('attivazione') || metodo.includes('prehab') || tipo.includes('respirazione') || tipo.includes('mobilità')) {
-        return 'Attivazione';
-      }
-      return 'Accessori';
-    }
-
     function getExerciseTempo(e) {
       const nome = (e.Esercizio || '').toLowerCase();
       const metodo = (e.Metodo || '').toLowerCase();
-      const tipo = (e.Tipo_Esercizio || '').toLowerCase();
       const text = (e.Istruzione || '') + ' ' + (e.Note || '') + ' ' + (e.Reps || '');
 
-      // 1. Controlla se c'è un tempo esplicito nel testo
       const m = text.match(/(?:tempo\s*|·\s*)(\d{4}|\d{2}X\d|\bX\b)/i);
       if (m) return m[1].toUpperCase();
 
-      // 2. Mappatura scientifica congruente
       if (nome.includes('box jump') || nome.includes('pogo') || nome.includes('balz') || nome.includes('slam') || nome.includes('throw') || nome.includes('lanci mb') || nome.includes('hop') || metodo.includes('pliometria') || metodo.includes('atterraggi') || metodo.includes('forza veloce')) {
         return 'X';
       }
@@ -955,12 +1094,36 @@
       return '2010';
     }
 
-    // ESERCIZIO CARD STANDARD PER TUTTA LA SQUADRA (CON TEMPO AL 4° BOX)
+    function categorizeExercise(e) {
+      const nome = (e.Esercizio || '').toLowerCase();
+      const metodo = (e.Metodo || '').toLowerCase();
+      const tipo = (e.Tipo_Esercizio || '').toLowerCase();
+
+      if (nome.includes('bench') || nome.includes('panca') || nome.includes('push press') || nome.includes('military') || nome.includes('lento') || nome.includes('dip') || nome.includes('push up') || tipo.includes('spinta')) {
+        return 'Spinta';
+      }
+      if (nome.includes('row') || nome.includes('rematore') || nome.includes('lat') || nome.includes('pull-up') || nome.includes('pullup') || nome.includes('trazioni') || nome.includes('pulley') || nome.includes('pull over') || tipo.includes('tirata')) {
+        return 'Tirata';
+      }
+      if (nome.includes('box jump') || nome.includes('clean') || nome.includes('squat veloce') || nome.includes('drop-landing') || metodo.includes('pliometria') || metodo.includes('wl derivato') || metodo.includes('forza veloce') || metodo.includes('atterraggi')) {
+        return 'Potenza';
+      }
+      if (nome.includes('squat') || nome.includes('stacco') || nome.includes('rdl') || metodo.includes('forza massima')) {
+        return 'Forza';
+      }
+      if (nome.includes('pallof') || nome.includes('superman') || nome.includes('deadbug') || nome.includes('addominali') || metodo.includes('core') || tipo.includes('core')) {
+        return 'Core';
+      }
+      if (metodo.includes('attivazione') || metodo.includes('prehab') || tipo.includes('respirazione') || tipo.includes('mobilità')) {
+        return 'Attivazione';
+      }
+      return 'Accessori';
+    }
+
     function renderStandardExerciseCard(e, sed) {
       const exName = (isEN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
       const tempoVal = getExerciseTempo(e);
 
-      // Target load calc
       let targetHtml = '';
       const intStr = e['Intensità'] || e.Intensità || '';
       const matchPct = intStr.match(/(\d+)%/);
@@ -983,7 +1146,6 @@
         }
       }
 
-      // Notes
       let notesHtml = '';
       if (e.Istruzione || e.Note) {
         const uid = Math.random().toString(36).slice(2, 7);
@@ -1030,7 +1192,6 @@
       `;
     }
 
-    // ESERCIZIO CARD TABELLARE RISERVATO A NELLY
     function extractTempo(e) {
       const text = (e.Istruzione || '') + ' ' + (e.Note || '') + ' ' + (e.Reps || '');
       const m = text.match(/(?:tempo\s*|·\s*)(\d{4}|\d{2}X\d|\bX\b)/i);
@@ -1134,7 +1295,6 @@
       const isNelly = (currentAthlete.id === 14 || currentAthlete.name.toLowerCase().includes('nelly'));
 
       container.innerHTML = sessions.map((sed, idx) => {
-        // Se è Nelly, mostriamo la sua scheda dedicata strutturata nei 4 blocchi
         if (isNelly) {
           const nellyEx = allExercises.filter(e => String(e.N_Seduta) === String(sed.Numero_Seduta) && (e.Ruoli === 'Nelly' || (e.Metodo && e.Metodo.includes('Nelly')) || e.Metodo === 'Prehab' || e.Metodo === 'Main Exercises' || e.Metodo === 'Accessories' || e.Metodo === 'Abdominals + Transfer'));
 
@@ -1174,7 +1334,6 @@
           `;
         }
 
-        // PER TUTTE LE ALTRE ATLETE DELLA SQUADRA (LAYOUT CLASSICO STANDARD)
         const sedEsercizi = allExercises
           .filter(e => {
             if (String(e.N_Seduta) !== String(sed.Numero_Seduta)) return false;
@@ -1204,31 +1363,28 @@
               <div class="method-group">
                 <div class="method-title">🔥 Attivazione & Prehab</div>
                 
-                <!-- 1. Respirazione di squadra -->
                 <div class="exercise-card">
                   <div class="ex-name">Respirazione di squadra (Box Breathing)</div>
                   <div class="ex-grid">
                     <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
                     <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">10 cicli</div></div>
                     <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val">Controllo</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Recupero</div><div class="val">30s</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800">Fluido</div></div>
                   </div>
                   <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">In cerchio con la squadra: 4s inspira, 4s trattieni, 4s espira, 4s vuoto. Attivazione parasimpatica e focus.</div>
                 </div>
 
-                <!-- 2. Mobilità libera -->
                 <div class="exercise-card">
                   <div class="ex-name">Mobilità Dinamica Libera</div>
                   <div class="ex-grid">
                     <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">1</div></div>
                     <div class="ex-grid-item"><div class="lbl">Durata</div><div class="val">5 min</div></div>
                     <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val">Fluida</div></div>
-                    <div class="ex-grid-item"><div class="lbl">Focus</div><div class="val">Articolare</div></div>
+                    <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800">Fluido</div></div>
                   </div>
                   <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">Mobilità libera e mirata per anche, caviglie, colonna toracica e spalle prima del carico.</div>
                 </div>
 
-                <!-- 3. Protocollo Prehab Individuale The Prehab Guys -->
                 <div style="background:linear-gradient(135deg,#1e3a8a,#2563eb);border:1px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
                   <div>
                     <div style="font-weight:800;color:#fff;font-size:0.92rem">🛡️ Protocollo Prehab Individuale</div>
@@ -1354,6 +1510,120 @@
       btn.style.background = 'var(--mv-emerald)';
       btn.style.color = '#fff';
       document.getElementById(`save-msg-${nSeduta}`).style.display = 'block';
+    }
+
+    // LOGICA MORNING WELLNESS (0-10)
+    function initWellnessRatingBars() {
+      const categories = [
+        { id: 'sonno', defaultVal: 8 },
+        { id: 'fatica', defaultVal: 8 },
+        { id: 'dolori', defaultVal: 0 },
+        { id: 'stress', defaultVal: 2 },
+        { id: 'readiness', defaultVal: 8 }
+      ];
+
+      categories.forEach(cat => {
+        const bar = document.getElementById(`bar-w-${cat.id}`);
+        if (!bar) return;
+        let btns = '';
+        for (let i = 0; i <= 10; i++) {
+          const isActive = (i === cat.defaultVal) ? 'active' : '';
+          btns += `<button type="button" class="w-btn ${isActive}" onclick="setWellnessVal('${cat.id}', ${i}, this)">${i}</button>`;
+        }
+        bar.innerHTML = btns;
+        document.getElementById(`lbl-w-${cat.id}`).textContent = `${cat.defaultVal} / 10`;
+      });
+    }
+
+    function setWellnessVal(catId, val, btn) {
+      wellnessRatings[catId] = val;
+      btn.parentElement.querySelectorAll('.w-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(`lbl-w-${catId}`).textContent = `${val} / 10`;
+    }
+
+    async function submitMorningWellness(btn) {
+      btn.disabled = true;
+      btn.textContent = 'Invio in corso... ⏳';
+
+      const note = document.getElementById('note-wellness').value.trim();
+      const payload = {
+        token: TOKEN,
+        azione: 'log_wellness',
+        id_giocatrice: currentAthlete.id,
+        data: new Date().toISOString().slice(0, 10),
+        qualita_sonno: wellnessRatings.sonno,
+        fatica: wellnessRatings.fatica,
+        disponibilita: wellnessRatings.readiness,
+        dolori: wellnessRatings.dolori,
+        stress: wellnessRatings.stress,
+        note: note
+      };
+
+      try {
+        await fetch(`${GAS_URL}?token=${TOKEN}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {}
+
+      btn.textContent = '✓ Wellness Inviato!';
+      btn.style.background = 'var(--mv-emerald)';
+      btn.style.color = '#fff';
+      document.getElementById('msg-wellness-ok').style.display = 'block';
+    }
+
+    // PUSH NOTIFICATIONS ENROLLMENT
+    async function checkPushSubscriptionState() {
+      if (!('Notification' in window) || !('serviceWorker' in window)) return;
+      if (Notification.permission === 'default') {
+        const banner = document.getElementById('push-banner');
+        if (banner) banner.style.display = 'flex';
+      }
+    }
+
+    async function enablePushNotifications() {
+      if (!('Notification' in window) || !('serviceWorker' in window)) return;
+      const perm = await Notification.requestPermission();
+      if (perm === 'granted') {
+        document.getElementById('push-banner').style.display = 'none';
+        try {
+          const reg = await navigator.serviceWorker.ready;
+          let sub = await reg.pushManager.getSubscription();
+          if (!sub) {
+            sub = await reg.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+            });
+          }
+          const subJson = sub.toJSON();
+          await fetch(`${GAS_URL}?token=${TOKEN}`, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              azione: 'salva_push_sub',
+              id_giocatrice: currentAthlete.id,
+              endpoint: subJson.endpoint,
+              p256dh: subJson.keys?.p256dh,
+              auth: subJson.keys?.auth
+            })
+          });
+        } catch (e) {}
+      }
+    }
+
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+      const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
     }
 
     window.addEventListener('DOMContentLoaded', init);

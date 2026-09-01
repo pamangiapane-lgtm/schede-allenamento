@@ -1,19 +1,25 @@
 {
-  "name": "Coach Command Center — Marsala Volley",
+  "name": "Coach MV \u2014 Marsala Volley",
   "short_name": "Coach MV",
-  "description": "Cabina di regia e triage squadra per Coach Paulo",
-  "start_url": "./index.html",
-  "scope": "./",
+  "id": "https://pamangiapane-lgtm.github.io/schede-allenamento/coach/",
+  "start_url": "https://pamangiapane-lgtm.github.io/schede-allenamento/coach/index.html",
+  "scope": "https://pamangiapane-lgtm.github.io/schede-allenamento/coach/",
   "display": "standalone",
-  "orientation": "any",
   "background_color": "#071226",
   "theme_color": "#071226",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "../logo.jpg",
-      "sizes": "720x720",
+      "sizes": "192x192",
       "type": "image/jpeg",
-      "purpose": "any"
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     }
   ]
 }

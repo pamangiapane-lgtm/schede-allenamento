@@ -1,88 +1,88 @@
-// Marsala Volley — Service Worker v50 (Network-First per Aggiornamenti Immediati)
-const CACHE_NAME = 'marsala-v50-live';
+// Service Worker App Marsala Volley (v200-live)
+const CACHE_NAME = 'marsala-pwa-v200-live';
 
-const STATIC_ASSETS = [
+const ASSETS_TO_CACHE = [
+  './',
+  './index.html',
+  './data.js?v=20260901v20',
   './logo.jpg',
   './manifest.json'
 ];
 
 self.addEventListener('install', event => {
-  // Salta immediatamente l'attesa per attivarsi subito
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS_TO_CACHE))
   );
 });
 
 self.addEventListener('activate', event => {
-  // Elimina TUTTE le vecchie cache (es. schede-v47, vecchie versioni)
   event.waitUntil(
     caches.keys().then(keys => {
       return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => {
-          console.log('[SW] Rimozione vecchia cache:', key);
-          return caches.delete(key);
-        })
+        keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
       );
     }).then(() => self.clients.claim())
   );
 });
 
 self.addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-
-  // Per chiamate API Google Apps Script: solo rete diretta
-  if (url.hostname.includes('script.google.com')) {
-    event.respondWith(fetch(event.request));
-    return;
-  }
-
-  // Per TUTTO il resto (HTML, CSS, JS): NETWORK-FIRST (sempre ultima versione online, fallback cache se offline)
+  if (event.request.method !== 'GET') return;
   event.respondWith(
     fetch(event.request)
       .then(response => {
         if (response && response.status === 200 && response.type === 'basic') {
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, responseToCache);
-          });
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
         return response;
       })
-      .catch(() => {
-        // Se offline in palestra, usa la cache salvata
-        return caches.match(event.request);
-      })
+      .catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html')))
   );
 });
 
-// Push Notifications
+// Ascolto Notifiche Push
 self.addEventListener('push', event => {
-  const data = event.data ? event.data.json() : {};
+  let payload = {
+    title: '🏐 Marsala Volley — Morning Wellness',
+    body: 'Buongiorno! Compila il tuo Wellness di oggi 🌅',
+    url: './?wellness=1'
+  };
+
+  if (event.data) {
+    try {
+      payload = event.data.json();
+    } catch (e) {
+      payload.body = event.data.text();
+    }
+  }
+
   event.waitUntil(
-    self.registration.showNotification(data.title || '🏐 Marsala Volley', {
-      body: data.body || 'Compila il questionario wellness di oggi',
+    self.registration.showNotification(payload.title, {
+      body: payload.body,
       icon: './logo.jpg',
       badge: './logo.jpg',
-      tag: 'wellness-daily',
-      renotify: true,
-      data: { url: data.url || './wellness.html' }
+      data: { url: payload.url || './?wellness=1' },
+      vibrate: [200, 100, 200]
     })
   );
 });
 
 self.addEventListener('notificationclick', event => {
   event.notification.close();
-  const targetUrl = event.notification.data?.url || './wellness.html';
+  const urlToOpen = event.notification.data?.url || './?wellness=1';
+
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then(windowClients => {
       for (let client of windowClients) {
-        if (client.url.includes('wellness.html') || client.url.includes('schede-allenamento')) {
-          client.focus();
-          return client.navigate(targetUrl);
+        if ('focus' in client) {
+          client.navigate(urlToOpen);
+          return client.focus();
         }
       }
-      return clients.openWindow(targetUrl);
+      if (clients.openWindow) {
+        return clients.openWindow(urlToOpen);
+      }
     })
   );
 });
