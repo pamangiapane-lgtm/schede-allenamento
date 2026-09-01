@@ -141,10 +141,10 @@
     .ath-name { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
     .ath-role { font-size: 0.82rem; color: var(--mv-amber); font-weight: 700; }
 
-    /* 3 Navigation Tabs */
+    /* 3 Navigation Tabs (Wellness first) */
     .nav-tabs {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1.2fr 1fr 1fr;
       gap: 6px;
       margin-bottom: 16px;
     }
@@ -288,7 +288,7 @@
     .rm-pct-lbl { font-size: 0.65rem; color: var(--mv-muted); font-weight: 700; display: block; }
     .rm-pct-kg { font-size: 0.78rem; color: #fff; font-weight: 800; }
 
-    /* Session Accordions (ALWAYS COLLAPSED BY DEFAULT) */
+    /* Session Accordions */
     .session-card {
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
@@ -324,7 +324,6 @@
     .session-body { display: none; padding: 14px 16px 20px; border-top: 1px solid var(--mv-border); }
     .session-card.open .session-body { display: block; }
 
-    /* Method Group */
     .method-group { margin-bottom: 18px; }
     .method-title {
       font-size: 0.85rem;
@@ -338,7 +337,6 @@
       gap: 6px;
     }
 
-    /* Standard Exercise Card */
     .exercise-card {
       background: var(--mv-surface2);
       border: 1px solid var(--mv-border);
@@ -365,7 +363,6 @@
       white-space: nowrap;
     }
 
-    /* Standard 4-Item Grid for Team */
     .ex-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -392,7 +389,6 @@
       color: #fff;
     }
 
-    /* Set Table Layout (Exclusively for Nelly) */
     .set-table {
       width: 100%;
       border-collapse: separate;
@@ -556,7 +552,6 @@
       color: var(--mv-amber);
     }
 
-    /* Push Permission Banner */
     .push-banner {
       background: linear-gradient(135deg, #1e3a8a, #2563eb);
       border: 1px solid #3b82f6;
@@ -569,7 +564,6 @@
       gap: 8px;
     }
 
-    /* Footer App Version */
     .app-footer {
       text-align: center;
       padding: 24px 0 10px;
@@ -618,7 +612,7 @@
         </div>
       </div>
 
-      <!-- Push Notification Enrollment Banner (se non iscritto) -->
+      <!-- Push Notification Enrollment Banner -->
       <div class="push-banner" id="push-banner" style="display:none;">
         <div style="font-size:0.8rem;color:#fff;font-weight:700;">
           🔔 <strong>Attiva le Notifiche Mattutine</strong> (ore 08:30)
@@ -626,27 +620,95 @@
         <button class="btn-save-log" style="background:#fff;color:#1e3a8a;font-weight:800;padding:6px 12px;" onclick="enablePushNotifications()">Attiva Ora</button>
       </div>
 
-      <!-- 3 Navigation Tabs -->
+      <!-- 3 Navigation Tabs (WELLNESS ATTIVO ALL'APERTURA) -->
       <div class="nav-tabs">
-        <button class="nav-tab-btn active" id="tab-btn-sedute" onclick="switchNav('sedute', this)">🏋️ Sedute</button>
+        <button class="nav-tab-btn active" id="tab-btn-wellness" onclick="switchNav('wellness', this)">🌅 Wellness</button>
+        <button class="nav-tab-btn" id="tab-btn-sedute" onclick="switchNav('sedute', this)">🏋️ Sedute</button>
         <button class="nav-tab-btn" id="tab-btn-profilo" onclick="switchNav('profilo', this)">📊 Stima 1RM</button>
-        <button class="nav-tab-btn" id="tab-btn-wellness" onclick="switchNav('wellness', this)">🌅 Wellness</button>
       </div>
 
-      <!-- TAB 1: SEDUTE DI ALLENAMENTO -->
-      <div class="tab-panel active" id="tab-sedute">
-        <!-- Week Switcher -->
+      <!-- TAB 1: MORNING WELLNESS INTEGRATO (SCHERMATA PREDEFINITA ALL'APERTURA) -->
+      <div class="tab-panel active" id="tab-wellness">
+        <div class="card-box">
+          <h3 class="card-title">🌅 Questionario Morning Wellness</h3>
+          <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:16px;">Compila ogni mattina al risveglio (0-10) per calcolare la tua disponibilità all'allenamento.</p>
+
+          <!-- 1. Qualità del Sonno -->
+          <div class="wellness-card">
+            <div class="w-question-title">
+              <span>💤 1. Qualità del Sonno</span>
+              <span class="w-val-badge" id="lbl-w-sonno">8 / 10</span>
+            </div>
+            <div class="w-question-hint">0 = Insonnia / Pessimo ➔ 10 = Sonno profondo e rigenerante</div>
+            <div class="w-rating-bar" id="bar-w-sonno"></div>
+          </div>
+
+          <!-- 2. Livello di Fatica -->
+          <div class="wellness-card">
+            <div class="w-question-title">
+              <span>⚡ 2. Livello di Fatica / Energia</span>
+              <span class="w-val-badge" id="lbl-w-fatica">8 / 10</span>
+            </div>
+            <div class="w-question-hint">0 = Esausta / Nessuna energia ➔ 10 = Fresca e piena di energia</div>
+            <div class="w-rating-bar" id="bar-w-fatica"></div>
+          </div>
+
+          <!-- 3. Dolori / Fastidi Muscolari -->
+          <div class="wellness-card">
+            <div class="w-question-title">
+              <span>🩹 3. Dolori / Fastidi Articolari-Muscolari</span>
+              <span class="w-val-badge" id="lbl-w-dolori">0 / 10</span>
+            </div>
+            <div class="w-question-hint">0 = Nessun dolore ➔ 10 = Dolore o fastidio acuto</div>
+            <div class="w-rating-bar" id="bar-w-dolori"></div>
+          </div>
+
+          <!-- 4. Livello di Stress -->
+          <div class="wellness-card">
+            <div class="w-question-title">
+              <span>🧠 4. Livello di Stress / Tensione</span>
+              <span class="w-val-badge" id="lbl-w-stress">2 / 10</span>
+            </div>
+            <div class="w-question-hint">0 = Rilassata / Serena ➔ 10 = Molto tesa o stressata</div>
+            <div class="w-rating-bar" id="bar-w-stress"></div>
+          </div>
+
+          <!-- 5. Disponibilità / Readiness -->
+          <div class="wellness-card">
+            <div class="w-question-title">
+              <span>🎯 5. Disponibilità all'Allenamento (Readiness)</span>
+              <span class="w-val-badge" id="lbl-w-readiness">8 / 10</span>
+            </div>
+            <div class="w-question-hint">0 = Per nulla pronta ➔ 10 = Prontissima a dare il 100%</div>
+            <div class="w-rating-bar" id="bar-w-readiness"></div>
+          </div>
+
+          <!-- Note opzionali -->
+          <div style="margin-bottom:14px;">
+            <label style="font-size:0.8rem;font-weight:700;color:var(--mv-muted);display:block;margin-bottom:4px;">Note, dolori specifici o segnalazioni per il Coach (opzionale):</label>
+            <textarea id="note-wellness" style="width:100%;background:#090f1d;border:1px solid var(--mv-border);color:#fff;border-radius:8px;padding:8px 10px;font-size:0.82rem;min-height:55px;outline:none;" placeholder="Es. leggero fastidio alla spalla..."></textarea>
+          </div>
+
+          <button class="btn-save-log" style="width:100%;padding:14px;font-size:0.95rem;background:var(--mv-amber);color:#000;" onclick="submitMorningWellness(this)">
+            Invia Morning Wellness 🚀
+          </button>
+          <div id="msg-wellness-ok" style="display:none;text-align:center;font-weight:800;color:var(--mv-emerald);margin-top:10px;font-size:0.9rem;">
+            ✓ Wellness inviato con successo al Coach!
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: SEDUTE DI ALLENAMENTO -->
+      <div class="tab-panel" id="tab-sedute">
         <div class="week-switcher">
           <button class="week-pill active" onclick="switchWeek('W1', this)">Settimana 1 (W1)</button>
           <button class="week-pill" onclick="switchWeek('W2', this)">Settimana 2 (W2)</button>
         </div>
-        <!-- Sessions Container -->
         <div id="sessions-container"></div>
       </div>
 
-      <!-- TAB 2: PROFILO E STIMA 1RM (INTERATTIVO LIVE CON ONINPUT) -->
+      <!-- TAB 3: PROFILO E STIMA 1RM (SENZA PARENTESI) -->
       <div class="tab-panel" id="tab-profilo">
-        <!-- Body Weight Box -->
         <div class="bw-box">
           <div>
             <div class="bw-info">⚖️ Peso Corporeo (BW)</div>
@@ -660,7 +722,6 @@
           </div>
         </div>
 
-        <!-- 1RM Cards Box -->
         <div class="card-box">
           <h3 class="card-title">🏋️ Stima Massimali 1RM & Percentuali</h3>
           <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:14px;">I carichi si ricalcolano <strong>in tempo reale ad ogni digitazione</strong>. Clicca Salva per sincronizzare con il Coach.</p>
@@ -668,87 +729,16 @@
         </div>
       </div>
 
-      <!-- TAB 3: MORNING WELLNESS INTEGRATO (5 VOCI 0-10) -->
-      <div class="tab-panel" id="tab-wellness">
-        <div class="card-box">
-          <h3 class="card-title">🌅 Questionario Morning Wellness</h3>
-          <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:16px;">Compila ogni mattina al risveglio (0-10) per calcolare la tua disponibilità all'allenamento.</p>
-
-          <!-- 1. Qualità del Sonno -->
-          <div class="wellness-card">
-            <div class="w-question-title">
-              <span>💤 1. Qualità del Sonno</span>
-              <span class="w-val-badge" id="lbl-w-sonno">— / 10</span>
-            </div>
-            <div class="w-question-hint">0 = Insonnia / Pessimo ➔ 10 = Sonno profondo e rigenerante</div>
-            <div class="w-rating-bar" id="bar-w-sonno"></div>
-          </div>
-
-          <!-- 2. Livello di Fatica -->
-          <div class="wellness-card">
-            <div class="w-question-title">
-              <span>⚡ 2. Livello di Fatica / Energia</span>
-              <span class="w-val-badge" id="lbl-w-fatica">— / 10</span>
-            </div>
-            <div class="w-question-hint">0 = Esausta / Nessuna energia ➔ 10 = Fresca e piena di energia</div>
-            <div class="w-rating-bar" id="bar-w-fatica"></div>
-          </div>
-
-          <!-- 3. Dolori / Fastidi Muscolari -->
-          <div class="wellness-card">
-            <div class="w-question-title">
-              <span>🩹 3. Dolori / Fastidi Articolari-Muscolari</span>
-              <span class="w-val-badge" id="lbl-w-dolori">— / 10</span>
-            </div>
-            <div class="w-question-hint">0 = Nessun dolore ➔ 10 = Dolore o fastidio acuto</div>
-            <div class="w-rating-bar" id="bar-w-dolori"></div>
-          </div>
-
-          <!-- 4. Livello di Stress -->
-          <div class="wellness-card">
-            <div class="w-question-title">
-              <span>🧠 4. Livello di Stress / Tensione</span>
-              <span class="w-val-badge" id="lbl-w-stress">— / 10</span>
-            </div>
-            <div class="w-question-hint">0 = Completamente rilassata ➔ 10 = Molto tesa o stressata</div>
-            <div class="w-rating-bar" id="bar-w-stress"></div>
-          </div>
-
-          <!-- 5. Disponibilità / Readiness -->
-          <div class="wellness-card">
-            <div class="w-question-title">
-              <span>🎯 5. Disponibilità all'Allenamento (Readiness)</span>
-              <span class="w-val-badge" id="lbl-w-readiness">— / 10</span>
-            </div>
-            <div class="w-question-hint">0 = Per nulla pronta ➔ 10 = Prontissima a dare il 100%</div>
-            <div class="w-rating-bar" id="bar-w-readiness"></div>
-          </div>
-
-          <!-- Note opzionali -->
-          <div style="margin-bottom:14px;">
-            <label style="font-size:0.8rem;font-weight:700;color:var(--mv-muted);display:block;margin-bottom:4px;">Note, dolori specifici o segnalazioni per il Coach (opzionale):</label>
-            <textarea id="note-wellness" style="width:100%;background:#090f1d;border:1px solid var(--mv-border);color:#fff;border-radius:8px;padding:8px 10px;font-size:0.82rem;min-height:55px;outline:none;" placeholder="Es. leggero fastidio al tendine rotuleo destro..."></textarea>
-          </div>
-
-          <button class="btn-save-log" style="width:100%;padding:14px;font-size:0.95rem;background:var(--mv-amber);color:#000;" onclick="submitMorningWellness(this)">
-            Invia Morning Wellness 🚀
-          </button>
-          <div id="msg-wellness-ok" style="display:none;text-align:center;font-weight:800;color:var(--mv-emerald);margin-top:10px;font-size:0.9rem;">
-            ✓ Wellness inviato con successo al Coach!
-          </div>
-        </div>
-      </div>
-
     </div>
 
     <footer class="app-footer">
       <div>Marsala Volley · Stagione 2026/2027</div>
-      <div style="color:var(--mv-amber);margin-top:2px;">Versione Ufficiale Unificata 2026.2</div>
+      <div style="color:var(--mv-amber);margin-top:2px;">Versione Ufficiale Unificata 2026.3</div>
     </footer>
 
   </main>
 
-  <script src="data.js?v=20260901v20"></script>
+  <script src="data.js?v=20260901v25"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -767,21 +757,22 @@
       4:  { squat: 80,  bench: 50, clean: 50,   row: 43, lat: 45 },
       5:  { squat: 90,  bench: 40, clean: 30,   row: 30, lat: 45 },
       6:  { squat: 80,  bench: 35, clean: 50,   row: 45, lat: 35 },
-      7:  { squat: 110, bench: 35, clean: 62.5, row: 55, lat: 50 },
+      7:  { squat: 110, bench: 42, clean: 62.5, row: 55, lat: 50 },
       8:  { squat: 105, bench: 50, clean: 35,   row: 60, lat: 50 },
-      9:  { squat: 110, bench: 45, clean: 50,   row: 45, lat: 36 },
+      9:  { squat: 150, bench: 45, clean: 50,   row: 45, lat: 36 },
       11: { squat: 105, bench: 30, clean: 50,   row: 30, lat: 43 },
       12: { squat: 122, bench: 51, clean: 42.5, row: 60, lat: 45 },
       13: { squat: 84,  bench: 35, clean: 44,   row: 38, lat: 48 },
       14: { squat: 120, bench: 55, clean: 55,   row: 50, lat: 45 }
     };
 
+    // NOMI MASSIMALI PULITI SENZA PARENTESI
     const RM_KEYS = [
       { id: 'squat', name: 'Back Squat', baseline: 'squat', hasBW: true },
       { id: 'bench', name: 'Bench Press', baseline: 'bench', hasBW: false },
       { id: 'clean', name: 'Power Clean', baseline: 'clean', hasBW: false },
-      { id: 'row',   name: 'Row (Rematore)', baseline: 'row', hasBW: false },
-      { id: 'lat',   name: 'Lat (Lat Machine / Trazioni)', baseline: 'lat', hasBW: false }
+      { id: 'row',   name: 'Row Bilanciere', baseline: 'row', hasBW: false },
+      { id: 'lat',   name: 'Lat Machine', baseline: 'lat', hasBW: false }
     ];
 
     const ORDERED_CATEGORIES = [
@@ -798,17 +789,13 @@
     let isEN = false;
     let wellnessRatings = { sonno: 8, fatica: 8, dolori: 0, stress: 2, readiness: 8 };
 
-    function init() {
-      // Registra Service Worker con auto-update
+    async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(reg => {
-          reg.update();
-        }).catch(() => {});
+        navigator.serviceWorker.register('sw.js').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
       const urlId = urlParams.get('id');
-      const openWellness = urlParams.get('wellness');
 
       if (urlId) {
         selectAthlete(parseInt(urlId));
@@ -821,13 +808,38 @@
         }
       }
 
-      if (openWellness) {
-        const btnW = document.getElementById('tab-btn-wellness');
-        if (btnW) switchNav('wellness', btnW);
-      }
-
       initWellnessRatingBars();
       checkPushSubscriptionState();
+      
+      // Sincronizza i massimali salvati da Google Sheets in background
+      await syncProgressiFromCloud();
+    }
+
+    async function syncProgressiFromCloud() {
+      if (!currentAthlete) return;
+      try {
+        const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Progressi`);
+        const json = await res.json();
+        const rows = json.dati || [];
+        
+        rows.forEach(r => {
+          if (parseInt(r.ID_Giocatrice) === currentAthlete.id) {
+            const ex = (r.Esercizio || '').toLowerCase();
+            const val = parseFloat(r.Valore || r.RM_Stimato || 0);
+            if (val > 0) {
+              if (ex.includes('squat')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_squat`, val);
+              if (ex.includes('clean')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_clean`, val);
+              if (ex.includes('bench') || ex.includes('panca')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_bench`, val);
+              if (ex.includes('row') || ex.includes('rematore')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_row`, val);
+              if (ex.includes('lat')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_lat`, val);
+              if (ex.includes('peso') || ex.includes('bw')) localStorage.setItem(`mv_bw_${currentAthlete.id}`, val);
+            }
+          }
+        });
+        renderBodyWeight();
+        render1RMProfile();
+        renderSessions();
+      } catch (e) {}
     }
 
     function forceAppRefresh() {
@@ -877,6 +889,7 @@
       if (isEN) {
         document.getElementById('tab-btn-profilo').textContent = '📊 1RM Profile';
         document.getElementById('tab-btn-sedute').textContent = '🏋️ Sessions';
+        document.getElementById('tab-btn-wellness').textContent = '🌅 Wellness';
       }
     }
 
@@ -967,7 +980,6 @@
       const parsed = parseFloat(val) || 0;
       localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, parsed);
 
-      // Aggiorna pills percentuali live
       const rmObj = RM_KEYS.find(k => k.id === rmId);
       if (rmObj) {
         [50, 60, 70, 75, 80, 85, 90].forEach(p => {
@@ -977,7 +989,6 @@
         });
       }
 
-      // Ricalcola carichi di seduta
       renderSessions();
     }
 
@@ -1441,30 +1452,30 @@
       }
 
       return `
-        <div class="session-end-card">
-          <div class="end-title">🏁 ${isEN ? 'Complete & Save Session' : 'Chiusura & Salvataggio Seduta'}</div>
+        <div class="session-end-card" style="background:var(--mv-surface2);border:1px solid var(--mv-border);border-radius:var(--radius-lg);padding:18px;margin-top:20px;">
+          <div style="font-size:1rem;font-weight:800;color:#fff;margin-bottom:14px;">🏁 ${isEN ? 'Complete & Save Session' : 'Chiusura & Salvataggio Seduta'}</div>
           
-          <div class="rating-row">
-            <div class="rating-head">
+          <div style="margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;font-weight:800;color:#fff;margin-bottom:2px;">
               <span>${isEN ? 'Session Intensity (RPE 0-10)' : 'Intensità Seduta (RPE 0-10)'}</span>
               <span id="lbl-rpe-${nSeduta}" style="color:var(--mv-amber)">— / 10</span>
             </div>
-            <div class="rating-hint">${isEN ? '0 = No effort / Rest ➔ 10 = Maximal effort' : '0 = Nessuno sforzo ➔ 10 = Sforzo massimale'}</div>
-            <div class="rating-bar">${rpeBtns}</div>
+            <div style="font-size:0.7rem;color:var(--mv-muted);margin-bottom:6px;">${isEN ? '0 = No effort / Rest ➔ 10 = Maximal effort' : '0 = Nessuno sforzo ➔ 10 = Sforzo massimale'}</div>
+            <div style="display:grid;grid-template-columns:repeat(11,1fr);gap:3px;">${rpeBtns}</div>
           </div>
 
-          <div class="rating-row">
-            <div class="rating-head">
+          <div style="margin-bottom:14px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;font-weight:800;color:#fff;margin-bottom:2px;">
               <span>${isEN ? 'Fatigue Level (0-10)' : 'Livello di Fatica (0-10)'}</span>
               <span id="lbl-fat-${nSeduta}" style="color:var(--mv-amber)">— / 10</span>
             </div>
-            <div class="rating-hint">${isEN ? '0 = Fresh / High energy ➔ 10 = Exhausted' : '0 = Fresca / Piena energia ➔ 10 = Esausta'}</div>
-            <div class="rating-bar">${fatBtns}</div>
+            <div style="font-size:0.7rem;color:var(--mv-muted);margin-bottom:6px;">${isEN ? '0 = Fresh / High energy ➔ 10 = Exhausted' : '0 = Fresca / Piena energia ➔ 10 = Esausta'}</div>
+            <div style="display:grid;grid-template-columns:repeat(11,1fr);gap:3px;">${fatBtns}</div>
           </div>
 
-          <textarea class="end-textarea" id="note-end-${nSeduta}" placeholder="${isEN ? 'Session notes (optional)...' : 'Note sulla seduta (opzionale)...'}"></textarea>
+          <textarea style="width:100%;background:#090f1d;border:1px solid var(--mv-border);color:#fff;border-radius:8px;padding:8px 10px;font-size:0.82rem;min-height:55px;outline:none;margin-bottom:14px;" id="note-end-${nSeduta}" placeholder="${isEN ? 'Session notes (optional)...' : 'Note sulla seduta (opzionale)...'}"></textarea>
           
-          <button class="btn-save-session" onclick="submitSession('${nSeduta}', this)">${isEN ? 'Save Session' : 'Fine Seduta — Salva Tutto'}</button>
+          <button class="btn-save-session" style="width:100%;background:var(--mv-amber);color:#000;border:none;border-radius:10px;padding:14px;font-size:0.95rem;font-weight:800;cursor:pointer;" onclick="submitSession('${nSeduta}', this)">${isEN ? 'Save Session' : 'Fine Seduta — Salva Tutto'}</button>
           <div id="save-msg-${nSeduta}" style="text-align:center;font-weight:800;color:var(--mv-emerald);margin-top:10px;display:none;">✓ Seduta registrata con successo!</div>
         </div>
       `;
@@ -1512,7 +1523,6 @@
       document.getElementById(`save-msg-${nSeduta}`).style.display = 'block';
     }
 
-    // LOGICA MORNING WELLNESS (0-10)
     function initWellnessRatingBars() {
       const categories = [
         { id: 'sonno', defaultVal: 8 },
@@ -1575,7 +1585,6 @@
       document.getElementById('msg-wellness-ok').style.display = 'block';
     }
 
-    // PUSH NOTIFICATIONS ENROLLMENT
     async function checkPushSubscriptionState() {
       if (!('Notification' in window) || !('serviceWorker' in window)) return;
       if (Notification.permission === 'default') {
