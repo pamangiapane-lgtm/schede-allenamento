@@ -41,7 +41,7 @@
       padding-bottom: 80px;
     }
 
-    /* Top App Header */
+    /* Top App Header Sticky */
     .app-header {
       background: var(--mv-navy-dark);
       border-bottom: 1px solid var(--mv-border);
@@ -73,7 +73,7 @@
       gap: 4px;
     }
 
-    .container { max-width: 680px; margin: 0 auto; padding: 16px; }
+    .container { max-width: 680px; margin: 0 auto; padding: 14px; }
 
     /* Roster Selection View */
     .roster-view { display: none; }
@@ -112,7 +112,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .btn-change-ath {
       background: var(--mv-surface);
@@ -131,22 +131,30 @@
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-lg);
-      padding: 16px 18px;
-      margin-bottom: 16px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 4px 16px rgba(0,0,0,0.25);
     }
-    .ath-name { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .ath-name { font-size: 1.35rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
     .ath-role { font-size: 0.82rem; color: var(--mv-amber); font-weight: 700; }
 
-    /* 3 Navigation Tabs (Wellness first) */
+    /* STICKY NAVIGATION TABS WRAPPER */
+    .sticky-nav-wrapper {
+      position: sticky;
+      top: 62px;
+      z-index: 90;
+      background: var(--mv-bg);
+      padding: 4px 0 10px 0;
+      box-shadow: 0 6px 16px rgba(9,15,29,0.9);
+    }
+
     .nav-tabs {
       display: grid;
       grid-template-columns: 1.2fr 1fr 1fr;
       gap: 6px;
-      margin-bottom: 16px;
     }
     .nav-tab-btn {
       background: var(--mv-surface);
@@ -174,7 +182,7 @@
     .week-switcher {
       display: flex;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       background: var(--mv-surface);
       padding: 6px;
       border-radius: var(--radius-md);
@@ -288,6 +296,45 @@
     .rm-pct-lbl { font-size: 0.65rem; color: var(--mv-muted); font-weight: 700; display: block; }
     .rm-pct-kg { font-size: 0.78rem; color: #fff; font-weight: 800; }
 
+    /* Custom Loads Table under 1RM */
+    .loads-summary-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: #060b16;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      font-size: 0.82rem;
+    }
+    .loads-summary-table th {
+      background: rgba(255,255,255,0.04);
+      color: var(--mv-muted);
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      text-align: left;
+    }
+    .loads-summary-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: #fff;
+      vertical-align: middle;
+    }
+    .loads-summary-table tr:last-child td { border-bottom: none; }
+    .load-badge {
+      display: inline-block;
+      background: rgba(232,160,32,0.18);
+      color: #fde68a;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(232,160,32,0.35);
+    }
+
     /* Session Accordions */
     .session-card {
       background: var(--mv-surface);
@@ -387,6 +434,43 @@
       font-size: 0.95rem;
       font-weight: 800;
       color: #fff;
+    }
+
+    /* Carico Usato Box nella Scheda */
+    .ex-load-log-box {
+      background: #080f1d;
+      border: 1px solid var(--mv-border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .ex-load-log-lbl { font-size: 0.75rem; font-weight: 700; color: var(--mv-muted); }
+    .ex-load-input-wrap { display: flex; align-items: center; gap: 6px; }
+    .ex-load-input {
+      background: #0e1a30;
+      border: 1px solid var(--mv-border);
+      color: var(--mv-amber);
+      font-size: 0.85rem;
+      font-weight: 800;
+      width: 85px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .btn-save-mini {
+      background: var(--mv-blue);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
     }
 
     .set-table {
@@ -620,11 +704,13 @@
         <button class="btn-save-log" style="background:#fff;color:#1e3a8a;font-weight:800;padding:6px 12px;" onclick="enablePushNotifications()">Attiva Ora</button>
       </div>
 
-      <!-- 3 Navigation Tabs (WELLNESS ATTIVO ALL'APERTURA) -->
-      <div class="nav-tabs">
-        <button class="nav-tab-btn active" id="tab-btn-wellness" onclick="switchNav('wellness', this)">🌅 Wellness</button>
-        <button class="nav-tab-btn" id="tab-btn-sedute" onclick="switchNav('sedute', this)">🏋️ Sedute</button>
-        <button class="nav-tab-btn" id="tab-btn-profilo" onclick="switchNav('profilo', this)">📊 Stima 1RM</button>
+      <!-- STICKY NAVIGATION TABS (WELLNESS ATTIVO ALL'APERTURA) -->
+      <div class="sticky-nav-wrapper">
+        <div class="nav-tabs">
+          <button class="nav-tab-btn active" id="tab-btn-wellness" onclick="switchNav('wellness', this)">🌅 Wellness</button>
+          <button class="nav-tab-btn" id="tab-btn-sedute" onclick="switchNav('sedute', this)">🏋️ Sedute</button>
+          <button class="nav-tab-btn" id="tab-btn-profilo" onclick="switchNav('profilo', this)">📊 Stima 1RM</button>
+        </div>
       </div>
 
       <!-- TAB 1: MORNING WELLNESS INTEGRATO (SCHERMATA PREDEFINITA ALL'APERTURA) -->
@@ -669,7 +755,7 @@
               <span>🧠 4. Livello di Stress / Tensione</span>
               <span class="w-val-badge" id="lbl-w-stress">2 / 10</span>
             </div>
-            <div class="w-question-hint">0 = Rilassata / Serena ➔ 10 = Molto tesa o stressata</div>
+            <div class="w-question-hint">0 = Completamente rilassata ➔ 10 = Molto tesa o stressata</div>
             <div class="w-rating-bar" id="bar-w-stress"></div>
           </div>
 
@@ -707,7 +793,7 @@
         <div id="sessions-container"></div>
       </div>
 
-      <!-- TAB 3: PROFILO E STIMA 1RM (SENZA PARENTESI) -->
+      <!-- TAB 3: PROFILO E STIMA 1RM & RIEPILOGO CARICHI (SENZA PARENTESI) -->
       <div class="tab-panel" id="tab-profilo">
         <div class="bw-box">
           <div>
@@ -727,18 +813,25 @@
           <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:14px;">I carichi si ricalcolano <strong>in tempo reale ad ogni digitazione</strong>. Clicca Salva per sincronizzare con il Coach.</p>
           <div class="rm-grid" id="rm-grid-container"></div>
         </div>
+
+        <!-- RIEPILOGO CARICHI USATI (PER TUTTA LA SQUADRA TRANNE NELLY) -->
+        <div class="card-box" id="box-riepilogo-carichi" style="margin-top:16px;">
+          <h3 class="card-title">📦 Riepilogo Ultimi Carichi Usati</h3>
+          <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:12px;">Elenco dei carichi e manubri registrati nelle tue sedute di allenamento. Si aggiornano automaticamente.</p>
+          <div id="riepilogo-carichi-container"></div>
+        </div>
       </div>
 
     </div>
 
     <footer class="app-footer">
       <div>Marsala Volley · Stagione 2026/2027</div>
-      <div style="color:var(--mv-amber);margin-top:2px;">Versione Ufficiale Unificata 2026.3</div>
+      <div style="color:var(--mv-amber);margin-top:2px;">Versione Ufficiale Unificata 2026.4</div>
     </footer>
 
   </main>
 
-  <script src="data.js?v=20260901v25"></script>
+  <script src="data.js?v=20260901v30"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -766,7 +859,6 @@
       14: { squat: 120, bench: 55, clean: 55,   row: 50, lat: 45 }
     };
 
-    // NOMI MASSIMALI PULITI SENZA PARENTESI
     const RM_KEYS = [
       { id: 'squat', name: 'Back Squat', baseline: 'squat', hasBW: true },
       { id: 'bench', name: 'Bench Press', baseline: 'bench', hasBW: false },
@@ -810,8 +902,6 @@
 
       initWellnessRatingBars();
       checkPushSubscriptionState();
-      
-      // Sincronizza i massimali salvati da Google Sheets in background
       await syncProgressiFromCloud();
     }
 
@@ -826,6 +916,7 @@
           if (parseInt(r.ID_Giocatrice) === currentAthlete.id) {
             const ex = (r.Esercizio || '').toLowerCase();
             const val = parseFloat(r.Valore || r.RM_Stimato || 0);
+            const valStr = String(r.Valore || r.Kg_Usati || '');
             if (val > 0) {
               if (ex.includes('squat')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_squat`, val);
               if (ex.includes('clean')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_clean`, val);
@@ -834,10 +925,14 @@
               if (ex.includes('lat')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_lat`, val);
               if (ex.includes('peso') || ex.includes('bw')) localStorage.setItem(`mv_bw_${currentAthlete.id}`, val);
             }
+            if (valStr && valStr.trim().length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura')) {
+              localStorage.setItem(`mv_load_${currentAthlete.id}_${r.Esercizio}`, valStr);
+            }
           }
         });
         renderBodyWeight();
         render1RMProfile();
+        renderRiepilogoCarichi();
         renderSessions();
       } catch (e) {}
     }
@@ -879,6 +974,7 @@
       renderHero();
       renderBodyWeight();
       render1RMProfile();
+      renderRiepilogoCarichi();
       renderSessions();
     }
 
@@ -1064,6 +1160,104 @@
       renderSessions();
     }
 
+    // GESTIONE RIEPILOGO CARICHI (PER TUTTA LA SQUADRA TRANNE NELLY)
+    function renderRiepilogoCarichi() {
+      const box = document.getElementById('box-riepilogo-carichi');
+      const isNelly = (currentAthlete && (currentAthlete.id === 14 || currentAthlete.name.toLowerCase().includes('nelly')));
+      if (isNelly) {
+        if (box) box.style.display = 'none';
+        return;
+      }
+      if (box) box.style.display = 'block';
+
+      const container = document.getElementById('riepilogo-carichi-container');
+      const savedKeys = [];
+      const prefix = `mv_load_${currentAthlete.id}_`;
+
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k.startsWith(prefix)) {
+          const exName = k.replace(prefix, '');
+          const val = localStorage.getItem(k);
+          savedKeys.push({ exercise: exName, load: val });
+        }
+      }
+
+      // Se non ci sono carichi salvati, mostriamo gli esercizi chiave di default
+      const defaultList = [
+        'Single-arm row cavo basso',
+        'Med ball slam rotazionale basso',
+        'Hip thrust esplosivo',
+        'Push press manubri',
+        'Pallof press'
+      ];
+
+      defaultList.forEach(defEx => {
+        if (!savedKeys.find(item => item.exercise === defEx)) {
+          const stored = localStorage.getItem(`${prefix}${defEx}`) || '—';
+          savedKeys.push({ exercise: defEx, load: stored });
+        }
+      });
+
+      if (savedKeys.length === 0) {
+        container.innerHTML = `<div style="text-align:center;color:var(--mv-muted);padding:14px;font-size:0.8rem">Nessun carico registrato finora. Compila i carichi durante le sedute per vederli qui.</div>`;
+        return;
+      }
+
+      container.innerHTML = `
+        <table class="loads-summary-table">
+          <thead>
+            <tr>
+              <th style="width:55%">Esercizio</th>
+              <th style="width:45%;text-align:right">Ultimo Carico</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${savedKeys.map(item => `
+              <tr>
+                <td><strong>${item.exercise}</strong></td>
+                <td style="text-align:right"><span class="load-badge">${item.load !== '—' ? item.load : 'Non registrato'}</span></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+
+    async function saveCustomExerciseLoad(exName, inputId, nSeduta) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      const val = input.value.trim();
+      if (!val) return;
+
+      localStorage.setItem(`mv_load_${currentAthlete.id}_${exName}`, val);
+
+      const toast = document.getElementById(`toast-${inputId}`);
+      if (toast) {
+        toast.style.display = 'inline';
+        setTimeout(() => { toast.style.display = 'none'; }, 2000);
+      }
+
+      try {
+        fetch(`${GAS_URL}?token=${TOKEN}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            azione: 'log_progressi',
+            id_giocatrice: currentAthlete.id,
+            n_seduta: nSeduta || 0,
+            esercizio: exName,
+            data: new Date().toISOString().slice(0, 10),
+            valore: `${val}`,
+            kg_usati: `${val}`
+          })
+        });
+      } catch (e) {}
+
+      renderRiepilogoCarichi();
+    }
+
     function getExerciseTempo(e) {
       const nome = (e.Esercizio || '').toLowerCase();
       const metodo = (e.Metodo || '').toLowerCase();
@@ -1134,6 +1328,7 @@
     function renderStandardExerciseCard(e, sed) {
       const exName = (isEN && e.Esercizio_EN) ? e.Esercizio_EN : e.Esercizio;
       const tempoVal = getExerciseTempo(e);
+      const isNelly = (currentAthlete && (currentAthlete.id === 14 || currentAthlete.name.toLowerCase().includes('nelly')));
 
       let targetHtml = '';
       const intStr = e['Intensità'] || e.Intensità || '';
@@ -1155,6 +1350,26 @@
             `;
           }
         }
+      }
+
+      // Cella di registrazione carico per esercizi con carico (tranne mobilità pura e tranne Nelly)
+      let customLoadLogHtml = '';
+      const nomeLow = e.Esercizio.toLowerCase();
+      const isMobility = nomeLow.includes('respirazione') || nomeLow.includes('mobilità') || nomeLow.includes('stretching') || nomeLow.includes('cars') || nomeLow.includes('wall slide') || nomeLow.includes('prehab');
+
+      if (!isNelly && !isMobility) {
+        const safeExId = e.Esercizio.replace(/[^a-zA-Z0-9]/g, '_');
+        const savedLoad = localStorage.getItem(`mv_load_${currentAthlete.id}_${e.Esercizio}`) || '';
+        customLoadLogHtml = `
+          <div class="ex-load-log-box">
+            <span class="ex-load-log-lbl">📝 Carico Usato Oggi:</span>
+            <div class="ex-load-input-wrap">
+              <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="es. 12 kg" value="${savedLoad}">
+              <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${e.Esercizio}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">Salva</button>
+              <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+            </div>
+          </div>
+        `;
       }
 
       let notesHtml = '';
@@ -1198,6 +1413,7 @@
           </div>
 
           ${targetHtml}
+          ${customLoadLogHtml}
           ${notesHtml}
         </div>
       `;
