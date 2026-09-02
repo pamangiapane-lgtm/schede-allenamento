@@ -847,6 +847,15 @@
           <div id="msg-wellness-ok" style="display:none;text-align:center;font-weight:800;color:var(--mv-emerald);margin-top:10px;font-size:0.9rem;">
             ✓ Wellness inviato con successo al Coach!
           </div>
+
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+            <div style="font-size:0.75rem;color:var(--mv-muted);">
+              🔔 Notifiche attive alle <strong>08:30</strong>
+            </div>
+            <button type="button" id="btn-push-tester" onclick="testOrRefreshPush(this)" style="background:#1f365d;color:#93c5fd;border:1px solid #3b82f6;border-radius:8px;padding:6px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;">
+              🔔 Invia notifica di prova
+            </button>
+          </div>
         </div>
       </div>
 
@@ -1998,6 +2007,39 @@
       if (Notification.permission === 'default') {
         const banner = document.getElementById('push-banner');
         if (banner) banner.style.display = 'flex';
+      }
+    }
+
+    async function testOrRefreshPush(btn) {
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Verifica in corso... ⏳';
+      }
+      await enablePushNotifications();
+      try {
+        if ('serviceWorker' in navigator) {
+          const reg = await navigator.serviceWorker.ready;
+          if (reg && reg.showNotification) {
+            reg.showNotification('🏐 Marsala Volley', {
+              body: 'Test riuscito! Riceverai la notifica ogni mattina alle 08:30 🌅',
+              icon: 'icon-192.png',
+              badge: 'icon-192.png',
+              data: { url: window.location.href }
+            });
+          }
+        }
+      } catch (e) {}
+
+      if (btn) {
+        btn.textContent = '✓ Notifica inviata!';
+        btn.style.background = 'var(--mv-emerald)';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = '🔔 Invia notifica di prova';
+          btn.style.background = '#1f365d';
+          btn.style.color = '#93c5fd';
+        }, 5000);
       }
     }
 
