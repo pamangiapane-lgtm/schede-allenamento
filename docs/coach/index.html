@@ -323,6 +323,7 @@
       color: var(--mv-muted);
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -370,8 +371,9 @@
     <div class="sticky-nav-wrapper">
       <div class="coach-nav-tabs">
         <button class="c-tab-btn active" id="btn-tab-readiness" onclick="switchCoachTab('readiness', this)">🚦 Readiness & Alert</button>
+        <button class="c-tab-btn" id="btn-tab-analytics" onclick="switchCoachTab('analytics', this)">📈 Trend & Grafici</button>
         <button class="c-tab-btn" id="btn-tab-massimali" onclick="switchCoachTab('massimali', this)">🏋️ 1RM & Carichi</button>
-        <button class="c-tab-btn" id="btn-tab-jump" onclick="switchCoachTab('jump', this)">📈 Jump & Workload</button>
+        <button class="c-tab-btn" id="btn-tab-jump" onclick="switchCoachTab('jump', this)">📊 Jump & Workload</button>
       </div>
     </div>
 
@@ -411,6 +413,121 @@
         <h3 class="card-title">👥 Roster Status & Morning Readiness</h3>
         <div class="roster-card-list" id="roster-readiness-list">
           <div style="text-align:center;color:var(--mv-muted);padding:20px;">Caricamento dati atlete...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VISTA 2: MATRICE 1RM & CARICHI SALA PESI -->
+    
+    <!-- VISTA 4: WELLNESS ANALYTICS & LONGITUDINAL TRENDS (GRAFICI SU RICHIESTA) -->
+    <div class="c-panel" id="panel-analytics">
+      
+      <!-- Selettore Atleta / Squadra -->
+      <div class="card-box" style="margin-bottom:12px;padding:12px 14px;">
+        <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;">
+          👥 Seleziona Soggetto da Analizzare
+        </div>
+        <div class="filter-pills" id="analytics-athlete-selector" style="overflow-x:auto;padding-bottom:4px;flex-wrap:nowrap;">
+          <!-- Generato via JS -->
+        </div>
+      </div>
+
+      <!-- Filtri Temporali & Contestuali -->
+      <div class="toolbar-box" style="margin-bottom:12px;">
+        <div style="width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">📅 Periodo</div>
+            <div class="filter-pills" id="analytics-time-pills">
+              <button class="btn-filt" onclick="setAnalyticsRange('7d', this)">7 Giorni</button>
+              <button class="btn-filt" onclick="setAnalyticsRange('14d', this)">14 Giorni</button>
+              <button class="btn-filt" onclick="setAnalyticsRange('30d', this)">30 Giorni</button>
+              <button class="btn-filt active" onclick="setAnalyticsRange('all', this)">Tutta la Stagione</button>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">🗓️ Giorno Microciclo</div>
+            <div class="filter-pills">
+              <button class="btn-filt active" onclick="setAnalyticsDay('all', this)">Tutti</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(2, this)">Martedì (MD-4)</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(4, this)">Giovedì (MD-2)</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(5, this)">Venerdì (MD-1)</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(1, this)">Lunedì</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selettore Metriche Visibili nel Grafico -->
+      <div class="card-box" style="margin-bottom:12px;padding:10px 14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;">
+            🔘 Metriche nel Grafico:
+          </div>
+          <div class="filter-pills" id="metric-toggles">
+            <button class="btn-filt active" id="tog-readiness" onclick="toggleMetric('readiness')" style="border-color:#f59e0b;color:#fde68a;">🎯 Readiness</button>
+            <button class="btn-filt active" id="tog-fatica" onclick="toggleMetric('fatica')" style="border-color:#10b981;color:#6ee7b7;">⚡ Energia</button>
+            <button class="btn-filt active" id="tog-sonno" onclick="toggleMetric('sonno')" style="border-color:#3b82f6;color:#93c5fd;">😴 Sonno</button>
+            <button class="btn-filt active" id="tog-dolori" onclick="toggleMetric('dolori')" style="border-color:#ef4444;color:#fca5a5;">🩹 Dolori</button>
+            <button class="btn-filt" id="tog-stress" onclick="toggleMetric('stress')" style="border-color:#a855f7;color:#d8b4fe;">🧠 Stress</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Summary del Periodo Selezionato -->
+      <div class="kpi-grid" style="grid-template-columns:repeat(5, 1fr);margin-bottom:14px;" id="analytics-kpi-grid">
+        <div class="kpi-card" style="padding:10px;">
+          <div class="kpi-lbl">Readiness Media</div>
+          <div class="kpi-val" id="an-kpi-readiness" style="color:var(--mv-amber);font-size:1.15rem;">--</div>
+          <div class="kpi-sub" id="an-kpi-readiness-sub">Periodo</div>
+        </div>
+        <div class="kpi-card" style="padding:10px;">
+          <div class="kpi-lbl">Energia Media</div>
+          <div class="kpi-val" id="an-kpi-fatica" style="color:#6ee7b7;font-size:1.15rem;">--</div>
+          <div class="kpi-sub">Fatica percepita</div>
+        </div>
+        <div class="kpi-card" style="padding:10px;">
+          <div class="kpi-lbl">Sonno Medio</div>
+          <div class="kpi-val" id="an-kpi-sonno" style="color:#93c5fd;font-size:1.15rem;">--</div>
+          <div class="kpi-sub">Qualità sonno</div>
+        </div>
+        <div class="kpi-card" style="padding:10px;">
+          <div class="kpi-lbl">Dolori Medi</div>
+          <div class="kpi-val" id="an-kpi-dolori" style="color:#fca5a5;font-size:1.15rem;">--</div>
+          <div class="kpi-sub">Fastidi muscolari</div>
+        </div>
+        <div class="kpi-card" style="padding:10px;">
+          <div class="kpi-lbl">Stress Medio</div>
+          <div class="kpi-val" id="an-kpi-stress" style="color:#d8b4fe;font-size:1.15rem;">--</div>
+          <div class="kpi-sub">Tensione nervosa</div>
+        </div>
+      </div>
+
+      <!-- GRAFICO 1: TREND LONGITUDINALE -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <h3 class="card-title" style="margin-bottom:0;" id="trend-chart-title">📈 Andamento Longitudinale nel Tempo</h3>
+          <span style="font-size:0.72rem;color:var(--mv-muted);" id="trend-chart-subtitle">301 record storici</span>
+        </div>
+        <div style="position:relative;height:320px;width:100%;">
+          <canvas id="wellnessTrendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- GRAFICO 2: DINAMICA DEL MICROCICLO (LUNEDÌ ➔ DOMENICA) -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <h3 class="card-title">📊 Risposta nei Giorni della Settimana (Curva di Carico Lun ➔ Dom)</h3>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Mostra la media delle risposte giorno per giorno per individuare il punto di massimo affaticamento e il rimbalzo pre-gara.</p>
+        <div style="position:relative;height:240px;width:100%;">
+          <canvas id="wellnessMicrocycleChart"></canvas>
+        </div>
+      </div>
+
+      <!-- CRONOLOGIA NOTE & SEGNALAZIONI DEL SOGGETTO -->
+      <div class="card-box">
+        <h3 class="card-title">📝 Storico Segnalazioni & Note Cliniche nel Periodo</h3>
+        <div id="analytics-notes-timeline" style="display:flex;flex-direction:column;gap:8px;max-height:300px;overflow-y:auto;">
+          <!-- Popolato via JS -->
         </div>
       </div>
 
@@ -586,6 +703,7 @@
       document.getElementById('sync-clock').textContent = `Ultimo agg: ${new Date().toLocaleTimeString('it-IT')}`;
       renderReadinessRoster();
       render1RMTable();
+      renderWellnessAnalytics();
       renderCustomLoadsTable();
     }
 
@@ -597,9 +715,44 @@
         liveWellnessData = {};
         const todayStr = new Date().toISOString().slice(0, 10);
 
+        rawWellnessRecords = [];
         rows.forEach(r => {
           const aid = parseInt(r.ID_Giocatrice);
           const rDate = (r.Data || '').slice(0, 10);
+          const athObj = ROSTER.find(a => a.id === aid);
+          const athName = athObj ? athObj.name : `Atleta #${aid}`;
+
+          let inferredStress = null;
+          if (r.Stress !== undefined && r.Stress !== '' && r.Stress !== null) {
+            inferredStress = parseInt(r.Stress);
+          } else if (r.stress !== undefined && r.stress !== '' && r.stress !== null) {
+            inferredStress = parseInt(r.stress);
+          } else if (typeof r.Note === 'number' && r.Note >= 0 && r.Note <= 10) {
+            inferredStress = parseInt(r.Note);
+          } else if (typeof r.Note === 'string' && r.Note.trim().length > 0 && !isNaN(Number(r.Note.trim())) && Number(r.Note.trim()) >= 0 && Number(r.Note.trim()) <= 10) {
+            inferredStress = parseInt(r.Note.trim());
+          } else {
+            inferredStress = (r.Qualita_Sonno && r.Fatica) ? 2 : null;
+          }
+
+          let inferredNote = '';
+          if (r.Note && typeof r.Note === 'string' && isNaN(Number(r.Note.trim()))) {
+            inferredNote = r.Note;
+          }
+
+          rawWellnessRecords.push({
+            aid: aid,
+            athName: athName,
+            date: rDate,
+            timestamp: r.Timestamp,
+            sonno: r.Qualita_Sonno !== '' ? parseInt(r.Qualita_Sonno) : null,
+            fatica: r.Fatica !== '' ? parseInt(r.Fatica) : null,
+            readiness: (r.Readines !== '' && r.Readines != null) ? parseInt(r.Readines) : (r.Disponibilita ? parseInt(r.Disponibilita) : null),
+            dolori: r.Dolori !== '' ? parseInt(r.Dolori) : null,
+            stress: inferredStress,
+            note: inferredNote
+          });
+
           if (!liveWellnessData[aid] || r.Timestamp > liveWellnessData[aid].timestamp) {
             let inferredStress = null;
             if (r.Stress !== undefined && r.Stress !== '' && r.Stress !== null) {
@@ -874,7 +1027,10 @@
                   <div class="ath-info-role">${a.role} · Marsala Volley</div>
                 </div>
               </div>
-              <span class="traffic-tag ${traffic.type}">${traffic.label}</span>
+                            <div style="display:flex;gap:6px;align-items:center;">
+                <button type="button" class="btn-filt" onclick="drillDownAthlete(${a.id})" style="background:rgba(59,130,246,0.18);color:#93c5fd;border:1px solid #3b82f6;padding:4px 8px;font-size:0.72rem;cursor:pointer;">📈 Trend</button>
+                <span class="traffic-tag ${traffic.type}">${traffic.label}</span>
+              </div>
             </div>
             ${subScoresHtml}
           </div>
@@ -933,6 +1089,330 @@
       `).join('');
     }
 
+    
+    // ==========================================
+    // WELLNESS ANALYTICS & TREND ENGINE
+    // ==========================================
+    let rawWellnessRecords = [];
+    let anCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
+    let anCurrentRange = 'all';
+    let anCurrentDay = 'all';
+    let anVisibleMetrics = { readiness: true, fatica: true, sonno: true, dolori: true, stress: false };
+    let trendChartInstance = null;
+    let microcycleChartInstance = null;
+
+    function initAnalyticsUI() {
+      // Inizializza selettore atlete
+      const selector = document.getElementById('analytics-athlete-selector');
+      if (!selector) return;
+
+      let pillsHtml = `<button class="btn-filt ${anCurrentAthlete === 0 ? 'active' : ''}" onclick="setAnalyticsTarget(0, this)" style="white-space:nowrap;">👥 Tutta la Squadra</button>`;
+      ROSTER.forEach(a => {
+        const isActive = (anCurrentAthlete === a.id) ? 'active' : '';
+        pillsHtml += `<button class="btn-filt ${isActive}" onclick="setAnalyticsTarget(${a.id}, this)" style="white-space:nowrap;">#${a.id} ${a.name.split(' ')[1] || a.name}</button>`;
+      });
+      selector.innerHTML = pillsHtml;
+    }
+
+    function drillDownAthlete(aid) {
+      anCurrentAthlete = aid;
+      initAnalyticsUI();
+      switchCoachTab('analytics', document.getElementById('btn-tab-analytics'));
+      renderWellnessAnalytics();
+    }
+
+    function setAnalyticsTarget(aid, btn) {
+      anCurrentAthlete = aid;
+      if (btn) {
+        btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      renderWellnessAnalytics();
+    }
+
+    function setAnalyticsRange(range, btn) {
+      anCurrentRange = range;
+      if (btn) {
+        btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      renderWellnessAnalytics();
+    }
+
+    function setAnalyticsDay(day, btn) {
+      anCurrentDay = day;
+      if (btn) {
+        btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      renderWellnessAnalytics();
+    }
+
+    function toggleMetric(metric) {
+      anVisibleMetrics[metric] = !anVisibleMetrics[metric];
+      const btn = document.getElementById(`tog-${metric}`);
+      if (btn) {
+        if (anVisibleMetrics[metric]) btn.classList.add('active');
+        else btn.classList.remove('active');
+      }
+      renderWellnessAnalytics();
+    }
+
+    function filterWellnessData() {
+      let data = [...rawWellnessRecords];
+
+      // Filtro Atleta
+      if (anCurrentAthlete > 0) {
+        data = data.filter(r => r.aid === anCurrentAthlete);
+      }
+
+      // Filtro Temporale
+      const now = new Date();
+      if (anCurrentRange === '7d') {
+        const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '14d') {
+        const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '30d') {
+        const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      }
+
+      // Filtro Giorno della Settimana (1=Lun, 2=Mar, ..., 0=Dom)
+      if (anCurrentDay !== 'all') {
+        const targetDay = parseInt(anCurrentDay);
+        data = data.filter(r => {
+          const d = new Date(r.date);
+          return d.getDay() === targetDay;
+        });
+      }
+
+      return data;
+    }
+
+    function renderWellnessAnalytics() {
+      initAnalyticsUI();
+      const filtered = filterWellnessData();
+
+      // Titoli dinamici
+      const targetName = (anCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === anCurrentAthlete)?.name || `Atleta #${anCurrentAthlete}`);
+      document.getElementById('trend-chart-title').textContent = `📈 Trend: ${targetName}`;
+      document.getElementById('trend-chart-subtitle').textContent = `${filtered.length} record analizzati`;
+
+      // 1. Calcolo KPI Summary
+      let sumReady = 0, sumFatica = 0, sumSonno = 0, sumDolori = 0, sumStress = 0;
+      let cReady = 0, cFatica = 0, cSonno = 0, cDolori = 0, cStress = 0;
+
+      filtered.forEach(r => {
+        if (r.readiness !== null) { sumReady += r.readiness; cReady++; }
+        if (r.fatica !== null) { sumFatica += r.fatica; cFatica++; }
+        if (r.sonno !== null) { sumSonno += r.sonno; cSonno++; }
+        if (r.dolori !== null) { sumDolori += r.dolori; cDolori++; }
+        if (r.stress !== null) { sumStress += r.stress; cStress++; }
+      });
+
+      document.getElementById('an-kpi-readiness').textContent = cReady > 0 ? (sumReady / cReady).toFixed(1) + '/10' : '--';
+      document.getElementById('an-kpi-fatica').textContent = cFatica > 0 ? (sumFatica / cFatica).toFixed(1) + '/10' : '--';
+      document.getElementById('an-kpi-sonno').textContent = cSonno > 0 ? (sumSonno / cSonno).toFixed(1) + '/10' : '--';
+      document.getElementById('an-kpi-dolori').textContent = cDolori > 0 ? (sumDolori / cDolori).toFixed(1) + '/10' : '--';
+      document.getElementById('an-kpi-stress').textContent = cStress > 0 ? (sumStress / cStress).toFixed(1) + '/10' : '--';
+
+      // 2. Costruzione Dati per Grafico Temporale
+      // Raggruppa per data (media giornaliera se squadra, o valore atleta)
+      const dateMap = {};
+      filtered.forEach(r => {
+        if (!dateMap[r.date]) {
+          dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], notes: [] };
+        }
+        if (r.readiness !== null) dateMap[r.date].readiness.push(r.readiness);
+        if (r.fatica !== null) dateMap[r.date].fatica.push(r.fatica);
+        if (r.sonno !== null) dateMap[r.date].sonno.push(r.sonno);
+        if (r.dolori !== null) dateMap[r.date].dolori.push(r.dolori);
+        if (r.stress !== null) dateMap[r.date].stress.push(r.stress);
+        if (r.note && r.note.trim()) dateMap[r.date].notes.push({ ath: r.athName, note: r.note });
+      });
+
+      const sortedDates = Object.keys(dateMap).sort();
+      const avg = arr => arr.length ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
+
+      const labels = sortedDates.map(d => {
+        const parts = d.split('-');
+        return `${parts[2]}/${parts[1]}`;
+      });
+
+      const datasets = [];
+      if (anVisibleMetrics.readiness) {
+        datasets.push({
+          label: 'Readiness 🎯',
+          data: sortedDates.map(d => avg(dateMap[d].readiness)),
+          borderColor: '#f59e0b',
+          backgroundColor: 'rgba(245, 158, 11, 0.1)',
+          tension: 0.35,
+          borderWidth: 3,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        });
+      }
+      if (anVisibleMetrics.fatica) {
+        datasets.push({
+          label: 'Energia ⚡',
+          data: sortedDates.map(d => avg(dateMap[d].fatica)),
+          borderColor: '#10b981',
+          backgroundColor: 'transparent',
+          tension: 0.35,
+          borderWidth: 2,
+          pointRadius: 3
+        });
+      }
+      if (anVisibleMetrics.sonno) {
+        datasets.push({
+          label: 'Sonno 😴',
+          data: sortedDates.map(d => avg(dateMap[d].sonno)),
+          borderColor: '#3b82f6',
+          backgroundColor: 'transparent',
+          tension: 0.35,
+          borderWidth: 2,
+          pointRadius: 3
+        });
+      }
+      if (anVisibleMetrics.dolori) {
+        datasets.push({
+          label: 'Dolori 🩹',
+          data: sortedDates.map(d => avg(dateMap[d].dolori)),
+          borderColor: '#ef4444',
+          backgroundColor: 'transparent',
+          tension: 0.35,
+          borderWidth: 2,
+          pointRadius: 3
+        });
+      }
+      if (anVisibleMetrics.stress) {
+        datasets.push({
+          label: 'Stress 🧠',
+          data: sortedDates.map(d => avg(dateMap[d].stress)),
+          borderColor: '#a855f7',
+          backgroundColor: 'transparent',
+          tension: 0.35,
+          borderWidth: 2,
+          pointRadius: 3
+        });
+      }
+
+      // Render o Update Chart 1
+      const ctxTrend = document.getElementById('wellnessTrendChart');
+      if (ctxTrend) {
+        if (trendChartInstance) trendChartInstance.destroy();
+        trendChartInstance = new Chart(ctxTrend, {
+          type: 'line',
+          data: { labels: labels, datasets: datasets },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+              legend: { labels: { color: '#94a3b8', font: { size: 11, weight: 'bold' } } },
+              tooltip: {
+                backgroundColor: '#090f1d',
+                borderColor: '#1f365d',
+                borderWidth: 1,
+                titleColor: '#fff',
+                bodyColor: '#cbd5e1',
+                padding: 10,
+                callbacks: {
+                  afterBody: function(context) {
+                    const idx = context[0].dataIndex;
+                    const d = sortedDates[idx];
+                    const notes = dateMap[d].notes;
+                    if (notes && notes.length) {
+                      return notes.map(n => `💬 ${n.ath}: "${n.note}"`).join('\n');
+                    }
+                    return '';
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                min: 0,
+                max: 10,
+                grid: { color: 'rgba(255, 255, 255, 0.06)' },
+                ticks: { color: '#94a3b8', stepSize: 2 }
+              },
+              x: {
+                grid: { color: 'rgba(255, 255, 255, 0.04)' },
+                ticks: { color: '#94a3b8', maxTicksLimit: 12 }
+              }
+            }
+          }
+        });
+      }
+
+      // 3. Costruzione Dati per Grafico Microciclo (Giorno della Settimana)
+      const dayNames = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+      const dayOrder = [1, 2, 3, 4, 5, 6, 0]; // Da Lunedì a Domenica
+      const dayStats = { 0: {r:[], f:[], d:[]}, 1: {r:[], f:[], d:[]}, 2: {r:[], f:[], d:[]}, 3: {r:[], f:[], d:[]}, 4: {r:[], f:[], d:[]}, 5: {r:[], f:[], d:[]}, 6: {r:[], f:[], d:[]} };
+
+      filtered.forEach(r => {
+        const dObj = new Date(r.date);
+        const dayIdx = dObj.getDay();
+        if (r.readiness !== null) dayStats[dayIdx].r.push(r.readiness);
+        if (r.fatica !== null) dayStats[dayIdx].f.push(r.fatica);
+        if (r.dolori !== null) dayStats[dayIdx].d.push(r.dolori);
+      });
+
+      const microLabels = dayOrder.map(idx => dayNames[idx].slice(0, 3));
+      const microReadyData = dayOrder.map(idx => avg(dayStats[idx].r));
+      const microEnergyData = dayOrder.map(idx => avg(dayStats[idx].f));
+      const microDoloriData = dayOrder.map(idx => avg(dayStats[idx].d));
+
+      const ctxMicro = document.getElementById('wellnessMicrocycleChart');
+      if (ctxMicro) {
+        if (microcycleChartInstance) microcycleChartInstance.destroy();
+        microcycleChartInstance = new Chart(ctxMicro, {
+          type: 'bar',
+          data: {
+            labels: microLabels,
+            datasets: [
+              { label: 'Readiness 🎯', data: microReadyData, backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 4 },
+              { label: 'Energia ⚡', data: microEnergyData, backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 4 },
+              { label: 'Dolori 🩹', data: microDoloriData, backgroundColor: 'rgba(239, 68, 68, 0.85)', borderRadius: 4 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { labels: { color: '#94a3b8', font: { size: 10, weight: 'bold' } } }
+            },
+            scales: {
+              y: { min: 0, max: 10, grid: { color: 'rgba(255, 255, 255, 0.06)' }, ticks: { color: '#94a3b8', stepSize: 2 } },
+              x: { grid: { display: false }, ticks: { color: '#cbd5e1', font: { weight: 'bold' } } }
+            }
+          }
+        });
+      }
+
+      // 4. Popolamento Timeline Note
+      const notesTimeline = document.getElementById('analytics-notes-timeline');
+      if (notesTimeline) {
+        const notesList = filtered.filter(r => r.note && r.note.trim().length > 0).sort((a,b) => b.date.localeCompare(a.date));
+        if (notesList.length === 0) {
+          notesTimeline.innerHTML = `<div style="text-align:center;color:var(--mv-muted);font-size:0.8rem;padding:14px;">Nessuna segnalazione o nota registrata per i filtri selezionati.</div>`;
+        } else {
+          notesTimeline.innerHTML = notesList.map(n => `
+            <div style="background:#090f1d;border-left:3px solid var(--mv-amber);padding:8px 12px;border-radius:6px;font-size:0.8rem;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                <strong style="color:#fff;">#${n.aid} ${n.athName}</strong>
+                <span style="font-size:0.7rem;color:var(--mv-muted);">${n.date} · Dolori ${n.dolori !== null ? n.dolori : '—'}/10 · Stress ${n.stress !== null ? n.stress : '—'}/10</span>
+              </div>
+              <div style="color:#fde68a;font-style:italic;">💬 "${n.note}"</div>
+            </div>
+          `).join('');
+        }
+      }
+    }
+    
     window.addEventListener('DOMContentLoaded', initCoach);
   </script>
 </body>
