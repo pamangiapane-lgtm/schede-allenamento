@@ -702,7 +702,13 @@
         if (val >= 8) return 'green';
         if (val >= 6) return 'yellow';
         return 'red';
-      } else if (catId === 'dolori' || catId === 'stress') {
+      } else if (catId === 'dolori') {
+        // Dolori: 0-2 Verde, 3-4 Giallo, >= 5 Rosso
+        if (val <= 2) return 'green';
+        if (val <= 4) return 'yellow';
+        return 'red';
+      } else if (catId === 'stress') {
+        // Stress: 0-3 Verde, 4 Giallo, >= 5 Rosso
         if (val <= 3) return 'green';
         if (val <= 4) return 'yellow';
         return 'red';

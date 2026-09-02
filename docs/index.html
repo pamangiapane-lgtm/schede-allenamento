@@ -1913,8 +1913,12 @@
         // Prima fascia Verde: >= 8. Giallo: 6-7. Rosso: <= 5.
         isGreen = (val >= 8);
         isRed = (val < 6);
-      } else if (catId === 'dolori' || catId === 'stress') {
-        // Prima fascia Verde: fino a 3. Giallo: 4. Rosso: >= 5.
+      } else if (catId === 'dolori') {
+        // Dolori: 0-2 Verde, 3-4 Giallo, >= 5 Rosso
+        isGreen = (val <= 2);
+        isRed = (val >= 5);
+      } else if (catId === 'stress') {
+        // Stress: fino a 3 Verde, 4 Giallo, >= 5 Rosso
         isGreen = (val <= 3);
         isRed = (val >= 5);
       }
