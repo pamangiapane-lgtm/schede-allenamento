@@ -212,6 +212,23 @@
       gap: 8px;
     }
     .filter-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+    .scroll-pills {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      gap: 6px !important;
+      padding: 2px 2px 6px 2px !important;
+    }
+    .scroll-pills::-webkit-scrollbar { display: none !important; }
+    .scroll-pills .btn-filt {
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+    }
     .btn-filt {
       background: var(--mv-surface2);
       border: 1px solid var(--mv-border);
@@ -447,41 +464,39 @@
     <div class="c-panel" id="panel-analytics">
       
       <!-- Selettore Atleta / Squadra -->
-      <div class="card-box" style="margin-bottom:12px;padding:12px 14px;">
+      <div class="card-box" style="margin-bottom:12px;padding:12px 14px;width:100%;box-sizing:border-box;overflow:hidden;">
         <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;">
           👥 Seleziona Soggetto da Analizzare
         </div>
-        <div class="filter-pills" id="analytics-athlete-selector" style="overflow-x:auto;padding-bottom:4px;flex-wrap:nowrap;">
+        <div class="scroll-pills" id="analytics-athlete-selector">
           <!-- Generato via JS -->
         </div>
       </div>
 
       <!-- Filtri Temporali & Contestuali -->
-      <div class="toolbar-box" style="margin-bottom:12px;">
-        <div style="width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-          <div>
-            <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">📅 Periodo</div>
-            <div class="filter-pills" id="analytics-time-pills" style="overflow-x:auto;padding-bottom:4px;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;">
-              <button class="btn-filt" onclick="setAnalyticsRange('7d', this)" style="white-space:nowrap;">7 Giorni</button>
-              <button class="btn-filt" onclick="setAnalyticsRange('14d', this)" style="white-space:nowrap;">14 Giorni</button>
-              <button class="btn-filt" onclick="setAnalyticsRange('30d', this)" style="white-space:nowrap;">30 Giorni</button>
-              <button class="btn-filt" onclick="setAnalyticsRange('offseason', this)" style="white-space:nowrap;">🌴 Off-Season (≤ 23 Ago)</button>
-              <button class="btn-filt" onclick="setAnalyticsRange('preseason', this)" style="white-space:nowrap;">⚡ Pre-Season (≥ 24 Ago)</button>
-              <button class="btn-filt active" onclick="setAnalyticsRange('all', this)" style="white-space:nowrap;">📅 Tutta la Stagione</button>
-            </div>
+      <div class="toolbar-box" style="margin-bottom:12px;width:100%;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;gap:10px;align-items:stretch;">
+        <div style="width:100%;min-width:0;">
+          <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">📅 Periodo</div>
+          <div class="scroll-pills" id="analytics-time-pills">
+            <button class="btn-filt" onclick="setAnalyticsRange('7d', this)">7 Giorni</button>
+            <button class="btn-filt" onclick="setAnalyticsRange('14d', this)">14 Giorni</button>
+            <button class="btn-filt" onclick="setAnalyticsRange('30d', this)">30 Giorni</button>
+            <button class="btn-filt" onclick="setAnalyticsRange('offseason', this)">🌴 Off-Season (≤ 23 Ago)</button>
+            <button class="btn-filt" onclick="setAnalyticsRange('preseason', this)">⚡ Pre-Season (≥ 24 Ago)</button>
+            <button class="btn-filt active" onclick="setAnalyticsRange('all', this)">📅 Tutta la Stagione</button>
           </div>
-          <div style="width:100%;margin-top:6px;">
-            <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">🗓️ Giorni della Settimana (Microciclo)</div>
-            <div class="filter-pills" style="overflow-x:auto;padding-bottom:4px;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;">
-              <button class="btn-filt active" onclick="setAnalyticsDay('all', this)" style="white-space:nowrap;">Tutti i Giorni</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(1, this)" style="white-space:nowrap;">Lunedì</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(2, this)" style="white-space:nowrap;">Martedì</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(3, this)" style="white-space:nowrap;">Mercoledì</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(4, this)" style="white-space:nowrap;">Giovedì</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(5, this)" style="white-space:nowrap;">Venerdì</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(6, this)" style="white-space:nowrap;">Sabato</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(0, this)" style="white-space:nowrap;">Domenica</button>
-            </div>
+        </div>
+        <div style="width:100%;min-width:0;">
+          <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">🗓️ Giorni della Settimana (Microciclo)</div>
+          <div class="scroll-pills">
+            <button class="btn-filt active" onclick="setAnalyticsDay('all', this)">Tutti i Giorni</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(1, this)">Lunedì</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(2, this)">Martedì</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(3, this)">Mercoledì</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(4, this)">Giovedì</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(5, this)">Venerdì</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(6, this)">Sabato</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(0, this)">Domenica</button>
           </div>
         </div>
       </div>
