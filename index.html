@@ -789,7 +789,7 @@
           <div class="wellness-card">
             <div class="w-question-title">
               <span>💤 1. Qualità del Sonno</span>
-              <span class="w-val-badge" id="lbl-w-sonno" style="background:#1f365d;color:#94a3b8;">Tocca per votare</span>
+              <span class="w-val-badge" id="lbl-w-sonno" style="display:none;"></span>
             </div>
             <div class="w-question-hint">0 = Insonnia / Pessimo ➔ 10 = Sonno profondo e rigenerante</div>
             <div class="w-rating-bar" id="bar-w-sonno"></div>
@@ -799,7 +799,7 @@
           <div class="wellness-card">
             <div class="w-question-title">
               <span>⚡ 2. Livello di Fatica / Energia</span>
-              <span class="w-val-badge" id="lbl-w-fatica" style="background:#1f365d;color:#94a3b8;">Tocca per votare</span>
+              <span class="w-val-badge" id="lbl-w-fatica" style="display:none;"></span>
             </div>
             <div class="w-question-hint">0 = Esausta / Nessuna energia ➔ 10 = Fresca e piena di energia</div>
             <div class="w-rating-bar" id="bar-w-fatica"></div>
@@ -809,7 +809,7 @@
           <div class="wellness-card">
             <div class="w-question-title">
               <span>🩹 3. Dolori / Fastidi Articolari-Muscolari</span>
-              <span class="w-val-badge" id="lbl-w-dolori" style="background:#1f365d;color:#94a3b8;">Tocca per votare</span>
+              <span class="w-val-badge" id="lbl-w-dolori" style="display:none;"></span>
             </div>
             <div class="w-question-hint">0 = Nessun dolore ➔ 10 = Dolore o fastidio acuto</div>
             <div class="w-rating-bar" id="bar-w-dolori"></div>
@@ -819,7 +819,7 @@
           <div class="wellness-card">
             <div class="w-question-title">
               <span>🧠 4. Livello di Stress / Tensione</span>
-              <span class="w-val-badge" id="lbl-w-stress" style="background:#1f365d;color:#94a3b8;">Tocca per votare</span>
+              <span class="w-val-badge" id="lbl-w-stress" style="display:none;"></span>
             </div>
             <div class="w-question-hint">0 = Completamente rilassata ➔ 10 = Molto tesa o stressata</div>
             <div class="w-rating-bar" id="bar-w-stress"></div>
@@ -829,7 +829,7 @@
           <div class="wellness-card">
             <div class="w-question-title">
               <span>🎯 5. Disponibilità all'Allenamento (Readiness)</span>
-              <span class="w-val-badge" id="lbl-w-readiness" style="background:#1f365d;color:#94a3b8;">Tocca per votare</span>
+              <span class="w-val-badge" id="lbl-w-readiness" style="display:none;"></span>
             </div>
             <div class="w-question-hint">0 = Per nulla pronta ➔ 10 = Prontissima a dare il 100%</div>
             <div class="w-rating-bar" id="bar-w-readiness"></div>
@@ -1899,11 +1899,42 @@
         bar.innerHTML = btns;
         const lbl = document.getElementById(`lbl-w-${catId}`);
         if (lbl) {
-          lbl.textContent = 'Tocca per votare';
-          lbl.style.background = '#1f365d';
-          lbl.style.color = '#94a3b8';
+          lbl.textContent = '';
+          lbl.style.display = 'none';
         }
       });
+    }
+
+    function getWellnessBadgeStyle(catId, val) {
+      let isGreen = false;
+      let isRed = false;
+
+      if (catId === 'sonno' || catId === 'fatica') {
+        // Sonno ed Energia: >=7 Verde, 5-6 Giallo, <=4 Rosso
+        isGreen = (val >= 7);
+        isRed = (val <= 4);
+      } else if (catId === 'readiness') {
+        // Readiness: >=8 Verde, 5-7 Giallo, <=4 Rosso
+        isGreen = (val >= 8);
+        isRed = (val <= 4);
+      } else if (catId === 'dolori') {
+        // Dolori (Inversa): 0-2 Verde, 3-4 Giallo, >=5 Rosso
+        isGreen = (val <= 2);
+        isRed = (val >= 5);
+      } else if (catId === 'stress') {
+        // Stress (Inversa): 0-3 Verde, 4-5 Giallo, >=6 Rosso
+        isGreen = (val <= 3);
+        isRed = (val >= 6);
+      }
+
+      if (isGreen) {
+        return { bg: 'rgba(16, 185, 129, 0.2)', color: '#6ee7b7', border: '1px solid rgba(16, 185, 129, 0.4)' };
+      } else if (isRed) {
+        return { bg: 'rgba(239, 68, 68, 0.25)', color: '#fca5a5', border: '1px solid rgba(239, 68, 68, 0.5)' };
+      } else {
+        // Giallo / Attenzione
+        return { bg: 'rgba(232, 160, 32, 0.2)', color: '#fde68a', border: '1px solid rgba(232, 160, 32, 0.4)' };
+      }
     }
 
     function setWellnessVal(catId, val, btn) {
@@ -1912,9 +1943,12 @@
       btn.classList.add('active');
       const lbl = document.getElementById(`lbl-w-${catId}`);
       if (lbl) {
+        const style = getWellnessBadgeStyle(catId, val);
         lbl.textContent = `${val} / 10`;
-        lbl.style.background = 'rgba(232, 160, 32, 0.2)';
-        lbl.style.color = '#fde68a';
+        lbl.style.background = style.bg;
+        lbl.style.color = style.color;
+        lbl.style.border = style.border;
+        lbl.style.display = 'inline-block';
       }
     }
 
