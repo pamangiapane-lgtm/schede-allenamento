@@ -12,6 +12,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden !important;
+      position: relative;
+    }
+    .container {
+      max-width: 100vw;
+      overflow-x: hidden;
+      padding: 10px 12px;
+    }
     :root {
       --mv-navy: #0c1f40;
       --mv-navy-dark: #071226;
@@ -106,9 +119,17 @@
     }
     .coach-nav-tabs {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-      padding: 0 4px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      padding: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .c-tab-btn {
+      padding: 8px 2px;
+      font-size: 0.72rem;
+      white-space: nowrap;
+      min-width: 0;
     }
     .c-tab-btn {
       background: #0f192d;
@@ -445,14 +466,17 @@
               <button class="btn-filt active" onclick="setAnalyticsRange('all', this)">Tutta la Stagione</button>
             </div>
           </div>
-          <div>
-            <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">🗓️ Giorno Microciclo</div>
-            <div class="filter-pills">
-              <button class="btn-filt active" onclick="setAnalyticsDay('all', this)">Tutti</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(2, this)">Martedì (MD-4)</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(4, this)">Giovedì (MD-2)</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(5, this)">Venerdì (MD-1)</button>
-              <button class="btn-filt" onclick="setAnalyticsDay(1, this)">Lunedì</button>
+          <div style="width:100%;margin-top:6px;">
+            <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">🗓️ Giorni della Settimana (Microciclo)</div>
+            <div class="filter-pills" style="overflow-x:auto;padding-bottom:4px;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;">
+              <button class="btn-filt active" onclick="setAnalyticsDay('all', this)" style="white-space:nowrap;">Tutti i Giorni</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(1, this)" style="white-space:nowrap;">Lunedì</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(2, this)" style="white-space:nowrap;">Martedì</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(3, this)" style="white-space:nowrap;">Mercoledì</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(4, this)" style="white-space:nowrap;">Giovedì</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(5, this)" style="white-space:nowrap;">Venerdì</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(6, this)" style="white-space:nowrap;">Sabato</button>
+              <button class="btn-filt" onclick="setAnalyticsDay(0, this)" style="white-space:nowrap;">Domenica</button>
             </div>
           </div>
         </div>
@@ -474,32 +498,32 @@
         </div>
       </div>
 
-      <!-- KPI Summary del Periodo Selezionato -->
-      <div class="kpi-grid" style="grid-template-columns:repeat(5, 1fr);margin-bottom:14px;" id="analytics-kpi-grid">
-        <div class="kpi-card" style="padding:10px;">
-          <div class="kpi-lbl">Readiness Media</div>
-          <div class="kpi-val" id="an-kpi-readiness" style="color:var(--mv-amber);font-size:1.15rem;">--</div>
-          <div class="kpi-sub" id="an-kpi-readiness-sub">Periodo</div>
+      <!-- KPI Summary del Periodo Selezionato (RESPONSIVE NO OVERFLOW) -->
+      <div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:4px;margin-bottom:14px;width:100%;box-sizing:border-box;" id="analytics-kpi-grid">
+        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Readiness</div>
+          <div class="kpi-val" id="an-kpi-readiness" style="color:var(--mv-amber);font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media</div>
         </div>
-        <div class="kpi-card" style="padding:10px;">
-          <div class="kpi-lbl">Energia Media</div>
-          <div class="kpi-val" id="an-kpi-fatica" style="color:#6ee7b7;font-size:1.15rem;">--</div>
-          <div class="kpi-sub">Fatica percepita</div>
+        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Energia</div>
+          <div class="kpi-val" id="an-kpi-fatica" style="color:#6ee7b7;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fatica</div>
         </div>
-        <div class="kpi-card" style="padding:10px;">
-          <div class="kpi-lbl">Sonno Medio</div>
-          <div class="kpi-val" id="an-kpi-sonno" style="color:#93c5fd;font-size:1.15rem;">--</div>
-          <div class="kpi-sub">Qualità sonno</div>
+        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sonno</div>
+          <div class="kpi-val" id="an-kpi-sonno" style="color:#93c5fd;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Qualità</div>
         </div>
-        <div class="kpi-card" style="padding:10px;">
-          <div class="kpi-lbl">Dolori Medi</div>
-          <div class="kpi-val" id="an-kpi-dolori" style="color:#fca5a5;font-size:1.15rem;">--</div>
-          <div class="kpi-sub">Fastidi muscolari</div>
+        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Dolori</div>
+          <div class="kpi-val" id="an-kpi-dolori" style="color:#fca5a5;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fastidi</div>
         </div>
-        <div class="kpi-card" style="padding:10px;">
-          <div class="kpi-lbl">Stress Medio</div>
-          <div class="kpi-val" id="an-kpi-stress" style="color:#d8b4fe;font-size:1.15rem;">--</div>
-          <div class="kpi-sub">Tensione nervosa</div>
+        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Stress</div>
+          <div class="kpi-val" id="an-kpi-stress" style="color:#d8b4fe;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tensione</div>
         </div>
       </div>
 
@@ -721,23 +745,59 @@
           const rDate = (r.Data || '').slice(0, 10);
           const athObj = ROSTER.find(a => a.id === aid);
           const athName = athObj ? athObj.name : `Atleta #${aid}`;
+          const isOld5PointScale = (rDate < '2026-08-25');
+
+          function normalizeScore(val) {
+            if (val === null || val === undefined || val === '') return null;
+            let num = parseFloat(val);
+            if (isNaN(num)) return null;
+            if (isOld5PointScale && num <= 5) {
+              num = Math.min(10, Math.round(num * 2));
+            }
+            return isNaN(num) ? null : num;
+          }
+
+          let sSonno = normalizeScore(r.Qualita_Sonno);
+          let sFatica = normalizeScore(r.Fatica);
+          let sReady = normalizeScore(r.Readines != null && r.Readines !== '' ? r.Readines : r.Disponibilita);
+
+          // Gestione speciale Dolori (evitare NaN se stringa testuale e convertire scala)
+          let sDolori = null;
+          let extraNoteFromDolori = '';
+          if (r.Dolori !== null && r.Dolori !== undefined && r.Dolori !== '') {
+            if (typeof r.Dolori === 'number') {
+              sDolori = (isOld5PointScale && r.Dolori <= 5) ? Math.min(10, Math.round(r.Dolori * 2)) : r.Dolori;
+            } else if (typeof r.Dolori === 'string') {
+              const trimmed = r.Dolori.trim();
+              if (!isNaN(Number(trimmed)) && trimmed.length > 0) {
+                const n = parseFloat(trimmed);
+                sDolori = (isOld5PointScale && n <= 5) ? Math.min(10, Math.round(n * 2)) : n;
+              } else {
+                extraNoteFromDolori = trimmed;
+                sDolori = 3; // Fastidio moderato prudenziale
+              }
+            }
+          }
 
           let inferredStress = null;
-          if (r.Stress !== undefined && r.Stress !== '' && r.Stress !== null) {
+          if (r.Stress !== undefined && r.Stress !== '' && r.Stress !== null && !isNaN(Number(r.Stress))) {
             inferredStress = parseInt(r.Stress);
-          } else if (r.stress !== undefined && r.stress !== '' && r.stress !== null) {
+          } else if (r.stress !== undefined && r.stress !== '' && r.stress !== null && !isNaN(Number(r.stress))) {
             inferredStress = parseInt(r.stress);
           } else if (typeof r.Note === 'number' && r.Note >= 0 && r.Note <= 10) {
             inferredStress = parseInt(r.Note);
           } else if (typeof r.Note === 'string' && r.Note.trim().length > 0 && !isNaN(Number(r.Note.trim())) && Number(r.Note.trim()) >= 0 && Number(r.Note.trim()) <= 10) {
             inferredStress = parseInt(r.Note.trim());
           } else {
-            inferredStress = (r.Qualita_Sonno && r.Fatica) ? 2 : null;
+            inferredStress = 2;
           }
 
           let inferredNote = '';
           if (r.Note && typeof r.Note === 'string' && isNaN(Number(r.Note.trim()))) {
-            inferredNote = r.Note;
+            inferredNote = r.Note.trim();
+          }
+          if (extraNoteFromDolori) {
+            inferredNote = inferredNote ? `${inferredNote} (${extraNoteFromDolori})` : extraNoteFromDolori;
           }
 
           rawWellnessRecords.push({
@@ -745,10 +805,10 @@
             athName: athName,
             date: rDate,
             timestamp: r.Timestamp,
-            sonno: r.Qualita_Sonno !== '' ? parseInt(r.Qualita_Sonno) : null,
-            fatica: r.Fatica !== '' ? parseInt(r.Fatica) : null,
-            readiness: (r.Readines !== '' && r.Readines != null) ? parseInt(r.Readines) : (r.Disponibilita ? parseInt(r.Disponibilita) : null),
-            dolori: r.Dolori !== '' ? parseInt(r.Dolori) : null,
+            sonno: sSonno,
+            fatica: sFatica,
+            readiness: sReady,
+            dolori: sDolori,
             stress: inferredStress,
             note: inferredNote
           });
@@ -1205,11 +1265,11 @@
       let cReady = 0, cFatica = 0, cSonno = 0, cDolori = 0, cStress = 0;
 
       filtered.forEach(r => {
-        if (r.readiness !== null) { sumReady += r.readiness; cReady++; }
-        if (r.fatica !== null) { sumFatica += r.fatica; cFatica++; }
-        if (r.sonno !== null) { sumSonno += r.sonno; cSonno++; }
-        if (r.dolori !== null) { sumDolori += r.dolori; cDolori++; }
-        if (r.stress !== null) { sumStress += r.stress; cStress++; }
+        if (typeof r.readiness === 'number' && !isNaN(r.readiness)) { sumReady += r.readiness; cReady++; }
+        if (typeof r.fatica === 'number' && !isNaN(r.fatica)) { sumFatica += r.fatica; cFatica++; }
+        if (typeof r.sonno === 'number' && !isNaN(r.sonno)) { sumSonno += r.sonno; cSonno++; }
+        if (typeof r.dolori === 'number' && !isNaN(r.dolori)) { sumDolori += r.dolori; cDolori++; }
+        if (typeof r.stress === 'number' && !isNaN(r.stress)) { sumStress += r.stress; cStress++; }
       });
 
       document.getElementById('an-kpi-readiness').textContent = cReady > 0 ? (sumReady / cReady).toFixed(1) + '/10' : '--';
