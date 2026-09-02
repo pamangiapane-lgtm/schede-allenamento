@@ -1359,13 +1359,13 @@
 
         if (isMonthStart || isFirst) {
           const mTag = monthAbbr[m] || m;
-          if (isSat) return [dayNum, `SAB·${mTag}`];
-          if (isSun) return [dayNum, `DOM·${mTag}`];
+          if (isSat) return [dayNum, `S · ${mTag}`];
+          if (isSun) return [dayNum, `D · ${mTag}`];
           return [dayNum, mTag]; // 2 righe: Giorno sopra, MESE ORO sotto
         } else if (isSat) {
-          return [dayNum, 'SAB']; // Evidenziato Sabato
+          return [dayNum, 'S']; // Sabato: 'S' sotto
         } else if (isSun) {
-          return [dayNum, 'DOM']; // Evidenziata Domenica
+          return [dayNum, 'D']; // Domenica: 'D' sotto
         } else if (totalPoints <= 14 || isLast || isStepTick) {
           return dayNum;
         } else {
@@ -1490,8 +1490,9 @@
                     const label = labels[context.index];
                     if (Array.isArray(label)) {
                       const sub = label[1] || '';
-                      if (sub.includes('SAB')) return '#38bdf8'; // Azzurro per Sabato
-                      if (sub.includes('DOM')) return '#f472b6'; // Rosa/Lilla per Domenica
+                      if (sub === 'S' || sub === 'D' || sub.startsWith('S ') || sub.startsWith('D ')) {
+                        return '#38bdf8'; // STESSO COLORE azzurro brillante per Sabato (S) e Domenica (D)
+                      }
                       return '#f59e0b'; // Oro per Cambio Mese
                     }
                     return '#94a3b8';
