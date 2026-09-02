@@ -789,7 +789,7 @@
           <div class="wellness-card">
             <div class="w-question-title">
               <span>💤 1. Qualità del Sonno</span>
-              <span class="w-val-badge" id="lbl-w-sonno">8 / 10</span>
+              <span class="w-val-badge" id="lbl-w-sonno" style="background:#1f365d;color:#94a3b8;">Tocca per votare</span>
             </div>
             <div class="w-question-hint">0 = Insonnia / Pessimo ➔ 10 = Sonno profondo e rigenerante</div>
             <div class="w-rating-bar" id="bar-w-sonno"></div>
@@ -799,7 +799,7 @@
           <div class="wellness-card">
             <div class="w-question-title">
               <span>⚡ 2. Livello di Fatica / Energia</span>
-              <span class="w-val-badge" id="lbl-w-fatica">8 / 10</span>
+              <span class="w-val-badge" id="lbl-w-fatica" style="background:#1f365d;color:#94a3b8;">Tocca per votare</span>
             </div>
             <div class="w-question-hint">0 = Esausta / Nessuna energia ➔ 10 = Fresca e piena di energia</div>
             <div class="w-rating-bar" id="bar-w-fatica"></div>
@@ -809,7 +809,7 @@
           <div class="wellness-card">
             <div class="w-question-title">
               <span>🩹 3. Dolori / Fastidi Articolari-Muscolari</span>
-              <span class="w-val-badge" id="lbl-w-dolori">0 / 10</span>
+              <span class="w-val-badge" id="lbl-w-dolori" style="background:#1f365d;color:#94a3b8;">Tocca per votare</span>
             </div>
             <div class="w-question-hint">0 = Nessun dolore ➔ 10 = Dolore o fastidio acuto</div>
             <div class="w-rating-bar" id="bar-w-dolori"></div>
@@ -819,7 +819,7 @@
           <div class="wellness-card">
             <div class="w-question-title">
               <span>🧠 4. Livello di Stress / Tensione</span>
-              <span class="w-val-badge" id="lbl-w-stress">2 / 10</span>
+              <span class="w-val-badge" id="lbl-w-stress" style="background:#1f365d;color:#94a3b8;">Tocca per votare</span>
             </div>
             <div class="w-question-hint">0 = Completamente rilassata ➔ 10 = Molto tesa o stressata</div>
             <div class="w-rating-bar" id="bar-w-stress"></div>
@@ -829,7 +829,7 @@
           <div class="wellness-card">
             <div class="w-question-title">
               <span>🎯 5. Disponibilità all'Allenamento (Readiness)</span>
-              <span class="w-val-badge" id="lbl-w-readiness">8 / 10</span>
+              <span class="w-val-badge" id="lbl-w-readiness" style="background:#1f365d;color:#94a3b8;">Tocca per votare</span>
             </div>
             <div class="w-question-hint">0 = Per nulla pronta ➔ 10 = Prontissima a dare il 100%</div>
             <div class="w-rating-bar" id="bar-w-readiness"></div>
@@ -946,7 +946,7 @@
     let currentAthlete = null;
     let currentWeek = 'W1';
     let isEN = false;
-    let wellnessRatings = { sonno: 8, fatica: 8, dolori: 0, stress: 2, readiness: 8 };
+    let wellnessRatings = { sonno: null, fatica: null, dolori: null, stress: null, readiness: null };
 
     async function init() {
       if ('serviceWorker' in navigator) {
@@ -1887,24 +1887,22 @@
     }
 
     function initWellnessRatingBars() {
-      const categories = [
-        { id: 'sonno', defaultVal: 8 },
-        { id: 'fatica', defaultVal: 8 },
-        { id: 'dolori', defaultVal: 0 },
-        { id: 'stress', defaultVal: 2 },
-        { id: 'readiness', defaultVal: 8 }
-      ];
+      const categories = ['sonno', 'fatica', 'dolori', 'stress', 'readiness'];
 
-      categories.forEach(cat => {
-        const bar = document.getElementById(`bar-w-${cat.id}`);
+      categories.forEach(catId => {
+        const bar = document.getElementById(`bar-w-${catId}`);
         if (!bar) return;
         let btns = '';
         for (let i = 0; i <= 10; i++) {
-          const isActive = (i === cat.defaultVal) ? 'active' : '';
-          btns += `<button type="button" class="w-btn ${isActive}" onclick="setWellnessVal('${cat.id}', ${i}, this)">${i}</button>`;
+          btns += `<button type="button" class="w-btn" onclick="setWellnessVal('${catId}', ${i}, this)">${i}</button>`;
         }
         bar.innerHTML = btns;
-        document.getElementById(`lbl-w-${cat.id}`).textContent = `${cat.defaultVal} / 10`;
+        const lbl = document.getElementById(`lbl-w-${catId}`);
+        if (lbl) {
+          lbl.textContent = 'Tocca per votare';
+          lbl.style.background = '#1f365d';
+          lbl.style.color = '#94a3b8';
+        }
       });
     }
 
@@ -1912,10 +1910,27 @@
       wellnessRatings[catId] = val;
       btn.parentElement.querySelectorAll('.w-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      document.getElementById(`lbl-w-${catId}`).textContent = `${val} / 10`;
+      const lbl = document.getElementById(`lbl-w-${catId}`);
+      if (lbl) {
+        lbl.textContent = `${val} / 10`;
+        lbl.style.background = 'rgba(232, 160, 32, 0.2)';
+        lbl.style.color = '#fde68a';
+      }
     }
 
     async function submitMorningWellness(btn) {
+      const missing = [];
+      if (wellnessRatings.sonno === null) missing.push('Sonno');
+      if (wellnessRatings.fatica === null) missing.push('Energia');
+      if (wellnessRatings.dolori === null) missing.push('Dolori');
+      if (wellnessRatings.stress === null) missing.push('Stress');
+      if (wellnessRatings.readiness === null) missing.push('Readiness');
+
+      if (missing.length > 0) {
+        alert('⚠️ Compila tutti i 5 valori prima di inviare:\n- Mancano: ' + missing.join(', '));
+        return;
+      }
+
       btn.disabled = true;
       btn.textContent = 'Invio in corso... ⏳';
 

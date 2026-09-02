@@ -601,14 +601,32 @@
           const aid = parseInt(r.ID_Giocatrice);
           const rDate = (r.Data || '').slice(0, 10);
           if (!liveWellnessData[aid] || r.Timestamp > liveWellnessData[aid].timestamp) {
+            let inferredStress = null;
+            if (r.Stress !== undefined && r.Stress !== '' && r.Stress !== null) {
+              inferredStress = parseInt(r.Stress);
+            } else if (r.stress !== undefined && r.stress !== '' && r.stress !== null) {
+              inferredStress = parseInt(r.stress);
+            } else if (typeof r.Note === 'number' && r.Note >= 0 && r.Note <= 10) {
+              inferredStress = parseInt(r.Note);
+            } else if (typeof r.Note === 'string' && r.Note.trim().length > 0 && !isNaN(Number(r.Note.trim())) && Number(r.Note.trim()) >= 0 && Number(r.Note.trim()) <= 10) {
+              inferredStress = parseInt(r.Note.trim());
+            } else {
+              inferredStress = (r.Qualita_Sonno && r.Fatica) ? 2 : null;
+            }
+
+            let inferredNote = '';
+            if (r.Note && typeof r.Note === 'string' && isNaN(Number(r.Note.trim()))) {
+              inferredNote = r.Note;
+            }
+
             liveWellnessData[aid] = {
               date: rDate,
               sonno: r.Qualita_Sonno !== '' ? parseInt(r.Qualita_Sonno) : null,
               fatica: r.Fatica !== '' ? parseInt(r.Fatica) : null,
               readiness: (r.Readines !== '' && r.Readines != null) ? parseInt(r.Readines) : (r.Disponibilita ? parseInt(r.Disponibilita) : null),
               dolori: r.Dolori !== '' ? parseInt(r.Dolori) : null,
-              stress: r.Stress !== '' ? parseInt(r.Stress) : null,
-              note: r.Note || '',
+              stress: inferredStress,
+              note: inferredNote,
               timestamp: r.Timestamp,
               isToday: (rDate === todayStr || (r.Timestamp && r.Timestamp.startsWith(todayStr)))
             };
@@ -776,7 +794,7 @@
             </div>
             <div class="w-score-pill">
               <span class="w-score-lbl">Stress</span>
-              <span class="w-score-val" style="color:${w.stress <= 3 ? '#6ee7b7' : (w.stress <= 5 ? '#fde68a' : '#fca5a5')}">${w.stress}/10</span>
+              <span class="w-score-val" style="color:${(w.stress !== null && w.stress <= 3) ? '#6ee7b7' : ((w.stress !== null && w.stress <= 5) ? '#fde68a' : '#fca5a5')}">${w.stress !== null ? w.stress + '/10' : '—'}</span>
             </div>
             <div class="w-score-pill">
               <span class="w-score-lbl">Readiness</span>
