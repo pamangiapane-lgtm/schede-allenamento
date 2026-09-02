@@ -745,19 +745,25 @@
         rows.forEach(r => {
           const aid = parseInt(r.ID_Giocatrice);
           const rDate = (r.Data || '').slice(0, 10);
+          if (!rDate || rDate.length < 10 || !rDate.includes('-')) return; // Salta record senza data valida
+
           const athObj = ROSTER.find(a => a.id === aid);
           const athName = athObj ? athObj.name : `Atleta #${aid}`;
-          // Fino all'1 settembre compreso l'energia era su scala 1-5 -> calcolata x2 (base 10)
+
+          // Normalizzazione scale:
+          // - Sonno e Readiness prima del 25 agosto erano su scala 1-5 (x2)
+          // - Fatica fino al 1 settembre era espressa come "Fatica 1-5" (1=nulla -> 10 energia, 5=max -> 2 energia)
           const isOld5PointScaleGeneral = (rDate < '2026-08-25');
-          const isOld5PointScaleEnergy = (rDate <= '2026-09-01');
+          const isOldFaticaScale = (rDate <= '2026-09-01');
 
           function normalizeScore(val, isEnergy = false) {
             if (val === null || val === undefined || val === '') return null;
             let num = parseFloat(val);
             if (isNaN(num)) return null;
             if (isEnergy) {
-              if (isOld5PointScaleEnergy && num <= 5) {
-                num = Math.min(10, Math.round(num * 2));
+              if (isOldFaticaScale && num <= 5) {
+                // Inversione scala: Fatica 1 -> Energia 10, Fatica 2 -> Energia 8, Fatica 3 -> Energia 6...
+                num = Math.max(0, Math.min(10, Math.round((6 - num) * 2)));
               }
             } else {
               if (isOld5PointScaleGeneral && num <= 5) {
@@ -1286,9 +1292,9 @@
       document.getElementById('an-kpi-stress').textContent = cStress > 0 ? (sumStress / cStress).toFixed(1) + '/10' : '--';
 
       // 2. Costruzione Dati per Grafico Temporale
-      // Raggruppa per data (media giornaliera se squadra, o valore atleta)
       const dateMap = {};
       filtered.forEach(r => {
+        if (!r.date || r.date.length < 10 || !r.date.includes('-')) return;
         if (!dateMap[r.date]) {
           dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], notes: [] };
         }
@@ -1300,22 +1306,20 @@
         if (r.note && r.note.trim()) dateMap[r.date].notes.push({ ath: r.athName, note: r.note });
       });
 
-      const sortedDates = Object.keys(dateMap).sort();
+      const sortedDates = Object.keys(dateMap).sort().filter(d => d && d.length >= 10 && d.includes('-'));
       const avg = arr => arr.length ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
 
       const monthAbbr = { '01':'GEN', '02':'FEB', '03':'MAR', '04':'APR', '05':'MAG', '06':'GIU', '07':'LUG', '08':'AGO', '09':'SET', '10':'OTT', '11':'NOV', '12':'DIC' };
-      const monthsInData = new Set(sortedDates.map(d => d.slice(5, 7)));
-      const spansMultipleMonths = monthsInData.size > 1;
 
       let lastSeenMonth = null;
       const labels = sortedDates.map(d => {
         const parts = d.split('-');
         const m = parts[1];
-        const dayNum = String(parseInt(parts[2], 10));
+        const dayNum = String(parseInt(parts[2], 10) || '');
 
-        if (spansMultipleMonths && m !== lastSeenMonth) {
+        if (m !== lastSeenMonth) {
           lastSeenMonth = m;
-          return [dayNum, monthAbbr[m] || m]; // Etichetta su 2 righe: giorno sopra, MESE sotto
+          return [dayNum, monthAbbr[m] || m]; // 2 righe: Giorno sopra, MESE ORO sotto
         }
         return dayNum;
       });
@@ -1427,15 +1431,20 @@
               x: {
                 grid: { color: 'rgba(255, 255, 255, 0.04)' },
                 ticks: {
+                  callback: function(val, index) {
+                    return labels[index];
+                  },
                   color: function(context) {
                     const label = labels[context.index];
                     return Array.isArray(label) ? '#f59e0b' : '#94a3b8';
                   },
                   font: function(context) {
                     const label = labels[context.index];
-                    return Array.isArray(label) ? { weight: 'bold', size: 10 } : { size: 10 };
+                    return Array.isArray(label) ? { weight: 'bold', size: 11 } : { size: 10 };
                   },
-                  maxTicksLimit: 16
+                  autoSkip: false,
+                  maxRotation: 0,
+                  minRotation: 0
                 }
               }
             }
