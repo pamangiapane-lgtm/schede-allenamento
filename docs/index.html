@@ -667,22 +667,42 @@
     /* Superset Card Styling */
     .superset-card {
       background: var(--mv-surface2);
-      border: 1px solid rgba(232, 160, 32, 0.35);
+      border: 1px solid rgba(232, 160, 32, 0.4);
       border-radius: var(--radius-md);
-      padding: 16px;
+      padding: 14px;
       margin-bottom: 14px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.25);
     }
+    .superset-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
     .superset-badge {
       background: rgba(232, 160, 32, 0.2);
-      border: 1px solid rgba(232, 160, 32, 0.4);
+      border: 1px solid rgba(232, 160, 32, 0.45);
       color: #fde68a;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 800;
-      padding: 3px 8px;
+      padding: 4px 9px;
       border-radius: 6px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .superset-desc-banner {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 0.75rem;
+      color: #cbd5e1;
+      background: #090f1d;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      padding: 7px 10px;
+      line-height: 1.4;
+      margin-bottom: 10px;
     }
     .superset-sub-item {
       background: #090f1d;
@@ -1261,7 +1281,14 @@
       }
 
       // Se non ci sono carichi salvati, mostriamo gli esercizi chiave di default
-      const defaultList = [
+      const isDodi = (currentAthlete && (currentAthlete.id === 9 || currentAthlete.name.toLowerCase().includes('dodi')));
+      const defaultList = isDodi ? [
+        'Lunge p. one arm press KB',
+        'Deadbug Pullover',
+        'Single-arm row cavo basso',
+        'Med ball slam rotazionale basso',
+        'Pallof press'
+      ] : [
         'Single-arm row cavo basso',
         'Med ball slam rotazionale basso',
         'Hip thrust esplosivo',
@@ -1448,7 +1475,7 @@
       const isMobilityOrBW = (
         nomeLow.includes('respirazione') || nomeLow.includes('mobilità') || nomeLow.includes('stretching') ||
         nomeLow.includes('cars') || nomeLow.includes('wall slide') || nomeLow.includes('prehab') ||
-        nomeLow.includes('deadbug') || nomeLow.includes('bird-dog') || nomeLow.includes('plank') ||
+        (nomeLow.includes('deadbug') && !nomeLow.includes('pullover')) || nomeLow.includes('bird-dog') || nomeLow.includes('plank') ||
         nomeLow.includes('pogo') || nomeLow.includes('box jump') || nomeLow.includes('depth') ||
         (intLow === 'bodyweight' || intLow === 'bw') && !nomeLow.includes('med ball') && !nomeLow.includes('slam') && !nomeLow.includes('hip thrust')
       );
@@ -1535,9 +1562,19 @@
       
       const rows = [];
       for (let i = 0; i < nSets; i++) {
-        const rVal = repsList[i] || (repsList.length > 0 ? repsList[repsList.length - 1] : repsStr) || '—';
+        let rawR = repsList[i] || (repsList.length > 0 ? repsList[repsList.length - 1] : repsStr) || '—';
+
+        // Estrai tempo specifico della serie se presente (es. "4 · 20X0", "5 · 3010", "4 · X")
+        const rowMatchTempo = rawR.match(/(?:·\s*|\s+)(\d{4}|\d{2}X\d|\bX\b)/i);
+        const rowTempo = rowMatchTempo ? rowMatchTempo[1].toUpperCase() : tempoStr;
+
+        // Rimuovi completamente qualsiasi residuo di tempo dalla colonna reps
+        let rVal = rawR.replace(/(?:·\s*|\s*·\s*|\s+)(?:\d{4}|\d{2}X\d|\bX\b)(?:\s|$)/gi, '').trim();
+        rVal = rVal.replace(/\(.*?tempo.*?\)/gi, '').trim();
+        if (!rVal) rVal = rawR;
+
         const iVal = intList[i] || (intList.length > 0 ? intList[intList.length - 1] : intStr) || '—';
-        rows.push({ set: i + 1, reps: rVal, load: iVal, tempo: tempoStr });
+        rows.push({ set: i + 1, reps: rVal, load: iVal, tempo: rowTempo });
       }
       return rows;
     }
@@ -1658,6 +1695,8 @@
           `;
         }
 
+        const isDodi = (currentAthlete && (currentAthlete.id === 9 || currentAthlete.name.toLowerCase().includes('dodi')));
+
         const sedEsercizi = allExercises
           .filter(e => {
             if (String(e.N_Seduta) !== String(sed.Numero_Seduta)) return false;
@@ -1671,6 +1710,56 @@
               return false;
             }
             return true;
+          })
+          .map(e => {
+            const nLow = (e.Esercizio || '').toLowerCase();
+            if (isDodi) {
+              // Dodi: Sostituzione Push Press con Lunge p. one arm press KB 3x5
+              if (nLow.includes('push press')) {
+                return {
+                  ...e,
+                  Esercizio: 'Lunge p. one arm press KB',
+                  Esercizio_EN: 'Lunge position one arm KB press',
+                  Metodo: 'Spinta',
+                  Serie: '3',
+                  Reps: '5 / lato',
+                  'Intensità': 'KB',
+                  Recupero: '90s',
+                  RPE: '6',
+                  Tipo_Esercizio: 'Spinta',
+                  Istruzione: 'In posizione di affondo (lunge) con ginocchio posteriore a terra o sfiorato — spinta verticale controllata con kettlebell a braccio singolo sul piano scapolare — tronco compatto, zero stress acromiale sulla spalla.',
+                  Note: 'Variante clinica protetta per Sara Dodi (fastidio spalla)'
+                };
+              }
+              // Dodi: Addome Deadbug Pullover
+              if (nLow.includes('deadbug')) {
+                return {
+                  ...e,
+                  Esercizio: 'Deadbug Pullover',
+                  Esercizio_EN: 'Deadbug pullover',
+                  Metodo: 'Core',
+                  Serie: '3',
+                  Reps: '6+6',
+                  'Intensità': 'KB / Manubrio',
+                  Recupero: '45s',
+                  RPE: '5',
+                  Tipo_Esercizio: 'Anti-estensione + Scapolare',
+                  Istruzione: 'Supina a terra, gambe flesse a 90° — lombare incollata al pavimento — distensione alternata gamba sincronizzata con pullover a braccia semitese con KB/manubrio.',
+                  Note: 'Core anti-estensione + stabilità scapolare protetta'
+                };
+              }
+            } else {
+              // Per tutte le altre atlete (tranne Nelly): Deadbug è 6+6
+              if (nLow.includes('deadbug')) {
+                return {
+                  ...e,
+                  Serie: '3',
+                  Reps: '6+6',
+                  Istruzione: 'Schiena piatta — lombare contro il suolo — 6+6 ripetizioni alternate lente e controllate senza lordosi'
+                };
+              }
+            }
+            return e;
           })
           .sort((a, b) => (Number(a.Ord_Metodo) - Number(b.Ord_Metodo)) || (Number(a.Ord_Eserc) - Number(b.Ord_Eserc)));
 
@@ -1723,12 +1812,12 @@
                 <div class="method-title">⚡ Esplosività (Superset Balistico)</div>
                 
                 <div class="superset-card">
-                  <div class="ex-head-row">
-                    <div>
-                      <span class="superset-badge">🔗 Superset 1A + 1B</span>
-                      <div style="font-size:0.72rem;color:var(--mv-muted);margin-top:3px;">Esegui 1A e passa subito a 1B senza pausa. Riposo 60s alla fine del giro.</div>
-                    </div>
-                    <div class="ex-rest-badge">⏱ Rec. 60s dopo 1B</div>
+                  <div class="superset-header-row">
+                    <span class="superset-badge">🔗 SUPERSET 1A + 1B</span>
+                    <span class="ex-rest-badge">⏱ Rec. 60s dopo 1B</span>
+                  </div>
+                  <div class="superset-desc-banner">
+                    Esegui 1A e passa subito a 1B senza pausa · Riposo 60s alla fine del giro.
                   </div>
 
                   <!-- 1A. Lanci Palla Medica -->
