@@ -3,16 +3,16 @@ from datetime import datetime
 sys.path.append(os.path.dirname(__file__))
 from genera_infografica_report import crea_infografica
 
-GREEN_API_INSTANCE = os.environ.get("GREEN_API_INSTANCE", "").strip()
-GREEN_API_TOKEN    = os.environ.get("GREEN_API_TOKEN", "").strip()
-WHATSAPP_GROUP_ID  = os.environ.get("WHATSAPP_GROUP_ID", "").strip()
+GREEN_API_INSTANCE = os.environ.get("GREEN_API_INSTANCE", "710522726817").strip()
+GREEN_API_TOKEN    = os.environ.get("GREEN_API_TOKEN", "6bc94d387d5742a3ad17e1225270479a67d4debd7dfa4863ab").strip()
+WHATSAPP_GROUP_ID  = os.environ.get("WHATSAPP_GROUP_ID", "120363408483842576@g.us").strip() # Medical Conditions
 
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_CHAT_ID   = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
 
 def invia_immagine_whatsapp(img_path):
     if not GREEN_API_INSTANCE or not GREEN_API_TOKEN or not WHATSAPP_GROUP_ID:
-        print("[!] Parametri GREEN-API (GREEN_API_INSTANCE, GREEN_API_TOKEN, WHATSAPP_GROUP_ID) non impostati.")
+        print("[!] Parametri GREEN-API non impostati.")
         print(f"[!] Infografica salvata localmente in: {img_path}")
         return False
 
@@ -25,8 +25,8 @@ def invia_immagine_whatsapp(img_path):
                 'chatId': WHATSAPP_GROUP_ID,
                 'caption': '' # Nessun testo di accompagnamento: solo il file immagine completo
             }
-            res = requests.post(url_file, data=payload, files=files, timeout=35)
-            print(f"[WA] Invio infografica completato: {res.status_code} - {res.text}")
+            res = requests.post(url_file, data=payload, files=files, timeout=40)
+            print(f"[WA] Invio infografica a Medical Conditions completato: {res.status_code} - {res.text}")
             return res.ok
     except Exception as e:
         print(f"[WA] Errore invio immagine: {e}")
@@ -48,10 +48,10 @@ def main():
     img_path = "report_wellness_oggi.png"
     crea_infografica(img_path)
     
-    print("[2/2] Invio automatico file immagine su WhatsApp...")
+    print(f"[2/2] Invio automatico infografica a Medical Conditions ({WHATSAPP_GROUP_ID})...")
     invia_immagine_whatsapp(img_path)
     invia_immagine_telegram(img_path)
-    print("Processo completato!")
+    print("Processo completato con successo!")
 
 if __name__ == '__main__':
     main()
