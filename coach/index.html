@@ -461,11 +461,13 @@
         <div style="width:100%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
           <div>
             <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">📅 Periodo</div>
-            <div class="filter-pills" id="analytics-time-pills">
-              <button class="btn-filt" onclick="setAnalyticsRange('7d', this)">7 Giorni</button>
-              <button class="btn-filt" onclick="setAnalyticsRange('14d', this)">14 Giorni</button>
-              <button class="btn-filt" onclick="setAnalyticsRange('30d', this)">30 Giorni</button>
-              <button class="btn-filt active" onclick="setAnalyticsRange('all', this)">Tutta la Stagione</button>
+            <div class="filter-pills" id="analytics-time-pills" style="overflow-x:auto;padding-bottom:4px;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;">
+              <button class="btn-filt" onclick="setAnalyticsRange('7d', this)" style="white-space:nowrap;">7 Giorni</button>
+              <button class="btn-filt" onclick="setAnalyticsRange('14d', this)" style="white-space:nowrap;">14 Giorni</button>
+              <button class="btn-filt" onclick="setAnalyticsRange('30d', this)" style="white-space:nowrap;">30 Giorni</button>
+              <button class="btn-filt" onclick="setAnalyticsRange('offseason', this)" style="white-space:nowrap;">🌴 Off-Season (≤ 23 Ago)</button>
+              <button class="btn-filt" onclick="setAnalyticsRange('preseason', this)" style="white-space:nowrap;">⚡ Pre-Season (≥ 24 Ago)</button>
+              <button class="btn-filt active" onclick="setAnalyticsRange('all', this)" style="white-space:nowrap;">📅 Tutta la Stagione</button>
             </div>
           </div>
           <div style="width:100%;margin-top:6px;">
@@ -1250,6 +1252,10 @@
       } else if (anCurrentRange === '30d') {
         const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
         data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === 'offseason') {
+        data = data.filter(r => r.date <= '2026-08-23');
+      } else if (anCurrentRange === 'preseason') {
+        data = data.filter(r => r.date >= '2026-08-24');
       }
 
       // Filtro Giorno della Settimana (1=Lun, 2=Mar, ..., 0=Dom)
@@ -1311,17 +1317,32 @@
 
       const monthAbbr = { '01':'GEN', '02':'FEB', '03':'MAR', '04':'APR', '05':'MAG', '06':'GIU', '07':'LUG', '08':'AGO', '09':'SET', '10':'OTT', '11':'NOV', '12':'DIC' };
 
+      const totalPoints = sortedDates.length;
+      let step = 1;
+      if (totalPoints > 35) step = 4;
+      else if (totalPoints > 18) step = 2;
+      else step = 1;
+
       let lastSeenMonth = null;
-      const labels = sortedDates.map(d => {
+      const labels = sortedDates.map((d, idx) => {
         const parts = d.split('-');
         const m = parts[1];
         const dayNum = String(parseInt(parts[2], 10) || '');
 
-        if (m !== lastSeenMonth) {
-          lastSeenMonth = m;
+        const isMonthStart = (m !== lastSeenMonth);
+        if (isMonthStart) lastSeenMonth = m;
+
+        const isFirst = (idx === 0);
+        const isLast = (idx === totalPoints - 1);
+        const isStepTick = (idx % step === 0);
+
+        if (isMonthStart || isFirst) {
           return [dayNum, monthAbbr[m] || m]; // 2 righe: Giorno sopra, MESE ORO sotto
+        } else if (isLast || isStepTick) {
+          return dayNum;
+        } else {
+          return ''; // Spazio vuoto per evitare accavallamenti
         }
-        return dayNum;
       });
 
       const datasets = [];
