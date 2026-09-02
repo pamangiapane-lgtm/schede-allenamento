@@ -696,12 +696,40 @@
       renderReadinessRoster();
     }
 
+    function getMetricStatus(catId, val) {
+      if (val === null || val === undefined) return 'grey';
+      if (catId === 'sonno' || catId === 'fatica' || catId === 'readiness') {
+        if (val >= 8) return 'green';
+        if (val >= 6) return 'yellow';
+        return 'red';
+      } else if (catId === 'dolori' || catId === 'stress') {
+        if (val <= 3) return 'green';
+        if (val <= 4) return 'yellow';
+        return 'red';
+      }
+      return 'green';
+    }
+
+    function getMetricColor(status) {
+      if (status === 'green') return '#6ee7b7';
+      if (status === 'yellow') return '#fde68a';
+      if (status === 'red') return '#fca5a5';
+      return '#94a3b8';
+    }
+
     function getAthleteTrafficStatus(w) {
       if (!w || !w.isToday) return { type: 'grey', label: 'Da Compilare', text: 'Nessun dato oggi' };
-      if ((w.dolori !== null && w.dolori >= 5) || (w.readiness !== null && w.readiness < 5) || (w.sonno !== null && w.sonno <= 3)) {
+      
+      const sSonno = getMetricStatus('sonno', w.sonno);
+      const sFatica = getMetricStatus('fatica', w.fatica);
+      const sReady = getMetricStatus('readiness', w.readiness);
+      const sDolori = getMetricStatus('dolori', w.dolori);
+      const sStress = getMetricStatus('stress', w.stress);
+
+      if (sSonno === 'red' || sFatica === 'red' || sReady === 'red' || sDolori === 'red' || sStress === 'red') {
         return { type: 'red', label: 'Alert Rosso', text: 'Rimodula / Valutazione' };
       }
-      if ((w.dolori !== null && w.dolori >= 3) || (w.readiness !== null && w.readiness < 7.5) || (w.fatica !== null && w.fatica <= 4)) {
+      if (sSonno === 'yellow' || sFatica === 'yellow' || sReady === 'yellow' || sDolori === 'yellow' || sStress === 'yellow' || (w.note && w.note.trim().length > 0)) {
         return { type: 'yellow', label: 'Attenzione', text: 'Riduci salti 20%' };
       }
       return { type: 'green', label: 'Ottimale', text: '100% Carico OK' };
@@ -731,8 +759,10 @@
             totalReadiness += w.readiness;
             readinessCount++;
           }
-          if ((w.dolori !== null && w.dolori >= 3) || (w.readiness !== null && w.readiness < 5) || (w.note && w.note.trim().length > 0)) {
-            alertList.push({ ath: a, w: w });
+          const traffic = getAthleteTrafficStatus(w);
+          const hasNote = (w.note && w.note.trim().length > 0);
+          if (traffic.type === 'red' || traffic.type === 'yellow' || hasNote) {
+            alertList.push({ ath: a, w: w, traffic: traffic, hasNote: hasNote });
           }
         }
       });
@@ -747,24 +777,48 @@
       document.getElementById('kpi-team-readiness').textContent = avgPct !== '--' ? `${avgPct}%` : '--';
       document.getElementById('kpi-team-status').textContent = avgPct >= 75 ? '🟢 Squadra in forma' : (avgPct >= 60 ? '🟡 Fatica moderata' : '🔴 Scarico raccomandato');
 
-      // Render Alert Banner
+      // Render Alert Banner (RIASSUNTO COMPLETO GIALLI, ROSSI E NOTE)
       const bannerBox = document.getElementById('alert-banner-box');
       const bannerList = document.getElementById('alert-banner-list');
 
       if (alertList.length === 0) {
         bannerBox.className = 'alert-banner clean';
-        bannerList.innerHTML = `<div style="color:#6ee7b7;font-weight:700;font-size:0.82rem;">✓ Nessun dolore acuto o calo critico di disponibilità segnalato oggi.</div>`;
+        bannerList.innerHTML = `<div style="color:#6ee7b7;font-weight:700;font-size:0.85rem;padding:6px 0;">✓ Tutte le atlete compilate sono in fascia VERDE (100% pronte) e nessuna nota segnalata.</div>`;
       } else {
         bannerBox.className = 'alert-banner';
-        bannerList.innerHTML = alertList.map(item => `
-          <div class="alert-item">
-            <div>
-              <strong>#${item.ath.id} ${item.ath.name}</strong> (${item.ath.role}):
-              <span style="color:#fca5a5;font-weight:800;margin-left:4px;">Dolori ${item.w.dolori}/10 · Readiness ${item.w.readiness}/10 · Sonno ${item.w.sonno}/10</span>
+        bannerList.innerHTML = alertList.map(item => {
+          const w = item.w;
+          const colSonno = getMetricColor(getMetricStatus('sonno', w.sonno));
+          const colFatica = getMetricColor(getMetricStatus('fatica', w.fatica));
+          const colDolori = getMetricColor(getMetricStatus('dolori', w.dolori));
+          const colStress = getMetricColor(getMetricStatus('stress', w.stress));
+          const colReady = getMetricColor(getMetricStatus('readiness', w.readiness));
+
+          return `
+            <div style="background:#090f1d;border:1px solid ${item.traffic.type === 'red' ? 'rgba(239,68,68,0.5)' : 'rgba(232,160,32,0.4)'};border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:0 3px 10px rgba(0,0,0,0.3);">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <div style="font-size:0.88rem;font-weight:800;color:#fff;">
+                  #${item.ath.id} ${item.ath.name} <span style="font-size:0.75rem;font-weight:600;color:var(--mv-muted)">(${item.ath.role})</span>
+                </div>
+                <span class="traffic-tag ${item.traffic.type}">${item.traffic.label}</span>
+              </div>
+              
+              <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:#060a14;padding:6px 8px;border-radius:8px;border:1px solid rgba(255,255,255,0.05);text-align:center;">
+                <div><div style="font-size:0.65rem;color:#94a3b8;font-weight:700;">Sonno</div><div style="font-size:0.82rem;font-weight:800;color:${colSonno}">${w.sonno !== null ? w.sonno : '—'}</div></div>
+                <div><div style="font-size:0.65rem;color:#94a3b8;font-weight:700;">Energia</div><div style="font-size:0.82rem;font-weight:800;color:${colFatica}">${w.fatica !== null ? w.fatica : '—'}</div></div>
+                <div><div style="font-size:0.65rem;color:#94a3b8;font-weight:700;">Dolori</div><div style="font-size:0.82rem;font-weight:800;color:${colDolori}">${w.dolori !== null ? w.dolori : '—'}</div></div>
+                <div><div style="font-size:0.65rem;color:#94a3b8;font-weight:700;">Stress</div><div style="font-size:0.82rem;font-weight:800;color:${colStress}">${w.stress !== null ? w.stress : '—'}</div></div>
+                <div><div style="font-size:0.65rem;color:#94a3b8;font-weight:700;">Readiness</div><div style="font-size:0.82rem;font-weight:800;color:${colReady}">${w.readiness !== null ? w.readiness : '—'}</div></div>
+              </div>
+
+              ${w.note ? `
+                <div style="margin-top:8px;background:rgba(232,160,32,0.12);border-left:3px solid var(--mv-amber);padding:6px 10px;border-radius:4px;font-size:0.78rem;color:#fde68a;font-style:italic;">
+                  💬 <strong>Nota atleta:</strong> "${w.note}"
+                </div>
+              ` : ''}
             </div>
-            ${item.w.note ? `<span class="note-tag">"${item.w.note}"</span>` : ''}
-          </div>
-        `).join('');
+          `;
+        }).join('');
       }
 
       // Render Roster Cards
@@ -782,23 +836,23 @@
           <div class="w-scores-grid">
             <div class="w-score-pill">
               <span class="w-score-lbl">Sonno</span>
-              <span class="w-score-val" style="color:${w.sonno >= 7 ? '#6ee7b7' : (w.sonno >= 5 ? '#fde68a' : '#fca5a5')}">${w.sonno}/10</span>
+              <span class="w-score-val" style="color:${getMetricColor(getMetricStatus('sonno', w.sonno))}">${w.sonno}/10</span>
             </div>
             <div class="w-score-pill">
               <span class="w-score-lbl">Energia</span>
-              <span class="w-score-val" style="color:${w.fatica >= 7 ? '#6ee7b7' : (w.fatica >= 5 ? '#fde68a' : '#fca5a5')}">${w.fatica}/10</span>
+              <span class="w-score-val" style="color:${getMetricColor(getMetricStatus('fatica', w.fatica))}">${w.fatica}/10</span>
             </div>
             <div class="w-score-pill">
               <span class="w-score-lbl">Dolori</span>
-              <span class="w-score-val" style="color:${w.dolori <= 2 ? '#6ee7b7' : (w.dolori <= 4 ? '#fde68a' : '#fca5a5')}">${w.dolori}/10</span>
+              <span class="w-score-val" style="color:${getMetricColor(getMetricStatus('dolori', w.dolori))}">${w.dolori}/10</span>
             </div>
             <div class="w-score-pill">
               <span class="w-score-lbl">Stress</span>
-              <span class="w-score-val" style="color:${(w.stress !== null && w.stress <= 3) ? '#6ee7b7' : ((w.stress !== null && w.stress <= 5) ? '#fde68a' : '#fca5a5')}">${w.stress !== null ? w.stress + '/10' : '—'}</span>
+              <span class="w-score-val" style="color:${getMetricColor(getMetricStatus('stress', w.stress))}">${w.stress !== null ? w.stress + '/10' : '—'}</span>
             </div>
             <div class="w-score-pill">
               <span class="w-score-lbl">Readiness</span>
-              <span class="w-score-val" style="color:var(--mv-amber);font-weight:800;">${w.readiness}/10</span>
+              <span class="w-score-val" style="color:${getMetricColor(getMetricStatus('readiness', w.readiness))};font-weight:800;">${w.readiness}/10</span>
             </div>
           </div>
           ${w.note ? `<div style="font-size:0.75rem;color:#fde68a;font-style:italic;margin-top:6px;width:100%;">💬 "${w.note}"</div>` : ''}

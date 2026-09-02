@@ -63,3 +63,31 @@
   * Vista 1: Readiness & Alert (Semafori automatici, banner alert clinico dolori, filtri rapidi).
   * Vista 2: 1RM & Carichi (Matrice 6 massimali + Forza Relativa 1RM/BW + registro carichi accessori live).
   * Vista 3: Jump & Workload (Jump budget settimanale per ruolo + soglie ACWR).
+
+
+## 🚦 SOGLIE DI ACCETTABILITÀ E CLASSIFICAZIONE WELLNESS
+
+1. **🟢 FASCIA VERDE (Ottimale / 100% Carico OK)**:
+   * **Readiness:** >= 8 (8, 9, 10)
+   * **Sonno:** >= 8 (8, 9, 10)
+   * **Energia / Fatica:** >= 8 (8, 9, 10)
+   * **Dolori:** fino a 3 (0, 1, 2, 3)
+   * **Stress:** fino a 3 (0, 1, 2, 3)
+
+2. **🟡 FASCIA GIALLA (Attenzione / Riduci salti 20-30% / Prehab)**:
+   * **Readiness:** 6 e 7 (6, 7)
+   * **Sonno:** 6 e 7 (6, 7)
+   * **Energia:** 6 e 7 (6, 7)
+   * **Dolori:** 4
+   * **Stress:** 4
+   * Oppure presenza di **Note** segnalate dall'atleta.
+
+3. **🔴 FASCIA ROSSA (Alert Critico / Rimodulazione / Fisioterapista)**:
+   * **Readiness:** < 6 (0, 1, 2, 3, 4, 5)
+   * **Sonno:** < 6 (0, 1, 2, 3, 4, 5)
+   * **Energia:** < 6 (0, 1, 2, 3, 4, 5)
+   * **Dolori:** >= 5 (5, 6, 7, 8, 9, 10)
+   * **Stress:** >= 5 (5, 6, 7, 8, 9, 10)
+
+4. **SEZIONE ALERT IN CIMA AL COACH COMMAND CENTER**:
+   * Riassume visivamente e integralmente tutte le atlete con almeno una misura in Giallo/Rosso e tutte le atlete che hanno inserito una nota, con il dettaglio analitico delle 5 misure (Sonno, Energia, Dolori, Stress, Readiness).

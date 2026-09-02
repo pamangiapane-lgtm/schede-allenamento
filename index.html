@@ -1909,22 +1909,14 @@
       let isGreen = false;
       let isRed = false;
 
-      if (catId === 'sonno' || catId === 'fatica') {
-        // Sonno ed Energia: >=7 Verde, 5-6 Giallo, <=4 Rosso
-        isGreen = (val >= 7);
-        isRed = (val <= 4);
-      } else if (catId === 'readiness') {
-        // Readiness: >=8 Verde, 5-7 Giallo, <=4 Rosso
+      if (catId === 'sonno' || catId === 'fatica' || catId === 'readiness') {
+        // Prima fascia Verde: >= 8. Giallo: 6-7. Rosso: <= 5.
         isGreen = (val >= 8);
-        isRed = (val <= 4);
-      } else if (catId === 'dolori') {
-        // Dolori (Inversa): 0-2 Verde, 3-4 Giallo, >=5 Rosso
-        isGreen = (val <= 2);
-        isRed = (val >= 5);
-      } else if (catId === 'stress') {
-        // Stress (Inversa): 0-3 Verde, 4-5 Giallo, >=6 Rosso
+        isRed = (val < 6);
+      } else if (catId === 'dolori' || catId === 'stress') {
+        // Prima fascia Verde: fino a 3. Giallo: 4. Rosso: >= 5.
         isGreen = (val <= 3);
-        isRed = (val >= 6);
+        isRed = (val >= 5);
       }
 
       if (isGreen) {
