@@ -118,34 +118,36 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
     }
     .coach-nav-tabs {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
-      padding: 0;
+      display: flex;
+      gap: 6px;
+      padding: 0 2px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
       width: 100%;
       box-sizing: border-box;
     }
-    .c-tab-btn {
-      padding: 8px 2px;
-      font-size: 0.72rem;
-      white-space: nowrap;
-      min-width: 0;
+    .coach-nav-tabs::-webkit-scrollbar {
+      display: none;
     }
     .c-tab-btn {
+      flex: 1 1 0;
+      min-width: max-content;
       background: #0f192d;
       border: 1px solid #1f365d;
       color: #94a3b8;
-      border-radius: 10px;
-      padding: 11px 6px;
-      font-size: 0.82rem;
-      font-weight: 800;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 5px;
-      transition: all 0.15s;
+      gap: 4px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
       box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
     .c-tab-btn:hover {
@@ -391,10 +393,10 @@
     <!-- STICKY COACH NAVIGATION (3 VISTE CHIAVE ZERO DUPLICATI) -->
     <div class="sticky-nav-wrapper">
       <div class="coach-nav-tabs">
-        <button class="c-tab-btn active" id="btn-tab-readiness" onclick="switchCoachTab('readiness', this)">🚦 Readiness & Alert</button>
+        <button class="c-tab-btn active" id="btn-tab-readiness" onclick="switchCoachTab('readiness', this)">🚦 Readiness</button>
         <button class="c-tab-btn" id="btn-tab-analytics" onclick="switchCoachTab('analytics', this)">📈 Trend & Grafici</button>
-        <button class="c-tab-btn" id="btn-tab-massimali" onclick="switchCoachTab('massimali', this)">🏋️ 1RM & Carichi</button>
-        <button class="c-tab-btn" id="btn-tab-jump" onclick="switchCoachTab('jump', this)">📊 Jump & Workload</button>
+        <button class="c-tab-btn" id="btn-tab-massimali" onclick="switchCoachTab('massimali', this)">🏋️ 1RM & Pesi</button>
+        <button class="c-tab-btn" id="btn-tab-jump" onclick="switchCoachTab('jump', this)">📊 Jump & Carichi</button>
       </div>
     </div>
 
@@ -1298,7 +1300,7 @@
 
       const labels = sortedDates.map(d => {
         const parts = d.split('-');
-        return `${parts[2]}/${parts[1]}`;
+        return String(parseInt(parts[2], 10)); // Solo numero giorno es. 13
       });
 
       const datasets = [];
@@ -1371,7 +1373,7 @@
             maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
             plugins: {
-              legend: { labels: { color: '#94a3b8', font: { size: 11, weight: 'bold' } } },
+              legend: { display: false }, // Legenda interna disattivata (ci sono i filtri sopra)
               tooltip: {
                 backgroundColor: '#090f1d',
                 borderColor: '#1f365d',
@@ -1380,6 +1382,12 @@
                 bodyColor: '#cbd5e1',
                 padding: 10,
                 callbacks: {
+                  title: function(context) {
+                    const idx = context[0].dataIndex;
+                    const d = sortedDates[idx];
+                    const parts = d.split('-');
+                    return `Data: ${parts[2]}/${parts[1]}/${parts[0]}`;
+                  },
                   afterBody: function(context) {
                     const idx = context[0].dataIndex;
                     const d = sortedDates[idx];
@@ -1443,7 +1451,7 @@
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-              legend: { labels: { color: '#94a3b8', font: { size: 10, weight: 'bold' } } }
+              legend: { display: false } // Legenda interna disattivata
             },
             scales: {
               y: { min: 0, max: 10, grid: { color: 'rgba(255, 255, 255, 0.06)' }, ticks: { color: '#94a3b8', stepSize: 2 } },
