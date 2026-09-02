@@ -747,33 +747,40 @@
           const rDate = (r.Data || '').slice(0, 10);
           const athObj = ROSTER.find(a => a.id === aid);
           const athName = athObj ? athObj.name : `Atleta #${aid}`;
-          const isOld5PointScale = (rDate < '2026-08-25');
+          const isOld5PointScaleGeneral = (rDate < '2026-08-25');
+          const isOld5PointScaleEnergy = (rDate <= '2026-09-01');
 
-          function normalizeScore(val) {
+          function normalizeScore(val, isEnergy = false) {
             if (val === null || val === undefined || val === '') return null;
             let num = parseFloat(val);
             if (isNaN(num)) return null;
-            if (isOld5PointScale && num <= 5) {
-              num = Math.min(10, Math.round(num * 2));
+            if (isEnergy) {
+              if (isOld5PointScaleEnergy && num <= 5) {
+                num = Math.min(10, Math.round(num * 2));
+              }
+            } else {
+              if (isOld5PointScaleGeneral && num <= 5) {
+                num = Math.min(10, Math.round(num * 2));
+              }
             }
             return isNaN(num) ? null : num;
           }
 
-          let sSonno = normalizeScore(r.Qualita_Sonno);
-          let sFatica = normalizeScore(r.Fatica);
-          let sReady = normalizeScore(r.Readines != null && r.Readines !== '' ? r.Readines : r.Disponibilita);
+          let sSonno = normalizeScore(r.Qualita_Sonno, false);
+          let sFatica = normalizeScore(r.Fatica, true);
+          let sReady = normalizeScore(r.Readines != null && r.Readines !== '' ? r.Readines : r.Disponibilita, false);
 
           // Gestione speciale Dolori (evitare NaN se stringa testuale e convertire scala)
           let sDolori = null;
           let extraNoteFromDolori = '';
           if (r.Dolori !== null && r.Dolori !== undefined && r.Dolori !== '') {
             if (typeof r.Dolori === 'number') {
-              sDolori = (isOld5PointScale && r.Dolori <= 5) ? Math.min(10, Math.round(r.Dolori * 2)) : r.Dolori;
+              sDolori = (isOld5PointScaleGeneral && r.Dolori <= 5) ? Math.min(10, Math.round(r.Dolori * 2)) : r.Dolori;
             } else if (typeof r.Dolori === 'string') {
               const trimmed = r.Dolori.trim();
               if (!isNaN(Number(trimmed)) && trimmed.length > 0) {
                 const n = parseFloat(trimmed);
-                sDolori = (isOld5PointScale && n <= 5) ? Math.min(10, Math.round(n * 2)) : n;
+                sDolori = (isOld5PointScaleGeneral && n <= 5) ? Math.min(10, Math.round(n * 2)) : n;
               } else {
                 extraNoteFromDolori = trimmed;
                 sDolori = 3; // Fastidio moderato prudenziale
@@ -1298,9 +1305,21 @@
       const sortedDates = Object.keys(dateMap).sort();
       const avg = arr => arr.length ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
 
+      const monthAbbr = { '01':'Gen', '02':'Feb', '03':'Mar', '04':'Apr', '05':'Mag', '06':'Giu', '07':'Lug', '08':'Ago', '09':'Set', '10':'Ott', '11':'Nov', '12':'Dic' };
+      const monthsInData = new Set(sortedDates.map(d => d.slice(5, 7)));
+      const spansMultipleMonths = monthsInData.size > 1;
+
+      let lastSeenMonth = null;
       const labels = sortedDates.map(d => {
         const parts = d.split('-');
-        return String(parseInt(parts[2], 10)); // Solo numero giorno es. 13
+        const m = parts[1];
+        const dayNum = String(parseInt(parts[2], 10));
+
+        if (spansMultipleMonths && m !== lastSeenMonth) {
+          lastSeenMonth = m;
+          return `${dayNum} ${monthAbbr[m] || m}`; // es. 14 Lug, 1 Ago, 1 Set
+        }
+        return dayNum;
       });
 
       const datasets = [];
