@@ -91,3 +91,14 @@
 
 4. **SEZIONE ALERT IN CIMA AL COACH COMMAND CENTER**:
    * Riassume visivamente e integralmente tutte le atlete con almeno una misura in Giallo/Rosso e tutte le atlete che hanno inserito una nota, con il dettaglio analitico delle 5 misure (Sonno, Energia, Dolori, Stress, Readiness).
+
+
+## 📈 WELLNESS ANALYTICS & GRAFICI LONGITUDINALI (COACH APP)
+* **Motore Chart.js:** Tab dedicata 📈 Trend & Grafici nel Coach Command Center e drill-down 1-tap da qualsiasi card atleta.
+* **Filtri Temporali:** 7 giorni, 14 giorni, 30 giorni, Tutta la Stagione.
+* **Filtri Microciclo / Giorni:** Possibilità di isolare specifici giorni della settimana (es. tutti i Martedì MD-4, Lunedì post-gara, Giovedì/Venerdì pre-gara).
+* **Metriche Toggleabili:** Readiness (Oro), Energia (Verde), Sonno (Blu), Dolori (Rosso), Stress (Viola).
+* **Doppio Grafico:**
+  1. Line Chart longitudinale temporale con tooltip interattivo e note storiche.
+  2. Bar Chart dinamica giorni del microciclo (Lun-Dom).
+* **Cronologia Note:** Timeline completa di tutti i commenti e segnalazioni inseriti dalle atlete.
