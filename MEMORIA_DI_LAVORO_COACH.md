@@ -102,3 +102,7 @@
   1. Line Chart longitudinale temporale con tooltip interattivo e note storiche.
   2. Bar Chart dinamica giorni del microciclo (Lun-Dom).
 * **Cronologia Note:** Timeline completa di tutti i commenti e segnalazioni inseriti dalle atlete.
+
+
+* **Normalizzazione Storica Energia:** Fino al 1 settembre compreso i valori di energia registrati su scala 1-5 vengono moltiplicati per 2 (base 10) nei grafici di trend.
+* **Formattazione Asse X Multi-Mese:** Solo numero giorno per date dello stesso mese, con marcatore del mese (es. 14 Lug, 1 Ago, 1 Set) all'inizio di ciascun mese.
