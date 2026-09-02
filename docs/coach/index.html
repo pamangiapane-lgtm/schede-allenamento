@@ -1344,6 +1344,12 @@
         const m = parts[1];
         const dayNum = String(parseInt(parts[2], 10) || '');
 
+        // Calcolo giorno settimana (0=Dom, 1=Lun, ..., 6=Sab)
+        const dt = new Date(`${parts[0]}-${parts[1]}-${parts[2]}T12:00:00`);
+        const dayOfWeek = dt.getDay();
+        const isSat = (dayOfWeek === 6);
+        const isSun = (dayOfWeek === 0);
+
         const isMonthStart = (m !== lastSeenMonth);
         if (isMonthStart) lastSeenMonth = m;
 
@@ -1352,11 +1358,18 @@
         const isStepTick = (idx % step === 0);
 
         if (isMonthStart || isFirst) {
-          return [dayNum, monthAbbr[m] || m]; // 2 righe: Giorno sopra, MESE ORO sotto
-        } else if (isLast || isStepTick) {
+          const mTag = monthAbbr[m] || m;
+          if (isSat) return [dayNum, `SAB·${mTag}`];
+          if (isSun) return [dayNum, `DOM·${mTag}`];
+          return [dayNum, mTag]; // 2 righe: Giorno sopra, MESE ORO sotto
+        } else if (isSat) {
+          return [dayNum, 'SAB']; // Evidenziato Sabato
+        } else if (isSun) {
+          return [dayNum, 'DOM']; // Evidenziata Domenica
+        } else if (totalPoints <= 14 || isLast || isStepTick) {
           return dayNum;
         } else {
-          return ''; // Spazio vuoto per evitare accavallamenti
+          return ''; // Spazio vuoto per respiro visivo
         }
       });
 
@@ -1443,7 +1456,10 @@
                     const idx = context[0].dataIndex;
                     const d = sortedDates[idx];
                     const parts = d.split('-');
-                    return `Data: ${parts[2]}/${parts[1]}/${parts[0]}`;
+                    const dt = new Date(`${parts[0]}-${parts[1]}-${parts[2]}T12:00:00`);
+                    const dNames = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+                    const dayName = dNames[dt.getDay()] || '';
+                    return `📅 ${dayName} ${parts[2]}/${parts[1]}/${parts[0]}`;
                   },
                   afterBody: function(context) {
                     const idx = context[0].dataIndex;
@@ -1472,11 +1488,17 @@
                   },
                   color: function(context) {
                     const label = labels[context.index];
-                    return Array.isArray(label) ? '#f59e0b' : '#94a3b8';
+                    if (Array.isArray(label)) {
+                      const sub = label[1] || '';
+                      if (sub.includes('SAB')) return '#38bdf8'; // Azzurro per Sabato
+                      if (sub.includes('DOM')) return '#f472b6'; // Rosa/Lilla per Domenica
+                      return '#f59e0b'; // Oro per Cambio Mese
+                    }
+                    return '#94a3b8';
                   },
                   font: function(context) {
                     const label = labels[context.index];
-                    return Array.isArray(label) ? { weight: 'bold', size: 11 } : { size: 10 };
+                    return Array.isArray(label) ? { weight: '800', size: 10 } : { size: 10 };
                   },
                   autoSkip: false,
                   maxRotation: 0,
