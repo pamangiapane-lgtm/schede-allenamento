@@ -51,8 +51,8 @@ def main():
         p256dh = sub.get('P256dh', '')
         auth = sub.get('Auth', '')
 
-        # Salta ID demo
-        if not endpoint or aid in ['TEST_99', '99', '']:
+        # Salta record vuoti
+        if not endpoint or aid in ['', 'None']:
             continue
 
         target_url = f"{BASE_APP_URL}?id={aid}&wellness=1"
