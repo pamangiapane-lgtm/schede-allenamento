@@ -981,7 +981,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=203').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
