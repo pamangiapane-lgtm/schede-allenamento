@@ -1051,12 +1051,13 @@
       document.getElementById('roster-view').classList.add('active');
 
       const grid = document.getElementById('roster-grid');
-      grid.innerHTML = ROSTER.map(a => `
+      grid.innerHTML = ROSTER.filter(a => a.id !== 99).map(a => `
         <div class="athlete-card-btn" onclick="selectAthlete(${a.id})">
           <div class="ac-name">${a.name}</div>
           <div class="ac-role">${a.role}</div>
         </div>
       `).join('');
+
     }
 
     function selectAthlete(athId) {
