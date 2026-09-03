@@ -43,7 +43,36 @@ def invia_immagine_telegram(img_path):
     except Exception as e:
         print(f"[Telegram] Errore invio immagine: {e}")
 
+def gia_inviato_oggi():
+    """Controlla se l'infografica è già stata inviata oggi al gruppo per evitare duplicati."""
+    if not GREEN_API_INSTANCE or not GREEN_API_TOKEN or not WHATSAPP_GROUP_ID:
+        return False
+    url_history = f"https://api.green-api.com/waInstance{GREEN_API_INSTANCE}/getChatHistory/{GREEN_API_TOKEN}"
+    try:
+        res = requests.post(url_history, json={'chatId': WHATSAPP_GROUP_ID, 'count': 10}, timeout=20)
+        if not res.ok:
+            return False
+        messages = res.json()
+        today_date = datetime.now().date()
+        for msg in messages:
+            if msg.get('type') == 'outgoing' and msg.get('typeMessage') in ['imageMessage', 'documentMessage']:
+                ts = msg.get('timestamp')
+                if ts:
+                    msg_date = datetime.fromtimestamp(ts).date()
+                    if msg_date == today_date:
+                        return True
+        return False
+    except Exception as e:
+        print(f"[Anti-Duplicato] Controllo cronologia non riuscito: {e}")
+        return False
+
 def main():
+    force = '--force' in sys.argv
+    if not force and gia_inviato_oggi():
+        print(f"[WA] Report infografica di oggi ({datetime.now().strftime('%d/%m/%Y')}) già presente nel gruppo {WHATSAPP_GROUP_ID}.")
+        print("[WA] Nessun duplicato inviato. (Usa --force per forzare l'invio).")
+        return
+
     print("[1/2] Generazione infografica HD Wellness...")
     img_path = "report_wellness_oggi.png"
     crea_infografica(img_path)
@@ -57,4 +86,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 
