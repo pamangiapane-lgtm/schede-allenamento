@@ -51,10 +51,33 @@ function doPost(e) {
     if (body.token !== TOKEN) return risposta({errore: 'token non valido'});
     const azione = body.azione;
 
+    if (azione === 'salva_push_sub') {
+      const ss = SpreadsheetApp.getActiveSpreadsheet();
+      let foglio = ss.getSheetByName('PushSub');
+      if (!foglio) {
+        foglio = ss.insertSheet('PushSub');
+        foglio.appendRow(['ID_Giocatrice','Endpoint','P256dh','Auth','Aggiornato']);
+      }
+      const dati = foglio.getDataRange().getValues();
+      const idG = body.id_giocatrice;
+      const endpoint = body.endpoint;
+      const p256dh = body.p256dh;
+      const auth = body.auth;
+      for (let i = 1; i < dati.length; i++) {
+        if (String(dati[i][0]) === String(idG)) {
+          foglio.getRange(i + 1, 2, 1, 4).setValues([[endpoint, p256dh, auth, new Date().toISOString()]]);
+          return risposta({ok: true});
+        }
+      }
+      foglio.appendRow([idG, endpoint, p256dh, auth, new Date().toISOString()]);
+      return risposta({ok: true});
+    }
+
     if (azione === 'scrivi_riga') {
       scriviRiga(body.foglio, body.riga);
       return risposta({ok: true});
     }
+
 
     if (azione === 'svuota_e_riscrivi') {
       svuotaERiscrivi(body.foglio, body.intestazioni, body.righe);

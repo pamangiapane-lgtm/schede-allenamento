@@ -16,7 +16,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec'
 TOKEN   = os.environ.get('APP_TOKEN') or 'mv26-prd-3xF7wNqK'
 
-BASE_WELLNESS_URL = 'https://pamangiapane-lgtm.github.io/schede-allenamento/wellness.html'
+BASE_APP_URL = 'https://pamangiapane-lgtm.github.io/schede-allenamento/'
 
 VAPID_PRIVATE_KEY = 'zATHxKAdGDA0u7vWp_0H5dGwXKSNCvn4fJ8NxcRx6Ro'
 VAPID_CLAIMS      = {'sub': 'mailto:pamangiapane@gmail.com'}
@@ -55,7 +55,7 @@ def main():
         if not endpoint or aid in ['TEST_99', '99', '']:
             continue
 
-        target_url = f"{BASE_WELLNESS_URL}?id={aid}"
+        target_url = f"{BASE_APP_URL}?id={aid}&wellness=1"
         
         payload = json.dumps({
             'title': NOTIFICA_TITOLO,

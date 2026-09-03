@@ -930,7 +930,8 @@
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
-    const VAPID_PUBLIC_KEY = 'BPPf4h519sQxYF81gC2zATHxKAdGDA0u7vWp_0H5dGwXKSNCvn4fJ8NxcRx6RoU3p3s08B2uE16n07K5XoYq_4';
+    const VAPID_PUBLIC_KEY = 'BC8k3B_czFbc_dySae4Le6tgtyEpcyilthMSrD7sZvz7TRVqwkfKzIHnsDtfy39i7N2n9El6cbxlVfRCzOmr4mU';
+
 
     const BASELINE_WEIGHTS = {
       1: 63.5, 2: 66.8, 3: 74.0, 4: 73.0, 5: 55.5,
@@ -2136,10 +2137,18 @@
       if (!('Notification' in window) || !('serviceWorker' in window)) return;
       const perm = await Notification.requestPermission();
       if (perm === 'granted') {
-        document.getElementById('push-banner').style.display = 'none';
+        const banner = document.getElementById('push-banner');
+        if (banner) banner.style.display = 'none';
         try {
           const reg = await navigator.serviceWorker.ready;
           let sub = await reg.pushManager.getSubscription();
+          if (sub) {
+            // Rinnova la sottoscrizione per garantire l'allineamento con la nuova VAPID key
+            try {
+              await sub.unsubscribe();
+              sub = null;
+            } catch(e) {}
+          }
           if (!sub) {
             sub = await reg.pushManager.subscribe({
               userVisibleOnly: true,
@@ -2147,19 +2156,20 @@
             });
           }
           const subJson = sub.toJSON();
-          await fetch(`${GAS_URL}?token=${TOKEN}`, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+          if (subJson && subJson.keys && currentAthlete && currentAthlete.id) {
+            const params = new URLSearchParams({
+              token: TOKEN,
               azione: 'salva_push_sub',
-              id_giocatrice: currentAthlete.id,
+              id_giocatrice: String(currentAthlete.id),
               endpoint: subJson.endpoint,
-              p256dh: subJson.keys?.p256dh,
-              auth: subJson.keys?.auth
-            })
-          });
-        } catch (e) {}
+              p256dh: subJson.keys.p256dh || '',
+              auth: subJson.keys.auth || ''
+            });
+            await fetch(`${GAS_URL}?${params.toString()}`, { mode: 'no-cors' });
+          }
+        } catch (e) {
+          console.warn('Errore registrazione push:', e);
+        }
       }
     }
 

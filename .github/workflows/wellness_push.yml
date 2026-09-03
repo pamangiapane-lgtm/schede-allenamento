@@ -1,11 +1,8 @@
 name: Notifica Wellness Mattutina
 
 on:
-  schedule:
-    # 07:00 Italia = 05:00 UTC (ora solare) / 06:00 UTC (ora legale)
-    # Usiamo 05:00 UTC — in estate arriva alle 07:00, in inverno alle 06:00
-    - cron: '0 5 * * *'
-  workflow_dispatch:    # permette esecuzione manuale da GitHub UI
+  workflow_dispatch: # Invocato da cron-job.org ogni mattina alle 08:30 / 08:45 CEST
+
 
 jobs:
   invia-push:
