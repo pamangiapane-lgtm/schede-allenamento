@@ -414,7 +414,7 @@
     <div class="sticky-nav-wrapper">
       <div class="coach-nav-tabs">
         <button class="c-tab-btn active" id="btn-tab-readiness" onclick="switchCoachTab('readiness', this)">🚦 Readiness</button>
-        <button class="c-tab-btn" id="btn-tab-sedute" onclick="switchCoachTab('sedute', this)">🏋️ Sedute Pesi & sRPE</button>
+        <button class="c-tab-btn" id="btn-tab-sedute" onclick="switchCoachTab('sedute', this)">🏋️ Sedute Pesi</button>
         <button class="c-tab-btn" id="btn-tab-massimali" onclick="switchCoachTab('massimali', this)">💪 1RM & Benchmark</button>
         <button class="c-tab-btn" id="btn-tab-analytics" onclick="switchCoachTab('analytics', this)">📈 Trend & Grafici</button>
         <button class="c-tab-btn" id="btn-tab-jump" onclick="switchCoachTab('jump', this)">📊 Jump & Carichi</button>
@@ -469,9 +469,13 @@
       
       <!-- Box Riepilogo Sedute di Oggi -->
       <div class="card-box" style="margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <h3 class="card-title" style="margin-bottom:0;">⚡ Stato Sedute Pesi di Oggi (<span id="today-date-label">Oggi</span>)</h3>
-          <span style="font-size:0.8rem;font-weight:800;color:var(--mv-amber);" id="badge-today-sessions-count">0 / 13 atlete</span>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:10px;">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span style="font-size:1.15rem;">⚡</span>
+            <span style="font-size:0.95rem;font-weight:800;color:#fff;letter-spacing:0.3px;">Stato Sedute Pesi di Oggi</span>
+            <span style="font-size:0.75rem;font-weight:700;color:#94a3b8;background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);" id="today-date-label">Oggi</span>
+          </div>
+          <span style="font-size:0.8rem;font-weight:800;color:var(--mv-amber);background:rgba(232,160,32,0.12);border:1px solid rgba(232,160,32,0.3);padding:3px 10px;border-radius:12px;" id="badge-today-sessions-count">0 / 13 atlete</span>
         </div>
         <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Riepilogo delle atlete che hanno completato e registrato lo sforzo percepito (sRPE) e la fatica nella seduta odierna.</p>
         
@@ -1409,7 +1413,8 @@
 
       const dateLabel = document.getElementById('today-date-label');
       if (dateLabel) {
-        dateLabel.textContent = now.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
+        const dStr = now.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
+        dateLabel.textContent = dStr.charAt(0).toUpperCase() + dStr.slice(1);
       }
 
       const doneToday = [];
