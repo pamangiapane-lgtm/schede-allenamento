@@ -104,5 +104,30 @@
 * **Cronologia Note:** Timeline completa di tutti i commenti e segnalazioni inseriti dalle atlete.
 
 
-* **Normalizzazione Storica Energia:** Fino al 1 settembre compreso i valori di energia registrati su scala 1-5 vengono moltiplicati per 2 (base 10) nei grafici di trend.
-* **Formattazione Asse X Multi-Mese:** Solo numero giorno per date dello stesso mese, con marcatore del mese (es. 14 Lug, 1 Ago, 1 Set) all'inizio di ciascun mese.
+* **Normalizzazione Storica Energia:** Fino al 1 settembre compreso i valori di energia registrati su scala 1-5 vengono moltiplicati per 2 (base 10) nei grafici di trend. Formula: `(6 - Fatica) * 2`.
+* **Formattazione Asse X Multi-Mese:** Solo numero giorno per date dello stesso mese, con marcatore del mese in ORO (es. 14 LUG, 1 AGO, 1 SET) all'inizio di ciascun mese.
+* **Marcatori Weekend su Asse X:** Sabati etichettati con `S` e Domeniche con `D` evidenziati in azzurro brillante `#38bdf8`.
+
+## 📲 REPORT GIORNALIERO AUTOMATICO WHATSAPP
+* **Destinazione:** Gruppo WhatsApp Staff / Head Coach (`Medical Conditions`).
+* **Orario di Invio Automatico:** Mattina alle **09:30** (07:30 UTC tramite GitHub Actions `.github/workflows/daily_whatsapp_wellness_report.yml`).
+* **Formato di Consegna:**
+  1. **Infografica Visiva HD (PNG 1080x1920):** Grafica ufficiale Marsala Volley (Navy/Gold) con KPI squadra, focus clinico e tabella completa 13 atlete con semafori.
+  2. **Testo Formattato WhatsApp:** Riassunto compatto con emoji, atlete da monitorare, note scritte e link al Command Center.
+* **Script Generatori Backend:**
+  * `_strumenti/genera_infografica_report.py`: Motore Pillow per generazione grafica HD.
+  * `_strumenti/invia_whatsapp_automatico.py`: Motore di dispatch automatico (supporto Green-API / Webhook / Telegram).
+
+## 🏋️ AGGIORNAMENTI SCHEDE & PROTOCOLLI CLINICI W2
+* **Sara Dodi (#09 - Fastidio Spalla):**
+  * **Spinta:** Sostituito Push Press con `Lunge p. one arm press KB 3x5` (con slot per log carico e riepilogo carichi personalizzato). Piano scapolare protetto per azzerare lo stress acromiale.
+  * **Core:** Sostituito Deadbug con `Deadbug Pullover 3x6+6` (con slot per carico KB/manubrio).
+  * Invariati tutti gli altri esercizi (Clean, Squat veloce, Lat/Pull-up, Drop-landing, Pallof).
+* **Roster Completo (tranne Nelly):**
+  * **Deadbug:** Parametri aggiornati a `3x6+6` (non più 30s) per tutte le atlete della squadra.
+* **Layout Grafico Superset 1A + 1B:**
+  * Header ristrutturato: badge superset e recupero su riga 1; banner descrittivo a tutta larghezza su riga 2 (eliminato il wrapping forzato su mezza riga).
+* **Nelly Adamczewska (#14):**
+  * Eliminata la duplicazione del tempo: la colonna REPS mostra esclusivamente le ripetizioni numeriche pulite (`5`, `4`, `3`, `5+5`, ecc.), mentre l'indicazione del tempo (`3010`, `20X0`, `1030`, `X`) è isolata nella colonna dedicata TEMPO.
+
+
