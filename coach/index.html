@@ -800,7 +800,7 @@
 
     async function initCoach() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=207', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=208', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
