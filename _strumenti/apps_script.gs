@@ -47,7 +47,7 @@ function doGet(e) {
 function doPost(e) {
   try {
     const body   = JSON.parse(e.postData.contents);
-    const token  = body.token;
+    const token  = body.token || (e && e.parameter && e.parameter.token);
     const azione = body.azione;
     if (azione === 'salva_push_sub') return salvaPushSub_(body);
     if (token !== TOKEN) return errore('Token non valido');

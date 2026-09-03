@@ -1122,6 +1122,7 @@
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            token: TOKEN,
             azione: 'log_progressi',
             id_giocatrice: currentAthlete.id,
             n_seduta: 0,
@@ -1243,6 +1244,7 @@
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            token: TOKEN,
             azione: 'log_progressi',
             id_giocatrice: currentAthlete.id,
             n_seduta: 0,
@@ -1349,6 +1351,7 @@
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            token: TOKEN,
             azione: 'log_progressi',
             id_giocatrice: currentAthlete.id,
             n_seduta: nSeduta || 0,
@@ -1963,11 +1966,19 @@
       const note = document.getElementById(`note-end-${nSeduta}`).value.trim();
 
       try {
+        localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify({
+          rpe: rpe,
+          fat: fat,
+          note: note,
+          date: new Date().toISOString().slice(0, 10)
+        }));
+
         await fetch(`${GAS_URL}?token=${TOKEN}`, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            token: TOKEN,
             azione: 'log_progressi',
             id_giocatrice: currentAthlete.id,
             n_seduta: nSeduta,
