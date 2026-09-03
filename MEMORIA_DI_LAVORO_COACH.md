@@ -109,14 +109,28 @@
 * **Marcatori Weekend su Asse X:** Sabati etichettati con `S` e Domeniche con `D` evidenziati in azzurro brillante `#38bdf8`.
 
 ## 📲 REPORT GIORNALIERO AUTOMATICO WHATSAPP
-* **Destinazione:** Gruppo WhatsApp Staff / Head Coach (`Medical Conditions`).
-* **Orario di Invio Automatico:** Mattina alle **09:30** (07:30 UTC tramite GitHub Actions `.github/workflows/daily_whatsapp_wellness_report.yml`).
-* **Formato di Consegna:**
+* **Destinazione:** Gruppo WhatsApp Staff / Head Coach (`Medical Conditions` - `120363408483842576@g.us`).
+* **Orario di Invio Automatico:** Mattina alle **09:30:00** (tramite Utilità di Pianificazione Windows `MarsalaVolley_DailyWhatsAppWellness` con fail-safe GitHub Actions `daily_whatsapp_wellness_report.yml`).
+* **Formato di Consegna (REGOLA TASSATIVA: SOLA IMMAGINE):**
   1. **Infografica Visiva HD (PNG 1080x1920):** Grafica ufficiale Marsala Volley (Navy/Gold) con KPI squadra, focus clinico e tabella completa 13 atlete con semafori.
-  2. **Testo Formattato WhatsApp:** Riassunto compatto con emoji, atlete da monitorare, note scritte e link al Command Center.
+  2. **Nessun Testo o Link:** Tassativamente **nessun messaggio di testo o link al Command Center** inviato nel gruppo (il Command Center rimane strettamente ad uso esclusivo del Coach).
+  3. **Scudo Anti-Duplicato:** Controllo `gia_inviato_oggi()` interrogando Green-API prima dell'invio; se un'immagine è già stata recapitata oggi, l'invio viene abortito silenziosamente.
 * **Script Generatori Backend:**
   * `_strumenti/genera_infografica_report.py`: Motore Pillow per generazione grafica HD.
-  * `_strumenti/invia_whatsapp_automatico.py`: Motore di dispatch automatico (supporto Green-API / Webhook / Telegram).
+  * `_strumenti/invia_whatsapp_automatico.py`: Motore di dispatch automatico con anti-duplicato.
+
+## ⚙️ 4. INFRASTRUTTURA PWA, NOTIFICHE PUSH & GOOGLE APPS SCRIPT (v201)
+* **VAPID Key Pair Ufficiale:**
+  * Public Key: `BC8k3B_czFbc_dySae4Le6tgtyEpcyilthMSrD7sZvz7TRVqwkfKzIHnsDtfy39i7N2n9El6cbxlVfRCzOmr4mU`
+  * Private Key: `zATHxKAdGDA0u7vWp_0H5dGwXKSNCvn4fJ8NxcRx6Ro`
+* **Trigger Notifiche Mattutine Atlete:**
+  * Schedulato alle **08:30 / 08:45 CEST** tramite chiamata `workflow_dispatch` da `cron-job.org` su workflow `wellness_push.yml`.
+* **Google Apps Script Backend (Snello - 597 righe):**
+  * Codice live ripulito da tutto il legacy (eliminati digest email, slide Google, snapshot pre-season estivi).
+  * Gestione duale GET e POST per `salva_push_sub` e `log_wellness` (con colonna `Stress`).
+  * Backup integrale storico di 2546 righe salvato in `_strumenti/app script 03-09.txt` e su GitHub (`main`).
+  * **Suite di Collaudo Automatizzata:** `_strumenti/test_audit_gas.py` (8 test end-to-end su anagrafica, carichi, wellness, push, ACWR e note: 8/8 PASS).
+
 
 ## 🏋️ AGGIORNAMENTI SCHEDE & PROTOCOLLI CLINICI W2
 * **Sara Dodi (#09 - Fastidio Spalla):**
@@ -130,4 +144,30 @@
 * **Nelly Adamczewska (#14):**
   * Eliminata la duplicazione del tempo: la colonna REPS mostra esclusivamente le ripetizioni numeriche pulite (`5`, `4`, `3`, `5+5`, ecc.), mentre l'indicazione del tempo (`3010`, `20X0`, `1030`, `X`) è isolata nella colonna dedicata TEMPO.
 
+## 🏐 AMBITO DEL PREPARATORE ATLETICO & METODOLOGIA CAMPO MINI (CM)
+* **Principio di Ruolo:** Il preparatore atletico si occupa esclusivamente della preparazione fisica, prevenzione e prestazione atletica. **Non allena la tecnica di pallavolo con palla** (gesto tecnico, palleggio, attacco, ricezione), competenza esclusiva dell'Head Coach.
+* **Correzione Blocchi Ord. 5 nei Campo Mini:**
+  * Eliminata qualsiasi voce "Tecnica pallone" o "Tecnica combinata" sotto la responsabilità del preparatore.
+  * Il blocco (8') è convertito coerentemente in **Prevenzione Ruolo-Specifica (Metodologia ELAV Functional Recovery)** e **Footwork/Decelerazione a secco**.
+  * Griglia priorità applicata:
+    1. **Centrali:** Retropiede/caviglia (tibiale posteriore, stabilità monopodalica).
+    2. **Schiacciatrici/Opposti:** Scapolo-toracica ed extrarotatori (ritmo scapolo-omerale).
+    3. **Palleggiatrici:** Polso/mano e stabilità dinamica spalla.
+    4. **Libero:** Controllo eccentrico anca/ginocchio (Copenhagen assistito, anti-valgo).
 
+## 📊 MONITORAGGIO LIVE sRPE & FATICA SEDUTE PESI NEL COACH COMMAND CENTER
+* **Integrazione Dati Chiusura Seduta & Fix Payload:**
+  * Risolto bug mancata trasmissione: in `schede-allenamento/index.html` `token: TOKEN` è stato inserito direttamente nel JSON body dei POST `log_progressi` (`submitSession`, `saveCustomLoad`, `saveAccessoryLoad`, `saveBW`) oltre che come parametro URL.
+  * In `apps_script.gs` implementato fallback `body.token || e.parameter.token`.
+  * Aggiunto salvataggio offline/locale `localStorage` per le valutazioni di fine seduta.
+* **Separazione Architetturale Viste nel Coach Command Center:**
+  * **Tab 🚦 Readiness (Solo Mattutino):** Riservata al 100% al questionario mattutino pre-allenamento (Sonno, Energia, Dolori, Stress, Readiness, Alert clinici). Rimossi i box delle sedute passate (es. vecchi log di agosto) per evitare distrazioni visive. Mostra solo un discreto badge verde se la seduta pesi è stata completata *oggi*.
+  * **Tab 🏋️ Sedute Pesi & sRPE (Nuova Vista Dedicata):**
+    * *Stato Live Oggi:* Conteggio `X / 13 atlete`, lista atlete che hanno completato oggi con sRPE, Fatica, Note, e lista atlete da registrare.
+    * *Storico Valutazione Sedute Pesi:* Tabella cronologica con sRPE (Borg CR-10), Fatica percepita e note di chiusura.
+    * *Carichi Accessori Registrati:* Tabella carichi usati in sala pesi (manubri, KB, accessori).
+  * **Tab 💪 1RM & Benchmark:** Esclusivamente focalizzata sulla matrice massimali 1RM, carichi relativi (1RM/BW) e standard S&C per ruolo.
+  * **Filtro Anti-Test:** `fetchLiveProgressi()` scarta categoricamente qualsiasi record con ID non appartenente al roster (es. test id 99) o contenente stringhe 'test', garantendo che tabelle e metriche visualizzino solo le atlete reali del roster.
+* **Palette Colori Metriche Sforzo:**
+  * *sRPE:* Verde (<=5, moderato), Azzurro/Blu (6-7, target), Giallo (8, alto), Rosso (>=9, massimale/estenuante).
+  * *Fatica:* Verde (<=4, fresca), Azzurro (5-6, moderata), Giallo (7-8, alta), Rosso (>=9, esausta).
