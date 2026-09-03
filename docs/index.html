@@ -896,7 +896,7 @@
             <div class="bw-sub">Modifica per ricalcolare istantaneamente lo Squat</div>
           </div>
           <div class="bw-input-row">
-            <input type="number" class="bw-input" id="input-bw" placeholder="kg" step="0.1" oninput="recalcBWLive(this.value)">
+            <input type="number" class="bw-input" id="input-bw" placeholder="kg" step="0.1" oninput="recalcBWLive(this.value)" onchange="saveBodyWeight()">
             <span style="font-size:0.82rem;color:var(--mv-muted);font-weight:700">kg</span>
             <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="saveBodyWeight()">Salva</button>
             <span id="toast-bw" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.8rem;">✓</span>
@@ -1090,6 +1090,7 @@
       render1RMProfile();
       renderRiepilogoCarichi();
       renderSessions();
+      syncOfflinePendingLoads();
     }
 
     function renderHero() {
@@ -1229,7 +1230,7 @@
                 ${bwFormulaNote}
               </div>
               <div class="rm-val-box">
-                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg" oninput="recalc1RMLive('${rm.id}', this.value)">
+                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg" oninput="recalc1RMLive('${rm.id}', this.value)" onchange="save1RMClick('${rm.id}', this)">
                 <span style="font-size:0.8rem;color:var(--mv-muted);font-weight:700">kg</span>
                 <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="save1RMClick('${rm.id}', this)">${isEN ? 'Save' : 'Salva'}</button>
                 <span id="toast-1rm-${rm.id}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.8rem;">✓</span>
@@ -1382,6 +1383,108 @@
       renderRiepilogoCarichi();
     }
 
+    async function syncOfflinePendingLoads() {
+      if (!currentAthlete || !currentAthlete.id) return;
+      const aid = currentAthlete.id;
+      const prefixLoad = `mv_load_${aid}_`;
+      const prefix1RM = `mv_1rm_${aid}_`;
+      const prefixRating = `mv_session_rating_${aid}_`;
+      const todayIso = new Date().toISOString().slice(0, 10);
+
+      // 1. Sync carichi accessori salvati localmente (Medball slam, Push press, etc.)
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(prefixLoad)) {
+          const exName = k.replace(prefixLoad, '');
+          const val = localStorage.getItem(k);
+          const syncKey = `mv_synced_${k}`;
+          if (val && val.trim() !== '' && val !== '—' && localStorage.getItem(syncKey) !== val) {
+            try {
+              fetch(`${GAS_URL}?token=${TOKEN}`, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  token: TOKEN,
+                  azione: 'log_progressi',
+                  id_giocatrice: aid,
+                  n_seduta: 'W2-S2',
+                  esercizio: exName,
+                  data: todayIso,
+                  valore: `${val}`,
+                  kg_usati: `${val}`
+                })
+              });
+              localStorage.setItem(syncKey, val);
+            } catch (e) {}
+          }
+        }
+      }
+
+      // 2. Sync 1RM massimali modificati localmente
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(prefix1RM)) {
+          const rmId = k.replace(prefix1RM, '');
+          const val = localStorage.getItem(k);
+          const syncKey = `mv_synced_${k}`;
+          if (val && val.trim() !== '' && localStorage.getItem(syncKey) !== val) {
+            try {
+              fetch(`${GAS_URL}?token=${TOKEN}`, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  token: TOKEN,
+                  azione: 'log_progressi',
+                  id_giocatrice: aid,
+                  n_seduta: 0,
+                  esercizio: `1RM-${rmId}`,
+                  data: todayIso,
+                  valore: `${val} kg`,
+                  rm_stimato: parseFloat(val) || ''
+                })
+              });
+              localStorage.setItem(syncKey, val);
+            } catch (e) {}
+          }
+        }
+      }
+
+      // 3. Sync chiusura seduta (sRPE & fatica) salvati localmente
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && k.startsWith(prefixRating)) {
+          const nSed = k.replace(prefixRating, '');
+          const raw = localStorage.getItem(k);
+          const syncKey = `mv_synced_${k}`;
+          if (raw && localStorage.getItem(syncKey) !== raw) {
+            try {
+              const parsed = JSON.parse(raw);
+              if (parsed && (parsed.rpe || parsed.fat)) {
+                fetch(`${GAS_URL}?token=${TOKEN}`, {
+                  method: 'POST',
+                  mode: 'no-cors',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    token: TOKEN,
+                    azione: 'log_progressi',
+                    id_giocatrice: aid,
+                    n_seduta: nSed,
+                    esercizio: 'Chiusura-Seduta',
+                    data: parsed.date || todayIso,
+                    valore: `RPE ${parsed.rpe || 5}/10 · Fatica ${parsed.fat || 5}/10`,
+                    note: parsed.note || ''
+                  })
+                });
+                localStorage.setItem(syncKey, raw);
+              }
+            } catch (e) {}
+          }
+        }
+      }
+    }
+
     function getExerciseTempo(e) {
       const nome = (e.Esercizio || '').toLowerCase();
       const metodo = (e.Metodo || '').toLowerCase();
@@ -1508,7 +1611,7 @@
           <div class="ex-load-log-box">
             <span class="ex-load-log-lbl">📝 Carico Usato:</span>
             <div class="ex-load-input-wrap">
-              <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" title="Ultimo carico registrato">
+              <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" title="Ultimo carico registrato" onchange="saveCustomExerciseLoad('${e.Esercizio}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">
               <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${e.Esercizio}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">Salva</button>
               <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
             </div>
@@ -1856,7 +1959,7 @@
                     <div class="ex-load-log-box" style="margin-top:8px;">
                       <span class="ex-load-log-lbl">📝 Peso MB (1A):</span>
                       <div class="ex-load-input-wrap">
-                        <input type="text" class="ex-load-input" id="ex-log-MB_Throws" placeholder="es. 3 kg" value="${localStorage.getItem(`mv_load_${currentAthlete.id}_MB_Throws`) || '3 kg'}">
+                        <input type="text" class="ex-load-input" id="ex-log-MB_Throws" placeholder="es. 3 kg" value="${localStorage.getItem(`mv_load_${currentAthlete.id}_MB_Throws`) || '3 kg'}" onchange="saveCustomExerciseLoad('Lanci Palla Medica (1A)', 'ex-log-MB_Throws', '${sed.Numero_Seduta}')">
                         <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('Lanci Palla Medica (1A)', 'ex-log-MB_Throws', '${sed.Numero_Seduta}')">Salva</button>
                         <span id="toast-ex-log-MB_Throws" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
                       </div>
