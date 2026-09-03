@@ -394,6 +394,11 @@
         <div class="kpi-sub" id="kpi-wellness-status">In caricamento...</div>
       </div>
       <div class="kpi-card">
+        <div class="kpi-lbl">Sedute Pesi Oggi</div>
+        <div class="kpi-val" style="color:var(--mv-amber)" id="kpi-sessions-count">-- / 13</div>
+        <div class="kpi-sub" id="kpi-sessions-status">Registrazioni sRPE</div>
+      </div>
+      <div class="kpi-card">
         <div class="kpi-lbl">Alert Clinici</div>
         <div class="kpi-val" style="color:var(--mv-coral)" id="kpi-alert-count">0</div>
         <div class="kpi-sub" id="kpi-alert-sub">Nessun dolore critico</div>
@@ -603,6 +608,32 @@
         </div>
       </div>
 
+      <!-- Valutazione Sedute Pesi (sRPE & Fatica) -->
+      <div class="card-box">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 class="card-title" style="margin-bottom:0;">🏁 Valutazione Sedute Pesi (sRPE & Fatica Live)</h3>
+          <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-sessions-total">0 registrazioni</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Sforzo percepito della seduta (sRPE 0-10 Borg CR-10), livello di fatica e note di chiusura registrate dalle atlete.</p>
+        <div class="coach-tbl-wrap" style="max-height:420px;overflow-y:auto;">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Atleta</th>
+                <th>Seduta</th>
+                <th>Data</th>
+                <th>sRPE (0-10)</th>
+                <th>Fatica (0-10)</th>
+                <th>Note Atleta</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-sessions-body">
+              <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento sessioni...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <!-- Riepilogo Ultimi Carichi Accessori Registrati dalla Squadra -->
       <div class="card-box">
         <h3 class="card-title">📦 Ultimi Carichi Registrati in Sala Pesi (Accessori / Manubri / Cavi)</h3>
@@ -727,12 +758,14 @@
     let liveWellnessData = {};
     let live1RMData = {};
     let liveCustomLoads = [];
+    let liveSessionRatings = [];
+    let liveTodaySessions = {};
     let currentFilterStatus = 'all';
     let currentFilterRole = 'all';
 
     async function initCoach() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=206', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=207', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -746,6 +779,7 @@
       document.getElementById('sync-clock').textContent = `Ultimo agg: ${new Date().toLocaleTimeString('it-IT')}`;
       renderReadinessRoster();
       render1RMTable();
+      renderSessionRatingsTable();
       renderWellnessAnalytics();
       renderCustomLoadsTable();
     }
@@ -881,6 +915,22 @@
       } catch (e) {}
     }
 
+    function getRPEColor(rpe) {
+      if (rpe === null || rpe === undefined || isNaN(rpe)) return '#94a3b8';
+      if (rpe <= 5) return '#10b981'; // Verde (sforzo moderato/recuperabile)
+      if (rpe <= 7) return '#38bdf8'; // Azzurro/Blu (intensità target ottimale)
+      if (rpe <= 8) return '#f59e0b'; // Giallo/Ambra (impegno alto)
+      return '#ef4444';               // Rosso (sforzo massimale / RPE 9-10)
+    }
+
+    function getFatigueColor(fat) {
+      if (fat === null || fat === undefined || isNaN(fat)) return '#94a3b8';
+      if (fat <= 4) return '#10b981'; // Verde (fresca / bassa fatica)
+      if (fat <= 6) return '#38bdf8'; // Azzurro (moderata)
+      if (fat <= 8) return '#f59e0b'; // Giallo (alta)
+      return '#ef4444';               // Rosso (esausta / fatica estrema)
+    }
+
     async function fetchLiveProgressi() {
       try {
         const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Progressi`);
@@ -888,12 +938,21 @@
         const rows = json.dati || [];
         live1RMData = {};
         liveCustomLoads = [];
+        liveSessionRatings = [];
+        liveTodaySessions = {};
+
+        const sessionAgg = {};
+        const todayIso = new Date().toISOString().slice(0, 10);
 
         rows.forEach(r => {
           const aid = parseInt(r.ID_Giocatrice || r.id_giocatrice);
-          const ex = (r.Esercizio || r.esercizio || '').toLowerCase();
+          const ex = (r.Esercizio || r.esercizio || '').trim().toLowerCase();
           const val = parseFloat(r.Valore || r.valore || r.rm_stimato || 0);
-          const valStr = String(r.Valore || r.Kg_Usati || '');
+          const valStr = String(r.Valore || r.valore || r.Kg_Usati || '').trim();
+          const note = String(r.Note_Atleta || r.Note || r.note || '').trim();
+          const rDate = String(r.Data || r.Timestamp || '').slice(0, 10);
+          const nSeduta = String(r.N_Seduta || r.n_seduta || '').trim() || 'W2';
+          const ts = String(r.Timestamp || '');
 
           if (aid) {
             if (!live1RMData[aid]) live1RMData[aid] = {};
@@ -912,10 +971,93 @@
                 athName: (ROSTER.find(a => a.id === aid) || {}).name || `Atleta #${aid}`,
                 exercise: r.Esercizio,
                 load: valStr,
-                session: r.N_Seduta || 'W2',
-                date: (r.Data || '').slice(0, 10) || 'Oggi'
+                session: nSeduta,
+                date: rDate || 'Oggi'
               });
             }
+
+            // --- PARSING VALUTAZIONI SEDUTE PESI (sRPE & FATICA) ---
+            const athObj = ROSTER.find(a => a.id === aid);
+            if (!athObj) return;
+            const athName = athObj.name;
+            const athRole = athObj.role;
+
+            if (ex.includes('chiusura')) {
+              let rpe = null;
+              let fat = null;
+              const rpeM = valStr.match(/RPE\s*(\d+(?:\.\d+)?)/i);
+              const fatM = valStr.match(/Fatica\s*(\d+(?:\.\d+)?)/i);
+              if (rpeM) rpe = parseFloat(rpeM[1]);
+              if (fatM) fat = parseFloat(fatM[1]);
+
+              liveSessionRatings.push({
+                aid: aid,
+                athName: athName,
+                role: athRole,
+                session: nSeduta,
+                date: rDate,
+                rpe: rpe,
+                fat: fat,
+                note: note,
+                ts: ts
+              });
+            } else if (ex === 'rpe-seduta' || ex === 'rpe') {
+              const m = valStr.match(/\d+(?:\.\d+)?/);
+              const num = m ? parseFloat(m[0]) : (val > 0 ? val : null);
+              const key = `${aid}_${nSeduta}_${rDate}`;
+              if (!sessionAgg[key]) {
+                sessionAgg[key] = {
+                  aid: aid,
+                  athName: athName,
+                  role: athRole,
+                  session: nSeduta,
+                  date: rDate,
+                  rpe: num,
+                  fat: null,
+                  note: note,
+                  ts: ts
+                };
+              } else {
+                sessionAgg[key].rpe = num;
+                if (note) sessionAgg[key].note = note;
+              }
+            } else if (ex === 'fatica-seduta' || ex === 'fatica') {
+              const m = valStr.match(/\d+(?:\.\d+)?/);
+              const num = m ? parseFloat(m[0]) : (val > 0 ? val : null);
+              const key = `${aid}_${nSeduta}_${rDate}`;
+              if (!sessionAgg[key]) {
+                sessionAgg[key] = {
+                  aid: aid,
+                  athName: athName,
+                  role: athRole,
+                  session: nSeduta,
+                  date: rDate,
+                  rpe: null,
+                  fat: num,
+                  note: note,
+                  ts: ts
+                };
+              } else {
+                sessionAgg[key].fat = num;
+                if (note) sessionAgg[key].note = note;
+              }
+            }
+          }
+        });
+
+        // Unisci aggregati
+        Object.values(sessionAgg).forEach(s => {
+          liveSessionRatings.push(s);
+        });
+
+        // Ordina sessioni: più recenti per prime
+        liveSessionRatings.sort((a, b) => (b.date + b.ts).localeCompare(a.date + a.ts));
+
+        // Mappa l'ultima seduta registrata per atleta
+        liveSessionRatings.forEach(s => {
+          if (!liveTodaySessions[s.aid]) {
+            const isToday = (s.date === todayIso || (s.ts && s.ts.slice(0, 10) === todayIso));
+            liveTodaySessions[s.aid] = { ...s, isToday: isToday };
           }
         });
       } catch (e) {}
@@ -1095,6 +1237,19 @@
       document.getElementById('kpi-alert-count').textContent = alertList.length;
       document.getElementById('kpi-alert-sub').textContent = alertList.length === 0 ? 'Nessun fastidio critico' : `${alertList.length} atlete da monitorare`;
       
+      let countSessionsToday = 0;
+      ROSTER.forEach(a => {
+        if (liveTodaySessions[a.id] && liveTodaySessions[a.id].isToday) countSessionsToday++;
+      });
+      const kpiSess = document.getElementById('kpi-sessions-count');
+      if (kpiSess) kpiSess.textContent = `${countSessionsToday} / ${ROSTER.length}`;
+      const kpiSessSub = document.getElementById('kpi-sessions-status');
+      if (kpiSessSub) {
+        kpiSessSub.textContent = countSessionsToday === ROSTER.length 
+          ? 'Tutte registrate!' 
+          : (countSessionsToday > 0 ? `${countSessionsToday} registrate oggi` : 'In attesa di fine seduta');
+      }
+
       const avgPct = readinessCount > 0 ? Math.round((totalReadiness / readinessCount) * 10) : '--';
       document.getElementById('kpi-team-readiness').textContent = avgPct !== '--' ? `${avgPct}%` : '--';
       document.getElementById('kpi-team-status').textContent = avgPct >= 75 ? '🟢 Squadra in forma' : (avgPct >= 60 ? '🟡 Fatica moderata' : '🔴 Scarico raccomandato');
@@ -1180,6 +1335,43 @@
           ${w.note ? `<div style="font-size:0.75rem;color:#fde68a;font-style:italic;margin-top:6px;width:100%;">💬 "${w.note}"</div>` : ''}
         ` : `<div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;margin-top:4px;">Questionario non ancora compilato stamattina</div>`;
 
+        const sess = liveTodaySessions[a.id];
+        let sessionHtml = '';
+        if (sess) {
+          const rpeCol = getRPEColor(sess.rpe);
+          const fatCol = getFatigueColor(sess.fat);
+          const dateLabel = sess.isToday 
+            ? '<span style="color:#6ee7b7;font-weight:800;">🟢 Oggi</span>' 
+            : `<span style="color:var(--mv-muted);font-weight:600;">${sess.date}</span>`;
+
+          sessionHtml = `
+            <div style="margin-top:10px;padding:8px 10px;background:#091222;border:1px solid ${sess.isToday ? 'rgba(232,160,32,0.45)' : 'rgba(31,54,93,0.6)'};border-radius:8px;box-shadow:inset 0 1px 3px rgba(0,0,0,0.2);">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+                <div style="display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:0.75rem;font-weight:800;color:var(--mv-amber);">🏋️ Seduta Pesi</span>
+                  <span style="background:rgba(232,160,32,0.15);color:#fde68a;padding:1px 6px;border-radius:4px;font-size:0.68rem;font-weight:800;border:1px solid rgba(232,160,32,0.3);">${sess.session}</span>
+                </div>
+                <div style="font-size:0.7rem;">${dateLabel}</div>
+              </div>
+              <div style="display:flex;gap:14px;align-items:center;">
+                <div style="font-size:0.75rem;color:#cbd5e1;">
+                  sRPE: <strong style="color:${rpeCol};font-size:0.9rem;">${sess.rpe !== null ? sess.rpe + '/10' : '—'}</strong>
+                </div>
+                <div style="font-size:0.75rem;color:#cbd5e1;">
+                  Fatica: <strong style="color:${fatCol};font-size:0.9rem;">${sess.fat !== null ? sess.fat + '/10' : '—'}</strong>
+                </div>
+              </div>
+              ${sess.note ? `<div style="font-size:0.74rem;color:#fde68a;font-style:italic;margin-top:5px;border-top:1px dashed rgba(255,255,255,0.08);padding-top:4px;">💬 "${sess.note}"</div>` : ''}
+            </div>
+          `;
+        } else {
+          sessionHtml = `
+            <div style="font-size:0.72rem;color:var(--mv-muted);margin-top:6px;font-style:italic;padding:2px 0;">
+              🏋️ Seduta pesi non ancora registrata
+            </div>
+          `;
+        }
+
         return `
           <div class="roster-ath-card">
             <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
@@ -1193,6 +1385,7 @@
                             <span class="traffic-tag ${traffic.type}">${traffic.label}</span>
             </div>
             ${subScoresHtml}
+            ${sessionHtml}
           </div>
         `;
       }).join('');
@@ -1226,6 +1419,38 @@
             <td><span class="rm-val-strong">${cl > 0 ? cl + 'k' : '—'}</span></td>
             <td><span class="rm-val-strong">${rw > 0 ? rw + 'k' : '—'}</span></td>
             <td><span class="rm-val-strong">${lt > 0 ? lt + 'k' : '—'}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderSessionRatingsTable() {
+      const tbody = document.getElementById('tbl-sessions-body');
+      const badgeTot = document.getElementById('badge-sessions-total');
+      if (!tbody) return;
+
+      if (badgeTot) badgeTot.textContent = `${liveSessionRatings.length} registrazioni`;
+
+      if (liveSessionRatings.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessuna valutazione seduta registrata nel database.</td></tr>`;
+        return;
+      }
+
+      const todayIso = new Date().toISOString().slice(0, 10);
+      tbody.innerHTML = liveSessionRatings.slice(0, 50).map(s => {
+        const rpeCol = getRPEColor(s.rpe);
+        const fatCol = getFatigueColor(s.fat);
+        const isToday = (s.date === todayIso || (s.ts && s.ts.slice(0, 10) === todayIso));
+        const dateDisplay = isToday ? `<strong style="color:#6ee7b7">Oggi (${s.date})</strong>` : s.date;
+
+        return `
+          <tr>
+            <td><strong>${s.athName}</strong> <span style="font-size:0.7rem;color:var(--mv-muted)">(${s.role})</span></td>
+            <td><span style="background:rgba(232,160,32,0.15);color:#fde68a;font-weight:800;padding:2px 8px;border-radius:5px;border:1px solid rgba(232,160,32,0.3);font-size:0.75rem;">${s.session}</span></td>
+            <td><span style="font-size:0.75rem;">${dateDisplay}</span></td>
+            <td><span style="display:inline-block;padding:2px 8px;border-radius:6px;font-weight:800;background:#090f1d;border:1px solid ${rpeCol};color:${rpeCol}">${s.rpe !== null ? s.rpe + '/10' : '—'}</span></td>
+            <td><span style="display:inline-block;padding:2px 8px;border-radius:6px;font-weight:800;background:#090f1d;border:1px solid ${fatCol};color:${fatCol}">${s.fat !== null ? s.fat + '/10' : '—'}</span></td>
+            <td><span style="font-size:0.75rem;color:${s.note ? '#fde68a' : 'var(--mv-muted)'};font-style:${s.note ? 'italic' : 'normal'}">${s.note ? `💬 "${s.note}"` : '—'}</span></td>
           </tr>
         `;
       }).join('');
