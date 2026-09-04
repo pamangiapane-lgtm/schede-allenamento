@@ -110,11 +110,13 @@
 
 ## 📲 REPORT GIORNALIERO AUTOMATICO WHATSAPP
 * **Destinazione:** Gruppo WhatsApp Staff / Head Coach (`Medical Conditions` - `120363408483842576@g.us`).
-* **Orario di Invio Automatico:** Mattina alle **09:30:00** (tramite Utilità di Pianificazione Windows `MarsalaVolley_DailyWhatsAppWellness` con fail-safe GitHub Actions `daily_whatsapp_wellness_report.yml`).
+* **Orario di Invio Automatico:** Mattina alle **09:30:00** (schedulato su `cron-job.org` che invoca `workflow_dispatch` su `daily_whatsapp_wellness_report.yml` con fail-safe Windows Task Scheduler locale).
+* **Funzionamento a PC Spento:** 100% cloud-native su runner GitHub Actions (generazione infografica Pillow HD + invio Green-API).
 * **Formato di Consegna (REGOLA TASSATIVA: SOLA IMMAGINE):**
   1. **Infografica Visiva HD (PNG 1080x1920):** Grafica ufficiale Marsala Volley (Navy/Gold) con KPI squadra, focus clinico e tabella completa 13 atlete con semafori.
   2. **Nessun Testo o Link:** Tassativamente **nessun messaggio di testo o link al Command Center** inviato nel gruppo (il Command Center rimane strettamente ad uso esclusivo del Coach).
   3. **Scudo Anti-Duplicato:** Controllo `gia_inviato_oggi()` interrogando Green-API prima dell'invio; se un'immagine è già stata recapitata oggi, l'invio viene abortito silenziosamente.
+
 * **Script Generatori Backend:**
   * `_strumenti/genera_infografica_report.py`: Motore Pillow per generazione grafica HD.
   * `_strumenti/invia_whatsapp_automatico.py`: Motore di dispatch automatico con anti-duplicato.
@@ -159,11 +161,12 @@
 * **Integrazione Dati Chiusura Seduta & Fix Payload:**
   * Risolto bug mancata trasmissione: in `schede-allenamento/index.html` `token: TOKEN` è stato inserito direttamente nel JSON body dei POST `log_progressi` (`submitSession`, `saveCustomLoad`, `saveAccessoryLoad`, `saveBW`) oltre che come parametro URL.
   * In `apps_script.gs` implementato fallback `body.token || e.parameter.token`.
-  * Aggiunto salvataggio offline/locale `localStorage` per le valutazioni di fine seduta.
+  * **Auto-Save su Input (senza dover premere Salva):** Aggiunto listener `onchange` su tutti i campi di input carichi accessori (Medball slam, Push press, Lunge KB, ecc.), massimali 1RM e Body Weight, così ogni dato digitato viene memorizzato all'istante all'uscita dal campo.
+  * **Auto-Recovery & Background Sync (`syncOfflinePendingLoads`):** Ogni volta che l'atleta apre la web app, il client scansiona il `localStorage` del dispositivo per carichi, 1RM e chiusure seduta salvate localmente ma non ancora sincronizzate sul foglio Google e le invia in background al backend con `token: TOKEN`. Questo garantisce il recupero automatico anche dei carichi digitati offline o durante la seduta.
 * **Separazione Architetturale Viste nel Coach Command Center:**
   * **Tab 🚦 Readiness (Solo Mattutino):** Riservata al 100% al questionario mattutino pre-allenamento (Sonno, Energia, Dolori, Stress, Readiness, Alert clinici). Rimossi i box delle sedute passate (es. vecchi log di agosto) per evitare distrazioni visive. Mostra solo un discreto badge verde se la seduta pesi è stata completata *oggi*.
-  * **Tab 🏋️ Sedute Pesi & sRPE (Nuova Vista Dedicata):**
-    * *Stato Live Oggi:* Conteggio `X / 13 atlete`, lista atlete che hanno completato oggi con sRPE, Fatica, Note, e lista atlete da registrare.
+  * **Tab 🏋️ Sedute Pesi (Nuova Vista Dedicata):**
+    * *Stato Live Oggi:* Layout responsive con badge data `[ Gio 3 set ]`, contatore `X / 13 atlete`, riquadri affiancati per atlete completate (con sRPE, Fatica, Note) e atlete da registrare.
     * *Storico Valutazione Sedute Pesi:* Tabella cronologica con sRPE (Borg CR-10), Fatica percepita e note di chiusura.
     * *Carichi Accessori Registrati:* Tabella carichi usati in sala pesi (manubri, KB, accessori).
   * **Tab 💪 1RM & Benchmark:** Esclusivamente focalizzata sulla matrice massimali 1RM, carichi relativi (1RM/BW) e standard S&C per ruolo.
