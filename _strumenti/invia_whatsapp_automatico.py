@@ -10,6 +10,22 @@ WHATSAPP_GROUP_ID  = (os.environ.get("WHATSAPP_GROUP_ID") or "120363408483842576
 TELEGRAM_BOT_TOKEN = (os.environ.get("TELEGRAM_BOT_TOKEN") or "").strip()
 TELEGRAM_CHAT_ID   = (os.environ.get("TELEGRAM_CHAT_ID") or "").strip()
 
+import time
+
+def attendi_rete(timeout_sec=60):
+    """Attende che la scheda di rete/Wi-Fi sia connessa e internet raggiungibile (es. risveglio da standby)."""
+    start = time.time()
+    while time.time() - start < timeout_sec:
+        try:
+            r = requests.get("https://api.green-api.com", timeout=4)
+            if r.status_code < 500:
+                return True
+        except Exception:
+            pass
+        print("[Rete] In attesa che il Wi-Fi / connessione internet sia attiva...")
+        time.sleep(5)
+    return False
+
 def invia_immagine_whatsapp(img_path):
     if not GREEN_API_INSTANCE or not GREEN_API_TOKEN or not WHATSAPP_GROUP_ID:
         print("[!] Parametri GREEN-API non impostati per invio immagine.")
@@ -18,19 +34,26 @@ def invia_immagine_whatsapp(img_path):
 
     url_file = f"https://api.green-api.com/waInstance{GREEN_API_INSTANCE}/sendFileByUpload/{GREEN_API_TOKEN}"
     
-    try:
-        with open(img_path, 'rb') as img_f:
-            files = {'file': (os.path.basename(img_path), img_f, 'image/png')}
-            payload = {
-                'chatId': WHATSAPP_GROUP_ID,
-                'caption': '' # Nessun testo o link: solo infografica HD con roster e KPI
-            }
-            res = requests.post(url_file, data=payload, files=files, timeout=40)
-            print(f"[WA] Invio infografica a Medical Conditions completato: {res.status_code} - {res.text}")
-            return res.ok
-    except Exception as e:
-        print(f"[WA] Errore invio immagine: {e}")
-        return False
+    for tentativo in range(1, 4):
+        try:
+            with open(img_path, 'rb') as img_f:
+                files = {'file': (os.path.basename(img_path), img_f, 'image/png')}
+                payload = {
+                    'chatId': WHATSAPP_GROUP_ID,
+                    'caption': '' # Nessun testo o link: solo infografica HD con roster e KPI
+                }
+                res = requests.post(url_file, data=payload, files=files, timeout=40)
+                if res.ok:
+                    print(f"[WA] Invio infografica a Medical Conditions completato con successo: {res.status_code} - {res.text}")
+                    return True
+                else:
+                    print(f"[WA] Tentativo {tentativo}/3 fallito ({res.status_code}): {res.text}")
+                    time.sleep(5)
+        except Exception as e:
+            print(f"[WA] Tentativo {tentativo}/3 errore invio: {e}")
+            time.sleep(5)
+    return False
+
 
 def invia_immagine_telegram(img_path):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_ID:
@@ -67,6 +90,11 @@ def gia_inviato_oggi():
         return False
 
 def main():
+    print("=== AVVIO DISPATCH AUTOMATICO REPORT WELLNESS ===")
+    if not attendi_rete(timeout_sec=60):
+        print("[!] Rete/Internet non raggiungibile dopo 60 secondi. Uscita.")
+        sys.exit(1)
+
     force = '--force' in sys.argv
     if not force and gia_inviato_oggi():
         print(f"[WA] Report infografica di oggi ({datetime.now().strftime('%d/%m/%Y')}) già presente nel gruppo {WHATSAPP_GROUP_ID}.")
@@ -79,12 +107,18 @@ def main():
     
     print(f"[2/2] Invio automatico infografica a Medical Conditions ({WHATSAPP_GROUP_ID})...")
     # Invio esclusivamente del file immagine (nessun testo o link al pannello coach)
-    invia_immagine_whatsapp(img_path)
+    success = invia_immagine_whatsapp(img_path)
     invia_immagine_telegram(img_path)
         
-    print("Processo completato con successo!")
+    if success:
+        print("Processo completato con successo!")
+        sys.exit(0)
+    else:
+        print("[!] Invio immagine fallito su tutti i tentativi.")
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()
+
 
 
