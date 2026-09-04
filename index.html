@@ -5,8 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Marsala Volley — App Ufficiale</title>
   <meta name="theme-color" content="#071226">
+  <!-- PWA & Apple iOS Standalone Support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Marsala Volley">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="logo.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -779,6 +786,31 @@
         <div>
           <h2 class="ath-name" id="ath-name">Nome Atleta</h2>
           <div class="ath-role" id="ath-role">Ruolo Atleta</div>
+        </div>
+      </div>
+
+      <!-- Banner Guida Installazione iPhone (se aperta da browser o WhatsApp anziché da Home) -->
+      <div id="ios-install-banner" style="display:none;background:linear-gradient(135deg, #1e3a8a, #0c1f40);border:1px solid #3b82f6;border-radius:var(--radius-md);padding:14px 16px;margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+          <div style="font-size:0.92rem;font-weight:800;color:var(--mv-amber);display:flex;align-items:center;gap:6px;">
+            📲 <span>Installa come App su iPhone</span>
+          </div>
+          <button type="button" onclick="dismissIosBanner()" style="background:none;border:none;color:var(--mv-muted);font-size:1.1rem;cursor:pointer;line-height:1;padding:0 4px;">✕</button>
+        </div>
+        <div id="ios-whatsapp-warn" style="display:none;background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#fca5a5;padding:8px 10px;border-radius:8px;font-size:0.75rem;margin-bottom:8px;font-weight:700;">
+          ⚠️ Stai aprendo l'app da WhatsApp: tocca i 3 puntini in alto a destra e seleziona <u>"Apri in Safari"</u> per poterla installare sulla schermata Home!
+        </div>
+        <div style="font-size:0.78rem;color:#e2e8f0;line-height:1.45;margin-bottom:8px;">
+          Per ricevere le notifiche push ogni mattina alle 08:30 e usarla a schermo intero senza barre:
+        </div>
+        <ol style="font-size:0.75rem;color:#cbd5e1;padding-left:18px;line-height:1.5;margin-bottom:8px;">
+          <li>In Safari, tocca il tasto Condividi in basso (il <strong>quadratino con freccia in su ⬆️</strong>).</li>
+          <li>Scorri leggermente verso il basso nel menu.</li>
+          <li>Tocca <strong>"Aggiungi alla schermata Home" ➕</strong> <em>(non "Aggiungi segnalibro")</em>.</li>
+          <li>In alto a destra tocca <strong>"Aggiungi"</strong>.</li>
+        </ol>
+        <div style="font-size:0.7rem;color:var(--mv-amber);font-style:italic;">
+          💡 Se avevi salvato la pagina come "segnalibro", puoi eliminarlo: aprila sempre dalla nuova icona Marsala Volley sulla tua Home!
         </div>
       </div>
 
@@ -2337,6 +2369,7 @@
     }
 
     async function checkPushSubscriptionState() {
+      checkIosInstallState();
       if (!('Notification' in window) || !('serviceWorker' in window)) return;
       if (Notification.permission === 'default') {
         const banner = document.getElementById('push-banner');
@@ -2346,6 +2379,31 @@
         // Fallback iOS: riesegui al primo tocco per garantire contesto gesture
         window.addEventListener('pointerdown', autoSyncPushSubscription, { once: true });
       }
+    }
+
+    function checkIosInstallState() {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isStandalone = ('standalone' in window.navigator && window.navigator.standalone) || window.matchMedia('(display-mode: standalone)').matches;
+      const dismissed = localStorage.getItem('mv_dismissed_ios_install') === 'true';
+
+      const banner = document.getElementById('ios-install-banner');
+      if (!banner) return;
+
+      if (isIOS && !isStandalone && !dismissed) {
+        banner.style.display = 'block';
+
+        const isWebView = /(WhatsApp|Instagram|FBAN|FBAV|Line)/i.test(navigator.userAgent);
+        const waWarn = document.getElementById('ios-whatsapp-warn');
+        if (waWarn && isWebView) waWarn.style.display = 'block';
+      } else {
+        banner.style.display = 'none';
+      }
+    }
+
+    function dismissIosBanner() {
+      localStorage.setItem('mv_dismissed_ios_install', 'true');
+      const banner = document.getElementById('ios-install-banner');
+      if (banner) banner.style.display = 'none';
     }
 
     async function autoSyncPushSubscription() {
