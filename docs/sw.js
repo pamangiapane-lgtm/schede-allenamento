@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v203-live)
-const CACHE_NAME = 'marsala-pwa-v203-live';
+// Service Worker App Marsala Volley (v204-live)
+const CACHE_NAME = 'marsala-pwa-v204-live';
 
 
 

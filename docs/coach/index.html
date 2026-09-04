@@ -811,7 +811,7 @@
 
     async function initCoach() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=208', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=209', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -991,12 +991,15 @@
         const todayIso = now.toISOString().slice(0, 10);
         const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 
+        const live1RMTs = {};
+
         rows.forEach(r => {
           const aid = parseInt(r.ID_Giocatrice || r.id_giocatrice);
           const athObj = ROSTER.find(a => a.id === aid);
           // SCARTA IMMEDIATAMENTE QUALSIASI RECORD NON APPARTENENTE AL ROSTER UFFICIALE (es. test id 99, 0, null)
           if (!athObj) return;
 
+          const note = String(r.Note_Atleta || r.Note || r.note || '').trim();
           const ex = (r.Esercizio || r.esercizio || '').trim().toLowerCase();
           const nSeduta = String(r.N_Seduta || r.n_seduta || '').trim() || 'W2';
           // SCARTA QUALSIASI RECORD DI TEST O SIMULAZIONE
@@ -1007,11 +1010,12 @@
           const numMatch = String(r.Valore || r.valore || r.rm_stimato || r.Kg_Usati || '').match(/\d+(?:[.,]\d+)?/);
           const val = numMatch ? parseFloat(numMatch[0].replace(',', '.')) : 0;
           const valStr = String(r.Valore || r.valore || r.Kg_Usati || '').trim();
-          const note = String(r.Note_Atleta || r.Note || r.note || '').trim();
           const rDate = String(r.Data || r.Timestamp || '').slice(0, 10);
           const ts = String(r.Timestamp || '');
 
           if (!live1RMData[aid]) live1RMData[aid] = {};
+          if (!live1RMTs[aid]) live1RMTs[aid] = {};
+
           if (val > 0) {
             const isSquat1RM = ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || (ex.includes('squat') && !ex.includes('jump') && !ex.includes('step'));
             const isClean1RM = ex === '1rm-clean' || ex === '1rm_clean' || ex === 'clean';
@@ -1021,13 +1025,21 @@
             const isLat1RM = ex === '1rm-lat' || ex === '1rm_lat' || ex === 'lat' || ex === 'lat machine';
             const isBW = ex.includes('peso') || ex.includes('bw') || ex === 'peso-corporeo';
 
-            if (isSquat1RM) live1RMData[aid].squat = val;
-            if (isClean1RM) live1RMData[aid].clean = val;
-            if (isBench1RM) live1RMData[aid].bench = val;
-            if (isMilitary1RM) live1RMData[aid].military = val;
-            if (isRow1RM) live1RMData[aid].row = val;
-            if (isLat1RM) live1RMData[aid].lat = val;
-            if (isBW) live1RMData[aid].bw = val;
+            const updateIfNewer = (lift, v) => {
+              const prevTs = live1RMTs[aid][lift] || '';
+              if (!prevTs || ts >= prevTs) {
+                live1RMData[aid][lift] = v;
+                live1RMTs[aid][lift] = ts;
+              }
+            };
+
+            if (isSquat1RM) updateIfNewer('squat', val);
+            if (isClean1RM) updateIfNewer('clean', val);
+            if (isBench1RM) updateIfNewer('bench', val);
+            if (isMilitary1RM) updateIfNewer('military', val);
+            if (isRow1RM) updateIfNewer('row', val);
+            if (isLat1RM) updateIfNewer('lat', val);
+            if (isBW) updateIfNewer('bw', val);
           }
 
           // Carichi accessori (esclude rpe, fatica, chiusura, 1rm, peso-corporeo, step up)
