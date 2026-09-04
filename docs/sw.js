@@ -61,11 +61,12 @@ self.addEventListener('push', event => {
     }
   }
 
+  const iconUrl = self.location.origin + self.location.pathname.replace(/\/[^\/]*$/, '/') + 'icon-192.png';
   event.waitUntil(
     self.registration.showNotification(payload.title, {
       body: payload.body,
-      icon: './icon-192.png',
-      badge: './icon-192.png',
+      icon: iconUrl,
+      badge: iconUrl,
       data: { url: payload.url || './?wellness=1' }
     })
   );
