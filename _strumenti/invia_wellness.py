@@ -72,7 +72,9 @@ def main():
                 },
                 data=payload,
                 vapid_private_key=VAPID_PRIVATE_KEY,
-                vapid_claims=dict(VAPID_CLAIMS)
+                vapid_claims=dict(VAPID_CLAIMS),
+                ttl=86400,
+                headers={'Urgency': 'high'}
             )
             print(f"   ✅ ID #{aid:02s}: Notifica Push inviata con successo")
             ok += 1
