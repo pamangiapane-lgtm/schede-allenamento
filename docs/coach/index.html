@@ -993,11 +993,12 @@
           const ex = (r.Esercizio || r.esercizio || '').trim().toLowerCase();
           const nSeduta = String(r.N_Seduta || r.n_seduta || '').trim() || 'W2';
           // SCARTA QUALSIASI RECORD DI TEST O SIMULAZIONE
-          if (ex.includes('test') || nSeduta.toLowerCase().includes('test')) return;
+          if (ex.includes('test') || nSeduta.toLowerCase().includes('test') || note.toLowerCase().includes('test verifica')) return;
 
           const athName = athObj.name;
           const athRole = athObj.role;
-          const val = parseFloat(r.Valore || r.valore || r.rm_stimato || 0);
+          const numMatch = String(r.Valore || r.valore || r.rm_stimato || r.Kg_Usati || '').match(/\d+(?:[.,]\d+)?/);
+          const val = numMatch ? parseFloat(numMatch[0].replace(',', '.')) : 0;
           const valStr = String(r.Valore || r.valore || r.Kg_Usati || '').trim();
           const note = String(r.Note_Atleta || r.Note || r.note || '').trim();
           const rDate = String(r.Data || r.Timestamp || '').slice(0, 10);
@@ -1005,17 +1006,25 @@
 
           if (!live1RMData[aid]) live1RMData[aid] = {};
           if (val > 0) {
-            if (ex.includes('squat')) live1RMData[aid].squat = val;
-            if (ex.includes('clean')) live1RMData[aid].clean = val;
-            if (ex.includes('bench') || ex.includes('panca')) live1RMData[aid].bench = val;
-            if (ex.includes('military') || ex.includes('shoulder')) live1RMData[aid].military = val;
-            if (ex.includes('row') || ex.includes('rematore')) live1RMData[aid].row = val;
-            if (ex.includes('lat')) live1RMData[aid].lat = val;
-            if (ex.includes('peso') || ex.includes('bw')) live1RMData[aid].bw = val;
+            const isSquat1RM = ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || (ex.includes('squat') && !ex.includes('jump') && !ex.includes('step'));
+            const isClean1RM = ex === '1rm-clean' || ex === '1rm_clean' || ex === 'clean';
+            const isBench1RM = ex === '1rm-bench' || ex === '1rm_bench' || ex === 'bench' || ex === 'bench press' || ex === 'panca';
+            const isMilitary1RM = ex === '1rm-military' || ex === '1rm_military' || ex === 'military' || ex === 'military press' || ex === 'shoulder';
+            const isRow1RM = ex === '1rm-row' || ex === '1rm_row' || ex === 'row' || ex === 'rematore' || ex === 'row bb';
+            const isLat1RM = ex === '1rm-lat' || ex === '1rm_lat' || ex === 'lat' || ex === 'lat machine';
+            const isBW = ex.includes('peso') || ex.includes('bw') || ex === 'peso-corporeo';
+
+            if (isSquat1RM) live1RMData[aid].squat = val;
+            if (isClean1RM) live1RMData[aid].clean = val;
+            if (isBench1RM) live1RMData[aid].bench = val;
+            if (isMilitary1RM) live1RMData[aid].military = val;
+            if (isRow1RM) live1RMData[aid].row = val;
+            if (isLat1RM) live1RMData[aid].lat = val;
+            if (isBW) live1RMData[aid].bw = val;
           }
 
-          // Carichi accessori (esclude rpe, fatica, chiusura, 1rm, peso-corporeo)
-          if (valStr && valStr.trim().length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.includes('1rm') && !ex.includes('peso-corporeo')) {
+          // Carichi accessori (esclude rpe, fatica, chiusura, 1rm, peso-corporeo, step up)
+          if (valStr && valStr.trim().length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.startsWith('1rm') && !ex.includes('peso-corporeo') && !ex.includes('step up')) {
             liveCustomLoads.unshift({
               aid: aid,
               athName: athName,
@@ -1095,7 +1104,11 @@
         });
 
         // Ordina sessioni: più recenti per prime
-        liveSessionRatings.sort((a, b) => (b.date + b.ts).localeCompare(a.date + a.ts));
+        liveSessionRatings.sort((a, b) => {
+          const tA = (a.ts || a.date || '');
+          const tB = (b.ts || b.date || '');
+          return tB.localeCompare(tA);
+        });
 
         // Mappa l'ultima seduta registrata per atleta
         liveSessionRatings.forEach(s => {
@@ -1543,7 +1556,7 @@
       const now = new Date();
       const todayIso = now.toISOString().slice(0, 10);
       const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-      tbody.innerHTML = liveSessionRatings.slice(0, 50).map(s => {
+      tbody.innerHTML = liveSessionRatings.slice(0, 100).map(s => {
         const rpeCol = getRPEColor(s.rpe);
         const fatCol = getFatigueColor(s.fat);
         const isToday = (s.date === todayIso || s.date === localIso || (s.ts && (s.ts.slice(0, 10) === todayIso || s.ts.slice(0, 10) === localIso)));

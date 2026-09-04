@@ -1012,20 +1012,41 @@
         
         rows.forEach(r => {
           if (parseInt(r.ID_Giocatrice) === currentAthlete.id) {
-            const ex = (r.Esercizio || '').toLowerCase();
-            const val = parseFloat(r.Valore || r.RM_Stimato || 0);
-            const valStr = String(r.Valore || r.Kg_Usati || '');
+            const ex = (r.Esercizio || '').trim().toLowerCase();
+            const numMatch = String(r.Valore || r.RM_Stimato || r.Kg_Usati || '').match(/\d+(?:[.,]\d+)?/);
+            const val = numMatch ? parseFloat(numMatch[0].replace(',', '.')) : 0;
+            const valStr = String(r.Valore || r.Kg_Usati || '').trim();
+
+            // Solo 1RM specifici (evita falsi positivi come Squat Jump o Squat / Step Up)
+            const isSquat1RM = ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || (ex.includes('squat') && !ex.includes('jump') && !ex.includes('step'));
+            const isClean1RM = ex === '1rm-clean' || ex === '1rm_clean' || ex === 'clean';
+            const isBench1RM = ex === '1rm-bench' || ex === '1rm_bench' || ex === 'bench' || ex === 'bench press' || ex === 'panca';
+            const isMilitary1RM = ex === '1rm-military' || ex === '1rm_military' || ex === 'military' || ex === 'military press' || ex === 'shoulder';
+            const isRow1RM = ex === '1rm-row' || ex === '1rm_row' || ex === 'row' || ex === 'rematore' || ex === 'row bb';
+            const isLat1RM = ex === '1rm-lat' || ex === '1rm_lat' || ex === 'lat' || ex === 'lat machine';
+            const isBW = ex.includes('peso') || ex.includes('bw') || ex === 'peso-corporeo';
+
             if (val > 0) {
-              if (ex.includes('squat')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_squat`, val);
-              if (ex.includes('clean')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_clean`, val);
-              if (ex.includes('bench') || ex.includes('panca')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_bench`, val);
-              if (ex.includes('military') || ex.includes('shoulder')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_military`, val);
-              if (ex.includes('row') || ex.includes('rematore')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_row`, val);
-              if (ex.includes('lat')) localStorage.setItem(`mv_1rm_${currentAthlete.id}_lat`, val);
-              if (ex.includes('peso') || ex.includes('bw')) localStorage.setItem(`mv_bw_${currentAthlete.id}`, val);
+              // Non sovrascrivere se c'è già un valore locale impostato manualmente dall'atleta
+              const setIfEmptyOrOlder = (key, newVal) => {
+                const currentLocal = parseFloat(localStorage.getItem(key)) || 0;
+                if (currentLocal === 0) {
+                  localStorage.setItem(key, newVal);
+                }
+              };
+
+              if (isSquat1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_squat`, val);
+              if (isClean1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_clean`, val);
+              if (isBench1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_bench`, val);
+              if (isMilitary1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_military`, val);
+              if (isRow1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_row`, val);
+              if (isLat1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_lat`, val);
+              if (isBW) setIfEmptyOrOlder(`mv_bw_${currentAthlete.id}`, val);
             }
-            if (valStr && valStr.trim().length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura')) {
-              localStorage.setItem(`mv_load_${currentAthlete.id}_${r.Esercizio}`, valStr);
+            if (valStr && valStr.length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.startsWith('1rm-')) {
+              if (!localStorage.getItem(`mv_load_${currentAthlete.id}_${r.Esercizio}`)) {
+                localStorage.setItem(`mv_load_${currentAthlete.id}_${r.Esercizio}`, valStr);
+              }
             }
           }
         });
@@ -1190,6 +1211,8 @@
       }
     }
 
+    const debounce1RMTimers = {};
+
     function recalc1RMLive(rmId, val) {
       const parsed = parseFloat(val) || 0;
       localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, parsed);
@@ -1204,6 +1227,42 @@
       }
 
       renderSessions();
+
+      // Debounced auto-salvataggio su cloud (1.2s dopo digitazione)
+      clearTimeout(debounce1RMTimers[rmId]);
+      debounce1RMTimers[rmId] = setTimeout(() => {
+        if (parsed > 0) {
+          save1RMToCloud(rmId, parsed);
+        }
+      }, 1200);
+    }
+
+    async function save1RMToCloud(rmId, val) {
+      if (!currentAthlete || !currentAthlete.id) return;
+      const toast = document.getElementById(`toast-1rm-${rmId}`);
+      if (toast) {
+        toast.textContent = '✓';
+        toast.style.display = 'inline';
+        setTimeout(() => { toast.style.display = 'none'; }, 2000);
+      }
+      try {
+        await fetch(`${GAS_URL}?token=${TOKEN}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            token: TOKEN,
+            azione: 'log_progressi',
+            id_giocatrice: currentAthlete.id,
+            n_seduta: 0,
+            esercizio: `1RM-${rmId}`,
+            data: new Date().toISOString().slice(0, 10),
+            valore: `${val} kg`,
+            rm_stimato: parseFloat(val) || ''
+          })
+        });
+        localStorage.setItem(`mv_synced_mv_1rm_${currentAthlete.id}_${rmId}`, String(val));
+      } catch (err) {}
     }
 
     function render1RMProfile() {
@@ -1246,35 +1305,12 @@
 
     async function save1RMClick(rmId, btn) {
       const input = document.getElementById(`input-1rm-${rmId}`);
-      const val = input.value.trim();
+      const val = input ? input.value.trim() : '';
       if (!val) return;
 
+      clearTimeout(debounce1RMTimers[rmId]);
       localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, val);
-      
-      const toast = document.getElementById(`toast-1rm-${rmId}`);
-      if (toast) {
-        toast.style.display = 'inline';
-        setTimeout(() => { toast.style.display = 'none'; }, 2000);
-      }
-
-      try {
-        fetch(`${GAS_URL}?token=${TOKEN}`, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            token: TOKEN,
-            azione: 'log_progressi',
-            id_giocatrice: currentAthlete.id,
-            n_seduta: 0,
-            esercizio: `1RM-${rmId}`,
-            data: new Date().toISOString().slice(0, 10),
-            valore: `${val} kg`,
-            rm_stimato: parseFloat(val) || ''
-          })
-        });
-      } catch (err) {}
-
+      await save1RMToCloud(rmId, val);
       render1RMProfile();
       renderSessions();
     }
@@ -1398,6 +1434,7 @@
         const k = localStorage.key(i);
         if (k && k.startsWith(prefixLoad)) {
           const exName = k.replace(prefixLoad, '');
+          if (exName.startsWith('1RM-') || exName.toLowerCase().includes('squat / step up') || exName.toLowerCase().includes('peso-corporeo')) continue;
           const val = localStorage.getItem(k);
           const syncKey = `mv_synced_${k}`;
           if (val && val.trim() !== '' && val !== '—' && localStorage.getItem(syncKey) !== val) {
@@ -1423,14 +1460,15 @@
         }
       }
 
-      // 2. Sync 1RM massimali modificati localmente
+      // 2. Sync 1RM massimali modificati localmente (solo se > 0)
       for (let i = 0; i < localStorage.length; i++) {
         const k = localStorage.key(i);
         if (k && k.startsWith(prefix1RM)) {
           const rmId = k.replace(prefix1RM, '');
           const val = localStorage.getItem(k);
+          const numVal = parseFloat(val) || 0;
           const syncKey = `mv_synced_${k}`;
-          if (val && val.trim() !== '' && localStorage.getItem(syncKey) !== val) {
+          if (numVal > 0 && localStorage.getItem(syncKey) !== String(numVal)) {
             try {
               fetch(`${GAS_URL}?token=${TOKEN}`, {
                 method: 'POST',
@@ -1443,11 +1481,11 @@
                   n_seduta: 0,
                   esercizio: `1RM-${rmId}`,
                   data: todayIso,
-                  valore: `${val} kg`,
-                  rm_stimato: parseFloat(val) || ''
+                  valore: `${numVal} kg`,
+                  rm_stimato: numVal
                 })
               });
-              localStorage.setItem(syncKey, val);
+              localStorage.setItem(syncKey, String(numVal));
             } catch (e) {}
           }
         }
@@ -1463,7 +1501,9 @@
           if (raw && localStorage.getItem(syncKey) !== raw) {
             try {
               const parsed = JSON.parse(raw);
-              if (parsed && (parsed.rpe || parsed.fat)) {
+              if (parsed && (parsed.rpe !== null || parsed.fat !== null)) {
+                const rpeDisplay = parsed.rpe !== null ? `${parsed.rpe}/10` : '—';
+                const fatDisplay = parsed.fat !== null ? `${parsed.fat}/10` : '—';
                 fetch(`${GAS_URL}?token=${TOKEN}`, {
                   method: 'POST',
                   mode: 'no-cors',
@@ -1475,7 +1515,7 @@
                     n_seduta: nSed,
                     esercizio: 'Chiusura-Seduta',
                     data: parsed.date || todayIso,
-                    valore: `RPE ${parsed.rpe || 5}/10 · Fatica ${parsed.fat || 5}/10`,
+                    valore: `RPE ${rpeDisplay} · Fatica ${fatDisplay}`,
                     note: parsed.note || ''
                   })
                 });
@@ -2028,14 +2068,31 @@
     }
 
     function renderSessionEnd(nSeduta) {
+      const savedRaw = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`);
+      let savedObj = null;
+      if (savedRaw) {
+        try { savedObj = JSON.parse(savedRaw); } catch(e) {}
+      }
+      const initialRpe = savedObj?.rpe ?? sessionRatings[nSeduta]?.rpe ?? null;
+      const initialFat = savedObj?.fat ?? sessionRatings[nSeduta]?.fat ?? null;
+      const initialNote = savedObj?.note || '';
+
+      if (initialRpe !== null && !sessionRatings[nSeduta]) sessionRatings[nSeduta] = {};
+      if (initialRpe !== null) sessionRatings[nSeduta].rpe = initialRpe;
+      if (initialFat !== null) sessionRatings[nSeduta].fat = initialFat;
+
       let rpeBtns = '';
       for (let i = 0; i <= 10; i++) {
-        rpeBtns += `<button type="button" class="r-btn" onclick="setRating('rpe', '${nSeduta}', ${i}, this)">${i}</button>`;
+        const isActive = (initialRpe !== null && Number(initialRpe) === i);
+        rpeBtns += `<button type="button" class="r-btn ${isActive ? 'active' : ''}" onclick="setRating('rpe', '${nSeduta}', ${i}, this)">${i}</button>`;
       }
       let fatBtns = '';
       for (let i = 0; i <= 10; i++) {
-        fatBtns += `<button type="button" class="r-btn" onclick="setRating('fat', '${nSeduta}', ${i}, this)">${i}</button>`;
+        const isActive = (initialFat !== null && Number(initialFat) === i);
+        fatBtns += `<button type="button" class="r-btn ${isActive ? 'active' : ''}" onclick="setRating('fat', '${nSeduta}', ${i}, this)">${i}</button>`;
       }
+
+      const isSaved = Boolean(savedObj && (savedObj.rpe !== null || savedObj.fat !== null));
 
       return `
         <div class="session-end-card" style="background:var(--mv-surface2);border:1px solid var(--mv-border);border-radius:var(--radius-lg);padding:18px;margin-top:20px;">
@@ -2044,7 +2101,7 @@
           <div style="margin-bottom:14px;">
             <div style="display:flex;justify-content:space-between;font-size:0.82rem;font-weight:800;color:#fff;margin-bottom:2px;">
               <span>${isEN ? 'Session Intensity (RPE 0-10)' : 'Intensità Seduta (RPE 0-10)'}</span>
-              <span id="lbl-rpe-${nSeduta}" style="color:var(--mv-amber)">— / 10</span>
+              <span id="lbl-rpe-${nSeduta}" style="color:var(--mv-amber)">${initialRpe !== null ? initialRpe + ' / 10' : '— / 10'}</span>
             </div>
             <div style="font-size:0.7rem;color:var(--mv-muted);margin-bottom:6px;">${isEN ? '0 = No effort / Rest ➔ 10 = Maximal effort' : '0 = Nessuno sforzo ➔ 10 = Sforzo massimale'}</div>
             <div style="display:grid;grid-template-columns:repeat(11,1fr);gap:3px;">${rpeBtns}</div>
@@ -2053,21 +2110,22 @@
           <div style="margin-bottom:14px;">
             <div style="display:flex;justify-content:space-between;font-size:0.82rem;font-weight:800;color:#fff;margin-bottom:2px;">
               <span>${isEN ? 'Fatigue Level (0-10)' : 'Livello di Fatica (0-10)'}</span>
-              <span id="lbl-fat-${nSeduta}" style="color:var(--mv-amber)">— / 10</span>
+              <span id="lbl-fat-${nSeduta}" style="color:var(--mv-amber)">${initialFat !== null ? initialFat + ' / 10' : '— / 10'}</span>
             </div>
             <div style="font-size:0.7rem;color:var(--mv-muted);margin-bottom:6px;">${isEN ? '0 = Fresh / High energy ➔ 10 = Exhausted' : '0 = Fresca / Piena energia ➔ 10 = Esausta'}</div>
             <div style="display:grid;grid-template-columns:repeat(11,1fr);gap:3px;">${fatBtns}</div>
           </div>
 
-          <textarea style="width:100%;background:#090f1d;border:1px solid var(--mv-border);color:#fff;border-radius:8px;padding:8px 10px;font-size:0.82rem;min-height:55px;outline:none;margin-bottom:14px;" id="note-end-${nSeduta}" placeholder="${isEN ? 'Session notes (optional)...' : 'Note sulla seduta (opzionale)...'}"></textarea>
+          <textarea style="width:100%;background:#090f1d;border:1px solid var(--mv-border);color:#fff;border-radius:8px;padding:8px 10px;font-size:0.82rem;min-height:55px;outline:none;margin-bottom:14px;" id="note-end-${nSeduta}" placeholder="${isEN ? 'Session notes (optional)...' : 'Note sulla seduta (opzionale)...'}" oninput="onSessionNoteInput('${nSeduta}', this.value)">${initialNote}</textarea>
           
-          <button class="btn-save-session" style="width:100%;background:var(--mv-amber);color:#000;border:none;border-radius:10px;padding:14px;font-size:0.95rem;font-weight:800;cursor:pointer;" onclick="submitSession('${nSeduta}', this)">${isEN ? 'Save Session' : 'Fine Seduta — Salva Tutto'}</button>
-          <div id="save-msg-${nSeduta}" style="text-align:center;font-weight:800;color:var(--mv-emerald);margin-top:10px;display:none;">✓ Seduta registrata con successo!</div>
+          <button class="btn-save-session" style="width:100%;background:${isSaved ? 'var(--mv-emerald)' : 'var(--mv-amber)'};color:${isSaved ? '#fff' : '#000'};border:none;border-radius:10px;padding:14px;font-size:0.95rem;font-weight:800;cursor:pointer;" onclick="submitSession('${nSeduta}', this)">${isSaved ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save Session' : 'Fine Seduta — Salva Tutto')}</button>
+          <div id="save-msg-${nSeduta}" style="text-align:center;font-weight:800;color:var(--mv-emerald);margin-top:10px;display:${isSaved ? 'block' : 'none'};">${isEN ? '✓ Session saved & synchronized' : '✓ Seduta registrata e sincronizzata'}</div>
         </div>
       `;
     }
 
     let sessionRatings = {};
+    const debounceSessionTimers = {};
 
     function setRating(type, nSeduta, val, btn) {
       if (!sessionRatings[nSeduta]) sessionRatings[nSeduta] = {};
@@ -2076,23 +2134,57 @@
       btn.parentElement.querySelectorAll('.r-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById(`lbl-${type}-${nSeduta}`).textContent = `${val} / 10`;
+
+      // Persistenza IMMEDIATA in localStorage
+      const rpe = sessionRatings[nSeduta].rpe ?? null;
+      const fat = sessionRatings[nSeduta].fat ?? null;
+      const note = document.getElementById(`note-end-${nSeduta}`)?.value.trim() || '';
+
+      const payload = {
+        rpe: rpe,
+        fat: fat,
+        note: note,
+        date: new Date().toISOString().slice(0, 10),
+        ts: new Date().toISOString()
+      };
+      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
+
+      // Auto-salvataggio su cloud (debounce 1.5s)
+      clearTimeout(debounceSessionTimers[nSeduta]);
+      debounceSessionTimers[nSeduta] = setTimeout(() => {
+        autoSaveSessionRatingToCloud(nSeduta);
+      }, 1500);
     }
 
-    async function submitSession(nSeduta, btn) {
-      btn.disabled = true;
-      btn.textContent = isEN ? 'Saving...' : 'Salvataggio in corso...';
+    function onSessionNoteInput(nSeduta, val) {
+      if (!sessionRatings[nSeduta]) sessionRatings[nSeduta] = {};
+      const rpe = sessionRatings[nSeduta].rpe ?? null;
+      const fat = sessionRatings[nSeduta].fat ?? null;
 
-      const rpe = sessionRatings[nSeduta]?.rpe || 5;
-      const fat = sessionRatings[nSeduta]?.fat || 5;
-      const note = document.getElementById(`note-end-${nSeduta}`).value.trim();
+      const payload = {
+        rpe: rpe,
+        fat: fat,
+        note: val.trim(),
+        date: new Date().toISOString().slice(0, 10),
+        ts: new Date().toISOString()
+      };
+      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
 
+      clearTimeout(debounceSessionTimers[nSeduta]);
+      debounceSessionTimers[nSeduta] = setTimeout(() => {
+        autoSaveSessionRatingToCloud(nSeduta);
+      }, 1500);
+    }
+
+    async function autoSaveSessionRatingToCloud(nSeduta) {
+      if (!currentAthlete || !currentAthlete.id) return;
+      const raw = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`);
+      if (!raw) return;
       try {
-        localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify({
-          rpe: rpe,
-          fat: fat,
-          note: note,
-          date: new Date().toISOString().slice(0, 10)
-        }));
+        const parsed = JSON.parse(raw);
+        if (parsed.rpe === null && parsed.fat === null) return;
+        const rpeDisplay = parsed.rpe !== null ? `${parsed.rpe}/10` : '—';
+        const fatDisplay = parsed.fat !== null ? `${parsed.fat}/10` : '—';
 
         await fetch(`${GAS_URL}?token=${TOKEN}`, {
           method: 'POST',
@@ -2104,17 +2196,37 @@
             id_giocatrice: currentAthlete.id,
             n_seduta: nSeduta,
             esercizio: 'Chiusura-Seduta',
-            data: new Date().toISOString().slice(0, 10),
-            valore: `RPE ${rpe}/10 · Fatica ${fat}/10`,
-            note: note
+            data: parsed.date || new Date().toISOString().slice(0, 10),
+            valore: `RPE ${rpeDisplay} · Fatica ${fatDisplay}`,
+            note: parsed.note || ''
           })
         });
-      } catch (err) {}
 
+        localStorage.setItem(`mv_synced_mv_session_rating_${currentAthlete.id}_${nSeduta}`, raw);
+        const saveMsg = document.getElementById(`save-msg-${nSeduta}`);
+        if (saveMsg) {
+          saveMsg.textContent = isEN ? '✓ Saved automatically!' : '✓ Salvato automaticamente!';
+          saveMsg.style.display = 'block';
+        }
+      } catch (e) {}
+    }
+
+    async function submitSession(nSeduta, btn) {
+      btn.disabled = true;
+      btn.textContent = isEN ? 'Saving...' : 'Salvataggio in corso...';
+
+      clearTimeout(debounceSessionTimers[nSeduta]);
+      await autoSaveSessionRatingToCloud(nSeduta);
+
+      btn.disabled = false;
       btn.textContent = '✓ Salvato!';
       btn.style.background = 'var(--mv-emerald)';
       btn.style.color = '#fff';
-      document.getElementById(`save-msg-${nSeduta}`).style.display = 'block';
+      const msg = document.getElementById(`save-msg-${nSeduta}`);
+      if (msg) {
+        msg.textContent = isEN ? '✓ Session saved & synchronized' : '✓ Seduta registrata e sincronizzata!';
+        msg.style.display = 'block';
+      }
     }
 
     function initWellnessRatingBars() {
@@ -2231,6 +2343,8 @@
         if (banner) banner.style.display = 'flex';
       } else if (Notification.permission === 'granted') {
         autoSyncPushSubscription();
+        // Fallback iOS: riesegui al primo tocco per garantire contesto gesture
+        window.addEventListener('pointerdown', autoSyncPushSubscription, { once: true });
       }
     }
 
