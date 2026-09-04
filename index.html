@@ -2475,13 +2475,6 @@
         try {
           const reg = await navigator.serviceWorker.ready;
           let sub = await reg.pushManager.getSubscription();
-          if (sub) {
-            // Rinnova la sottoscrizione per garantire l'allineamento con la nuova VAPID key
-            try {
-              await sub.unsubscribe();
-              sub = null;
-            } catch(e) {}
-          }
           if (!sub) {
             sub = await reg.pushManager.subscribe({
               userVisibleOnly: true,
