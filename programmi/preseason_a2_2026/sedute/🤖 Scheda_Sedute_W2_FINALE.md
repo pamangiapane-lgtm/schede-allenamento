@@ -153,18 +153,20 @@ Totale reale: ~48' + buffer ~8-10' = **~56-58'**.
 
 ---
 
-## VENERDÌ pomeriggio — CM5, 6v6 controllato — 40% carico gara (~30')
+## VENERDÌ pomeriggio — CM5, Footwork ruolo a secco + Landing Mechanics & Chiusura Aerobica (~30')
 
-*Cambia rispetto a W1: da tecnica libera bassa densità a esposizione di gioco strutturata (era il ponte dichiarato verso l'amichevole di W3).*
+*Allineata al principio di competenza S&C: rimosso qualsiasi 6v6 o gioco con palla. Il target di esposizione specifica (40% carico gara e Jump Budget di 24-28 contatti contati) viene somministrato a secco dal preparatore, isolando la qualità biomeccanica di spinta, decelerazione e atterraggio.*
 
-| Ord. | Fase | Esercizio | Descrizione | Varianti | Distanza/Volume | Intensità | Recupero | RPE |
+| Ord. | Fase | Esercizio | Descrizione | Varianti per Ruolo | Distanza/Volume | Intensità | Recupero | RPE |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico generale | Attivazione leggera pre-gesto | — | 2×10 | RPE3-4 | 20" | 3-4 |
-| 2 | Attivazione dinamica | Skip + mobilità dinamica | Accende il pattern di corsa | — | 2×15m | RPE4 | 20" | 4 |
-| 3 | 6v6 controllato | Partita a punteggio, 2 set corti (a 15) | Esposizione strutturata al gioco — contare i salti (25-35) | Rotazione ruoli ogni set · Regola libera (focus tecnico specifico) | 2 set | RPE6 | 3' tra i set | 6 |
-| 4 | Chiusura | Mobilità/stretching | Chiusura settimana | — | 5' | RPE2 | — | 2 |
+| 1 | Prehab & Mobilità | Menù prevenzione W1-2 | Attivazione mirata per ruolo (§ glossario): caviglia (C), spalla (S/O), polso (P), anca/adductor (L) | Con miniband / foam roller | ~5' | RPE3-4 | — | 3-4 |
+| 2 | Attivazione articolare | Elastico spalla/anca | Extrarotazioni + abduzioni per attivare cuffia e medio gluteo | — | 2×10 per distretto | RPE3-4 | 20" | 3-4 |
+| 3 | Attivazione dinamica | Skip + andature reattive | Skip basso, skip laterale, frenata su due piedi | — | 2×15m | RPE4 | 20" | 4 |
+| 4 | **Landing Mechanics & Footwork Ruolo** | **Pattern specifici a secco con salto dosato** | **Centrali:** traslocazione muro (3 passi) + salto a muro e atterraggio bilanciato (3×4 = 12 salti)<br>**Schiacciatrici/Opposti:** rincorsa d'attacco 3 passi + stacco e landing controllato su 2 piedi (3×4 = 12 salti)<br>**Palleggiatrici:** uscita rapida + arresto e salto simulato palleggio (3×4 = 12 salti)<br>**Libero:** scivolamento difensivo + arresto basso + caduta controllata e rialzata (3×4 rip, **zero salti verticali**) | Focus landing: contatto avampiede-tallone, zero valgo dinamico, tronco solido | 3 serie da 4 rip per ruolo (**totale 24-28 salti** per chi salta; 0 per libero) | RPE5-6 (qualità pura) | 45-60" tra le serie | 5-6 |
+| 5 | **Chiusura Aerobica Estensiva** | Tempo Runs 60m a secco | Corsa fluida a ritmo 60-65% — recupero camminando al ritorno — completamento metabolico ed eliminazione scorie | Corsa sul perimetro o diagonali | 4×60m | 60-65% (ritmo rigenerativo) | Rientro al passo (walk-back) | 4 |
+| 6 | Chiusura & Decompressione | Mobilità catene & Core leggero | Allungamento flessori d'anca (psoas/retto fem.), Child's pose, respirazione diaframmatica | — | 5' | RPE2 | — | 2 |
 
-Contatti stimati: 25-35 (dentro il tetto ≤1,5× rispetto al blocco leggero di W1).
+Jump Budget rigoroso: 24-28 salti contati totali (dentro la soglia di sicurezza W2).
 
 ---
 
