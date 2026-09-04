@@ -1,9 +1,7 @@
 name: Daily WhatsApp Wellness Report
 
 on:
-  schedule:
-    - cron: '30 7 * * *' # Ogni giorno alle 07:30 UTC (09:30 ora italiana)
-  workflow_dispatch: # Permette anche di lanciare il report a mano da GitHub
+  workflow_dispatch: # Invocato da cron-job.org ogni mattina alle 09:30 CEST
 
 jobs:
   send-report:
@@ -19,7 +17,9 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo apt-get update && sudo apt-get install -y fonts-dejavu-core
           pip install requests pillow
+
 
       - name: Generate & Send Wellness Report
         working-directory: ./_strumenti

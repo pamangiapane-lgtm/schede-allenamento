@@ -21,13 +21,14 @@ ROSTER = [
     {"id": 14, "name": "Nelly Adamczewska", "role": "Schiacciatrice"}
 ]
 
-def crea_infografica(output_path=r"c:\AI\Pallavolo\Marsala volley\report_wellness_oggi.png"):
+def crea_infografica(output_path="report_wellness_oggi.png"):
     try:
         r = requests.get(GAS_URL, params={'token': TOKEN, 'azione': 'leggi', 'foglio': 'Wellness'}, timeout=20)
         dati = r.json().get('dati', [])
     except Exception as e:
         print(f"Errore download: {e}")
         dati = []
+
 
     today_str = datetime.now().strftime('%Y-%m-%d')
     days_it = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
@@ -121,42 +122,44 @@ def crea_infografica(output_path=r"c:\AI\Pallavolo\Marsala volley\report_wellnes
     img = Image.new('RGB', (W, H), color='#060a14')
     draw = ImageDraw.Draw(img)
 
-    try:
-        font_title = ImageFont.truetype("arialbd.ttf", 46)
-        font_sub = ImageFont.truetype("arial.ttf", 26)
-        font_kpi_val = ImageFont.truetype("arialbd.ttf", 52)
-        font_kpi_lbl = ImageFont.truetype("arialbd.ttf", 22)
-        font_sec_title = ImageFont.truetype("arialbd.ttf", 30)
-        font_row = ImageFont.truetype("arial.ttf", 23)
-        font_row_bold = ImageFont.truetype("arialbd.ttf", 24)
-        font_focus_ath = ImageFont.truetype("arialbd.ttf", 24)
-        font_focus_sub = ImageFont.truetype("arial.ttf", 22)
-        font_note = ImageFont.truetype("ariali.ttf", 22)
-    except:
-        font_title = ImageFont.load_default()
-        font_sub = font_title
-        font_kpi_val = font_title
-        font_kpi_lbl = font_title
-        font_sec_title = font_title
-        font_row = font_title
-        font_row_bold = font_title
-        font_focus_ath = font_title
-        font_focus_sub = font_title
-        font_note = font_title
+    def get_font(names, size):
+        for name in names:
+            try:
+                return ImageFont.truetype(name, size)
+            except Exception:
+                pass
+        return ImageFont.load_default()
+
+    font_title = get_font(["arialbd.ttf", "LiberationSans-Bold.ttf", "DejaVuSans-Bold.ttf"], 46)
+    font_sub = get_font(["arial.ttf", "LiberationSans-Regular.ttf", "DejaVuSans.ttf"], 26)
+    font_kpi_val = get_font(["arialbd.ttf", "LiberationSans-Bold.ttf", "DejaVuSans-Bold.ttf"], 52)
+    font_kpi_lbl = get_font(["arialbd.ttf", "LiberationSans-Bold.ttf", "DejaVuSans-Bold.ttf"], 22)
+    font_sec_title = get_font(["arialbd.ttf", "LiberationSans-Bold.ttf", "DejaVuSans-Bold.ttf"], 30)
+    font_row = get_font(["arial.ttf", "LiberationSans-Regular.ttf", "DejaVuSans.ttf"], 23)
+    font_row_bold = get_font(["arialbd.ttf", "LiberationSans-Bold.ttf", "DejaVuSans-Bold.ttf"], 24)
+    font_focus_ath = get_font(["arialbd.ttf", "LiberationSans-Bold.ttf", "DejaVuSans-Bold.ttf"], 24)
+    font_focus_sub = get_font(["arial.ttf", "LiberationSans-Regular.ttf", "DejaVuSans.ttf"], 22)
+    font_note = get_font(["ariali.ttf", "LiberationSans-Italic.ttf", "DejaVuSans-Oblique.ttf"], 22)
 
     # 1. HEADER (Navy Profondo con Linea Oro)
     draw.rectangle([(0, 0), (W, 190)], fill='#0b1329')
     draw.line([(0, 190), (W, 190)], fill='#f59e0b', width=4)
 
-    logo_path = r'c:\AI\Pallavolo\Marsala volley\logo.jpg'
+    logo_candidates = [
+        os.path.join(os.path.dirname(__file__), '..', 'logo.jpg'),
+        os.path.join(os.path.dirname(__file__), 'logo.jpg'),
+        r'c:\AI\Pallavolo\Marsala volley\logo.jpg'
+    ]
+    logo_path = next((p for p in logo_candidates if os.path.exists(p)), None)
     x_offset = 50
-    if os.path.exists(logo_path):
+    if logo_path:
         try:
             logo = Image.open(logo_path)
             logo = logo.resize((130, 130))
             img.paste(logo, (45, 30))
             x_offset = 195
         except: pass
+
 
     draw.text((x_offset, 42), "MARSALA VOLLEY", fill='#f59e0b', font=font_title)
     draw.text((x_offset, 105), f"DAILY WELLNESS & READINESS REPORT · {date_str}", fill='#cbd5e1', font=font_sub)
