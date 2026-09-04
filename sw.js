@@ -8,6 +8,8 @@ const ASSETS_TO_CACHE = [
   './index.html',
   './data.js?v=20260901v20',
   './logo.jpg',
+  './icon-192.png',
+  './icon-512.png',
   './manifest.json'
 ];
 
@@ -62,13 +64,13 @@ self.addEventListener('push', event => {
   event.waitUntil(
     self.registration.showNotification(payload.title, {
       body: payload.body,
-      icon: './logo.jpg',
-      badge: './logo.jpg',
-      data: { url: payload.url || './?wellness=1' },
-      vibrate: [200, 100, 200]
+      icon: './icon-192.png',
+      badge: './icon-192.png',
+      data: { url: payload.url || './?wellness=1' }
     })
   );
 });
+
 
 self.addEventListener('notificationclick', event => {
   event.notification.close();

@@ -10,8 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: claude/pre-season-app-mods-355hqq
+
 
       - uses: actions/setup-python@v5
         with:

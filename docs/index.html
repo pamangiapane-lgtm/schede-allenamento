@@ -1091,7 +1091,9 @@
       renderRiepilogoCarichi();
       renderSessions();
       syncOfflinePendingLoads();
+      checkPushSubscriptionState();
     }
+
 
     function renderHero() {
       document.getElementById('ath-name').textContent = currentAthlete.name;
@@ -2227,8 +2229,24 @@
       if (Notification.permission === 'default') {
         const banner = document.getElementById('push-banner');
         if (banner) banner.style.display = 'flex';
+      } else if (Notification.permission === 'granted') {
+        autoSyncPushSubscription();
       }
     }
+
+    async function autoSyncPushSubscription() {
+      if (!currentAthlete || !currentAthlete.id || currentAthlete.id === 99) return;
+      try {
+        const syncKey = `mv_vapid_v203_synced_${currentAthlete.id}`;
+        if (localStorage.getItem(syncKey) === 'true') return;
+        await enablePushNotifications();
+        localStorage.setItem(syncKey, 'true');
+        console.log(`[Push] Auto-allineamento completato per ID ${currentAthlete.id}`);
+      } catch(e) {
+        console.warn('[Push] Auto-allineamento non riuscito:', e);
+      }
+    }
+
 
     async function testOrRefreshPush(btn) {
       if (btn) {
