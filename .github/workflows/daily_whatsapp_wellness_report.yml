@@ -32,5 +32,9 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          python invia_whatsapp_automatico.py
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python invia_whatsapp_automatico.py --force
+          else
+            python invia_whatsapp_automatico.py
+          fi
 
