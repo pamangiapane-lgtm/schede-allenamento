@@ -1,0 +1,38 @@
+name: Daily WhatsApp Wellness Sollecito (Ore 08:45)
+
+# ==============================================================================
+# CONFIGURAZIONE TRIGGER (ATTUALMENTE IN MODALITA' STANDBY / NON ATTIVO ONLINE)
+# Il trigger automatico schedulato è commentato: nessun invio avverrà da solo.
+# ==============================================================================
+on:
+  workflow_dispatch: # Abilitato solo per test o avvio manuale su richiesta
+
+  # DISATTIVATO ONLINE: Decommentare quando si vorrà rendere attivo il trigger automatico:
+  # schedule:
+  #   - cron: '45 6 * * *' # 06:45 UTC = 08:45 CEST (Fuso orario italiano estivo)
+
+jobs:
+  sollecito-wellness:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configura Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Installa dipendenze
+        run: |
+          pip install requests
+
+      - name: Esegui Controllo e Sollecito Wellness
+        working-directory: ./_strumenti
+        env:
+          APP_TOKEN: ${{ secrets.APP_TOKEN || 'mv26-prd-3xF7wNqK' }}
+          GREEN_API_INSTANCE: ${{ secrets.GREEN_API_INSTANCE || '710522726817' }}
+          GREEN_API_TOKEN: ${{ secrets.GREEN_API_TOKEN || '6bc94d387d5742a3ad17e1225270479a67d4debd7dfa4863ab' }}
+        run: |
+          python sollecito_wellness_automatico.py
