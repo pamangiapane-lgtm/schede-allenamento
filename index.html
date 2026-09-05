@@ -916,6 +916,7 @@
         <div class="week-switcher">
           <button class="week-pill active" onclick="switchWeek('W1', this)">Settimana 1 (W1)</button>
           <button class="week-pill" onclick="switchWeek('W2', this)">Settimana 2 (W2)</button>
+          <button class="week-pill" onclick="switchWeek('W3', this)">Settimana 3 (W3)</button>
         </div>
         <div id="sessions-container"></div>
       </div>
@@ -958,7 +959,7 @@
 
   </main>
 
-  <script src="data.js?v=20260901v35"></script>
+  <script src="data.js?v=20260904v36"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -1013,7 +1014,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=204').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=205').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -1028,6 +1029,14 @@
         } else {
           showRosterSelection();
         }
+      }
+
+      const urlWeek = urlParams.get('week');
+      if (urlWeek && ['W1', 'W2', 'W3'].includes(urlWeek.toUpperCase())) {
+        currentWeek = urlWeek.toUpperCase();
+        document.querySelectorAll('.week-pill').forEach(p => {
+          p.classList.toggle('active', p.textContent.includes(currentWeek));
+        });
       }
 
       initWellnessRatingBars();
@@ -1218,8 +1227,14 @@
 
     function switchWeek(week, btn) {
       currentWeek = week;
-      document.querySelectorAll('.week-pill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
+      document.querySelectorAll('.week-pill').forEach(p => {
+        p.classList.remove('active');
+        if (btn) {
+          btn.classList.add('active');
+        } else if (p.textContent.includes(week)) {
+          p.classList.add('active');
+        }
+      });
       renderSessions();
     }
 
@@ -1618,25 +1633,25 @@
       const metodo = (e.Metodo || '').toLowerCase();
       const tipo = (e.Tipo_Esercizio || '').toLowerCase();
 
-      if (nome.includes('bench') || nome.includes('panca') || nome.includes('push press') || nome.includes('military') || nome.includes('lento') || nome.includes('dip') || nome.includes('push up') || tipo.includes('spinta')) {
+      if (nome.includes('bench') || nome.includes('panca') || nome.includes('push press') || nome.includes('military') || nome.includes('lento') || nome.includes('dip') || nome.includes('push up') || nome.includes('lunge p.') || tipo.includes('spinta')) {
         return 'Spinta';
       }
-      if (nome.includes('row') || nome.includes('rematore') || nome.includes('lat') || nome.includes('pull-up') || nome.includes('pullup') || nome.includes('trazioni') || nome.includes('pulley') || nome.includes('pull over') || tipo.includes('tirata')) {
+      if (nome.includes('row') || nome.includes('rematore') || nome.includes('lat') || nome.includes('pull-up') || nome.includes('pullup') || nome.includes('trazioni') || nome.includes('pulley') || nome.includes('pull over') || nome.includes('prone y') || nome.includes('y raise') || tipo.includes('tirata') || metodo.includes('rinforzo scapolare')) {
         return 'Tirata';
       }
-      if (nome.includes('box jump') || nome.includes('clean') || nome.includes('squat veloce') || nome.includes('drop-landing') || metodo.includes('pliometria') || metodo.includes('wl derivato') || metodo.includes('forza veloce') || metodo.includes('atterraggi')) {
+      if (nome.includes('box jump') || nome.includes('clean') || nome.includes('squat veloce') || nome.includes('jump squat') || nome.includes('pogo') || nome.includes('slam') || nome.includes('drop-landing') || metodo.includes('pliometria') || metodo.includes('wl derivato') || metodo.includes('forza veloce') || metodo.includes('atterraggi') || metodo.includes('esplosività') || tipo.includes('ballistico')) {
         return 'Potenza';
       }
-      if (nome.includes('squat') || nome.includes('stacco') || nome.includes('rdl') || metodo.includes('forza massima')) {
+      if (nome.includes('squat') || nome.includes('stacco') || nome.includes('rdl') || metodo.includes('forza massima') || metodo.includes('forza leggera hinge') || metodo.includes('forza libero')) {
         return 'Forza';
       }
-      if (nome.includes('pallof') || nome.includes('superman') || nome.includes('deadbug') || nome.includes('addominali') || metodo.includes('core') || tipo.includes('core')) {
+      if (nome.includes('pallof') || nome.includes('superman') || nome.includes('deadbug') || nome.includes('addominali') || metodo.includes('core') || tipo.includes('core') || tipo.includes('anti-estensione') || tipo.includes('anti-rotazione')) {
         return 'Core';
       }
       if (metodo.includes('attivazione') || metodo.includes('prehab') || tipo.includes('respirazione') || tipo.includes('mobilità')) {
         return 'Attivazione';
       }
-      return 'Accessori';
+      return 'Forza';
     }
 
     function renderStandardExerciseCard(e, sed) {
@@ -1892,7 +1907,14 @@
               <div class="session-head" onclick="toggleSession('${sed.Numero_Seduta}')">
                 <div>
                   <span class="session-badge">${sed.Giorno || `Session ${idx+1}`}</span>
-                  <div class="session-title">${sed.Numero_Seduta === 'W2-MarP' ? 'Strength 2 — Nelly Adamczewska' : (sed.Numero_Seduta === 'W2-GioV' ? 'Power 2 — Nelly Adamczewska' : (sed.Nome_Seduta || `Session ${sed.Numero_Seduta}`))}</div>
+                  <div class="session-title">${
+                    sed.Numero_Seduta === 'W2-MarP' ? 'Strength 2 — Nelly Adamczewska' :
+                    (sed.Numero_Seduta === 'W2-GioV' ? 'Power 2 — Nelly Adamczewska' :
+                    (sed.Numero_Seduta === 'W3-LunP' ? 'Strength 3 — Nelly Adamczewska' :
+                    (sed.Numero_Seduta === 'W3-MerV' ? 'Power 3 — Nelly Adamczewska' :
+                    (sed.Numero_Seduta === 'W3-VenR' ? 'Richiamo Pre-Gara — Nelly Adamczewska' :
+                    (sed.Nome_Seduta || `Session ${sed.Numero_Seduta}`)))))
+                  }</div>
                   <div class="session-meta">📍 Gym · ⏱ ~60 min</div>
                 </div>
                 <div class="session-chevron">▾</div>
@@ -1906,16 +1928,26 @@
         }
 
         const isDodi = (currentAthlete && (currentAthlete.id === 9 || currentAthlete.name.toLowerCase().includes('dodi')));
+        const isLibero = (currentAthlete && (currentAthlete.id === 5 || currentAthlete.id === 11 || (currentAthlete.role && currentAthlete.role.toLowerCase().includes('libero'))));
 
         const sedEsercizi = allExercises
           .filter(e => {
             if (String(e.N_Seduta) !== String(sed.Numero_Seduta)) return false;
             const nLow = (e.Esercizio || '').toLowerCase();
             const mLow = (e.Metodo || '').toLowerCase();
+            const ruoli = (e.Ruoli || 'tutti').trim();
 
-            if (mLow.includes('prevenzione') || mLow.includes('blocco ruolo') || mLow.includes('accessori') || mLow.includes('rinforzo scapolare') || mLow.includes('monitoraggio') || mLow.includes('nelly') || e.Ruoli === 'Nelly') {
-              return false;
+            if (ruoli === 'Nelly' || mLow.includes('nelly')) return false;
+
+            if (isLibero) {
+              if (ruoli.includes('!Libero')) return false;
+              if (mLow.includes('prevenzione') || mLow.includes('blocco ruolo') || mLow.includes('monitoraggio') || mLow.includes('attivazione')) return false;
+              if (mLow.includes('rinforzo scapolare') || mLow.includes('forza libero') || ruoli === 'Libero') return true;
+            } else {
+              if (ruoli === 'Libero' || mLow.includes('rinforzo scapolare') || mLow.includes('forza libero')) return false;
+              if (mLow.includes('prevenzione') || mLow.includes('blocco ruolo') || mLow.includes('monitoraggio') || mLow.includes('attivazione')) return false;
             }
+
             if (nLow.includes('heel raise') || nLow.includes('equilibrio') || nLow.includes('foam roller') || nLow.includes('scapular punch') || nLow.includes('wall slide') || nLow.includes('capsule stretch') || nLow.includes('finger') || nLow.includes('pronazione') || nLow.includes('circonduzioni') || nLow.includes('cmj marker')) {
               return false;
             }
@@ -2017,64 +2049,77 @@
                 </div>
               </div>
 
-              <!-- BLOCCO ESPLOSIVITÀ (SUPERSET SEPARATO DALL'ATTIVAZIONE) -->
-              <div class="method-group">
-                <div class="method-title">⚡ Esplosività (Superset Balistico)</div>
-                
-                <div class="superset-card">
-                  <div class="superset-header-row">
-                    <span class="superset-badge">🔗 SUPERSET 1A + 1B</span>
-                    <span class="ex-rest-badge">⏱ Rec. 60s dopo 1B</span>
+              ${sed.Numero_Seduta === 'W3-VenR' ? `
+                <div class="method-group">
+                  <div class="method-title">🛑 Pre-Amichevole — Zero Salti</div>
+                  <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.4);border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:12px;">
+                    <span style="font-size:1.6rem;">🛡️</span>
+                    <div>
+                      <div style="font-weight:800;color:#fca5a5;font-size:0.92rem">FRIDAY JUMP BAN TASSATIVO</div>
+                      <div style="font-size:0.75rem;color:#fecaca;margin-top:2px;">Zero contatti pliometrici/salti: le gambe si preservano fresche e reattive per il test match di sabato.</div>
+                    </div>
                   </div>
-                  <div class="superset-desc-banner">
-                    Esegui 1A e passa subito a 1B senza pausa · Riposo 60s alla fine del giro.
-                  </div>
+                </div>
+              ` : `
+                <!-- BLOCCO ESPLOSIVITÀ (SUPERSET SEPARATO DALL'ATTIVAZIONE) -->
+                <div class="method-group">
+                  <div class="method-title">⚡ Esplosività (Superset Balistico)</div>
+                  
+                  <div class="superset-card">
+                    <div class="superset-header-row">
+                      <span class="superset-badge">🔗 SUPERSET 1A + 1B</span>
+                      <span class="ex-rest-badge">⏱ Rec. 60s dopo 1B</span>
+                    </div>
+                    <div class="superset-desc-banner">
+                      Esegui 1A e passa subito a 1B senza pausa · Riposo 60s alla fine del giro.
+                    </div>
 
-                  <!-- 1A. Lanci Palla Medica -->
-                  <div class="superset-sub-item">
-                    <div class="superset-sub-title">
-                      <span class="ss-num-badge">1A</span>
-                      <span>Lanci Palla Medica (Rotazionali / Slam a Terra)</span>
-                    </div>
-                    <div class="ex-grid">
-                      <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
-                      <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">5 / lato</div></div>
-                      <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber)">MB 3-4 kg</div></div>
-                      <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800">X</div></div>
-                    </div>
-                    <div style="font-size:0.75rem;color:#cbd5e1;line-height:1.35;">Potenza rotazionale ed esplosione del tronco contro il muro o verso terra.</div>
-                    <div class="ex-load-log-box" style="margin-top:8px;">
-                      <span class="ex-load-log-lbl">📝 Peso MB (1A):</span>
-                      <div class="ex-load-input-wrap">
-                        <input type="text" class="ex-load-input" id="ex-log-MB_Throws" placeholder="es. 3 kg" value="${localStorage.getItem(`mv_load_${currentAthlete.id}_MB_Throws`) || '3 kg'}" oninput="onCustomExerciseLoadInput('Lanci Palla Medica (1A)', 'ex-log-MB_Throws', '${sed.Numero_Seduta}', this.value)" onchange="saveCustomExerciseLoad('Lanci Palla Medica (1A)', 'ex-log-MB_Throws', '${sed.Numero_Seduta}')">
-                        <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('Lanci Palla Medica (1A)', 'ex-log-MB_Throws', '${sed.Numero_Seduta}')">Salva</button>
-                        <span id="toast-ex-log-MB_Throws" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+                    <!-- 1A. Lanci Palla Medica -->
+                    <div class="superset-sub-item">
+                      <div class="superset-sub-title">
+                        <span class="ss-num-badge">1A</span>
+                        <span>Lanci Palla Medica (Rotazionali / Slam a Terra)</span>
+                      </div>
+                      <div class="ex-grid">
+                        <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
+                        <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">5 / lato</div></div>
+                        <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber)">MB 3-4 kg</div></div>
+                        <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800">X</div></div>
+                      </div>
+                      <div style="font-size:0.75rem;color:#cbd5e1;line-height:1.35;">Potenza rotazionale ed esplosione del tronco contro il muro o verso terra.</div>
+                      <div class="ex-load-log-box" style="margin-top:8px;">
+                        <span class="ex-load-log-lbl">📝 Peso MB (1A):</span>
+                        <div class="ex-load-input-wrap">
+                          <input type="text" class="ex-load-input" id="ex-log-MB_Throws" placeholder="es. 3 kg" value="${localStorage.getItem(`mv_load_${currentAthlete.id}_MB_Throws`) || '3 kg'}" oninput="onCustomExerciseLoadInput('Lanci Palla Medica (1A)', 'ex-log-MB_Throws', '${sed.Numero_Seduta}', this.value)" onchange="saveCustomExerciseLoad('Lanci Palla Medica (1A)', 'ex-log-MB_Throws', '${sed.Numero_Seduta}')">
+                          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('Lanci Palla Medica (1A)', 'ex-log-MB_Throws', '${sed.Numero_Seduta}')">Salva</button>
+                          <span id="toast-ex-log-MB_Throws" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <!-- Connettore Superset -->
-                  <div class="superset-connector">
-                    <span>⬇️ SUBITO IN SUPERSET SENZA PAUSA ⬇️</span>
-                  </div>
-
-                  <!-- 1B. Salti Bassi Reattivi -->
-                  <div class="superset-sub-item">
-                    <div class="superset-sub-title">
-                      <span class="ss-num-badge">1B</span>
-                      <span>Salti Bassi Reattivi (Pogo Jumps / Ankle Stiffness)</span>
+                    <!-- Connettore Superset -->
+                    <div class="superset-connector">
+                      <span>⬇️ SUBITO IN SUPERSET SENZA PAUSA ⬇️</span>
                     </div>
-                    <div class="ex-grid">
-                      <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
-                      <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">8 balzi</div></div>
-                      <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber)">Reattivo (BW)</div></div>
-                      <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800">X</div></div>
-                    </div>
-                    <div style="font-size:0.75rem;color:#cbd5e1;line-height:1.35;">Minimo tempo di contatto al suolo: rimbalzo elastico reattivo dai piedi con caviglie rigide.</div>
-                  </div>
 
+                    <!-- 1B. Salti Bassi Reattivi -->
+                    <div class="superset-sub-item">
+                      <div class="superset-sub-title">
+                        <span class="ss-num-badge">1B</span>
+                        <span>Salti Bassi Reattivi (Pogo Jumps / Ankle Stiffness)</span>
+                      </div>
+                      <div class="ex-grid">
+                        <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val">2</div></div>
+                        <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val">8 balzi</div></div>
+                        <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber)">Reattivo (BW)</div></div>
+                        <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800">X</div></div>
+                      </div>
+                      <div style="font-size:0.75rem;color:#cbd5e1;line-height:1.35;">Minimo tempo di contatto al suolo: rimbalzo elastico reattivo dai piedi con caviglie rigide.</div>
+                    </div>
+
+                  </div>
                 </div>
-              </div>
+              `}
             `;
           }
 
