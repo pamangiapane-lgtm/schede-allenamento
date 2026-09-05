@@ -1331,7 +1331,10 @@
       let totalReadiness = 0;
       let readinessCount = 0;
 
-      const filteredAthletes = ROSTER.filter(a => {
+      // Escludi staff coach (ID 99 o ruolo staff)
+      const ATHLETES = ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff'));
+
+      const filteredAthletes = ATHLETES.filter(a => {
         if (currentFilterRole !== 'all' && !a.role.toLowerCase().includes(currentFilterRole.toLowerCase())) return false;
         const w = liveWellnessData[a.id];
         const traffic = getAthleteTrafficStatus(w);
@@ -1341,7 +1344,7 @@
         return true;
       });
 
-      ROSTER.forEach(a => {
+      ATHLETES.forEach(a => {
         const w = liveWellnessData[a.id];
         if (w && w.isToday) {
           countFilled++;
@@ -1357,18 +1360,39 @@
         }
       });
 
+      // Ordinamento alert per gravità decrescente:
+      // 1. Rossi (Massima gravità)
+      // 2. Gialli (Attenzione: prima dolori più alti e deficit readiness/fatica)
+      // 3. Verdi con nota (Ottimale / Note cliniche)
+      alertList.sort((a, b) => {
+        const getCat = (item) => item.traffic.type === 'red' ? 0 : (item.traffic.type === 'yellow' ? 1 : 2);
+        const catA = getCat(a);
+        const catB = getCat(b);
+        if (catA !== catB) return catA - catB;
+
+        // A parità di categoria, calcola indice di gravità: dolori più alti e deficit readiness/fatica
+        const score = (item) => {
+          const dol = item.w.dolori || 0;
+          const rDef = 10 - (item.w.readiness !== null ? item.w.readiness : 10);
+          const fDef = 10 - (item.w.fatica !== null ? item.w.fatica : 10);
+          const sDef = 10 - (item.w.sonno !== null ? item.w.sonno : 10);
+          return dol * 3 + rDef * 2 + fDef + sDef;
+        };
+        return score(b) - score(a);
+      });
+
       // Aggiorna KPI
-      document.getElementById('kpi-wellness-count').textContent = `${countFilled} / ${ROSTER.length}`;
-      document.getElementById('kpi-wellness-status').textContent = countFilled === ROSTER.length ? 'Tutte compilate!' : `${ROSTER.length - countFilled} mancanti`;
+      document.getElementById('kpi-wellness-count').textContent = `${countFilled} / ${ATHLETES.length}`;
+      document.getElementById('kpi-wellness-status').textContent = countFilled === ATHLETES.length ? 'Tutte compilate!' : `${ATHLETES.length - countFilled} mancanti`;
       document.getElementById('kpi-alert-count').textContent = alertList.length;
       document.getElementById('kpi-alert-sub').textContent = alertList.length === 0 ? 'Nessun fastidio critico' : `${alertList.length} atlete da monitorare`;
       
       let countSessionsToday = 0;
-      ROSTER.forEach(a => {
+      ATHLETES.forEach(a => {
         if (liveTodaySessions[a.id] && liveTodaySessions[a.id].isToday) countSessionsToday++;
       });
       const kpiSess = document.getElementById('kpi-sessions-count');
-      if (kpiSess) kpiSess.textContent = `${countSessionsToday} / ${ROSTER.length}`;
+      if (kpiSess) kpiSess.textContent = `${countSessionsToday} / ${ATHLETES.length}`;
       const kpiSessSub = document.getElementById('kpi-sessions-status');
       if (kpiSessSub) {
         kpiSessSub.textContent = countSessionsToday === ROSTER.length 

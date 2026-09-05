@@ -29,7 +29,6 @@ TOKEN   = os.environ.get('APP_TOKEN') or 'mv26-prd-3xF7wNqK'
 BASE_APP_URL = 'https://pamangiapane-lgtm.github.io/schede-allenamento/'
 
 ROSTER = [
-    {"id": 99, "name": "Paulo Mangiapane"},
     {"id": 1, "name": "Veronica Allasia"},
     {"id": 2, "name": "Maria Marcuzzi"},
     {"id": 3, "name": "Victoria Sassolini"},

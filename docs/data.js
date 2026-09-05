@@ -1,23 +1,5 @@
 const ROSTER = [
   {
-    "id": 99,
-    "name": "Staff Coach (Demo)",
-    "role": "Staff Tecnico / Test",
-    "number": "#99",
-    "risk_level": "LOW",
-    "clinical_flags": [],
-    "focus_areas": ["Test Notifiche", "Verifica Funzionalità"],
-    "folder": "99_Coach_Demo",
-    "baseline_1rm": {
-      "Squat": 100,
-      "Bench Press": 60,
-      "Military Press": 40,
-      "Clean": 50,
-      "Row BB": 50,
-      "Lat Machine": 50
-    }
-  },
-  {
     "id": 1,
 
     "Link_Prehab": "https://pro.theprehabguys.com/patient-portal/programs/KSCPPDAB",

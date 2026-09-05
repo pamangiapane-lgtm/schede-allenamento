@@ -155,10 +155,21 @@ def crea_infografica(output_path="report_wellness_oggi.png"):
                     'details': "   •   ".join(out_items)
                 })
 
-    # Ordina: Prima Rossi (0), poi Gialli (1), poi Verdi (2)
+    # Ordina per gravità decrescente:
+    # 1. Rossi (0)
+    # 2. Gialli (1) ordinati per dolori più alti e deficit readiness/fatica/sonno
+    # 3. Verdi (2) con note
     def sort_order(x):
         b = x.get('badge_type')
-        return 0 if b == 'red' else (1 if b == 'yellow' else 2)
+        cat = 0 if b == 'red' else (1 if b == 'yellow' else 2)
+        w = x.get('w', {})
+        dol = w.get('dolori') if w.get('dolori') is not None else 0
+        r_def = 10 - (w.get('readiness') if w.get('readiness') is not None else 10)
+        f_def = 10 - (w.get('fatica') if w.get('fatica') is not None else 10)
+        s_def = 10 - (w.get('sonno') if w.get('sonno') is not None else 10)
+        sev_score = dol * 3 + r_def * 2 + f_def + s_def
+        return (cat, -sev_score)
+
     focus_list.sort(key=sort_order)
 
     avg_pct = round((total_readiness / readiness_count) * 10) if readiness_count > 0 else 0
