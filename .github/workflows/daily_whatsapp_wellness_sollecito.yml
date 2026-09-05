@@ -7,8 +7,10 @@ name: Daily WhatsApp Wellness Sollecito (Ore 08:45)
 on:
   workflow_dispatch: # Abilitato solo per test o avvio manuale su richiesta
 
-  schedule:
-    - cron: '45 6 * * *' # 06:45 UTC = 08:45 CEST (Fuso orario italiano estivo)
+  # Schedulazione gestita in locale dal PC (Task Scheduler con risveglio da sospensione)
+  # per evitare i limiti di quota di Green-API free sui messaggi privati 1-to-1.
+  # schedule:
+  #   - cron: '45 6 * * *'
 
 jobs:
   sollecito-wellness:
