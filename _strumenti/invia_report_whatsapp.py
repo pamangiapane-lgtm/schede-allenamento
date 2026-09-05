@@ -7,15 +7,15 @@ TOKEN   = 'mv26-prd-3xF7wNqK'
 ROSTER = [
     {"id": 1, "name": "Veronica Allasia", "role": "Palleggiatrice"},
     {"id": 2, "name": "Maria Marcuzzi", "role": "Centrale"},
-    {"id": 3, "name": "Victoria Sassolini", "role": "Palleggiatrice"},
+    {"id": 3, "name": "Victoria Sassolini", "role": "Schiacciatrice"},
     {"id": 4, "name": "Anja Asonja", "role": "Opposto"},
-    {"id": 5, "name": "Chiara Lo Dico", "role": "Schiacciatrice"},
+    {"id": 5, "name": "Chiara Lo Dico", "role": "Libero"},
     {"id": 6, "name": "Gaia Biondi", "role": "Centrale"},
     {"id": 7, "name": "Elisa Bole", "role": "Schiacciatrice"},
     {"id": 8, "name": "Federica Nonnati", "role": "Opposto"},
     {"id": 9, "name": "Sara Dodi", "role": "Schiacciatrice"},
     {"id": 11, "name": "Luna Cicola", "role": "Libero"},
-    {"id": 12, "name": "Erin Grippo", "role": "Libero"},
+    {"id": 12, "name": "Erin Grippo", "role": "Palleggiatrice"},
     {"id": 13, "name": "Giulia Caserta", "role": "Centrale"},
     {"id": 14, "name": "Nelly Adamczewska", "role": "Schiacciatrice"}
 ]

@@ -85,7 +85,7 @@
   {
     "id": 4,
     "name": "Anja Asonja",
-    "role": "Schiacciatrice",
+    "role": "Opposto",
     "number": "#04",
     "risk_level": "MEDIUM",
     "clinical_flags": [
@@ -193,7 +193,7 @@
   {
     "id": 8,
     "name": "Federica Nonnati",
-    "role": "Schiacciatrice",
+    "role": "Opposto",
     "number": "#08",
     "risk_level": "HIGH",
     "clinical_flags": [

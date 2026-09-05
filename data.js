@@ -94,7 +94,7 @@ const ROSTER = [
     "Link_Prehab": "https://pro.theprehabguys.com/patient-portal/programs/NWSHWMVO",
     "link_prehab": "https://pro.theprehabguys.com/patient-portal/programs/NWSHWMVO",
     "name": "Anja Asonja",
-    "role": "Schiacciatrice",
+    "role": "Opposto",
     "number": "#04",
     "risk_level": "MEDIUM",
     "clinical_flags": [
@@ -210,7 +210,7 @@ const ROSTER = [
     "Link_Prehab": "https://pro.theprehabguys.com/patient-portal/programs/IIPRMI4A",
     "link_prehab": "https://pro.theprehabguys.com/patient-portal/programs/IIPRMI4A",
     "name": "Federica Nonnati",
-    "role": "Schiacciatrice",
+    "role": "Opposto",
     "number": "#08",
     "risk_level": "HIGH",
     "clinical_flags": [
