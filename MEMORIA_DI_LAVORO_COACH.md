@@ -110,7 +110,7 @@
 
 ## 📲 REPORT GIORNALIERO AUTOMATICO WHATSAPP
 * **Destinazione:** Gruppo WhatsApp Staff / Head Coach (`Medical Conditions` - `120363408483842576@g.us`).
-* **Orario di Invio Automatico:** Mattina alle **09:30:00** (schedulato su `cron-job.org` che invoca `workflow_dispatch` su `daily_whatsapp_wellness_report.yml` con fail-safe Windows Task Scheduler locale).
+* **Orario di Invio Automatico:** Mattina alle **10:30:00** (schedulato su GitHub Actions cron `30 8 * * *` e `cron-job.org` con fail-safe Windows Task Scheduler locale `MarsalaVolley_DailyWhatsAppWellness`).
 * **Funzionamento a PC Spento:** 100% cloud-native su runner GitHub Actions (generazione infografica Pillow HD + invio Green-API).
 * **Formato di Consegna (REGOLA TASSATIVA: SOLA IMMAGINE):**
   1. **Infografica Visiva HD (PNG 1080x1920):** Grafica ufficiale Marsala Volley (Navy/Gold) con KPI squadra, focus clinico e tabella completa 13 atlete con semafori.
