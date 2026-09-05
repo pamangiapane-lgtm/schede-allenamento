@@ -17,9 +17,9 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 # ==============================================================================
 # INTERRUTTORE DI SICUREZZA (MASTER SWITCH)
-# Modificare in True quando il Coach darà l'ok per andare online a regime!
+# ATTIVO ONLINE - Servizio a regime
 # ==============================================================================
-SISTEMA_ATTIVO = False 
+SISTEMA_ATTIVO = True 
 
 GREEN_API_INSTANCE = (os.environ.get("GREEN_API_INSTANCE") or "710522726817").strip()
 GREEN_API_TOKEN    = (os.environ.get("GREEN_API_TOKEN") or "6bc94d387d5742a3ad17e1225270479a67d4debd7dfa4863ab").strip()
