@@ -25,21 +25,10 @@ NOTIFICA_TITOLO = '🏐 Marsala Volley — Morning Wellness'
 NOTIFICA_TESTO  = 'Buongiorno! Compila il tuo Wellness di oggi 🌅'
 
 def main():
-    print(f"=== MARSALA VOLLEY — INVIO PUSH MATTUTINO SQUADRA ({datetime.now().strftime('%d/%m/%Y %H:%M')}) ===")
-    
-    # 1. Carica le sottoscrizioni push da Google Sheets
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    try:
-        r = requests.get(GAS_URL, params={'token': TOKEN, 'azione': 'leggi', 'foglio': 'PushSub'}, headers=headers, timeout=20)
-        subs = r.json().get('dati', []) if r.status_code == 200 else []
-        print(f"📋 Iscrizioni Push trovate nel database: {len(subs)}")
-    except Exception as e:
-        print(f"❌ Errore lettura Google Sheets: {e}")
-        return
-
-    if not subs:
-        print("⚠️ Nessun dispositivo registrato.")
-        return
+    print("=== MARSALA VOLLEY — WEB PUSH NOTIFICHE DISATTIVATE ===")
+    print("ℹ️ Le notifiche Web Push sono state disattivate in favore del canale/gruppo WhatsApp.")
+    print("Nessun invio effettuato.")
+    return
 
     # 2. Invia notifica push a tutte le atlete registrate
     ok = 0
