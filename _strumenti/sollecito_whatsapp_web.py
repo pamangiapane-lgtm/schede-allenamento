@@ -213,22 +213,22 @@ def invia_messaggi(destinatari, dry_run=False):
             target_url = f"{BASE_APP_URL}?id={aid}&wellness=1"
 
             if aid in [4, 14]:
-                testo = f"""🏐 *Marsala Volley — Technical Staff* 🌅
+                testo = f"""🏐 Marsala Volley — Technical Staff
 
 Hi {nome}!
 Your Morning Wellness questionnaire for today's session is still pending.
 
-Please take 20 seconds to complete it before training:
+Please complete it now:
 👉 {target_url}
 
 Thank you for your cooperation! 💪"""
             else:
-                testo = f"""🏐 *Marsala Volley — Staff Tecnico* 🌅
+                testo = f"""🏐 Marsala Volley — Staff Tecnico
 
 Ciao {nome}!
 Risulta mancante la compilazione del tuo questionario Wellness per la seduta odierna.
 
-Ti chiediamo di compilarlo adesso prima dell'allenamento (ci vogliono 20 secondi):
+Ti chiediamo di compilarlo adesso:
 👉 {target_url}
 
 Grazie per la collaborazione! 💪"""
