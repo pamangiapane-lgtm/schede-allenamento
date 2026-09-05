@@ -1190,9 +1190,11 @@
         alerts.forEach(item => {
           const em = item.traffic.type === 'red' ? '🔴' : '🟡';
           msg += em + ' *#' + item.ath.id + ' ' + item.ath.name + '* (' + item.ath.role + ')\n';
-          if (item.w.dolori !== null && item.w.dolori >= 3) msg += '   • Dolori: *' + item.w.dolori + '/10*\n';
-          if (item.w.fatica !== null && item.w.fatica <= 5) msg += '   • Energia: *' + item.w.fatica + '/10*\n';
-          if (item.w.sonno !== null && item.w.sonno <= 5) msg += '   • Sonno: *' + item.w.sonno + '/10*\n';
+          if (item.w.dolori !== null && item.w.dolori >= 4) msg += '   • Dolori: *' + item.w.dolori + '/10*\n';
+          if (item.w.fatica !== null && item.w.fatica <= 6) msg += '   • Energia: *' + item.w.fatica + '/10*\n';
+          if (item.w.sonno !== null && item.w.sonno <= 6) msg += '   • Sonno: *' + item.w.sonno + '/10*\n';
+          if (item.w.readiness !== null && item.w.readiness <= 6) msg += '   • Readiness: *' + item.w.readiness + '/10*\n';
+          if (item.w.stress !== null && item.w.stress >= 4) msg += '   • Stress: *' + item.w.stress + '/10*\n';
           if (item.w.note) msg += '   💬 _"' + item.w.note + '"_\n';
         });
         msg += '\n';
@@ -1257,6 +1259,20 @@
       return '#94a3b8';
     }
 
+    function isSecondYellowOrRed(catId, val) {
+      if (val === null || val === undefined) return false;
+      if (catId === 'dolori') {
+        return val >= 4; // 3 è 1° giallo (No Alert), 4 è 2° giallo (Alert), >=5 è Rosso
+      }
+      if (catId === 'sonno' || catId === 'fatica' || catId === 'readiness') {
+        return val <= 6; // 7 è 1° giallo (No Alert), 6 è 2° giallo (Alert), <=5 è Rosso
+      }
+      if (catId === 'stress') {
+        return val >= 4; // 3 è 1° giallo (No Alert), 4 è 2° giallo (Alert), >=5 è Rosso
+      }
+      return false;
+    }
+
     function getAthleteTrafficStatus(w) {
       if (!w || !w.isToday) return { type: 'grey', label: 'Da Compilare', text: 'Nessun dato oggi' };
       
@@ -1269,7 +1285,15 @@
       if (sSonno === 'red' || sFatica === 'red' || sReady === 'red' || sDolori === 'red' || sStress === 'red') {
         return { type: 'red', label: 'Alert Rosso', text: 'Rimodula / Valutazione' };
       }
-      if (sSonno === 'yellow' || sFatica === 'yellow' || sReady === 'yellow' || sDolori === 'yellow' || sStress === 'yellow' || (w.note && w.note.trim().length > 0)) {
+
+      const has2ndYellow = isSecondYellowOrRed('dolori', w.dolori) ||
+                           isSecondYellowOrRed('sonno', w.sonno) ||
+                           isSecondYellowOrRed('fatica', w.fatica) ||
+                           isSecondYellowOrRed('readiness', w.readiness) ||
+                           isSecondYellowOrRed('stress', w.stress);
+      const hasNote = (w.note && w.note.trim().length > 0);
+
+      if (has2ndYellow || hasNote) {
         return { type: 'yellow', label: 'Attenzione', text: 'Riduci salti 20%' };
       }
       return { type: 'green', label: 'Ottimale', text: '100% Carico OK' };
