@@ -72,31 +72,40 @@ def crea_infografica(output_path="report_wellness_oggi.png"):
             out_items = []
             is_red = False
             
-            # 1. Dolori
+            # 1. Dolori: 1° giallo = 3 (NO ALERT), 2° giallo = 4 (ALERT), >= 5 = Rosso (ALERT)
             if w['dolori'] >= 5:
                 out_items.append(f"Dolori: {w['dolori']}/10 (Critico)")
                 is_red = True
-            elif w['dolori'] >= 3:
-                out_items.append(f"Dolori: {w['dolori']}/10")
+            elif w['dolori'] == 4:
+                out_items.append(f"Dolori: 4/10")
 
-            # 2. Readiness
-            if rd is not None and rd < 6:
-                out_items.append(f"Readiness: {rd}/10 (Bassa)")
-                is_red = True
+            # 2. Readiness: 1° giallo = 7 (NO ALERT), 2° giallo = 6 (ALERT), <= 5 = Rosso (ALERT)
+            if rd is not None:
+                if rd <= 5:
+                    out_items.append(f"Readiness: {rd}/10 (Bassa)")
+                    is_red = True
+                elif rd == 6:
+                    out_items.append(f"Readiness: 6/10")
 
-            # 3. Sonno
-            if w['sonno'] is not None and w['sonno'] < 6:
-                out_items.append(f"Sonno: {w['sonno']}/10 (Scarso)")
-                is_red = True
+            # 3. Sonno: 1° giallo = 7 (NO ALERT), 2° giallo = 6 (ALERT), <= 5 = Rosso (ALERT)
+            if w['sonno'] is not None:
+                if w['sonno'] <= 5:
+                    out_items.append(f"Sonno: {w['sonno']}/10 (Scarso)")
+                    is_red = True
+                elif w['sonno'] == 6:
+                    out_items.append(f"Sonno: 6/10")
 
-            # 4. Energia
-            if w['fatica'] is not None and w['fatica'] < 6:
-                out_items.append(f"Energia: {w['fatica']}/10 (Fatica Alta)")
-                is_red = True
+            # 4. Energia: 1° giallo = 7 (NO ALERT), 2° giallo = 6 (ALERT), <= 5 = Rosso (ALERT)
+            if w['fatica'] is not None:
+                if w['fatica'] <= 5:
+                    out_items.append(f"Energia: {w['fatica']}/10 (Fatica Alta)")
+                    is_red = True
+                elif w['fatica'] == 6:
+                    out_items.append(f"Energia: 6/10")
 
-            # 5. Stress
+            # 5. Stress: 1° giallo = 3 (NO ALERT), 2° giallo = 4 (ALERT), >= 5 = Rosso (ALERT)
             if w['stress'] >= 5:
-                out_items.append(f"Stress: {w['stress']}/10")
+                out_items.append(f"Stress: {w['stress']}/10 (Alto)")
                 is_red = True
             elif w['stress'] == 4:
                 out_items.append(f"Stress: 4/10")
@@ -238,7 +247,7 @@ def crea_infografica(output_path="report_wellness_oggi.png"):
             en = w['fatica']
             do = w['dolori']
 
-            is_red = (rd is not None and rd < 6) or (so is not None and so < 6) or (do >= 5)
+            is_red = (rd is not None and rd < 6) or (so is not None and so < 6) or (do >= 5) or (en is not None and en < 6)
             is_yellow = not is_red and ((rd is not None and rd <= 7) or (do >= 3) or (w['note'] and len(w['note']) > 0))
             dot_c = '#ef4444' if is_red else ('#f59e0b' if is_yellow else '#10b981')
 
