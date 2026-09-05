@@ -2,7 +2,7 @@
 sollecito_wellness_automatico.py — Sollecito privato automatico via WhatsApp alle atlete ritardatarie.
 Verifica su Google Sheets chi ha compilato il Wellness di oggi.
 Invia un messaggio WhatsApp privato ESCLUSIVAMENTE a chi non ha ancora compilato.
-Mittente: Marsala Volley — Staff Tecnico (SIM del modem)
+Mittente: Marsala Volley — Staff Tecnico (SIM del modem: +39 350 083 0803)
 Supporto bilingue: Italiano per le atlete italiane, Inglese per Anja (#4) e Nelly (#14).
 """
 
@@ -15,6 +15,12 @@ from datetime import datetime
 
 sys.stdout.reconfigure(encoding='utf-8')
 
+# ==============================================================================
+# INTERRUTTORE DI SICUREZZA (MASTER SWITCH)
+# Modificare in True quando il Coach darà l'ok per andare online a regime!
+# ==============================================================================
+SISTEMA_ATTIVO = False 
+
 GREEN_API_INSTANCE = (os.environ.get("GREEN_API_INSTANCE") or "710522726817").strip()
 GREEN_API_TOKEN    = (os.environ.get("GREEN_API_TOKEN") or "6bc94d387d5742a3ad17e1225270479a67d4debd7dfa4863ab").strip()
 
@@ -24,6 +30,7 @@ TOKEN   = os.environ.get('APP_TOKEN') or 'mv26-prd-3xF7wNqK'
 BASE_APP_URL = 'https://pamangiapane-lgtm.github.io/schede-allenamento/'
 
 ROSTER = [
+    {"id": 99, "name": "Paulo Mangiapane"},
     {"id": 1, "name": "Veronica Allasia"},
     {"id": 2, "name": "Maria Marcuzzi"},
     {"id": 3, "name": "Victoria Sassolini"},
@@ -41,6 +48,20 @@ ROSTER = [
 
 RUBRICA_FILE = os.path.join(os.path.dirname(__file__), 'rubrica_atlete.json')
 LOG_FILE = os.path.join(os.path.dirname(__file__), 'solleciti_inviati.log')
+
+def attendi_rete(timeout_sec=60):
+    """Attende che la connessione Wi-Fi o internet sia attiva (es. risveglio da sospensione)."""
+    start = time.time()
+    while time.time() - start < timeout_sec:
+        try:
+            r = requests.get("https://api.green-api.com", timeout=4)
+            if r.status_code < 500:
+                return True
+        except Exception:
+            pass
+        print("[Rete] In attesa che la connessione internet sia attiva...")
+        time.sleep(4)
+    return False
 
 def carica_rubrica():
     if os.path.exists(RUBRICA_FILE):
@@ -92,7 +113,7 @@ def pulisci_numero(num):
         s = '39' + s
     return s
 
-def invia_messaggio_whatsapp(tel, messaggio):
+def invia_messaggio_whatsapp_con_retry(tel, messaggio, max_tentativi=3):
     url = f"https://api.green-api.com/waInstance{GREEN_API_INSTANCE}/sendMessage/{GREEN_API_TOKEN}"
     chat_id = f"{tel}@c.us"
     payload = {
@@ -100,56 +121,70 @@ def invia_messaggio_whatsapp(tel, messaggio):
         "message": messaggio,
         "linkPreview": True
     }
-    try:
-        res = requests.post(url, json=payload, timeout=25)
-        return res.ok, res.status_code, res.text
-    except Exception as e:
-        return False, 0, str(e)
+    
+    for tentativo in range(1, max_tentativi + 1):
+        try:
+            res = requests.post(url, json=payload, timeout=25)
+            if res.ok:
+                return True, res.status_code, res.text
+            else:
+                print(f"      [Tentativo {tentativo}/{max_tentativi}] Rifiutato ({res.status_code}): {res.text}")
+                time.sleep(3)
+        except Exception as e:
+            print(f"      [Tentativo {tentativo}/{max_tentativi}] Errore rete: {e}")
+            time.sleep(3)
+            
+    return False, 0, "Tutti i tentativi falliti"
 
 def main():
     print(f"=== MARSALA VOLLEY — CHECK & SOLLECITO PRIVATO WELLNESS ({datetime.now().strftime('%d/%m/%Y %H:%M')}) ===")
     
+    # 1. Attesa rete
+    if not attendi_rete(timeout_sec=45):
+        print("[!] Rete internet non raggiungibile. Operazione annullata.")
+        return
+
     rubrica = carica_rubrica()
 
-    # Test rapido per il Coach
-    if '--test-coach' in sys.argv:
-        coach_data = rubrica.get('99', {})
-        coach_tel = pulisci_numero(coach_data.get('tel', ''))
-        if not coach_tel:
-            print("[!] Numero coach non trovato in rubrica.")
-            return
-        test_msg = f"""🏐 *Marsala Volley — Staff Tecnico* 🌅
+    # Modalità Test Mirato
+    target_ids = None
+    for arg in sys.argv:
+        if arg.startswith('--target-ids='):
+            target_ids = [int(x.strip()) for x in arg.split('=')[1].split(',') if x.strip().isdigit()]
 
-Ciao Paulo! Questo è un messaggio di test del sistema automatico Wellness.
-L'invio dal numero societario funziona perfettamente!
+    is_test = target_ids is not None
+    is_live = SISTEMA_ATTIVO or ('--live' in sys.argv) or is_test
 
-👉 {BASE_APP_URL}?id=99&wellness=1"""
-        print(f"Invio messaggio di prova a Coach Paulo ({coach_tel})...")
-        ok, st, resp = invia_messaggio_whatsapp(coach_tel, test_msg)
-        if ok:
-            print(f"✅ Messaggio di prova inviato con successo al Coach ({st})!")
-        else:
-            print(f"❌ Errore invio test coach ({st}): {resp}")
+    if not is_live:
+        print("⏸️ [STANDBY DI SICUREZZA] Il sistema è in attesa di autorizzazione.")
+        print("   Usa --target-ids=99,12 per testare solo atleti specifici.")
+        print("   Usa --live per l'invio globale.")
         return
 
     compilati = chi_ha_compilato_oggi()
     print(f"📋 Giocatrici che hanno GIÀ compilato oggi ({len(compilati)}/13): {sorted(list(compilati))}")
 
-    mancanti = [a for a in ROSTER if a['id'] not in compilati]
-    print(f"⏳ Giocatrici mancanti ({len(mancanti)}/13): {[a['name'] for a in mancanti]}")
+    if target_ids:
+        candidati = [a for a in ROSTER if a['id'] in target_ids]
+        print(f"🎯 Modalità Test Mirato su ID: {target_ids}")
+    else:
+        candidati = [a for a in ROSTER if a['id'] != 99]
+
+    mancanti = [a for a in candidati if a['id'] not in compilati or target_ids]
+    print(f"⏳ Destinatari sollecito ({len(mancanti)}): {[a['name'] for a in mancanti]}")
 
     if not mancanti:
-        print("🎉 Tutta la squadra ha già compilato il Wellness! Nessun sollecito necessario.")
+        print("🎉 Nessun destinatario da sollecitare.")
         return
 
-    force = '--force' in sys.argv
+    force = '--force' in sys.argv or is_test
     dry_run = '--dry-run' in sys.argv
     inviati = 0
     errori = 0
 
     for a in mancanti:
         aid = a['id']
-        nome = a['name'].split()[0] # Nome proprio (es. "Erin")
+        nome = a['name'].split()[0]
         
         if not force and gia_sollecitata_oggi(aid):
             print(f"   ℹ️ #{aid:02d} {a['name']}: già sollecitata oggi, salto.")
@@ -165,7 +200,7 @@ L'invio dal numero societario funziona perfettamente!
 
         target_url = f"{BASE_APP_URL}?id={aid}&wellness=1"
         
-        # Testo in Inglese per Anja e Nelly, Italiano per le altre
+        # Testo bilingue
         if aid in [4, 14]:
             testo = f"""🏐 *Marsala Volley — Technical Staff* 🌅
 
@@ -192,17 +227,19 @@ Grazie per la collaborazione! 💪"""
             inviati += 1
             continue
 
-        ok, status, resp = invia_messaggio_whatsapp(tel, testo)
+        print(f"   🚀 Invio sollecito WhatsApp a #{aid:02d} {a['name']} ({tel})...")
+        ok, status, resp = invia_messaggio_whatsapp_con_retry(tel, testo)
         if ok:
-            print(f"   ✅ #{aid:02d} {a['name']} ({tel}): sollecito WhatsApp inviato con successo!")
-            registra_sollecito(aid)
+            print(f"   ✅ #{aid:02d} {a['name']} ({tel}): CONSEGNATO con successo!")
+            if not is_test:
+                registra_sollecito(aid)
             inviati += 1
-            time.sleep(2) # Pausa di cortesia tra un messaggio e l'altro
+            time.sleep(2)
         else:
-            print(f"   ❌ #{aid:02d} {a['name']} ({tel}): errore invio ({status}): {resp}")
+            print(f"   ❌ #{aid:02d} {a['name']} ({tel}): ERRORE ({status}): {resp}")
             errori += 1
 
-    print(f"\n🎯 Riepilogo: {inviati} solleciti elaborati, {errori} errori.")
+    print(f"\n🎯 Riepilogo: {inviati} consegnati, {errori} errori.")
 
 if __name__ == '__main__':
     main()
