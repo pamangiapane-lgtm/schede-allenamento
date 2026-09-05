@@ -1291,11 +1291,37 @@
                            isSecondYellowOrRed('fatica', w.fatica) ||
                            isSecondYellowOrRed('readiness', w.readiness) ||
                            isSecondYellowOrRed('stress', w.stress);
+
+      // Conteggio totale valori gialli
+      let countYellow = 0;
+      if (sSonno === 'yellow') countYellow++;
+      if (sFatica === 'yellow') countYellow++;
+      if (sReady === 'yellow') countYellow++;
+      if (sDolori === 'yellow') countYellow++;
+      if (sStress === 'yellow') countYellow++;
+
+      const has4Yellows = countYellow >= 4;
       const hasNote = (w.note && w.note.trim().length > 0);
 
-      if (has2ndYellow || hasNote) {
-        return { type: 'yellow', label: 'Attenzione', text: 'Riduci salti 20%' };
+      // Se ha un 2° giallo O se ha 4+ valori in giallo -> Alert Giallo (Attenzione)
+      if (has2ndYellow || has4Yellows) {
+        return { 
+          type: 'yellow', 
+          label: 'Attenzione', 
+          text: has4Yellows && !has2ndYellow ? '4 Valori Gialli (Fatica Sistemica)' : 'Riduci salti 20%' 
+        };
       }
+
+      // Se ha scritto una nota ma nessun valore da alert -> In alert ma con badge da "Ottimale"
+      if (hasNote) {
+        return { 
+          type: 'green', 
+          label: 'Ottimale', 
+          text: '100% Carico OK (Nota segnalata)',
+          isNoteAlert: true 
+        };
+      }
+
       return { type: 'green', label: 'Ottimale', text: '100% Carico OK' };
     }
 
@@ -1309,7 +1335,7 @@
         if (currentFilterRole !== 'all' && !a.role.toLowerCase().includes(currentFilterRole.toLowerCase())) return false;
         const w = liveWellnessData[a.id];
         const traffic = getAthleteTrafficStatus(w);
-        if (currentFilterStatus === 'alert' && traffic.type !== 'red' && traffic.type !== 'yellow') return false;
+        if (currentFilterStatus === 'alert' && traffic.type !== 'red' && traffic.type !== 'yellow' && !traffic.isNoteAlert) return false;
         if (currentFilterStatus === 'done' && (!w || !w.isToday)) return false;
         if (currentFilterStatus === 'missing' && (w && w.isToday)) return false;
         return true;
@@ -1325,7 +1351,7 @@
           }
           const traffic = getAthleteTrafficStatus(w);
           const hasNote = (w.note && w.note.trim().length > 0);
-          if (traffic.type === 'red' || traffic.type === 'yellow' || hasNote) {
+          if (traffic.type === 'red' || traffic.type === 'yellow' || traffic.isNoteAlert) {
             alertList.push({ ath: a, w: w, traffic: traffic, hasNote: hasNote });
           }
         }
@@ -1372,7 +1398,7 @@
           const colReady = getMetricColor(getMetricStatus('readiness', w.readiness));
 
           return `
-            <div style="background:#090f1d;border:1px solid ${item.traffic.type === 'red' ? 'rgba(239,68,68,0.5)' : 'rgba(232,160,32,0.4)'};border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:0 3px 10px rgba(0,0,0,0.3);">
+            <div style="background:#090f1d;border:1px solid ${item.traffic.type === 'red' ? 'rgba(239,68,68,0.5)' : (item.traffic.type === 'green' ? 'rgba(16,185,129,0.5)' : 'rgba(232,160,32,0.4)')};border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:0 3px 10px rgba(0,0,0,0.3);">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
                 <div style="font-size:0.88rem;font-weight:800;color:#fff;">
                   #${item.ath.id} ${item.ath.name} <span style="font-size:0.75rem;font-weight:600;color:var(--mv-muted)">(${item.ath.role})</span>

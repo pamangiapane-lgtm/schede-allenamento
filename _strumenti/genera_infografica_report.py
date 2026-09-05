@@ -110,20 +110,56 @@ def crea_infografica(output_path="report_wellness_oggi.png"):
             elif w['stress'] == 4:
                 out_items.append(f"Stress: 4/10")
 
-            # 6. Note scritte
-            if w['note']:
-                out_items.append(f'"{w["note"]}"')
+            # Conteggio parametri in giallo (1° e 2° giallo)
+            yellow_metrics = []
+            if w['dolori'] in (3, 4):
+                yellow_metrics.append(f"Dolori {w['dolori']}")
+            if rd is not None and rd in (6, 7):
+                yellow_metrics.append(f"Readiness {rd}")
+            if w['sonno'] is not None and w['sonno'] in (6, 7):
+                yellow_metrics.append(f"Sonno {w['sonno']}")
+            if w['fatica'] is not None and w['fatica'] in (6, 7):
+                yellow_metrics.append(f"Energia {w['fatica']}")
+            if w['stress'] == 4:
+                yellow_metrics.append(f"Stress 4")
 
-            if out_items:
+            has_2nd_yellow = (w['dolori'] == 4) or (rd == 6) or (w['sonno'] == 6) or (w['fatica'] == 6) or (w['stress'] == 4)
+            has_4_yellows = len(yellow_metrics) >= 4
+            has_note = bool(w['note'] and len(w['note'].strip()) > 0)
+
+            # 6. Note scritte
+            if has_note:
+                out_items.append(f'Nota: "{w["note"]}"')
+
+            # Classificazione Badge
+            if is_red:
+                badge_type = 'red'
+                badge_lbl = "CRITICO"
+            elif has_2nd_yellow or has_4_yellows:
+                badge_type = 'yellow'
+                badge_lbl = "ATTENZIONE"
+                if has_4_yellows and not has_2nd_yellow:
+                    out_items.insert(0, f"Fatica Sistemica ({len(yellow_metrics)} Valori Gialli)")
+            elif has_note:
+                badge_type = 'green'
+                badge_lbl = "OTTIMALE"
+            else:
+                badge_type = None
+
+            if badge_type is not None and out_items:
                 focus_list.append({
                     'ath': a,
                     'w': w,
-                    'is_red': is_red,
+                    'badge_type': badge_type,
+                    'badge_lbl': badge_lbl,
                     'details': "   •   ".join(out_items)
                 })
 
-    # Ordina: Prima i Rossi, poi i Gialli
-    focus_list.sort(key=lambda x: 0 if x['is_red'] else 1)
+    # Ordina: Prima Rossi (0), poi Gialli (1), poi Verdi (2)
+    def sort_order(x):
+        b = x.get('badge_type')
+        return 0 if b == 'red' else (1 if b == 'yellow' else 2)
+    focus_list.sort(key=sort_order)
 
     avg_pct = round((total_readiness / readiness_count) * 10) if readiness_count > 0 else 0
 
@@ -190,32 +226,49 @@ def crea_infografica(output_path="report_wellness_oggi.png"):
     draw.text((40 + card_w + 45, y_kpi + 55), f"{count_filled} / {len(ROSTER)}", fill='#38bdf8', font=font_kpi_val)
 
     # Card 3: Alert Clinici
-    col_alert = '#ef4444' if focus_list else '#10b981'
+    has_red_alert = any(x['badge_type'] == 'red' for x in focus_list)
+    has_yellow_alert = any(x['badge_type'] == 'yellow' for x in focus_list)
+    col_alert = '#ef4444' if has_red_alert else ('#f59e0b' if has_yellow_alert else ('#10b981' if not focus_list else '#34d399'))
     draw.rounded_rectangle([(40 + card_w*2 + 50, y_kpi), (40 + card_w*3 + 50, y_kpi + card_h)], radius=16, fill='#0f172a', outline='#1e293b', width=2)
     draw.text((40 + card_w*2 + 70, y_kpi + 20), "ALERT CLINICI", fill='#94a3b8', font=font_kpi_lbl)
     draw.text((40 + card_w*2 + 70, y_kpi + 55), f"{len(focus_list)}", fill=col_alert, font=font_kpi_val)
 
-    # 3. SEZIONE FOCUS CLINICO & SEGNALAZIONI (SOLO ATLETE CON VALORI FUORI SOGLIA)
+    # 3. SEZIONE FOCUS CLINICO & SEGNALAZIONI (VALORI FUORI SOGLIA O NOTE)
     y_alert = 380
-    draw.text((40, y_alert), "FOCUS CLINICO & VALORI FUORI SOGLIA", fill='#fca5a5', font=font_sec_title)
+    sec_title_c = '#fca5a5' if has_red_alert else ('#fde68a' if has_yellow_alert else '#6ee7b7')
+    draw.text((40, y_alert), "FOCUS CLINICO & SEGNALAZIONI", fill=sec_title_c, font=font_sec_title)
 
     y_alert_box = y_alert + 45
     if focus_list:
         # Mostra fino a 5 segnalazioni critiche
         num_items = min(5, len(focus_list))
         box_h = 20 + num_items * 62
-        draw.rounded_rectangle([(40, y_alert_box), (W - 40, y_alert_box + box_h)], radius=14, fill='#1b1016', outline='#ef4444', width=2)
+        box_border = '#ef4444' if has_red_alert else ('#f59e0b' if has_yellow_alert else '#10b981')
+        box_bg = '#1b1016' if has_red_alert else ('#16131c' if has_yellow_alert else '#06201a')
+        draw.rounded_rectangle([(40, y_alert_box), (W - 40, y_alert_box + box_h)], radius=14, fill=box_bg, outline=box_border, width=2)
         cur_y = y_alert_box + 15
         for item in focus_list[:num_items]:
             ath = item['ath']
-            tag_c = '#ef4444' if item['is_red'] else '#f59e0b'
+            btype = item['badge_type']
+            if btype == 'red':
+                tag_c = '#ef4444'
+                badge_tag = "[CRITICO]"
+                sub_c = '#fca5a5'
+            elif btype == 'yellow':
+                tag_c = '#f59e0b'
+                badge_tag = "[ATTENZIONE]"
+                sub_c = '#fde68a'
+            else:
+                tag_c = '#10b981'
+                badge_tag = "[OTTIMALE]"
+                sub_c = '#6ee7b7'
             
             # Badge pallino
             draw.ellipse([(60, cur_y + 6), (72, cur_y + 18)], fill=tag_c)
-            # Nome e Ruolo
-            draw.text((82, cur_y), f"#{ath['id']} {ath['name']} ({ath['role']})", fill=tag_c, font=font_focus_ath)
+            # Nome e Ruolo con Badge
+            draw.text((82, cur_y), f"#{ath['id']} {ath['name']} ({ath['role']})  {badge_tag}", fill=tag_c, font=font_focus_ath)
             # Valori precisi fuori soglia & Note
-            draw.text((82, cur_y + 28), item['details'], fill='#fde68a', font=font_focus_sub)
+            draw.text((82, cur_y + 28), item['details'], fill=sub_c, font=font_focus_sub)
             cur_y += 62
     else:
         box_h = 70
@@ -246,10 +299,21 @@ def crea_infografica(output_path="report_wellness_oggi.png"):
             so = w['sonno']
             en = w['fatica']
             do = w['dolori']
+            st = w['stress']
 
-            is_red = (rd is not None and rd < 6) or (so is not None and so < 6) or (do >= 5) or (en is not None and en < 6)
-            is_yellow = not is_red and ((rd is not None and rd <= 7) or (do >= 3) or (w['note'] and len(w['note']) > 0))
-            dot_c = '#ef4444' if is_red else ('#f59e0b' if is_yellow else '#10b981')
+            # Verifica semaforo complessivo atleta
+            is_ath_red = (rd is not None and rd <= 5) or (so is not None and so <= 5) or (en is not None and en <= 5) or (do >= 5) or (st is not None and st >= 5)
+            has_ath_2nd_yellow = (do == 4) or (rd == 6) or (so == 6) or (en == 6) or (st == 4)
+            c_y = 0
+            if do in (3, 4): c_y += 1
+            if rd is not None and rd in (6, 7): c_y += 1
+            if so is not None and so in (6, 7): c_y += 1
+            if en is not None and en in (6, 7): c_y += 1
+            if st == 4: c_y += 1
+            has_ath_4_yellows = c_y >= 4
+
+            # Se rosso -> Rosso. Se 2° giallo o 4 gialli -> Giallo. Altrimenti (inclusa nota con carico ok) -> Verde!
+            dot_c = '#ef4444' if is_ath_red else ('#f59e0b' if (has_ath_2nd_yellow or has_ath_4_yellows) else '#10b981')
 
             draw.ellipse([(55, y_row + 20), (71, y_row + 36)], fill=dot_c)
             draw.text((85, y_row + 15), f"#{a['id']} {a['name']}", fill='#fff', font=font_row_bold)
