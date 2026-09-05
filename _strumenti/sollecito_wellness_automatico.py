@@ -3,6 +3,7 @@ sollecito_wellness_automatico.py — Sollecito privato automatico via WhatsApp a
 Verifica su Google Sheets chi ha compilato il Wellness di oggi.
 Invia un messaggio WhatsApp privato ESCLUSIVAMENTE a chi non ha ancora compilato.
 Mittente: Marsala Volley — Staff Tecnico (SIM del modem)
+Supporto bilingue: Italiano per le atlete italiane, Inglese per Anja (#4) e Nelly (#14).
 """
 
 import os
@@ -109,6 +110,28 @@ def main():
     print(f"=== MARSALA VOLLEY — CHECK & SOLLECITO PRIVATO WELLNESS ({datetime.now().strftime('%d/%m/%Y %H:%M')}) ===")
     
     rubrica = carica_rubrica()
+
+    # Test rapido per il Coach
+    if '--test-coach' in sys.argv:
+        coach_data = rubrica.get('99', {})
+        coach_tel = pulisci_numero(coach_data.get('tel', ''))
+        if not coach_tel:
+            print("[!] Numero coach non trovato in rubrica.")
+            return
+        test_msg = f"""🏐 *Marsala Volley — Staff Tecnico* 🌅
+
+Ciao Paulo! Questo è un messaggio di test del sistema automatico Wellness.
+L'invio dal numero societario funziona perfettamente!
+
+👉 {BASE_APP_URL}?id=99&wellness=1"""
+        print(f"Invio messaggio di prova a Coach Paulo ({coach_tel})...")
+        ok, st, resp = invia_messaggio_whatsapp(coach_tel, test_msg)
+        if ok:
+            print(f"✅ Messaggio di prova inviato con successo al Coach ({st})!")
+        else:
+            print(f"❌ Errore invio test coach ({st}): {resp}")
+        return
+
     compilati = chi_ha_compilato_oggi()
     print(f"📋 Giocatrici che hanno GIÀ compilato oggi ({len(compilati)}/13): {sorted(list(compilati))}")
 
@@ -120,6 +143,7 @@ def main():
         return
 
     force = '--force' in sys.argv
+    dry_run = '--dry-run' in sys.argv
     inviati = 0
     errori = 0
 
@@ -140,7 +164,20 @@ def main():
             continue
 
         target_url = f"{BASE_APP_URL}?id={aid}&wellness=1"
-        testo = f"""🏐 *Marsala Volley — Staff Tecnico* 🌅
+        
+        # Testo in Inglese per Anja e Nelly, Italiano per le altre
+        if aid in [4, 14]:
+            testo = f"""🏐 *Marsala Volley — Technical Staff* 🌅
+
+Hi {nome}!
+Your Morning Wellness questionnaire for today's session is still pending.
+
+Please take 20 seconds to complete it before training:
+👉 {target_url}
+
+Thank you for your cooperation! 💪"""
+        else:
+            testo = f"""🏐 *Marsala Volley — Staff Tecnico* 🌅
 
 Ciao {nome}!
 Risulta mancante la compilazione del tuo questionario Wellness per la seduta odierna.
@@ -149,6 +186,11 @@ Ti chiediamo di compilarlo adesso prima dell'allenamento (ci vogliono 20 secondi
 👉 {target_url}
 
 Grazie per la collaborazione! 💪"""
+
+        if dry_run:
+            print(f"   [DRY-RUN] #{aid:02d} {a['name']} ({tel}) -> messaggio pronto (non inviato)")
+            inviati += 1
+            continue
 
         ok, status, resp = invia_messaggio_whatsapp(tel, testo)
         if ok:
@@ -160,7 +202,7 @@ Grazie per la collaborazione! 💪"""
             print(f"   ❌ #{aid:02d} {a['name']} ({tel}): errore invio ({status}): {resp}")
             errori += 1
 
-    print(f"\n🎯 Riepilogo: {inviati} solleciti inviati, {errori} errori.")
+    print(f"\n🎯 Riepilogo: {inviati} solleciti elaborati, {errori} errori.")
 
 if __name__ == '__main__':
     main()
