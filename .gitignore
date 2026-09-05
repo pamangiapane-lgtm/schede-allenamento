@@ -6,6 +6,8 @@ _strumenti/*
 !_strumenti/genera_schede.py
 !_strumenti/invia_wellness.py
 !_strumenti/test_wellness_pipeline.py
+!_strumenti/sollecito_whatsapp_web.py
+!_strumenti/collega_whatsapp_web.py
 backup_locale/
 Season_Off/
 .claude/*
