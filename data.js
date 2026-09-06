@@ -435,7 +435,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "55",
-        "Note": "Box Squat 3010 (Enode 0.60-0.65 m/s) + Floor Press DB + Lat Machine neutra"
+        "Note": "Squat 3010 (Enode 0.60-0.65 m/s) + Floor Press DB + Lat Machine neutra"
       },
       {
         "Numero_Seduta": "W3-MerV",
@@ -499,7 +499,7 @@ const WEEKS_DATA = {
           "fase": "Mattina",
           "nome": "Seduta 1 — Spinta Orizzontale & Trazione Verticale",
           "durata": "52-55 min",
-          "focus": "Floor Press DB ↔ Lat Machine neutra + Box Squat con sensore Enode",
+          "focus": "Floor Press DB ↔ Lat Machine neutra + Squat con sensore Enode",
           "esercizi": [
             {
               "Blocco": "# Prehab",
@@ -524,7 +524,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Box Squat (Parallelo)",
+              "Esercizio": "2A. Squat (Parallelo)",
               "Set x Reps": "4 x 5-6 (W3) / 4x4 (W4) / 4x3 (W5)",
               "Tempo": "`3010` (W3) / `20X0` (W4-W5)",
               "Note Tecniche": "Monitoraggio Enode VBT (stop al -10% velocity loss)"
@@ -618,7 +618,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Half Squat Dinamico al Box",
+              "Esercizio": "2B. Half Squat Dinamico (90°)",
               "Set x Reps": "4 x 4-5",
               "Tempo": "`20X0` (W3) / `10X0` (W4-W5)",
               "Note Tecniche": "Risalita esplosiva senza staccare le piante dei piedi"
@@ -806,7 +806,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 ALTO (Instabilità Caviglie + Stress Tibiale Cronico + Deficit Tibiale Posteriore SX + Anca DX Bloccata in IR)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\"",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Instabilità di Caviglia & Sindrome da Stress Tibiale (Shin Splints):**\n   - Esiti di severa distorsione in inversione alla caviglia destra con lassità legamentosa cronica; distorsione pregressa a sinistra.\n   - All'inizio di ogni stagione su superfici rigide si riacutizza la periostite tibiale da sovraccarico della membrana interossea e debolezza muscolare profonda.\n2. **Deficit Selettivo del Tibiale Posteriore & Crollo Mediale SX:**\n   - In carico monopodalico (SLS) e nello Step Over, il retropiede sinistro cede in **eversione/pronazione incontrollata**, con conseguente valgismo dinamico al ginocchio sinistro.\n3. **Blocco Meccanico dell'Anca Destra in Intrarotazione & Shift Pelvico:**\n   - Rotazione interna dell'anca destra bloccata a 30° con tendenza fissa all'extrarotazione. Nello squat profondo il bacino compensa eseguendo un evidente *lateral shift* verso sinistra, caricando asimmetricamente il piede sinistro.\n4. **Cingolo Scapolare & Specificità da Palleggiatrice:**\n   - Spalla sinistra elevata e anteposta; necessità assoluta di stabilità e forza nei flessori/estensori dei polsi e delle dita per il palleggio di precisione in sospensione.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra:**  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo a 90° (`3010` / `20X0`)**: il box rigido calibra l'inversione di moto, impedisce lo shift pelvico a sinistra e toglie tensione alla periostite tibiale.\n* ⛔ **BAN Drop Jump Alti (>25 cm):** I salti con atterraggio ad alto impatto infiammano il periostio tibiale.  \n  ➔ **SOSTITUZIONE:** **Low Pogo Jumps elastici a terra e Drop Landing da 15-20 cm su Chronojump** con controllo dell'inversione calcaneale.\n* 🛡️ **PREHAB SPECIFICO (Tibiale Posteriore, Anca DX & Polsi):**\n  - Short Foot attivo su superficie rigida + Banded Ankle Inversion (con elastico per il tibiale posteriore sinistro).\n  - Mobilizzazione anca destra 90/90 in intrarotazione attiva (recupero dell'escursione fisiologica).\n  - Wrist Roller e Dumbbell Wrist Curls per avambracci e polsi.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è calibrato a sole 2 serie da 4 reps sub-massimali per preservare le gambe per il test match del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra:**  \n  ➔ **SOSTITUZIONE:** **Squat parallelo a 90° (`3010` / `20X0`)**: il box rigido calibra l'inversione di moto, impedisce lo shift pelvico a sinistra e toglie tensione alla periostite tibiale.\n* ⛔ **BAN Drop Jump Alti (>25 cm):** I salti con atterraggio ad alto impatto infiammano il periostio tibiale.  \n  ➔ **SOSTITUZIONE:** **Low Pogo Jumps elastici a terra e Drop Landing da 15-20 cm su Chronojump** con controllo dell'inversione calcaneale.\n* 🛡️ **PREHAB SPECIFICO (Tibiale Posteriore, Anca DX & Polsi):**\n  - Short Foot attivo su superficie rigida + Banded Ankle Inversion (con elastico per il tibiale posteriore sinistro).\n  - Mobilizzazione anca destra 90/90 in intrarotazione attiva (recupero dell'escursione fisiologica).\n  - Wrist Roller e Dumbbell Wrist Curls per avambracci e polsi.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è calibrato a sole 2 serie da 4 reps sub-massimali per preservare le gambe per il test match del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -835,7 +835,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo a 90°)",
+              "Esercizio": "Squat (Parallelo a 90°)",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "50 kg (\"6\")",
               "Tempo": "`3010`",
@@ -925,7 +925,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°)",
+              "Esercizio": "Half Squat Dinamico (90°)",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "37.5 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -1090,12 +1090,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "55 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -1184,12 +1184,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 30 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "42.5 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -1357,7 +1357,7 @@ const WEEKS_DATA = {
         "rischio": "🟡 MEDIO (Arco Plantare Lasso + Spalla SX Ipomobile + Butt Wink a 100° + Retrazione Flessori Anca DX)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\" (Postazione Rack 1)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Perdita del Controllo Lombo-Pelvico nello Squat & Flessori Anca DX:**\n   - La flessione del ginocchio è buona, ma l'accosciata libera scatena un *butt wink* a circa 100° di flessione (sopra il parallelo) causato da forte retrazione dell'ileopsoas e del retto femorale destro.\n2. **Ipomobilità Cingolo Scapolare Sinistro:**\n   - La spalla sinistra si presenta ipomobile in flessione e abduzione attiva sopra i 120° (difficoltà ad aprire l'angolo del braccio a muro). La Floor Chest Press a terra protegge la capsula gleno-omerale.\n3. **Lassità della Volta Plantare & Retropiede:**\n   - Arco plantare lasso con tendenza al collasso mediale sotto carico massimale. Necessita di attivazione con *Short Foot* e stimolo dell'avampiede.\n4. **Specificità del Centrale:**\n   - Richiesta elevatissima di stiffness dei polpacci e stabilità sui cambi di direzione laterali per gli spostamenti a muro a 2 passi e attacchi di primo tempo in sospensione rapida.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra (<90°):**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° (`3010` / `20X0`)**: impedisce il crollo lombare e protegge il rachide mantenendo l'intenzione di spinta verticale con Enode VBT.\n* 🛡️ **PREHAB SPECIFICO SPALLA SX & FLESSORI ANCA DX:**\n  - De-tensione miofasciale ileopsoas DX con Couch stretch.\n  - Mobilizzazione spalla sinistra in elevazione su panca/roller e retrazioni scapolari a parete.\n  - Short Foot attivo per rinforzare la volta plantare.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO STRESS PLIOMETRICO**. RDL calibrato a 2 sole serie da 4 reps a buffer 3 (RPE 6-7) per proteggere gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra (<90°):**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° (`3010` / `20X0`)**: impedisce il crollo lombare e protegge il rachide mantenendo l'intenzione di spinta verticale con Enode VBT.\n* 🛡️ **PREHAB SPECIFICO SPALLA SX & FLESSORI ANCA DX:**\n  - De-tensione miofasciale ileopsoas DX con Couch stretch.\n  - Mobilizzazione spalla sinistra in elevazione su panca/roller e retrazioni scapolari a parete.\n  - Short Foot attivo per rinforzare la volta plantare.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO STRESS PLIOMETRICO**. RDL calibrato a 2 sole serie da 4 reps a buffer 3 (RPE 6-7) per proteggere gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -1386,7 +1386,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo a 90°)",
+              "Esercizio": "Squat (Parallelo a 90°)",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "60 kg (\"6\")",
               "Tempo": "`3010`",
@@ -1476,7 +1476,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°)",
+              "Esercizio": "Half Squat Dinamico (90°)",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -1641,12 +1641,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "65 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -1735,12 +1735,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 35 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -1908,7 +1908,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 ALTO (Esiti Frattura Tibia DX con Mezzi di Sintesi + Ipomobilità Anca DX + Shift Pelvico a DX + Asimmetria Tricipite Surale)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Asonja e Bole)",
         "triage": "### Criticità Funzionali & Pregresso Ortopedico Rilevato\n1. **Esiti di Frattura Spiroide Tibia Destra (Placca e Viti):**\n   - Intervento chirurgico con mezzi di sintesi ancora presenti. La tibia destra presenta una ridotta tolleranza ai microtraumi da impatto assiale violento e un deficit di stiffness elastica rispetto all'arto sinistro sano.\n2. **Deficit Meccanico d'Anca Destra & Lateral Shift nello Squat:**\n   - La rotazione interna dell'anca destra è limitata (rigidità capsulare post-traumatica).\n   - Nello squat libero si evidenzia un netto **lateral shift del bacino verso destra**, caricando in modo disfunzionale la gamba operata e torcendo il rachide lombare.\n3. **Rigidità Asimmetrica del Tendine d'Achille & Tricipite Surale:**\n   - Il polpaccio destro risulta retratto e ipertonico a protezione della cicatrice ossea, con una dorsiflessione della caviglia che blocca l'accosciata a circa 85°.\n4. **Specificità Schiacciatrice:**\n   - Atleta con carichi di salto e colpi d'attacco elevati: necessita di proteggere la spalla destra con la Floor Press e di dissipare gli atterraggi simmetricamente.\n\n---",
-        "ban": "* ⛔ **BAN Clean to Split con Bilanciere:** L'atterraggio in split violento monopodalico può provocare impatti di taglio sulla tibia destra operata.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Powerbag Clean to Chest (`X`)**: la ricezione della sacca zavorrata al petto ammortizza l'impatto, le maniglie parallele mantengono i polsi in sicurezza e l'atterraggio è in **semi-squat parallelo simmetrico**, costringendo entrambi gli arti a distribuire il carico al 50%.\n* ⛔ **BAN Squat Libero a Terra senza Riferimento:**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: l'elastico impedisce il cedimento mediale e il box corregge lo shift pelvico a destra, monitorato dal sensore Enode VBT.\n* 🛡️ **PREHAB SPECIFICO (Tibia DX, Anca DX & Caviglia):**\n  - Allungamento miofasciale profondo del tricipite surale destro su cuneo/gradino (`3010`).\n  - Mobilizzazione 90/90 anca destra in intrarotazione.\n  - Attivazione del core anti-rotazione (Pallof press) e anti-estensione (Deadbug).\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO BALZI PLIOMETRICI**. L'RDL è ridotto a sole 2 serie da 4 reps sub-massimali a buffer 3 per non affaticare gli ischiocrurali prima del test match del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Clean to Split con Bilanciere:** L'atterraggio in split violento monopodalico può provocare impatti di taglio sulla tibia destra operata.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Powerbag Clean to Chest (`X`)**: la ricezione della sacca zavorrata al petto ammortizza l'impatto, le maniglie parallele mantengono i polsi in sicurezza e l'atterraggio è in **semi-squat parallelo simmetrico**, costringendo entrambi gli arti a distribuire il carico al 50%.\n* ⛔ **BAN Squat Libero a Terra senza Riferimento:**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: l'elastico impedisce il cedimento mediale e il box corregge lo shift pelvico a destra, monitorato dal sensore Enode VBT.\n* 🛡️ **PREHAB SPECIFICO (Tibia DX, Anca DX & Caviglia):**\n  - Allungamento miofasciale profondo del tricipite surale destro su cuneo/gradino (`3010`).\n  - Mobilizzazione 90/90 anca destra in intrarotazione.\n  - Attivazione del core anti-rotazione (Pallof press) e anti-estensione (Deadbug).\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO BALZI PLIOMETRICI**. L'RDL è ridotto a sole 2 serie da 4 reps sub-massimali a buffer 3 per non affaticare gli ischiocrurali prima del test match del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -1937,7 +1937,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo 90°) con Miniband",
+              "Esercizio": "Squat (Parallelo 90°) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "60 kg (\"6\")",
               "Tempo": "`3010`",
@@ -2027,7 +2027,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (90°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -2192,12 +2192,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "65 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -2286,12 +2286,12 @@ const WEEKS_DATA = {
                   "Raw": "**Powerbag Clean to Chest:** 4 x 4 @ Bag 20 kg | Tempo `X` (Esplosione e arrivo parallelo)."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -2459,7 +2459,7 @@ const WEEKS_DATA = {
         "rischio": "🟡/🔴 MEDIO-ALTO (Tendinopatia Rotulea Cronica Overuse + Valgismo Dinamico Ginocchio DX + Spalla d'Attacco Sovraccarico)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Sassolini e Bole)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Tendinopatia Rotulea Cronica Bilaterale (Overuse Salto):**\n   - Pregressa sintomatologia dolorosa all'apice inferiore della rotula (trattata in precedenza con Tecar).\n   - L'ipertono del quadricipite e le forze di taglio in inversione di moto rapida scatenano micro-infiammazioni tendinee.\n2. **Deficit Podalico Bilaterale & Valgismo Dinamico Arto DX:**\n   - Crollo mediale in eversione dell'arco plantare causato da ipovalidità del tibiale posteriore.\n   - Nello Step Over e negli atterraggi, il ginocchio destro collassa medialmente in valgismo dinamico per ritardo di reclutamento del gluteo medio destro.\n3. **Squat Test & Asimmetria d'Appoggio:**\n   - Shift a destra in fase concentrica dello squat; forte retrazione dei flessori d'anca (ileopsoas bilaterale, peggiore a sinistra).\n4. **Cingolo Scapolare & Spalla d'Attacco:**\n   - Rigidità della spalla destra a fine seduta e deficit di mobilità sopra i 120° in abduzione. La Floor Chest Press a terra protegge la cuffia azzerando l'anteriorizzazione dell'omero.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo con Rimbalzo:**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido elimina l'inversione elastica brusca al polo inferiore della rotula; l'elastico costringe il gluteo medio a spingere in fuori contrastando il valgismo del ginocchio destro.\n* 🛡️ **PREHAB SPECIFICO ANALGESICO (Protocollo Cook/Rio Tendine Rotuleo):**\n  - **Spanish Squat Isometrico con elastico pesante a 90° (3-5 serie × 30-45\" di tenuta)** prima di qualsiasi carico: induce analgesia corticale immediata e stimola la sintesi di collagene.\n  - Clamshell con miniband per attivazione gluteo medio destro.\n  - Allungamento miofasciale ileopsoas e quadricipite su foam roller.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è ridotto a sole 2 serie da 4 reps sub-massimali a buffer 3 (RPE 6-7) per proteggere i tendini rotulei e gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo con Rimbalzo:**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido elimina l'inversione elastica brusca al polo inferiore della rotula; l'elastico costringe il gluteo medio a spingere in fuori contrastando il valgismo del ginocchio destro.\n* 🛡️ **PREHAB SPECIFICO ANALGESICO (Protocollo Cook/Rio Tendine Rotuleo):**\n  - **Spanish Squat Isometrico con elastico pesante a 90° (3-5 serie × 30-45\" di tenuta)** prima di qualsiasi carico: induce analgesia corticale immediata e stimola la sintesi di collagene.\n  - Clamshell con miniband per attivazione gluteo medio destro.\n  - Allungamento miofasciale ileopsoas e quadricipite su foam roller.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è ridotto a sole 2 serie da 4 reps sub-massimali a buffer 3 (RPE 6-7) per proteggere i tendini rotulei e gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -2488,7 +2488,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo 90°) con Miniband",
+              "Esercizio": "Squat (Parallelo 90°) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "65 kg (\"6\")",
               "Tempo": "`3010`",
@@ -2578,7 +2578,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (90°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "50 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -2743,12 +2743,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "70 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 70 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 70 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -2837,12 +2837,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position (o Powerbag Clean):** 4 x 3+3 @ 37.5 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "55 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -3010,7 +3010,7 @@ const WEEKS_DATA = {
         "rischio": "🟡 MEDIO (Esiti Osgood-Schlatter Ginocchio DX + Caviglia DX Rigida + Regole Specifiche Ruolo Libero)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\"",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Esiti di Sindrome di Osgood-Schlatter (Apofisite Tibiale DX):**\n   - Tuberosità tibiale anteriore destra prominente con sensibilità a carichi flessori acuti a ginocchio iperflesso (>100°).\n   - Tendenza al sovraccarico rotuleo negli affondi profondi.\n2. **Deficit Dorsiflessione Caviglia Destra & Meccanica d'Accosciata:**\n   - La caviglia destra presenta una mobilità sagittale ridotta rispetto alla sinistra. Nello squat libero, l'accosciata profonda scatena un compenso pelvico per mancato scivolamento della tibia.\n3. **Specificità Assoluta Ruolo Libero:**\n   - Nel ruolo di libero non vi è alcuna necessità di eseguire distensioni orizzontali pesanti con bilanciere (panca piana) né rematori pesanti con bilanciere, che aumentano la rigidità scapolare e peggiorano l'angolo di ricezione/difesa a terra.\n   - È invece vitale la rapidità d'arresto a baricentro basso, la stabilità del core sui piani trasversi e la mobilità reattiva delle caviglie.\n\n---",
-        "ban": "* ⛔ **BAN ASSOLUTO Panca Piana con Bilanciere & Rematore Pesante Bilanciere (Regola Specifica Libero):**  \n  ➔ **SOSTITUZIONE SPECIFICA:**\n  - **Prone Y-Raise con manubri leggeri (`2012`)**: attiva i fissatori inferiori della scapola senza comprimere le spalle.\n  - **Single-Arm Cable Row al cavo medio (`2011`)**: trazione orizzontale funzionale asimmetrica senza carico assiale sulla colonna.\n  - **Low Medball Slam a terra (`X`)**: potenza esplosiva della cerniera d'anca e del core senza impatti.\n* ⚖️ **ADATTAMENTO SQUAT:** **Box Squat calibrato all'80% di profondità con Miniband sopra le ginocchia (`3010` / `20X0`)**: protegge l'apofisi tibiale destra, non sovraccarica la rotula e garantisce la corretta stiffness muscolare per la difesa.\n* 🛡️ **PREHAB SPECIFICO (Caviglia DX & Fissatori Scapolari):**\n  - Knee-to-Wall con fascia elastica per la caviglia destra (mobilizzazione dell'astragalo).\n  - Foam roller su quadricipite e rotula destra.\n  - Scapular Wall Slide a contatto continuo.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI**. L'RDL è ridotto a 2 serie da 4 reps sub-massimali a buffer 3 per non appesantire le gambe prima dell'amichevole del sabato.\n\n---",
+        "ban": "* ⛔ **BAN ASSOLUTO Panca Piana con Bilanciere & Rematore Pesante Bilanciere (Regola Specifica Libero):**  \n  ➔ **SOSTITUZIONE SPECIFICA:**\n  - **Prone Y-Raise con manubri leggeri (`2012`)**: attiva i fissatori inferiori della scapola senza comprimere le spalle.\n  - **Single-Arm Cable Row al cavo medio (`2011`)**: trazione orizzontale funzionale asimmetrica senza carico assiale sulla colonna.\n  - **Low Medball Slam a terra (`X`)**: potenza esplosiva della cerniera d'anca e del core senza impatti.\n* ⚖️ **ADATTAMENTO SQUAT:** **Squat calibrato all'80% di profondità con Miniband sopra le ginocchia (`3010` / `20X0`)**: protegge l'apofisi tibiale destra, non sovraccarica la rotula e garantisce la corretta stiffness muscolare per la difesa.\n* 🛡️ **PREHAB SPECIFICO (Caviglia DX & Fissatori Scapolari):**\n  - Knee-to-Wall con fascia elastica per la caviglia destra (mobilizzazione dell'astragalo).\n  - Foam roller su quadricipite e rotula destra.\n  - Scapular Wall Slide a contatto continuo.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI**. L'RDL è ridotto a 2 serie da 4 reps sub-massimali a buffer 3 per non appesantire le gambe prima dell'amichevole del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -3039,7 +3039,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (@80% ROM) con Miniband",
+              "Esercizio": "Squat (@80% ROM) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`3010`",
@@ -3129,7 +3129,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (@80%) con Miniband",
+              "Esercizio": "Half Squat Dinamico (90°) (@80%) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "37.5 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -3294,12 +3294,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (@80% ROM)",
+                  "Esercizio": "Squat Dinamico (80% ROM)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (@80% ROM):** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (80% ROM):** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Prone Y-Raise Manubri",
@@ -3388,12 +3388,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 27.5 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (@80%)",
+                  "Esercizio": "Half Squat Dinamico (90°) (@80%)",
                   "Set_Reps": "4 x 4",
                   "Carico": "42.5 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (@80%):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°) (@80%):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -3553,7 +3553,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 ALTO (Dolore Rotuleo DX Attivo + Fascite Plantare SX + Retrazione Severa Quadricipite DX + Rotazione Bacino)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\" (Postazione Rack 1 con Marcuzzi)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Dolore Rotuleo Destro Attivo (Tendinopatia Reattiva):**\n   - Sintomatologia dolorosa acuta all'apice inferiore della rotula destra, esacerbata dai rimbalzi veloci e dalle discese eccentriche senza supporto.\n2. **Fascite Plantare Sinistra & Crollo Mediale:**\n   - Infiammazione e rigidità della fascia plantare sinistra con mancata ammortizzazione podalica al suolo, che costringe a scaricare le forze in diagonale sull'arto destro.\n3. **Retrazione Marcata del Quadricipite / Retto Femorale DX:**\n   - La flessione del ginocchio da prono è ridotta e scatena un compenso pelvico in antiversione forzata già a 90°. Nello squat libero, la discesa asimmetrica induce una rotazione del bacino a destra con perdita del controllo lombare (*butt wink* precoce).\n4. **Specificità del Centrale:**\n   - Elevatissimo volume di salti a muro e primo tempo: necessita di eliminare il dolore rotuleo prima di saltare e di conservare la capacità di spostamento laterale rapido.\n\n---",
-        "ban": "* ⛔ **BAN Clean to Split con Bilanciere:**  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Powerbag Clean to Chest (`X`)**: l'incastro al petto in semi-squat parallelo simmetrico azzera lo shock monolaterale sul tendine rotuleo destro dolente e distribuisce l'impatto.\n* ⛔ **BAN Squat Libero senza Box:**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido toglie l'inversione di moto elastica sulla rotula, guidato dal monitoraggio Enode VBT.\n* 🛡️ **PREHAB SPECIFICO ANALGESICO & PODALICO:**\n  - **Spanish Squat Isometrico con elastico spesso ancorato (3-4 serie × 45\" a 90°)** prima di qualsiasi carico: analgesia immediata del tendine rotuleo destro.\n  - Rilascio miofasciale con pallina da lacrosse sotto la fascia plantare sinistra.\n  - Couch Stretch e foam roller per il quadricipite/retto femorale destro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO PLIOMETRIA**. L'RDL è calibrato a 2 sole serie da 4 reps a buffer 3 (RPE 6-7) per proteggere i tendini e gli ischiocrurali a 24h dal test match del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Clean to Split con Bilanciere:**  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Powerbag Clean to Chest (`X`)**: l'incastro al petto in semi-squat parallelo simmetrico azzera lo shock monolaterale sul tendine rotuleo destro dolente e distribuisce l'impatto.\n* ⛔ **BAN Squat Libero senza Box:**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido toglie l'inversione di moto elastica sulla rotula, guidato dal monitoraggio Enode VBT.\n* 🛡️ **PREHAB SPECIFICO ANALGESICO & PODALICO:**\n  - **Spanish Squat Isometrico con elastico spesso ancorato (3-4 serie × 45\" a 90°)** prima di qualsiasi carico: analgesia immediata del tendine rotuleo destro.\n  - Rilascio miofasciale con pallina da lacrosse sotto la fascia plantare sinistra.\n  - Couch Stretch e foam roller per il quadricipite/retto femorale destro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO PLIOMETRIA**. L'RDL è calibrato a 2 sole serie da 4 reps a buffer 3 (RPE 6-7) per proteggere i tendini e gli ischiocrurali a 24h dal test match del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -3582,7 +3582,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo 90°) con Miniband",
+              "Esercizio": "Squat (Parallelo 90°) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "55 kg (\"6\")",
               "Tempo": "`3010`",
@@ -3672,7 +3672,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (90°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -3837,12 +3837,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "60 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -3931,12 +3931,12 @@ const WEEKS_DATA = {
                   "Raw": "**Powerbag Clean to Chest:** 4 x 4 @ Bag 20 kg | Tempo `X` (Esplosione d'anca e arrivo compatto)."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -4104,7 +4104,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 ALTO (Tendinopatia Quadricipitale SX + Instabilità Podalica DX + Valgismo Dinamico Arto DX + Butt Wink a 80°)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Asonja e Sassolini)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Tendinopatia Quadricipitale Sinistra (Inserzione Sovrarotulea):**\n   - Dolore e tensione alla giunzione miotendinea del retto femorale sinistro sopra il polo superiore della rotula, esacerbato da carichi eccentrici profondi senza battuta.\n2. **Instabilità Podalica Destra & Valgismo Dinamico Arto DX:**\n   - Retropiede destro con mancata inversione calcaneale in SLS; crollo dell'arco mediale che scatena un cedimento marcato in **valgismo dinamico al ginocchio destro** nello Step Over.\n3. **Squat Test & Butt Wink Precoce a 80°:**\n   - L'accosciata libera si blocca a circa 80° al ginocchio (sopra il parallelo) con immediata perdita delle curve fisiologiche lombari (*butt wink* severo) per retrazione della catena anteriore.\n4. **Specificità Schiacciatrice:**\n   - Atleta titolare d'attacco: necessita di proteggere la spalla con la Floor Chest Press e di stabilizzare il ginocchio destro per evitare distorsioni o sovraccarichi patellari negli stacchi e atterraggi da posto 4.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra (<85°):**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 85°-90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido calibra l'inversione di moto togliendo tensione al tendine quadricipitale sinistro; l'elastico costringe il gluteo medio destro ad aprirsi contrastando il valgismo.\n* 🛡️ **PREHAB SPECIFICO TENDINEO & PODALICO:**\n  - De-tensione miofasciale quadricipite sinistro con foam roller.\n  - Short Foot attivo su superficie dura per il piede destro (alluce e 5° metatarso saldi).\n  - Step Down eccentrico controllato da box basso (15 cm) guidando l'allineamento dell'arto destro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è ridotto a 2 serie da 4 reps a buffer 3 (RPE 6-7) per proteggere gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra (<85°):**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 85°-90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido calibra l'inversione di moto togliendo tensione al tendine quadricipitale sinistro; l'elastico costringe il gluteo medio destro ad aprirsi contrastando il valgismo.\n* 🛡️ **PREHAB SPECIFICO TENDINEO & PODALICO:**\n  - De-tensione miofasciale quadricipite sinistro con foam roller.\n  - Short Foot attivo su superficie dura per il piede destro (alluce e 5° metatarso saldi).\n  - Step Down eccentrico controllato da box basso (15 cm) guidando l'allineamento dell'arto destro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è ridotto a 2 serie da 4 reps a buffer 3 (RPE 6-7) per proteggere gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -4133,7 +4133,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo 85°-90°) con Miniband",
+              "Esercizio": "Squat (Parallelo 85°-90°) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "60 kg (\"6\")",
               "Tempo": "`3010`",
@@ -4223,7 +4223,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (85°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (85°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -4388,12 +4388,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (85°)",
+                  "Esercizio": "Squat Dinamico (85°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "65 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (85°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (85°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -4482,12 +4482,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 35 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (85°)",
+                  "Esercizio": "Half Squat Dinamico (85°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (85°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (85°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -4655,7 +4655,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 ALTO (Catena Anteriore Retratta + Shift Pelvico + Instabilità Podalica Bilaterale)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Dodi, Caserta e Adamczewska)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Retrazione Severa della Catena Anteriore & Retto Femorale:**\n   - La flessione del ginocchio da prono è clamorosamente bloccata a soli **70°** (tensione lancinante alla coscia anteriore), a fronte di una traslazione anteriore del bacino inesistente nell'estensione multisegmentale.\n   - *Ripercussione:* Nello squat libero, la discesa si arresta prematuramente a 80°, manifestando una perdita completa della lordosi lombare (*butt wink* severo) già a **100° di flessione di ginocchio** (ben al di sopra del parallelo). Caricare un back squat profondo significherebbe riversare tensioni di taglio estreme su L4-L5 e tendine rotuleo.\n2. **Deficit Torsionale Asimmetrico d'Anca & Lateral Shift:**\n   - Anca DX in pattern intrarotatorio (IR 45°, ER 35-40°).\n   - Anca SX con deficit marcato di rotazione interna (IR 25-30°, ER 45-50°).\n   - *Ripercussione:* Nello squat si evidenzia un evidente *lateral shift* del bacino verso sinistra associato a torsione verso destra, creando asimmetria di spinta al salto e sovraccarico asimmetrico alle ginocchia nello Step Over (valgismo dinamico su entrambi gli arti, peggiore a destra).\n3. **Instabilità Podalica & Carenza del Tibiale Posteriore:**\n   - Dita ad artiglio in semiflessione a riposo, arco plantare collassato, mancata inversione calcaneale fisiologica in appoggio monopodalico.\n   - Spinta propulsiva a DX gravemente deficitaria con sovraccarico compensatorio esclusivo sui primi metatarsi mediali.\n4. **Cingolo Scapolare & Spalla d'Attacco:**\n   - Ipomobilità della scapola sinistra in abduzione overhead e retrazione; spalla destra da opposto ad altissimo volume di colpi che necessita di scarico del piano orizzontale estremo.\n\n---",
-        "ban": "* ⛔ **BAN Back Squat Profondo Libero:** L'accosciata a terra senza riferimento produce retroversione pelvica distruttiva a 100°.  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo (85°-90°) con tempo eccentrico controllato (`3010`) e ripartenza dinamica (`20X0`)**, con controllo dello shift mediante feedback speculare o box rigido calibrato.\n* ⛔ **BAN Bilanciere Panca Piana Tradizionale con arco esasperato:**  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con manubri (`3010`)**: il pavimento azzera l'iperestensione scapolo-omerale proteggendo il bicipite brachiale e la cuffia dei rotatori, massimizzando il reclutamento del pettorale e tricipite.\n* 🛡️ **INTEGRAZIONE PREHAB OBBLIGATORIA (Targeting Catena Anteriore & Piede):**\n  - Allungamento dinamico e rilascio miofasciale del retto femorale (Couch stretch adattato + foam roller quadriceps).\n  - Mobilizzazione 90/90 anca sinistra in intrarotazione (recupero dei 15° mancanti).\n  - Esercizi di *Short Foot* + inversione caviglia con banda elastica per il tibiale posteriore (attivazione 3 punti d'appoggio podalici).\n* 🛡️ **REGOLA VENERDÌ (Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO PLIOMETRIA E ZERO CARICHI ASSIALI COMPRESSIVI SULLA COLONNA**. Focus su catena posteriore, stabilità pelvica e decompressione.\n\n---",
+        "ban": "* ⛔ **BAN Back Squat Profondo Libero:** L'accosciata a terra senza riferimento produce retroversione pelvica distruttiva a 100°.  \n  ➔ **SOSTITUZIONE:** **Squat parallelo (85°-90°) con tempo eccentrico controllato (`3010`) e ripartenza dinamica (`20X0`)**, con controllo dello shift mediante feedback speculare o box rigido calibrato.\n* ⛔ **BAN Bilanciere Panca Piana Tradizionale con arco esasperato:**  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con manubri (`3010`)**: il pavimento azzera l'iperestensione scapolo-omerale proteggendo il bicipite brachiale e la cuffia dei rotatori, massimizzando il reclutamento del pettorale e tricipite.\n* 🛡️ **INTEGRAZIONE PREHAB OBBLIGATORIA (Targeting Catena Anteriore & Piede):**\n  - Allungamento dinamico e rilascio miofasciale del retto femorale (Couch stretch adattato + foam roller quadriceps).\n  - Mobilizzazione 90/90 anca sinistra in intrarotazione (recupero dei 15° mancanti).\n  - Esercizi di *Short Foot* + inversione caviglia con banda elastica per il tibiale posteriore (attivazione 3 punti d'appoggio podalici).\n* 🛡️ **REGOLA VENERDÌ (Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO PLIOMETRIA E ZERO CARICHI ASSIALI COMPRESSIVI SULLA COLONNA**. Focus su catena posteriore, stabilità pelvica e decompressione.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -4684,7 +4684,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Box 85°-90°)",
+              "Esercizio": "Squat (85°-90°)",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "60 kg (\"6\")",
               "Tempo": "`3010`",
@@ -4774,7 +4774,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (85°)",
+              "Esercizio": "Half Squat Dinamico (85°)",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "50 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -4939,12 +4939,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico",
+                  "Esercizio": "Squat Dinamico",
                   "Set_Reps": "4 x 4",
                   "Carico": "65 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Fermo solido al box, risalita violenta",
-                  "Raw": "**Box Squat Dinamico:** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` (Fermo solido al box, risalita violenta)."
+                  "Raw": "**Squat Dinamico:** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` (Fermo solido al box, risalita violenta)."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -5033,12 +5033,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 37.5 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (85°)",
+                  "Esercizio": "Half Squat Dinamico (85°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "55 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (85°):** 4 x 4 @ 55 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (85°):** 4 x 4 @ 55 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -5211,7 +5211,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 CRITICO / MASSIMO (Ginocchia Operate Bilaterali + Cervicalgia Irradiata + Shift Pelvico)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Caserta e Adamczewska)",
         "triage": "### Criticità Funzionali & Pregresso Chirurgico Rilevato\n1. **Quadro Chirurgico Bilaterale Ginocchia (Innesto LCA + Menischi):**\n   - Ricostruzione LCA e menisco SX (2021) + Meniscectomia/sutura menisco DX (Febbraio 2024).\n   - Nello Step Over e nello squat si evidenzia un **cedimento in valgismo dinamico dell'arto sinistro** associato a un evidente *lateral shift* del bacino a sinistra. Questo pattern torsionale eccentrico riversa un momento in valgo-rotazione distruttivo direttamente sull'innesto legamentoso del ginocchio sinistro.\n2. **Cervico-Dorsalgia Attiva con Irradiazione Craniale:**\n   - La spalla sinistra si presenta marcatamente anteposta, con elevata abduzione e depressione scapolare. I sovraccarichi assiali sopra la testa scatenano contratture paraspinali/trapezoidali che provocano cefalee tensive e disturbano il sonno post-allenamento pesi.\n3. **Blocco Meccanico della Caviglia & Retrazione Catena Anteriore:**\n   - La dorsiflessione della caviglia è marcatamente ridotta (le ginocchia non traslano oltre la punta dei piedi nello squat, arrestando la discesa a 70°-80°).\n   - Retrazione severa del retto femorale a terra (già a 90° di flessione il bacino collassa in antiversione forzata).\n4. **Deficit Piede Sinistro & Rotazione Esterna d'Anca:**\n   - Piede sinistro evertito e pronato a riposo, mancata inversione calcaneale fisiologica in SLS (deficit tibiale posteriore sinistro).\n   - Anca sinistra limitata in rotazione esterna a soli 30° con compenso di sollevamento pelvico.\n\n---",
-        "ban": "* ⛔ **BAN ASSOLUTO Push Press o Overhead Press Bilanciere:** Qualsiasi distensione bilaterale con bilanciere sopra la testa comprime il rachide cervicale e scatena l'irradiazione cefalica.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Lunge Position One-Arm Press con Kettlebell (`3010` / `2010`)** oppure **Half Kneeling Landmine Press**: spinta sul piano scapolare (a 30°), lavoro asimmetrico che stabilizza il core senza comprimere le vertebre cervicali.\n* ⛔ **BAN Deadbug Classico a Corpo Libero:** La perdita di contatto lombare scatena estensione cervicale compensatoria.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Deadbug Pullover con Kettlebell/Manubrio (`2020`)**: la presa isometrica dell'attrezzo attiva il gran dorsale e il dentato anteriore, ancorando saldamente la cassa toracica ed evitando la tensione nucale.\n* ⛔ **BAN Squat Libero senza Box:** Tendenza a crollare nello shift a sinistra e valgo sull'innesto LCA.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Box Squat parallelo (85°) con Miniband sopra le ginocchia**: l'elastico induce il reclutamento attivo del gluteo medio contrastando il valgo sinistro; il box rigido calibra la discesa e neutralizza lo shift pelvico.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean to Split con Powerbag/Sandbag 15-20 kg)**: azzera l'impatto articolare della girata su polsi e rachide cervicale, consentendo tripla estensione senza stress torsionale sul ginocchio sinistro operato.\n* 🛡️ **PREHAB MIRATO (Caviglia + Anca SX + Scapola):**\n  - Mobilità caviglia Knee-to-Wall con elastico (trazione dell'astragalo indietro).\n  - Mobilizzazione anca sinistra in rotazione esterna (Figure 4 stretch / 90-90 ER).\n  - Attivazione tibiale posteriore con fascia elastica (inversione calcaneale).\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO PLIOMETRIA E ZERO ATTERRAGGI IMPATTANTI**. Protezione assoluta delle ginocchia operate pre-weekend.\n\n---",
+        "ban": "* ⛔ **BAN ASSOLUTO Push Press o Overhead Press Bilanciere:** Qualsiasi distensione bilaterale con bilanciere sopra la testa comprime il rachide cervicale e scatena l'irradiazione cefalica.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Lunge Position One-Arm Press con Kettlebell (`3010` / `2010`)** oppure **Half Kneeling Landmine Press**: spinta sul piano scapolare (a 30°), lavoro asimmetrico che stabilizza il core senza comprimere le vertebre cervicali.\n* ⛔ **BAN Deadbug Classico a Corpo Libero:** La perdita di contatto lombare scatena estensione cervicale compensatoria.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Deadbug Pullover con Kettlebell/Manubrio (`2020`)**: la presa isometrica dell'attrezzo attiva il gran dorsale e il dentato anteriore, ancorando saldamente la cassa toracica ed evitando la tensione nucale.\n* ⛔ **BAN Squat Libero senza Box:** Tendenza a crollare nello shift a sinistra e valgo sull'innesto LCA.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Squat parallelo (85°) con Miniband sopra le ginocchia**: l'elastico induce il reclutamento attivo del gluteo medio contrastando il valgo sinistro; il box rigido calibra la discesa e neutralizza lo shift pelvico.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean to Split con Powerbag/Sandbag 15-20 kg)**: azzera l'impatto articolare della girata su polsi e rachide cervicale, consentendo tripla estensione senza stress torsionale sul ginocchio sinistro operato.\n* 🛡️ **PREHAB MIRATO (Caviglia + Anca SX + Scapola):**\n  - Mobilità caviglia Knee-to-Wall con elastico (trazione dell'astragalo indietro).\n  - Mobilizzazione anca sinistra in rotazione esterna (Figure 4 stretch / 90-90 ER).\n  - Attivazione tibiale posteriore con fascia elastica (inversione calcaneale).\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO PLIOMETRIA E ZERO ATTERRAGGI IMPATTANTI**. Protezione assoluta delle ginocchia operate pre-weekend.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -5240,7 +5240,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat parallelo (85°) con Miniband ginocchia",
+              "Esercizio": "Squat parallelo (85°) con Miniband ginocchia",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`3010`",
@@ -5330,7 +5330,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (85°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (85°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "37.5 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -5495,12 +5495,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat con Miniband",
+                  "Esercizio": "Squat con Miniband",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Arresto pulito al box, spinta rapida",
-                  "Raw": "**Box Squat con Miniband:** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` (Arresto pulito al box, spinta rapida)."
+                  "Raw": "**Squat con Miniband:** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` (Arresto pulito al box, spinta rapida)."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -5589,12 +5589,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 27.5 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box con Miniband",
+                  "Esercizio": "Half Squat Dinamico (90°) con Miniband",
                   "Set_Reps": "4 x 4",
                   "Carico": "42.5 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box con Miniband:** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°) con Miniband:** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Lunge Position One-Arm Press KB",
@@ -5759,7 +5759,7 @@ const WEEKS_DATA = {
         "rischio": "🟡/🔴 MEDIO-ALTO (Lassità Legamentosa + Disritmia Scapolare DX + Valgismo SX + Cisti Polso DX)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Caserta e Dodi)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Video/Frame)\n1. **Lassità Legamentosa Generalizzata & Tendenza Recurvatum:**\n   - 17 anni, mobilità passiva elevatissima che necessita di eccellente rigidità attiva (*stiffness*) e stabilità lombo-pelvica. Tendenza al recurvatum e pregressa tendinopatia rotulea da salto.\n2. **Disritmia Scapolare Destra & Upper Crossed Pattern:**\n   - Durante l'abduzione/elevazione, la scapola destra sale precocemente e più in alto rispetto alla sinistra (anticipo di elevazione per iper-attivazione del trapezio superiore e inibizione del trapezio inferiore/dentato anteriore).\n   - Presenza di cisti ganglionare al polso destro (asintomatica ma suscettibile di compressione in iperestensione dorsale con bilanciere dritto).\n3. **Deficit Podalico Sinistro & Valgismo Dinamico Arto SX:**\n   - Retropiede sinistro in eversione/pronazione costante con mancata inversione calcaneale sia in SLS che in propulsione (deficit selettivo del tibiale posteriore sinistro).\n   - Nello Step Over, l'arto sinistro mostra un cedimento in valgismo dinamico marcato (SX > DX), non controllato dall'arco plantare collassato.\n4. **Instabilità Lombo-Pelvica nello Squat Profondo & Blocco Rotazionale SX:**\n   - Nello squat, superati gli 80° di flessione di ginocchio, si manifesta una perdita del controllo lombo-pelvico (*butt wink*) sotto i 70°, con rotazione del bacino a destra in fase concentrica.\n   - Restrizione di circa 15°-20° nella rotazione cervicale e del tronco verso sinistra (cerniera cervico-dorsale rigida).\n\n---",
-        "ban": "* ⛔ **BAN Squat Profondo Libero (<70° al ginocchio):**  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo a 80°-85° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box impedisce il *butt wink* a fondo corsa proteggendo L4-S1, mentre l'elastico recluta il gluteo medio contrastando il valgismo del ginocchio sinistro.\n* ⛔ **BAN Bilanciere Dritto in Iperestensione dei Polsi (Panca / Girata con polsi piegati):** La cisti ganglionare del polso destro non tollera carichi di compressione in estensione forzata.  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con Manubri a Presa Neutra/Semi-neutra (`3010`)** e Clean to Split eseguito con manubri/powerbag a presa neutra.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean con manubri a presa neutra / Powerbag 15-20 kg)**: elimina l'estensione del polso salvaguardando la cisti ganglionare del polso destro ed esaltando la tripla estensione.\n* 🛡️ **PREHAB SCAPOLARE E PODALICO OBBLIGATORIO:**\n  - Rilascio miofasciale piccolo pettorale destro con pallina da lacrosse (de-tensione coracoide).\n  - Scapular Wall Slide & Prone Trap 3 Raise per rieducare il timing della scapola destra (depressione attiva).\n  - Short Foot + inversione con elastico per il piede sinistro (attivazione tibiale posteriore).\n  - Rotazioni toraciche in quadrupedia (\"Open Book\") focalizzate sul lato sinistro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro eccentrico/isocinetico per ischiocrurali e tendine rotuleo senza impatto.\n\n---",
+        "ban": "* ⛔ **BAN Squat Profondo Libero (<70° al ginocchio):**  \n  ➔ **SOSTITUZIONE:** **Squat parallelo a 80°-85° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box impedisce il *butt wink* a fondo corsa proteggendo L4-S1, mentre l'elastico recluta il gluteo medio contrastando il valgismo del ginocchio sinistro.\n* ⛔ **BAN Bilanciere Dritto in Iperestensione dei Polsi (Panca / Girata con polsi piegati):** La cisti ganglionare del polso destro non tollera carichi di compressione in estensione forzata.  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con Manubri a Presa Neutra/Semi-neutra (`3010`)** e Clean to Split eseguito con manubri/powerbag a presa neutra.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean con manubri a presa neutra / Powerbag 15-20 kg)**: elimina l'estensione del polso salvaguardando la cisti ganglionare del polso destro ed esaltando la tripla estensione.\n* 🛡️ **PREHAB SCAPOLARE E PODALICO OBBLIGATORIO:**\n  - Rilascio miofasciale piccolo pettorale destro con pallina da lacrosse (de-tensione coracoide).\n  - Scapular Wall Slide & Prone Trap 3 Raise per rieducare il timing della scapola destra (depressione attiva).\n  - Short Foot + inversione con elastico per il piede sinistro (attivazione tibiale posteriore).\n  - Rotazioni toraciche in quadrupedia (\"Open Book\") focalizzate sul lato sinistro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro eccentrico/isocinetico per ischiocrurali e tendine rotuleo senza impatto.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -5788,7 +5788,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (80°-85°) con Miniband sopra ginocchia",
+              "Esercizio": "Squat (80°-85°) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "55 kg (\"6\")",
               "Tempo": "`3010`",
@@ -5878,7 +5878,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (85°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (85°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -6043,12 +6043,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat con Miniband",
+                  "Esercizio": "Squat con Miniband",
                   "Set_Reps": "4 x 4",
                   "Carico": "60 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Pausa al box 1\", esplosione verso l'alto",
-                  "Raw": "**Box Squat con Miniband:** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` (Pausa al box 1\", esplosione verso l'alto)."
+                  "Raw": "**Squat con Miniband:** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` (Pausa al box 1\", esplosione verso l'alto)."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri Neutri",
@@ -6137,12 +6137,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 35 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box con Miniband",
+                  "Esercizio": "Half Squat Dinamico (90°) con Miniband",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box con Miniband:** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°) con Miniband:** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -6315,7 +6315,7 @@ const WEEKS_DATA = {
         "rischio": "🟡 MEDIO (Deficit Severo Extrarotazione d'Anca + Valgismo Dinamico + Retropiede DX Evertito + Specificità Ruolo Libero)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactivity & Movement Quality\" (Postazione Libero / Campo Libero)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Grave Deficit Torsionale d'Anca (Intrarotazione vs Extrarotazione):**\n   - Presenta una marcata asimmetria tra i range di rotazione: intrarotazione eccezionalmente ampia (IR 45° a SX, 50° a DX), ma **extrarotazione gravemente ridotta e bloccata a soli 20°-25° a destra e 30° a sinistra**.\n   - *Ripercussione:* Nello Step Over e negli affondi laterali tipici del libero, l'incapacità di reclutare i rotatori esterni d'anca (gluteo medio/profondi) causa un immediato cedimento in **valgismo dinamico** del ginocchio (più evidente a sinistra).\n2. **Squat Test & Shift Compensatorio:**\n   - Profondità eccellente (accosciata profonda a 50° con curve conservate), ma si nota un *lateral shift* del bacino verso sinistra per scavalcare il blocco articolare dell'anca destra e l'eversione del piede destro.\n3. **Instabilità Retropiede Destro & Carenza Propulsiva:**\n   - Retropiede destro evertito a riposo e in SLS, mancata inversione calcaneale fisiologica, spinta propulsiva al calf raise debole e instabile rispetto al lato sinistro.\n4. **Specificità del Ruolo Libero & Scapola Sinistra:**\n   - Nel ruolo di libero, i carichi di compressione e distensione orizzontale pesante con bilanciere (panca piana e rematore orizzontale con bilanciere pesante) sono controproducenti e aumentano la rigidità scapolare anteriore (già presente con ipomobilità overhead sinistra).\n\n---",
-        "ban": "* ⛔ **BAN ASSOLUTO Panca Piana con Bilanciere & Rematore Bilanciere Pesante (Regola Specifica Libero):**  \n  ➔ **SOSTITUZIONE SPECIFICA:**\n  - **Prone Y-Raise con manubri leggeri (`2012`)** per fissare i depressori/stabilizzatori scapolari e il trapezio inferiore.\n  - **Single-Arm Cable Row (`2011`)** per garantire trazione orizzontale asimmetrica senza compressione discale.\n  - **Low Medball Slam a terra (`X`)** con enfasi sulla cerniera d'anca e reattività senza impatto.\n* ⚖️ **ADATTAMENTO SQUAT:** **Box Squat calibrato all'80% di profondità con Miniband sopra le ginocchia (`3010` / `20X0`)**: impedisce lo shift pelvico a sinistra, costringe le ginocchia a spingere contro la banda attivando i rotatori esterni bloccati (ER) e mantiene la stiffness dinamica per la difesa.\n* 🛡️ **PREHAB SPECIALISTICO D'ANCA & PIEDE DX:**\n  - Mobilità 90/90 con trazione elastica per recuperare l'extrarotazione d'anca DX (dai 20° ai 40° fisiologici).\n  - Short Foot + Banded Ankle Inversion per il piede destro (stimolazione tibiale posteriore).\n  - Rilascio miofasciale quadricipite/retto femorale destro su foam roller.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO BALZI PLIOMETRICI**. Lavoro puramente decompressivo e di stabilità orizzontale.\n\n---",
+        "ban": "* ⛔ **BAN ASSOLUTO Panca Piana con Bilanciere & Rematore Bilanciere Pesante (Regola Specifica Libero):**  \n  ➔ **SOSTITUZIONE SPECIFICA:**\n  - **Prone Y-Raise con manubri leggeri (`2012`)** per fissare i depressori/stabilizzatori scapolari e il trapezio inferiore.\n  - **Single-Arm Cable Row (`2011`)** per garantire trazione orizzontale asimmetrica senza compressione discale.\n  - **Low Medball Slam a terra (`X`)** con enfasi sulla cerniera d'anca e reattività senza impatto.\n* ⚖️ **ADATTAMENTO SQUAT:** **Squat calibrato all'80% di profondità con Miniband sopra le ginocchia (`3010` / `20X0`)**: impedisce lo shift pelvico a sinistra, costringe le ginocchia a spingere contro la banda attivando i rotatori esterni bloccati (ER) e mantiene la stiffness dinamica per la difesa.\n* 🛡️ **PREHAB SPECIALISTICO D'ANCA & PIEDE DX:**\n  - Mobilità 90/90 con trazione elastica per recuperare l'extrarotazione d'anca DX (dai 20° ai 40° fisiologici).\n  - Short Foot + Banded Ankle Inversion per il piede destro (stimolazione tibiale posteriore).\n  - Rilascio miofasciale quadricipite/retto femorale destro su foam roller.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO BALZI PLIOMETRICI**. Lavoro puramente decompressivo e di stabilità orizzontale.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -6344,7 +6344,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (@80% ROM) con Miniband ginocchia",
+              "Esercizio": "Squat (@80% ROM) con Miniband ginocchia",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`3010`",
@@ -6434,7 +6434,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (@80%) con Miniband",
+              "Esercizio": "Half Squat Dinamico (90°) (@80%) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "37.5 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -6599,12 +6599,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (@80% ROM)",
+                  "Esercizio": "Squat Dinamico (80% ROM)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Arresto pulito al box, risalita esplosiva",
-                  "Raw": "**Box Squat Dinamico (@80% ROM):** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` (Arresto pulito al box, risalita esplosiva)."
+                  "Raw": "**Squat Dinamico (80% ROM):** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` (Arresto pulito al box, risalita esplosiva)."
                 },
                 {
                   "Esercizio": "Prone Y-Raise Manubri",
@@ -6693,12 +6693,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 27.5 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (@80%)",
+                  "Esercizio": "Half Squat Dinamico (90°) (@80%)",
                   "Set_Reps": "4 x 4",
                   "Carico": "42.5 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (@80%):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°) (@80%):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -6863,7 +6863,7 @@ const WEEKS_DATA = {
         "rischio": "🟡 MEDIO (Dorsiflessione Caviglie Bloccata + Butt Wink a 90° + Spinta Piede DX Mediale + Ipermobilità Lombare di Compenso)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\"",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Dorsiflessione della Caviglia Bloccata & Squat Test:**\n   - La mobilità in dorsiflessione tibio-tarsica è marcatamente limitata bilateralmente. Nello squat a carico libero, le tibie non avanzano oltre i piedi e l'accosciata si arresta bruscamente a 90° (sopra il parallelo).\n   - In quel punto di arresto (90°) scatta una perdita repentina e severa della lordosi lombare (*butt wink* completo), con retroversione del bacino per guadagnare centimetri artificiali di profondità.\n2. **Spinta Propulsiva Piede Destro Alterata:**\n   - Nel calf raise monopodalico e nella spinta a terra, il retropiede destro collassa in eversione, scaricando tutta la forza di trazione quasi esclusivamente sul 1° e 2° metatarso (sovraccarico mediale), a differenza dell'arto sinistro che mantiene una traiettoria fisiologica.\n3. **Rigidità Dorsale & Iper-Estensione Lombare Compensatoria:**\n   - Spalle anteposte bilateralmente con rettilineizzazione toracica. Nell'estensione multisegmentale standing, l'atleta appare \"superpositiva\" perché compensa la rigidità toracica iper-estendendo le vertebre lombari (cerniera L4-S1 sotto stress).\n4. **Specificità Palleggiatrice:**\n   - Necessità assoluta di reattività dell'avampiede nei cambi di direzione per il palleggio e integrità/stabilità dei polsi e delle dita per il tocco di palla.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo (<90°):**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° (`3010` / `20X0`)**: l'altezza del box ferma la discesa esattamente prima del crollo pelvico lombare, consentendo di caricare in sicurezza la tripla estensione senza retroversione.\n* 🛡️ **PREHAB SPECIFICO CAVIGLIA, PIEDE DX E TORACE:**\n   - Knee-to-Wall con elastico alle caviglie (mobilizzazione dell'articolazione tibio-tarsica con trazione posteriore dell'astragalo).\n   - Mobilizzazione in estensione toracica su Foam Roller (mani dietro la nuca, gomiti chiusi) per sbloccare le vertebre dorsali senza sovraccaricare il tratto lombare.\n   - Rieducazione dell'arco plantare destro (*Short Foot* + Calf raise su cuneo per reclutare il 4°-5° metatarso).\n* 🛡️ **TUTELA & POTENZIAMENTO POLSI/FLESSORI PER IL PALLEGGIO:**\n   - Inserimento di Wrist Rollers / Dumbbell Wrist Flexion-Extension a tempo controllato (`2012`) e Farmer Carry con manubri per rinforzare gli avambracci.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n   - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro decompressivo per la colonna lombare e catena posteriore.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo (<90°):**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° (`3010` / `20X0`)**: l'altezza del box ferma la discesa esattamente prima del crollo pelvico lombare, consentendo di caricare in sicurezza la tripla estensione senza retroversione.\n* 🛡️ **PREHAB SPECIFICO CAVIGLIA, PIEDE DX E TORACE:**\n   - Knee-to-Wall con elastico alle caviglie (mobilizzazione dell'articolazione tibio-tarsica con trazione posteriore dell'astragalo).\n   - Mobilizzazione in estensione toracica su Foam Roller (mani dietro la nuca, gomiti chiusi) per sbloccare le vertebre dorsali senza sovraccaricare il tratto lombare.\n   - Rieducazione dell'arco plantare destro (*Short Foot* + Calf raise su cuneo per reclutare il 4°-5° metatarso).\n* 🛡️ **TUTELA & POTENZIAMENTO POLSI/FLESSORI PER IL PALLEGGIO:**\n   - Inserimento di Wrist Rollers / Dumbbell Wrist Flexion-Extension a tempo controllato (`2012`) e Farmer Carry con manubri per rinforzare gli avambracci.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n   - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro decompressivo per la colonna lombare e catena posteriore.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -6892,7 +6892,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Box a 90° esatti)",
+              "Esercizio": "Squat (Parallelo a 90°)",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "50 kg (\"6\")",
               "Tempo": "`3010`",
@@ -6982,7 +6982,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°)",
+              "Esercizio": "Half Squat Dinamico (90°)",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "40 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -7147,12 +7147,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "55 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Fermo solido al box, risalita esplosiva",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `20X0` (Fermo solido al box, risalita esplosiva)."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `20X0` (Fermo solido al box, risalita esplosiva)."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -7241,12 +7241,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 30 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "45 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 45 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 45 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -7419,7 +7419,7 @@ const WEEKS_DATA = {
         "rischio": "🟡 MEDIO (Perdita Controllo Lombo-Pelvico oltre 110° + Shift Pelvico Asimmetrico + Deficit Retrazione Scapola DX + Anteposizione Spalla SX)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Dodi e Adamczewska)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Perdita del Controllo Lombo-Pelvico nello Squat Profondo & Shift Pelvico:**\n   - Mobilità passiva d'anca eccellente (accosciata fino a 70°), ma la stabilità lombo-pelvica cede bruscamente già a **110° di flessione di ginocchio** (ben prima del parallelo), scatenando un *butt wink* completo e flessione di compenso del tratto dorsale.\n   - Nello squat libero si evidenzia una dinamica a \"doppio shift\": il bacino trasla a sinistra in fase di discesa e scivola a destra all'inversione concentrica, indicando un deficit di stabilità torsionale pelvica e asimmetria tra gli arti.\n2. **Asimmetrie del Cingolo Scapolare (Spalla SX Anteposta / Scapola DX Ipomobile):**\n   - Spalla sinistra visibilmente anteposta e limitata in abduzione overhead attiva.\n   - A braccia tese frontali, la scapola destra presenta un deficit selettivo di adduzione/retrazione (scarsa attivazione del trapezio medio-inferiore e dei romboidi a destra).\n3. **Appoggio Podalico & Mobilità del Piede:**\n   - Piede sinistro in eversione/pronazione più marcata rispetto al destro durante l'accosciata; retropiede rigido con limitata escursione fisiologica pronatoria in spinta propulsiva.\n4. **Specificità del Centrale:**\n   - Richiesta elevatissima di stiffness dei polpacci e stabilità orizzontale/verticale per i ripetuti salti a muro (spostamenti laterali rapidi) e attacco di primo tempo.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo (<90°):** L'accosciata oltre i 110° scatena retroversione lombare marcata e doppio shift del bacino.  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° con tempo eccentrico controllato (`3010`) e ripartenza dinamica (`20X0`)**: il box elimina il *butt wink*, calibra l'inversione e guida la simmetria di spinta senza scarico asimmetrico.\n* 🛡️ **PREHAB SCAPOLARE ASIMMETRICO & CORE INTRA-ADDOMINALE:**\n   - Retrazioni scapolari monolaterali al cavo / manubrio con sosta 2\" per la scapola destra.\n   - Rilascio miofasciale piccolo pettorale sinistro ed allungamento intrarotatori spalla SX per sbloccare l'abduzione overhead.\n   - Attivazione del core con pressione intra-addominale (IAP) e Deadbug anti-estensione per eliminare lo shift pelvico nello squat.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n   - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO STRESS PLIOMETRICO**. Focus su catena posteriore, stabilità pelvica e decompressione spinale pre-gara.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo (<90°):** L'accosciata oltre i 110° scatena retroversione lombare marcata e doppio shift del bacino.  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° con tempo eccentrico controllato (`3010`) e ripartenza dinamica (`20X0`)**: il box elimina il *butt wink*, calibra l'inversione e guida la simmetria di spinta senza scarico asimmetrico.\n* 🛡️ **PREHAB SCAPOLARE ASIMMETRICO & CORE INTRA-ADDOMINALE:**\n   - Retrazioni scapolari monolaterali al cavo / manubrio con sosta 2\" per la scapola destra.\n   - Rilascio miofasciale piccolo pettorale sinistro ed allungamento intrarotatori spalla SX per sbloccare l'abduzione overhead.\n   - Attivazione del core con pressione intra-addominale (IAP) e Deadbug anti-estensione per eliminare lo shift pelvico nello squat.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n   - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO STRESS PLIOMETRICO**. Focus su catena posteriore, stabilità pelvica e decompressione spinale pre-gara.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -7448,7 +7448,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Box a 90°)",
+              "Esercizio": "Squat (Parallelo a 90°)",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "55 kg (\"6\")",
               "Tempo": "`3010`",
@@ -7538,7 +7538,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°)",
+              "Esercizio": "Half Squat Dinamico (90°)",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -7703,12 +7703,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "60 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Arresto solido, risalita esplosiva",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` (Arresto solido, risalita esplosiva)."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` (Arresto solido, risalita esplosiva)."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -7797,12 +7797,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 35 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -7979,7 +7979,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "55",
-        "Note": "Box Squat Dinamico 20X0 (Enode 0.65-0.75 m/s) + Floor Press + Lat Machine"
+        "Note": "Squat Dinamico 20X0 (Enode 0.65-0.75 m/s) + Floor Press + Lat Machine"
       },
       {
         "Numero_Seduta": "W4-MerV",
@@ -8043,7 +8043,7 @@ const WEEKS_DATA = {
           "fase": "Mattina",
           "nome": "Seduta 1 — Spinta Orizzontale & Trazione Verticale",
           "durata": "52-55 min",
-          "focus": "Floor Press DB ↔ Lat Machine neutra + Box Squat con sensore Enode",
+          "focus": "Floor Press DB ↔ Lat Machine neutra + Squat con sensore Enode",
           "esercizi": [
             {
               "Blocco": "# Prehab",
@@ -8068,7 +8068,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Box Squat (Parallelo)",
+              "Esercizio": "2A. Squat (Parallelo)",
               "Set x Reps": "4 x 5-6 (W3) / 4x4 (W4) / 4x3 (W5)",
               "Tempo": "`3010` (W3) / `20X0` (W4-W5)",
               "Note Tecniche": "Monitoraggio Enode VBT (stop al -10% velocity loss)"
@@ -8162,7 +8162,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Half Squat Dinamico al Box",
+              "Esercizio": "2B. Half Squat Dinamico (90°)",
               "Set x Reps": "4 x 4-5",
               "Tempo": "`20X0` (W3) / `10X0` (W4-W5)",
               "Note Tecniche": "Risalita esplosiva senza staccare le piante dei piedi"
@@ -8350,7 +8350,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 ALTO (Instabilità Caviglie + Stress Tibiale Cronico + Deficit Tibiale Posteriore SX + Anca DX Bloccata in IR)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\"",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Instabilità di Caviglia & Sindrome da Stress Tibiale (Shin Splints):**\n   - Esiti di severa distorsione in inversione alla caviglia destra con lassità legamentosa cronica; distorsione pregressa a sinistra.\n   - All'inizio di ogni stagione su superfici rigide si riacutizza la periostite tibiale da sovraccarico della membrana interossea e debolezza muscolare profonda.\n2. **Deficit Selettivo del Tibiale Posteriore & Crollo Mediale SX:**\n   - In carico monopodalico (SLS) e nello Step Over, il retropiede sinistro cede in **eversione/pronazione incontrollata**, con conseguente valgismo dinamico al ginocchio sinistro.\n3. **Blocco Meccanico dell'Anca Destra in Intrarotazione & Shift Pelvico:**\n   - Rotazione interna dell'anca destra bloccata a 30° con tendenza fissa all'extrarotazione. Nello squat profondo il bacino compensa eseguendo un evidente *lateral shift* verso sinistra, caricando asimmetricamente il piede sinistro.\n4. **Cingolo Scapolare & Specificità da Palleggiatrice:**\n   - Spalla sinistra elevata e anteposta; necessità assoluta di stabilità e forza nei flessori/estensori dei polsi e delle dita per il palleggio di precisione in sospensione.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra:**  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo a 90° (`3010` / `20X0`)**: il box rigido calibra l'inversione di moto, impedisce lo shift pelvico a sinistra e toglie tensione alla periostite tibiale.\n* ⛔ **BAN Drop Jump Alti (>25 cm):** I salti con atterraggio ad alto impatto infiammano il periostio tibiale.  \n  ➔ **SOSTITUZIONE:** **Low Pogo Jumps elastici a terra e Drop Landing da 15-20 cm su Chronojump** con controllo dell'inversione calcaneale.\n* 🛡️ **PREHAB SPECIFICO (Tibiale Posteriore, Anca DX & Polsi):**\n  - Short Foot attivo su superficie rigida + Banded Ankle Inversion (con elastico per il tibiale posteriore sinistro).\n  - Mobilizzazione anca destra 90/90 in intrarotazione attiva (recupero dell'escursione fisiologica).\n  - Wrist Roller e Dumbbell Wrist Curls per avambracci e polsi.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è calibrato a sole 2 serie da 4 reps sub-massimali per preservare le gambe per il test match del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra:**  \n  ➔ **SOSTITUZIONE:** **Squat parallelo a 90° (`3010` / `20X0`)**: il box rigido calibra l'inversione di moto, impedisce lo shift pelvico a sinistra e toglie tensione alla periostite tibiale.\n* ⛔ **BAN Drop Jump Alti (>25 cm):** I salti con atterraggio ad alto impatto infiammano il periostio tibiale.  \n  ➔ **SOSTITUZIONE:** **Low Pogo Jumps elastici a terra e Drop Landing da 15-20 cm su Chronojump** con controllo dell'inversione calcaneale.\n* 🛡️ **PREHAB SPECIFICO (Tibiale Posteriore, Anca DX & Polsi):**\n  - Short Foot attivo su superficie rigida + Banded Ankle Inversion (con elastico per il tibiale posteriore sinistro).\n  - Mobilizzazione anca destra 90/90 in intrarotazione attiva (recupero dell'escursione fisiologica).\n  - Wrist Roller e Dumbbell Wrist Curls per avambracci e polsi.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è calibrato a sole 2 serie da 4 reps sub-massimali per preservare le gambe per il test match del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -8379,7 +8379,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo a 90°)",
+              "Esercizio": "Squat (Parallelo a 90°)",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "50 kg (\"6\")",
               "Tempo": "`3010`",
@@ -8469,7 +8469,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°)",
+              "Esercizio": "Half Squat Dinamico (90°)",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "37.5 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -8634,12 +8634,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "55 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -8728,12 +8728,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 30 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "42.5 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -8901,7 +8901,7 @@ const WEEKS_DATA = {
         "rischio": "🟡 MEDIO (Arco Plantare Lasso + Spalla SX Ipomobile + Butt Wink a 100° + Retrazione Flessori Anca DX)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\" (Postazione Rack 1)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Perdita del Controllo Lombo-Pelvico nello Squat & Flessori Anca DX:**\n   - La flessione del ginocchio è buona, ma l'accosciata libera scatena un *butt wink* a circa 100° di flessione (sopra il parallelo) causato da forte retrazione dell'ileopsoas e del retto femorale destro.\n2. **Ipomobilità Cingolo Scapolare Sinistro:**\n   - La spalla sinistra si presenta ipomobile in flessione e abduzione attiva sopra i 120° (difficoltà ad aprire l'angolo del braccio a muro). La Floor Chest Press a terra protegge la capsula gleno-omerale.\n3. **Lassità della Volta Plantare & Retropiede:**\n   - Arco plantare lasso con tendenza al collasso mediale sotto carico massimale. Necessita di attivazione con *Short Foot* e stimolo dell'avampiede.\n4. **Specificità del Centrale:**\n   - Richiesta elevatissima di stiffness dei polpacci e stabilità sui cambi di direzione laterali per gli spostamenti a muro a 2 passi e attacchi di primo tempo in sospensione rapida.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra (<90°):**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° (`3010` / `20X0`)**: impedisce il crollo lombare e protegge il rachide mantenendo l'intenzione di spinta verticale con Enode VBT.\n* 🛡️ **PREHAB SPECIFICO SPALLA SX & FLESSORI ANCA DX:**\n  - De-tensione miofasciale ileopsoas DX con Couch stretch.\n  - Mobilizzazione spalla sinistra in elevazione su panca/roller e retrazioni scapolari a parete.\n  - Short Foot attivo per rinforzare la volta plantare.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO STRESS PLIOMETRICO**. RDL calibrato a 2 sole serie da 4 reps a buffer 3 (RPE 6-7) per proteggere gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra (<90°):**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° (`3010` / `20X0`)**: impedisce il crollo lombare e protegge il rachide mantenendo l'intenzione di spinta verticale con Enode VBT.\n* 🛡️ **PREHAB SPECIFICO SPALLA SX & FLESSORI ANCA DX:**\n  - De-tensione miofasciale ileopsoas DX con Couch stretch.\n  - Mobilizzazione spalla sinistra in elevazione su panca/roller e retrazioni scapolari a parete.\n  - Short Foot attivo per rinforzare la volta plantare.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO STRESS PLIOMETRICO**. RDL calibrato a 2 sole serie da 4 reps a buffer 3 (RPE 6-7) per proteggere gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -8930,7 +8930,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo a 90°)",
+              "Esercizio": "Squat (Parallelo a 90°)",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "60 kg (\"6\")",
               "Tempo": "`3010`",
@@ -9020,7 +9020,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°)",
+              "Esercizio": "Half Squat Dinamico (90°)",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -9185,12 +9185,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "65 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -9279,12 +9279,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 35 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -9452,7 +9452,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 ALTO (Esiti Frattura Tibia DX con Mezzi di Sintesi + Ipomobilità Anca DX + Shift Pelvico a DX + Asimmetria Tricipite Surale)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Asonja e Bole)",
         "triage": "### Criticità Funzionali & Pregresso Ortopedico Rilevato\n1. **Esiti di Frattura Spiroide Tibia Destra (Placca e Viti):**\n   - Intervento chirurgico con mezzi di sintesi ancora presenti. La tibia destra presenta una ridotta tolleranza ai microtraumi da impatto assiale violento e un deficit di stiffness elastica rispetto all'arto sinistro sano.\n2. **Deficit Meccanico d'Anca Destra & Lateral Shift nello Squat:**\n   - La rotazione interna dell'anca destra è limitata (rigidità capsulare post-traumatica).\n   - Nello squat libero si evidenzia un netto **lateral shift del bacino verso destra**, caricando in modo disfunzionale la gamba operata e torcendo il rachide lombare.\n3. **Rigidità Asimmetrica del Tendine d'Achille & Tricipite Surale:**\n   - Il polpaccio destro risulta retratto e ipertonico a protezione della cicatrice ossea, con una dorsiflessione della caviglia che blocca l'accosciata a circa 85°.\n4. **Specificità Schiacciatrice:**\n   - Atleta con carichi di salto e colpi d'attacco elevati: necessita di proteggere la spalla destra con la Floor Press e di dissipare gli atterraggi simmetricamente.\n\n---",
-        "ban": "* ⛔ **BAN Clean to Split con Bilanciere:** L'atterraggio in split violento monopodalico può provocare impatti di taglio sulla tibia destra operata.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Powerbag Clean to Chest (`X`)**: la ricezione della sacca zavorrata al petto ammortizza l'impatto, le maniglie parallele mantengono i polsi in sicurezza e l'atterraggio è in **semi-squat parallelo simmetrico**, costringendo entrambi gli arti a distribuire il carico al 50%.\n* ⛔ **BAN Squat Libero a Terra senza Riferimento:**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: l'elastico impedisce il cedimento mediale e il box corregge lo shift pelvico a destra, monitorato dal sensore Enode VBT.\n* 🛡️ **PREHAB SPECIFICO (Tibia DX, Anca DX & Caviglia):**\n  - Allungamento miofasciale profondo del tricipite surale destro su cuneo/gradino (`3010`).\n  - Mobilizzazione 90/90 anca destra in intrarotazione.\n  - Attivazione del core anti-rotazione (Pallof press) e anti-estensione (Deadbug).\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO BALZI PLIOMETRICI**. L'RDL è ridotto a sole 2 serie da 4 reps sub-massimali a buffer 3 per non affaticare gli ischiocrurali prima del test match del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Clean to Split con Bilanciere:** L'atterraggio in split violento monopodalico può provocare impatti di taglio sulla tibia destra operata.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Powerbag Clean to Chest (`X`)**: la ricezione della sacca zavorrata al petto ammortizza l'impatto, le maniglie parallele mantengono i polsi in sicurezza e l'atterraggio è in **semi-squat parallelo simmetrico**, costringendo entrambi gli arti a distribuire il carico al 50%.\n* ⛔ **BAN Squat Libero a Terra senza Riferimento:**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: l'elastico impedisce il cedimento mediale e il box corregge lo shift pelvico a destra, monitorato dal sensore Enode VBT.\n* 🛡️ **PREHAB SPECIFICO (Tibia DX, Anca DX & Caviglia):**\n  - Allungamento miofasciale profondo del tricipite surale destro su cuneo/gradino (`3010`).\n  - Mobilizzazione 90/90 anca destra in intrarotazione.\n  - Attivazione del core anti-rotazione (Pallof press) e anti-estensione (Deadbug).\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO BALZI PLIOMETRICI**. L'RDL è ridotto a sole 2 serie da 4 reps sub-massimali a buffer 3 per non affaticare gli ischiocrurali prima del test match del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -9481,7 +9481,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo 90°) con Miniband",
+              "Esercizio": "Squat (Parallelo 90°) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "60 kg (\"6\")",
               "Tempo": "`3010`",
@@ -9571,7 +9571,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (90°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -9736,12 +9736,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "65 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -9830,12 +9830,12 @@ const WEEKS_DATA = {
                   "Raw": "**Powerbag Clean to Chest:** 4 x 4 @ Bag 20 kg | Tempo `X` (Esplosione e arrivo parallelo)."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -10003,7 +10003,7 @@ const WEEKS_DATA = {
         "rischio": "🟡/🔴 MEDIO-ALTO (Tendinopatia Rotulea Cronica Overuse + Valgismo Dinamico Ginocchio DX + Spalla d'Attacco Sovraccarico)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Sassolini e Bole)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Tendinopatia Rotulea Cronica Bilaterale (Overuse Salto):**\n   - Pregressa sintomatologia dolorosa all'apice inferiore della rotula (trattata in precedenza con Tecar).\n   - L'ipertono del quadricipite e le forze di taglio in inversione di moto rapida scatenano micro-infiammazioni tendinee.\n2. **Deficit Podalico Bilaterale & Valgismo Dinamico Arto DX:**\n   - Crollo mediale in eversione dell'arco plantare causato da ipovalidità del tibiale posteriore.\n   - Nello Step Over e negli atterraggi, il ginocchio destro collassa medialmente in valgismo dinamico per ritardo di reclutamento del gluteo medio destro.\n3. **Squat Test & Asimmetria d'Appoggio:**\n   - Shift a destra in fase concentrica dello squat; forte retrazione dei flessori d'anca (ileopsoas bilaterale, peggiore a sinistra).\n4. **Cingolo Scapolare & Spalla d'Attacco:**\n   - Rigidità della spalla destra a fine seduta e deficit di mobilità sopra i 120° in abduzione. La Floor Chest Press a terra protegge la cuffia azzerando l'anteriorizzazione dell'omero.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo con Rimbalzo:**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido elimina l'inversione elastica brusca al polo inferiore della rotula; l'elastico costringe il gluteo medio a spingere in fuori contrastando il valgismo del ginocchio destro.\n* 🛡️ **PREHAB SPECIFICO ANALGESICO (Protocollo Cook/Rio Tendine Rotuleo):**\n  - **Spanish Squat Isometrico con elastico pesante a 90° (3-5 serie × 30-45\" di tenuta)** prima di qualsiasi carico: induce analgesia corticale immediata e stimola la sintesi di collagene.\n  - Clamshell con miniband per attivazione gluteo medio destro.\n  - Allungamento miofasciale ileopsoas e quadricipite su foam roller.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è ridotto a sole 2 serie da 4 reps sub-massimali a buffer 3 (RPE 6-7) per proteggere i tendini rotulei e gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo con Rimbalzo:**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido elimina l'inversione elastica brusca al polo inferiore della rotula; l'elastico costringe il gluteo medio a spingere in fuori contrastando il valgismo del ginocchio destro.\n* 🛡️ **PREHAB SPECIFICO ANALGESICO (Protocollo Cook/Rio Tendine Rotuleo):**\n  - **Spanish Squat Isometrico con elastico pesante a 90° (3-5 serie × 30-45\" di tenuta)** prima di qualsiasi carico: induce analgesia corticale immediata e stimola la sintesi di collagene.\n  - Clamshell con miniband per attivazione gluteo medio destro.\n  - Allungamento miofasciale ileopsoas e quadricipite su foam roller.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è ridotto a sole 2 serie da 4 reps sub-massimali a buffer 3 (RPE 6-7) per proteggere i tendini rotulei e gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -10032,7 +10032,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo 90°) con Miniband",
+              "Esercizio": "Squat (Parallelo 90°) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "65 kg (\"6\")",
               "Tempo": "`3010`",
@@ -10122,7 +10122,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (90°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "50 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -10287,12 +10287,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "70 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 70 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 70 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -10381,12 +10381,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position (o Powerbag Clean):** 4 x 3+3 @ 37.5 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "55 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -10554,7 +10554,7 @@ const WEEKS_DATA = {
         "rischio": "🟡 MEDIO (Esiti Osgood-Schlatter Ginocchio DX + Caviglia DX Rigida + Regole Specifiche Ruolo Libero)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\"",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Esiti di Sindrome di Osgood-Schlatter (Apofisite Tibiale DX):**\n   - Tuberosità tibiale anteriore destra prominente con sensibilità a carichi flessori acuti a ginocchio iperflesso (>100°).\n   - Tendenza al sovraccarico rotuleo negli affondi profondi.\n2. **Deficit Dorsiflessione Caviglia Destra & Meccanica d'Accosciata:**\n   - La caviglia destra presenta una mobilità sagittale ridotta rispetto alla sinistra. Nello squat libero, l'accosciata profonda scatena un compenso pelvico per mancato scivolamento della tibia.\n3. **Specificità Assoluta Ruolo Libero:**\n   - Nel ruolo di libero non vi è alcuna necessità di eseguire distensioni orizzontali pesanti con bilanciere (panca piana) né rematori pesanti con bilanciere, che aumentano la rigidità scapolare e peggiorano l'angolo di ricezione/difesa a terra.\n   - È invece vitale la rapidità d'arresto a baricentro basso, la stabilità del core sui piani trasversi e la mobilità reattiva delle caviglie.\n\n---",
-        "ban": "* ⛔ **BAN ASSOLUTO Panca Piana con Bilanciere & Rematore Pesante Bilanciere (Regola Specifica Libero):**  \n  ➔ **SOSTITUZIONE SPECIFICA:**\n  - **Prone Y-Raise con manubri leggeri (`2012`)**: attiva i fissatori inferiori della scapola senza comprimere le spalle.\n  - **Single-Arm Cable Row al cavo medio (`2011`)**: trazione orizzontale funzionale asimmetrica senza carico assiale sulla colonna.\n  - **Low Medball Slam a terra (`X`)**: potenza esplosiva della cerniera d'anca e del core senza impatti.\n* ⚖️ **ADATTAMENTO SQUAT:** **Box Squat calibrato all'80% di profondità con Miniband sopra le ginocchia (`3010` / `20X0`)**: protegge l'apofisi tibiale destra, non sovraccarica la rotula e garantisce la corretta stiffness muscolare per la difesa.\n* 🛡️ **PREHAB SPECIFICO (Caviglia DX & Fissatori Scapolari):**\n  - Knee-to-Wall con fascia elastica per la caviglia destra (mobilizzazione dell'astragalo).\n  - Foam roller su quadricipite e rotula destra.\n  - Scapular Wall Slide a contatto continuo.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI**. L'RDL è ridotto a 2 serie da 4 reps sub-massimali a buffer 3 per non appesantire le gambe prima dell'amichevole del sabato.\n\n---",
+        "ban": "* ⛔ **BAN ASSOLUTO Panca Piana con Bilanciere & Rematore Pesante Bilanciere (Regola Specifica Libero):**  \n  ➔ **SOSTITUZIONE SPECIFICA:**\n  - **Prone Y-Raise con manubri leggeri (`2012`)**: attiva i fissatori inferiori della scapola senza comprimere le spalle.\n  - **Single-Arm Cable Row al cavo medio (`2011`)**: trazione orizzontale funzionale asimmetrica senza carico assiale sulla colonna.\n  - **Low Medball Slam a terra (`X`)**: potenza esplosiva della cerniera d'anca e del core senza impatti.\n* ⚖️ **ADATTAMENTO SQUAT:** **Squat calibrato all'80% di profondità con Miniband sopra le ginocchia (`3010` / `20X0`)**: protegge l'apofisi tibiale destra, non sovraccarica la rotula e garantisce la corretta stiffness muscolare per la difesa.\n* 🛡️ **PREHAB SPECIFICO (Caviglia DX & Fissatori Scapolari):**\n  - Knee-to-Wall con fascia elastica per la caviglia destra (mobilizzazione dell'astragalo).\n  - Foam roller su quadricipite e rotula destra.\n  - Scapular Wall Slide a contatto continuo.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI**. L'RDL è ridotto a 2 serie da 4 reps sub-massimali a buffer 3 per non appesantire le gambe prima dell'amichevole del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -10583,7 +10583,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (@80% ROM) con Miniband",
+              "Esercizio": "Squat (@80% ROM) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`3010`",
@@ -10673,7 +10673,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (@80%) con Miniband",
+              "Esercizio": "Half Squat Dinamico (90°) (@80%) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "37.5 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -10838,12 +10838,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (@80% ROM)",
+                  "Esercizio": "Squat Dinamico (80% ROM)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (@80% ROM):** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (80% ROM):** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Prone Y-Raise Manubri",
@@ -10932,12 +10932,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 27.5 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (@80%)",
+                  "Esercizio": "Half Squat Dinamico (90°) (@80%)",
                   "Set_Reps": "4 x 4",
                   "Carico": "42.5 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (@80%):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°) (@80%):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -11097,7 +11097,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 ALTO (Dolore Rotuleo DX Attivo + Fascite Plantare SX + Retrazione Severa Quadricipite DX + Rotazione Bacino)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\" (Postazione Rack 1 con Marcuzzi)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Dolore Rotuleo Destro Attivo (Tendinopatia Reattiva):**\n   - Sintomatologia dolorosa acuta all'apice inferiore della rotula destra, esacerbata dai rimbalzi veloci e dalle discese eccentriche senza supporto.\n2. **Fascite Plantare Sinistra & Crollo Mediale:**\n   - Infiammazione e rigidità della fascia plantare sinistra con mancata ammortizzazione podalica al suolo, che costringe a scaricare le forze in diagonale sull'arto destro.\n3. **Retrazione Marcata del Quadricipite / Retto Femorale DX:**\n   - La flessione del ginocchio da prono è ridotta e scatena un compenso pelvico in antiversione forzata già a 90°. Nello squat libero, la discesa asimmetrica induce una rotazione del bacino a destra con perdita del controllo lombare (*butt wink* precoce).\n4. **Specificità del Centrale:**\n   - Elevatissimo volume di salti a muro e primo tempo: necessita di eliminare il dolore rotuleo prima di saltare e di conservare la capacità di spostamento laterale rapido.\n\n---",
-        "ban": "* ⛔ **BAN Clean to Split con Bilanciere:**  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Powerbag Clean to Chest (`X`)**: l'incastro al petto in semi-squat parallelo simmetrico azzera lo shock monolaterale sul tendine rotuleo destro dolente e distribuisce l'impatto.\n* ⛔ **BAN Squat Libero senza Box:**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido toglie l'inversione di moto elastica sulla rotula, guidato dal monitoraggio Enode VBT.\n* 🛡️ **PREHAB SPECIFICO ANALGESICO & PODALICO:**\n  - **Spanish Squat Isometrico con elastico spesso ancorato (3-4 serie × 45\" a 90°)** prima di qualsiasi carico: analgesia immediata del tendine rotuleo destro.\n  - Rilascio miofasciale con pallina da lacrosse sotto la fascia plantare sinistra.\n  - Couch Stretch e foam roller per il quadricipite/retto femorale destro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO PLIOMETRIA**. L'RDL è calibrato a 2 sole serie da 4 reps a buffer 3 (RPE 6-7) per proteggere i tendini e gli ischiocrurali a 24h dal test match del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Clean to Split con Bilanciere:**  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Powerbag Clean to Chest (`X`)**: l'incastro al petto in semi-squat parallelo simmetrico azzera lo shock monolaterale sul tendine rotuleo destro dolente e distribuisce l'impatto.\n* ⛔ **BAN Squat Libero senza Box:**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido toglie l'inversione di moto elastica sulla rotula, guidato dal monitoraggio Enode VBT.\n* 🛡️ **PREHAB SPECIFICO ANALGESICO & PODALICO:**\n  - **Spanish Squat Isometrico con elastico spesso ancorato (3-4 serie × 45\" a 90°)** prima di qualsiasi carico: analgesia immediata del tendine rotuleo destro.\n  - Rilascio miofasciale con pallina da lacrosse sotto la fascia plantare sinistra.\n  - Couch Stretch e foam roller per il quadricipite/retto femorale destro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO PLIOMETRIA**. L'RDL è calibrato a 2 sole serie da 4 reps a buffer 3 (RPE 6-7) per proteggere i tendini e gli ischiocrurali a 24h dal test match del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -11126,7 +11126,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo 90°) con Miniband",
+              "Esercizio": "Squat (Parallelo 90°) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "55 kg (\"6\")",
               "Tempo": "`3010`",
@@ -11216,7 +11216,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (90°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -11381,12 +11381,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "60 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -11475,12 +11475,12 @@ const WEEKS_DATA = {
                   "Raw": "**Powerbag Clean to Chest:** 4 x 4 @ Bag 20 kg | Tempo `X` (Esplosione d'anca e arrivo compatto)."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -11648,7 +11648,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 ALTO (Tendinopatia Quadricipitale SX + Instabilità Podalica DX + Valgismo Dinamico Arto DX + Butt Wink a 80°)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Asonja e Sassolini)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Tendinopatia Quadricipitale Sinistra (Inserzione Sovrarotulea):**\n   - Dolore e tensione alla giunzione miotendinea del retto femorale sinistro sopra il polo superiore della rotula, esacerbato da carichi eccentrici profondi senza battuta.\n2. **Instabilità Podalica Destra & Valgismo Dinamico Arto DX:**\n   - Retropiede destro con mancata inversione calcaneale in SLS; crollo dell'arco mediale che scatena un cedimento marcato in **valgismo dinamico al ginocchio destro** nello Step Over.\n3. **Squat Test & Butt Wink Precoce a 80°:**\n   - L'accosciata libera si blocca a circa 80° al ginocchio (sopra il parallelo) con immediata perdita delle curve fisiologiche lombari (*butt wink* severo) per retrazione della catena anteriore.\n4. **Specificità Schiacciatrice:**\n   - Atleta titolare d'attacco: necessita di proteggere la spalla con la Floor Chest Press e di stabilizzare il ginocchio destro per evitare distorsioni o sovraccarichi patellari negli stacchi e atterraggi da posto 4.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra (<85°):**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 85°-90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido calibra l'inversione di moto togliendo tensione al tendine quadricipitale sinistro; l'elastico costringe il gluteo medio destro ad aprirsi contrastando il valgismo.\n* 🛡️ **PREHAB SPECIFICO TENDINEO & PODALICO:**\n  - De-tensione miofasciale quadricipite sinistro con foam roller.\n  - Short Foot attivo su superficie dura per il piede destro (alluce e 5° metatarso saldi).\n  - Step Down eccentrico controllato da box basso (15 cm) guidando l'allineamento dell'arto destro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è ridotto a 2 serie da 4 reps a buffer 3 (RPE 6-7) per proteggere gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo a Terra (<85°):**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 85°-90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido calibra l'inversione di moto togliendo tensione al tendine quadricipitale sinistro; l'elastico costringe il gluteo medio destro ad aprirsi contrastando il valgismo.\n* 🛡️ **PREHAB SPECIFICO TENDINEO & PODALICO:**\n  - De-tensione miofasciale quadricipite sinistro con foam roller.\n  - Short Foot attivo su superficie dura per il piede destro (alluce e 5° metatarso saldi).\n  - Step Down eccentrico controllato da box basso (15 cm) guidando l'allineamento dell'arto destro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è ridotto a 2 serie da 4 reps a buffer 3 (RPE 6-7) per proteggere gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -11677,7 +11677,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Parallelo 85°-90°) con Miniband",
+              "Esercizio": "Squat (Parallelo 85°-90°) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "60 kg (\"6\")",
               "Tempo": "`3010`",
@@ -11767,7 +11767,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (85°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (85°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -11932,12 +11932,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (85°)",
+                  "Esercizio": "Squat Dinamico (85°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "65 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Enode VBT: `0.65-0.70 m/s`",
-                  "Raw": "**Box Squat Dinamico (85°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
+                  "Raw": "**Squat Dinamico (85°):** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` | Enode VBT: `0.65-0.70 m/s`."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -12026,12 +12026,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 35 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (85°)",
+                  "Esercizio": "Half Squat Dinamico (85°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (85°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (85°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -12199,7 +12199,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 ALTO (Catena Anteriore Retratta + Shift Pelvico + Instabilità Podalica Bilaterale)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Dodi, Caserta e Adamczewska)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Retrazione Severa della Catena Anteriore & Retto Femorale:**\n   - La flessione del ginocchio da prono è clamorosamente bloccata a soli **70°** (tensione lancinante alla coscia anteriore), a fronte di una traslazione anteriore del bacino inesistente nell'estensione multisegmentale.\n   - *Ripercussione:* Nello squat libero, la discesa si arresta prematuramente a 80°, manifestando una perdita completa della lordosi lombare (*butt wink* severo) già a **100° di flessione di ginocchio** (ben al di sopra del parallelo). Caricare un back squat profondo significherebbe riversare tensioni di taglio estreme su L4-L5 e tendine rotuleo.\n2. **Deficit Torsionale Asimmetrico d'Anca & Lateral Shift:**\n   - Anca DX in pattern intrarotatorio (IR 45°, ER 35-40°).\n   - Anca SX con deficit marcato di rotazione interna (IR 25-30°, ER 45-50°).\n   - *Ripercussione:* Nello squat si evidenzia un evidente *lateral shift* del bacino verso sinistra associato a torsione verso destra, creando asimmetria di spinta al salto e sovraccarico asimmetrico alle ginocchia nello Step Over (valgismo dinamico su entrambi gli arti, peggiore a destra).\n3. **Instabilità Podalica & Carenza del Tibiale Posteriore:**\n   - Dita ad artiglio in semiflessione a riposo, arco plantare collassato, mancata inversione calcaneale fisiologica in appoggio monopodalico.\n   - Spinta propulsiva a DX gravemente deficitaria con sovraccarico compensatorio esclusivo sui primi metatarsi mediali.\n4. **Cingolo Scapolare & Spalla d'Attacco:**\n   - Ipomobilità della scapola sinistra in abduzione overhead e retrazione; spalla destra da opposto ad altissimo volume di colpi che necessita di scarico del piano orizzontale estremo.\n\n---",
-        "ban": "* ⛔ **BAN Back Squat Profondo Libero:** L'accosciata a terra senza riferimento produce retroversione pelvica distruttiva a 100°.  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo (85°-90°) con tempo eccentrico controllato (`3010`) e ripartenza dinamica (`20X0`)**, con controllo dello shift mediante feedback speculare o box rigido calibrato.\n* ⛔ **BAN Bilanciere Panca Piana Tradizionale con arco esasperato:**  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con manubri (`3010`)**: il pavimento azzera l'iperestensione scapolo-omerale proteggendo il bicipite brachiale e la cuffia dei rotatori, massimizzando il reclutamento del pettorale e tricipite.\n* 🛡️ **INTEGRAZIONE PREHAB OBBLIGATORIA (Targeting Catena Anteriore & Piede):**\n  - Allungamento dinamico e rilascio miofasciale del retto femorale (Couch stretch adattato + foam roller quadriceps).\n  - Mobilizzazione 90/90 anca sinistra in intrarotazione (recupero dei 15° mancanti).\n  - Esercizi di *Short Foot* + inversione caviglia con banda elastica per il tibiale posteriore (attivazione 3 punti d'appoggio podalici).\n* 🛡️ **REGOLA VENERDÌ (Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO PLIOMETRIA E ZERO CARICHI ASSIALI COMPRESSIVI SULLA COLONNA**. Focus su catena posteriore, stabilità pelvica e decompressione.\n\n---",
+        "ban": "* ⛔ **BAN Back Squat Profondo Libero:** L'accosciata a terra senza riferimento produce retroversione pelvica distruttiva a 100°.  \n  ➔ **SOSTITUZIONE:** **Squat parallelo (85°-90°) con tempo eccentrico controllato (`3010`) e ripartenza dinamica (`20X0`)**, con controllo dello shift mediante feedback speculare o box rigido calibrato.\n* ⛔ **BAN Bilanciere Panca Piana Tradizionale con arco esasperato:**  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con manubri (`3010`)**: il pavimento azzera l'iperestensione scapolo-omerale proteggendo il bicipite brachiale e la cuffia dei rotatori, massimizzando il reclutamento del pettorale e tricipite.\n* 🛡️ **INTEGRAZIONE PREHAB OBBLIGATORIA (Targeting Catena Anteriore & Piede):**\n  - Allungamento dinamico e rilascio miofasciale del retto femorale (Couch stretch adattato + foam roller quadriceps).\n  - Mobilizzazione 90/90 anca sinistra in intrarotazione (recupero dei 15° mancanti).\n  - Esercizi di *Short Foot* + inversione caviglia con banda elastica per il tibiale posteriore (attivazione 3 punti d'appoggio podalici).\n* 🛡️ **REGOLA VENERDÌ (Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO PLIOMETRIA E ZERO CARICHI ASSIALI COMPRESSIVI SULLA COLONNA**. Focus su catena posteriore, stabilità pelvica e decompressione.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -12228,7 +12228,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Box 85°-90°)",
+              "Esercizio": "Squat (85°-90°)",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "60 kg (\"6\")",
               "Tempo": "`3010`",
@@ -12318,7 +12318,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (85°)",
+              "Esercizio": "Half Squat Dinamico (85°)",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "50 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -12483,12 +12483,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico",
+                  "Esercizio": "Squat Dinamico",
                   "Set_Reps": "4 x 4",
                   "Carico": "65 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Fermo solido al box, risalita violenta",
-                  "Raw": "**Box Squat Dinamico:** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` (Fermo solido al box, risalita violenta)."
+                  "Raw": "**Squat Dinamico:** 4 x 4 @ 65 kg (\"4\") | Tempo `20X0` (Fermo solido al box, risalita violenta)."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -12577,12 +12577,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 37.5 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (85°)",
+                  "Esercizio": "Half Squat Dinamico (85°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "55 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (85°):** 4 x 4 @ 55 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (85°):** 4 x 4 @ 55 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -12755,7 +12755,7 @@ const WEEKS_DATA = {
         "rischio": "🔴 CRITICO / MASSIMO (Ginocchia Operate Bilaterali + Cervicalgia Irradiata + Shift Pelvico)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Caserta e Adamczewska)",
         "triage": "### Criticità Funzionali & Pregresso Chirurgico Rilevato\n1. **Quadro Chirurgico Bilaterale Ginocchia (Innesto LCA + Menischi):**\n   - Ricostruzione LCA e menisco SX (2021) + Meniscectomia/sutura menisco DX (Febbraio 2024).\n   - Nello Step Over e nello squat si evidenzia un **cedimento in valgismo dinamico dell'arto sinistro** associato a un evidente *lateral shift* del bacino a sinistra. Questo pattern torsionale eccentrico riversa un momento in valgo-rotazione distruttivo direttamente sull'innesto legamentoso del ginocchio sinistro.\n2. **Cervico-Dorsalgia Attiva con Irradiazione Craniale:**\n   - La spalla sinistra si presenta marcatamente anteposta, con elevata abduzione e depressione scapolare. I sovraccarichi assiali sopra la testa scatenano contratture paraspinali/trapezoidali che provocano cefalee tensive e disturbano il sonno post-allenamento pesi.\n3. **Blocco Meccanico della Caviglia & Retrazione Catena Anteriore:**\n   - La dorsiflessione della caviglia è marcatamente ridotta (le ginocchia non traslano oltre la punta dei piedi nello squat, arrestando la discesa a 70°-80°).\n   - Retrazione severa del retto femorale a terra (già a 90° di flessione il bacino collassa in antiversione forzata).\n4. **Deficit Piede Sinistro & Rotazione Esterna d'Anca:**\n   - Piede sinistro evertito e pronato a riposo, mancata inversione calcaneale fisiologica in SLS (deficit tibiale posteriore sinistro).\n   - Anca sinistra limitata in rotazione esterna a soli 30° con compenso di sollevamento pelvico.\n\n---",
-        "ban": "* ⛔ **BAN ASSOLUTO Push Press o Overhead Press Bilanciere:** Qualsiasi distensione bilaterale con bilanciere sopra la testa comprime il rachide cervicale e scatena l'irradiazione cefalica.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Lunge Position One-Arm Press con Kettlebell (`3010` / `2010`)** oppure **Half Kneeling Landmine Press**: spinta sul piano scapolare (a 30°), lavoro asimmetrico che stabilizza il core senza comprimere le vertebre cervicali.\n* ⛔ **BAN Deadbug Classico a Corpo Libero:** La perdita di contatto lombare scatena estensione cervicale compensatoria.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Deadbug Pullover con Kettlebell/Manubrio (`2020`)**: la presa isometrica dell'attrezzo attiva il gran dorsale e il dentato anteriore, ancorando saldamente la cassa toracica ed evitando la tensione nucale.\n* ⛔ **BAN Squat Libero senza Box:** Tendenza a crollare nello shift a sinistra e valgo sull'innesto LCA.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Box Squat parallelo (85°) con Miniband sopra le ginocchia**: l'elastico induce il reclutamento attivo del gluteo medio contrastando il valgo sinistro; il box rigido calibra la discesa e neutralizza lo shift pelvico.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean to Split con Powerbag/Sandbag 15-20 kg)**: azzera l'impatto articolare della girata su polsi e rachide cervicale, consentendo tripla estensione senza stress torsionale sul ginocchio sinistro operato.\n* 🛡️ **PREHAB MIRATO (Caviglia + Anca SX + Scapola):**\n  - Mobilità caviglia Knee-to-Wall con elastico (trazione dell'astragalo indietro).\n  - Mobilizzazione anca sinistra in rotazione esterna (Figure 4 stretch / 90-90 ER).\n  - Attivazione tibiale posteriore con fascia elastica (inversione calcaneale).\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO PLIOMETRIA E ZERO ATTERRAGGI IMPATTANTI**. Protezione assoluta delle ginocchia operate pre-weekend.\n\n---",
+        "ban": "* ⛔ **BAN ASSOLUTO Push Press o Overhead Press Bilanciere:** Qualsiasi distensione bilaterale con bilanciere sopra la testa comprime il rachide cervicale e scatena l'irradiazione cefalica.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Lunge Position One-Arm Press con Kettlebell (`3010` / `2010`)** oppure **Half Kneeling Landmine Press**: spinta sul piano scapolare (a 30°), lavoro asimmetrico che stabilizza il core senza comprimere le vertebre cervicali.\n* ⛔ **BAN Deadbug Classico a Corpo Libero:** La perdita di contatto lombare scatena estensione cervicale compensatoria.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Deadbug Pullover con Kettlebell/Manubrio (`2020`)**: la presa isometrica dell'attrezzo attiva il gran dorsale e il dentato anteriore, ancorando saldamente la cassa toracica ed evitando la tensione nucale.\n* ⛔ **BAN Squat Libero senza Box:** Tendenza a crollare nello shift a sinistra e valgo sull'innesto LCA.  \n  ➔ **SOSTITUZIONE SPECIFICA:** **Squat parallelo (85°) con Miniband sopra le ginocchia**: l'elastico induce il reclutamento attivo del gluteo medio contrastando il valgo sinistro; il box rigido calibra la discesa e neutralizza lo shift pelvico.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean to Split con Powerbag/Sandbag 15-20 kg)**: azzera l'impatto articolare della girata su polsi e rachide cervicale, consentendo tripla estensione senza stress torsionale sul ginocchio sinistro operato.\n* 🛡️ **PREHAB MIRATO (Caviglia + Anca SX + Scapola):**\n  - Mobilità caviglia Knee-to-Wall con elastico (trazione dell'astragalo indietro).\n  - Mobilizzazione anca sinistra in rotazione esterna (Figure 4 stretch / 90-90 ER).\n  - Attivazione tibiale posteriore con fascia elastica (inversione calcaneale).\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO PLIOMETRIA E ZERO ATTERRAGGI IMPATTANTI**. Protezione assoluta delle ginocchia operate pre-weekend.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -12784,7 +12784,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat parallelo (85°) con Miniband ginocchia",
+              "Esercizio": "Squat parallelo (85°) con Miniband ginocchia",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`3010`",
@@ -12874,7 +12874,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (85°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (85°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "37.5 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -13039,12 +13039,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat con Miniband",
+                  "Esercizio": "Squat con Miniband",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Arresto pulito al box, spinta rapida",
-                  "Raw": "**Box Squat con Miniband:** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` (Arresto pulito al box, spinta rapida)."
+                  "Raw": "**Squat con Miniband:** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` (Arresto pulito al box, spinta rapida)."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -13133,12 +13133,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 27.5 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box con Miniband",
+                  "Esercizio": "Half Squat Dinamico (90°) con Miniband",
                   "Set_Reps": "4 x 4",
                   "Carico": "42.5 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box con Miniband:** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°) con Miniband:** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Lunge Position One-Arm Press KB",
@@ -13303,7 +13303,7 @@ const WEEKS_DATA = {
         "rischio": "🟡/🔴 MEDIO-ALTO (Lassità Legamentosa + Disritmia Scapolare DX + Valgismo SX + Cisti Polso DX)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Caserta e Dodi)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Video/Frame)\n1. **Lassità Legamentosa Generalizzata & Tendenza Recurvatum:**\n   - 17 anni, mobilità passiva elevatissima che necessita di eccellente rigidità attiva (*stiffness*) e stabilità lombo-pelvica. Tendenza al recurvatum e pregressa tendinopatia rotulea da salto.\n2. **Disritmia Scapolare Destra & Upper Crossed Pattern:**\n   - Durante l'abduzione/elevazione, la scapola destra sale precocemente e più in alto rispetto alla sinistra (anticipo di elevazione per iper-attivazione del trapezio superiore e inibizione del trapezio inferiore/dentato anteriore).\n   - Presenza di cisti ganglionare al polso destro (asintomatica ma suscettibile di compressione in iperestensione dorsale con bilanciere dritto).\n3. **Deficit Podalico Sinistro & Valgismo Dinamico Arto SX:**\n   - Retropiede sinistro in eversione/pronazione costante con mancata inversione calcaneale sia in SLS che in propulsione (deficit selettivo del tibiale posteriore sinistro).\n   - Nello Step Over, l'arto sinistro mostra un cedimento in valgismo dinamico marcato (SX > DX), non controllato dall'arco plantare collassato.\n4. **Instabilità Lombo-Pelvica nello Squat Profondo & Blocco Rotazionale SX:**\n   - Nello squat, superati gli 80° di flessione di ginocchio, si manifesta una perdita del controllo lombo-pelvico (*butt wink*) sotto i 70°, con rotazione del bacino a destra in fase concentrica.\n   - Restrizione di circa 15°-20° nella rotazione cervicale e del tronco verso sinistra (cerniera cervico-dorsale rigida).\n\n---",
-        "ban": "* ⛔ **BAN Squat Profondo Libero (<70° al ginocchio):**  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo a 80°-85° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box impedisce il *butt wink* a fondo corsa proteggendo L4-S1, mentre l'elastico recluta il gluteo medio contrastando il valgismo del ginocchio sinistro.\n* ⛔ **BAN Bilanciere Dritto in Iperestensione dei Polsi (Panca / Girata con polsi piegati):** La cisti ganglionare del polso destro non tollera carichi di compressione in estensione forzata.  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con Manubri a Presa Neutra/Semi-neutra (`3010`)** e Clean to Split eseguito con manubri/powerbag a presa neutra.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean con manubri a presa neutra / Powerbag 15-20 kg)**: elimina l'estensione del polso salvaguardando la cisti ganglionare del polso destro ed esaltando la tripla estensione.\n* 🛡️ **PREHAB SCAPOLARE E PODALICO OBBLIGATORIO:**\n  - Rilascio miofasciale piccolo pettorale destro con pallina da lacrosse (de-tensione coracoide).\n  - Scapular Wall Slide & Prone Trap 3 Raise per rieducare il timing della scapola destra (depressione attiva).\n  - Short Foot + inversione con elastico per il piede sinistro (attivazione tibiale posteriore).\n  - Rotazioni toraciche in quadrupedia (\"Open Book\") focalizzate sul lato sinistro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro eccentrico/isocinetico per ischiocrurali e tendine rotuleo senza impatto.\n\n---",
+        "ban": "* ⛔ **BAN Squat Profondo Libero (<70° al ginocchio):**  \n  ➔ **SOSTITUZIONE:** **Squat parallelo a 80°-85° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box impedisce il *butt wink* a fondo corsa proteggendo L4-S1, mentre l'elastico recluta il gluteo medio contrastando il valgismo del ginocchio sinistro.\n* ⛔ **BAN Bilanciere Dritto in Iperestensione dei Polsi (Panca / Girata con polsi piegati):** La cisti ganglionare del polso destro non tollera carichi di compressione in estensione forzata.  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con Manubri a Presa Neutra/Semi-neutra (`3010`)** e Clean to Split eseguito con manubri/powerbag a presa neutra.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean con manubri a presa neutra / Powerbag 15-20 kg)**: elimina l'estensione del polso salvaguardando la cisti ganglionare del polso destro ed esaltando la tripla estensione.\n* 🛡️ **PREHAB SCAPOLARE E PODALICO OBBLIGATORIO:**\n  - Rilascio miofasciale piccolo pettorale destro con pallina da lacrosse (de-tensione coracoide).\n  - Scapular Wall Slide & Prone Trap 3 Raise per rieducare il timing della scapola destra (depressione attiva).\n  - Short Foot + inversione con elastico per il piede sinistro (attivazione tibiale posteriore).\n  - Rotazioni toraciche in quadrupedia (\"Open Book\") focalizzate sul lato sinistro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro eccentrico/isocinetico per ischiocrurali e tendine rotuleo senza impatto.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -13332,7 +13332,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (80°-85°) con Miniband sopra ginocchia",
+              "Esercizio": "Squat (80°-85°) con Miniband",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "55 kg (\"6\")",
               "Tempo": "`3010`",
@@ -13422,7 +13422,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (85°) con Miniband",
+              "Esercizio": "Half Squat Dinamico (85°) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -13587,12 +13587,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat con Miniband",
+                  "Esercizio": "Squat con Miniband",
                   "Set_Reps": "4 x 4",
                   "Carico": "60 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Pausa al box 1\", esplosione verso l'alto",
-                  "Raw": "**Box Squat con Miniband:** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` (Pausa al box 1\", esplosione verso l'alto)."
+                  "Raw": "**Squat con Miniband:** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` (Pausa al box 1\", esplosione verso l'alto)."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri Neutri",
@@ -13681,12 +13681,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 35 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box con Miniband",
+                  "Esercizio": "Half Squat Dinamico (90°) con Miniband",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box con Miniband:** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°) con Miniband:** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -13859,7 +13859,7 @@ const WEEKS_DATA = {
         "rischio": "🟡 MEDIO (Deficit Severo Extrarotazione d'Anca + Valgismo Dinamico + Retropiede DX Evertito + Specificità Ruolo Libero)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactivity & Movement Quality\" (Postazione Libero / Campo Libero)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Grave Deficit Torsionale d'Anca (Intrarotazione vs Extrarotazione):**\n   - Presenta una marcata asimmetria tra i range di rotazione: intrarotazione eccezionalmente ampia (IR 45° a SX, 50° a DX), ma **extrarotazione gravemente ridotta e bloccata a soli 20°-25° a destra e 30° a sinistra**.\n   - *Ripercussione:* Nello Step Over e negli affondi laterali tipici del libero, l'incapacità di reclutare i rotatori esterni d'anca (gluteo medio/profondi) causa un immediato cedimento in **valgismo dinamico** del ginocchio (più evidente a sinistra).\n2. **Squat Test & Shift Compensatorio:**\n   - Profondità eccellente (accosciata profonda a 50° con curve conservate), ma si nota un *lateral shift* del bacino verso sinistra per scavalcare il blocco articolare dell'anca destra e l'eversione del piede destro.\n3. **Instabilità Retropiede Destro & Carenza Propulsiva:**\n   - Retropiede destro evertito a riposo e in SLS, mancata inversione calcaneale fisiologica, spinta propulsiva al calf raise debole e instabile rispetto al lato sinistro.\n4. **Specificità del Ruolo Libero & Scapola Sinistra:**\n   - Nel ruolo di libero, i carichi di compressione e distensione orizzontale pesante con bilanciere (panca piana e rematore orizzontale con bilanciere pesante) sono controproducenti e aumentano la rigidità scapolare anteriore (già presente con ipomobilità overhead sinistra).\n\n---",
-        "ban": "* ⛔ **BAN ASSOLUTO Panca Piana con Bilanciere & Rematore Bilanciere Pesante (Regola Specifica Libero):**  \n  ➔ **SOSTITUZIONE SPECIFICA:**\n  - **Prone Y-Raise con manubri leggeri (`2012`)** per fissare i depressori/stabilizzatori scapolari e il trapezio inferiore.\n  - **Single-Arm Cable Row (`2011`)** per garantire trazione orizzontale asimmetrica senza compressione discale.\n  - **Low Medball Slam a terra (`X`)** con enfasi sulla cerniera d'anca e reattività senza impatto.\n* ⚖️ **ADATTAMENTO SQUAT:** **Box Squat calibrato all'80% di profondità con Miniband sopra le ginocchia (`3010` / `20X0`)**: impedisce lo shift pelvico a sinistra, costringe le ginocchia a spingere contro la banda attivando i rotatori esterni bloccati (ER) e mantiene la stiffness dinamica per la difesa.\n* 🛡️ **PREHAB SPECIALISTICO D'ANCA & PIEDE DX:**\n  - Mobilità 90/90 con trazione elastica per recuperare l'extrarotazione d'anca DX (dai 20° ai 40° fisiologici).\n  - Short Foot + Banded Ankle Inversion per il piede destro (stimolazione tibiale posteriore).\n  - Rilascio miofasciale quadricipite/retto femorale destro su foam roller.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO BALZI PLIOMETRICI**. Lavoro puramente decompressivo e di stabilità orizzontale.\n\n---",
+        "ban": "* ⛔ **BAN ASSOLUTO Panca Piana con Bilanciere & Rematore Bilanciere Pesante (Regola Specifica Libero):**  \n  ➔ **SOSTITUZIONE SPECIFICA:**\n  - **Prone Y-Raise con manubri leggeri (`2012`)** per fissare i depressori/stabilizzatori scapolari e il trapezio inferiore.\n  - **Single-Arm Cable Row (`2011`)** per garantire trazione orizzontale asimmetrica senza compressione discale.\n  - **Low Medball Slam a terra (`X`)** con enfasi sulla cerniera d'anca e reattività senza impatto.\n* ⚖️ **ADATTAMENTO SQUAT:** **Squat calibrato all'80% di profondità con Miniband sopra le ginocchia (`3010` / `20X0`)**: impedisce lo shift pelvico a sinistra, costringe le ginocchia a spingere contro la banda attivando i rotatori esterni bloccati (ER) e mantiene la stiffness dinamica per la difesa.\n* 🛡️ **PREHAB SPECIALISTICO D'ANCA & PIEDE DX:**\n  - Mobilità 90/90 con trazione elastica per recuperare l'extrarotazione d'anca DX (dai 20° ai 40° fisiologici).\n  - Short Foot + Banded Ankle Inversion per il piede destro (stimolazione tibiale posteriore).\n  - Rilascio miofasciale quadricipite/retto femorale destro su foam roller.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI, ZERO BALZI PLIOMETRICI**. Lavoro puramente decompressivo e di stabilità orizzontale.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -13888,7 +13888,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (@80% ROM) con Miniband ginocchia",
+              "Esercizio": "Squat (@80% ROM) con Miniband ginocchia",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`3010`",
@@ -13978,7 +13978,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (@80%) con Miniband",
+              "Esercizio": "Half Squat Dinamico (90°) (@80%) con Miniband",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "37.5 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -14143,12 +14143,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (@80% ROM)",
+                  "Esercizio": "Squat Dinamico (80% ROM)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Arresto pulito al box, risalita esplosiva",
-                  "Raw": "**Box Squat Dinamico (@80% ROM):** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` (Arresto pulito al box, risalita esplosiva)."
+                  "Raw": "**Squat Dinamico (80% ROM):** 4 x 4 @ 50 kg (\"4\") | Tempo `20X0` (Arresto pulito al box, risalita esplosiva)."
                 },
                 {
                   "Esercizio": "Prone Y-Raise Manubri",
@@ -14237,12 +14237,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 27.5 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (@80%)",
+                  "Esercizio": "Half Squat Dinamico (90°) (@80%)",
                   "Set_Reps": "4 x 4",
                   "Carico": "42.5 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (@80%):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°) (@80%):** 4 x 4 @ 42.5 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -14407,7 +14407,7 @@ const WEEKS_DATA = {
         "rischio": "🟡 MEDIO (Dorsiflessione Caviglie Bloccata + Butt Wink a 90° + Spinta Piede DX Mediale + Ipermobilità Lombare di Compenso)",
         "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\"",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Dorsiflessione della Caviglia Bloccata & Squat Test:**\n   - La mobilità in dorsiflessione tibio-tarsica è marcatamente limitata bilateralmente. Nello squat a carico libero, le tibie non avanzano oltre i piedi e l'accosciata si arresta bruscamente a 90° (sopra il parallelo).\n   - In quel punto di arresto (90°) scatta una perdita repentina e severa della lordosi lombare (*butt wink* completo), con retroversione del bacino per guadagnare centimetri artificiali di profondità.\n2. **Spinta Propulsiva Piede Destro Alterata:**\n   - Nel calf raise monopodalico e nella spinta a terra, il retropiede destro collassa in eversione, scaricando tutta la forza di trazione quasi esclusivamente sul 1° e 2° metatarso (sovraccarico mediale), a differenza dell'arto sinistro che mantiene una traiettoria fisiologica.\n3. **Rigidità Dorsale & Iper-Estensione Lombare Compensatoria:**\n   - Spalle anteposte bilateralmente con rettilineizzazione toracica. Nell'estensione multisegmentale standing, l'atleta appare \"superpositiva\" perché compensa la rigidità toracica iper-estendendo le vertebre lombari (cerniera L4-S1 sotto stress).\n4. **Specificità Palleggiatrice:**\n   - Necessità assoluta di reattività dell'avampiede nei cambi di direzione per il palleggio e integrità/stabilità dei polsi e delle dita per il tocco di palla.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo (<90°):**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° (`3010` / `20X0`)**: l'altezza del box ferma la discesa esattamente prima del crollo pelvico lombare, consentendo di caricare in sicurezza la tripla estensione senza retroversione.\n* 🛡️ **PREHAB SPECIFICO CAVIGLIA, PIEDE DX E TORACE:**\n   - Knee-to-Wall con elastico alle caviglie (mobilizzazione dell'articolazione tibio-tarsica con trazione posteriore dell'astragalo).\n   - Mobilizzazione in estensione toracica su Foam Roller (mani dietro la nuca, gomiti chiusi) per sbloccare le vertebre dorsali senza sovraccaricare il tratto lombare.\n   - Rieducazione dell'arco plantare destro (*Short Foot* + Calf raise su cuneo per reclutare il 4°-5° metatarso).\n* 🛡️ **TUTELA & POTENZIAMENTO POLSI/FLESSORI PER IL PALLEGGIO:**\n   - Inserimento di Wrist Rollers / Dumbbell Wrist Flexion-Extension a tempo controllato (`2012`) e Farmer Carry con manubri per rinforzare gli avambracci.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n   - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro decompressivo per la colonna lombare e catena posteriore.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo (<90°):**  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° (`3010` / `20X0`)**: l'altezza del box ferma la discesa esattamente prima del crollo pelvico lombare, consentendo di caricare in sicurezza la tripla estensione senza retroversione.\n* 🛡️ **PREHAB SPECIFICO CAVIGLIA, PIEDE DX E TORACE:**\n   - Knee-to-Wall con elastico alle caviglie (mobilizzazione dell'articolazione tibio-tarsica con trazione posteriore dell'astragalo).\n   - Mobilizzazione in estensione toracica su Foam Roller (mani dietro la nuca, gomiti chiusi) per sbloccare le vertebre dorsali senza sovraccaricare il tratto lombare.\n   - Rieducazione dell'arco plantare destro (*Short Foot* + Calf raise su cuneo per reclutare il 4°-5° metatarso).\n* 🛡️ **TUTELA & POTENZIAMENTO POLSI/FLESSORI PER IL PALLEGGIO:**\n   - Inserimento di Wrist Rollers / Dumbbell Wrist Flexion-Extension a tempo controllato (`2012`) e Farmer Carry con manubri per rinforzare gli avambracci.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n   - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro decompressivo per la colonna lombare e catena posteriore.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -14436,7 +14436,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Box a 90° esatti)",
+              "Esercizio": "Squat (Parallelo a 90°)",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "50 kg (\"6\")",
               "Tempo": "`3010`",
@@ -14526,7 +14526,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°)",
+              "Esercizio": "Half Squat Dinamico (90°)",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "40 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -14691,12 +14691,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "55 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Fermo solido al box, risalita esplosiva",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `20X0` (Fermo solido al box, risalita esplosiva)."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 55 kg (\"4\") | Tempo `20X0` (Fermo solido al box, risalita esplosiva)."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -14785,12 +14785,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 30 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "45 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 45 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 45 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
@@ -14963,7 +14963,7 @@ const WEEKS_DATA = {
         "rischio": "🟡 MEDIO (Perdita Controllo Lombo-Pelvico oltre 110° + Shift Pelvico Asimmetrico + Deficit Retrazione Scapola DX + Anteposizione Spalla SX)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Dodi e Adamczewska)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Perdita del Controllo Lombo-Pelvico nello Squat Profondo & Shift Pelvico:**\n   - Mobilità passiva d'anca eccellente (accosciata fino a 70°), ma la stabilità lombo-pelvica cede bruscamente già a **110° di flessione di ginocchio** (ben prima del parallelo), scatenando un *butt wink* completo e flessione di compenso del tratto dorsale.\n   - Nello squat libero si evidenzia una dinamica a \"doppio shift\": il bacino trasla a sinistra in fase di discesa e scivola a destra all'inversione concentrica, indicando un deficit di stabilità torsionale pelvica e asimmetria tra gli arti.\n2. **Asimmetrie del Cingolo Scapolare (Spalla SX Anteposta / Scapola DX Ipomobile):**\n   - Spalla sinistra visibilmente anteposta e limitata in abduzione overhead attiva.\n   - A braccia tese frontali, la scapola destra presenta un deficit selettivo di adduzione/retrazione (scarsa attivazione del trapezio medio-inferiore e dei romboidi a destra).\n3. **Appoggio Podalico & Mobilità del Piede:**\n   - Piede sinistro in eversione/pronazione più marcata rispetto al destro durante l'accosciata; retropiede rigido con limitata escursione fisiologica pronatoria in spinta propulsiva.\n4. **Specificità del Centrale:**\n   - Richiesta elevatissima di stiffness dei polpacci e stabilità orizzontale/verticale per i ripetuti salti a muro (spostamenti laterali rapidi) e attacco di primo tempo.\n\n---",
-        "ban": "* ⛔ **BAN Squat Libero Profondo (<90°):** L'accosciata oltre i 110° scatena retroversione lombare marcata e doppio shift del bacino.  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° con tempo eccentrico controllato (`3010`) e ripartenza dinamica (`20X0`)**: il box elimina il *butt wink*, calibra l'inversione e guida la simmetria di spinta senza scarico asimmetrico.\n* 🛡️ **PREHAB SCAPOLARE ASIMMETRICO & CORE INTRA-ADDOMINALE:**\n   - Retrazioni scapolari monolaterali al cavo / manubrio con sosta 2\" per la scapola destra.\n   - Rilascio miofasciale piccolo pettorale sinistro ed allungamento intrarotatori spalla SX per sbloccare l'abduzione overhead.\n   - Attivazione del core con pressione intra-addominale (IAP) e Deadbug anti-estensione per eliminare lo shift pelvico nello squat.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n   - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO STRESS PLIOMETRICO**. Focus su catena posteriore, stabilità pelvica e decompressione spinale pre-gara.\n\n---",
+        "ban": "* ⛔ **BAN Squat Libero Profondo (<90°):** L'accosciata oltre i 110° scatena retroversione lombare marcata e doppio shift del bacino.  \n  ➔ **SOSTITUZIONE:** **Squat rigido a 90° con tempo eccentrico controllato (`3010`) e ripartenza dinamica (`20X0`)**: il box elimina il *butt wink*, calibra l'inversione e guida la simmetria di spinta senza scarico asimmetrico.\n* 🛡️ **PREHAB SCAPOLARE ASIMMETRICO & CORE INTRA-ADDOMINALE:**\n   - Retrazioni scapolari monolaterali al cavo / manubrio con sosta 2\" per la scapola destra.\n   - Rilascio miofasciale piccolo pettorale sinistro ed allungamento intrarotatori spalla SX per sbloccare l'abduzione overhead.\n   - Attivazione del core con pressione intra-addominale (IAP) e Deadbug anti-estensione per eliminare lo shift pelvico nello squat.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n   - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO STRESS PLIOMETRICO**. Focus su catena posteriore, stabilità pelvica e decompressione spinale pre-gara.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -14992,7 +14992,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Box Squat (Box a 90°)",
+              "Esercizio": "Squat (Parallelo a 90°)",
               "Set x Reps": "4 x 6",
               "Carico (kg/RPE)": "55 kg (\"6\")",
               "Tempo": "`3010`",
@@ -15082,7 +15082,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "Half Squat Dinamico al Box (90°)",
+              "Esercizio": "Half Squat Dinamico (90°)",
               "Set x Reps": "4 x 5",
               "Carico (kg/RPE)": "45 kg (\"6\")",
               "Tempo": "`20X0`",
@@ -15247,12 +15247,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Box Squat Dinamico (90°)",
+                  "Esercizio": "Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "60 kg (\"4\")",
                   "Tempo": "20X0",
                   "Note": "Arresto solido, risalita esplosiva",
-                  "Raw": "**Box Squat Dinamico (90°):** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` (Arresto solido, risalita esplosiva)."
+                  "Raw": "**Squat Dinamico (90°):** 4 x 4 @ 60 kg (\"4\") | Tempo `20X0` (Arresto solido, risalita esplosiva)."
                 },
                 {
                   "Esercizio": "Floor Chest Press Manubri",
@@ -15341,12 +15341,12 @@ const WEEKS_DATA = {
                   "Raw": "**Clean to Split Position:** 4 x 3+3 @ 35 kg | Tempo `X`."
                 },
                 {
-                  "Esercizio": "Half Squat Dinamico al Box (90°)",
+                  "Esercizio": "Half Squat Dinamico (90°)",
                   "Set_Reps": "4 x 4",
                   "Carico": "50 kg (\"4\")",
                   "Tempo": "10X0",
                   "Note": "",
-                  "Raw": "**Half Squat Dinamico al Box (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
+                  "Raw": "**Half Squat Dinamico (90°):** 4 x 4 @ 50 kg (\"4\") | Tempo `10X0`."
                 },
                 {
                   "Esercizio": "Half Kneeling Landmine Press",
