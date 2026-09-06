@@ -1866,6 +1866,7 @@ async function syncOfflinePendingLoads() {
 // Helper to extract 1RM baseline and calculate target loads with dumbbell details
 function getExercise1RMData(exName, rawCarico, athlete, week) {
   if (!athlete || !athlete.id) return null;
+  if (athlete.id === 14) return null; // Nelly segue il suo programma a carichi/buffer dedicati
   const low = (exName || '').toLowerCase();
   const cStr = (rawCarico || '').toLowerCase();
   const defaultPct = (week === 'W3') ? 70 : 75;
@@ -1911,11 +1912,24 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
     const rmVal = getAthlete1RM(rmKey);
     const isDumbbell = low.includes('manubr') || low.includes('db') || low.includes('floor');
     if (rmVal > 0) {
-      const pct = mPct ? parseInt(mPct[1]) : (low.includes('seal') ? ((week === 'W3') ? 60 : 65) : ((week === 'W3') ? 70 : 75));
+      // Utente: "abbassa floor chest press al 60%"
+      let pct = 60;
+      if (low.includes('floor')) {
+        pct = 60;
+      } else if (mPct) {
+        pct = parseInt(mPct[1]);
+      } else {
+        pct = (week === 'W3') ? 70 : 75;
+      }
       let eachKg = 0;
       let totalKg = 0;
 
-      if (mDbPair) {
+      if (low.includes('floor')) {
+        totalKg = calcTargetLoad(rmKey, rmVal, pct);
+        eachKg = Math.round(totalKg / 2);
+        if (eachKg < 4) eachKg = 4;
+        totalKg = eachKg * 2;
+      } else if (mDbPair) {
         eachKg = parseFloat(mDbPair[1]);
         totalKg = eachKg * 2;
       } else {
@@ -1929,7 +1943,7 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
         rmKey,
         rmVal,
         pct,
-        targetKg: isDumbbell ? totalKg : totalKg,
+        targetKg: totalKg,
         isDumbbell,
         eachKg,
         targetText: isDumbbell ? `≈ ${totalKg} kg totali (${eachKg}+${eachKg} kg con manubri DB)` : `≈ ${totalKg} kg bilanciere`

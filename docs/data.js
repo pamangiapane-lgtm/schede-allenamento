@@ -695,7 +695,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (10+10 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -927,7 +927,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (11+11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -1170,7 +1170,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (14+14 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -1402,7 +1402,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (15+15 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -1645,7 +1645,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (21+21 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -1877,7 +1877,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (22+22 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -2120,7 +2120,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Dumbbell Floor Chest Press",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (18+18 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "2010",
               "Note Tecniche": "Elbows at 45° on floor protecting rotator cuff, 1s pause on floor (pure concentric force), explosive vertical press"
             },
@@ -2352,7 +2352,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (19+19 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -2595,7 +2595,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (14+14 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -2827,7 +2827,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (15+15 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -3070,7 +3070,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (12+12 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -3302,7 +3302,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (13+13 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -3545,7 +3545,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (15+15 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -3777,7 +3777,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (16+16 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -4020,7 +4020,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (18+18 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -4252,7 +4252,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (19+19 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -4495,7 +4495,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (16+16 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -4727,7 +4727,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (17+17 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -4970,7 +4970,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (10+10 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -5202,7 +5202,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (11+11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -5445,7 +5445,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (18+18 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -5677,7 +5677,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (19+19 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -5920,7 +5920,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (12+12 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -6152,7 +6152,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (13+13 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -7307,7 +7307,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (10+10 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -7539,7 +7539,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (11+11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -7782,7 +7782,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (14+14 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -8014,7 +8014,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (15+15 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -8257,7 +8257,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (21+21 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -8489,7 +8489,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (22+22 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -8732,7 +8732,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (18+18 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -8964,7 +8964,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Dumbbell Floor Chest Press",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (19+19 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "2010",
               "Note Tecniche": "Elbows at 45° on floor, 1s pause on ground, explosive press"
             },
@@ -9207,7 +9207,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (14+14 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -9439,7 +9439,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (15+15 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -9682,7 +9682,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (12+12 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -9914,7 +9914,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (13+13 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -10157,7 +10157,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (15+15 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -10389,7 +10389,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (16+16 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -10632,7 +10632,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (18+18 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -10864,7 +10864,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (19+19 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -11107,7 +11107,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (16+16 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -11339,7 +11339,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (17+17 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (12+12 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -11582,7 +11582,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (10+10 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -11814,7 +11814,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (11+11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -12057,7 +12057,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (18+18 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -12289,7 +12289,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (19+19 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -12532,7 +12532,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4-5",
-              "Carico (kg/RPE)": "70% (12+12 kg) [\"6\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
             },
@@ -12764,7 +12764,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3B. Floor Chest Press con Manubri**",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "75% (13+13 kg) [\"5\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
             },
@@ -13653,7 +13653,3 @@ const WEEKS_DATA = {
     }
   }
 };
-
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { ROSTER, WEEKS_DATA };
-}
