@@ -1969,6 +1969,13 @@ function normalizeExercise(raw, week) {
   const exName = (raw.Esercizio || raw.Nome || '').replace(/[*#]/g, '').trim();
   let setReps = (raw['Set x Reps'] || raw.Set_Reps || '').replace(/[*#]/g, '').trim();
   let carico = (raw['Carico (kg/RPE)'] || raw.Carico || '').replace(/[*#]/g, '').trim();
+  // Convert quoted RPE like ("8") or ("6") into (RIR 2), (RIR 4)
+  carico = carico.replace(/\s*\(\s*["']?(\d+)["']?\s*\)/g, (match, rpeNum) => {
+    const rpe = parseInt(rpeNum, 10);
+    const rir = (rpe >= 1 && rpe <= 10) ? (10 - rpe) : 2;
+    return ` (RIR ${rir})`;
+  });
+  carico = carico.replace(/\(["']([^"']+)["']\)/g, '($1)');
   let tempo = (raw.Tempo || '').replace(/[`*#]/g, '').trim();
   let note = (raw['Note Tecniche'] || raw.Note || '').replace(/[*#]/g, '').trim();
   let blocco = (raw.Blocco || raw.blocco || '').replace(/[*#]/g, '').trim();
