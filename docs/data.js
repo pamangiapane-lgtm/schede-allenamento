@@ -1,6 +1,7 @@
 // Marsala Volley — Data Hub Ufficiale (Serie A2 2026/27)
 // Programmazione Ufficiale Squadra: Modello Squillante (MED, VBT Enode -10%, Cluster Plyo, Strict Friday Jump Ban)
 // Atleta #14 Nelly Adamczewska: Programma Tecnico-Funzionale Dedicato (Seduta 1 Prevention, Seduta 2 Strenght 1, Seduta 3 Power 1)
+// Atleta #04 Anja Asonja: Programma Tecnico Ibrido (English Edition)
 // Week Disponibili in App: Week 3 e Week 4 con Seduta 1, Seduta 2 e Seduta 3
 
 const ROSTER = [
@@ -107,17 +108,17 @@ const ROSTER = [
     "Link_Prehab": "https://pro.theprehabguys.com/patient-portal/programs/NWSHWMVO",
     "link_prehab": "https://pro.theprehabguys.com/patient-portal/programs/NWSHWMVO",
     "name": "Anja Asonja",
-    "role": "Opposto",
+    "role": "Opposite",
     "number": "#04",
     "risk_level": "MEDIUM",
     "clinical_flags": [
-      "Tendinite bilaterale ginocchia (overuse)",
-      "Spalla DX rigida"
+      "Bilateral knee tendinitis (overuse)",
+      "Stiff right shoulder"
     ],
     "focus_areas": [
-      "Allungamento flessori anca",
-      "Attivazione tibiale posteriore (DX) e gluteo medio DX",
-      "Mobilita lombare e sblocco spalla DX"
+      "Hip flexors stretching",
+      "Right posterior tibialis and gluteus medius activation",
+      "Lumbar mobility and right shoulder release"
     ],
     "folder": "04_Anja_Asonja",
     "baseline_1rm": {
@@ -130,8 +131,8 @@ const ROSTER = [
       "Stacchi Rumeni": 45
     },
     "offseason_sessions": 15,
-    "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Sassolini e Bole)",
-    "rischio_clinico": "🟡/🔴 MEDIO-ALTO (Tendinopatia Rotulea Cronica Overuse + Valgismo Dinamico Ginocchio DX + Spalla d'Attacco Sovraccarico)",
+    "turno": "🔴 SHIFT 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Rack 1 with Sassolini & Bole)",
+    "rischio_clinico": "🟡/🔴 MEDIUM-HIGH (Chronic Patellar Tendinopathy Overuse + Right Knee Dynamic Valgus + Hitting Shoulder Load)",
     "bw": 77
   },
   {
@@ -397,19 +398,20 @@ const ROSTER = [
     "Link_Prehab": "https://pro.theprehabguys.com/patient-portal/programs/SCRW653I",
     "link_prehab": "https://pro.theprehabguys.com/patient-portal/programs/SCRW653I",
     "name": "Nelly Adamczewska",
-    "role": "Schiacciatrice",
+    "role": "Outside Hitter",
     "number": "#14",
     "risk_level": "MEDIUM",
     "clinical_flags": [
-      "Lassita legamentosa generalizzata",
-      "Cisti ganglionare polso DX",
-      "Jumper knee pregresso"
+      "Ligamentous laxity",
+      "Right scapular dyskinesis",
+      "Left knee valgus",
+      "Right wrist cyst"
     ],
     "focus_areas": [
-      "Stabilita attiva piede (Short Foot, tibiale post. SX)",
-      "Controllo pelvico/core (Side Plank)",
-      "Coordinamento scapolo-omerale DX",
-      "Programma dedicato Strength/Power Michal"
+      "Right wrist protection (neutral grips)",
+      "Left ankle stability & dynamic anti-valgus",
+      "Hamstrings eccentric stiffness",
+      "Scapulo-thoracic control"
     ],
     "folder": "10_Nelly_Adamczewska",
     "baseline_1rm": {
@@ -419,8 +421,8 @@ const ROSTER = [
       "Clean": 60
     },
     "offseason_sessions": 0,
-    "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Caserta e Dodi)",
-    "rischio_clinico": "🟡/🔴 MEDIO-ALTO (Lassità Legamentosa + Disritmia Scapolare DX + Valgismo SX + Cisti Polso DX)",
+    "turno": "🔴 SHIFT 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Dedicated Technical Program)",
+    "rischio_clinico": "🟡/🔴 MEDIUM-HIGH (Ligamentous Laxity + Right Scapular Dyskinesis + Left Knee Valgus + Right Wrist Cyst)",
     "bw": 70
   }
 ];
@@ -2082,241 +2084,241 @@ const WEEKS_DATA = {
         "id": 4,
         "name": "Anja Asonja",
         "number": "#04",
-        "role": "Opposto",
+        "role": "Opposite",
         "peso": "77.0 kg",
-        "rischio": "🟡/🔴 MEDIO-ALTO (Tendinopatia Rotulea Cronica Overuse + Valgismo Dinamico Ginocchio DX + Spalla d'Attacco Sovraccarico)",
-        "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Sassolini e Bole)",
+        "rischio": "🟡/🔴 MEDIUM-HIGH (Chronic Patellar Tendinopathy Overuse + Right Knee Dynamic Valgus + Hitting Shoulder Load)",
+        "turno": "🔴 SHIFT 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\"",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Tendinopatia Rotulea Cronica Bilaterale (Overuse Salto):**\n   - Pregressa sintomatologia dolorosa all'apice inferiore della rotula (trattata in precedenza con Tecar).\n   - L'ipertono del quadricipite e le forze di taglio in inversione di moto rapida scatenano micro-infiammazioni tendinee.\n2. **Deficit Podalico Bilaterale & Valgismo Dinamico Arto DX:**\n   - Crollo mediale in eversione dell'arco plantare causato da ipovalidità del tibiale posteriore.\n   - Nello Step Over e negli atterraggi, il ginocchio destro collassa medialmente in valgismo dinamico per ritardo di reclutamento del gluteo medio destro.\n3. **Squat Test & Asimmetria d'Appoggio:**\n   - Shift a destra in fase concentrica dello squat; forte retrazione dei flessori d'anca (ileopsoas bilaterale, peggiore a sinistra).\n4. **Cingolo Scapolare & Spalla d'Attacco:**\n   - Rigidità della spalla destra a fine seduta e deficit di mobilità sopra i 120° in abduzione. La Floor Chest Press a terra protegge la cuffia azzerando l'anteriorizzazione dell'omero.\n\n---",
         "ban": "* ⛔ **BAN Squat Libero Profondo con Rimbalzo:**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido elimina l'inversione elastica brusca al polo inferiore della rotula; l'elastico costringe il gluteo medio a spingere in fuori contrastando il valgismo del ginocchio destro.\n* 🛡️ **PREHAB SPECIFICO ANALGESICO (Protocollo Cook/Rio Tendine Rotuleo):**\n  - **Spanish Squat Isometrico con elastico pesante a 90° (3-5 serie × 30-45\" di tenuta)** prima di qualsiasi carico: induce analgesia corticale immediata e stimola la sintesi di collagene.\n  - Clamshell con miniband per attivazione gluteo medio destro.\n  - Allungamento miofasciale ileopsoas e quadricipite su foam roller.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è ridotto a sole 2 serie da 4 reps sub-massimali a buffer 3 (RPE 6-7) per proteggere i tendini rotulei e gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
         "w3_sedute": {
           "1": [
             {
-              "Blocco": "**# Prehab**",
+              "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 2 jumps",
               "Carico (kg/RPE)": "Max",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica drop <7%"
+              "Tempo": "Max RFD",
+              "Note Tecniche": "Baseline height and symmetry check (target drop <7%)"
             },
             {
-              "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Pogo Hops su Linea in Cluster",
+              "Blocco": "# Plyo",
+              "Esercizio": "2A. In-Line Pogo Hops in Cluster",
               "Set x Reps": "2 x (3+3+3)",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms"
+              "Tempo": "X",
+              "Note Tecniche": "15s intra-set pause. Ankle stiffness, ground contact <200ms"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3A. Squat (Parallelo)**",
+              "Blocco": "# Main",
+              "Esercizio": "3A. Parallel Squat",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "75% (42.0 kg) [\"6\"]",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
+              "Tempo": "2010",
+              "Note Tecniche": "Femur parallel to floor (~90° knee angle). Controlled 1-2s descent, strict stop at parallel, maximal upward acceleration (Max Intent, VBT 0.60-0.65 m/s). Tripod foot pressure"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3B. Floor Chest Press con Manubri**",
+              "Blocco": "# Main",
+              "Esercizio": "3B. Dumbbell Floor Chest Press",
               "Set x Reps": "3 x 4-5",
               "Carico (kg/RPE)": "70% (18+18 kg) [\"6\"]",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Gomiti a 45° a terra salva-cuffia, stop 1\" a terra (zero rimbalzo, forza concentrica pura), spinta verticale potente"
+              "Tempo": "2010",
+              "Note Tecniche": "Elbows at 45° on floor protecting rotator cuff, 1s pause on floor (pure concentric force), explosive vertical press"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3C. Lat Machine Presa Neutra Stretta**",
+              "Blocco": "# Main",
+              "Esercizio": "3C. Lat Pulldown Narrow Neutral Grip",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "70% (31.5 kg) [\"6\"]",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Scapole depresse prima di tirare, trazione potente al petto, gomiti in basso"
+              "Tempo": "2011",
+              "Note Tecniche": "Depress scapulae before pulling, powerful pull to upper chest, elbows down and tight"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Split Squat con manubri (piede ant. su disco)",
+              "Blocco": "# Accessories",
+              "Esercizio": "4A. Dumbbell Split Squat (Front Foot Elevated)",
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Tempo": "2010",
+              "Note Tecniche": "Knee tracked over 2nd toe, explosive ascent, RIR 2"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Blocco": "# Accessories",
+              "Esercizio": "4B. Dumbbell Seal Row on 30° Incline Bench",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "60% (13+13 kg) [\"8\"]",
-              "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
+              "Tempo": "2011",
+              "Note Tecniche": "DUMBBELLS ONLY (DB, no barbell). Prone on 30° bench, neutral grip, 1s scapular squeeze at peak, controlled 2s lowering"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5A. Deadbug con sovraccarico KB",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "5A. Kettlebell Loaded Deadbug",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "2-4 kg",
-              "Tempo": "`2020`",
-              "Note Tecniche": "KB 2-4 kg a braccia tese verticali. Pressione costante, lombare incollata al suolo (zero spazio), estensione controllata"
+              "Tempo": "2020",
+              "Note Tecniche": "Hold 2-4 kg KB with straight arms vertically. Constant tension, lower back pressed flat to floor (zero space), controlled extension"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5B. Medball Chest Pass contro muro",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "5B. Wall Medball Chest Pass",
               "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "In piedi, stance atletica a ginocchia morbide, rilascio balistico esplosivo a massima velocità d'uscita senza frenata delle braccia"
+              "Tempo": "X",
+              "Note Tecniche": "Standing athletic stance, soft knees, explosive ballistic release at maximal velocity without braking arms"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "Extrarotatori Spalla Sinistra Mancina al Cavo",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "Left Lefty Hitting Shoulder Cable External Rotators",
               "Set x Reps": "2 x 10",
               "Carico (kg/RPE)": "5 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Tutela capsulo-legamentosa spalla d'attacco mancina"
+              "Tempo": "2012",
+              "Note Tecniche": "Capsular and tendon protection for left-handed hitting shoulder"
             }
           ],
           "2": [
             {
-              "Blocco": "**# Prehab**",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Blocco": "# Prehab",
+              "Esercizio": "1A. Chronojump RSI/RFD Profiling",
+              "Set x Reps": "2 x 3 jumps",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
+              "Tempo": "Max RFD",
               "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
             },
             {
-              "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
+              "Blocco": "# Plyo",
+              "Esercizio": "2A. Mini-Hurdle Hops (20cm Hurdles) in Cluster",
               "Set x Reps": "2 x (3+3+3)",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "X",
+              "Note Tecniche": "15s intra-set pause. Pure elastic rebound"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Blocco": "# Main",
+              "Esercizio": "3A. Barbell Power Clean",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "35.0 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
+              "Tempo": "X",
+              "Note Tecniche": "Explosive triple extension of ankles-knees-hips, fast catch in power position"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
+              "Blocco": "# Main",
+              "Esercizio": "3B. Dynamic Half Squat",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "70% (34.0 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Tempo": "20X0",
+              "Note Tecniche": "Jump-specific half squat (~110-120° knee angle). Maximal upward acceleration (VBT target 0.70-0.75 m/s)"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
+              "Blocco": "# Main",
+              "Esercizio": "3C. Half-Kneeling Single-Arm Landmine Press",
               "Set x Reps": "3 x 4+4",
               "Carico (kg/RPE)": "70% (+19.5 kg) [\"6\"]",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Tempo": "2010",
+              "Note Tecniche": "Half-kneeling (ipsilateral knee on floor), explosive press at 45° in scapular plane"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
+              "Blocco": "# Main",
+              "Esercizio": "3D. Single-Arm Dumbbell Row on Bench",
               "Set x Reps": "3 x 5+5",
               "Carico (kg/RPE)": "70% (15 kg) [\"6\"]",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Tempo": "2011",
+              "Note Tecniche": "Three points of contact, horizontal torso, elbow tight to ribcage, 1s peak contraction"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Blocco": "# Accessories",
+              "Esercizio": "4A. Single-Leg RDL with Kettlebell",
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10 kg (\"8\")",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Tempo": "2010",
+              "Note Tecniche": "CONTRALATERAL load (KB opposite to stance leg). Knee soft, hinge back, active foot arch"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+              "Blocco": "# Accessories",
+              "Esercizio": "4B. High Cable Face Pull with External Rotation",
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "12.5 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Tempo": "2012",
+              "Note Tecniche": "Thumbs rotated back, rope to eye level, lower trapezius and rotator cuff reinforcement"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5A. Pallof Press in piedi con elastico",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "5A. Standing Band Pallof Press",
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "7.5 kg",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Tempo": "1111",
+              "Note Tecniche": "Pure anti-rotation, rigid upright torso"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "5B. Rotational Medball Wall Throw",
               "Set x Reps": "3 x 3+3",
               "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "In piedi di fianco al muro, caricamento d'anca posteriore e rotazione esplosiva del bacino prima delle braccia. Transfer di potenza"
+              "Tempo": "X",
+              "Note Tecniche": "Standing sideways to wall, hip load and explosive rotational transfer"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "Extrarotatori Spalla Sinistra Mancina al Cavo",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "Left Lefty Hitting Shoulder Cable External Rotators",
               "Set x Reps": "2 x 10",
               "Carico (kg/RPE)": "5 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Tutela spalla d'attacco mancina"
+              "Tempo": "2012",
+              "Note Tecniche": "Protection for left-handed hitting shoulder"
             }
           ],
           "3": [
             {
-              "Blocco": "**# Prehab**",
-              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
+              "Blocco": "# Prehab",
+              "Esercizio": "1A. Bar Hang with Feet Support",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
-              "Tempo": "Decompressivo",
-              "Note Tecniche": "Decompressione totale della colonna vertebrale"
+              "Carico (kg/RPE)": "Partial BW",
+              "Tempo": "Decompressive",
+              "Note Tecniche": "Full spinal decompression and shoulder hang"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**2A. Romanian Deadlift con Bilanciere (RDL)**",
-              "Set x Reps": "**2 x 4**",
+              "Blocco": "# Main",
+              "Esercizio": "2A. Barbell Romanian Deadlift (RDL)",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "70% (39.0 kg) [\"6\"]",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula. Tassativo Buffer 3 (RPE 6). Zero fatica pre-gara!"
+              "Tempo": "2010",
+              "Note Tecniche": "Pure hip hinge pushing pelvis backward, bar brushing thighs, buffer 3 (RIR 3-4)"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**2B. Pulley Basso al Cavo Presa Parallela Stretta**",
+              "Blocco": "# Main",
+              "Esercizio": "2B. Seated Low Cable Pulley Row Narrow Parallel Grip",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "70% (31.5 kg) [\"6\"]",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
+              "Tempo": "2011",
+              "Note Tecniche": "Upright torso 90°, decompressive horizontal pull towards navel"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "3A. Glute Bridge con bilanciere a terra",
+              "Blocco": "# Accessories",
+              "Esercizio": "3A. Barbell Glute Bridge on Floor",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg (\"8\")",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
+              "Tempo": "2012",
+              "Note Tecniche": "Drive through heels, 2s maximal isometric hold at top"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
+              "Blocco": "# Accessories",
+              "Esercizio": "3B. Flat Bench Dumbbell Pullover",
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg (\"8\")",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
+              "Tempo": "2010",
+              "Note Tecniche": "Thoracic ribcage expansion and controlled lats stretch without lumbar hyperextension"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "4A. Farmer Walk con manubri bilaterali",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4A. Bilateral Dumbbell Farmer's Walk",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "14+14 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Postura eretta, presa isometrica forte"
+              "Tempo": "Walking",
+              "Note Tecniche": "Tall posture, strong isometric grip, zero lateral swaying"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "**🛑 STRICT FRIDAY JUMP BAN**",
-              "Set x Reps": "**-**",
-              "Carico (kg/RPE)": "**-**",
-              "Tempo": "**-**",
-              "Note Tecniche": "**ZERO SALTI. Gambe fresche per il sabato.**"
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "STRICT FRIDAY JUMP BAN",
+              "Set x Reps": "-",
+              "Carico (kg/RPE)": "-",
+              "Tempo": "-",
+              "Note Tecniche": "ZERO JUMPS. Keep legs fresh and elastic for Saturday match."
             }
           ]
         },
@@ -6357,345 +6359,345 @@ const WEEKS_DATA = {
         "id": 14,
         "name": "Nelly Adamczewska",
         "number": "#14",
-        "role": "Schiacciatrice",
+        "role": "Outside Hitter",
         "peso": "70.0 kg",
-        "rischio": "🟡/🔴 MEDIO-ALTO (Lassità Legamentosa + Disritmia Scapolare DX + Valgismo SX + Cisti Polso DX)",
-        "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Caserta e Dodi)",
+        "rischio": "🟡/🔴 MEDIUM-HIGH (Ligamentous Laxity + Right Scapular Dyskinesis + Left Knee Valgus + Right Wrist Cyst)",
+        "turno": "🔴 SHIFT 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\"",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Video/Frame)\n1. **Lassità Legamentosa Generalizzata & Tendenza Recurvatum:**\n   - 17 anni, mobilità passiva elevatissima che necessita di eccellente rigidità attiva (*stiffness*) e stabilità lombo-pelvica. Tendenza al recurvatum e pregressa tendinopatia rotulea da salto.\n2. **Disritmia Scapolare Destra & Upper Crossed Pattern:**\n   - Durante l'abduzione/elevazione, la scapola destra sale precocemente e più in alto rispetto alla sinistra (anticipo di elevazione per iper-attivazione del trapezio superiore e inibizione del trapezio inferiore/dentato anteriore).\n   - Presenza di cisti ganglionare al polso destro (asintomatica ma suscettibile di compressione in iperestensione dorsale con bilanciere dritto).\n3. **Deficit Podalico Sinistro & Valgismo Dinamico Arto SX:**\n   - Retropiede sinistro in eversione/pronazione costante con mancata inversione calcaneale sia in SLS che in propulsione (deficit selettivo del tibiale posteriore sinistro).\n   - Nello Step Over, l'arto sinistro mostra un cedimento in valgismo dinamico marcato (SX > DX), non controllato dall'arco plantare collassato.\n4. **Instabilità Lombo-Pelvica nello Squat Profondo & Blocco Rotazionale SX:**\n   - Nello squat, superati gli 80° di flessione di ginocchio, si manifesta una perdita del controllo lombo-pelvico (*butt wink*) sotto i 70°, con rotazione del bacino a destra in fase concentrica.\n   - Restrizione di circa 15°-20° nella rotazione cervicale e del tronco verso sinistra (cerniera cervico-dorsale rigida).\n\n---",
         "ban": "* ⛔ **BAN Squat Profondo Libero (<70° al ginocchio):**  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo a 80°-85° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box impedisce il *butt wink* a fondo corsa proteggendo L4-S1, mentre l'elastico recluta il gluteo medio contrastando il valgismo del ginocchio sinistro.\n* ⛔ **BAN Bilanciere Dritto in Iperestensione dei Polsi (Panca / Girata con polsi piegati):** La cisti ganglionare del polso destro non tollera carichi di compressione in estensione forzata.  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con Manubri a Presa Neutra/Semi-neutra (`3010`)** e Power Clean eseguito con manubri/powerbag a presa neutra.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean con manubri a presa neutra / Powerbag 15-20 kg)**: elimina l'estensione del polso salvaguardando la cisti ganglionare del polso destro ed esaltando la tripla estensione.\n* 🛡️ **PREHAB SCAPOLARE E PODALICO OBBLIGATORIO:**\n  - Rilascio miofasciale piccolo pettorale destro con pallina da lacrosse (de-tensione coracoide).\n  - Scapular Wall Slide & Prone Trap 3 Raise per rieducare il timing della scapola destra (depressione attiva).\n  - Short Foot + inversione con elastico per il piede sinistro (attivazione tibiale posteriore).\n  - Rotazioni toraciche in quadrupedia (\"Open Book\") focalizzate sul lato sinistro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro eccentrico/isocinetico per ischiocrurali e tendine rotuleo senza impatto.\n\n---",
         "w3_sedute": {
           "1": [
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "3010",
-              "Note Tecniche": "Cerniera d'anca pura in 3s eccentrica, ginocchia sbloccate, no compensi lombari (progressione scheda fino a 40 kg)."
+              "Note Tecniche": "Pure hip hinge with 3s eccentric, soft knees, zero lumbar compensation (progression up to 40 kg)."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2a. Twists with BB - sitting posision",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "7.5 - 10 kg",
-              "Tempo": "Controllato",
-              "Note Tecniche": "In superset con 2b. Bacino fisso sulla panca, rotazione selettiva del cingolo scapolare/toracico."
+              "Tempo": "Controlled",
+              "Note Tecniche": "In superset with 2b. Pelvis fixed on bench, selective rotation of shoulder/thoracic girdle."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2b. One leg deadlift BB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "20 (+5) kg",
               "Tempo": "2010",
-              "Note Tecniche": "In superset con 2a. Stacco monopodalico con bilanciere, stabilità caviglia e ginocchio in asse (anti-valgo)."
+              "Note Tecniche": "In superset with 2a. Single-leg barbell deadlift, ankle stability and knee aligned over 2nd toe (anti-valgus)."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "3. Hip trust",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "40 - 50 kg",
               "Tempo": "2010",
-              "Note Tecniche": "Spinta dai talloni, 1s di contrazione di picco in massima estensione anca (progressione fino a 60 kg da scheda)."
+              "Note Tecniche": "Drive through heels, 1s peak isometric contraction at full hip extension (progression up to 60 kg)."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "1. Izometric wall squat",
               "Set x Reps": "3 x 24\"-28\"",
               "Carico (kg/RPE)": "15 - 25 kg",
               "Tempo": "Hold",
-              "Note Tecniche": "Schiena a parete a 90°, sovraccarico al petto (15 kg, 20 kg, 25 kg), arco plantare attivo contro valgismo."
+              "Note Tecniche": "Back against wall at 90°, weight held at chest (15 kg, 20 kg, 25 kg), active foot arch against knee valgus."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "2. Shoulder press",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "2010",
-              "Note Tecniche": "Piramidale RPE 8-10. Se con manubri, presa semi-neutra per salvaguardare il polso destro (cisti ganglionare)."
+              "Note Tecniche": "Pyramidal RPE 8-10. If using dumbbells, semi-neutral grip to protect right wrist (ganglion cyst)."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "3. BB underhand row",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1030",
-              "Note Tecniche": "Presa supina, 3s di contrazione isometrica al petto con scapole depresse e addotte."
+              "Note Tecniche": "Supinated grip, 3s isometric hold at chest with scapulae depressed and retracted."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "4. Lat pull down behind the neck",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1030",
-              "Note Tecniche": "3s di picco isometrico in basso. Se la scapola destra sale o compensa, eseguire lat machine frontale a presa neutra."
+              "Note Tecniche": "3s isometric peak at bottom. If right scapula elevates or compensates, perform front neutral grip pulldown."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "1. Nordic curl",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "BW (Assistito)",
+              "Carico (kg/RPE)": "BW (Assisted)",
               "Tempo": "3010",
-              "Note Tecniche": "3s di discesa eccentrica controllata salva-ginocchio (bicipite femorale e tendine rotuleo)."
+              "Note Tecniche": "3s controlled eccentric descent protecting knees (hamstrings and patellar tendon)."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Y rises",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "Tech (2-3 kg)",
               "Tempo": "1020",
-              "Note Tecniche": "Focus selettivo trapezio inferiore e depressore scapolare per correggere disritmia scapola DX."
+              "Note Tecniche": "Selective focus on lower trapezius and scapular depressors to correct right scapular dyskinesis."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "3. Shoulder rotation",
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "Tech",
               "Tempo": "2020",
-              "Note Tecniche": "Gomito adeso a 90°, extrarotazione controllata con manubrio leggero o elastico."
+              "Note Tecniche": "Elbow pinned at 90°, controlled external rotation with light dumbbell or band."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "4. Sitting pos calf rises",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1020",
-              "Note Tecniche": "2s di tenuta in massima estensione della caviglia; rinforzo selettivo del soleo."
+              "Note Tecniche": "2s hold at peak ankle extension; selective soleus reinforcement."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "1. Clean (Power Clean)",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "10X0",
-              "Note Tecniche": "Girata esplosiva da terra/hang con bilanciere o powerbag, tripla estensione caviglia-ginocchio-anca."
+              "Note Tecniche": "Explosive clean from floor/hang with barbell or powerbag, triple extension ankles-knees-hips."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "2. Flor ball throws",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 - 5 kg",
               "Tempo": "X",
-              "Note Tecniche": "Massima violenza di rilascio verticale a terra senza flessione della colonna."
+              "Note Tecniche": "Maximal vertical slamming violence into floor without spinal flexion."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "3. Abdominals - self exercises",
               "Set x Reps": "2 x 8+8 / 20\"",
               "Carico (kg/RPE)": "BW",
               "Tempo": "2020",
-              "Note Tecniche": "Deadbug con fitball o Hollow Body Hold per stabilità lombo-pelvica contro inarcamento."
+              "Note Tecniche": "Deadbug with fitball or Hollow Body Hold for lumbo-pelvic stability against overarching."
             }
           ],
           "2": [
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "3010",
-              "Note Tecniche": "Cerniera d'anca pura in 3s eccentrica, allungamento controllato e attivazione catena posteriore."
+              "Note Tecniche": "Pure hip hinge with 3s eccentric, controlled stretch and posterior chain activation."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2a. Twists with BB - sitting pos",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "30 - 40 kg (o BB leggero)",
-              "Tempo": "Controllato",
-              "Note Tecniche": "In superset con 2b. Bacino bloccato sulla panca, rotazione controllata del tronco."
+              "Carico (kg/RPE)": "30 - 40 kg (or light BB)",
+              "Tempo": "Controlled",
+              "Note Tecniche": "In superset with 2b. Pelvis locked on bench, controlled torso rotation."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2b. One leg deadlift DB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "12 - 14 kg",
               "Tempo": "2010",
-              "Note Tecniche": "In superset con 2a. Stacco monopodalico con manubrio controlaterale, stabilità monopodalica e arco plantare attivo."
+              "Note Tecniche": "In superset with 2a. Single-leg deadlift with contralateral dumbbell, single-leg stability and active foot arch."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "3. Clean squat with stand on one leg",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "15 kg",
               "Tempo": "3010",
-              "Note Tecniche": "Discesa in 3s, risalita e arrivo solido in equilibrio monopodalico senza valgo del ginocchio."
+              "Note Tecniche": "3s descent, explosive ascent arriving solidly balanced on one leg without knee valgus."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "1. Box Squat",
               "Set x Reps": "3 x 5, 4, 3",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
               "Tempo": "2010",
-              "Note Tecniche": "Sfioro del box controllato a 85°-90°, risalita potente (progressione carichi fino a RPE 4-5)."
+              "Note Tecniche": "Controlled box touch at 85°-90°, powerful drive upward (load progression up to RPE 4-5)."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 5, 4, 3",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
               "Tempo": "2010",
-              "Note Tecniche": "Panca orizzontale, massima apertura toracica ed estensione dorsale senza inarcare la zona lombare."
+              "Note Tecniche": "Flat bench, maximal thoracic opening and lat stretch without lumbar overarching."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
-              "Set x Reps": "3 x 5, 4, 3 /lato",
+              "Set x Reps": "3 x 5, 4, 3 /side",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
               "Tempo": "1030",
-              "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
+              "Note Tecniche": "Single-arm row on bench, 3s isometric hold at scapular retraction with elbow tight."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "1. Harmstring Ball curl",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "BW",
               "Tempo": "1030",
-              "Note Tecniche": "Leg curl su fitball a terra, bacino sempre sollevato e allineato, 3s di fase eccentrica."
+              "Note Tecniche": "Fitball leg curl on floor, hips elevated and aligned throughout, 3s eccentric phase."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1020",
-              "Note Tecniche": "Calf in piedi, 2s di blocco in massima contrazione con ginocchia tese."
+              "Note Tecniche": "Standing calf raise, 2s peak hold at maximal contraction."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "3. Lat pull down - front",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1030",
-              "Note Tecniche": "Trazione frontale fino al petto/sterno, 3s di fermo isometrico in basso."
+              "Note Tecniche": "Front pulldown to chest/sternum, 3s hold at bottom, depressed shoulders."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "1. Clean to 1/4 squat",
               "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "30 kg",
               "Tempo": "10X0",
-              "Note Tecniche": "Power clean con ricezione reattiva in 1/4 di squat, rapida frenata e riestensione."
+              "Note Tecniche": "Power clean with reactive catch in 1/4 squat position."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "2. Flor ball throws",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
               "Tempo": "X",
-              "Note Tecniche": "Lancio esplosivo della palla medica a terra con massima intenzione di velocità."
+              "Note Tecniche": "Explosive medball floor throw with maximal arm acceleration."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "3. Abdominals - self exercises",
               "Set x Reps": "2 x 8+8 / 20\"",
               "Carico (kg/RPE)": "BW",
               "Tempo": "2020",
-              "Note Tecniche": "Deadbug o Plank dinamico per stabilità anteriore e tenuta del bacino."
+              "Note Tecniche": "Deadbug or dynamic Plank for anterior core and rotational stability."
             }
           ],
           "3": [
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "3010",
-              "Note Tecniche": "Cerniera d'anca pura in 3s eccentrica, allungamento controllato e attivazione catena posteriore."
+              "Note Tecniche": "Pure hip hinge with 3s eccentric, controlled stretch and posterior chain activation."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2a. Twists with BB - standing pos",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "30 - 40 kg (o BB leggero)",
-              "Tempo": "Controllato",
-              "Note Tecniche": "In superset con 2b. Piedi saldi e stabili, rotazione pura del busto senza oscillazioni del bacino."
+              "Carico (kg/RPE)": "30 - 40 kg (or light BB)",
+              "Tempo": "Controlled",
+              "Note Tecniche": "In superset with 2b. Solid stance, controlled rotational power."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2b. One leg deadlift DB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "12 - 14 kg",
               "Tempo": "2010",
-              "Note Tecniche": "In superset con 2a. Manubrio controlaterale, ginocchio sinistro rigido e allineato (focus anti-valgo)."
+              "Note Tecniche": "In superset with 2a. Contralateral dumbbell, knee soft, zero pelvis tilt."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "1. Split squat",
               "Set x Reps": "3 x 4+4",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "2010",
-              "Note Tecniche": "Affondo sul posto, busto compatto, arto perno con ginocchio perpendicolare al collo del piede."
+              "Note Tecniche": "Stationary lunge, compact upright torso, lead leg controlling alignment."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 4, 3, 4",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
               "Tempo": "2010",
-              "Note Tecniche": "Allungamento della gabbia toracica e del gran dorsale, mantenendo L4-S1 stabile sulla panca."
+              "Note Tecniche": "Thoracic ribcage opening and lat expansion with elbows softly bent."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
-              "Set x Reps": "3 x 4, 3, 4 /lato",
+              "Set x Reps": "3 x 4, 3, 4 /side",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
               "Tempo": "1030",
-              "Note Tecniche": "Trazione monolaterale con 3s di tenuta scapolare in alto, gomito che sfiora il costato."
+              "Note Tecniche": "Single-arm row with 3s isometric scapular squeeze at top."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "1. Harmstring Ball curl",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "BW",
               "Tempo": "1030",
-              "Note Tecniche": "Leg curl su fitball a terra con ritorno eccentrico lento in 3s."
+              "Note Tecniche": "Fitball leg curl on floor with 3s eccentric return."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\"",
               "Tempo": "1020",
-              "Note Tecniche": "Calf in piedi su gradino, salita dinamica e 2s di picco isometrico in alto."
+              "Note Tecniche": "Standing calf raise on step, dynamic ascent and 2s top pause."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "3. Lat pull down - front",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\"",
               "Tempo": "1030",
-              "Note Tecniche": "Trazione frontale allo sterno, spalle basse e gomiti verso le tasche posteriori."
+              "Note Tecniche": "Front pulldown to sternum, shoulders depressed and elbows pulling down."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "4. Flor chest press",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"14\" - \"12\" - \"10\"",
               "Tempo": "2010",
-              "Note Tecniche": "Floor press con manubri a presa neutra/semi-neutra a tutela della cisti del polso DX."
+              "Note Tecniche": "Floor press with dumbbells, neutral/semi-neutral grip to protect right wrist cyst."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "1. Clean to split pos",
               "Set x Reps": "3 x 2+2",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "10X0",
-              "Note Tecniche": "Power clean con ricezione rapida in posizione di split (affondo dinamico), alternando gli arti."
+              "Note Tecniche": "Power clean with rapid split catch, testing dynamic balance."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "2. Flor ball throws",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
               "Tempo": "X",
-              "Note Tecniche": "Floor slam esplosivo a terra, massima coordinazione tra flessori d'anca e muscoli del dorso."
+              "Note Tecniche": "Explosive floor slam, maximal hip-to-arm coordination."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "3. Abdominals - self exercises",
               "Set x Reps": "2 x 8+8 / 20\"",
               "Carico (kg/RPE)": "BW",
               "Tempo": "2020",
-              "Note Tecniche": "Esercizi addominali a corpo libero con focus sulla stabilità lombo-pelvica."
+              "Note Tecniche": "Bodyweight core exercises focusing on pelvic tilt and lumbo-pelvic control."
             }
           ]
         },
@@ -8694,10 +8696,10 @@ const WEEKS_DATA = {
         "id": 4,
         "name": "Anja Asonja",
         "number": "#04",
-        "role": "Opposto",
+        "role": "Opposite",
         "peso": "77.0 kg",
-        "rischio": "🟡/🔴 MEDIO-ALTO (Tendinopatia Rotulea Cronica Overuse + Valgismo Dinamico Ginocchio DX + Spalla d'Attacco Sovraccarico)",
-        "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Sassolini e Bole)",
+        "rischio": "🟡/🔴 MEDIUM-HIGH (Chronic Patellar Tendinopathy Overuse + Right Knee Dynamic Valgus + Hitting Shoulder Load)",
+        "turno": "🔴 SHIFT 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\"",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Live)\n1. **Tendinopatia Rotulea Cronica Bilaterale (Overuse Salto):**\n   - Pregressa sintomatologia dolorosa all'apice inferiore della rotula (trattata in precedenza con Tecar).\n   - L'ipertono del quadricipite e le forze di taglio in inversione di moto rapida scatenano micro-infiammazioni tendinee.\n2. **Deficit Podalico Bilaterale & Valgismo Dinamico Arto DX:**\n   - Crollo mediale in eversione dell'arco plantare causato da ipovalidità del tibiale posteriore.\n   - Nello Step Over e negli atterraggi, il ginocchio destro collassa medialmente in valgismo dinamico per ritardo di reclutamento del gluteo medio destro.\n3. **Squat Test & Asimmetria d'Appoggio:**\n   - Shift a destra in fase concentrica dello squat; forte retrazione dei flessori d'anca (ileopsoas bilaterale, peggiore a sinistra).\n4. **Cingolo Scapolare & Spalla d'Attacco:**\n   - Rigidità della spalla destra a fine seduta e deficit di mobilità sopra i 120° in abduzione. La Floor Chest Press a terra protegge la cuffia azzerando l'anteriorizzazione dell'omero.\n\n---",
         "ban": "* ⛔ **BAN Squat Libero Profondo con Rimbalzo:**  \n  ➔ **SOSTITUZIONE:** **Box Squat rigido a 90° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box rigido elimina l'inversione elastica brusca al polo inferiore della rotula; l'elastico costringe il gluteo medio a spingere in fuori contrastando il valgismo del ginocchio destro.\n* 🛡️ **PREHAB SPECIFICO ANALGESICO (Protocollo Cook/Rio Tendine Rotuleo):**\n  - **Spanish Squat Isometrico con elastico pesante a 90° (3-5 serie × 30-45\" di tenuta)** prima di qualsiasi carico: induce analgesia corticale immediata e stimola la sintesi di collagene.\n  - Clamshell con miniband per attivazione gluteo medio destro.\n  - Allungamento miofasciale ileopsoas e quadricipite su foam roller.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. L'RDL è ridotto a sole 2 serie da 4 reps sub-massimali a buffer 3 (RPE 6-7) per proteggere i tendini rotulei e gli ischiocrurali a 24h dall'amichevole del sabato.\n\n---",
         "w3_sedute": {
@@ -8935,232 +8937,232 @@ const WEEKS_DATA = {
         "w4_sedute": {
           "1": [
             {
-              "Blocco": "**# Prehab**",
+              "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 2 jumps",
               "Carico (kg/RPE)": "Max",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica simmetria"
+              "Tempo": "Max RFD",
+              "Note Tecniche": "Baseline height and symmetry check"
             },
             {
-              "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Pogo Hops su Linea in Cluster",
+              "Blocco": "# Plyo",
+              "Esercizio": "2A. Line Pogo Hops in Cluster",
               "Set x Reps": "2 x (3+3+3)",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia <200ms"
+              "Tempo": "X",
+              "Note Tecniche": "15s intra-set rest. Ankle stiffness <200ms"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3A. Squat Cluster (2+1)**",
+              "Blocco": "# Main",
+              "Esercizio": "3A. Squat Cluster (2+1)",
               "Set x Reps": "3 x (2+1)",
               "Carico (kg/RPE)": "80% (49.5 kg) [\"5\"]",
-              "Tempo": "`2010`",
-              "Note Tecniche": "2 rip + 15\" pausa intra-set + 1 rip. Parallelo a 90° femore-tibia. Enode VBT: 0.65-0.70 m/s. Max intent concentrico"
+              "Tempo": "2010",
+              "Note Tecniche": "2 reps + 15s intra-set pause + 1 rep. Parallel at 90°, maximal intent"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3B. Floor Chest Press con Manubri**",
+              "Blocco": "# Main",
+              "Esercizio": "3B. Dumbbell Floor Chest Press",
               "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "75% (19+19 kg) [\"5\"]",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Gomiti a 45° a terra, stop 1\" a terra, spinta potente"
+              "Tempo": "2010",
+              "Note Tecniche": "Elbows at 45° on floor, 1s pause on ground, explosive press"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3C. Lat Machine Presa Neutra Stretta**",
+              "Blocco": "# Main",
+              "Esercizio": "3C. Lat Pulldown Narrow Neutral Grip",
               "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "75% (34.0 kg) [\"5\"]",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Depressione scapolare forte, trazione al petto"
+              "Tempo": "2011",
+              "Note Tecniche": "Strong scapular depression, explosive pull to upper chest"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Split Squat con manubri (piede ant. su disco)",
+              "Blocco": "# Accessories",
+              "Esercizio": "4A. Dumbbell Split Squat (Front Foot Elevated)",
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Tempo": "2010",
+              "Note Tecniche": "Controlled descent, explosive drive, RIR 2"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Blocco": "# Accessories",
+              "Esercizio": "4B. Dumbbell Seal Row on 30° Incline Bench",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "65% (14+14 kg) [\"5\"]",
-              "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
+              "Tempo": "2011",
+              "Note Tecniche": "DUMBBELLS ONLY (DB, no barbell). 30° bench, neutral grip, 1s squeeze at top"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5A. Deadbug con KB al petto",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "5A. Deadbug with KB at Chest",
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "2-4 kg",
-              "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (zero spazio a terra), 2-4 kg"
+              "Tempo": "2020",
+              "Note Tecniche": "Solid lumbar anti-extension (zero floor gap)"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5B. Medball Chest Pass contro muro",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "5B. Wall Medball Chest Pass",
               "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "3-4 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "In piedi, stance atletica a ginocchia morbide, uscita balistica violenta delle braccia senza decelerazione"
+              "Tempo": "X",
+              "Note Tecniche": "Standing athletic stance, explosive release without braking"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "Extrarotatori Spalla Sinistra Mancina al Cavo",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "Left Lefty Hitting Shoulder Cable External Rotators",
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "6 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Controllo eccentrico rotatori esterni braccio sinistro"
+              "Tempo": "2012",
+              "Note Tecniche": "Eccentric control of external rotators for left arm"
             }
           ],
           "2": [
             {
-              "Blocco": "**# Prehab**",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Blocco": "# Prehab",
+              "Esercizio": "1A. Chronojump RSI/RFD Profiling",
+              "Set x Reps": "2 x 3 jumps",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
+              "Tempo": "Max RFD",
               "Note Tecniche": "Drop Jump 25-30 cm"
             },
             {
-              "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 25cm) in Cluster",
+              "Blocco": "# Plyo",
+              "Esercizio": "2A. Mini-Hurdle Hops (25cm Hurdles) in Cluster",
               "Set x Reps": "2 x (3+3+3)",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Pliometria reattiva a media altezza"
+              "Tempo": "X",
+              "Note Tecniche": "15s intra-set pause. Reactive elasticity"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Blocco": "# Main",
+              "Esercizio": "3A. Barbell Power Clean",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "37.5 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Tripla estensione potente e reattiva"
+              "Tempo": "X",
+              "Note Tecniche": "Powerful triple extension and crisp catch"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
+              "Blocco": "# Main",
+              "Esercizio": "3B. Dynamic Half Squat",
               "Set x Reps": "4 x 2",
               "Carico (kg/RPE)": "65% (26.5 kg) [\"4\"]",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (~110-120°). Enode VBT >0.75 m/s. Massima velocità concentrica, spinta a razzo"
+              "Tempo": "10X0",
+              "Note Tecniche": "Jump-specific half squat (~110-120°). Enode VBT >0.75 m/s"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3C. Half-Kneeling Landmine Press**",
+              "Blocco": "# Main",
+              "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
               "Carico (kg/RPE)": "75% (+21.0 kg) [\"5\"]",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
+              "Tempo": "10X0",
+              "Note Tecniche": "Explosive press at 45° scapular plane, knee down ipsilateral"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
+              "Blocco": "# Main",
+              "Esercizio": "3D. Single-Arm Dumbbell Row on Bench",
               "Set x Reps": "3 x 4+4",
               "Carico (kg/RPE)": "75% (16 kg) [\"5\"]",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
+              "Tempo": "1011",
+              "Note Tecniche": "High velocity dorsal pull, elbow skimming ribcage"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Blocco": "# Accessories",
+              "Esercizio": "4A. Single-Leg RDL with Kettlebell",
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "12 kg",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
+              "Tempo": "2010",
+              "Note Tecniche": "CONTRALATERAL load (KB opposite to stance leg). Knee soft, active foot tripod"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo con extrarotazione",
+              "Blocco": "# Accessories",
+              "Esercizio": "4B. High Cable Face Pull with External Rotation",
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "15 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
+              "Tempo": "2012",
+              "Note Tecniche": "Thumbs back, rope to eyes, rotator cuff reinforcement"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5A. Pallof Press dinamico con step laterale",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "5A. Dynamic Pallof Press with Lateral Step",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "10 kg",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
+              "Tempo": "1111",
+              "Note Tecniche": "Dynamic anti-rotation, upright torso"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "5B. Rotational Medball Wall Throw",
               "Set x Reps": "3 x 3+3",
               "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "In piedi di fianco al muro, caricamento d'anca e rotazione violenta del bacino prima delle braccia"
+              "Tempo": "X",
+              "Note Tecniche": "Standing sideways to wall, hip loading and explosive transfer"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "Extrarotatori Spalla Sinistra Mancina al Cavo",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "Left Lefty Hitting Shoulder Cable External Rotators",
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "6 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Controllo rotatori braccio sinistro"
+              "Tempo": "2012",
+              "Note Tecniche": "Left arm external rotators control"
             }
           ],
           "3": [
             {
-              "Blocco": "**# Prehab**",
-              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
+              "Blocco": "# Prehab",
+              "Esercizio": "1A. Bar Hang with Feet Support",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
-              "Tempo": "Decompressivo",
-              "Note Tecniche": "Scarico totale del rachide lombare"
+              "Carico (kg/RPE)": "Partial BW",
+              "Tempo": "Decompressive",
+              "Note Tecniche": "Total lumbar and spinal decompression"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**2A. Romanian Deadlift con Bilanciere (RDL)**",
-              "Set x Reps": "**2 x 3**",
+              "Blocco": "# Main",
+              "Esercizio": "2A. Barbell Romanian Deadlift (RDL)",
+              "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (42.0 kg) [\"6\"]",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3 tassativo**. No acido lattico femorale"
+              "Tempo": "2010",
+              "Note Tecniche": "Pure hip hinge, bar brushing thighs, buffer 3 (RIR 3-4)"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**2B. Pulley Basso al Cavo Presa Parallela**",
+              "Blocco": "# Main",
+              "Esercizio": "2B. Seated Low Cable Pulley Row Narrow Parallel Grip",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (34.0 kg) [\"6\"]",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\""
+              "Tempo": "2011",
+              "Note Tecniche": "Clean horizontal pull towards navel, scapular retraction"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "3A. Glute Bridge con bilanciere a terra",
+              "Blocco": "# Accessories",
+              "Esercizio": "3A. Barbell Glute Bridge on Floor",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca"
+              "Tempo": "2012",
+              "Note Tecniche": "2s isometric hold at hip extension peak"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
+              "Blocco": "# Accessories",
+              "Esercizio": "3B. Flat Bench Dumbbell Pullover",
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "10 kg",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura torace"
+              "Tempo": "2010",
+              "Note Tecniche": "Thoracic cage expansion"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "4A. Farmer Walk con manubri bilaterali",
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4A. Bilateral Dumbbell Farmer's Walk",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "14+14 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Stabilità scapolare"
+              "Tempo": "Walking",
+              "Note Tecniche": "Scapular and core stability"
             },
             {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "**🛑 STRICT FRIDAY JUMP BAN**",
-              "Set x Reps": "**-**",
-              "Carico (kg/RPE)": "**-**",
-              "Tempo": "**-**",
-              "Note Tecniche": "**ZERO SALTI. Gambe leggere per l'amichevole.**"
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "STRICT FRIDAY JUMP BAN",
+              "Set x Reps": "-",
+              "Carico (kg/RPE)": "-",
+              "Tempo": "-",
+              "Note Tecniche": "ZERO JUMPS. Keep legs fresh and light for the weekend scrimmage."
             }
           ]
         }
@@ -12969,10 +12971,10 @@ const WEEKS_DATA = {
         "id": 14,
         "name": "Nelly Adamczewska",
         "number": "#14",
-        "role": "Schiacciatrice",
+        "role": "Outside Hitter",
         "peso": "70.0 kg",
-        "rischio": "🟡/🔴 MEDIO-ALTO (Lassità Legamentosa + Disritmia Scapolare DX + Valgismo SX + Cisti Polso DX)",
-        "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Caserta e Dodi)",
+        "rischio": "🟡/🔴 MEDIUM-HIGH (Ligamentous Laxity + Right Scapular Dyskinesis + Left Knee Valgus + Right Wrist Cyst)",
+        "turno": "🔴 SHIFT 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\"",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Video/Frame)\n1. **Lassità Legamentosa Generalizzata & Tendenza Recurvatum:**\n   - 17 anni, mobilità passiva elevatissima che necessita di eccellente rigidità attiva (*stiffness*) e stabilità lombo-pelvica. Tendenza al recurvatum e pregressa tendinopatia rotulea da salto.\n2. **Disritmia Scapolare Destra & Upper Crossed Pattern:**\n   - Durante l'abduzione/elevazione, la scapola destra sale precocemente e più in alto rispetto alla sinistra (anticipo di elevazione per iper-attivazione del trapezio superiore e inibizione del trapezio inferiore/dentato anteriore).\n   - Presenza di cisti ganglionare al polso destro (asintomatica ma suscettibile di compressione in iperestensione dorsale con bilanciere dritto).\n3. **Deficit Podalico Sinistro & Valgismo Dinamico Arto SX:**\n   - Retropiede sinistro in eversione/pronazione costante con mancata inversione calcaneale sia in SLS che in propulsione (deficit selettivo del tibiale posteriore sinistro).\n   - Nello Step Over, l'arto sinistro mostra un cedimento in valgismo dinamico marcato (SX > DX), non controllato dall'arco plantare collassato.\n4. **Instabilità Lombo-Pelvica nello Squat Profondo & Blocco Rotazionale SX:**\n   - Nello squat, superati gli 80° di flessione di ginocchio, si manifesta una perdita del controllo lombo-pelvico (*butt wink*) sotto i 70°, con rotazione del bacino a destra in fase concentrica.\n   - Restrizione di circa 15°-20° nella rotazione cervicale e del tronco verso sinistra (cerniera cervico-dorsale rigida).\n\n---",
         "ban": "* ⛔ **BAN Squat Profondo Libero (<70° al ginocchio):**  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo a 80°-85° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box impedisce il *butt wink* a fondo corsa proteggendo L4-S1, mentre l'elastico recluta il gluteo medio contrastando il valgismo del ginocchio sinistro.\n* ⛔ **BAN Bilanciere Dritto in Iperestensione dei Polsi (Panca / Girata con polsi piegati):** La cisti ganglionare del polso destro non tollera carichi di compressione in estensione forzata.  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con Manubri a Presa Neutra/Semi-neutra (`3010`)** e Power Clean eseguito con manubri/powerbag a presa neutra.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean con manubri a presa neutra / Powerbag 15-20 kg)**: elimina l'estensione del polso salvaguardando la cisti ganglionare del polso destro ed esaltando la tripla estensione.\n* 🛡️ **PREHAB SCAPOLARE E PODALICO OBBLIGATORIO:**\n  - Rilascio miofasciale piccolo pettorale destro con pallina da lacrosse (de-tensione coracoide).\n  - Scapular Wall Slide & Prone Trap 3 Raise per rieducare il timing della scapola destra (depressione attiva).\n  - Short Foot + inversione con elastico per il piede sinistro (attivazione tibiale posteriore).\n  - Rotazioni toraciche in quadrupedia (\"Open Book\") focalizzate sul lato sinistro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro eccentrico/isocinetico per ischiocrurali e tendine rotuleo senza impatto.\n\n---",
         "w3_sedute": {
@@ -13314,336 +13316,336 @@ const WEEKS_DATA = {
         "w4_sedute": {
           "1": [
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "3010",
-              "Note Tecniche": "Cerniera d'anca pura in 3s eccentrica, ginocchia sbloccate, no compensi lombari (progressione scheda fino a 40 kg)."
+              "Note Tecniche": "Pure hip hinge with 3s eccentric, soft knees, zero lumbar compensation (progression up to 40 kg)."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2a. Twists with BB - sitting posision",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "7.5 - 10 kg",
-              "Tempo": "Controllato",
-              "Note Tecniche": "In superset con 2b. Bacino fisso sulla panca, rotazione selettiva del cingolo scapolare/toracico."
+              "Tempo": "Controlled",
+              "Note Tecniche": "In superset with 2b. Pelvis fixed on bench, selective rotation of shoulder/thoracic girdle."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2b. One leg deadlift BB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "20 (+5) kg",
               "Tempo": "2010",
-              "Note Tecniche": "In superset con 2a. Stacco monopodalico con bilanciere, stabilità caviglia e ginocchio in asse (anti-valgo)."
+              "Note Tecniche": "In superset with 2a. Single-leg barbell deadlift, ankle stability and knee aligned over 2nd toe (anti-valgus)."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "3. Hip trust",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "40 - 50 kg",
               "Tempo": "2010",
-              "Note Tecniche": "Spinta dai talloni, 1s di contrazione di picco in massima estensione anca (progressione fino a 60 kg da scheda)."
+              "Note Tecniche": "Drive through heels, 1s peak isometric contraction at full hip extension (progression up to 60 kg)."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "1. Izometric wall squat",
               "Set x Reps": "3 x 24\"-28\"",
               "Carico (kg/RPE)": "15 - 25 kg",
               "Tempo": "Hold",
-              "Note Tecniche": "Schiena a parete a 90°, sovraccarico al petto (15 kg, 20 kg, 25 kg), arco plantare attivo contro valgismo."
+              "Note Tecniche": "Back against wall at 90°, weight held at chest (15 kg, 20 kg, 25 kg), active foot arch against knee valgus."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "2. Shoulder press",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "2010",
-              "Note Tecniche": "Piramidale RPE 8-10. Se con manubri, presa semi-neutra per salvaguardare il polso destro (cisti ganglionare)."
+              "Note Tecniche": "Pyramidal RPE 8-10. If using dumbbells, semi-neutral grip to protect right wrist (ganglion cyst)."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "3. BB underhand row",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1030",
-              "Note Tecniche": "Presa supina, 3s di contrazione isometrica al petto con scapole depresse e addotte."
+              "Note Tecniche": "Supinated grip, 3s isometric hold at chest with scapulae depressed and retracted."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "4. Lat pull down behind the neck",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1030",
-              "Note Tecniche": "3s di picco isometrico in basso. Se la scapola destra sale o compensa, eseguire lat machine frontale a presa neutra."
+              "Note Tecniche": "3s isometric peak at bottom. If right scapula elevates or compensates, perform front neutral grip pulldown."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "1. Nordic curl",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "BW (Assistito)",
+              "Carico (kg/RPE)": "BW (Assisted)",
               "Tempo": "3010",
-              "Note Tecniche": "3s di discesa eccentrica controllata salva-ginocchio (bicipite femorale e tendine rotuleo)."
+              "Note Tecniche": "3s controlled eccentric descent protecting knees (hamstrings and patellar tendon)."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Y rises",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "Tech (2-3 kg)",
               "Tempo": "1020",
-              "Note Tecniche": "Focus selettivo trapezio inferiore e depressore scapolare per correggere disritmia scapola DX."
+              "Note Tecniche": "Selective focus on lower trapezius and scapular depressors to correct right scapular dyskinesis."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "3. Shoulder rotation",
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "Tech",
               "Tempo": "2020",
-              "Note Tecniche": "Gomito adeso a 90°, extrarotazione controllata con manubrio leggero o elastico."
+              "Note Tecniche": "Elbow pinned at 90°, controlled external rotation with light dumbbell or band."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "4. Sitting pos calf rises",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1020",
-              "Note Tecniche": "2s di tenuta in massima estensione della caviglia; rinforzo selettivo del soleo."
+              "Note Tecniche": "2s hold at peak ankle extension; selective soleus reinforcement."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "1. Clean (Power Clean)",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "10X0",
-              "Note Tecniche": "Girata esplosiva da terra/hang con bilanciere o powerbag, tripla estensione caviglia-ginocchio-anca."
+              "Note Tecniche": "Explosive clean from floor/hang with barbell or powerbag, triple extension ankles-knees-hips."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "2. Flor ball throws",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 - 5 kg",
               "Tempo": "X",
-              "Note Tecniche": "Massima violenza di rilascio verticale a terra senza flessione della colonna."
+              "Note Tecniche": "Maximal vertical slamming violence into floor without spinal flexion."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "3. Abdominals - self exercises",
               "Set x Reps": "2 x 8+8 / 20\"",
               "Carico (kg/RPE)": "BW",
               "Tempo": "2020",
-              "Note Tecniche": "Deadbug con fitball o Hollow Body Hold per stabilità lombo-pelvica contro inarcamento."
+              "Note Tecniche": "Deadbug with fitball or Hollow Body Hold for lumbo-pelvic stability against overarching."
             }
           ],
           "2": [
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "3010",
-              "Note Tecniche": "Cerniera d'anca pura in 3s eccentrica, allungamento controllato e attivazione catena posteriore."
+              "Note Tecniche": "Pure hip hinge with 3s eccentric, controlled stretch and posterior chain activation."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2a. Twists with BB - sitting pos",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "30 - 40 kg (o BB leggero)",
-              "Tempo": "Controllato",
-              "Note Tecniche": "In superset con 2b. Bacino bloccato sulla panca, rotazione controllata del tronco."
+              "Carico (kg/RPE)": "30 - 40 kg (or light BB)",
+              "Tempo": "Controlled",
+              "Note Tecniche": "In superset with 2b. Pelvis locked on bench, controlled torso rotation."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2b. One leg deadlift DB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "12 - 14 kg",
               "Tempo": "2010",
-              "Note Tecniche": "In superset con 2a. Stacco monopodalico con manubrio controlaterale, stabilità monopodalica e arco plantare attivo."
+              "Note Tecniche": "In superset with 2a. Single-leg deadlift with contralateral dumbbell, single-leg stability and active foot arch."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "3. Clean squat with stand on one leg",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "15 kg",
               "Tempo": "3010",
-              "Note Tecniche": "Discesa in 3s, risalita e arrivo solido in equilibrio monopodalico senza valgo del ginocchio."
+              "Note Tecniche": "3s descent, explosive ascent arriving solidly balanced on one leg without knee valgus."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "1. Box Squat",
               "Set x Reps": "3 x 5, 4, 3",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
               "Tempo": "2010",
-              "Note Tecniche": "Sfioro del box controllato a 85°-90°, risalita potente (progressione carichi fino a RPE 4-5)."
+              "Note Tecniche": "Controlled box touch at 85°-90°, powerful drive upward (load progression up to RPE 4-5)."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 5, 4, 3",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
               "Tempo": "2010",
-              "Note Tecniche": "Panca orizzontale, massima apertura toracica ed estensione dorsale senza inarcare la zona lombare."
+              "Note Tecniche": "Flat bench, maximal thoracic opening and lat stretch without lumbar overarching."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
-              "Set x Reps": "3 x 5, 4, 3 /lato",
+              "Set x Reps": "3 x 5, 4, 3 /side",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
               "Tempo": "1030",
-              "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
+              "Note Tecniche": "Single-arm row on bench, 3s isometric hold at scapular retraction with elbow tight."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "1. Harmstring Ball curl",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "BW",
               "Tempo": "1030",
-              "Note Tecniche": "Leg curl su fitball a terra, bacino sempre sollevato e allineato, 3s di fase eccentrica."
+              "Note Tecniche": "Fitball leg curl on floor, hips elevated and aligned throughout, 3s eccentric phase."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1020",
-              "Note Tecniche": "Calf in piedi, 2s di blocco in massima contrazione con ginocchia tese."
+              "Note Tecniche": "Standing calf raise, 2s peak hold at maximal contraction."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "3. Lat pull down - front",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1030",
-              "Note Tecniche": "Trazione frontale fino al petto/sterno, 3s di fermo isometrico in basso."
+              "Note Tecniche": "Front pulldown to chest/sternum, 3s hold at bottom, depressed shoulders."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "1. Clean to 1/4 squat",
               "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "30 kg",
               "Tempo": "10X0",
-              "Note Tecniche": "Power clean con ricezione reattiva in 1/4 di squat, rapida frenata e riestensione."
+              "Note Tecniche": "Power clean with reactive catch in 1/4 squat position."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "2. Flor ball throws",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
               "Tempo": "X",
-              "Note Tecniche": "Lancio esplosivo della palla medica a terra con massima intenzione di velocità."
+              "Note Tecniche": "Explosive medball floor throw with maximal arm acceleration."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "3. Abdominals - self exercises",
               "Set x Reps": "2 x 8+8 / 20\"",
               "Carico (kg/RPE)": "BW",
               "Tempo": "2020",
-              "Note Tecniche": "Deadbug o Plank dinamico per stabilità anteriore e tenuta del bacino."
+              "Note Tecniche": "Deadbug or dynamic Plank for anterior core and rotational stability."
             }
           ],
           "3": [
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "3010",
-              "Note Tecniche": "Cerniera d'anca pura in 3s eccentrica, allungamento controllato e attivazione catena posteriore."
+              "Note Tecniche": "Pure hip hinge with 3s eccentric, controlled stretch and posterior chain activation."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2a. Twists with BB - standing pos",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "30 - 40 kg (o BB leggero)",
-              "Tempo": "Controllato",
-              "Note Tecniche": "In superset con 2b. Piedi saldi e stabili, rotazione pura del busto senza oscillazioni del bacino."
+              "Carico (kg/RPE)": "30 - 40 kg (or light BB)",
+              "Tempo": "Controlled",
+              "Note Tecniche": "In superset with 2b. Solid stance, controlled rotational power."
             },
             {
-              "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2b. One leg deadlift DB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "12 - 14 kg",
               "Tempo": "2010",
-              "Note Tecniche": "In superset con 2a. Manubrio controlaterale, ginocchio sinistro rigido e allineato (focus anti-valgo)."
+              "Note Tecniche": "In superset with 2a. Contralateral dumbbell, knee soft, zero pelvis tilt."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "1. Split squat",
               "Set x Reps": "3 x 4+4",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "2010",
-              "Note Tecniche": "Affondo sul posto, busto compatto, arto perno con ginocchio perpendicolare al collo del piede."
+              "Note Tecniche": "Stationary lunge, compact upright torso, lead leg controlling alignment."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 4, 3, 4",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
               "Tempo": "2010",
-              "Note Tecniche": "Allungamento della gabbia toracica e del gran dorsale, mantenendo L4-S1 stabile sulla panca."
+              "Note Tecniche": "Thoracic ribcage opening and lat expansion with elbows softly bent."
             },
             {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
-              "Set x Reps": "3 x 4, 3, 4 /lato",
+              "Set x Reps": "3 x 4, 3, 4 /side",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
               "Tempo": "1030",
-              "Note Tecniche": "Trazione monolaterale con 3s di tenuta scapolare in alto, gomito che sfiora il costato."
+              "Note Tecniche": "Single-arm row with 3s isometric scapular squeeze at top."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "1. Harmstring Ball curl",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "BW",
               "Tempo": "1030",
-              "Note Tecniche": "Leg curl su fitball a terra con ritorno eccentrico lento in 3s."
+              "Note Tecniche": "Fitball leg curl on floor with 3s eccentric return."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\"",
               "Tempo": "1020",
-              "Note Tecniche": "Calf in piedi su gradino, salita dinamica e 2s di picco isometrico in alto."
+              "Note Tecniche": "Standing calf raise on step, dynamic ascent and 2s top pause."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "3. Lat pull down - front",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\"",
               "Tempo": "1030",
-              "Note Tecniche": "Trazione frontale allo sterno, spalle basse e gomiti verso le tasche posteriori."
+              "Note Tecniche": "Front pulldown to sternum, shoulders depressed and elbows pulling down."
             },
             {
-              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "4. Flor chest press",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"14\" - \"12\" - \"10\"",
               "Tempo": "2010",
-              "Note Tecniche": "Floor press con manubri a presa neutra/semi-neutra a tutela della cisti del polso DX."
+              "Note Tecniche": "Floor press with dumbbells, neutral/semi-neutral grip to protect right wrist cyst."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "1. Clean to split pos",
               "Set x Reps": "3 x 2+2",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "10X0",
-              "Note Tecniche": "Power clean con ricezione rapida in posizione di split (affondo dinamico), alternando gli arti."
+              "Note Tecniche": "Power clean with rapid split catch, testing dynamic balance."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "2. Flor ball throws",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
               "Tempo": "X",
-              "Note Tecniche": "Floor slam esplosivo a terra, massima coordinazione tra flessori d'anca e muscoli del dorso."
+              "Note Tecniche": "Explosive floor slam, maximal hip-to-arm coordination."
             },
             {
-              "Blocco": "# Babdominals + Transfer",
+              "blocco": "# Babdominals + Transfer",
               "Esercizio": "3. Abdominals - self exercises",
               "Set x Reps": "2 x 8+8 / 20\"",
               "Carico (kg/RPE)": "BW",
               "Tempo": "2020",
-              "Note Tecniche": "Esercizi addominali a corpo libero con focus sulla stabilità lombo-pelvica."
+              "Note Tecniche": "Bodyweight core exercises focusing on pelvic tilt and lumbo-pelvic control."
             }
           ]
         }
@@ -13651,3 +13653,7 @@ const WEEKS_DATA = {
     }
   }
 };
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { ROSTER, WEEKS_DATA };
+}

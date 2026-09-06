@@ -1,12 +1,10 @@
 // Service Worker App Marsala Volley (v209-aesthetic)
-const CACHE_NAME = 'marsala-pwa-v212-nelly';
-
-
+const CACHE_NAME = 'marsala-pwa-v213-en-cmjclean';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260906v212',
+  './data.js?v=20260906v213',
   './logo.jpg',
   './icon-192.png',
   './icon-512.png',
