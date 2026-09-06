@@ -1095,7 +1095,7 @@
 
   </main>
 
-  <script src="data.js?v=20260906week34"></script>
+  <script src="data.js?v=20260906aesthetic"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -1150,7 +1150,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=207').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=209').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -1813,147 +1813,325 @@
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
     }
+// Helper to extract 1RM baseline and calculate target loads with dumbbell details
+// Helper to extract 1RM baseline and calculate target loads with dumbbell details
+// Helper to extract 1RM baseline and calculate target loads with dumbbell details
+function getExercise1RMData(exName, rawCarico, athlete, week) {
+  if (!athlete || !athlete.id) return null;
+  const low = (exName || '').toLowerCase();
+  const cStr = (rawCarico || '').toLowerCase();
+  const defaultPct = (week === 'W3') ? 70 : 75;
 
-    function renderW3ExerciseCard(e, sed, athlete) {
-      const exName = (e.Esercizio || '').replace(/[*#]/g, '').trim();
-      const setReps = (e['Set x Reps'] || '').replace(/[*#]/g, '').trim();
-      const carico = (e['Carico (kg/RPE)'] || '').replace(/[*#]/g, '').trim();
-      const tempo = (e.Tempo || '').replace(/[`*#]/g, '').trim();
-      const note = (e['Note Tecniche'] || '').replace(/[*#]/g, '').trim();
-      
-      const safeExId = exName.replace(/[^a-zA-Z0-9]/g, '_');
-      const savedLoad = localStorage.getItem(`mv_load_${athlete.id}_${exName}`) || '';
-      const placeholderText = savedLoad ? `Ultimo: ${savedLoad}` : (carico ? `Prescritto: ${carico}` : 'es. kg');
+  const mDbPair = cStr.match(/(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)/);
+  const mPct = cStr.match(/(\d+)%/);
 
-      let tempoHtml = '';
-      if (tempo && tempo.length > 0) {
-        tempoHtml = `<div class="ex-grid-item"><div class="lbl">Tempo Poliquin</div><div class="val"><span class="tempo-badge">${escapeHtml(tempo)}</span></div></div>`;
+  // 1. Panca / Floor Chest Press con Manubri
+  if (low.includes('floor') || low.includes('bench') || low.includes('panca') || low.includes('chest press')) {
+    const rmKey = RM_KEYS.find(k => k.id === 'bench');
+    const rmVal = getAthlete1RM(rmKey);
+    const isDumbbell = low.includes('manubr') || low.includes('db') || low.includes('floor');
+    if (rmVal > 0) {
+      const pct = mPct ? parseInt(mPct[1]) : defaultPct;
+      let eachKg = 0;
+      let totalKg = 0;
+
+      if (mDbPair) {
+        eachKg = parseFloat(mDbPair[1]);
+        totalKg = eachKg * 2;
+      } else {
+        totalKg = calcTargetLoad(rmKey, rmVal, pct);
+        eachKg = Math.round(totalKg / 2);
+        if (eachKg < 4) eachKg = 4;
+        totalKg = eachKg * 2;
       }
 
-      let notesHtml = '';
-      if (note && note.length > 0) {
-        const uid = Math.random().toString(36).slice(2, 7);
-        notesHtml = `
-          <button class="ex-notes-toggle" onclick="toggleNotes('n-${uid}')">
-            <span>ℹ️ Note tecniche coach</span> ▾
-          </button>
-          <div class="ex-notes-body" id="n-${uid}">
-            <div>${escapeHtml(note)}</div>
-          </div>
-        `;
+      return {
+        rmKey,
+        rmVal,
+        pct,
+        targetKg: isDumbbell ? totalKg : totalKg,
+        isDumbbell,
+        eachKg,
+        targetText: isDumbbell ? `≈ ${totalKg} kg totali (${eachKg}+${eachKg} kg con manubri)` : `≈ ${totalKg} kg bilanciere`
+      };
+    }
+  }
+
+  // 2. Rematore / DB Row / Chest Supported Row
+  if (low.includes('row') || low.includes('rematore') || low.includes('pulley')) {
+    const rmKey = RM_KEYS.find(k => k.id === 'row');
+    const rmVal = getAthlete1RM(rmKey);
+    const isDumbbell = low.includes('manubr') || low.includes('db') || low.includes('chest supported') || low.includes('single-arm') || low.includes('seal');
+    if (rmVal > 0) {
+      const pct = mPct ? parseInt(mPct[1]) : defaultPct;
+      let eachKg = 0;
+      let totalKg = 0;
+
+      if (mDbPair) {
+        eachKg = parseFloat(mDbPair[1]);
+        totalKg = eachKg * 2;
+      } else {
+        totalKg = calcTargetLoad(rmKey, rmVal, pct);
+        eachKg = Math.round(totalKg / 2);
+        if (eachKg < 4) eachKg = 4;
+        totalKg = eachKg * 2;
       }
 
-      const isMobility = (
-        exName.toLowerCase().includes('respirazione') ||
-        exName.toLowerCase().includes('mobilità') ||
-        exName.toLowerCase().includes('stretching') ||
-        exName.toLowerCase().includes('foam roller') ||
-        exName.toLowerCase().includes('readiness') ||
-        exName.toLowerCase().includes('cmj')
-      );
+      return {
+        rmKey,
+        rmVal,
+        pct,
+        targetKg: isDumbbell ? totalKg : totalKg,
+        isDumbbell,
+        eachKg,
+        targetText: isDumbbell ? `≈ ${totalKg} kg totali (${eachKg}+${eachKg} kg con manubri)` : `≈ ${totalKg} kg`
+      };
+    }
+  }
 
-      let logHtml = '';
-      if (!isMobility) {
-        logHtml = `
-          <div class="ex-load-log-box">
-            <span class="ex-load-log-lbl">📝 Carico Usato:</span>
-            <div class="ex-load-input-wrap">
-              <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}', this.value)" onchange="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">
-              <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">Salva</button>
-              <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
-            </div>
-          </div>
-        `;
-      }
+  // 3. Squat / Box Squat / Half Squat
+  if ((low.includes('squat') && !low.includes('split') && !low.includes('bulgarian') && !low.includes('spanish')) || low.includes('box squat')) {
+    const rmKey = RM_KEYS.find(k => k.id === 'squat');
+    const rmVal = getAthlete1RM(rmKey);
+    if (rmVal > 0) {
+      const pct = mPct ? parseInt(mPct[1]) : defaultPct;
+      const targetKg = calcTargetLoad(rmKey, rmVal, pct);
+      const bw = getAthleteBW();
+      return {
+        rmKey,
+        rmVal,
+        pct,
+        targetKg,
+        isDumbbell: false,
+        targetText: `≈ ${targetKg} kg sul bilanciere (+ BW ${bw} kg)`
+      };
+    }
+  }
 
-      return `
-        <div class="exercise-card">
-          <div class="ex-head-row">
-            <div class="ex-name">${escapeHtml(exName)}</div>
-          </div>
-          <div class="ex-grid">
-            <div class="ex-grid-item"><div class="lbl">Serie x Reps</div><div class="val" style="color:#fff;">${escapeHtml(setReps || '—')}</div></div>
-            <div class="ex-grid-item"><div class="lbl">Carico Prescritto</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${escapeHtml(carico || 'BW')}</div></div>
-            ${tempoHtml}
-          </div>
-          ${logHtml}
-          ${notesHtml}
+  // 4. Lat Machine / Trazioni
+  if (low.includes('lat') || low.includes('pull-up') || low.includes('trazioni')) {
+    const rmKey = RM_KEYS.find(k => k.id === 'lat');
+    const rmVal = getAthlete1RM(rmKey);
+    if (rmVal > 0) {
+      const pct = mPct ? parseInt(mPct[1]) : defaultPct;
+      const targetKg = calcTargetLoad(rmKey, rmVal, pct);
+      return {
+        rmKey,
+        rmVal,
+        pct,
+        targetKg,
+        isDumbbell: false,
+        targetText: `≈ ${targetKg} kg al pacco pesi`
+      };
+    }
+  }
+
+  // 5. Power Clean / WL
+  if (low.includes('clean') && !low.includes('split')) {
+    const rmKey = RM_KEYS.find(k => k.id === 'clean');
+    const rmVal = getAthlete1RM(rmKey);
+    if (rmVal > 0) {
+      const pct = mPct ? parseInt(mPct[1]) : defaultPct;
+      const targetKg = calcTargetLoad(rmKey, rmVal, pct);
+      return {
+        rmKey,
+        rmVal,
+        pct,
+        targetKg,
+        isDumbbell: false,
+        targetText: `≈ ${targetKg} kg sul bilanciere`
+      };
+    }
+  }
+
+  // 6. Push Press / Military Press / Landmine Press
+  if (low.includes('push press') || low.includes('military') || low.includes('landmine')) {
+    const rmKey = RM_KEYS.find(k => k.id === 'military');
+    const rmVal = getAthlete1RM(rmKey);
+    if (rmVal > 0) {
+      const pct = mPct ? parseInt(mPct[1]) : defaultPct;
+      const targetKg = calcTargetLoad(rmKey, rmVal, pct);
+      return {
+        rmKey,
+        rmVal,
+        pct,
+        targetKg,
+        isDumbbell: false,
+        targetText: `≈ ${targetKg} kg`
+      };
+    }
+  }
+
+  return null;
+}
+
+function normalizeExercise(raw, week) {
+  const exName = (raw.Esercizio || raw.Nome || '').replace(/[*#]/g, '').trim();
+  let setReps = (raw['Set x Reps'] || raw.Set_Reps || '').replace(/[*#]/g, '').trim();
+  let carico = (raw['Carico (kg/RPE)'] || raw.Carico || '').replace(/[*#]/g, '').trim();
+  let tempo = (raw.Tempo || '').replace(/[`*#]/g, '').trim();
+  let note = (raw['Note Tecniche'] || raw.Note || '').replace(/[*#]/g, '').trim();
+  let blocco = (raw.Blocco || raw.blocco || '').replace(/[*#]/g, '').trim();
+
+  // Extract serie and reps
+  let serie = '—';
+  let reps = '—';
+  if (setReps) {
+    const mSr = setReps.match(/(\d+)\s*[xX×]\s*([0-9+/'"A-Za-z\s]+)/);
+    if (mSr) {
+      serie = mSr[1].trim();
+      reps = mSr[2].trim();
+    } else {
+      reps = setReps;
+    }
+  }
+
+  // Extract recovery
+  let recupero = '';
+  const mRec = (note + ' ' + carico).match(/(?:rec\.|recupero)\s*([0-9]+['"sm]|\d+\s*(?:s|sec|min|secondi|minuti))/i);
+  if (mRec) {
+    recupero = mRec[1];
+  } else {
+    const low = exName.toLowerCase();
+    if (low.includes('squat') || low.includes('clean')) recupero = '2 min';
+    else if (low.includes('press') || low.includes('row') || low.includes('lat')) recupero = '90s';
+    else if (low.includes('core') || low.includes('plank') || low.includes('pallof') || low.includes('deadbug')) recupero = '45s';
+    else if (low.includes('thrust') || low.includes('rdl')) recupero = '60s';
+    else recupero = '60s';
+  }
+
+  if (!tempo) {
+    tempo = getExerciseTempo({ Esercizio: exName, Note: note });
+  }
+
+  return {
+    exName,
+    serie,
+    reps,
+    carico,
+    tempo,
+    recupero,
+    note,
+    blocco
+  };
+}
+
+function categorizeExerciseNorm(norm) {
+  const lowName = norm.exName.toLowerCase();
+  const lowBlock = (norm.blocco || '').toLowerCase();
+
+  if (lowName.includes('cmj') || lowName.includes('chronojump')) {
+    return 'CMJ';
+  }
+  if (lowName.includes('respirazione') || lowName.includes('mobilità') || lowName.includes('stretching') || lowName.includes('foam roller') || lowName.includes('wall slide') || lowName.includes('couch stretch') || lowName.includes('90/90') || lowName.includes('short foot') || lowName.includes('clamshell') || lowName.includes('prehab') || lowBlock.includes('prehab')) {
+    return 'Attivazione';
+  }
+  if (lowName.includes('clean') || lowName.includes('snatch') || lowName.includes('pogo') || lowName.includes('jump squat') || lowName.includes('box jump') || lowName.includes('balz') || lowName.includes('atterragg') || lowName.includes('slam') || lowName.includes('throw') || lowBlock.includes('potenza')) {
+    return 'Potenza';
+  }
+  if ((lowName.includes('squat') && !lowName.includes('split') && !lowName.includes('spanish')) || lowName.includes('box squat') || lowName.includes('half squat')) {
+    return 'Forza';
+  }
+  if (lowName.includes('floor') || lowName.includes('bench') || lowName.includes('panca') || lowName.includes('push press') || lowName.includes('military') || lowName.includes('landmine') || lowName.includes('chest press') || lowBlock.includes('spinta')) {
+    return 'Spinta';
+  }
+  if (lowName.includes('row') || lowName.includes('rematore') || lowName.includes('lat') || lowName.includes('pull-up') || lowName.includes('pulley') || lowName.includes('face pull') || lowBlock.includes('tirata')) {
+    return 'Tirata';
+  }
+  return 'Core';
+}
+
+function renderStandardExerciseCard(norm, sed, athlete, week) {
+  const { exName, serie, reps, carico, tempo, recupero, note } = norm;
+  const safeExId = exName.replace(/[^a-zA-Z0-9]/g, '_');
+  const savedLoad = localStorage.getItem(`mv_load_${athlete.id}_${exName}`) || '';
+
+  // Check 1RM calculation
+  const rmData = getExercise1RMData(exName, carico, athlete, week);
+
+  let intensitaHtml = '';
+  let targetHtml = '';
+
+  if (rmData) {
+    if (rmData.isDumbbell) {
+      intensitaHtml = `${rmData.pct}% 1RM (${rmData.eachKg}+${rmData.eachKg} kg)`;
+      targetHtml = `
+        <div class="ex-target-box">
+          <span>🎯 Carico Calcolato (${rmData.pct}% di 1RM ${rmData.rmKey.name} ${rmData.rmVal} kg):</span>
+          <strong>${rmData.targetText}</strong>
+        </div>
+      `;
+    } else {
+      intensitaHtml = `${rmData.pct}% 1RM (${rmData.targetKg} kg)`;
+      targetHtml = `
+        <div class="ex-target-box">
+          <span>🎯 Carico Calcolato (${rmData.pct}% di 1RM ${rmData.rmKey.name} ${rmData.rmVal} kg):</span>
+          <strong>${rmData.targetText}</strong>
         </div>
       `;
     }
+  } else {
+    intensitaHtml = escapeHtml(carico || 'BW');
+  }
 
-    function renderW4ExerciseCard(it, sed, athlete) {
-      const exName = (it.Esercizio || '').replace(/[*#]/g, '').trim();
-      const setReps = (it.Set_Reps || '').replace(/[*#]/g, '').trim();
-      const carico = (it.Carico || '').replace(/[*#]/g, '').trim();
-      const tempo = (it.Tempo || '').replace(/[`*#]/g, '').trim();
-      const note = (it.Note || '').replace(/[*#]/g, '').trim();
+  const placeholderText = savedLoad ? `Ultimo: ${savedLoad}` : (rmData ? (rmData.isDumbbell ? `es. ${rmData.eachKg}+${rmData.eachKg} kg` : `es. ${rmData.targetKg} kg`) : (carico ? `Prescritto: ${carico}` : 'es. kg'));
 
-      const safeExId = exName.replace(/[^a-zA-Z0-9]/g, '_');
-      const savedLoad = localStorage.getItem(`mv_load_${athlete.id}_${exName}`) || '';
-      const placeholderText = savedLoad ? `Ultimo: ${savedLoad}` : (carico ? `Prescritto: ${carico}` : 'es. kg');
+  let notesHtml = '';
+  if (note && note.length > 0) {
+    const uid = Math.random().toString(36).slice(2, 7);
+    notesHtml = `
+      <button class="ex-notes-toggle" onclick="toggleNotes('n-${uid}')">
+        <span>ℹ️ Note tecniche coach</span> ▾
+      </button>
+      <div class="ex-notes-body" id="n-${uid}">
+        <div>${escapeHtml(note)}</div>
+      </div>
+    `;
+  }
 
-      let tempoHtml = '';
-      if (tempo && tempo.length > 0) {
-        tempoHtml = `<div class="ex-grid-item"><div class="lbl">Tempo Poliquin</div><div class="val"><span class="tempo-badge">${escapeHtml(tempo)}</span></div></div>`;
-      }
+  const lowName = exName.toLowerCase();
+  const isPureMobility = (
+    lowName.includes('respirazione') ||
+    lowName.includes('mobilità') ||
+    lowName.includes('stretching') ||
+    lowName.includes('foam roller') ||
+    lowName.includes('cars') ||
+    lowName.includes('wall slide')
+  );
 
-      let notesHtml = '';
-      if (note && note.length > 0) {
-        const uid = Math.random().toString(36).slice(2, 7);
-        notesHtml = `
-          <button class="ex-notes-toggle" onclick="toggleNotes('n-${uid}')">
-            <span>ℹ️ Note & VBT</span> ▾
-          </button>
-          <div class="ex-notes-body" id="n-${uid}">
-            <div>${escapeHtml(note)}</div>
-          </div>
-        `;
-      }
-
-      const isMobility = (
-        exName.toLowerCase().includes('respirazione') ||
-        exName.toLowerCase().includes('mobilità') ||
-        exName.toLowerCase().includes('stretching') ||
-        exName.toLowerCase().includes('foam roller') ||
-        exName.toLowerCase().includes('readiness') ||
-        exName.toLowerCase().includes('cmj') ||
-        exName.toLowerCase().includes('spiderman') ||
-        exName.toLowerCase().includes('reach') ||
-        exName.toLowerCase().includes('ytwl')
-      );
-
-      let logHtml = '';
-      if (!isMobility && (carico || setReps)) {
-        logHtml = `
-          <div class="ex-load-log-box">
-            <span class="ex-load-log-lbl">📝 Carico Usato:</span>
-            <div class="ex-load-input-wrap">
-              <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}', this.value)" onchange="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">
-              <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">Salva</button>
-              <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
-            </div>
-          </div>
-        `;
-      }
-
-      return `
-        <div class="exercise-card">
-          <div class="ex-head-row">
-            <div class="ex-name">${escapeHtml(exName)}</div>
-          </div>
-          ${(setReps || carico || tempoHtml) ? `
-            <div class="ex-grid">
-              ${setReps ? `<div class="ex-grid-item"><div class="lbl">Serie x Reps</div><div class="val" style="color:#fff;">${escapeHtml(setReps)}</div></div>` : ''}
-              ${carico ? `<div class="ex-grid-item"><div class="lbl">Carico Prescritto</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${escapeHtml(carico)}</div></div>` : ''}
-              ${tempoHtml}
-            </div>
-          ` : ''}
-          ${logHtml}
-          ${notesHtml}
+  let logHtml = '';
+  if (!isPureMobility) {
+    logHtml = `
+      <div class="ex-load-log-box">
+        <span class="ex-load-log-lbl">📝 Carico Usato:</span>
+        <div class="ex-load-input-wrap">
+          <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}', this.value)" onchange="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">
+          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">Salva</button>
+          <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
         </div>
-      `;
-    }
+      </div>
+    `;
+  }
+
+  return `
+    <div class="exercise-card">
+      <div class="ex-head-row">
+        <div class="ex-name">${escapeHtml(exName)}</div>
+        ${recupero ? `<div class="ex-rest-badge">⏱ Rec. ${escapeHtml(recupero)}</div>` : ''}
+      </div>
+      <div class="ex-grid">
+        <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val" style="color:#fff;">${escapeHtml(serie)}</div></div>
+        <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val" style="color:#fff;">${escapeHtml(reps)}</div></div>
+        <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${intensitaHtml}</div></div>
+        <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${escapeHtml(tempo)}</div></div>
+      </div>
+      ${targetHtml}
+      ${logHtml}
+      ${notesHtml}
+    </div>
+  `;
+}
+
 
     function renderSessions() {
       const container = document.getElementById('sessions-container');
@@ -1991,7 +2169,7 @@
               <div style="font-size:0.75rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Programmazione ${currentWeek === 'W3' ? 'Week 3' : 'Week 4'} · Marsala Volley A2</div>
               <div style="font-size:1.1rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;margin-top:2px;">
                 <span>${currentAthlete.name}</span>
-                <span class="ath-risk-badge ${riskBadgeClass}">${rischioStr.split('(')[0].replace(/\\*/g, '').trim()}</span>
+                <span class="ath-risk-badge ${riskBadgeClass}">${rischioStr.split('(')[0].replace(/\*/g, '').trim()}</span>
               </div>
             </div>
             <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
@@ -2010,8 +2188,7 @@
         </div>
       `;
 
-
-      // 4. THE 3 TRAINING SESSIONS (GYM INDIVIDUAL + COURT S&C)
+      // 2. THE 3 TRAINING SESSIONS (GYM INDIVIDUAL + COURT S&C)
       const sessionsList = weekObj.sedute || [];
       const courtList = teamProg.court_sessions || [];
 
@@ -2020,41 +2197,179 @@
         const courtSed = courtList[sIdx] || null;
         const isFriday = (sNum === 3 || (sed.Giorno && sed.Giorno.toLowerCase().includes('ven')));
 
-        let exercisesHtml = '';
-
+        // Collect and normalize exercises
+        let rawList = [];
         if (currentWeek === 'W3') {
-          const w3Ex = (athInd && athInd.w3_sedute) ? (athInd.w3_sedute[sNum] || athInd.w3_sedute[String(sNum)] || []) : [];
-          
-          const bloccoMap = {};
-          w3Ex.forEach(e => {
-            let bName = (e.Blocco || 'Esercizi').replace(/[*#]/g, '').trim();
-            if (!bName) bName = 'Esercizi';
-            if (!bloccoMap[bName]) bloccoMap[bName] = [];
-            bloccoMap[bName].push(e);
-          });
-
-          exercisesHtml = Object.keys(bloccoMap).map(bName => {
-            const list = bloccoMap[bName];
-            return `
-              <div class="method-group">
-                <div class="method-title">${getBloccoIcon(bName)} ${bName}</div>
-                ${list.map(e => renderW3ExerciseCard(e, sed, currentAthlete)).join('')}
-              </div>
-            `;
-          }).join('');
+          rawList = (athInd && athInd.w3_sedute) ? (athInd.w3_sedute[sNum] || athInd.w3_sedute[String(sNum)] || []) : [];
         } else {
-          // W4
           const w4Blocks = (athInd && athInd.w4_sedute) ? (athInd.w4_sedute[sNum] || athInd.w4_sedute[String(sNum)] || []) : [];
-          exercisesHtml = w4Blocks.map(blk => {
-            const bName = (blk.blocco || 'Esercizi').replace(/[*#]/g, '').trim();
-            const items = blk.items || [];
-            return `
-              <div class="method-group">
-                <div class="method-title">${getBloccoIcon(bName)} ${bName}</div>
-                ${items.map(it => renderW4ExerciseCard(it, sed, currentAthlete)).join('')}
+          w4Blocks.forEach(blk => {
+            (blk.items || []).forEach(it => {
+              rawList.push({ ...it, blocco: blk.blocco });
+            });
+          });
+        }
+
+        const normalizedList = rawList.map(raw => normalizeExercise(raw, currentWeek));
+
+        // Filter out CMJ from Prehab
+        const attivazioneList = [];
+        const potenzaList = [];
+        const forzaList = [];
+        const spintaList = [];
+        const tirataList = [];
+        const coreList = [];
+
+        normalizedList.forEach(norm => {
+          const cat = categorizeExerciseNorm(norm);
+          if (cat === 'CMJ') {
+            // Handled separately in the middle of Seduta 1
+            return;
+          } else if (cat === 'Attivazione') {
+            attivazioneList.push(norm);
+          } else if (cat === 'Potenza') {
+            potenzaList.push(norm);
+          } else if (cat === 'Forza') {
+            forzaList.push(norm);
+          } else if (cat === 'Spinta') {
+            spintaList.push(norm);
+          } else if (cat === 'Tirata') {
+            tirataList.push(norm);
+          } else {
+            coreList.push(norm);
+          }
+        });
+
+        // 1. Attivazione & Prehab Group
+        let attivazioneHtml = `
+          <div class="method-group">
+            <div class="method-title">🔥 Attivazione & Prehab</div>
+            
+            <div class="exercise-card">
+              <div class="ex-head-row">
+                <div class="ex-name">Respirazione di Squadra (Box Breathing)</div>
               </div>
-            `;
-          }).join('');
+              <div class="ex-grid">
+                <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val" style="color:#fff;">2</div></div>
+                <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val" style="color:#fff;">10 cicli</div></div>
+                <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber);font-weight:800;">Controllo</div></div>
+                <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">Fluido</div></div>
+              </div>
+              <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">In cerchio con la squadra: 4s inspira, 4s trattieni, 4s espira, 4s vuoto. Attivazione parasimpatica e focus.</div>
+            </div>
+
+            <div class="exercise-card">
+              <div class="ex-head-row">
+                <div class="ex-name">Mobilità Dinamica Libera</div>
+              </div>
+              <div class="ex-grid">
+                <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val" style="color:#fff;">1</div></div>
+                <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val" style="color:#fff;">5 min</div></div>
+                <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber);font-weight:800;">Fluida</div></div>
+                <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">Fluido</div></div>
+              </div>
+              <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">Mobilità articolare libera e mirata per anche, caviglie, colonna toracica e spalle prima del carico.</div>
+            </div>
+
+            <div style="background:linear-gradient(135deg,#1e3a8a,#2563eb);border:1px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+              <div>
+                <div style="font-weight:800;color:#fff;font-size:0.92rem">🛡️ Protocollo Prehab Individuale</div>
+                <div style="font-size:0.75rem;color:#bfdbfe">Esegui i tuoi 5 esercizi correttivi assegnati</div>
+              </div>
+              <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#fff;color:#1e3a8a;font-weight:800;font-size:0.82rem;padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.2);">Apri Portale ↗</a>
+            </div>
+
+            ${attivazioneList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+          </div>
+        `;
+
+        // 2. CMJ Test Group (in mezzo alla seduta tra Attivazione e Forza in Seduta 1!)
+        let cmjHtml = '';
+        if (sNum === 1) {
+          const savedCmj = localStorage.getItem(`mv_load_${currentAthlete.id}_CMJ_Test`) || '';
+          cmjHtml = `
+            <div class="method-group">
+              <div class="method-title">⚡ Test Neuromuscolare CMJ (Pedana Chronojump)</div>
+              <div class="exercise-card">
+                <div class="ex-head-row">
+                  <div class="ex-name">Chronojump Countermovement Jump (CMJ) Test</div>
+                  <div class="ex-rest-badge">⏱ Rec. 45s tra i salti</div>
+                </div>
+                <div class="ex-grid">
+                  <div class="ex-grid-item"><div class="lbl">Serie</div><div class="val" style="color:#fff;">1</div></div>
+                  <div class="ex-grid-item"><div class="lbl">Reps</div><div class="val" style="color:#fff;">3 salti massimali</div></div>
+                  <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber);font-weight:800;">Max (100% RFD)</div></div>
+                  <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">X</div></div>
+                </div>
+                <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.45;margin-bottom:8px;">
+                  All'ingresso in sala pesi dopo l'attivazione: mani rigorosamente ai fianchi su pedana Chronojump, discesa controllata ed esplosione verticale massimale. Esegui <strong>3 salti con 45s di riposo passivo</strong> tra ogni tentativo. Misura altezza di picco (cm) e prontezza neuromuscolare d'ingresso.
+                </div>
+                <div class="ex-load-log-box">
+                  <span class="ex-load-log-lbl">📝 Altezza CMJ registrata:</span>
+                  <div class="ex-load-input-wrap">
+                    <input type="text" class="ex-load-input" id="ex-log-cmj-test" placeholder="${savedCmj ? `Ultimo: ${savedCmj}` : 'es. 38.5 cm'}" value="${savedCmj}" oninput="onCustomExerciseLoadInput('CMJ Test Chronojump', 'ex-log-cmj-test', '${sed.Numero_Seduta}', this.value)" onchange="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test', '${sed.Numero_Seduta}')">
+                    <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test', '${sed.Numero_Seduta}')">Salva</button>
+                    <span id="toast-ex-log-cmj-test" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // 3. Potenza Group
+        let potenzaHtml = '';
+        if (potenzaList.length > 0) {
+          potenzaHtml = `
+            <div class="method-group">
+              <div class="method-title">⚡ Potenza & Esplosività</div>
+              ${potenzaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+            </div>
+          `;
+        }
+
+        // 4. Forza Principale Group
+        let forzaHtml = '';
+        if (forzaList.length > 0) {
+          forzaHtml = `
+            <div class="method-group">
+              <div class="method-title">🏋️ Forza Principale (VBT Enode)</div>
+              ${forzaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+            </div>
+          `;
+        }
+
+        // 5. Spinta Group
+        let spintaHtml = '';
+        if (spintaList.length > 0) {
+          spintaHtml = `
+            <div class="method-group">
+              <div class="method-title">🏹 Spinta (Orizzontale & Verticale)</div>
+              ${spintaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+            </div>
+          `;
+        }
+
+        // 6. Tirata Group
+        let tirataHtml = '';
+        if (tirataList.length > 0) {
+          tirataHtml = `
+            <div class="method-group">
+              <div class="method-title">🎯 Tirata (Verticale & Orizzontale)</div>
+              ${tirataList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+            </div>
+          `;
+        }
+
+        // 7. Core & Accessori Group
+        let coreHtml = '';
+        if (coreList.length > 0) {
+          coreHtml = `
+            <div class="method-group">
+              <div class="method-title">🛡️ Core & Accessori</div>
+              ${coreList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+            </div>
+          `;
         }
 
         // Court session HTML
@@ -2079,7 +2394,7 @@
             <span style="font-size:1.8rem;">🛡️</span>
             <div>
               <div style="font-weight:800;color:#fca5a5;font-size:0.92rem;">STRICT FRIDAY JUMP BAN: ZERO SALTI</div>
-              <div style="font-size:0.75rem;color:#fecaca;margin-top:2px;">A meno di 30 ore dalla gara/amichevole di sabato: zero impatti pliometrici. RDL a buffer 3 per garantire massima elasticità e freschezza.</div>
+              <div style="font-size:0.75rem;color:#fecaca;margin-top:2px;">A meno di 30 ore dalla gara/amichevole di sabato: zero impatti pliometrici. Cerniera posteriore RDL sub-massimale a buffer 3 per garantire massima elasticità e freschezza.</div>
             </div>
           </div>
         ` : '';
@@ -2098,7 +2413,13 @@
             </div>
             <div class="session-body">
               ${fridayBanHtml}
-              ${exercisesHtml}
+              ${attivazioneHtml}
+              ${cmjHtml}
+              ${potenzaHtml}
+              ${forzaHtml}
+              ${spintaHtml}
+              ${tirataHtml}
+              ${coreHtml}
               ${courtHtml}
               ${renderSessionEnd(sed.Numero_Seduta)}
             </div>
@@ -2108,6 +2429,12 @@
 
       container.innerHTML = html;
     }
+
+
+
+
+
+
 
 
     function toggleSession(sedId) {
