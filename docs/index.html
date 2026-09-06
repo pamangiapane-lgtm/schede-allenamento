@@ -2192,15 +2192,20 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
 
         // Collect and normalize exercises
         let rawList = [];
-        if (currentWeek === 'W3') {
-          rawList = (athInd && athInd.w3_sedute) ? (athInd.w3_sedute[sNum] || athInd.w3_sedute[String(sNum)] || []) : [];
-        } else {
-          const w4Blocks = (athInd && athInd.w4_sedute) ? (athInd.w4_sedute[sNum] || athInd.w4_sedute[String(sNum)] || []) : [];
-          w4Blocks.forEach(blk => {
-            (blk.items || []).forEach(it => {
-              rawList.push({ ...it, blocco: blk.blocco });
+        const sedObj = (currentWeek === 'W3') ? (athInd && athInd.w3_sedute) : (athInd && athInd.w4_sedute);
+        const sData = sedObj ? (sedObj[sNum] || sedObj[String(sNum)] || []) : [];
+        if (Array.isArray(sData)) {
+          if (sData.length > 0 && sData[0].items) {
+            // Block format with items (e.g. Nelly W4)
+            sData.forEach(blk => {
+              (blk.items || []).forEach(it => {
+                rawList.push({ ...it, blocco: blk.blocco || blk.Blocco || '' });
+              });
             });
-          });
+          } else {
+            // Direct table row format
+            rawList = sData;
+          }
         }
 
         const normalizedList = rawList.map(raw => normalizeExercise(raw, currentWeek));
@@ -2398,7 +2403,7 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
           <div class="session-card ${isOpen}" id="card-${sed.Numero_Seduta}">
             <div class="session-head" onclick="toggleSession('${sed.Numero_Seduta}')">
               <div>
-                <span class="session-badge">${sed.Giorno || `Seduta ${sNum}`}</span>
+                <span class="session-badge">Seduta ${sNum} · ${sed.Giorno || ''}</span>
                 <div class="session-title">${sed.Nome_Seduta}</div>
                 <div class="session-meta">📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 55} min · ${shiftName.split('·')[0].trim()}</div>
               </div>
