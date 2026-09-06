@@ -529,7 +529,7 @@ const WEEKS_DATA = {
               "Esercizio": "",
               "Set x Reps": "4B. Dumbbell Seal Row su panca 30°",
               "Carico (kg/RPE)": "3 x 6",
-              "Tempo": "70% (\"8\")",
+              "Tempo": "60% (\"8\")",
               "Note Tecniche": "`2011`"
             },
             {
@@ -813,7 +813,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (7+7 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (6+6 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -1045,7 +1045,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (8+8 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (6+6 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -1288,7 +1288,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (18+18 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -1520,7 +1520,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (19+19 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (16+16 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -1763,7 +1763,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (22+22 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (19+19 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -1995,7 +1995,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (24+24 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -2238,7 +2238,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (15+15 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (13+13 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -2470,7 +2470,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (16+16 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (14+14 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -2713,7 +2713,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (10+10 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -2945,7 +2945,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (11+11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (10+10 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -3188,7 +3188,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (16+16 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (14+14 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -3420,7 +3420,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (17+17 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (15+15 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -3663,7 +3663,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (19+19 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (16+16 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -3895,7 +3895,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (21+21 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (18+18 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -4138,7 +4138,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (21+21 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (18+18 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -4370,7 +4370,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (22+22 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -4613,7 +4613,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (16+16 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (14+14 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -4845,7 +4845,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (17+17 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (15+15 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -5096,7 +5096,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 8",
-              "Carico (kg/RPE)": "12+12 kg (\"8\")",
+              "Carico (kg/RPE)": "10+10 kg (\"8\")",
               "Tempo": "`2011`",
               "Note Tecniche": "Presa neutra, focus retrazione scapolare inferiore"
             },
@@ -5644,7 +5644,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (10+10 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -5876,7 +5876,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (11+11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (10+10 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -6119,7 +6119,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (21+21 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (18+18 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -6351,7 +6351,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (22+22 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -6594,7 +6594,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (13+13 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -6826,7 +6826,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (14+14 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (12+12 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -7110,7 +7110,7 @@ const WEEKS_DATA = {
               "Esercizio": "",
               "Set x Reps": "4B. Dumbbell Seal Row su panca 30°",
               "Carico (kg/RPE)": "3 x 6",
-              "Tempo": "70% (\"8\")",
+              "Tempo": "60% (\"8\")",
               "Note Tecniche": "`2011`"
             },
             {
@@ -7394,7 +7394,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (7+7 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (6+6 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -7626,7 +7626,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (8+8 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (6+6 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -7869,7 +7869,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (18+18 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (15+15 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -8101,7 +8101,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (19+19 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (16+16 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -8344,7 +8344,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (22+22 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (19+19 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -8576,7 +8576,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (24+24 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -8819,7 +8819,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (15+15 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (13+13 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -9051,7 +9051,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (16+16 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (14+14 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -9294,7 +9294,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (10+10 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -9526,7 +9526,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (11+11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (10+10 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -9769,7 +9769,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (16+16 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (14+14 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -10001,7 +10001,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (17+17 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (15+15 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -10244,7 +10244,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (19+19 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (16+16 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -10476,7 +10476,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (21+21 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (18+18 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -10719,7 +10719,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (21+21 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (18+18 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -10951,7 +10951,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (22+22 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -11194,7 +11194,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (16+16 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (14+14 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -11426,7 +11426,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (17+17 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (15+15 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -11677,7 +11677,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 8",
-              "Carico (kg/RPE)": "12+12 kg (\"8\")",
+              "Carico (kg/RPE)": "10+10 kg (\"8\")",
               "Tempo": "`2011`",
               "Note Tecniche": "Presa neutra, focus retrazione scapolare inferiore"
             },
@@ -12225,7 +12225,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (10+10 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (9+9 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -12457,7 +12457,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (11+11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (10+10 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -12700,7 +12700,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (21+21 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (18+18 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -12932,7 +12932,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (22+22 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -13175,7 +13175,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70% (13+13 kg) [\"8\"]",
+              "Carico (kg/RPE)": "60% (11+11 kg) [\"8\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -13407,7 +13407,7 @@ const WEEKS_DATA = {
               "Blocco": "**# Accessories**",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "75% (14+14 kg) [\"5\"]",
+              "Carico (kg/RPE)": "65% (12+12 kg) [\"5\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
