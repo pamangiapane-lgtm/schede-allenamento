@@ -2061,7 +2061,7 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
 
   if (rmData) {
     if (rmData.isDumbbell) {
-      intensitaHtml = `${rmData.pct}% 1RM (${rmData.eachKg}+${rmData.eachKg} kg)`;
+      intensitaHtml = `${rmData.pct}%<br>${rmData.eachKg}+${rmData.eachKg} kg`;
       targetHtml = `
         <div class="ex-target-box">
           <span>🎯 Carico Calcolato (${rmData.pct}% di 1RM ${rmData.rmKey.name} ${rmData.rmVal} kg):</span>
@@ -2069,7 +2069,7 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
         </div>
       `;
     } else {
-      intensitaHtml = `${rmData.pct}% 1RM (${rmData.targetKg} kg)`;
+      intensitaHtml = `${rmData.pct}%<br>${rmData.targetKg} kg`;
       targetHtml = `
         <div class="ex-target-box">
           <span>🎯 Carico Calcolato (${rmData.pct}% di 1RM ${rmData.rmKey.name} ${rmData.rmVal} kg):</span>
