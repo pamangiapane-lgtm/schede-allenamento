@@ -2057,25 +2057,12 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
   const rmData = getExercise1RMData(exName, carico, athlete, week);
 
   let intensitaHtml = '';
-  let targetHtml = '';
 
   if (rmData) {
     if (rmData.isDumbbell) {
       intensitaHtml = `${rmData.pct}%<br>${rmData.eachKg}+${rmData.eachKg} kg`;
-      targetHtml = `
-        <div class="ex-target-box">
-          <span>🎯 Carico Calcolato (${rmData.pct}% di 1RM ${rmData.rmKey.name} ${rmData.rmVal} kg):</span>
-          <strong>${rmData.targetText}</strong>
-        </div>
-      `;
     } else {
       intensitaHtml = `${rmData.pct}%<br>${rmData.targetKg} kg`;
-      targetHtml = `
-        <div class="ex-target-box">
-          <span>🎯 Carico Calcolato (${rmData.pct}% di 1RM ${rmData.rmKey.name} ${rmData.rmVal} kg):</span>
-          <strong>${rmData.targetText}</strong>
-        </div>
-      `;
     }
   } else {
     intensitaHtml = escapeHtml(carico || 'BW');
@@ -2132,7 +2119,6 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
         <div class="ex-grid-item"><div class="lbl">Intensità</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${intensitaHtml}</div></div>
         <div class="ex-grid-item"><div class="lbl">Tempo</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${escapeHtml(tempo)}</div></div>
       </div>
-      ${targetHtml}
       ${logHtml}
       ${notesHtml}
     </div>
