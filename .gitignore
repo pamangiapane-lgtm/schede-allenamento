@@ -1,3 +1,5 @@
+__pycache__/
+*.pyc
 apps_script_dev_project/
 apps_script_prod_project/
 _strumenti/*
@@ -8,6 +10,7 @@ _strumenti/*
 !_strumenti/test_wellness_pipeline.py
 !_strumenti/sollecito_whatsapp_web.py
 !_strumenti/collega_whatsapp_web.py
+!_strumenti/genera_w3_w4_data.py
 backup_locale/
 Season_Off/
 .claude/*
