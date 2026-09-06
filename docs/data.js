@@ -501,22 +501,6 @@ const WEEKS_DATA = {
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita a max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "",
-              "Set x Reps": "**3B. Floor Chest Press con Manubri**",
-              "Carico (kg/RPE)": "3 x 4-5",
-              "Tempo": "70% (\"6\")",
-              "Note Tecniche": "`2010`"
-            },
-            {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3C. Lat Machine Presa Neutra Stretta**",
-              "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "70% (\"6\")",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Scapole depresse, trazione potente al petto"
-            },
-            {
               "Blocco": "**# Accessories**",
               "Esercizio": "4A. Split Squat con manubri (piede ant. su disco)",
               "Set x Reps": "2 x 4+4",
@@ -525,28 +509,12 @@ const WEEKS_DATA = {
               "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "",
-              "Set x Reps": "4B. Dumbbell Seal Row su panca 30°",
-              "Carico (kg/RPE)": "3 x 6",
-              "Tempo": "60% (\"8\")",
-              "Note Tecniche": "`2011`"
-            },
-            {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
-            },
-            {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "",
-              "Set x Reps": "5B. Medball Chest Pass contro muro",
-              "Carico (kg/RPE)": "3 x 4",
-              "Tempo": "3 kg",
-              "Note Tecniche": "`X`"
             }
           ]
         },
@@ -583,30 +551,6 @@ const WEEKS_DATA = {
               "Note Tecniche": "Tripla estensione esplosiva (Powerbag per Dodi, Sassolini, Adamczewska)"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "",
-              "Set x Reps": "**3B. Half Squat Dinamico**",
-              "Carico (kg/RPE)": "3 x 3",
-              "Tempo": "70% (\"6\")",
-              "Note Tecniche": "`20X0`"
-            },
-            {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (\"6\")",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Piano scapolare a 30°, tutela collo e spalla"
-            },
-            {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (\"6\")",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Busto orizzontale, gomito aderente"
-            },
-            {
               "Blocco": "**# Accessories**",
               "Esercizio": "",
               "Set x Reps": "4A. Single-Leg RDL con Kettlebell",
@@ -615,28 +559,12 @@ const WEEKS_DATA = {
               "Note Tecniche": "`2010`"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "Medio",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, rinforzo extrarotatori"
-            },
-            {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "Medio",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione pura, tronco solido"
-            },
-            {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Trasferimento di potenza anca-tronco"
             }
           ]
         },
@@ -665,14 +593,6 @@ const WEEKS_DATA = {
               "Note Tecniche": "**Tassativo Buffer 3 (RPE 6)**. Zero affaticamento pre-gara!"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**2B. Pulley Basso al Cavo Presa Parallela Stretta**",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "70% (\"6\")",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Trazione decompressiva orizzontale, schiena compatta"
-            },
-            {
               "Blocco": "**# Accessories**",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "2 x 6",
@@ -681,28 +601,12 @@ const WEEKS_DATA = {
               "Note Tecniche": "2\" di contrazione isometrica in alto"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "8-10 kg (\"8\")",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento dorsale"
-            },
-            {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "4A. Farmer Walk con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "Medio",
               "Tempo": "Camminata",
               "Note Tecniche": "Postura eretta, presa isometrica forte"
-            },
-            {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "**🛑 STRICT FRIDAY JUMP BAN**",
-              "Set x Reps": "**-**",
-              "Carico (kg/RPE)": "**-**",
-              "Tempo": "**-**",
-              "Note Tecniche": "**ZERO SALTI. Gambe fresche per il sabato.**"
             }
           ]
         }
@@ -861,7 +765,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split (Incastro semiatto)**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "28.0 kg",
               "Tempo": "`X`",
@@ -1093,8 +997,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split (Incastro semiatto)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "30.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -1336,7 +1240,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "24.5 kg",
               "Tempo": "`X`",
@@ -1568,8 +1472,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "26.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -2044,7 +1948,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Powerbag Clean to Chest**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "52.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -2286,7 +2190,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "35.0 kg",
               "Tempo": "`X`",
@@ -2518,8 +2422,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "37.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -2994,7 +2898,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Powerbag Clean to Chest (o KB Clean)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "22.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -3236,7 +3140,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split Position (Incastro semiatto)**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "35.0 kg",
               "Tempo": "`X`",
@@ -3468,8 +3372,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split Position (Incastro semiatto)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "37.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -3711,7 +3615,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split Position (Incastro semiatto)**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "44.0 kg",
               "Tempo": "`X`",
@@ -3943,8 +3847,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split Position (Incastro semiatto)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "47.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -4186,7 +4090,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "24.5 kg",
               "Tempo": "`X`",
@@ -4418,8 +4322,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "26.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -4894,7 +4798,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Powerbag Clean to Chest (NO Bilanciere)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "37.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -5033,7 +4937,7 @@ const WEEKS_DATA = {
         "rischio": "🟡/🔴 MEDIO-ALTO (Lassità Legamentosa + Disritmia Scapolare DX + Valgismo SX + Cisti Polso DX)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Caserta e Dodi)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Video/Frame)\n1. **Lassità Legamentosa Generalizzata & Tendenza Recurvatum:**\n   - 17 anni, mobilità passiva elevatissima che necessita di eccellente rigidità attiva (*stiffness*) e stabilità lombo-pelvica. Tendenza al recurvatum e pregressa tendinopatia rotulea da salto.\n2. **Disritmia Scapolare Destra & Upper Crossed Pattern:**\n   - Durante l'abduzione/elevazione, la scapola destra sale precocemente e più in alto rispetto alla sinistra (anticipo di elevazione per iper-attivazione del trapezio superiore e inibizione del trapezio inferiore/dentato anteriore).\n   - Presenza di cisti ganglionare al polso destro (asintomatica ma suscettibile di compressione in iperestensione dorsale con bilanciere dritto).\n3. **Deficit Podalico Sinistro & Valgismo Dinamico Arto SX:**\n   - Retropiede sinistro in eversione/pronazione costante con mancata inversione calcaneale sia in SLS che in propulsione (deficit selettivo del tibiale posteriore sinistro).\n   - Nello Step Over, l'arto sinistro mostra un cedimento in valgismo dinamico marcato (SX > DX), non controllato dall'arco plantare collassato.\n4. **Instabilità Lombo-Pelvica nello Squat Profondo & Blocco Rotazionale SX:**\n   - Nello squat, superati gli 80° di flessione di ginocchio, si manifesta una perdita del controllo lombo-pelvico (*butt wink*) sotto i 70°, con rotazione del bacino a destra in fase concentrica.\n   - Restrizione di circa 15°-20° nella rotazione cervicale e del tronco verso sinistra (cerniera cervico-dorsale rigida).\n\n---",
-        "ban": "* ⛔ **BAN Squat Profondo Libero (<70° al ginocchio):**  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo a 80°-85° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box impedisce il *butt wink* a fondo corsa proteggendo L4-S1, mentre l'elastico recluta il gluteo medio contrastando il valgismo del ginocchio sinistro.\n* ⛔ **BAN Bilanciere Dritto in Iperestensione dei Polsi (Panca / Girata con polsi piegati):** La cisti ganglionare del polso destro non tollera carichi di compressione in estensione forzata.  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con Manubri a Presa Neutra/Semi-neutra (`3010`)** e Clean to Split eseguito con manubri/powerbag a presa neutra.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean con manubri a presa neutra / Powerbag 15-20 kg)**: elimina l'estensione del polso salvaguardando la cisti ganglionare del polso destro ed esaltando la tripla estensione.\n* 🛡️ **PREHAB SCAPOLARE E PODALICO OBBLIGATORIO:**\n  - Rilascio miofasciale piccolo pettorale destro con pallina da lacrosse (de-tensione coracoide).\n  - Scapular Wall Slide & Prone Trap 3 Raise per rieducare il timing della scapola destra (depressione attiva).\n  - Short Foot + inversione con elastico per il piede sinistro (attivazione tibiale posteriore).\n  - Rotazioni toraciche in quadrupedia (\"Open Book\") focalizzate sul lato sinistro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro eccentrico/isocinetico per ischiocrurali e tendine rotuleo senza impatto.\n\n---",
+        "ban": "* ⛔ **BAN Squat Profondo Libero (<70° al ginocchio):**  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo a 80°-85° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box impedisce il *butt wink* a fondo corsa proteggendo L4-S1, mentre l'elastico recluta il gluteo medio contrastando il valgismo del ginocchio sinistro.\n* ⛔ **BAN Bilanciere Dritto in Iperestensione dei Polsi (Panca / Girata con polsi piegati):** La cisti ganglionare del polso destro non tollera carichi di compressione in estensione forzata.  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con Manubri a Presa Neutra/Semi-neutra (`3010`)** e Power Clean eseguito con manubri/powerbag a presa neutra.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean con manubri a presa neutra / Powerbag 15-20 kg)**: elimina l'estensione del polso salvaguardando la cisti ganglionare del polso destro ed esaltando la tripla estensione.\n* 🛡️ **PREHAB SCAPOLARE E PODALICO OBBLIGATORIO:**\n  - Rilascio miofasciale piccolo pettorale destro con pallina da lacrosse (de-tensione coracoide).\n  - Scapular Wall Slide & Prone Trap 3 Raise per rieducare il timing della scapola destra (depressione attiva).\n  - Short Foot + inversione con elastico per il piede sinistro (attivazione tibiale posteriore).\n  - Rotazioni toraciche in quadrupedia (\"Open Book\") focalizzate sul lato sinistro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro eccentrico/isocinetico per ischiocrurali e tendine rotuleo senza impatto.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -5144,7 +5048,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**Clean to Split Position (Bilanciere/Trap Bar)**",
+              "Esercizio": "**Power Clean (Bilanciere/Trap Bar)**",
               "Set x Reps": "4 x 3+3",
               "Carico (kg/RPE)": "32.5 kg",
               "Tempo": "`X`",
@@ -5403,12 +5307,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Clean to Split Position",
+                  "Esercizio": "Power Clean",
                   "Set_Reps": "** 4 x 3+3 @ 35 kg",
                   "Carico": "",
                   "Tempo": "X",
                   "Note": "",
-                  "Raw": "**Clean to Split Position:** 4 x 3+3 @ 35 kg | Tempo `X`."
+                  "Raw": "**Power Clean:** 4 x 3+3 @ 35 kg | Tempo `X`."
                 },
                 {
                   "Esercizio": "Half Squat Dinamico (90°) con Miniband",
@@ -5925,7 +5829,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Powerbag Clean to Chest (o KB Clean)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "37.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -6167,7 +6071,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split (Incastro semiatto)**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "29.5 kg",
               "Tempo": "`X`",
@@ -6399,8 +6303,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split (Incastro semiatto)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "32.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -6642,7 +6546,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "31.0 kg",
               "Tempo": "`X`",
@@ -6874,8 +6778,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "33.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -7028,7 +6932,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "52",
-        "Note": "Clean to Split + Half Squat Dinamico 10X0 (VBT >0.75 m/s) + Landmine Press + Single Row + Cluster Hurdles"
+        "Note": "Power Clean + Half Squat Dinamico 10X0 (VBT >0.75 m/s) + Landmine Press + Single Row + Cluster Hurdles"
       },
       {
         "Numero_Seduta": "W4-VenR",
@@ -7082,22 +6986,6 @@ const WEEKS_DATA = {
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita a max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "",
-              "Set x Reps": "**3B. Floor Chest Press con Manubri**",
-              "Carico (kg/RPE)": "3 x 4-5",
-              "Tempo": "70% (\"6\")",
-              "Note Tecniche": "`2010`"
-            },
-            {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3C. Lat Machine Presa Neutra Stretta**",
-              "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "70% (\"6\")",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Scapole depresse, trazione potente al petto"
-            },
-            {
               "Blocco": "**# Accessories**",
               "Esercizio": "4A. Split Squat con manubri (piede ant. su disco)",
               "Set x Reps": "2 x 4+4",
@@ -7106,28 +6994,12 @@ const WEEKS_DATA = {
               "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "",
-              "Set x Reps": "4B. Dumbbell Seal Row su panca 30°",
-              "Carico (kg/RPE)": "3 x 6",
-              "Tempo": "60% (\"8\")",
-              "Note Tecniche": "`2011`"
-            },
-            {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
-            },
-            {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "",
-              "Set x Reps": "5B. Medball Chest Pass contro muro",
-              "Carico (kg/RPE)": "3 x 4",
-              "Tempo": "3 kg",
-              "Note Tecniche": "`X`"
             }
           ]
         },
@@ -7164,30 +7036,6 @@ const WEEKS_DATA = {
               "Note Tecniche": "Tripla estensione esplosiva (Powerbag per Dodi, Sassolini, Adamczewska)"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "",
-              "Set x Reps": "**3B. Half Squat Dinamico**",
-              "Carico (kg/RPE)": "3 x 3",
-              "Tempo": "70% (\"6\")",
-              "Note Tecniche": "`20X0`"
-            },
-            {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (\"6\")",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Piano scapolare a 30°, tutela collo e spalla"
-            },
-            {
-              "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (\"6\")",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Busto orizzontale, gomito aderente"
-            },
-            {
               "Blocco": "**# Accessories**",
               "Esercizio": "",
               "Set x Reps": "4A. Single-Leg RDL con Kettlebell",
@@ -7196,28 +7044,12 @@ const WEEKS_DATA = {
               "Note Tecniche": "`2010`"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "Medio",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, rinforzo extrarotatori"
-            },
-            {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "Medio",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione pura, tronco solido"
-            },
-            {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Trasferimento di potenza anca-tronco"
             }
           ]
         },
@@ -7246,14 +7078,6 @@ const WEEKS_DATA = {
               "Note Tecniche": "**Tassativo Buffer 3 (RPE 6)**. Zero affaticamento pre-gara!"
             },
             {
-              "Blocco": "**# Main**",
-              "Esercizio": "**2B. Pulley Basso al Cavo Presa Parallela Stretta**",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "70% (\"6\")",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Trazione decompressiva orizzontale, schiena compatta"
-            },
-            {
               "Blocco": "**# Accessories**",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "2 x 6",
@@ -7262,28 +7086,12 @@ const WEEKS_DATA = {
               "Note Tecniche": "2\" di contrazione isometrica in alto"
             },
             {
-              "Blocco": "**# Accessories**",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "8-10 kg (\"8\")",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento dorsale"
-            },
-            {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "4A. Farmer Walk con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "Medio",
               "Tempo": "Camminata",
               "Note Tecniche": "Postura eretta, presa isometrica forte"
-            },
-            {
-              "Blocco": "**# Core+Trans.**",
-              "Esercizio": "**🛑 STRICT FRIDAY JUMP BAN**",
-              "Set x Reps": "**-**",
-              "Carico (kg/RPE)": "**-**",
-              "Tempo": "**-**",
-              "Note Tecniche": "**ZERO SALTI. Gambe fresche per il sabato.**"
             }
           ]
         }
@@ -7442,7 +7250,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split (Incastro semiatto)**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "28.0 kg",
               "Tempo": "`X`",
@@ -7674,8 +7482,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split (Incastro semiatto)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "30.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -7917,7 +7725,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "24.5 kg",
               "Tempo": "`X`",
@@ -8149,8 +7957,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "26.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -8625,7 +8433,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Powerbag Clean to Chest**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "52.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -8867,7 +8675,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "35.0 kg",
               "Tempo": "`X`",
@@ -9099,8 +8907,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "37.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -9575,7 +9383,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Powerbag Clean to Chest (o KB Clean)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "22.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -9817,7 +9625,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split Position (Incastro semiatto)**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "35.0 kg",
               "Tempo": "`X`",
@@ -10049,8 +9857,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split Position (Incastro semiatto)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "37.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -10292,7 +10100,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split Position (Incastro semiatto)**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "44.0 kg",
               "Tempo": "`X`",
@@ -10524,8 +10332,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split Position (Incastro semiatto)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "47.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -10767,7 +10575,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "24.5 kg",
               "Tempo": "`X`",
@@ -10999,8 +10807,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "26.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -11475,7 +11283,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Powerbag Clean to Chest (NO Bilanciere)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "37.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -11614,7 +11422,7 @@ const WEEKS_DATA = {
         "rischio": "🟡/🔴 MEDIO-ALTO (Lassità Legamentosa + Disritmia Scapolare DX + Valgismo SX + Cisti Polso DX)",
         "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Caserta e Dodi)",
         "triage": "### Criticità Funzionali Rilevate (Analisi ELAV Video/Frame)\n1. **Lassità Legamentosa Generalizzata & Tendenza Recurvatum:**\n   - 17 anni, mobilità passiva elevatissima che necessita di eccellente rigidità attiva (*stiffness*) e stabilità lombo-pelvica. Tendenza al recurvatum e pregressa tendinopatia rotulea da salto.\n2. **Disritmia Scapolare Destra & Upper Crossed Pattern:**\n   - Durante l'abduzione/elevazione, la scapola destra sale precocemente e più in alto rispetto alla sinistra (anticipo di elevazione per iper-attivazione del trapezio superiore e inibizione del trapezio inferiore/dentato anteriore).\n   - Presenza di cisti ganglionare al polso destro (asintomatica ma suscettibile di compressione in iperestensione dorsale con bilanciere dritto).\n3. **Deficit Podalico Sinistro & Valgismo Dinamico Arto SX:**\n   - Retropiede sinistro in eversione/pronazione costante con mancata inversione calcaneale sia in SLS che in propulsione (deficit selettivo del tibiale posteriore sinistro).\n   - Nello Step Over, l'arto sinistro mostra un cedimento in valgismo dinamico marcato (SX > DX), non controllato dall'arco plantare collassato.\n4. **Instabilità Lombo-Pelvica nello Squat Profondo & Blocco Rotazionale SX:**\n   - Nello squat, superati gli 80° di flessione di ginocchio, si manifesta una perdita del controllo lombo-pelvico (*butt wink*) sotto i 70°, con rotazione del bacino a destra in fase concentrica.\n   - Restrizione di circa 15°-20° nella rotazione cervicale e del tronco verso sinistra (cerniera cervico-dorsale rigida).\n\n---",
-        "ban": "* ⛔ **BAN Squat Profondo Libero (<70° al ginocchio):**  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo a 80°-85° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box impedisce il *butt wink* a fondo corsa proteggendo L4-S1, mentre l'elastico recluta il gluteo medio contrastando il valgismo del ginocchio sinistro.\n* ⛔ **BAN Bilanciere Dritto in Iperestensione dei Polsi (Panca / Girata con polsi piegati):** La cisti ganglionare del polso destro non tollera carichi di compressione in estensione forzata.  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con Manubri a Presa Neutra/Semi-neutra (`3010`)** e Clean to Split eseguito con manubri/powerbag a presa neutra.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean con manubri a presa neutra / Powerbag 15-20 kg)**: elimina l'estensione del polso salvaguardando la cisti ganglionare del polso destro ed esaltando la tripla estensione.\n* 🛡️ **PREHAB SCAPOLARE E PODALICO OBBLIGATORIO:**\n  - Rilascio miofasciale piccolo pettorale destro con pallina da lacrosse (de-tensione coracoide).\n  - Scapular Wall Slide & Prone Trap 3 Raise per rieducare il timing della scapola destra (depressione attiva).\n  - Short Foot + inversione con elastico per il piede sinistro (attivazione tibiale posteriore).\n  - Rotazioni toraciche in quadrupedia (\"Open Book\") focalizzate sul lato sinistro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro eccentrico/isocinetico per ischiocrurali e tendine rotuleo senza impatto.\n\n---",
+        "ban": "* ⛔ **BAN Squat Profondo Libero (<70° al ginocchio):**  \n  ➔ **SOSTITUZIONE:** **Box Squat parallelo a 80°-85° con Miniband sopra le ginocchia (`3010` / `20X0`)**: il box impedisce il *butt wink* a fondo corsa proteggendo L4-S1, mentre l'elastico recluta il gluteo medio contrastando il valgismo del ginocchio sinistro.\n* ⛔ **BAN Bilanciere Dritto in Iperestensione dei Polsi (Panca / Girata con polsi piegati):** La cisti ganglionare del polso destro non tollera carichi di compressione in estensione forzata.  \n  ➔ **SOSTITUZIONE:** **Floor Chest Press con Manubri a Presa Neutra/Semi-neutra (`3010`)** e Power Clean eseguito con manubri/powerbag a presa neutra.\n* 🛡️ **SOSTITUZIONE OLIMPICA (NO TRAP BAR):**  \n  ➔ **Powerbag Clean to Chest (o Clean con manubri a presa neutra / Powerbag 15-20 kg)**: elimina l'estensione del polso salvaguardando la cisti ganglionare del polso destro ed esaltando la tripla estensione.\n* 🛡️ **PREHAB SCAPOLARE E PODALICO OBBLIGATORIO:**\n  - Rilascio miofasciale piccolo pettorale destro con pallina da lacrosse (de-tensione coracoide).\n  - Scapular Wall Slide & Prone Trap 3 Raise per rieducare il timing della scapola destra (depressione attiva).\n  - Short Foot + inversione con elastico per il piede sinistro (attivazione tibiale posteriore).\n  - Rotazioni toraciche in quadrupedia (\"Open Book\") focalizzate sul lato sinistro.\n* 🛡️ **REGOLA VENERDÌ (Strict Friday Jump Ban):**  \n  - Nella Seduta 3 del venerdì, **ZERO SALTI E ZERO IMPATTI PLIOMETRICI**. Lavoro eccentrico/isocinetico per ischiocrurali e tendine rotuleo senza impatto.\n\n---",
         "w3_sedute": {
           "1": [
             {
@@ -11725,7 +11533,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**Clean to Split Position (Bilanciere/Trap Bar)**",
+              "Esercizio": "**Power Clean (Bilanciere/Trap Bar)**",
               "Set x Reps": "4 x 3+3",
               "Carico (kg/RPE)": "32.5 kg",
               "Tempo": "`X`",
@@ -11984,12 +11792,12 @@ const WEEKS_DATA = {
               "blocco": "Main Exercises",
               "items": [
                 {
-                  "Esercizio": "Clean to Split Position",
+                  "Esercizio": "Power Clean",
                   "Set_Reps": "** 4 x 3+3 @ 35 kg",
                   "Carico": "",
                   "Tempo": "X",
                   "Note": "",
-                  "Raw": "**Clean to Split Position:** 4 x 3+3 @ 35 kg | Tempo `X`."
+                  "Raw": "**Power Clean:** 4 x 3+3 @ 35 kg | Tempo `X`."
                 },
                 {
                   "Esercizio": "Half Squat Dinamico (90°) con Miniband",
@@ -12506,7 +12314,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Powerbag Clean to Chest (o KB Clean)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "37.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -12748,7 +12556,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split (Incastro semiatto)**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "29.5 kg",
               "Tempo": "`X`",
@@ -12980,8 +12788,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Clean to Split (Incastro semiatto)**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "32.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
@@ -13223,7 +13031,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "31.0 kg",
               "Tempo": "`X`",
@@ -13455,8 +13263,8 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3A. Hang Clean con Bilanciere**",
-              "Set x Reps": "3 x 2+2 (o 3x3)",
+              "Esercizio": "**3A. Power Clean con Bilanciere**",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "33.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"

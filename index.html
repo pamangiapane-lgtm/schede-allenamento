@@ -581,28 +581,39 @@
     }
 
     .ex-notes-toggle {
-      background: transparent;
-      border: none;
-      color: var(--mv-muted);
-      font-size: 0.75rem;
+      background: rgba(59, 130, 246, 0.12);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: #93c5fd;
+      font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 6px;
-      padding: 0;
-      display: flex;
+      margin-top: 8px;
+      padding: 5px 10px;
+      display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
     }
-    .ex-notes-toggle:hover { color: #fff; }
+    .ex-notes-toggle:hover {
+      background: rgba(59, 130, 246, 0.25);
+      color: #fff;
+      border-color: rgba(59, 130, 246, 0.5);
+    }
     .ex-notes-body {
       display: none;
-      background: #090f1d;
+      background: #0b1329;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-left: 3px solid #3b82f6;
       border-radius: 8px;
-      padding: 10px;
-      margin-top: 6px;
-      font-size: 0.78rem;
-      color: #cbd5e1;
-      line-height: 1.4;
+      padding: 10px 12px;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+    .ex-notes-body.open {
+      display: block !important;
     }
 
     /* Morning Wellness Form Styles */
@@ -1076,7 +1087,7 @@
 
   </main>
 
-  <script src="data.js?v=20260906aesthetic"></script>
+  <script src="data.js?v=20260906v210"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -1131,7 +1142,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=209').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=210').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -2059,8 +2070,11 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
 
   const placeholderText = savedLoad ? `Ultimo: ${savedLoad}` : (rmData ? (rmData.isDumbbell ? `es. ${rmData.eachKg}+${rmData.eachKg} kg` : `es. ${rmData.targetKg} kg`) : (carico ? `Prescritto: ${carico}` : 'es. kg'));
 
-    let calcTargetBoxHtml = '';
-  if (rmData && rmData.targetText) {
+  const lowName = exName.toLowerCase();
+
+  let calcTargetBoxHtml = '';
+  // Utente: "non mi interessa il carico calcolato sotto gli esercizi di squat"
+  if (rmData && rmData.targetText && !lowName.includes('squat')) {
     calcTargetBoxHtml = `
       <div style="font-size:0.75rem; color:var(--mv-amber); background:rgba(245,158,11,0.08); border-left:3px solid var(--mv-amber); padding:6px 10px; border-radius:4px; margin-top:8px;">
         🎯 <strong>Carico Calcolato:</strong> ${escapeHtml(rmData.targetText)}
@@ -2072,8 +2086,8 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
   if (note && note.length > 0) {
     const uid = Math.random().toString(36).slice(2, 7);
     notesHtml = `
-      <button class="ex-notes-toggle" onclick="toggleNotes('n-${uid}')">
-        <span>ℹ️ Note tecniche coach</span> ▾
+      <button class="ex-notes-toggle" type="button" onclick="toggleNotes(this, 'n-${uid}')">
+        <span>ℹ️ Note tecniche coach</span> <span class="notes-chevron">▾</span>
       </button>
       <div class="ex-notes-body" id="n-${uid}">
         <div>${escapeHtml(note)}</div>
@@ -2081,7 +2095,6 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
     `;
   }
 
-  const lowName = exName.toLowerCase();
   const isPureMobility = (
     lowName.includes('respirazione') ||
     lowName.includes('mobilità') ||
@@ -2442,6 +2455,22 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
 
     function toggleSession(sedId) {
       document.getElementById(`card-${sedId}`).classList.toggle('open');
+    }
+
+    function toggleNotes(btn, noteId) {
+      let elId = noteId;
+      let buttonEl = btn;
+      if (!noteId && typeof btn === 'string') {
+        elId = btn;
+        buttonEl = null;
+      }
+      const el = document.getElementById(elId);
+      if (!el) return;
+      const isOpen = el.classList.toggle('open');
+      if (buttonEl && buttonEl.querySelector) {
+        const chev = buttonEl.querySelector('.notes-chevron');
+        if (chev) chev.textContent = isOpen ? '▴' : '▾';
+      }
     }
 
     function renderSessionEnd(nSeduta) {
