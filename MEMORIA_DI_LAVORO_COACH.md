@@ -174,3 +174,12 @@
 * **Palette Colori Metriche Sforzo:**
   * *sRPE:* Verde (<=5, moderato), Azzurro/Blu (6-7, target), Giallo (8, alto), Rosso (>=9, massimale/estenuante).
   * *Fatica:* Verde (<=4, fresca), Azzurro (5-6, moderata), Giallo (7-8, alta), Rosso (>=9, esausta).
+
+## 🧠 CORREZIONE METRICA STRESS: ELIMINAZIONE FALLBACK FITTIZIO E SINCRONIZZAZIONE VALORE REALE
+* **Audit Valori Storici:**
+  * Nessuna atleta ha mai digitato '2' di default. Nello storico (362 record e messaggi WhatsApp), il questionario prevedeva 4 domande (Sonno, Fatica, Readiness, Dolori) o il backend scartava lo Stress.
+  * La dashboard coach (`coach/index.html` e `coach.html`) conteneva un fallback rigido `inferredStress = 2;` e `(r.Qualita_Sonno && r.Fatica) ? 2 : null;` che forzava artificialmente 2 a tutte le atlete ogni volta che mancava il dato.
+* **Correzioni Applicate:**
+  1. **Dashboard Coach (`coach/index.html`, `marsala-app/coach.html`):** Eliminato completamente il fallback a 2. Se lo stress non è stato inserito, il valore è rigorosamente `null` (mostrato come `—` neutro e non conteggiato nelle medie). Se l'atleta ha inserito un valore reale, viene mostrato esattamente quello (0-10) con la sua colorazione semaforica.
+  2. **Google Apps Script (`apps_script_pulito.gs`, `apps_script.gs`):** Aggiornato `logWellness` per mappare dinamicamente la colonna `Stress` e salvarla fisicamente nel foglio Google `Wellness`. Inserimento automatico della colonna `Stress` nell'intestazione se assente.
+

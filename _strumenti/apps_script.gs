@@ -183,21 +183,44 @@ function logWellness(body) {
   let sheet = ss.getSheetByName('Wellness');
   if (!sheet) {
     sheet = ss.insertSheet('Wellness');
-    sheet.appendRow(['Timestamp','ID_Giocatrice','Data','Qualita_Sonno','Fatica','Disponibilita','Dolori','Note']);
+    sheet.appendRow(['Timestamp','ID_Giocatrice','Data','Qualita_Sonno','Fatica','Disponibilita','Dolori','Stress','Note']);
   }
-  const riga = [
-    new Date().toISOString(),
-    body.id_giocatrice,
-    body.data ?? '',
-    body.qualita_sonno ?? '',
-    body.fatica ?? '',
-    body.disponibilita ?? '',
-    body.dolori ?? '',
-    body.note ?? ''
-  ];
+
+  // Garantisce la presenza della colonna Stress nelle intestazioni
+  let heads = sheet.getRange(1, 1, 1, Math.max(1, sheet.getLastColumn())).getValues()[0];
+  let colStress = heads.indexOf('Stress');
+  if (colStress === -1) {
+    const colNote = heads.indexOf('Note');
+    if (colNote !== -1) {
+      sheet.insertColumnBefore(colNote + 1);
+      sheet.getRange(1, colNote + 1).setValue('Stress');
+    } else {
+      sheet.getRange(1, heads.length + 1).setValue('Stress');
+    }
+    heads = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  }
+
+  // Costruisce la riga mappata esattamente sull'ordine delle intestazioni
+  const rigaObj = {
+    'Timestamp': new Date().toISOString(),
+    'ID_Giocatrice': body.id_giocatrice,
+    'Data': body.data ?? '',
+    'Qualita_Sonno': body.qualita_sonno ?? '',
+    'Fatica': body.fatica ?? '',
+    'Disponibilita': body.disponibilita ?? '',
+    'Readines': body.disponibilita ?? '',
+    'Dolori': body.dolori ?? '',
+    'Stress': (body.stress !== undefined && body.stress !== null && body.stress !== '') ? body.stress : '',
+    'Note': body.note ?? ''
+  };
+  const riga = heads.map(h => rigaObj[h] !== undefined ? rigaObj[h] : '');
+
   const dati = sheet.getDataRange().getValues();
+  const colId = heads.indexOf('ID_Giocatrice') !== -1 ? heads.indexOf('ID_Giocatrice') : 1;
+  const colData = heads.indexOf('Data') !== -1 ? heads.indexOf('Data') : 2;
+
   for (let i = 1; i < dati.length; i++) {
-    if (String(dati[i][1]) === String(body.id_giocatrice) && String(dati[i][2]) === String(body.data)) {
+    if (String(dati[i][colId]) === String(body.id_giocatrice) && String(dati[i][colData]).slice(0, 10) === String(body.data).slice(0, 10)) {
       sheet.getRange(i + 1, 1, 1, riga.length).setValues([riga]);
       SpreadsheetApp.flush();
       return risposta({ ok: true, aggiornato: true });

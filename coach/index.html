@@ -901,7 +901,7 @@
           } else if (typeof r.Note === 'string' && r.Note.trim().length > 0 && !isNaN(Number(r.Note.trim())) && Number(r.Note.trim()) >= 0 && Number(r.Note.trim()) <= 10) {
             inferredStress = parseInt(r.Note.trim());
           } else {
-            inferredStress = 2;
+            inferredStress = null;
           }
 
           let inferredNote = '';
@@ -927,16 +927,16 @@
 
           if (!liveWellnessData[aid] || r.Timestamp > liveWellnessData[aid].timestamp) {
             let inferredStress = null;
-            if (r.Stress !== undefined && r.Stress !== '' && r.Stress !== null) {
+            if (r.Stress !== undefined && r.Stress !== '' && r.Stress !== null && !isNaN(Number(r.Stress))) {
               inferredStress = parseInt(r.Stress);
-            } else if (r.stress !== undefined && r.stress !== '' && r.stress !== null) {
+            } else if (r.stress !== undefined && r.stress !== '' && r.stress !== null && !isNaN(Number(r.stress))) {
               inferredStress = parseInt(r.stress);
             } else if (typeof r.Note === 'number' && r.Note >= 0 && r.Note <= 10) {
               inferredStress = parseInt(r.Note);
             } else if (typeof r.Note === 'string' && r.Note.trim().length > 0 && !isNaN(Number(r.Note.trim())) && Number(r.Note.trim()) >= 0 && Number(r.Note.trim()) <= 10) {
               inferredStress = parseInt(r.Note.trim());
             } else {
-              inferredStress = (r.Qualita_Sonno && r.Fatica) ? 2 : null;
+              inferredStress = null;
             }
 
             let inferredNote = '';
