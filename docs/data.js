@@ -6465,11 +6465,11 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Babdominals + Transfer",
-              "Esercizio": "1. Clean (Power Clean)",
-              "Set x Reps": "3 x 3",
+              "Esercizio": "1. Clean to split pos",
+              "Set x Reps": "3 x 2+2",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "10X0",
-              "Note Tecniche": "Explosive clean from floor/hang with barbell or powerbag, triple extension ankles-knees-hips."
+              "Note Tecniche": "Power clean with rapid catch in split position (dynamic lunge), alternating lead leg."
             },
             {
               "blocco": "# Babdominals + Transfer",
@@ -13413,11 +13413,11 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Babdominals + Transfer",
-              "Esercizio": "1. Clean (Power Clean)",
-              "Set x Reps": "3 x 3",
+              "Esercizio": "1. Clean to split pos",
+              "Set x Reps": "3 x 2+2",
               "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "10X0",
-              "Note Tecniche": "Explosive clean from floor/hang with barbell or powerbag, triple extension ankles-knees-hips."
+              "Note Tecniche": "Power clean with rapid catch in split position (dynamic lunge), alternating lead leg."
             },
             {
               "blocco": "# Babdominals + Transfer",

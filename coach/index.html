@@ -1003,7 +1003,7 @@
           const ex = (r.Esercizio || r.esercizio || '').trim().toLowerCase();
           const nSeduta = String(r.N_Seduta || r.n_seduta || '').trim() || 'W2';
           // SCARTA QUALSIASI RECORD DI TEST O SIMULAZIONE
-          if (ex.includes('test') || nSeduta.toLowerCase().includes('test') || note.toLowerCase().includes('test verifica')) return;
+          if (ex === 'test' || ex.includes('test verifica') || nSeduta.toLowerCase().includes('test-demo') || note.toLowerCase().includes('test verifica')) return;
 
           const athName = athObj.name;
           const athRole = athObj.role;

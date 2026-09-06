@@ -1087,7 +1087,7 @@
 
   </main>
 
-  <script src="data.js?v=20260906v213"></script>
+  <script src="data.js?v=20260906v214"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -1211,6 +1211,13 @@
               if (isRow1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_row`, val);
               if (isLat1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_lat`, val);
               if (isBW) setIfEmptyOrOlder(`mv_bw_${currentAthlete.id}`, val);
+            }
+            
+            if (ex.includes('(vbt)') || ex.includes('vbt')) {
+              const cleanExName = r.Esercizio.replace(/\s*\(vbt\)/i, '').trim();
+              if (!localStorage.getItem(`mv_vbt_${currentAthlete.id}_${cleanExName}`)) {
+                localStorage.setItem(`mv_vbt_${currentAthlete.id}_${cleanExName}`, valStr);
+              }
             }
             if (valStr && valStr.length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.startsWith('1rm-')) {
               if (!localStorage.getItem(`mv_load_${currentAthlete.id}_${r.Esercizio}`)) {
@@ -1612,7 +1619,55 @@
       renderRiepilogoCarichi();
     }
 
-    async function syncOfflinePendingLoads() {
+        const debounceCustomVbtTimers = {};
+
+    function onCustomExerciseVbtInput(exName, inputId, nSeduta, val) {
+      const v = (val || '').trim();
+      if (!v || !currentAthlete) return;
+      localStorage.setItem(`mv_vbt_${currentAthlete.id}_${exName}`, v);
+
+      clearTimeout(debounceCustomVbtTimers[inputId]);
+      debounceCustomVbtTimers[inputId] = setTimeout(() => {
+        saveCustomExerciseVbt(exName, inputId, nSeduta);
+      }, 1200);
+    }
+
+    async function saveCustomExerciseVbt(exName, inputId, nSeduta) {
+      const input = document.getElementById(inputId);
+      if (!input || !currentAthlete) return;
+      const val = input.value.trim();
+      if (!val) return;
+
+      const formattedVal = val.toLowerCase().includes('m/s') ? val : `${val} m/s`;
+      localStorage.setItem(`mv_vbt_${currentAthlete.id}_${exName}`, formattedVal);
+
+      const toast = document.getElementById(`toast-${inputId}`);
+      if (toast) {
+        toast.style.display = 'inline';
+        setTimeout(() => { toast.style.display = 'none'; }, 2000);
+      }
+
+      try {
+        fetch(`${GAS_URL}?token=${TOKEN}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            token: TOKEN,
+            azione: 'log_progressi',
+            id_giocatrice: currentAthlete.id,
+            n_seduta: nSeduta || 0,
+            esercizio: `${exName} (VBT)`,
+            data: new Date().toISOString().slice(0, 10),
+            valore: formattedVal,
+            note: `Velocità media rilevata con encoder VBT Enode: ${formattedVal}`
+          })
+        });
+        localStorage.setItem(`mv_synced_mv_vbt_${currentAthlete.id}_${exName}`, formattedVal);
+      } catch (e) {}
+    }
+
+async function syncOfflinePendingLoads() {
       if (!currentAthlete || !currentAthlete.id) return;
       const aid = currentAthlete.id;
       const prefixLoad = `mv_load_${aid}_`;
@@ -2112,8 +2167,23 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
     lowName.includes('wall slide')
   );
 
+  const isNelly = (athlete && athlete.id === 14);
+  const isSquatWithPct = (!isNelly && lowName.includes('squat') && !lowName.includes('split') && !lowName.includes('spanish') && (carico.includes('%') || (rmData && rmData.pct)));
+
   let logHtml = '';
-  if (!isPureMobility) {
+  if (isSquatWithPct) {
+    const savedVbt = localStorage.getItem(`mv_vbt_${athlete.id}_${exName}`) || '';
+    logHtml = `
+      <div class="ex-load-log-box" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);">
+        <span class="ex-load-log-lbl" style="color:var(--mv-amber);">⚡ ${isEN ? 'Mean Velocity (m/s):' : 'Velocità Media (m/s):'}</span>
+        <div class="ex-load-input-wrap">
+          <input type="text" class="ex-load-input" id="ex-vbt-${safeExId}" placeholder="${savedVbt ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedVbt}` : (isEN ? 'e.g. 0.65 m/s' : 'es. 0.65 m/s')}" value="${savedVbt}" oninput="onCustomExerciseVbtInput('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', this.value)" onchange="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}')">
+          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}')">${isEN ? 'Save' : 'Salva'}</button>
+          <span id="toast-ex-vbt-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+        </div>
+      </div>
+    `;
+  } else if (!isPureMobility) {
     logHtml = `
       <div class="ex-load-log-box">
         <span class="ex-load-log-lbl">📝 ${isEN ? 'Load Used:' : 'Carico Usato:'}</span>
