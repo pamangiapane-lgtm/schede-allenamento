@@ -425,7 +425,7 @@ const ROSTER = [
 
 const WEEKS_DATA = {
   "W3": {
-    "titolo": "Settimana 3 (W3) — SSP 1: Forza & Controllo Eccentrico",
+    "titolo": "Week 3 — SSP 1: Forza & Controllo Eccentrico",
     "sedute": [
       {
         "Numero_Seduta": "W3-LunP",
@@ -7969,7 +7969,7 @@ const WEEKS_DATA = {
     }
   },
   "W4": {
-    "titolo": "Settimana 4 (W4) — SSP 2: Contrasto Dinamico & Potenza",
+    "titolo": "Week 4 — SSP 2: Contrasto Dinamico & Potenza",
     "sedute": [
       {
         "Numero_Seduta": "W4-LunP",

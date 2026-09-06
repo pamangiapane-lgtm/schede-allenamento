@@ -1051,8 +1051,8 @@
       <!-- TAB 2: SEDUTE DI ALLENAMENTO -->
       <div class="tab-panel" id="tab-sedute">
         <div class="week-switcher">
-          <button class="week-pill active" onclick="switchWeek('W3', this)">Settimana 3 (W3)</button>
-          <button class="week-pill" onclick="switchWeek('W4', this)">Settimana 4 (W4)</button>
+          <button class="week-pill active" data-week="W3" onclick="switchWeek('W3', this)">Week 3</button>
+          <button class="week-pill" data-week="W4" onclick="switchWeek('W4', this)">Week 4</button>
         </div>
         <div id="sessions-container"></div>
       </div>
@@ -1095,7 +1095,7 @@
 
   </main>
 
-  <script src="data.js?v=20260906w3w4"></script>
+  <script src="data.js?v=20260906week34"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -1367,7 +1367,7 @@
         p.classList.remove('active');
         if (btn) {
           btn.classList.add('active');
-        } else if (p.textContent.includes(week)) {
+        } else if (p.getAttribute('data-week') === week || p.textContent.includes(week) || p.textContent.toLowerCase().includes(week.toLowerCase().replace('w', 'week '))) {
           p.classList.add('active');
         }
       });
@@ -1988,7 +1988,7 @@
         <div class="ath-shift-banner">
           <div class="ath-shift-row">
             <div>
-              <div style="font-size:0.75rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Programmazione ${currentWeek} · Marsala Volley A2</div>
+              <div style="font-size:0.75rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Programmazione ${currentWeek === 'W3' ? 'Week 3' : 'Week 4'} · Marsala Volley A2</div>
               <div style="font-size:1.1rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;margin-top:2px;">
                 <span>${currentAthlete.name}</span>
                 <span class="ath-risk-badge ${riskBadgeClass}">${rischioStr.split('(')[0].replace(/\\*/g, '').trim()}</span>
@@ -2010,67 +2010,6 @@
         </div>
       `;
 
-      // 2. COLLAPSIBLE CARD: TRIAGE CLINICO & BAN
-      if (athInd && (athInd.triage || athInd.ban)) {
-        html += `
-          <div class="info-toggle-card" id="card-triage">
-            <div class="info-toggle-head" onclick="toggleInfoCard('card-triage')">
-              <div class="info-toggle-title">
-                <span>🩺</span> <span>Triage Clinico, Ban & Sostituzioni — ${currentAthlete.name}</span>
-              </div>
-              <div class="info-toggle-chevron">▾</div>
-            </div>
-            <div class="info-toggle-body">
-              ${athInd.triage ? `
-                <div style="margin-bottom:12px;">
-                  <div style="font-weight:800;color:var(--mv-amber);margin-bottom:4px;font-size:0.85rem;">Criticità Funzionali Rilevate (Analisi ELAV Live):</div>
-                  <div style="background:rgba(0,0,0,0.25);padding:10px;border-radius:8px;border-left:3px solid var(--mv-coral);white-space:pre-line;">${escapeHtml(athInd.triage)}</div>
-                </div>
-              ` : ''}
-              ${athInd.ban ? `
-                <div>
-                  <div style="font-weight:800;color:#6ee7b7;margin-bottom:4px;font-size:0.85rem;">Modifiche, Ban & Sostituzioni Tecniche Prescritte:</div>
-                  <div style="background:rgba(0,0,0,0.25);padding:10px;border-radius:8px;border-left:3px solid #10b981;white-space:pre-line;">${escapeHtml(athInd.ban)}</div>
-                </div>
-              ` : ''}
-            </div>
-          </div>
-        `;
-      }
-
-      // 3. COLLAPSIBLE CARD: PROGRAMMA GENERALE SQUADRA (IBRIDO W3-W6)
-      html += `
-        <div class="info-toggle-card" id="card-squadra">
-          <div class="info-toggle-head" onclick="toggleInfoCard('card-squadra')">
-            <div class="info-toggle-title">
-              <span>🏛️</span> <span>Programma Generale di Squadra — Modello Ibrido W3–W6</span>
-            </div>
-            <div class="info-toggle-chevron">▾</div>
-          </div>
-          <div class="info-toggle-body">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
-              <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:8px;padding:10px;">
-                <strong style="color:#34d399;display:block;margin-bottom:4px;">🟢 Turno 1 (08:30 – 09:25)</strong>
-                <div style="font-size:0.75rem;color:#cbd5e1;">Palleggiatrici (Allasia, Grippo), Liberi (Lo Dico, Cicola), Centrali Agili (Marcuzzi, Biondi).<br><em>Rack Box Squat + Floor Press DB.</em></div>
-              </div>
-              <div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:10px;">
-                <strong style="color:#f87171;display:block;margin-bottom:4px;">🔴 Turno 2 (09:30 – 10:25)</strong>
-                <div style="font-size:0.75rem;color:#cbd5e1;">Opposti (Asonja, Nonnati), Schiacciatrici (Sassolini, Bole, Dodi, Adamczewska, Caserta).<br><em>Rotazione 2 Rack con VBT Enode.</em></div>
-              </div>
-            </div>
-            <div style="font-size:0.78rem;background:rgba(0,0,0,0.2);padding:10px;border-radius:8px;margin-bottom:10px;">
-              <strong style="color:var(--mv-amber)">Standard Tempi Poliquin a 4 Cifre:</strong><br>
-              • <code>3010</code>: 3" eccentrica, 0" sosta, 1" concentrica (Forza e tendini in W3)<br>
-              • <code>20X0 / 10X0</code>: Eccentrica frenata ed esplosione concentrica massimale (Power W4)<br>
-              • <code>X</code>: Movimento balistico esplosivo (Clean, Jump Squat, Lanci Medball)<br>
-              • <code>2012</code>: 2" di contrazione isometrica di picco al top
-            </div>
-            <div style="font-size:0.78rem;background:rgba(239,68,68,0.1);border-left:3px solid var(--mv-coral);padding:8px 12px;border-radius:4px;">
-              <strong>🛑 Strict Friday Jump Ban:</strong> Nella seduta del venerdì (a &lt;30h dal match) zero salti e zero impatti pliometrici. Cerniera posteriore RDL sub-massimale buffer 3.
-            </div>
-          </div>
-        </div>
-      `;
 
       // 4. THE 3 TRAINING SESSIONS (GYM INDIVIDUAL + COURT S&C)
       const sessionsList = weekObj.sedute || [];
@@ -2145,7 +2084,7 @@
           </div>
         ` : '';
 
-        const isOpen = sNum === 1 ? 'open' : '';
+        const isOpen = '';
 
         return `
           <div class="session-card ${isOpen}" id="card-${sed.Numero_Seduta}">

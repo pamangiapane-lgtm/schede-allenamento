@@ -415,13 +415,13 @@ def main():
 
     weeks_data = {
         "W3": {
-            "titolo": "Settimana 3 (W3) — SSP 1: Forza & Controllo Eccentrico",
+            "titolo": "Week 3 — SSP 1: Forza & Controllo Eccentrico",
             "sedute": w3_sedute_def,
             "programma_squadra": team_program,
             "atleti": athletes_data
         },
         "W4": {
-            "titolo": "Settimana 4 (W4) — SSP 2: Contrasto Dinamico & Potenza",
+            "titolo": "Week 4 — SSP 2: Contrasto Dinamico & Potenza",
             "sedute": w4_sedute_def,
             "programma_squadra": team_program,
             "atleti": athletes_data
