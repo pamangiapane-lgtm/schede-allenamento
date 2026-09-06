@@ -14,7 +14,14 @@ import requests
 from datetime import datetime
 from playwright.sync_api import sync_playwright
 
-sys.stdout.reconfigure(encoding='utf-8')
+if sys.stdout is None:
+    sys.stdout = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'solleciti_esecuzioni.log'), 'a', encoding='utf-8')
+    sys.stderr = sys.stdout
+else:
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 # ==============================================================================
 # CONFIGURAZIONE
@@ -44,17 +51,20 @@ ROSTER = [
     {"id": 14, "name": "Nelly Adamczewska"}
 ]
 
-def attendi_rete(timeout_sec=60):
-    """Attende che la connessione internet sia attiva (es. risveglio da sospensione)."""
+def attendi_rete(timeout_sec=120):
+    """Attende che la connessione internet sia attiva (es. risveglio da sospensione / riapertura schermo)."""
     start = time.time()
+    endpoints = ["https://www.google.com", "https://1.1.1.1", "https://api.green-api.com"]
     while time.time() - start < timeout_sec:
-        try:
-            r = requests.get("https://www.google.com", timeout=4)
-            if r.status_code == 200:
-                return True
-        except Exception:
-            pass
-        print("[Rete] In attesa che la connessione internet sia attiva...")
+        for ep in endpoints:
+            try:
+                r = requests.get(ep, timeout=3)
+                if r.status_code < 500:
+                    print(f"[Rete] Connessione internet attiva confermata su {ep}!")
+                    return True
+            except Exception:
+                pass
+        print(f"[Rete] In attesa che il Wi-Fi / connessione internet sia attiva... ({int(time.time() - start)}s/{timeout_sec}s)")
         time.sleep(3)
     return False
 
@@ -284,7 +294,7 @@ def main():
         return
 
     # 1. Attesa rete internet (se risveglio da sospensione)
-    if not attendi_rete(timeout_sec=45):
+    if not attendi_rete(timeout_sec=120):
         print("[!] Rete internet non disponibile. Operazione annullata.")
         return
 
@@ -301,6 +311,8 @@ def main():
 
     if target_ids:
         candidati = [a for a in ROSTER if a['id'] in target_ids]
+        if not candidati and 99 in target_ids:
+            candidati = [{"id": 99, "name": "Paulo Mangiapane (Coach)"}]
         print(f"🎯 Modalità Test Mirato su ID: {target_ids}")
     else:
         candidati = [a for a in ROSTER if a['id'] != 99]

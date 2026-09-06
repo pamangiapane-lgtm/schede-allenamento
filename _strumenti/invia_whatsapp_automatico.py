@@ -92,12 +92,6 @@ def gia_inviato_oggi():
 def main():
     print("=== AVVIO DISPATCH AUTOMATICO REPORT WELLNESS ===")
 
-    # Controllo posticipo manuale per oggi (06/09/2026) su richiesta dell'utente
-    if datetime.now().strftime('%Y-%m-%d') == '2026-09-06' and '--manual' not in sys.argv:
-        print("[PAUSA] Per oggi 06/09/2026 l'invio allo staff è posticipato a richiesta manuale.")
-        print("[PAUSA] Esegui con --manual per sbloccare l'invio quando le atlete avranno terminato la compilazione.")
-        sys.exit(0)
-
     if not attendi_rete(timeout_sec=60):
         print("[!] Rete/Internet non raggiungibile dopo 60 secondi. Uscita.")
         sys.exit(1)
