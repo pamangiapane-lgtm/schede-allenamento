@@ -431,27 +431,27 @@ const WEEKS_DATA = {
     "sedute": [
       {
         "Numero_Seduta": "W3-LunP",
-        "Nome_Seduta": "Seduta 1 — Spinta Orizzontale & Trazione Verticale",
+        "Nome_Seduta": "Seduta 1",
         "Settimana": "W3",
         "Giorno": "Lunedì",
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "55",
-        "Note": "Squat (Parallelo a 90°) VBT Enode (0.60-0.65 m/s) + Floor Press DB + Lat Machine neutra + Cluster Pogo"
+        "Note": "Squat 90° VBT Enode (0.60-0.65 m/s) + Floor Press DB + Lat Machine neutra + Cluster Pogo"
       },
       {
         "Numero_Seduta": "W3-MerV",
-        "Nome_Seduta": "Seduta 2 — Spinta Verticale & Trazione Orizzontale",
+        "Nome_Seduta": "Seduta 2",
         "Settimana": "W3",
         "Giorno": "Mercoledì",
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "52",
-        "Note": "Clean / Powerbag + Half Squat Dinamico 20X0 + Landmine/Push Press + Single DB Row + Cluster Hurdles"
+        "Note": "Clean / Powerbag + Half Squat Dinamico 20X0 + Landmine Press + Single DB Row + Cluster Hurdles"
       },
       {
         "Numero_Seduta": "W3-VenR",
-        "Nome_Seduta": "Seduta 3 — Cerniera Posteriore Sub-Massimale & Decompressione",
+        "Nome_Seduta": "Seduta 3",
         "Settimana": "W3",
         "Giorno": "Venerdì",
         "Fase": "Mattina",
@@ -465,52 +465,17 @@ const WEEKS_DATA = {
         "vbt_w3": "0.60 – 0.65 m/s",
         "vbt_w4": "0.65 – 0.75 m/s",
         "vbt_rule": "Regola del -10% Velocity Loss Threshold (Enode): stop serie se la velocità cala oltre il 10%.",
-        "friday_jump_ban": "STRICT FRIDAY JUMP BAN: A meno di 30 ore dall'amichevole/gara, la Seduta 3 vieta tassativamente qualsiasi salto.",
-        "turni": {
-          "turno_1": {
-            "orario": "08:30 – 09:25",
-            "nome": "Speed, Reactive & Floor (6 Atlete)",
-            "atlete": [
-              "Veronica Allasia",
-              "Erin Grippo",
-              "Chiara Lo Dico",
-              "Luna Cicola",
-              "Maria Marcuzzi",
-              "Gaia Biondi"
-            ]
-          },
-          "turno_2": {
-            "orario": "09:30 – 10:25",
-            "nome": "Heavy, Power & Jumpers (7 Atlete)",
-            "atlete": [
-              "Anja Asonja",
-              "Federica Nonnati",
-              "Victoria Sassolini",
-              "Elisa Bole",
-              "Sara Dodi",
-              "Nelly Adamczewska",
-              "Giulia Caserta"
-            ]
-          }
-        }
+        "friday_jump_ban": "STRICT FRIDAY JUMP BAN: A meno di 30 ore dall'amichevole/gara, la Seduta 3 vieta tassativamente qualsiasi salto."
       },
       "gym_sessions": [
         {
           "id": "S1",
           "giorno": "Lunedì",
           "fase": "Mattina",
-          "nome": "Seduta 1 — Spinta Orizzontale & Trazione Verticale",
+          "nome": "Seduta 1",
           "durata": "52-55 min",
           "focus": "Squat (Parallelo a 90°) VBT Enode + Floor Press DB + Lat Machine neutra + Cluster Pogo",
           "esercizi": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
             {
               "Blocco": "# Prehab",
               "Esercizio": "1B. Chronojump CMJ Readiness Test",
@@ -571,7 +536,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6-8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -589,18 +554,10 @@ const WEEKS_DATA = {
           "id": "S2",
           "giorno": "Mercoledì",
           "fase": "Mattina",
-          "nome": "Seduta 2 — Spinta Verticale & Trazione Orizzontale",
+          "nome": "Seduta 2",
           "durata": "50-52 min",
           "focus": "Clean / Powerbag + Half Squat Dinamico + Landmine Press + Single DB Row + Cluster Hurdles",
           "esercizi": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
             {
               "Blocco": "# Prehab",
               "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
@@ -687,18 +644,10 @@ const WEEKS_DATA = {
           "id": "S3",
           "giorno": "Venerdì",
           "fase": "Mattina",
-          "nome": "Seduta 3 — Cerniera Posteriore Sub-Massimale & Decompressione",
+          "nome": "Seduta 3",
           "durata": "38-40 min",
           "focus": "RDL Bilanciere 2x4 @ buffer 3 (RPE 6) + Pulley decompressivo · ZERO SALTI",
           "esercizi": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
             {
               "Blocco": "# Prehab",
               "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
@@ -814,15 +763,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -880,7 +821,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -904,15 +845,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -1002,15 +935,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -1070,15 +995,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -1136,7 +1053,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -1160,15 +1077,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -1258,15 +1167,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -1337,15 +1238,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -1403,7 +1296,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -1427,15 +1320,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -1525,15 +1410,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -1593,15 +1470,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -1659,7 +1528,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -1683,15 +1552,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -1781,15 +1642,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -1860,15 +1713,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -1926,7 +1771,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -1950,15 +1795,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -2048,15 +1885,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -2116,15 +1945,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -2182,7 +2003,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -2206,15 +2027,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -2304,15 +2117,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -2383,15 +2188,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -2449,7 +2246,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -2473,15 +2270,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -2571,15 +2360,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -2639,15 +2420,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -2705,7 +2478,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -2729,15 +2502,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -2827,15 +2592,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -2906,15 +2663,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -2972,7 +2721,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -2996,15 +2745,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -3094,15 +2835,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -3162,15 +2895,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -3228,7 +2953,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -3252,15 +2977,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -3350,15 +3067,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -3429,15 +3138,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -3495,7 +3196,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -3519,15 +3220,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -3617,15 +3310,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -3685,15 +3370,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -3751,7 +3428,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -3775,15 +3452,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -3873,15 +3542,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -3952,15 +3613,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -4018,7 +3671,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -4042,15 +3695,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -4140,15 +3785,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -4208,15 +3845,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -4274,7 +3903,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -4298,15 +3927,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -4396,15 +4017,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -4475,15 +4088,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -4541,7 +4146,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -4565,15 +4170,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -4663,15 +4260,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -4731,15 +4320,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -4797,7 +4378,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -4821,15 +4402,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -4919,15 +4492,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -4998,15 +4563,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -5064,7 +4621,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -5088,15 +4645,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -5186,15 +4735,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -5254,15 +4795,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -5320,7 +4853,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -5344,15 +4877,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -5442,15 +4967,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -6077,15 +5594,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -6143,7 +5652,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -6167,15 +5676,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -6265,15 +5766,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -6333,15 +5826,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -6399,7 +5884,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -6423,15 +5908,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -6521,15 +5998,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -6600,15 +6069,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -6666,7 +6127,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -6690,15 +6151,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -6788,15 +6241,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -6856,15 +6301,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -6922,7 +6359,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -6946,15 +6383,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -7044,15 +6473,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -7123,15 +6544,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -7189,7 +6602,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -7213,15 +6626,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -7311,15 +6716,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -7379,15 +6776,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -7445,7 +6834,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -7469,15 +6858,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -7567,15 +6948,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -7639,7 +7012,7 @@ const WEEKS_DATA = {
     "sedute": [
       {
         "Numero_Seduta": "W4-LunP",
-        "Nome_Seduta": "Seduta 1 — Spinta Orizzontale & Trazione Verticale (Contrasto Dinamico)",
+        "Nome_Seduta": "Seduta 1",
         "Settimana": "W4",
         "Giorno": "Lunedì",
         "Fase": "Mattina",
@@ -7649,7 +7022,7 @@ const WEEKS_DATA = {
       },
       {
         "Numero_Seduta": "W4-MerV",
-        "Nome_Seduta": "Seduta 2 — Spinta Verticale & Trazione Orizzontale (Velocità)",
+        "Nome_Seduta": "Seduta 2",
         "Settimana": "W4",
         "Giorno": "Mercoledì",
         "Fase": "Mattina",
@@ -7659,7 +7032,7 @@ const WEEKS_DATA = {
       },
       {
         "Numero_Seduta": "W4-VenR",
-        "Nome_Seduta": "Seduta 3 — Cerniera Posteriore Sub-Massimale & Decompressione",
+        "Nome_Seduta": "Seduta 3",
         "Settimana": "W4",
         "Giorno": "Venerdì",
         "Fase": "Mattina",
@@ -7673,52 +7046,17 @@ const WEEKS_DATA = {
         "vbt_w3": "0.60 – 0.65 m/s",
         "vbt_w4": "0.65 – 0.75 m/s",
         "vbt_rule": "Regola del -10% Velocity Loss Threshold (Enode): stop serie se la velocità cala oltre il 10%.",
-        "friday_jump_ban": "STRICT FRIDAY JUMP BAN: A meno di 30 ore dall'amichevole/gara, la Seduta 3 vieta tassativamente qualsiasi salto.",
-        "turni": {
-          "turno_1": {
-            "orario": "08:30 – 09:25",
-            "nome": "Speed, Reactive & Floor (6 Atlete)",
-            "atlete": [
-              "Veronica Allasia",
-              "Erin Grippo",
-              "Chiara Lo Dico",
-              "Luna Cicola",
-              "Maria Marcuzzi",
-              "Gaia Biondi"
-            ]
-          },
-          "turno_2": {
-            "orario": "09:30 – 10:25",
-            "nome": "Heavy, Power & Jumpers (7 Atlete)",
-            "atlete": [
-              "Anja Asonja",
-              "Federica Nonnati",
-              "Victoria Sassolini",
-              "Elisa Bole",
-              "Sara Dodi",
-              "Nelly Adamczewska",
-              "Giulia Caserta"
-            ]
-          }
-        }
+        "friday_jump_ban": "STRICT FRIDAY JUMP BAN: A meno di 30 ore dall'amichevole/gara, la Seduta 3 vieta tassativamente qualsiasi salto."
       },
       "gym_sessions": [
         {
           "id": "S1",
           "giorno": "Lunedì",
           "fase": "Mattina",
-          "nome": "Seduta 1 — Spinta Orizzontale & Trazione Verticale",
+          "nome": "Seduta 1",
           "durata": "52-55 min",
           "focus": "Squat (Parallelo a 90°) VBT Enode + Floor Press DB + Lat Machine neutra + Cluster Pogo",
           "esercizi": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
             {
               "Blocco": "# Prehab",
               "Esercizio": "1B. Chronojump CMJ Readiness Test",
@@ -7779,7 +7117,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6-8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -7797,18 +7135,10 @@ const WEEKS_DATA = {
           "id": "S2",
           "giorno": "Mercoledì",
           "fase": "Mattina",
-          "nome": "Seduta 2 — Spinta Verticale & Trazione Orizzontale",
+          "nome": "Seduta 2",
           "durata": "50-52 min",
           "focus": "Clean / Powerbag + Half Squat Dinamico + Landmine Press + Single DB Row + Cluster Hurdles",
           "esercizi": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
             {
               "Blocco": "# Prehab",
               "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
@@ -7895,18 +7225,10 @@ const WEEKS_DATA = {
           "id": "S3",
           "giorno": "Venerdì",
           "fase": "Mattina",
-          "nome": "Seduta 3 — Cerniera Posteriore Sub-Massimale & Decompressione",
+          "nome": "Seduta 3",
           "durata": "38-40 min",
           "focus": "RDL Bilanciere 2x4 @ buffer 3 (RPE 6) + Pulley decompressivo · ZERO SALTI",
           "esercizi": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
             {
               "Blocco": "# Prehab",
               "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
@@ -8022,15 +7344,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -8088,7 +7402,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -8112,15 +7426,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -8210,15 +7516,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -8278,15 +7576,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -8344,7 +7634,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -8368,15 +7658,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -8466,15 +7748,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -8545,15 +7819,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -8611,7 +7877,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -8635,15 +7901,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -8733,15 +7991,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -8801,15 +8051,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -8867,7 +8109,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -8891,15 +8133,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -8989,15 +8223,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -9068,15 +8294,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -9134,7 +8352,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -9158,15 +8376,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -9256,15 +8466,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -9324,15 +8526,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -9390,7 +8584,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -9414,15 +8608,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -9512,15 +8698,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -9591,15 +8769,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -9657,7 +8827,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -9681,15 +8851,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -9779,15 +8941,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -9847,15 +9001,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -9913,7 +9059,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -9937,15 +9083,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -10035,15 +9173,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -10114,15 +9244,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -10180,7 +9302,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -10204,15 +9326,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -10302,15 +9416,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -10370,15 +9476,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -10436,7 +9534,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -10460,15 +9558,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -10558,15 +9648,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -10637,15 +9719,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -10703,7 +9777,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -10727,15 +9801,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -10825,15 +9891,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -10893,15 +9951,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -10959,7 +10009,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -10983,15 +10033,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -11081,15 +10123,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -11160,15 +10194,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -11226,7 +10252,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -11250,15 +10276,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -11348,15 +10366,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -11416,15 +10426,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -11482,7 +10484,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -11506,15 +10508,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -11604,15 +10598,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -11683,15 +10669,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -11749,7 +10727,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -11773,15 +10751,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -11871,15 +10841,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -11939,15 +10901,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -12005,7 +10959,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -12029,15 +10983,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -12127,15 +11073,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -12206,15 +11144,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -12272,7 +11202,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -12296,15 +11226,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -12394,15 +11316,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -12462,15 +11376,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -12528,7 +11434,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -12552,15 +11458,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -12650,15 +11548,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -13285,15 +12175,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -13351,7 +12233,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -13375,15 +12257,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -13473,15 +12347,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -13541,15 +12407,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -13607,7 +12465,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -13631,15 +12489,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -13729,15 +12579,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -13808,15 +12650,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -13874,7 +12708,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "6 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -13898,15 +12732,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -13996,15 +12822,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -14064,15 +12882,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -14130,7 +12940,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -14154,15 +12964,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -14252,15 +13054,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -14331,15 +13125,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie gestiti da service esterno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -14397,7 +13183,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con sovraccarico KB",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "8 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Pressione costante, lombare incollata al suolo"
             },
@@ -14421,15 +13207,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie per ruolo"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -14519,15 +13297,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "Focus flessori ed extrarotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
@@ -14587,15 +13357,7 @@ const WEEKS_DATA = {
           "1": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
               "Set x Reps": "1 x 2 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
@@ -14653,7 +13415,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Deadbug con KB al petto",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "2-4 kg",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida"
             },
@@ -14677,15 +13439,7 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "3 esercizi x 2/3 serie"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Profilazione Chronojump RSI/RFD",
+              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
               "Set x Reps": "2 x 3 balzi",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
@@ -14775,15 +13529,7 @@ const WEEKS_DATA = {
           "3": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Prehab Esterno Individuale",
-              "Set x Reps": "3 x 2-3",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Dinamico",
-              "Note Tecniche": "De-tensione miofasciale"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Passive Hang alla sbarra con appoggio piedi",
+              "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",

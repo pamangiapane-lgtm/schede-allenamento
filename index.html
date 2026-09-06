@@ -1984,7 +1984,7 @@ function normalizeExercise(raw, week) {
   let serie = '—';
   let reps = '—';
   if (setReps) {
-    const mSr = setReps.match(/(\d+)\s*[xX×]\s*([0-9+/'"A-Za-z\s]+)/);
+    const mSr = setReps.match(/^(\d+)\s*[xX×]\s*(.+)$/);
     if (mSr) {
       serie = mSr[1].trim();
       reps = mSr[2].trim();
@@ -2154,22 +2154,9 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
 
       let html = '';
 
-      // 1. ATHLETE STATUS & SHIFT BAR
-      html += `
-        <div class="ath-shift-banner">
-          <div class="ath-shift-row">
-            <div>
-              <div style="font-size:0.75rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Programmazione ${currentWeek === 'W3' ? 'Week 3' : 'Week 4'} · Marsala Volley A2</div>
-              <div style="font-size:1.1rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;margin-top:2px;">
-                <span>${currentAthlete.name}</span>
-                <span class="ath-risk-badge ${riskBadgeClass}">${rischioStr.split('(')[0].replace(/\*/g, '').trim()}</span>
-              </div>
-            </div>
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-              <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#1e3a8a;color:#93c5fd;border:1px solid #3b82f6;font-size:0.75rem;font-weight:800;padding:6px 12px;border-radius:8px;text-decoration:none;">🛡️ Portale Prehab ↗</a>
-            </div>
-          </div>
-
+      const isNelly = (currentAthlete.id === 14);
+      const riskBadgeHtml = isNelly ? `<span class="ath-risk-badge ${riskBadgeClass}">${rischioStr.split('(')[0].replace(/\*/g, '').trim()}</span>` : '';
+      const shiftRowHtml = isNelly ? `
           <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);">
             <div class="ath-shift-badge ${shiftBadgeClass}">
               <span>⏰</span> <span>${shiftName}</span>
@@ -2178,6 +2165,31 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
               <span>⚡</span> <span>VBT Enode: <strong>${vbtTarget}</strong> (-10% stop)</span>
             </div>
           </div>
+      ` : `
+          <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);">
+            <div style="background:rgba(232,160,32,0.12);border:1px solid rgba(232,160,32,0.3);color:var(--mv-amber);padding:7px 12px;border-radius:8px;font-size:0.78rem;font-weight:700;display:flex;align-items:center;gap:8px;">
+              <span>⚡</span> <span>Autoregolazione VBT Enode: <strong>${vbtTarget}</strong> (stop serie al -10% drop)</span>
+            </div>
+          </div>
+      `;
+
+      // 1. ATHLETE STATUS & SHIFT BAR
+      html += `
+        <div class="ath-shift-banner">
+          <div class="ath-shift-row">
+            <div>
+              <div style="font-size:0.75rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Programmazione ${currentWeek === 'W3' ? 'Week 3' : 'Week 4'} · Marsala Volley A2</div>
+              <div style="font-size:1.1rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;margin-top:2px;">
+                <span>${currentAthlete.name}</span>
+                ${riskBadgeHtml}
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#1e3a8a;color:#93c5fd;border:1px solid #3b82f6;font-size:0.75rem;font-weight:800;padding:6px 12px;border-radius:8px;text-decoration:none;">🛡️ Portale Prehab ↗</a>
+            </div>
+          </div>
+
+          ${shiftRowHtml}
         </div>
       `;
 
@@ -2219,6 +2231,11 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
         const coreList = [];
 
         normalizedList.forEach(norm => {
+          const lowExName = norm.exName.toLowerCase();
+          if (!isNelly && (lowExName.includes('prehab esterno') || lowExName.includes('1a. prehab'))) {
+            // Prehab esterno is already managed via external service and banner link
+            return;
+          }
           const cat = categorizeExerciseNorm(norm);
           if (cat === 'CMJ') {
             // Handled separately in the middle of Seduta 1
@@ -2398,14 +2415,19 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
         ` : '';
 
         const isOpen = '';
+        const sessionTitle = isNelly ? sed.Nome_Seduta : `Seduta ${sNum}`;
+        const sessionBadge = isNelly ? `Seduta ${sNum} · ${sed.Giorno || ''}` : `${sed.Giorno || `Seduta ${sNum}`}`;
+        const sessionMeta = isNelly ?
+          `📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 55} min · ${shiftName.split('·')[0].trim()}` :
+          `📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 55} min`;
 
         return `
           <div class="session-card ${isOpen}" id="card-${sed.Numero_Seduta}">
             <div class="session-head" onclick="toggleSession('${sed.Numero_Seduta}')">
               <div>
-                <span class="session-badge">Seduta ${sNum} · ${sed.Giorno || ''}</span>
-                <div class="session-title">${sed.Nome_Seduta}</div>
-                <div class="session-meta">📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 55} min · ${shiftName.split('·')[0].trim()}</div>
+                <span class="session-badge">${sessionBadge}</span>
+                <div class="session-title">${sessionTitle}</div>
+                <div class="session-meta">${sessionMeta}</div>
               </div>
               <div class="session-chevron">▾</div>
             </div>
