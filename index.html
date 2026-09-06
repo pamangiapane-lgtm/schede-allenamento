@@ -2134,8 +2134,13 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
   const lowName = exName.toLowerCase();
 
   let calcTargetBoxHtml = '';
-  // Utente: "non mi interessa il carico calcolato sotto gli esercizi di squat"
-  if (rmData && rmData.targetText && !lowName.includes('squat')) {
+  // Utente: "alcuni esercizi hanno sotto la dicitura 'carico calcolato' non la voglio vedere se replicano prettamente il carico già presente nella sezione intensità dell'esercizio di riferimento"
+  const isLoadAlreadyInIntensity = (
+    intensitaHtml.includes('kg') ||
+    (rmData && (rmData.targetKg > 0 || rmData.eachKg > 0)) ||
+    (carico && /\d+\s*kg/i.test(carico))
+  );
+  if (rmData && rmData.targetText && !lowName.includes('squat') && !isLoadAlreadyInIntensity) {
     calcTargetBoxHtml = `
       <div style="font-size:0.75rem; color:var(--mv-amber); background:rgba(245,158,11,0.08); border-left:3px solid var(--mv-amber); padding:6px 10px; border-radius:4px; margin-top:8px;">
         🎯 <strong>${isEN ? 'Target Load:' : 'Carico Calcolato:'}</strong> ${escapeHtml(rmData.targetText)}
