@@ -1087,7 +1087,7 @@
 
   </main>
 
-  <script src="data.js?v=20260906v210"></script>
+  <script src="data.js?v=20260906v211"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -1142,7 +1142,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=210').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=211').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -2167,41 +2167,12 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
       let html = '';
 
       const isNelly = (currentAthlete.id === 14);
-      const riskBadgeHtml = isNelly ? `<span class="ath-risk-badge ${riskBadgeClass}">${rischioStr.split('(')[0].replace(/\*/g, '').trim()}</span>` : '';
-      const shiftRowHtml = isNelly ? `
-          <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:8px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);">
-            <div class="ath-shift-badge ${shiftBadgeClass}">
-              <span>⏰</span> <span>${shiftName}</span>
-            </div>
-            <div style="background:rgba(232,160,32,0.12);border:1px solid rgba(232,160,32,0.3);color:var(--mv-amber);padding:6px 10px;border-radius:8px;font-size:0.75rem;font-weight:700;display:flex;align-items:center;gap:6px;">
-              <span>⚡</span> <span>VBT Enode: <strong>${vbtTarget}</strong> (-10% stop)</span>
-            </div>
-          </div>
-      ` : `
-          <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);">
-            <div style="background:rgba(232,160,32,0.12);border:1px solid rgba(232,160,32,0.3);color:var(--mv-amber);padding:7px 12px;border-radius:8px;font-size:0.78rem;font-weight:700;display:flex;align-items:center;gap:8px;">
-              <span>⚡</span> <span>Autoregolazione VBT Enode: <strong>${vbtTarget}</strong> (stop serie al -10% drop)</span>
-            </div>
-          </div>
-      `;
 
-      // 1. ATHLETE STATUS & SHIFT BAR
+      // 1. ATHLETE HEADER BAR (Pulito: nessun bollino rischio, nessun portale prehab dal nome, nessun turno, nessun vbt)
       html += `
-        <div class="ath-shift-banner">
-          <div class="ath-shift-row">
-            <div>
-              <div style="font-size:0.75rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Programmazione ${currentWeek === 'W3' ? 'Week 3' : 'Week 4'} · Marsala Volley A2</div>
-              <div style="font-size:1.1rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;margin-top:2px;">
-                <span>${currentAthlete.name}</span>
-                ${riskBadgeHtml}
-              </div>
-            </div>
-            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-              <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#1e3a8a;color:#93c5fd;border:1px solid #3b82f6;font-size:0.75rem;font-weight:800;padding:6px 12px;border-radius:8px;text-decoration:none;">🛡️ Portale Prehab ↗</a>
-            </div>
-          </div>
-
-          ${shiftRowHtml}
+        <div class="ath-shift-banner" style="margin-bottom:16px;">
+          <div style="font-size:0.75rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Programmazione ${currentWeek === 'W3' ? 'Week 3' : 'Week 4'} · Marsala Volley A2</div>
+          <div style="font-size:1.15rem;font-weight:800;color:#fff;margin-top:2px;">${currentAthlete.name}</div>
         </div>
       `;
 
@@ -2414,9 +2385,7 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
         const isOpen = '';
         const sessionTitle = isNelly ? sed.Nome_Seduta : `Seduta ${sNum}`;
         const sessionBadge = isNelly ? `Seduta ${sNum} · ${sed.Giorno || ''}` : `${sed.Giorno || `Seduta ${sNum}`}`;
-        const sessionMeta = isNelly ?
-          `📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 55} min · ${shiftName.split('·')[0].trim()}` :
-          `📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 55} min`;
+        const sessionMeta = `📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 55} min`;
 
         return `
           <div class="session-card ${isOpen}" id="card-${sed.Numero_Seduta}">
