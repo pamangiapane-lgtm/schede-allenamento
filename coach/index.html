@@ -864,7 +864,7 @@
 
     async function initCoach() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=218', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=219', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -1050,6 +1050,10 @@
 
         const live1RMTs = {};
 
+        const customLoadsMap = {};
+        const seenVBT = new Set();
+        const seenCMJ = new Set();
+
         rows.forEach(r => {
           const aid = parseInt(r.ID_Giocatrice || r.id_giocatrice);
           const athObj = ROSTER.find(a => a.id === aid);
@@ -1084,16 +1088,20 @@
               if (vel >= 5 && vel <= 150 && !valStr.includes('.')) vel = vel / 100;
             }
             if (vel !== null && vel > 0) {
-              liveVBTData.unshift({
-                aid: aid,
-                athName: athName,
-                role: athRole,
-                exercise: exRaw || 'Squat (Parallelo)',
-                vel: vel.toFixed(2),
-                session: nSeduta,
-                date: rDate || 'Oggi',
-                ts: ts
-              });
+              const vbtKey = `${aid}_${nSeduta}_${vel.toFixed(2)}_${ts.slice(0, 16)}`;
+              if (!seenVBT.has(vbtKey)) {
+                seenVBT.add(vbtKey);
+                liveVBTData.unshift({
+                  aid: aid,
+                  athName: athName,
+                  role: athRole,
+                  exercise: exRaw || 'Squat (Parallelo)',
+                  vel: vel.toFixed(2),
+                  session: nSeduta,
+                  date: rDate || 'Oggi',
+                  ts: ts
+                });
+              }
             }
             return; // Esci per non inquinare altre categorie
           }
@@ -1102,22 +1110,27 @@
           const isCmj = ex.includes('cmj') || ex.includes('chronojump');
           if (isCmj) {
             let cleanHeight = valStr;
-            if (cleanHeight.toLowerCase().includes('1899-12-31t')) {
+            if (cleanHeight.toLowerCase().includes('1899-12-31t') || cleanHeight.toLowerCase().includes('1899-12-30t')) {
               const tp = cleanHeight.split('T')[1].slice(0, 5);
-              cleanHeight = tp.replace(':', '.') + ' cm';
+              const parts = tp.split(':');
+              cleanHeight = `${parseInt(parts[0], 10)}.${parts[1]} cm`;
             } else {
               const hMatch = cleanHeight.replace(',', '.').match(/\d+(?:\.\d+)?/);
               if (hMatch) cleanHeight = `${parseFloat(hMatch[0])} cm`;
             }
-            liveCMJData.unshift({
-              aid: aid,
-              athName: athName,
-              role: athRole,
-              height: cleanHeight,
-              session: nSeduta,
-              date: rDate || 'Oggi',
-              ts: ts
-            });
+            const cmjKey = `${aid}_${nSeduta}_${cleanHeight}_${ts.slice(0, 16)}`;
+            if (!seenCMJ.has(cmjKey)) {
+              seenCMJ.add(cmjKey);
+              liveCMJData.unshift({
+                aid: aid,
+                athName: athName,
+                role: athRole,
+                height: cleanHeight,
+                session: nSeduta,
+                date: rDate || 'Oggi',
+                ts: ts
+              });
+            }
             return; // Esci per non inquinare altre categorie
           }
 
@@ -1150,19 +1163,27 @@
             if (isBW && val >= 40 && val <= 130) updateIfNewer('bw', val);
           }
 
-          // 4. CARICHI ACCESSORI & NOTE SQUADRA
+          // 4. CARICHI ACCESSORI & NOTE SQUADRA (Deduplicati e puliti da autoformattazione Sheets)
           if (valStr && valStr.trim().length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.startsWith('1rm') && !ex.includes('peso-corporeo') && !ex.includes('step up')) {
             let cleanL = valStr;
-            if (cleanL.startsWith('2026-10-10')) cleanL = '10+10 kg';
-            liveCustomLoads.unshift({
+            if (cleanL.startsWith('1899-12-31T') || cleanL.startsWith('1899-12-30T')) {
+              const timePart = cleanL.slice(11, 16);
+              const parts = timePart.split(':');
+              cleanL = `${parseInt(parts[0], 10)}.${parts[1]}`;
+            } else if (cleanL.startsWith('2026-10-10')) {
+              cleanL = '10+10 kg';
+            }
+            const loadKey = `${aid}_${r.Esercizio}_${nSeduta}`;
+            customLoadsMap[loadKey] = {
               aid: aid,
               athName: athName,
               exercise: r.Esercizio,
               load: cleanL,
               note: note,
               session: nSeduta,
-              date: rDate || 'Oggi'
-            });
+              date: rDate || 'Oggi',
+              ts: ts
+            };
           }
 
           // --- PARSING VALUTAZIONI SEDUTE PESI (sRPE & FATICA) ---
@@ -1226,6 +1247,14 @@
               if (note) sessionAgg[key].note = note;
             }
           }
+        });
+
+        // Estrai carichi accessori deduplicati (più recenti per primi)
+        liveCustomLoads = Object.values(customLoadsMap);
+        liveCustomLoads.sort((a, b) => {
+          const tA = (a.ts || a.date || '');
+          const tB = (b.ts || b.date || '');
+          return tB.localeCompare(tA);
         });
 
         // Unisci aggregati

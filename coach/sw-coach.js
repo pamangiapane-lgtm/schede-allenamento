@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (Isolato)
-const CACHE_NAME = 'coach-mv-v218-clean-metrics';
+const CACHE_NAME = 'coach-mv-v219-dedup';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

@@ -1143,7 +1143,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=211').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=219').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -1599,6 +1599,7 @@
     }
 
     const debounceCustomLoadTimers = {};
+    const lastSavedCustomLoads = {};
 
     function onCustomExerciseLoadInput(exName, inputId, nSeduta, val) {
       const v = (val || '').trim();
@@ -1609,10 +1610,11 @@
       clearTimeout(debounceCustomLoadTimers[inputId]);
       debounceCustomLoadTimers[inputId] = setTimeout(() => {
         saveCustomExerciseLoad(exName, inputId, nSeduta);
-      }, 1200);
+      }, 1500);
     }
 
     async function saveCustomExerciseLoad(exName, inputId, nSeduta) {
+      clearTimeout(debounceCustomLoadTimers[inputId]);
       const input = document.getElementById(inputId);
       if (!input || !currentAthlete) return;
       const val = input.value.trim();
@@ -1639,6 +1641,26 @@
           cleanVal = cleanVal.replace('-', '+') + ' kg';
         }
         localStorage.setItem(`mv_load_${currentAthlete.id}_${exName}`, cleanVal);
+      }
+
+      // Prevenzione click multipli / duplicati ravvicinati (antirimbalzo 3s)
+      const now = Date.now();
+      if (lastSavedCustomLoads[inputId] && 
+          lastSavedCustomLoads[inputId].val === cleanVal && 
+          (now - lastSavedCustomLoads[inputId].time < 3000)) {
+        return;
+      }
+      lastSavedCustomLoads[inputId] = { val: cleanVal, time: now };
+
+      const btn = input.parentElement?.querySelector('.btn-save-mini');
+      if (btn) {
+        btn.disabled = true;
+        const oldText = btn.textContent;
+        btn.textContent = '✓';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = oldText;
+        }, 1500);
       }
 
       const toast = document.getElementById(`toast-${inputId}`);
@@ -1671,6 +1693,7 @@
     }
 
     const debounceCustomVbtTimers = {};
+    const lastSavedVbtLoads = {};
 
     function onCustomExerciseVbtInput(exName, inputId, nSeduta, val) {
       const v = (val || '').trim();
@@ -1680,10 +1703,11 @@
       clearTimeout(debounceCustomVbtTimers[inputId]);
       debounceCustomVbtTimers[inputId] = setTimeout(() => {
         saveCustomExerciseVbt(exName, inputId, nSeduta);
-      }, 1200);
+      }, 1500);
     }
 
     async function saveCustomExerciseVbt(exName, inputId, nSeduta) {
+      clearTimeout(debounceCustomVbtTimers[inputId]);
       const input = document.getElementById(inputId);
       if (!input || !currentAthlete) return;
       const val = input.value.trim();
@@ -1703,6 +1727,26 @@
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_${exName}`, formattedVal);
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`, formattedVal);
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_Squat (Parallelo)`, formattedVal);
+
+      // Prevenzione click multipli / duplicati ravvicinati (antirimbalzo 3s)
+      const now = Date.now();
+      if (lastSavedVbtLoads[inputId] && 
+          lastSavedVbtLoads[inputId].val === formattedVal && 
+          (now - lastSavedVbtLoads[inputId].time < 3000)) {
+        return;
+      }
+      lastSavedVbtLoads[inputId] = { val: formattedVal, time: now };
+
+      const btn = input.parentElement?.querySelector('.btn-save-mini');
+      if (btn) {
+        btn.disabled = true;
+        const oldText = btn.textContent;
+        btn.textContent = '✓';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = oldText;
+        }, 1500);
+      }
 
       const toast = document.getElementById(`toast-${inputId}`);
       if (toast) {
@@ -2278,7 +2322,7 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
       <div class="ex-load-log-box" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);">
         <span class="ex-load-log-lbl" style="color:var(--mv-amber);">⚡ ${isEN ? 'Mean Velocity (m/s):' : 'Velocità Media (m/s):'}</span>
         <div class="ex-load-input-wrap">
-          <input type="text" class="ex-load-input" id="ex-vbt-${safeExId}" placeholder="${savedVbt ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedVbt}` : (isEN ? 'e.g. 0.65 m/s' : 'es. 0.65 m/s')}" value="${savedVbt}" oninput="onCustomExerciseVbtInput('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', this.value)" onchange="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}')">
+          <input type="text" class="ex-load-input" id="ex-vbt-${safeExId}" placeholder="${savedVbt ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedVbt}` : (isEN ? 'e.g. 0.65 m/s' : 'es. 0.65 m/s')}" value="${savedVbt}" oninput="onCustomExerciseVbtInput('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', this.value)">
           <button type="button" class="btn-save-mini" onclick="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}')">${isEN ? 'Save' : 'Salva'}</button>
           <span id="toast-ex-vbt-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
         </div>
@@ -2289,7 +2333,7 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
       <div class="ex-load-log-box">
         <span class="ex-load-log-lbl">📝 ${isEN ? 'Load Used:' : 'Carico Usato:'}</span>
         <div class="ex-load-input-wrap">
-          <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}', this.value)" onchange="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">
+          <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}', this.value)">
           <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">${isEN ? 'Save' : 'Salva'}</button>
           <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
         </div>
@@ -2346,7 +2390,7 @@ function renderCmjTestCard(sed, athlete, isEN) {
         <div class="ex-load-log-box" style="margin-top:10px;">
           <span class="ex-load-log-lbl">📝 ${isEN ? 'Recorded CMJ Height:' : 'Altezza CMJ registrata:'}</span>
           <div class="ex-load-input-wrap">
-            <input type="text" class="ex-load-input" id="ex-log-cmj-test" placeholder="${savedCmj ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedCmj}` : (isEN ? 'e.g. 38.5 cm' : 'es. 38.5 cm')}" value="${savedCmj}" oninput="onCustomExerciseLoadInput('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}', this.value)" onchange="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}')">
+            <input type="text" class="ex-load-input" id="ex-log-cmj-test" placeholder="${savedCmj ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedCmj}` : (isEN ? 'e.g. 38.5 cm' : 'es. 38.5 cm')}" value="${savedCmj}" oninput="onCustomExerciseLoadInput('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}', this.value)">
             <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}')">${isEN ? 'Save' : 'Salva'}</button>
             <span id="toast-ex-log-cmj-test" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
           </div>
