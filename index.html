@@ -1057,9 +1057,9 @@
             <div class="bw-sub">Modifica per ricalcolare istantaneamente lo Squat</div>
           </div>
           <div class="bw-input-row">
-            <input type="number" class="bw-input" id="input-bw" placeholder="kg" step="0.1" oninput="recalcBWLive(this.value)" onchange="saveBodyWeight()">
+            <input type="number" class="bw-input" id="input-bw" placeholder="kg" step="0.1" oninput="recalcBWLive(this.value)">
             <span style="font-size:0.82rem;color:var(--mv-muted);font-weight:700">kg</span>
-            <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="saveBodyWeight()">Salva</button>
+            <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="saveBodyWeight(this)">Salva</button>
             <span id="toast-bw" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.8rem;">✓</span>
           </div>
         </div>
@@ -1143,7 +1143,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=219').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=220').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -1353,14 +1353,28 @@
       }
     }
 
-    async function saveBodyWeight() {
-      const val = document.getElementById('input-bw').value.trim();
-      if (!val) return;
+    async function saveBodyWeight(btn) {
+      const input = document.getElementById('input-bw');
+      const val = input ? input.value.trim() : '';
+      const numVal = parseFloat(val) || 0;
+      if (numVal <= 0 || !currentAthlete) return;
 
-      localStorage.setItem(`mv_bw_${currentAthlete.id}`, val);
+      if (btn) {
+        btn.disabled = true;
+        const oldText = btn.textContent;
+        btn.textContent = '✓';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = oldText;
+        }, 1500);
+      }
+
+      localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(numVal));
       const toast = document.getElementById('toast-bw');
-      toast.style.display = 'inline';
-      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+      if (toast) {
+        toast.style.display = 'inline';
+        setTimeout(() => { toast.style.display = 'none'; }, 2000);
+      }
 
       try {
         fetch(`${GAS_URL}?token=${TOKEN}`, {
@@ -1370,11 +1384,12 @@
           body: JSON.stringify({
             token: TOKEN,
             azione: 'log_progressi',
+            tipo_metrica: 'BW',
             id_giocatrice: currentAthlete.id,
             n_seduta: 0,
             esercizio: 'Peso-corporeo',
             data: new Date().toISOString().slice(0, 10),
-            valore: `${val} kg`
+            valore: `${numVal} kg`
           })
         });
       } catch (err) {}
@@ -1423,12 +1438,8 @@
       }
     }
 
-    const debounce1RMTimers = {};
-
     function recalc1RMLive(rmId, val) {
       const parsed = parseFloat(val) || 0;
-      localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, parsed);
-
       const rmObj = RM_KEYS.find(k => k.id === rmId);
       if (rmObj) {
         [50, 60, 70, 75, 80, 85, 90].forEach(p => {
@@ -1437,16 +1448,6 @@
           if (el) el.textContent = kg !== '—' ? `${kg}k` : '—';
         });
       }
-
-      renderSessions();
-
-      // Debounced auto-salvataggio su cloud (1.2s dopo digitazione)
-      clearTimeout(debounce1RMTimers[rmId]);
-      debounce1RMTimers[rmId] = setTimeout(() => {
-        if (parsed > 0) {
-          save1RMToCloud(rmId, parsed);
-        }
-      }, 1200);
     }
 
     async function save1RMToCloud(rmId, val) {
@@ -1465,6 +1466,7 @@
           body: JSON.stringify({
             token: TOKEN,
             azione: 'log_progressi',
+            tipo_metrica: '1RM',
             id_giocatrice: currentAthlete.id,
             n_seduta: 0,
             esercizio: `1RM-${rmId}`,
@@ -1503,7 +1505,7 @@
                 ${bwFormulaNote}
               </div>
               <div class="rm-val-box">
-                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg" oninput="recalc1RMLive('${rm.id}', this.value)" onchange="save1RMClick('${rm.id}', this)">
+                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg" oninput="recalc1RMLive('${rm.id}', this.value)">
                 <span style="font-size:0.8rem;color:var(--mv-muted);font-weight:700">kg</span>
                 <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="save1RMClick('${rm.id}', this)">${isEN ? 'Save' : 'Salva'}</button>
                 <span id="toast-1rm-${rm.id}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.8rem;">✓</span>
@@ -1518,11 +1520,25 @@
     async function save1RMClick(rmId, btn) {
       const input = document.getElementById(`input-1rm-${rmId}`);
       const val = input ? input.value.trim() : '';
-      if (!val) return;
+      const numVal = parseFloat(val) || 0;
+      if (numVal <= 0 || !currentAthlete) return;
 
-      clearTimeout(debounce1RMTimers[rmId]);
-      localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, val);
-      await save1RMToCloud(rmId, val);
+      if (btn) {
+        btn.disabled = true;
+        const oldText = btn.textContent;
+        btn.textContent = '✓';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = oldText;
+        }, 1500);
+      }
+
+      // Salvataggio definitivo immediato in localStorage
+      localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, String(numVal));
+
+      // Invio definitivo immediato a Google Sheets (indipendente dalla chiusura seduta)
+      await save1RMToCloud(rmId, numVal);
+
       render1RMProfile();
       renderSessions();
     }
@@ -1598,7 +1614,6 @@
       `;
     }
 
-    const debounceCustomLoadTimers = {};
     const lastSavedCustomLoads = {};
 
     function onCustomExerciseLoadInput(exName, inputId, nSeduta, val) {
@@ -1606,15 +1621,9 @@
       if (!v || !currentAthlete) return;
       localStorage.setItem(`mv_load_${currentAthlete.id}_${exName}`, v);
       renderRiepilogoCarichi();
-
-      clearTimeout(debounceCustomLoadTimers[inputId]);
-      debounceCustomLoadTimers[inputId] = setTimeout(() => {
-        saveCustomExerciseLoad(exName, inputId, nSeduta);
-      }, 1500);
     }
 
     async function saveCustomExerciseLoad(exName, inputId, nSeduta) {
-      clearTimeout(debounceCustomLoadTimers[inputId]);
       const input = document.getElementById(inputId);
       if (!input || !currentAthlete) return;
       const val = input.value.trim();
@@ -1692,22 +1701,15 @@
       renderRiepilogoCarichi();
     }
 
-    const debounceCustomVbtTimers = {};
     const lastSavedVbtLoads = {};
 
     function onCustomExerciseVbtInput(exName, inputId, nSeduta, val) {
       const v = (val || '').trim();
       if (!v || !currentAthlete) return;
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_${exName}`, v);
-
-      clearTimeout(debounceCustomVbtTimers[inputId]);
-      debounceCustomVbtTimers[inputId] = setTimeout(() => {
-        saveCustomExerciseVbt(exName, inputId, nSeduta);
-      }, 1500);
     }
 
     async function saveCustomExerciseVbt(exName, inputId, nSeduta) {
-      clearTimeout(debounceCustomVbtTimers[inputId]);
       const input = document.getElementById(inputId);
       if (!input || !currentAthlete) return;
       const val = input.value.trim();

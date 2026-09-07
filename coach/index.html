@@ -369,6 +369,268 @@
       font-size: 0.72rem;
       color: var(--mv-muted);
     }
+
+    /* ==========================================================================
+       SEZIONE CAMPO S&C (3 SEDUTE POMERIDIANE W3 - PARQUET)
+       ========================================================================== */
+    .campo-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .campo-header-card {
+      background: linear-gradient(135deg, rgba(15, 25, 45, 0.95), rgba(7, 18, 38, 0.95));
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .campo-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .campo-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .campo-badge {
+      background: rgba(6, 182, 212, 0.15);
+      color: #22d3ee;
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .campo-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .btn-campo-act {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--mv-border);
+      color: var(--mv-text);
+      padding: 5px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .btn-campo-act:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .campo-day-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .campo-day-tabs::-webkit-scrollbar { display: none; }
+    .btn-c-day {
+      background: var(--mv-surface2);
+      border: 1px solid var(--mv-border);
+      color: var(--mv-muted);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .btn-c-day:hover {
+      background: #1e3155;
+      color: #fff;
+    }
+    .btn-c-day.active {
+      background: #0284c7;
+      border-color: #38bdf8;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.4);
+    }
+    .btn-c-day.active.day-lun {
+      background: #d97706;
+      border-color: #fbbf24;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(217, 119, 6, 0.4);
+    }
+    .btn-c-day.active.day-mer {
+      background: #b91c1c;
+      border-color: #f87171;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(185, 28, 28, 0.4);
+    }
+    .btn-c-day.active.day-ven {
+      background: #1d4ed8;
+      border-color: #60a5fa;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(29, 78, 216, 0.4);
+    }
+
+    .campo-day-section {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .campo-day-section.active {
+      display: flex;
+    }
+
+    .campo-card {
+      background: #0f192d;
+      border: 1px solid #1f365d;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .campo-day-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 12px;
+    }
+    .campo-day-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .campo-day-meta {
+      font-size: 0.74rem;
+      color: var(--mv-muted);
+      font-weight: 600;
+    }
+
+    .campo-blocks-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    @media (min-width: 680px) {
+      .campo-blocks-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .campo-block {
+      background: rgba(7, 18, 38, 0.7);
+      border: 1px solid rgba(31, 54, 93, 0.8);
+      border-left: 4px solid var(--mv-blue);
+      border-radius: 0 8px 8px 0;
+      padding: 9px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+    .campo-block.b1 { border-left-color: #f59e0b; }
+    .campo-block.b2 { border-left-color: #ef4444; }
+    .campo-block.b3 { border-left-color: #a855f7; }
+    .campo-block.b4 { border-left-color: #10b981; }
+
+    .block-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+      font-weight: 800;
+      font-size: 0.82rem;
+      color: #fff;
+    }
+    .block-head .time-tag {
+      color: #94a3b8;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(255,255,255,0.06);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .block-desc {
+      font-size: 0.77rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+    .block-desc strong { color: #fff; }
+    .block-desc em { color: #fde68a; font-style: normal; }
+
+    .tag-synapse {
+      display: inline-block;
+      background: rgba(239, 68, 68, 0.18);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 800;
+      font-size: 0.68rem;
+      letter-spacing: 0.3px;
+    }
+    .tag-role {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.18);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 0 4px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    .safety-banner {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px dashed rgba(239, 68, 68, 0.4);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+      color: #fca5a5;
+      line-height: 1.35;
+      margin-top: 4px;
+    }
+    .safety-banner strong {
+      color: #ef4444;
+      font-weight: 800;
+    }
+    .safety-banner.ban-jump {
+      background: rgba(220, 38, 38, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.6);
+      color: #fee2e2;
+    }
+
+    .campo-block[contenteditable="true"]:focus,
+    .campo-card [contenteditable="true"]:focus {
+      outline: 1px solid #06b6d4;
+      background: rgba(6, 182, 212, 0.08);
+      border-radius: 3px;
+    }
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -422,6 +684,7 @@
       <div class="coach-nav-tabs">
         <button class="c-tab-btn active" id="btn-tab-readiness" onclick="switchCoachTab('readiness', this)">🚦 Readiness</button>
         <button class="c-tab-btn" id="btn-tab-sedute" onclick="switchCoachTab('sedute', this)">🏋️ Sedute Pesi</button>
+        <button class="c-tab-btn" id="btn-tab-campo" onclick="switchCoachTab('campo', this)">🏐 Campo S&C</button>
         <button class="c-tab-btn" id="btn-tab-massimali" onclick="switchCoachTab('massimali', this)">💪 1RM & Benchmark</button>
         <button class="c-tab-btn" id="btn-tab-analytics" onclick="switchCoachTab('analytics', this)">📈 Trend & Grafici</button>
         <button class="c-tab-btn" id="btn-tab-jump" onclick="switchCoachTab('jump', this)">📊 Jump & Carichi</button>
@@ -611,6 +874,310 @@
       </div>
 
     </div>
+
+    <!-- VISTA: SEDUTE CAMPO S&C (3 SEDUTE POMERIDIANE W3 - PARQUET) -->
+    <div class="c-panel" id="panel-campo">
+      
+      <!-- Card Intestazione Sezione Campo -->
+      <div class="campo-header-card">
+        <div class="campo-header-top">
+          <div class="campo-title">
+            <span>🏐</span>
+            <span>Programma Campo S&C — Preseason W3</span>
+            <span class="campo-badge">Parquet 45' · Zero Elettronica</span>
+          </div>
+          <div class="campo-actions">
+            <button class="btn-campo-act" onclick="copyCampoSummary()" title="Copia lo schema del giorno per WhatsApp o note staff">
+              📋 Copia per Staff
+            </button>
+            <button class="btn-campo-act" onclick="saveCampoEdits()" title="Salva le modifiche apportate ai testi nella memoria del browser">
+              💾 Salva Modifiche
+            </button>
+            <button class="btn-campo-act" onclick="resetCampoEdits()" title="Ripristina il programma originario">
+              🔄 Reset
+            </button>
+          </div>
+        </div>
+
+        <div style="font-size:0.75rem;color:var(--mv-muted);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+          <span>Microciclo Settimana 3 (Picco Forza Pesante) · 3 Sedute Pomeridiane a Secco prima del Volley Tecnico.</span>
+          <span style="color:#fde68a;font-size:0.72rem;background:rgba(245,158,11,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(245,158,11,0.25);">
+            ✏️ Tocca qualsiasi testo per modificarlo
+          </span>
+        </div>
+
+        <!-- Selettore Giorni Settimana -->
+        <div class="campo-day-tabs">
+          <button class="btn-c-day active day-lun" id="btn-cday-lun" onclick="switchCampoDay('lun', this)">🟡 Lunedì (Campo 1)</button>
+          <button class="btn-c-day day-mer" id="btn-cday-mer" onclick="switchCampoDay('mer', this)">🔴 Mercoledì (Campo 2)</button>
+          <button class="btn-c-day day-ven" id="btn-cday-ven" onclick="switchCampoDay('ven', this)">🔵 Venerdì (Campo 3)</button>
+          <button class="btn-c-day" id="btn-cday-all" onclick="switchCampoDay('all', this)">📋 Tutti e 3 i Giorni</button>
+        </div>
+      </div>
+
+      <!-- Feedback Toast / Alert temporaneo -->
+      <div id="campo-toast" style="display:none;background:#065f46;color:#a7f3d0;border:1px solid #10b981;border-radius:6px;padding:6px 12px;font-size:0.75rem;font-weight:700;margin-top:8px;"></div>
+
+      <!-- CONTENITORE SEDUTE (EDITABILE) -->
+      <div id="campo-days-container" style="display:flex;flex-direction:column;gap:14px;margin-top:10px;">
+        
+        <!-- ========================================== -->
+        <!-- GIORNO 1: LUNEDÌ (CAMPO 1 - 45')          -->
+        <!-- ========================================== -->
+        <div class="campo-day-section active" id="campo-day-lun">
+          <div class="campo-card">
+            <div class="campo-day-head">
+              <div>
+                <div class="campo-day-title">
+                  <span style="color:#f59e0b">🟡 Lunedì Pomeriggio</span>
+                  <span style="font-size:0.8rem;color:#cbd5e1;font-weight:700">· CAMPO 1 (45')</span>
+                </div>
+                <div class="campo-day-meta">Decelerazione Eccentrica, Frenata 180° & Synapse Base · ZERO SALTI A SECCO</div>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <span class="campo-badge" style="border-color:#f59e0b;color:#fde68a;background:rgba(245,158,11,0.15)">Ratio 1:3 RSA</span>
+                <span class="campo-badge" style="border-color:#10b981;color:#6ee7b7;background:rgba(16,185,129,0.15)">No Jump</span>
+              </div>
+            </div>
+
+            <!-- Griglia 4 Blocchi -->
+            <div class="campo-blocks-grid">
+              
+              <!-- B1 -->
+              <div class="campo-block b1" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">00'–10'</span> <span>B1: ATTIVAZIONE & SYNAPSE BASE</span></div>
+                  <span class="tag-synapse">ELAV COGNITIVO</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Mobilità Dinamica Articolare (4'):</strong> 90/90 hip mobility a terra, affondi con rotazione del tronco (2x6/lato), attivazione arco plantare (<em>short foot</em> scalzo).<br>
+                  • <strong>Attivazione Neurale Elastico (3'):</strong> Monster walk laterale + camminata a croce con miniband (2x10 passi).<br>
+                  • <strong>SYNAPSE 1 — Stimolo Cromatico (3'):</strong> Skip leggero sul posto ➔ arresto immediato su cono a sorpresa mostrato dal preparatore:<br>
+                  &nbsp;&nbsp;🔴 <em>Rosso:</em> Freeze 2" gamba DX (monopodalico)<br>
+                  &nbsp;&nbsp;🔵 <em>Blu:</em> Freeze 2" gamba SX (monopodalico)<br>
+                  &nbsp;&nbsp;🟡 <em>Giallo:</em> Freeze squadrato a 2 piedi (baricentro basso). 3 serie x 45" (rec. 20").
+                </div>
+              </div>
+
+              <!-- B2 -->
+              <div class="campo-block b2" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">10'–25'</span> <span>B2: FORZA A TERRA & COD 180°</span></div>
+                  <span style="color:#f87171;font-weight:800;font-size:0.7rem;">FORZA A TERRA</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Sprint Breve & Arresto a 2 Tempi (7'):</strong> Scatto massimale sui 5m con frenata secca su linea in 2 passi senza rotazione bacino né valgismo ginocchio: 4 serie x 2 frenate (rec. 30").<br>
+                  • <strong>COD 180° Volley (5-0-5 modificato) (8'):</strong> Allungo 4m ➔ arresto violento su riga ➔ inversione a 180° ➔ spinta esplosiva nei primi 3m di ritorno: 4 serie x 2/lato (rec. 45" camminando).<br>
+                  • <strong>Densità Metabolica Indiretta:</strong> Azioni massimali di 4-5" con 15-20" di recupero camminando (rapporto 1:3).
+                </div>
+              </div>
+
+              <!-- B3 -->
+              <div class="campo-block b3" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">25'–38'</span> <span>B3: RUOLO A SECCO + MEDBALL</span></div>
+                  <span class="tag-role">SPECIFICO RUOLO</span>
+                </div>
+                <div class="block-desc">
+                  • <strong style="color:#d8b4fe">Centrali (Marcuzzi, Biondi):</strong> Spostamento laterale rapido a 2 passi lungo la rete + arresto squadrato su scelta visiva dx/sx (4 serie x 3).<br>
+                  • <strong style="color:#d8b4fe">Bande/Opposti (Asonja, Nonnati, Sassolini, Bole, Dodi, Adamczewska, Caserta):</strong> Rincorsa 3 passi con frenata in 2 tempi rasoterra NO STACCO (focus assorbimento penultimo-ultimo passo): 4 serie x 3 frenate.<br>
+                  • <strong style="color:#d8b4fe">Liberi/Palleggi (Lo Dico, Cicola, Allasia, Grippo):</strong> Navette 3x3m a triangolo rasoterra su comando visivo improvviso (4 serie x 15").<br>
+                  • <strong>Transfer Balistico:</strong> Chest pass esplosivo a 2 mani contro muro con palla medica 3 kg: 3 serie x 5 lanci massimali (rec. 30").
+                </div>
+              </div>
+
+              <!-- B4 -->
+              <div class="campo-block b4" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">38'–45'</span> <span>B4: PREVENZIONE & CONSEGNA</span></div>
+                  <span style="color:#6ee7b7;font-weight:800;font-size:0.7rem;">CONSEGNA COACH</span>
+                </div>
+                <div class="block-desc">
+                  • Extra-rotatori della spalla con elastico (2x10) + tenute isometriche core Hollow/Arch (2x20").<br>
+                  • De-tensione e respirazione diaframmatica guidata.<br>
+                  • Atlete consegnate pronte e attivate al Primo Allenatore.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Safety Net Banner Lunedì -->
+            <div class="safety-banner" contenteditable="true">
+              🛡️ <strong>SAFETY NET AUTOREGOLAZIONE ECCENTRICA (Lunedì):</strong> Se al test Chronojump mattutino un'atleta segna drop &gt;7-8%, il Blocco 2 (COD 180°) passa automaticamente da 4 a 2 serie, convertendo i 7-8 minuti restanti in footwork rapido su scaletta a terra senza impatto frenante violento.
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- GIORNO 2: MERCOLEDÌ (CAMPO 2 - 45')       -->
+        <!-- ========================================== -->
+        <div class="campo-day-section" id="campo-day-mer">
+          <div class="campo-card">
+            <div class="campo-day-head">
+              <div>
+                <div class="campo-day-title">
+                  <span style="color:#ef4444">🔴 Mercoledì Pomeriggio</span>
+                  <span style="font-size:0.8rem;color:#cbd5e1;font-weight:700">· CAMPO 2 (45')</span>
+                </div>
+                <div class="campo-day-meta">Stiffness Reattiva, Pliometria di Ruolo & Lanci Medball · Ground Contact &lt;0.22s</div>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <span class="campo-badge" style="border-color:#ef4444;color:#fca5a5;background:rgba(239,68,68,0.15)">Fast Stretch-Shortening</span>
+                <span class="campo-badge" style="border-color:#38bdf8;color:#93c5fd;background:rgba(56,189,248,0.15)">Jump Budget</span>
+              </div>
+            </div>
+
+            <!-- Griglia 4 Blocchi -->
+            <div class="campo-blocks-grid">
+              
+              <!-- B1 -->
+              <div class="campo-block b1" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">00'–10'</span> <span>B1: ATTIVAZIONE ELASTICA & ANKLING</span></div>
+                  <span class="tag-synapse">ELAV REATTIVO</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Piede & Caviglia (4'):</strong> Ankling drills su 10m (rullata reattiva tacco-punta a gambe tese), camminata su avampiedi.<br>
+                  • <strong>Pogo Jumps a terra (3'):</strong> 3 serie x 10 rimbalzi reattivi a piedi pari concentrati sulla stiffness del tendine d'Achille (rec. 30").<br>
+                  • <strong>SYNAPSE 2 — Speed Ladder Stroop (3'):</strong> Footwork su scaletta a 2 piedi dentro; all'uscita chiamata vocale con comando invertito ("Destra" ➔ scatto a Sinistra / "Sinistra" ➔ scatto a Destra): 4 ripetizioni a testa.
+                </div>
+              </div>
+
+              <!-- B2 -->
+              <div class="campo-block b2" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">10'–25'</span> <span>B2: PLIOMETRIA OSTACOLINI & RUOLO</span></div>
+                  <span style="color:#f87171;font-weight:800;font-size:0.7rem;">STIFFNESS & PLIO</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Pliometria Ostacolini Bassi 15-20cm (7'):</strong> 4 ostacolini continui a rimbalzo elastico reattivo (tempo al suolo &lt;0.22s): 4 serie x 4 balzi (rec. 60"). <em>(Liberi: sostituiscono con navetta reattiva 3x4m con tocco linea)</em>.<br>
+                  • <strong>Pliometria di Ruolo sul Parquet (8'):</strong><br>
+                  &nbsp;&nbsp;🏐 <em>Bande/Opposti:</em> 4 serie x 3 salti con rincorsa completa d'attacco (conversione velocità orizzontale/verticale, atterraggio simmetrico 2 piedi).<br>
+                  &nbsp;&nbsp;🛡️ <em>Centrali:</em> 4 serie x 3 salti a muro reattivi con spostamento laterale 1 passo e stacco immediato.<br>
+                  &nbsp;&nbsp;🎯 <em>Palleggiatrici:</em> 3 serie x 3 salti di palleggio in sospensione da fermo con arrivo morbido.<br>
+                  &nbsp;&nbsp;⚡ <em>Liberi:</em> 4 serie x 15" di scivolamenti difensivi reattivi a specchio a coppie.
+                </div>
+              </div>
+
+              <!-- B3 -->
+              <div class="campo-block b3" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">25'–38'</span> <span>B3: SITUAZIONALE + LANCI MEDBALL</span></div>
+                  <span class="tag-role">TRANSFER ROTAZIONALE</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Lanci Medball Rotazionali (7'):</strong> Lancio balistico contro muro a 2 mani (3 kg) con rotazione d'anca libera: 3 serie x 4+4 lanci per lato (rec. 40").<br>
+                  • <strong>SYNAPSE 3 — Dual-Task Volley (6'):</strong> Ricezione palla medica o pallone leggero lanciato a sorpresa durante una transizione rapida muro-difesa: 4 serie x 3 ripetizioni.
+                </div>
+              </div>
+
+              <!-- B4 -->
+              <div class="campo-block b4" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">38'–45'</span> <span>B4: PREVENZIONE TENDINEA & CONSEGNA</span></div>
+                  <span style="color:#6ee7b7;font-weight:800;font-size:0.7rem;">CONSEGNA COACH</span>
+                </div>
+                <div class="block-desc">
+                  • Soleus stretch al muro + eccentrico isometrico polpacci su gradino (2x8/lato).<br>
+                  • De-tensione miofasciale e respirazione di scarico.<br>
+                  • Consegna atlete reattive e pronte al Primo Allenatore.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Safety Net Banner Mercoledì -->
+            <div class="safety-banner" contenteditable="true">
+              🛡️ <strong>SAFETY NET JUMP BUDGET (Mercoledì):</strong> Se nella seduta tecnica pomeridiana il coach programma una dose massiccia di salti (6v6 o tie-break simulato), la pliometria del Blocco 2 scala automaticamente del 50% (8–12 salti massimali anziché 16–24).
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- GIORNO 3: VENERDÌ (CAMPO 3 - 45')          -->
+        <!-- ========================================== -->
+        <div class="campo-day-section" id="campo-day-ven">
+          <div class="campo-card">
+            <div class="campo-day-head">
+              <div>
+                <div class="campo-day-title">
+                  <span style="color:#38bdf8">🔵 Venerdì Pomeriggio</span>
+                  <span style="font-size:0.8rem;color:#cbd5e1;font-weight:700">· CAMPO 3 (45')</span>
+                </div>
+                <div class="campo-day-meta">Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI · Consegna Freschissime</div>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <span class="campo-badge" style="border-color:#ef4444;color:#fca5a5;background:rgba(239,68,68,0.2)">🛑 Friday Jump Ban</span>
+                <span class="campo-badge" style="border-color:#10b981;color:#6ee7b7;background:rgba(16,185,129,0.15)">Pre-Gara 100%</span>
+              </div>
+            </div>
+
+            <!-- Griglia 4 Blocchi -->
+            <div class="campo-blocks-grid">
+              
+              <!-- B1 -->
+              <div class="campo-block b1" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">00'–10'</span> <span>B1: ATTIVAZIONE & RESET FASCIALE</span></div>
+                  <span class="tag-synapse">RESET NERVOSO</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Mobilità Globale senza Carichi (5'):</strong> Flessori anca in allungamento dinamico, aperture toraciche, monster walk elastica (2x10 passi).<br>
+                  • <strong>Esercizio Sensoriale a Terra (5'):</strong> Propriocezione del piede a occhi chiusi e trasferimenti di carico lenti (2x30").
+                </div>
+              </div>
+
+              <!-- B2 -->
+              <div class="campo-block b2" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">10'–25'</span> <span>B2: AGILITÀ A TERRA & FREQUENZA</span></div>
+                  <span style="color:#f87171;font-weight:800;font-size:0.7rem;">ZERO SALTI</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Scaletta a Frequenza Pura (7'):</strong> Pattern In-Out laterale e Icky Shuffle ad altissima frequenza di piedi senza staccarsi dal suolo: 4 serie x 8 metri (rec. 45").<br>
+                  • <strong>Primi Passi Esplosivi 3–4 Metri (8'):</strong> Scatto fulmineo da posizione difensiva (primi 3 passi) con decelerazione elastica progressiva camminata: 4 serie x 2 partenze (rec. 45"). <em>Nessun salto né atterraggio d'impatto</em>.
+                </div>
+              </div>
+
+              <!-- B3 -->
+              <div class="campo-block b3" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">25'–38'</span> <span>B3: SYNAPSE AVANZATO (GO / NO-GO)</span></div>
+                  <span class="tag-synapse">DECISION-MAKING</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Comandi Go / No-Go (ELAV):</strong> L'atleta parte in accelerazione su comando visivo (cartellino verde/rosso o pallone); se lo stimolo commuta a metà scatto in "No-Go", deve frenare all'istante con blocco pelvico: 4 serie x 3 stimoli.<br>
+                  • <strong>Coordinazione Oculomotoria a Terra:</strong> Reattività rapida su palline da tennis o bersagli a terra da postura difensiva bassa (4 serie x 20").
+                </div>
+              </div>
+
+              <!-- B4 -->
+              <div class="campo-block b4" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">38'–45'</span> <span>B4: DECOMPRESSIONE & CALMA</span></div>
+                  <span style="color:#6ee7b7;font-weight:800;font-size:0.7rem;">PRE-GARA 100%</span>
+                </div>
+                <div class="block-desc">
+                  • Allungamento catena posteriore, decompressione lombare a terra, respirazione diaframmatica guidata.<br>
+                  • Squadra consegnata al 100% di freschezza muscolare per la rifinitura tecnica e l'amichevole del sabato.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Safety Net Banner Venerdì -->
+            <div class="safety-banner ban-jump" contenteditable="true">
+              🛑 <strong>STRICT FRIDAY JUMP BAN (Venerdì):</strong> Divieto assoluto di salti, balzi o impatti pliometrici a secco prima dell'allenamento con palla. Zero test CMJ nel pre-gara per preservare tendini rotulei e freschezza neuromuscolare.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
     <div class="c-panel" id="panel-analytics">
       
       <!-- Selettore Atleta / Squadra -->
@@ -1357,6 +1924,92 @@
       document.querySelectorAll('.c-panel').forEach(p => p.classList.remove('active'));
       document.getElementById(`panel-${tab}`).classList.add('active');
     }
+
+    /* ==========================================
+       LOGICA SEZIONE CAMPO S&C (W3)
+       ========================================== */
+    function switchCampoDay(day, btn) {
+      document.querySelectorAll('.btn-c-day').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      
+      const days = ['lun', 'mer', 'ven'];
+      if (day === 'all') {
+        days.forEach(d => {
+          const el = document.getElementById(`campo-day-${d}`);
+          if (el) el.classList.add('active');
+        });
+      } else {
+        days.forEach(d => {
+          const el = document.getElementById(`campo-day-${d}`);
+          if (el) {
+            if (d === day) el.classList.add('active');
+            else el.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    function saveCampoEdits() {
+      const container = document.getElementById('campo-days-container');
+      if (!container) return;
+      localStorage.setItem('coach_mv_campo_edits_w3', container.innerHTML);
+      showCampoToast('✅ Modifiche salvate nella memoria del browser!');
+    }
+
+    function resetCampoEdits() {
+      if (confirm('Vuoi ripristinare il programma Campo originario di W3?')) {
+        localStorage.removeItem('coach_mv_campo_edits_w3');
+        location.reload();
+      }
+    }
+
+    function showCampoToast(msg) {
+      const toast = document.getElementById('campo-toast');
+      if (!toast) return;
+      toast.innerHTML = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 3500);
+    }
+
+    function copyCampoSummary() {
+      let text = '🏐 *MARSALA VOLLEY A2 — SEDUTA CAMPO S&C (W3)*\n';
+      const activeDays = document.querySelectorAll('.campo-day-section.active');
+      activeDays.forEach(sec => {
+        const title = sec.querySelector('.campo-day-title')?.innerText.replace(/\s+/g, ' ').trim() || '';
+        const meta = sec.querySelector('.campo-day-meta')?.innerText.replace(/\s+/g, ' ').trim() || '';
+        text += `\n📌 *${title}*\n_${meta}_\n`;
+        
+        const blocks = sec.querySelectorAll('.campo-block');
+        blocks.forEach(b => {
+          const bTitle = b.querySelector('.block-head span:not(.time-tag):not(.tag-synapse)')?.innerText.trim() || '';
+          const time = b.querySelector('.time-tag')?.innerText.trim() || '';
+          const desc = b.querySelector('.block-desc')?.innerText.replace(/\s+/g, ' ').trim() || '';
+          text += `▪️ *[${time}] ${bTitle}*: ${desc}\n`;
+        });
+        
+        const safety = sec.querySelector('.safety-banner')?.innerText.replace(/\s+/g, ' ').trim() || '';
+        if (safety) text += `🛡️ *${safety}*\n`;
+      });
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCampoToast('📋 Schema copiato negli appunti per WhatsApp/Staff!');
+        }).catch(() => {
+          showCampoToast('⚠️ Impossibile copiare automaticamente, seleziona il testo.');
+        });
+      } else {
+        showCampoToast('📋 Copia non supportata su questo browser.');
+      }
+    }
+
+    function initCampoSection() {
+      const saved = localStorage.getItem('coach_mv_campo_edits_w3');
+      if (saved) {
+        const container = document.getElementById('campo-days-container');
+        if (container) container.innerHTML = saved;
+      }
+    }
+
 
     function setRosterFilter(status, btn) {
       currentFilterStatus = status;
