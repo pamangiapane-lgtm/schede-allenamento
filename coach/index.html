@@ -537,23 +537,74 @@
         </div>
       </div>
 
-      <!-- Tabella Ultimi Carichi Accessori Registrati dalla Squadra -->
-      <div class="card-box">
-        <h3 class="card-title">📦 Carichi Registrati in Sala Pesi (Accessori / Manubri / Cavi)</h3>
-        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">I pesi usati e salvati dalle ragazze durante le sedute pesi (Single-arm row, Medball slam, Hip thrust, Push press manubri, ecc.)</p>
+      <!-- Tabella Monitoraggio VBT Squat (Encoder Enode) -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 class="card-title" style="margin-bottom:0;">⚡ Monitoraggio VBT Squat (Encoder Enode)</h3>
+          <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-vbt-total">0 rilevazioni</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Velocità media concentrica su Back Squat rilevata con encoder Enode (Target ottimale forza-velocità: ≥ 0.70 m/s).</p>
         <div class="coach-tbl-wrap" style="max-height:360px;overflow-y:auto;">
           <table class="coach-tbl">
             <thead>
               <tr>
                 <th>Atleta</th>
                 <th>Esercizio</th>
+                <th>Velocità Media</th>
+                <th>Seduta</th>
+                <th>Data & Ora</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-vbt-body">
+              <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento dati VBT...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tabella Test Neuromuscolare CMJ (Chronojump) -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 class="card-title" style="margin-bottom:0;">🚀 Test Neuromuscolare CMJ (Pedana Chronojump)</h3>
+          <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-cmj-total">0 salti</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Altezza di salto registrata (cm) all'ingresso in sala pesi dopo l'attivazione.</p>
+        <div class="coach-tbl-wrap" style="max-height:360px;overflow-y:auto;">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Atleta</th>
+                <th>Altezza Salto</th>
+                <th>Prontezza</th>
+                <th>Seduta</th>
+                <th>Data & Ora</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-cmj-body">
+              <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento dati CMJ...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tabella Ultimi Carichi Accessori Registrati dalla Squadra -->
+      <div class="card-box">
+        <h3 class="card-title">📦 Carichi Registrati in Sala Pesi (Accessori / Manubri / Cavi)</h3>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Pesi e note registrati dalle atlete (Floor Press, Seal Row, Split Squat, Medball, Deadbug, ecc.)</p>
+        <div class="coach-tbl-wrap" style="max-height:420px;overflow-y:auto;">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Atleta</th>
+                <th>Esercizio</th>
                 <th>Carico Usato</th>
+                <th>Note Atleta</th>
                 <th>Seduta</th>
                 <th>Data</th>
               </tr>
             </thead>
             <tbody id="tbl-custom-loads-body">
-              <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento carichi accessori...</td></tr>
+              <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento carichi accessori...</td></tr>
             </tbody>
           </table>
         </div>
@@ -806,12 +857,14 @@
     let liveCustomLoads = [];
     let liveSessionRatings = [];
     let liveTodaySessions = {};
+    let liveVBTData = [];
+    let liveCMJData = [];
     let currentFilterStatus = 'all';
     let currentFilterRole = 'all';
 
     async function initCoach() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=209', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=218', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -826,6 +879,8 @@
       renderReadinessRoster();
       renderSedutePanel();
       render1RMTable();
+      renderVBTTable();
+      renderCMJTable();
       renderWellnessAnalytics();
     }
 
@@ -985,6 +1040,8 @@
         liveCustomLoads = [];
         liveSessionRatings = [];
         liveTodaySessions = {};
+        liveVBTData = [];
+        liveCMJData = [];
 
         const sessionAgg = {};
         const now = new Date();
@@ -1000,7 +1057,8 @@
           if (!athObj) return;
 
           const note = String(r.Note_Atleta || r.Note || r.note || '').trim();
-          const ex = (r.Esercizio || r.esercizio || '').trim().toLowerCase();
+          const exRaw = String(r.Esercizio || r.esercizio || '').trim();
+          const ex = exRaw.toLowerCase();
           const nSeduta = String(r.N_Seduta || r.n_seduta || '').trim() || 'W2';
           // SCARTA QUALSIASI RECORD DI TEST O SIMULAZIONE
           if (ex === 'test' || ex.includes('test verifica') || nSeduta.toLowerCase().includes('test-demo') || note.toLowerCase().includes('test verifica')) return;
@@ -1016,12 +1074,61 @@
           if (!live1RMData[aid]) live1RMData[aid] = {};
           if (!live1RMTs[aid]) live1RMTs[aid] = {};
 
-          if (val > 0) {
-            const isSquat1RM = ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || (ex.includes('squat') && !ex.includes('jump') && !ex.includes('step'));
-            const isClean1RM = ex === '1rm-clean' || ex === '1rm_clean' || ex === 'clean';
+          // 1. MONITORAGGIO VBT (Velocità concentrica media Back Squat Enode)
+          const isVbt = ex.includes('(vbt)') || ex.includes('vbt') || note.toLowerCase().includes('encoder');
+          if (isVbt) {
+            let vel = null;
+            const vMatch = valStr.replace(',', '.').match(/\d+(?:\.\d+)?/);
+            if (vMatch) {
+              vel = parseFloat(vMatch[0]);
+              if (vel >= 5 && vel <= 150 && !valStr.includes('.')) vel = vel / 100;
+            }
+            if (vel !== null && vel > 0) {
+              liveVBTData.unshift({
+                aid: aid,
+                athName: athName,
+                role: athRole,
+                exercise: exRaw || 'Squat (Parallelo)',
+                vel: vel.toFixed(2),
+                session: nSeduta,
+                date: rDate || 'Oggi',
+                ts: ts
+              });
+            }
+            return; // Esci per non inquinare altre categorie
+          }
+
+          // 2. TEST NEUROMUSCOLARE CMJ (Pedana Chronojump)
+          const isCmj = ex.includes('cmj') || ex.includes('chronojump');
+          if (isCmj) {
+            let cleanHeight = valStr;
+            if (cleanHeight.toLowerCase().includes('1899-12-31t')) {
+              const tp = cleanHeight.split('T')[1].slice(0, 5);
+              cleanHeight = tp.replace(':', '.') + ' cm';
+            } else {
+              const hMatch = cleanHeight.replace(',', '.').match(/\d+(?:\.\d+)?/);
+              if (hMatch) cleanHeight = `${parseFloat(hMatch[0])} cm`;
+            }
+            liveCMJData.unshift({
+              aid: aid,
+              athName: athName,
+              role: athRole,
+              height: cleanHeight,
+              session: nSeduta,
+              date: rDate || 'Oggi',
+              ts: ts
+            });
+            return; // Esci per non inquinare altre categorie
+          }
+
+          // 3. 1RM MASSIMALI UFFICIALI (BLINDATURA TOTALE CONTRO VARIANTI E CARICHI ACCESSORI)
+          const isVariantOrAccessory = ex.includes('vbt') || ex.includes('split') || ex.includes('jump') || ex.includes('step') || ex.includes('cluster') || ex.includes('half') || ex.includes('drop') || ex.includes('tempo');
+          if (!isVariantOrAccessory && val > 0) {
+            const isSquat1RM = (ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || ex === 'back squat') || (ex.startsWith('1rm') && ex.includes('squat'));
+            const isClean1RM = (ex === '1rm-clean' || ex === '1rm_clean' || ex === 'clean' || ex === 'power clean');
             const isBench1RM = ex === '1rm-bench' || ex === '1rm_bench' || ex === 'bench' || ex === 'bench press' || ex === 'panca';
             const isMilitary1RM = ex === '1rm-military' || ex === '1rm_military' || ex === 'military' || ex === 'military press' || ex === 'shoulder';
-            const isRow1RM = ex === '1rm-row' || ex === '1rm_row' || ex === 'row' || ex === 'rematore' || ex === 'row bb';
+            const isRow1RM = (ex === '1rm-row' || ex === '1rm_row' || ex === 'row' || ex === 'rematore' || ex === 'row bb') && !ex.includes('seal') && !ex.includes('birddog');
             const isLat1RM = ex === '1rm-lat' || ex === '1rm_lat' || ex === 'lat' || ex === 'lat machine';
             const isBW = ex.includes('peso') || ex.includes('bw') || ex === 'peso-corporeo';
 
@@ -1033,22 +1140,26 @@
               }
             };
 
-            if (isSquat1RM) updateIfNewer('squat', val);
-            if (isClean1RM) updateIfNewer('clean', val);
-            if (isBench1RM) updateIfNewer('bench', val);
-            if (isMilitary1RM) updateIfNewer('military', val);
-            if (isRow1RM) updateIfNewer('row', val);
-            if (isLat1RM) updateIfNewer('lat', val);
-            if (isBW) updateIfNewer('bw', val);
+            // Blinda con soglie fisiologiche reali: squat >= 30kg, panca/military/clean/row/lat >= 15kg, bw 40-130kg
+            if (isSquat1RM && val >= 30) updateIfNewer('squat', val);
+            if (isClean1RM && val >= 20) updateIfNewer('clean', val);
+            if (isBench1RM && val >= 15) updateIfNewer('bench', val);
+            if (isMilitary1RM && val >= 15) updateIfNewer('military', val);
+            if (isRow1RM && val >= 15) updateIfNewer('row', val);
+            if (isLat1RM && val >= 15) updateIfNewer('lat', val);
+            if (isBW && val >= 40 && val <= 130) updateIfNewer('bw', val);
           }
 
-          // Carichi accessori (esclude rpe, fatica, chiusura, 1rm, peso-corporeo, step up)
+          // 4. CARICHI ACCESSORI & NOTE SQUADRA
           if (valStr && valStr.trim().length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.startsWith('1rm') && !ex.includes('peso-corporeo') && !ex.includes('step up')) {
+            let cleanL = valStr;
+            if (cleanL.startsWith('2026-10-10')) cleanL = '10+10 kg';
             liveCustomLoads.unshift({
               aid: aid,
               athName: athName,
               exercise: r.Esercizio,
-              load: valStr,
+              load: cleanL,
+              note: note,
               session: nSeduta,
               date: rDate || 'Oggi'
             });
@@ -1598,6 +1709,8 @@
       }
 
       renderSessionRatingsTable();
+      renderVBTTable();
+      renderCMJTable();
       renderCustomLoadsTable();
     }
 
@@ -1668,18 +1781,115 @@
       }).join('');
     }
 
-    function renderCustomLoadsTable() {
-      const tbody = document.getElementById('tbl-custom-loads-body');
-      if (liveCustomLoads.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessun carico accessorio registrato di recente.</td></tr>`;
+    function renderVBTTable() {
+      const tbody = document.getElementById('tbl-vbt-body');
+      const badgeTot = document.getElementById('badge-vbt-total');
+      if (!tbody) return;
+
+      if (badgeTot) badgeTot.textContent = `${liveVBTData.length} rilevazioni`;
+
+      if (liveVBTData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessuna rilevazione VBT registrata finora.</td></tr>`;
         return;
       }
 
-      tbody.innerHTML = liveCustomLoads.slice(0, 20).map(item => `
+      const now = new Date();
+      const todayIso = now.toISOString().slice(0, 10);
+      const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+      tbody.innerHTML = liveVBTData.slice(0, 60).map(v => {
+        const velNum = parseFloat(v.vel);
+        let badgeColor = '#10b981'; // Verde (esplosivo >= 0.80)
+        let badgeText = '⚡ Veloce / Esplosivo';
+        if (velNum < 0.65) {
+          badgeColor = '#f59e0b'; // Giallo/Ambra (< 0.65)
+          badgeText = '🏋️ Carico Alto / Fatica';
+        } else if (velNum < 0.80) {
+          badgeColor = '#38bdf8'; // Azzurro (0.65 - 0.79)
+          badgeText = '🎯 Target Ottimale';
+        }
+
+        const isToday = (v.date === todayIso || v.date === localIso || (v.ts && (v.ts.slice(0, 10) === todayIso || v.ts.slice(0, 10) === localIso)));
+        const dateDisplay = isToday ? `<strong style="color:#6ee7b7">🟢 Oggi ${v.ts ? v.ts.slice(11, 16) : ''}</strong>` : `${v.date} ${v.ts ? v.ts.slice(11, 16) : ''}`;
+
+        return `
+          <tr>
+            <td><strong>${v.athName}</strong> <span style="font-size:0.7rem;color:var(--mv-muted)">(${v.role})</span></td>
+            <td><span style="font-size:0.8rem;color:#cbd5e1">${v.exercise}</span></td>
+            <td>
+              <span style="display:inline-block;padding:3px 10px;border-radius:6px;font-weight:800;background:#090f1d;border:1px solid ${badgeColor};color:${badgeColor};font-size:0.88rem;">
+                ${v.vel} m/s
+              </span>
+              <span style="font-size:0.7rem;color:var(--mv-muted);margin-left:6px;">${badgeText}</span>
+            </td>
+            <td><span style="background:rgba(232,160,32,0.15);color:#fde68a;font-weight:800;padding:2px 8px;border-radius:5px;border:1px solid rgba(232,160,32,0.3);font-size:0.75rem;">${v.session}</span></td>
+            <td><span style="font-size:0.75rem;">${dateDisplay}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderCMJTable() {
+      const tbody = document.getElementById('tbl-cmj-body');
+      const badgeTot = document.getElementById('badge-cmj-total');
+      if (!tbody) return;
+
+      if (badgeTot) badgeTot.textContent = `${liveCMJData.length} salti`;
+
+      if (liveCMJData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessun test CMJ registrato finora.</td></tr>`;
+        return;
+      }
+
+      const now = new Date();
+      const todayIso = now.toISOString().slice(0, 10);
+      const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+      tbody.innerHTML = liveCMJData.slice(0, 60).map(c => {
+        const hNum = parseFloat(c.height.replace(',', '.').replace(/cm/i, '')) || 0;
+        let badgeColor = '#38bdf8';
+        let badgeText = 'Buona prontezza';
+        if (hNum >= 34) {
+          badgeColor = '#10b981';
+          badgeText = '🌟 Picco Esplosivo';
+        } else if (hNum < 20) {
+          badgeColor = '#f59e0b';
+          badgeText = 'Da monitorare';
+        }
+
+        const isToday = (c.date === todayIso || c.date === localIso || (c.ts && (c.ts.slice(0, 10) === todayIso || c.ts.slice(0, 10) === localIso)));
+        const dateDisplay = isToday ? `<strong style="color:#6ee7b7">🟢 Oggi ${c.ts ? c.ts.slice(11, 16) : ''}</strong>` : `${c.date} ${c.ts ? c.ts.slice(11, 16) : ''}`;
+
+        return `
+          <tr>
+            <td><strong>${c.athName}</strong> <span style="font-size:0.7rem;color:var(--mv-muted)">(${c.role})</span></td>
+            <td>
+              <span style="display:inline-block;padding:3px 10px;border-radius:6px;font-weight:800;background:#090f1d;border:1px solid ${badgeColor};color:${badgeColor};font-size:0.88rem;">
+                ${c.height}
+              </span>
+            </td>
+            <td><span style="font-size:0.75rem;color:${badgeColor};font-weight:700">${badgeText}</span></td>
+            <td><span style="background:rgba(232,160,32,0.15);color:#fde68a;font-weight:800;padding:2px 8px;border-radius:5px;border:1px solid rgba(232,160,32,0.3);font-size:0.75rem;">${c.session}</span></td>
+            <td><span style="font-size:0.75rem;">${dateDisplay}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderCustomLoadsTable() {
+      const tbody = document.getElementById('tbl-custom-loads-body');
+      if (!tbody) return;
+      if (liveCustomLoads.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessun carico accessorio registrato di recente.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = liveCustomLoads.slice(0, 100).map(item => `
         <tr>
           <td><strong>${item.athName}</strong></td>
           <td>${item.exercise}</td>
           <td><span style="background:rgba(232,160,32,0.15);color:#fde68a;font-weight:800;padding:2px 8px;border-radius:5px;border:1px solid rgba(232,160,32,0.3)">${item.load}</span></td>
+          <td><span style="font-size:0.75rem;color:${item.note ? '#fde68a' : 'var(--mv-muted)'};font-style:${item.note ? 'italic' : 'normal'}">${item.note ? `💬 "${item.note}"` : '—'}</span></td>
           <td><span style="font-size:0.75rem;color:var(--mv-muted)">${item.session}</span></td>
           <td><span style="font-size:0.75rem;color:var(--mv-muted)">${item.date}</span></td>
         </tr>

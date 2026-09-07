@@ -1187,17 +1187,17 @@
             const val = numMatch ? parseFloat(numMatch[0].replace(',', '.')) : 0;
             const valStr = String(r.Valore || r.Kg_Usati || '').trim();
 
-            // Solo 1RM specifici (evita falsi positivi come Squat Jump o Squat / Step Up)
-            const isSquat1RM = ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || (ex.includes('squat') && !ex.includes('jump') && !ex.includes('step'));
-            const isClean1RM = ex === '1rm-clean' || ex === '1rm_clean' || ex === 'clean';
+            // Solo 1RM specifici (esclude tassativamente VBT, split squat, cluster, jump, ecc.)
+            const isSquat1RM = (ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || ex === 'back squat') &&
+                               !ex.includes('vbt') && !ex.includes('split') && !ex.includes('cluster') && !ex.includes('jump') && !ex.includes('step') && !ex.includes('half');
+            const isClean1RM = (ex === '1rm-clean' || ex === '1rm_clean' || ex === 'clean' || ex === 'power clean') && !ex.includes('split');
             const isBench1RM = ex === '1rm-bench' || ex === '1rm_bench' || ex === 'bench' || ex === 'bench press' || ex === 'panca';
             const isMilitary1RM = ex === '1rm-military' || ex === '1rm_military' || ex === 'military' || ex === 'military press' || ex === 'shoulder';
-            const isRow1RM = ex === '1rm-row' || ex === '1rm_row' || ex === 'row' || ex === 'rematore' || ex === 'row bb';
+            const isRow1RM = (ex === '1rm-row' || ex === '1rm_row' || ex === 'row' || ex === 'rematore' || ex === 'row bb') && !ex.includes('seal') && !ex.includes('birddog');
             const isLat1RM = ex === '1rm-lat' || ex === '1rm_lat' || ex === 'lat' || ex === 'lat machine';
             const isBW = ex.includes('peso') || ex.includes('bw') || ex === 'peso-corporeo';
 
             if (val > 0) {
-              // Non sovrascrivere se c'è già un valore locale impostato manualmente dall'atleta
               const setIfEmptyOrOlder = (key, newVal) => {
                 const currentLocal = parseFloat(localStorage.getItem(key)) || 0;
                 if (currentLocal === 0) {
@@ -1205,26 +1205,53 @@
                 }
               };
 
-              if (isSquat1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_squat`, val);
-              if (isClean1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_clean`, val);
-              if (isBench1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_bench`, val);
-              if (isMilitary1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_military`, val);
-              if (isRow1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_row`, val);
-              if (isLat1RM) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_lat`, val);
-              if (ex.includes('rdl') || ex.includes('stacco')) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_rdl`, val);
-              if (isBW) setIfEmptyOrOlder(`mv_bw_${currentAthlete.id}`, val);
+              // Sanity threshold: uno squat 1RM non può essere inferiore a 30kg
+              if (isSquat1RM && val >= 30) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_squat`, val);
+              if (isClean1RM && val >= 20) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_clean`, val);
+              if (isBench1RM && val >= 15) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_bench`, val);
+              if (isMilitary1RM && val >= 15) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_military`, val);
+              if (isRow1RM && val >= 15) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_row`, val);
+              if (isLat1RM && val >= 15) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_lat`, val);
+              if ((ex.includes('rdl') || ex.includes('stacco')) && val >= 20) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_rdl`, val);
+              if (isBW && val >= 40 && val <= 130) setIfEmptyOrOlder(`mv_bw_${currentAthlete.id}`, val);
             }
             
+            // 2. VBT (Velocità Enode)
             if (ex.includes('(vbt)') || ex.includes('vbt')) {
               const cleanExName = r.Esercizio.replace(/\s*\(vbt\)/i, '').trim();
-              if (!localStorage.getItem(`mv_vbt_${currentAthlete.id}_${cleanExName}`)) {
-                localStorage.setItem(`mv_vbt_${currentAthlete.id}_${cleanExName}`, valStr);
+              let formattedVbt = valStr;
+              const numM = valStr.replace(',', '.').match(/\d+(?:\.\d+)?/);
+              if (numM) {
+                let v = parseFloat(numM[0]);
+                if (v >= 5 && v <= 150 && !valStr.includes('.')) v = v / 100;
+                formattedVbt = `${v.toFixed(2)} m/s`;
               }
+              localStorage.setItem(`mv_vbt_${currentAthlete.id}_${cleanExName}`, formattedVbt);
+              localStorage.setItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`, formattedVbt);
+              localStorage.setItem(`mv_vbt_${currentAthlete.id}_Squat (Parallelo)`, formattedVbt);
             }
-            if (valStr && valStr.length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.startsWith('1rm-')) {
-              if (!localStorage.getItem(`mv_load_${currentAthlete.id}_${r.Esercizio}`)) {
-                localStorage.setItem(`mv_load_${currentAthlete.id}_${r.Esercizio}`, valStr);
+
+            // 3. CMJ Test Chronojump (Altezza in cm pulita)
+            if (ex.includes('cmj') || ex.includes('chronojump')) {
+              let cmjVal = valStr;
+              if (cmjVal.toLowerCase().includes('1899-12-31t')) {
+                const tp = cmjVal.split('T')[1].slice(0, 5);
+                cmjVal = tp.replace(':', '.') + ' cm';
+              } else {
+                const numM = cmjVal.replace(',', '.').match(/\d+(?:\.\d+)?/);
+                if (numM) cmjVal = `${parseFloat(numM[0])} cm`;
               }
+              localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ_Test`, cmjVal);
+              localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ Test Chronojump`, cmjVal);
+            }
+
+            // 4. Carichi Accessori & Note (Floor Press, Seal Row, Split Squat, Medball, ecc.)
+            if (valStr && valStr.length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.startsWith('1rm-') && !ex.includes('peso-corporeo')) {
+              let cleanLoad = valStr;
+              if (cleanLoad.startsWith('2026-10-10')) {
+                cleanLoad = '10+10 kg';
+              }
+              localStorage.setItem(`mv_load_${currentAthlete.id}_${r.Esercizio}`, cleanLoad);
             }
           }
         });
@@ -1591,7 +1618,28 @@
       const val = input.value.trim();
       if (!val) return;
 
-      localStorage.setItem(`mv_load_${currentAthlete.id}_${exName}`, val);
+      const isCmj = exName.toLowerCase().includes('cmj') || inputId.toLowerCase().includes('cmj');
+      let cleanVal = val;
+      let metricType = 'CARICO';
+
+      if (isCmj) {
+        metricType = 'CMJ';
+        let rawNum = cleanVal.replace(',', '.').replace(/cm/i, '').trim();
+        const numM = rawNum.match(/\d+(?:\.\d+)?/);
+        if (numM) {
+          cleanVal = `${parseFloat(numM[0])} cm`;
+        } else if (!cleanVal.toLowerCase().includes('cm')) {
+          cleanVal = `${cleanVal} cm`;
+        }
+        localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ_Test`, cleanVal);
+        localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ Test Chronojump`, cleanVal);
+      } else {
+        // Se scrive 10-10 lo trasformiamo in 10+10 kg per evitare che Google Sheets lo interpreti come data 10 Ottobre
+        if (/^\d+\s*-\s*\d+$/.test(cleanVal)) {
+          cleanVal = cleanVal.replace('-', '+') + ' kg';
+        }
+        localStorage.setItem(`mv_load_${currentAthlete.id}_${exName}`, cleanVal);
+      }
 
       const toast = document.getElementById(`toast-${inputId}`);
       if (toast) {
@@ -1607,21 +1655,22 @@
           body: JSON.stringify({
             token: TOKEN,
             azione: 'log_progressi',
+            tipo_metrica: metricType,
             id_giocatrice: currentAthlete.id,
             n_seduta: nSeduta || 0,
-            esercizio: exName,
+            esercizio: isCmj ? 'CMJ Test Chronojump' : exName,
             data: new Date().toISOString().slice(0, 10),
-            valore: `${val}`,
-            kg_usati: `${val}`
+            valore: `${cleanVal}`,
+            kg_usati: `${cleanVal}`
           })
         });
-        localStorage.setItem(`mv_synced_mv_load_${currentAthlete.id}_${exName}`, val);
+        localStorage.setItem(`mv_synced_mv_load_${currentAthlete.id}_${exName}`, cleanVal);
       } catch (e) {}
 
       renderRiepilogoCarichi();
     }
 
-        const debounceCustomVbtTimers = {};
+    const debounceCustomVbtTimers = {};
 
     function onCustomExerciseVbtInput(exName, inputId, nSeduta, val) {
       const v = (val || '').trim();
@@ -1640,8 +1689,20 @@
       const val = input.value.trim();
       if (!val) return;
 
-      const formattedVal = val.toLowerCase().includes('m/s') ? val : `${val} m/s`;
+      let cleanVal = val.replace(',', '.').trim();
+      let formattedVal = cleanVal;
+      const numM = cleanVal.match(/\d+(?:\.\d+)?/);
+      if (numM) {
+        let v = parseFloat(numM[0]);
+        if (v >= 5 && v <= 150 && !cleanVal.includes('.')) v = v / 100;
+        formattedVal = `${v.toFixed(2)} m/s`;
+      } else if (!cleanVal.toLowerCase().includes('m/s')) {
+        formattedVal = `${cleanVal} m/s`;
+      }
+
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_${exName}`, formattedVal);
+      localStorage.setItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`, formattedVal);
+      localStorage.setItem(`mv_vbt_${currentAthlete.id}_Squat (Parallelo)`, formattedVal);
 
       const toast = document.getElementById(`toast-${inputId}`);
       if (toast) {
@@ -1657,6 +1718,7 @@
           body: JSON.stringify({
             token: TOKEN,
             azione: 'log_progressi',
+            tipo_metrica: 'VBT',
             id_giocatrice: currentAthlete.id,
             n_seduta: nSeduta || 0,
             esercizio: `${exName} (VBT)`,
@@ -1669,7 +1731,7 @@
       } catch (e) {}
     }
 
-async function syncOfflinePendingLoads() {
+    async function syncOfflinePendingLoads() {
       if (!currentAthlete || !currentAthlete.id) return;
       const aid = currentAthlete.id;
       const prefixLoad = `mv_load_${aid}_`;
@@ -1694,6 +1756,7 @@ async function syncOfflinePendingLoads() {
                 body: JSON.stringify({
                   token: TOKEN,
                   azione: 'log_progressi',
+                  tipo_metrica: exName.toLowerCase().includes('cmj') ? 'CMJ' : 'CARICO',
                   id_giocatrice: aid,
                   n_seduta: 'W2-S2',
                   esercizio: exName,
@@ -1708,12 +1771,14 @@ async function syncOfflinePendingLoads() {
         }
       }
 
-      // 2. Sync 1RM massimali modificati localmente (solo se > 0)
+      // 2. Sync 1RM massimali modificati localmente (solo se > 0 e verificati)
       for (const k of allKeys) {
         if (k && k.startsWith(prefix1RM)) {
           const rmId = k.replace(prefix1RM, '');
           const val = localStorage.getItem(k);
           const numVal = parseFloat(val) || 0;
+          if (rmId === 'squat' && numVal < 30) continue; // Blinda contro valori errati
+          if (numVal < 10) continue;
           const syncKey = `mv_synced_${k}`;
           if (numVal > 0 && localStorage.getItem(syncKey) !== String(numVal)) {
             try {
@@ -1724,6 +1789,7 @@ async function syncOfflinePendingLoads() {
                 body: JSON.stringify({
                   token: TOKEN,
                   azione: 'log_progressi',
+                  tipo_metrica: '1RM',
                   id_giocatrice: aid,
                   n_seduta: 0,
                   esercizio: `1RM-${rmId}`,
