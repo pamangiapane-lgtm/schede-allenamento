@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v220-explicit-save)
-const CACHE_NAME = 'marsala-pwa-v220-explicit-save';
+// Service Worker App Marsala Volley (v221-blue-buttons)
+const CACHE_NAME = 'marsala-pwa-v221-blue-buttons';
 
 const ASSETS_TO_CACHE = [
   './',
