@@ -468,18 +468,31 @@
       border-radius: 8px;
       padding: 8px 4px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      overflow: hidden;
     }
     .ex-grid-item .lbl {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       color: var(--mv-muted);
       font-weight: 700;
       text-transform: uppercase;
       margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
     }
     .ex-grid-item .val {
-      font-size: 0.95rem;
+      font-size: 0.90rem;
       font-weight: 800;
       color: #fff;
+      line-height: 1.2;
+      white-space: nowrap;
+      max-width: 100%;
     }
 
     /* Carico Usato Box nella Scheda */
@@ -1673,7 +1686,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=230').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=231').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -3036,16 +3049,33 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
   // Check 1RM calculation
   const rmData = getExercise1RMData(exName, carico, athlete, week);
 
-  let intensitaHtml = '';
+  let intensitaLbl = isEN ? 'Intensity' : 'Intensità';
+  let intensitaVal = '';
 
   if (rmData) {
+    intensitaLbl = `INT. ${rmData.pct}%`;
     if (rmData.isDumbbell) {
-      intensitaHtml = `${rmData.pct}%<br>${rmData.eachKg}+${rmData.eachKg} kg`;
+      intensitaVal = `${rmData.eachKg}+${rmData.eachKg} kg`;
     } else {
-      intensitaHtml = `${rmData.pct}%<br>${rmData.targetKg} kg`;
+      intensitaVal = `${rmData.targetKg} kg`;
     }
   } else {
-    intensitaHtml = escapeHtml(carico || 'BW');
+    const mPct = (carico || '').match(/^(\d+)%\s*\(([^)]+)\)/);
+    if (mPct) {
+      intensitaLbl = `INT. ${mPct[1]}%`;
+      intensitaVal = escapeHtml(mPct[2]);
+    } else {
+      intensitaVal = escapeHtml(carico || 'BW');
+    }
+  }
+
+  let valStyle = "color:var(--mv-amber);font-weight:800;";
+  if (intensitaVal.length > 12) {
+    valStyle += "font-size:0.75rem;white-space:normal;";
+  } else if (intensitaVal.length > 8) {
+    valStyle += "font-size:0.80rem;white-space:nowrap;";
+  } else {
+    valStyle += "font-size:0.90rem;white-space:nowrap;";
   }
 
   const placeholderText = savedLoad
@@ -3059,7 +3089,7 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
   let calcTargetBoxHtml = '';
   // Utente: "alcuni esercizi hanno sotto la dicitura 'carico calcolato' non la voglio vedere se replicano prettamente il carico già presente nella sezione intensità dell'esercizio di riferimento"
   const isLoadAlreadyInIntensity = (
-    intensitaHtml.includes('kg') ||
+    intensitaVal.includes('kg') ||
     (rmData && (rmData.targetKg > 0 || rmData.eachKg > 0)) ||
     (carico && /\d+\s*kg/i.test(carico))
   );
@@ -3133,7 +3163,7 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
       <div class="ex-grid">
         <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">${escapeHtml(serie)}</div></div>
         <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">${escapeHtml(reps)}</div></div>
-        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${intensitaHtml}</div></div>
+        <div class="ex-grid-item"><div class="lbl">${intensitaLbl}</div><div class="val" style="${valStyle}">${intensitaVal}</div></div>
         <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${escapeHtml(tempo)}</div></div>
       </div>
       ${calcTargetBoxHtml}
@@ -3162,8 +3192,8 @@ function renderCmjTestCard(sed, athlete, isEN) {
         </div>
         <div class="ex-grid">
           <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">1</div></div>
-          <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">${isEN ? '3 maximal jumps' : '3 salti massimali'}</div></div>
-          <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;">Max (100% RFD)</div></div>
+          <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;white-space:nowrap;">${isEN ? '3 jumps' : '3 salti'}</div></div>
+          <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;font-size:0.85rem;white-space:nowrap;">Max RFD</div></div>
           <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">X</div></div>
         </div>
         <button class="ex-notes-toggle" type="button" onclick="toggleNotes(this, 'n-cmj-${sNum}')">
