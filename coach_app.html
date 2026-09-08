@@ -2,366 +2,3503 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Marsala Volley — Coach Command Center</title>
-  <link rel="stylesheet" href="style.css">
-  <meta name="theme-color" content="#0c1f40">
-  <link rel="apple-touch-icon" href="logo.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Coach MV — Marsala Volley</title>
+  <meta name="theme-color" content="#071226">
+  <!-- PWA & Apple iOS Standalone Support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Coach MV">
+  <link rel="apple-touch-icon" href="../icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="../icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="../icon-512.png">
+  <link rel="manifest" href="manifest.json?v=20260901v3">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden !important;
+      position: relative;
+    }
+    .container {
+      max-width: 100vw;
+      overflow-x: hidden;
+      padding: 10px 12px;
+    }
     :root {
       --mv-navy: #0c1f40;
       --mv-navy-dark: #071226;
-      --mv-navy-light: #162b55;
       --mv-amber: #e8a020;
-      --mv-amber-glow: rgba(232, 160, 32, 0.18);
-      --mv-coral: #e84c2b;
+      --mv-coral: #ef4444;
       --mv-emerald: #10b981;
-      --mv-bg: #0b1322;
-      --mv-surface: #111d33;
-      --mv-surface2: #182846;
-      --mv-border: #1e335a;
-      --mv-text: #f1f5f9;
+      --mv-blue: #3b82f6;
+      --mv-bg: #090f1d;
+      --mv-surface: #0f192d;
+      --mv-surface2: #16243f;
+      --mv-surface3: #1e3155;
+      --mv-border: #1f365d;
+      --mv-text: #f8fafc;
       --mv-muted: #94a3b8;
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
     body {
       background: var(--mv-bg);
       color: var(--mv-text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       font-size: 14px;
       line-height: 1.5;
       min-height: 100vh;
+      padding-bottom: 80px;
     }
 
-    /* Header */
+    /* Top Coach Header Sticky */
     .coach-header {
       background: var(--mv-navy-dark);
       border-bottom: 1px solid var(--mv-border);
-      padding: 16px 24px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
     }
     .brand-wrap { display: flex; align-items: center; gap: 12px; }
-    .brand-logo { width: 38px; height: 38px; border-radius: 8px; object-fit: cover; }
-    .brand-title { font-size: 1.15rem; font-weight: 800; letter-spacing: 0.5px; color: #fff; }
-    .brand-sub { font-size: 0.72rem; color: var(--mv-muted); }
-    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .brand-logo { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+    .brand-title { font-size: 1.15rem; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .brand-sub { font-size: 0.72rem; color: var(--mv-amber); font-weight: 700; }
+
+    .btn-refresh {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--mv-border);
+      color: var(--mv-muted);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 14px; }
 
     /* Top KPI Row */
-    .kpi-row {
+    .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 12px;
-      padding: 18px 24px;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+      margin-bottom: 14px;
     }
     .kpi-card {
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-md);
-      padding: 14px 16px;
+      padding: 10px 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
-    .kpi-val { font-size: 1.85rem; font-weight: 800; line-height: 1.1; margin-bottom: 4px; }
-    .kpi-lbl { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--mv-muted); }
-    .kpi-sub { font-size: 0.72rem; color: #64748b; margin-top: 2px; }
+    .kpi-lbl { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--mv-muted); letter-spacing: 0.5px; }
+    .kpi-val { font-size: 1.4rem; font-weight: 800; line-height: 1.1; margin: 2px 0; }
+    .kpi-sub { font-size: 0.7rem; color: #94a3b8; font-weight: 600; white-space: nowrap; }
 
-    /* Content Area */
-    .main-container { padding: 0 24px 40px; }
+    /* Sticky Coach Navigation Tabs (PERFEZIONATO) */
+    .sticky-nav-wrapper {
+      position: sticky;
+      top: 58px;
+      z-index: 95;
+      background: #090f1d;
+      padding: 10px 0 10px 0;
+      margin: 0 -4px 14px -4px;
+      border-bottom: 1px solid rgba(31, 54, 93, 0.7);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+    }
+    .coach-nav-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 0 2px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .coach-nav-tabs::-webkit-scrollbar {
+      display: none;
+    }
+    .c-tab-btn {
+      flex: 1 1 0;
+      min-width: max-content;
+      background: #0f192d;
+      border: 1px solid #1f365d;
+      color: #94a3b8;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 4px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+    .c-tab-btn:hover {
+      background: #16243f;
+      color: #fff;
+    }
+    .c-tab-btn.active {
+      background: var(--mv-amber);
+      color: #000;
+      border-color: var(--mv-amber);
+      box-shadow: 0 4px 14px rgba(232, 160, 32, 0.4);
+      transform: translateY(-1px);
+    }
 
-    /* Section Bar */
-    .sec-head {
+    /* Tab Panels */
+    .c-panel { display: none; }
+    .c-panel.active { display: block; }
+
+    /* Red Alert Banner */
+    .alert-banner {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+    .alert-banner.clean {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.35);
+    }
+    .alert-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .alert-title { font-size: 0.88rem; font-weight: 800; color: #fca5a5; display: flex; align-items: center; gap: 6px; }
+    .alert-banner.clean .alert-title { color: #6ee7b7; }
+    .alert-list { display: flex; flex-direction: column; gap: 6px; }
+    .alert-item {
+      background: #090f1d;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      color: #fca5a5;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 18px 0 12px;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .alert-item strong { color: #fff; }
+    .alert-item .note-tag { background: rgba(251,191,36,0.15); color: #fde68a; padding: 2px 6px; border-radius: 4px; font-style: italic; }
+
+    /* Toolbar Filter */
+    .toolbar-box {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       flex-wrap: wrap;
       gap: 8px;
     }
-    .sec-title { font-size: 1.05rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
-    .sec-filter-bar { display: flex; gap: 6px; }
-    .btn-filter {
-      background: var(--mv-surface);
+    .filter-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+    .scroll-pills {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      scrollbar-width: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      gap: 6px !important;
+      padding: 2px 2px 6px 2px !important;
+    }
+    .scroll-pills::-webkit-scrollbar { display: none !important; }
+    .scroll-pills .btn-filt {
+      flex: 0 0 auto !important;
+      white-space: nowrap !important;
+    }
+    .btn-filt {
+      background: var(--mv-surface2);
       border: 1px solid var(--mv-border);
       color: var(--mv-muted);
       border-radius: 6px;
-      padding: 5px 12px;
-      font-size: 0.75rem;
+      padding: 4px 8px;
+      font-size: 0.72rem;
       font-weight: 700;
       cursor: pointer;
     }
-    .btn-filter.active { background: var(--mv-amber); color: #fff; border-color: var(--mv-amber); }
+    .btn-filt.active { background: var(--mv-blue); color: #fff; border-color: var(--mv-blue); }
 
-    /* Athlete Matrix Table */
-    .matrix-wrap {
+    /* Cards */
+    .card-box {
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-lg);
-      overflow-x: auto;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
     }
-    .matrix-tbl {
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Roster Table / Cards */
+    .roster-card-list { display: flex; flex-direction: column; gap: 8px; }
+    .roster-ath-card {
+      background: var(--mv-surface2);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .ath-ident { display: flex; align-items: center; gap: 10px; }
+    .ath-num {
+      width: 30px;
+      height: 30px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--mv-amber);
+      background: rgba(232,160,32,0.12);
+      border: 1px solid rgba(232,160,32,0.25);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ath-info-name { font-weight: 800; font-size: 0.92rem; color: #fff; }
+    .ath-info-role { font-size: 0.72rem; color: var(--mv-muted); }
+
+    /* Traffic Light Tag */
+    .traffic-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      text-transform: uppercase;
+    }
+    .traffic-tag.green { background: rgba(16,185,129,0.18); color: #6ee7b7; border: 1px solid #10b981; }
+    .traffic-tag.yellow { background: rgba(245,158,11,0.18); color: #fde68a; border: 1px solid #f59e0b; }
+    .traffic-tag.red { background: rgba(239,68,68,0.18); color: #fca5a5; border: 1px solid #ef4444; }
+    .traffic-tag.grey { background: rgba(255,255,255,0.06); color: var(--mv-muted); border: 1px solid rgba(255,255,255,0.1); }
+
+    /* Wellness Sub-Scores Row */
+    .w-scores-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      margin-top: 8px;
+      background: #090f1d;
+      padding: 6px;
+      border-radius: 6px;
+      width: 100%;
+    }
+    .w-score-pill { text-align: center; }
+    .w-score-lbl { font-size: 0.62rem; color: var(--mv-muted); font-weight: 700; text-transform: uppercase; display: block; }
+    .w-score-val { font-size: 0.8rem; font-weight: 800; color: #fff; }
+
+    /* Matrix Table (1RM & Workload) */
+    .coach-tbl-wrap {
+      overflow-x: auto;
+      background: #060b16;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .coach-tbl {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       text-align: left;
     }
-    .matrix-tbl th {
-      background: var(--mv-surface2);
+    .coach-tbl th {
+      background: rgba(255,255,255,0.04);
       color: var(--mv-muted);
       font-size: 0.68rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--mv-border);
+      letter-spacing: 0.6px;
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       white-space: nowrap;
     }
-    .matrix-tbl td {
-      padding: 12px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      white-space: nowrap;
-    }
-    .matrix-tbl tr:last-child td { border-bottom: none; }
-    .matrix-tbl tr:hover td { background: rgba(255,255,255,0.02); }
-
-    .ath-cell { display: flex; align-items: center; gap: 10px; }
-    .ath-num { font-size: 0.72rem; font-weight: 800; color: var(--mv-amber); background: rgba(232,160,32,0.12); padding: 2px 6px; border-radius: 4px; }
-    .ath-name { font-weight: 700; font-size: 0.92rem; color: #fff; text-decoration: none; }
-    .ath-name:hover { color: var(--mv-amber); }
-    .ath-role { font-size: 0.75rem; color: var(--mv-muted); }
-
-    /* Badges */
-    .risk-tag {
-      font-size: 0.65rem;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 6px;
-      letter-spacing: 0.4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .risk-tag.high { background: rgba(232,76,43,0.2); color: #ff8a73; border: 1px solid #e84c2b; }
-    .risk-tag.medium { background: rgba(232,160,32,0.2); color: #ffd175; border: 1px solid #e8a020; }
-    .risk-tag.low { background: rgba(16,185,129,0.2); color: #6ee7b7; border: 1px solid #10b981; }
-
-    .btn-action {
-      background: var(--mv-surface2);
-      border: 1px solid var(--mv-border);
+    .coach-tbl td {
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
       color: #fff;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    .coach-tbl tr:last-child td { border-bottom: none; }
+    .rm-val-strong { color: var(--mv-amber); font-weight: 800; }
+    .rm-ratio-tag { font-size: 0.68rem; color: #93c5fd; font-weight: 700; background: rgba(59,130,246,0.15); padding: 1px 5px; border-radius: 4px; margin-left: 4px; }
+
+    .app-footer {
+      text-align: center;
+      padding: 24px 0 10px;
+      font-size: 0.72rem;
+      color: var(--mv-muted);
+    }
+
+    /* ==========================================================================
+       SEZIONE CAMPO S&C (3 SEDUTE POMERIDIANE W3 - PARQUET)
+       ========================================================================== */
+    .campo-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .campo-header-card {
+      background: linear-gradient(135deg, rgba(15, 25, 45, 0.95), rgba(7, 18, 38, 0.95));
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .campo-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .campo-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .campo-badge {
+      background: rgba(6, 182, 212, 0.15);
+      color: #22d3ee;
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      padding: 2px 8px;
       border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .campo-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .btn-campo-act {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--mv-border);
+      color: var(--mv-text);
       padding: 5px 10px;
-      font-size: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
       font-weight: 700;
       cursor: pointer;
-      text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      transition: all 0.15s;
+      transition: all 0.15s ease;
     }
-    .btn-action:hover { background: var(--mv-navy-light); border-color: var(--mv-amber); }
+    .btn-campo-act:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.25);
+    }
 
-    /* Modal Prehab Preview */
-    .prehab-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+    .campo-day-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
     }
-    .prehab-modal.open { display: flex; }
-    .prehab-modal-box {
-      background: var(--mv-surface);
+    .campo-day-tabs::-webkit-scrollbar { display: none; }
+    .btn-c-day {
+      background: var(--mv-surface2);
       border: 1px solid var(--mv-border);
-      border-radius: var(--radius-lg);
-      width: 100%;
-      max-width: 540px;
-      max-height: 85vh;
-      overflow-y: auto;
-      padding: 24px;
+      color: var(--mv-muted);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
     }
-    .prehab-modal-title { font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
-    .prehab-modal-sub { font-size: 0.8rem; color: var(--mv-amber); margin-bottom: 16px; }
+    .btn-c-day:hover {
+      background: #1e3155;
+      color: #fff;
+    }
+    .btn-c-day.active {
+      background: #0284c7;
+      border-color: #38bdf8;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.4);
+    }
+    .btn-c-day.active.day-lun {
+      background: #d97706;
+      border-color: #fbbf24;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(217, 119, 6, 0.4);
+    }
+    .btn-c-day.active.day-mer {
+      background: #b91c1c;
+      border-color: #f87171;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(185, 28, 28, 0.4);
+    }
+    .btn-c-day.active.day-ven {
+      background: #1d4ed8;
+      border-color: #60a5fa;
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(29, 78, 216, 0.4);
+    }
+
+    .campo-day-section {
+      display: none;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .campo-day-section.active {
+      display: flex;
+    }
+
+    .campo-card {
+      background: #0f192d;
+      border: 1px solid #1f365d;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .campo-day-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 12px;
+    }
+    .campo-day-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .campo-day-meta {
+      font-size: 0.74rem;
+      color: var(--mv-muted);
+      font-weight: 600;
+    }
+
+    .campo-blocks-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    @media (min-width: 680px) {
+      .campo-blocks-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .campo-block {
+      background: rgba(7, 18, 38, 0.7);
+      border: 1px solid rgba(31, 54, 93, 0.8);
+      border-left: 4px solid var(--mv-blue);
+      border-radius: 0 8px 8px 0;
+      padding: 9px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+    .campo-block.b1 { border-left-color: #f59e0b; }
+    .campo-block.b2 { border-left-color: #ef4444; }
+    .campo-block.b3 { border-left-color: #a855f7; }
+    .campo-block.b4 { border-left-color: #10b981; }
+
+    .block-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+      font-weight: 800;
+      font-size: 0.82rem;
+      color: #fff;
+    }
+    .block-head .time-tag {
+      color: #94a3b8;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(255,255,255,0.06);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .block-desc {
+      font-size: 0.77rem;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+    .block-desc strong { color: #fff; }
+    .block-desc em { color: #fde68a; font-style: normal; }
+
+    .tag-synapse {
+      display: inline-block;
+      background: rgba(239, 68, 68, 0.18);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 800;
+      font-size: 0.68rem;
+      letter-spacing: 0.3px;
+    }
+    .tag-role {
+      display: inline-block;
+      background: rgba(168, 85, 247, 0.18);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 0 4px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 0.7rem;
+    }
+
+    .safety-banner {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px dashed rgba(239, 68, 68, 0.4);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.76rem;
+      color: #fca5a5;
+      line-height: 1.35;
+      margin-top: 4px;
+    }
+    .safety-banner strong {
+      color: #ef4444;
+      font-weight: 800;
+    }
+    .safety-banner.ban-jump {
+      background: rgba(220, 38, 38, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.6);
+      color: #fee2e2;
+    }
+
+    .campo-block[contenteditable="true"]:focus,
+    .campo-card [contenteditable="true"]:focus {
+      outline: 1px solid #06b6d4;
+      background: rgba(6, 182, 212, 0.08);
+      border-radius: 3px;
+    }
+
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Top Coach Header -->
   <header class="coach-header">
     <div class="brand-wrap">
-      <img src="logo.jpg" class="brand-logo" alt="Marsala Volley">
+      <img src="../logo.jpg" class="brand-logo" alt="Marsala Volley">
       <div>
-        <h1 class="brand-title">Marsala Volley · Coach Panel</h1>
-        <div class="brand-sub">Pre-Season 2026/27 — Serie A2 Femminile</div>
+        <h1 class="brand-title">Coach MV</h1>
+        <div class="brand-sub">S&C Command Center · Serie A2</div>
       </div>
     </div>
-    <div class="header-actions">
-      <a href="app.html" class="btn-action" target="_blank">📱 Apri Scheda Atleta</a>
-      <a href="index.html" class="btn-action" target="_blank">👥 Roster PWA</a>
-    </div>
+
   </header>
 
-  <!-- Top KPI Row -->
-  <section class="kpi-row">
-    <div class="kpi-card">
-      <div class="kpi-val" style="color:var(--mv-amber)" id="kpi-roster">14</div>
-      <div class="kpi-lbl">Roster Atlete</div>
-      <div class="kpi-sub">13 squadra + Nelly</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-val" style="color:#ff8a73" id="kpi-urgent">3</div>
-      <div class="kpi-lbl">Alert Rischio Alto</div>
-      <div class="kpi-sub">Dodi, Nonnati, Allasia</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-val" style="color:var(--mv-emerald)">W3</div>
-      <div class="kpi-lbl">Settimana Attiva</div>
-      <div class="kpi-sub">Modello Ibrido SSP 1 (VBT Enode)</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-val" style="color:#60a5fa" id="kpi-prehab-total">13</div>
-      <div class="kpi-lbl">Protocolli Prehab</div>
-      <div class="kpi-sub">Fasi F1 operative</div>
-    </div>
-  </section>
+  <main class="container">
 
-  <!-- Main Container -->
-  <main class="main-container">
-    <div class="sec-head">
-      <h2 class="sec-title">📊 Matrice Squadra & Triage Clinico</h2>
-      <div class="sec-filter-bar">
-        <button class="btn-filter active" onclick="filterRisk('all', this)">Tutte</button>
-        <button class="btn-filter" onclick="filterRisk('HIGH', this)">🔴 Rischio Alto</button>
-        <button class="btn-filter" onclick="filterRisk('MEDIUM', this)">🟡 Medio</button>
-        <button class="btn-filter" onclick="filterRisk('LOW', this)">🟢 Basso</button>
+    <!-- KPI Row -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-lbl">Roster Atlete</div>
+        <div class="kpi-val" style="color:var(--mv-amber)">13</div>
+        <div class="kpi-sub">Squadra A2</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-lbl">Wellness Oggi</div>
+        <div class="kpi-val" style="color:var(--mv-blue)" id="kpi-wellness-count">-- / 13</div>
+        <div class="kpi-sub" id="kpi-wellness-status">In caricamento...</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-lbl">Sedute Pesi Oggi</div>
+        <div class="kpi-val" style="color:var(--mv-amber)" id="kpi-sessions-count">-- / 13</div>
+        <div class="kpi-sub" id="kpi-sessions-status">Registrazioni sRPE</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-lbl">Alert Clinici</div>
+        <div class="kpi-val" style="color:var(--mv-coral)" id="kpi-alert-count">0</div>
+        <div class="kpi-sub" id="kpi-alert-sub">Nessun dolore critico</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-lbl">Readiness Media</div>
+        <div class="kpi-val" style="color:var(--mv-emerald)" id="kpi-team-readiness">-- %</div>
+        <div class="kpi-sub" id="kpi-team-status">Disponibilità squadra</div>
       </div>
     </div>
 
-    <div class="matrix-wrap">
-      <table class="matrix-tbl">
-        <thead>
-          <tr>
-            <th>Atleta</th>
-            <th>Ruolo</th>
-            <th>Triage Clinico</th>
-            <th>Focus / Problematiche</th>
-            <th>Prehab Assegnato</th>
-            <th>Wellness & Readiness</th>
-            <th>Scheda Diretta</th>
-          </tr>
-        </thead>
-        <tbody id="matrix-tbody">
-          <tr><td colspan="6" style="text-align:center;padding:24px;color:var(--mv-muted)">Caricamento dati...</td></tr>
-        </tbody>
-      </table>
+    <!-- STICKY COACH NAVIGATION (3 VISTE CHIAVE ZERO DUPLICATI) -->
+    <div class="sticky-nav-wrapper">
+      <div class="coach-nav-tabs">
+        <button class="c-tab-btn active" id="btn-tab-readiness" onclick="switchCoachTab('readiness', this)">🚦 Readiness</button>
+        <button class="c-tab-btn" id="btn-tab-sedute" onclick="switchCoachTab('sedute', this)">🏋️ Sedute Pesi</button>
+        <button class="c-tab-btn" id="btn-tab-campo" onclick="switchCoachTab('campo', this)">🏐 Campo S&C</button>
+        <button class="c-tab-btn" id="btn-tab-massimali" onclick="switchCoachTab('massimali', this)">💪 1RM & Benchmark</button>
+        <button class="c-tab-btn" id="btn-tab-analytics" onclick="switchCoachTab('analytics', this)">📈 Trend & Grafici</button>
+        <button class="c-tab-btn" id="btn-tab-jump" onclick="switchCoachTab('jump', this)">📊 Jump & Carichi</button>
+      </div>
     </div>
+
+    <!-- VISTA 1: READINESS & EARLY WARNING ALERT (PRIMA DELL'ALLENAMENTO) -->
+    <div class="c-panel active" id="panel-readiness">
+      
+
+      
+      <!-- Alert Clinico Infortuni / Dolori Mattutini -->
+      <div class="alert-banner" id="alert-banner-box">
+        <div class="alert-head">
+          <div class="alert-title" id="alert-banner-title">🚨 Segnalazioni & Dolori di Oggi (Pre-Allenamento)</div>
+          <span style="font-size:0.7rem;color:var(--mv-muted)" id="sync-clock">Sincronizzato</span>
+        </div>
+        <div class="alert-list" id="alert-banner-list">
+          <div style="font-size:0.8rem;color:#cbd5e1">Verifica segnalazioni in corso...</div>
+        </div>
+      </div>
+
+      <!-- Toolbar Filtro -->
+      <div class="toolbar-box">
+        <div class="filter-pills">
+          <button class="btn-filt active" onclick="setRosterFilter('all', this)">Tutte</button>
+          <button class="btn-filt" onclick="setRosterFilter('alert', this)">🚨 Con Alert</button>
+          <button class="btn-filt" onclick="setRosterFilter('done', this)">✅ Compilato Oggi</button>
+          <button class="btn-filt" onclick="setRosterFilter('missing', this)">⏳ Da Compilare</button>
+        </div>
+        <div class="filter-pills">
+          <button class="btn-filt" onclick="setRoleFilter('all', this)">Tutti Ruoli</button>
+          <button class="btn-filt" onclick="setRoleFilter('Schiacciatrice', this)">Schiacc.</button>
+          <button class="btn-filt" onclick="setRoleFilter('Centrale', this)">Centrali</button>
+          <button class="btn-filt" onclick="setRoleFilter('Palleggiatrice', this)">Pall.</button>
+          <button class="btn-filt" onclick="setRoleFilter('Libero', this)">Liberi</button>
+        </div>
+      </div>
+
+      <!-- Roster Cards con Semafori -->
+      <div class="card-box">
+        <h3 class="card-title">👥 Roster Status & Morning Readiness</h3>
+        <div class="roster-card-list" id="roster-readiness-list">
+          <div style="text-align:center;color:var(--mv-muted);padding:20px;">Caricamento dati atlete...</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VISTA: SEDUTE PESI & sRPE (POST-ALLENAMENTO) -->
+    <div class="c-panel" id="panel-sedute">
+      
+      <!-- Box Riepilogo Sedute di Oggi -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:10px;">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span style="font-size:1.15rem;">⚡</span>
+            <span style="font-size:0.95rem;font-weight:800;color:#fff;letter-spacing:0.3px;">Stato Sedute Pesi di Oggi</span>
+            <span style="font-size:0.75rem;font-weight:700;color:#94a3b8;background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);" id="today-date-label">Oggi</span>
+          </div>
+          <span style="font-size:0.8rem;font-weight:800;color:var(--mv-amber);background:rgba(232,160,32,0.12);border:1px solid rgba(232,160,32,0.3);padding:3px 10px;border-radius:12px;" id="badge-today-sessions-count">0 / 13 atlete</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Riepilogo delle atlete che hanno completato e registrato lo sforzo percepito (sRPE) e la fatica nella seduta odierna.</p>
+        
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:12px;">
+          <!-- Card Completate Oggi -->
+          <div style="background:#091222;border:1px solid rgba(16,185,129,0.3);border-radius:10px;padding:12px;">
+            <div style="font-size:0.78rem;font-weight:800;color:#6ee7b7;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+              <span>✅ Completate Oggi</span>
+              <span style="background:rgba(16,185,129,0.2);padding:1px 6px;border-radius:10px;font-size:0.7rem;" id="count-done-today">0</span>
+            </div>
+            <div id="list-done-today" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto;">
+              <div style="color:var(--mv-muted);font-size:0.78rem;font-style:italic;">Nessuna atleta ha ancora registrato la seduta oggi.</div>
+            </div>
+          </div>
+
+          <!-- Card Mancanti Oggi -->
+          <div style="background:#091222;border:1px solid rgba(232,160,32,0.3);border-radius:10px;padding:12px;">
+            <div style="font-size:0.78rem;font-weight:800;color:#fde68a;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+              <span>⏳ Da Registrare Oggi</span>
+              <span style="background:rgba(232,160,32,0.2);padding:1px 6px;border-radius:10px;font-size:0.7rem;" id="count-missing-today">13</span>
+            </div>
+            <div id="list-missing-today" style="display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto;">
+              <!-- Popolato via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabella Storica Valutazione Sedute Pesi (sRPE & Fatica Live) -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 class="card-title" style="margin-bottom:0;">📋 Storico Valutazione Sedute Pesi (sRPE & Fatica)</h3>
+          <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-sessions-total">0 registrazioni</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Sforzo percepito della seduta (sRPE 0-10 Borg CR-10), livello di fatica e note di chiusura registrate dalle atlete.</p>
+        <div class="coach-tbl-wrap" style="max-height:420px;overflow-y:auto;">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Atleta</th>
+                <th>Seduta</th>
+                <th>Data</th>
+                <th>sRPE (0-10)</th>
+                <th>Fatica (0-10)</th>
+                <th>Note Atleta</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-sessions-body">
+              <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento sessioni...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tabella Monitoraggio VBT Squat (Encoder Enode) -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 class="card-title" style="margin-bottom:0;">⚡ Monitoraggio VBT Squat (Encoder Enode)</h3>
+          <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-vbt-total">0 rilevazioni</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Velocità media concentrica su Back Squat rilevata con encoder Enode (Target ottimale forza-velocità: ≥ 0.70 m/s).</p>
+        <div class="coach-tbl-wrap" style="max-height:360px;overflow-y:auto;">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Atleta</th>
+                <th>Esercizio</th>
+                <th>Velocità Media</th>
+                <th>Seduta</th>
+                <th>Data & Ora</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-vbt-body">
+              <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento dati VBT...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tabella Test Neuromuscolare CMJ (Chronojump) -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 class="card-title" style="margin-bottom:0;">🚀 Test Neuromuscolare CMJ (Pedana Chronojump)</h3>
+          <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-cmj-total">0 salti</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Altezza di salto registrata (cm) all'ingresso in sala pesi dopo l'attivazione.</p>
+        <div class="coach-tbl-wrap" style="max-height:360px;overflow-y:auto;">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Atleta</th>
+                <th>Altezza Salto</th>
+                <th>Prontezza</th>
+                <th>Seduta</th>
+                <th>Data & Ora</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-cmj-body">
+              <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento dati CMJ...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tabella Ultimi Carichi Accessori Registrati dalla Squadra -->
+      <div class="card-box">
+        <h3 class="card-title">📦 Carichi Registrati in Sala Pesi (Accessori / Manubri / Cavi)</h3>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Pesi e note registrati dalle atlete (Floor Press, Seal Row, Split Squat, Medball, Deadbug, ecc.)</p>
+        <div class="coach-tbl-wrap" style="max-height:420px;overflow-y:auto;">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Atleta</th>
+                <th>Esercizio</th>
+                <th>Carico Usato</th>
+                <th>Note Atleta</th>
+                <th>Seduta</th>
+                <th>Data</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-custom-loads-body">
+              <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento carichi accessori...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VISTA: SEDUTE CAMPO S&C (3 SEDUTE POMERIDIANE W3 - PARQUET) -->
+    <div class="c-panel" id="panel-campo">
+      
+      <!-- Card Intestazione Sezione Campo -->
+      <div class="campo-header-card">
+        <div class="campo-header-top">
+          <div class="campo-title">
+            <span>🏐</span>
+            <span>Programma Campo S&C — Preseason W3</span>
+            <span class="campo-badge">Parquet 45' · Zero Elettronica</span>
+          </div>
+          <div class="campo-actions">
+            <button class="btn-campo-act" onclick="copyCampoSummary()" title="Copia lo schema del giorno per WhatsApp o note staff">
+              📋 Copia per Staff
+            </button>
+            <button class="btn-campo-act" onclick="saveCampoEdits()" title="Salva le modifiche apportate ai testi nella memoria del browser">
+              💾 Salva Modifiche
+            </button>
+            <button class="btn-campo-act" onclick="resetCampoEdits()" title="Ripristina il programma originario">
+              🔄 Reset
+            </button>
+          </div>
+        </div>
+
+        <div style="font-size:0.75rem;color:var(--mv-muted);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+          <span>Microciclo Settimana 3 (Picco Forza Pesante) · 3 Sedute Pomeridiane a Secco prima del Volley Tecnico.</span>
+          <span style="color:#fde68a;font-size:0.72rem;background:rgba(245,158,11,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(245,158,11,0.25);">
+            ✏️ Tocca qualsiasi testo per modificarlo
+          </span>
+        </div>
+
+        <!-- Selettore Giorni Settimana -->
+        <div class="campo-day-tabs">
+          <button class="btn-c-day active day-lun" id="btn-cday-lun" onclick="switchCampoDay('lun', this)">🟡 Lunedì (Campo 1)</button>
+          <button class="btn-c-day day-mer" id="btn-cday-mer" onclick="switchCampoDay('mer', this)">🔴 Mercoledì (Campo 2)</button>
+          <button class="btn-c-day day-ven" id="btn-cday-ven" onclick="switchCampoDay('ven', this)">🔵 Venerdì (Campo 3)</button>
+          <button class="btn-c-day" id="btn-cday-all" onclick="switchCampoDay('all', this)">📋 Tutti e 3 i Giorni</button>
+        </div>
+      </div>
+
+      <!-- Feedback Toast / Alert temporaneo -->
+      <div id="campo-toast" style="display:none;background:#065f46;color:#a7f3d0;border:1px solid #10b981;border-radius:6px;padding:6px 12px;font-size:0.75rem;font-weight:700;margin-top:8px;"></div>
+
+      <!-- CONTENITORE SEDUTE (EDITABILE) -->
+      <div id="campo-days-container" style="display:flex;flex-direction:column;gap:14px;margin-top:10px;">
+        
+        <!-- ========================================== -->
+        <!-- GIORNO 1: LUNEDÌ (CAMPO 1 - 45')          -->
+        <!-- ========================================== -->
+        <div class="campo-day-section active" id="campo-day-lun">
+          <div class="campo-card">
+            <div class="campo-day-head">
+              <div>
+                <div class="campo-day-title">
+                  <span style="color:#f59e0b">🟡 Lunedì Pomeriggio</span>
+                  <span style="font-size:0.8rem;color:#cbd5e1;font-weight:700">· CAMPO 1 (45')</span>
+                </div>
+                <div class="campo-day-meta">Decelerazione Eccentrica, Frenata 180° & Synapse Base · ZERO SALTI A SECCO</div>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <span class="campo-badge" style="border-color:#f59e0b;color:#fde68a;background:rgba(245,158,11,0.15)">Ratio 1:3 RSA</span>
+                <span class="campo-badge" style="border-color:#10b981;color:#6ee7b7;background:rgba(16,185,129,0.15)">No Jump</span>
+              </div>
+            </div>
+
+            <!-- Griglia 4 Blocchi -->
+            <div class="campo-blocks-grid">
+              
+              <!-- B1 -->
+              <div class="campo-block b1" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">00'–10'</span> <span>B1: ATTIVAZIONE & SYNAPSE BASE</span></div>
+                  <span class="tag-synapse">ELAV COGNITIVO</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Mobilità Dinamica Articolare (4'):</strong> 90/90 hip mobility a terra, affondi con rotazione del tronco (2x6/lato), attivazione arco plantare (<em>short foot</em> scalzo).<br>
+                  • <strong>Attivazione Neurale Elastico (3'):</strong> Monster walk laterale + camminata a croce con miniband (2x10 passi).<br>
+                  • <strong>SYNAPSE 1 — Stimolo Cromatico (3'):</strong> Skip leggero sul posto ➔ arresto immediato su cono a sorpresa mostrato dal preparatore:<br>
+                  &nbsp;&nbsp;🔴 <em>Rosso:</em> Freeze 2" gamba DX (monopodalico)<br>
+                  &nbsp;&nbsp;🔵 <em>Blu:</em> Freeze 2" gamba SX (monopodalico)<br>
+                  &nbsp;&nbsp;🟡 <em>Giallo:</em> Freeze squadrato a 2 piedi (baricentro basso). 3 serie x 45" (rec. 20").
+                </div>
+              </div>
+
+              <!-- B2 -->
+              <div class="campo-block b2" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">10'–25'</span> <span>B2: FORZA A TERRA & COD 180°</span></div>
+                  <span style="color:#f87171;font-weight:800;font-size:0.7rem;">FORZA A TERRA</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Sprint Breve & Arresto a 2 Tempi (7'):</strong> Scatto massimale sui 5m con frenata secca su linea in 2 passi senza rotazione bacino né valgismo ginocchio: 4 serie x 2 frenate (rec. 30").<br>
+                  • <strong>COD 180° Volley (5-0-5 modificato) (8'):</strong> Allungo 4m ➔ arresto violento su riga ➔ inversione a 180° ➔ spinta esplosiva nei primi 3m di ritorno: 4 serie x 2/lato (rec. 45" camminando).<br>
+                  • <strong>Densità Metabolica Indiretta:</strong> Azioni massimali di 4-5" con 15-20" di recupero camminando (rapporto 1:3).
+                </div>
+              </div>
+
+              <!-- B3 -->
+              <div class="campo-block b3" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">25'–38'</span> <span>B3: RUOLO A SECCO + MEDBALL</span></div>
+                  <span class="tag-role">SPECIFICO RUOLO</span>
+                </div>
+                <div class="block-desc">
+                  • <strong style="color:#d8b4fe">Centrali (Marcuzzi, Biondi):</strong> Spostamento laterale rapido a 2 passi lungo la rete + arresto squadrato su scelta visiva dx/sx (4 serie x 3).<br>
+                  • <strong style="color:#d8b4fe">Bande/Opposti (Asonja, Nonnati, Sassolini, Bole, Dodi, Adamczewska, Caserta):</strong> Rincorsa 3 passi con frenata in 2 tempi rasoterra NO STACCO (focus assorbimento penultimo-ultimo passo): 4 serie x 3 frenate.<br>
+                  • <strong style="color:#d8b4fe">Liberi/Palleggi (Lo Dico, Cicola, Allasia, Grippo):</strong> Navette 3x3m a triangolo rasoterra su comando visivo improvviso (4 serie x 15").<br>
+                  • <strong>Transfer Balistico:</strong> Chest pass esplosivo a 2 mani contro muro con palla medica 3 kg: 3 serie x 5 lanci massimali (rec. 30").
+                </div>
+              </div>
+
+              <!-- B4 -->
+              <div class="campo-block b4" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">38'–45'</span> <span>B4: PREVENZIONE & CONSEGNA</span></div>
+                  <span style="color:#6ee7b7;font-weight:800;font-size:0.7rem;">CONSEGNA COACH</span>
+                </div>
+                <div class="block-desc">
+                  • Extra-rotatori della spalla con elastico (2x10) + tenute isometriche core Hollow/Arch (2x20").<br>
+                  • De-tensione e respirazione diaframmatica guidata.<br>
+                  • Atlete consegnate pronte e attivate al Primo Allenatore.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Safety Net Banner Lunedì -->
+            <div class="safety-banner" contenteditable="true">
+              🛡️ <strong>SAFETY NET AUTOREGOLAZIONE ECCENTRICA (Lunedì):</strong> Se al test Chronojump mattutino un'atleta segna drop &gt;7-8%, il Blocco 2 (COD 180°) passa automaticamente da 4 a 2 serie, convertendo i 7-8 minuti restanti in footwork rapido su scaletta a terra senza impatto frenante violento.
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- GIORNO 2: MERCOLEDÌ (CAMPO 2 - 45')       -->
+        <!-- ========================================== -->
+        <div class="campo-day-section" id="campo-day-mer">
+          <div class="campo-card">
+            <div class="campo-day-head">
+              <div>
+                <div class="campo-day-title">
+                  <span style="color:#ef4444">🔴 Mercoledì Pomeriggio</span>
+                  <span style="font-size:0.8rem;color:#cbd5e1;font-weight:700">· CAMPO 2 (45')</span>
+                </div>
+                <div class="campo-day-meta">Stiffness Reattiva, Pliometria di Ruolo & Lanci Medball · Ground Contact &lt;0.22s</div>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <span class="campo-badge" style="border-color:#ef4444;color:#fca5a5;background:rgba(239,68,68,0.15)">Fast Stretch-Shortening</span>
+                <span class="campo-badge" style="border-color:#38bdf8;color:#93c5fd;background:rgba(56,189,248,0.15)">Jump Budget</span>
+              </div>
+            </div>
+
+            <!-- Griglia 4 Blocchi -->
+            <div class="campo-blocks-grid">
+              
+              <!-- B1 -->
+              <div class="campo-block b1" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">00'–10'</span> <span>B1: ATTIVAZIONE ELASTICA & ANKLING</span></div>
+                  <span class="tag-synapse">ELAV REATTIVO</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Piede & Caviglia (4'):</strong> Ankling drills su 10m (rullata reattiva tacco-punta a gambe tese), camminata su avampiedi.<br>
+                  • <strong>Pogo Jumps a terra (3'):</strong> 3 serie x 10 rimbalzi reattivi a piedi pari concentrati sulla stiffness del tendine d'Achille (rec. 30").<br>
+                  • <strong>SYNAPSE 2 — Speed Ladder Stroop (3'):</strong> Footwork su scaletta a 2 piedi dentro; all'uscita chiamata vocale con comando invertito ("Destra" ➔ scatto a Sinistra / "Sinistra" ➔ scatto a Destra): 4 ripetizioni a testa.
+                </div>
+              </div>
+
+              <!-- B2 -->
+              <div class="campo-block b2" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">10'–25'</span> <span>B2: PLIOMETRIA OSTACOLINI & RUOLO</span></div>
+                  <span style="color:#f87171;font-weight:800;font-size:0.7rem;">STIFFNESS & PLIO</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Pliometria Ostacolini Bassi 15-20cm (7'):</strong> 4 ostacolini continui a rimbalzo elastico reattivo (tempo al suolo &lt;0.22s): 4 serie x 4 balzi (rec. 60"). <em>(Liberi: sostituiscono con navetta reattiva 3x4m con tocco linea)</em>.<br>
+                  • <strong>Pliometria di Ruolo sul Parquet (8'):</strong><br>
+                  &nbsp;&nbsp;🏐 <em>Bande/Opposti:</em> 4 serie x 3 salti con rincorsa completa d'attacco (conversione velocità orizzontale/verticale, atterraggio simmetrico 2 piedi).<br>
+                  &nbsp;&nbsp;🛡️ <em>Centrali:</em> 4 serie x 3 salti a muro reattivi con spostamento laterale 1 passo e stacco immediato.<br>
+                  &nbsp;&nbsp;🎯 <em>Palleggiatrici:</em> 3 serie x 3 salti di palleggio in sospensione da fermo con arrivo morbido.<br>
+                  &nbsp;&nbsp;⚡ <em>Liberi:</em> 4 serie x 15" di scivolamenti difensivi reattivi a specchio a coppie.
+                </div>
+              </div>
+
+              <!-- B3 -->
+              <div class="campo-block b3" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">25'–38'</span> <span>B3: SITUAZIONALE + LANCI MEDBALL</span></div>
+                  <span class="tag-role">TRANSFER ROTAZIONALE</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Lanci Medball Rotazionali (7'):</strong> Lancio balistico contro muro a 2 mani (3 kg) con rotazione d'anca libera: 3 serie x 4+4 lanci per lato (rec. 40").<br>
+                  • <strong>SYNAPSE 3 — Dual-Task Volley (6'):</strong> Ricezione palla medica o pallone leggero lanciato a sorpresa durante una transizione rapida muro-difesa: 4 serie x 3 ripetizioni.
+                </div>
+              </div>
+
+              <!-- B4 -->
+              <div class="campo-block b4" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">38'–45'</span> <span>B4: PREVENZIONE TENDINEA & CONSEGNA</span></div>
+                  <span style="color:#6ee7b7;font-weight:800;font-size:0.7rem;">CONSEGNA COACH</span>
+                </div>
+                <div class="block-desc">
+                  • Soleus stretch al muro + eccentrico isometrico polpacci su gradino (2x8/lato).<br>
+                  • De-tensione miofasciale e respirazione di scarico.<br>
+                  • Consegna atlete reattive e pronte al Primo Allenatore.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Safety Net Banner Mercoledì -->
+            <div class="safety-banner" contenteditable="true">
+              🛡️ <strong>SAFETY NET JUMP BUDGET (Mercoledì):</strong> Se nella seduta tecnica pomeridiana il coach programma una dose massiccia di salti (6v6 o tie-break simulato), la pliometria del Blocco 2 scala automaticamente del 50% (8–12 salti massimali anziché 16–24).
+            </div>
+          </div>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- GIORNO 3: VENERDÌ (CAMPO 3 - 45')          -->
+        <!-- ========================================== -->
+        <div class="campo-day-section" id="campo-day-ven">
+          <div class="campo-card">
+            <div class="campo-day-head">
+              <div>
+                <div class="campo-day-title">
+                  <span style="color:#38bdf8">🔵 Venerdì Pomeriggio</span>
+                  <span style="font-size:0.8rem;color:#cbd5e1;font-weight:700">· CAMPO 3 (45')</span>
+                </div>
+                <div class="campo-day-meta">Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI · Consegna Freschissime</div>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <span class="campo-badge" style="border-color:#ef4444;color:#fca5a5;background:rgba(239,68,68,0.2)">🛑 Friday Jump Ban</span>
+                <span class="campo-badge" style="border-color:#10b981;color:#6ee7b7;background:rgba(16,185,129,0.15)">Pre-Gara 100%</span>
+              </div>
+            </div>
+
+            <!-- Griglia 4 Blocchi -->
+            <div class="campo-blocks-grid">
+              
+              <!-- B1 -->
+              <div class="campo-block b1" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">00'–10'</span> <span>B1: ATTIVAZIONE & RESET FASCIALE</span></div>
+                  <span class="tag-synapse">RESET NERVOSO</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Mobilità Globale senza Carichi (5'):</strong> Flessori anca in allungamento dinamico, aperture toraciche, monster walk elastica (2x10 passi).<br>
+                  • <strong>Esercizio Sensoriale a Terra (5'):</strong> Propriocezione del piede a occhi chiusi e trasferimenti di carico lenti (2x30").
+                </div>
+              </div>
+
+              <!-- B2 -->
+              <div class="campo-block b2" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">10'–25'</span> <span>B2: AGILITÀ A TERRA & FREQUENZA</span></div>
+                  <span style="color:#f87171;font-weight:800;font-size:0.7rem;">ZERO SALTI</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Scaletta a Frequenza Pura (7'):</strong> Pattern In-Out laterale e Icky Shuffle ad altissima frequenza di piedi senza staccarsi dal suolo: 4 serie x 8 metri (rec. 45").<br>
+                  • <strong>Primi Passi Esplosivi 3–4 Metri (8'):</strong> Scatto fulmineo da posizione difensiva (primi 3 passi) con decelerazione elastica progressiva camminata: 4 serie x 2 partenze (rec. 45"). <em>Nessun salto né atterraggio d'impatto</em>.
+                </div>
+              </div>
+
+              <!-- B3 -->
+              <div class="campo-block b3" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">25'–38'</span> <span>B3: SYNAPSE AVANZATO (GO / NO-GO)</span></div>
+                  <span class="tag-synapse">DECISION-MAKING</span>
+                </div>
+                <div class="block-desc">
+                  • <strong>Comandi Go / No-Go (ELAV):</strong> L'atleta parte in accelerazione su comando visivo (cartellino verde/rosso o pallone); se lo stimolo commuta a metà scatto in "No-Go", deve frenare all'istante con blocco pelvico: 4 serie x 3 stimoli.<br>
+                  • <strong>Coordinazione Oculomotoria a Terra:</strong> Reattività rapida su palline da tennis o bersagli a terra da postura difensiva bassa (4 serie x 20").
+                </div>
+              </div>
+
+              <!-- B4 -->
+              <div class="campo-block b4" contenteditable="true">
+                <div class="block-head">
+                  <div><span class="time-tag">38'–45'</span> <span>B4: DECOMPRESSIONE & CALMA</span></div>
+                  <span style="color:#6ee7b7;font-weight:800;font-size:0.7rem;">PRE-GARA 100%</span>
+                </div>
+                <div class="block-desc">
+                  • Allungamento catena posteriore, decompressione lombare a terra, respirazione diaframmatica guidata.<br>
+                  • Squadra consegnata al 100% di freschezza muscolare per la rifinitura tecnica e l'amichevole del sabato.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Safety Net Banner Venerdì -->
+            <div class="safety-banner ban-jump" contenteditable="true">
+              🛑 <strong>STRICT FRIDAY JUMP BAN (Venerdì):</strong> Divieto assoluto di salti, balzi o impatti pliometrici a secco prima dell'allenamento con palla. Zero test CMJ nel pre-gara per preservare tendini rotulei e freschezza neuromuscolare.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="c-panel" id="panel-analytics">
+      
+      <!-- Selettore Atleta / Squadra -->
+      <div class="card-box" style="margin-bottom:12px;padding:12px 14px;width:100%;box-sizing:border-box;overflow:hidden;">
+        <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;">
+          👥 Seleziona Soggetto da Analizzare
+        </div>
+        <div class="scroll-pills" id="analytics-athlete-selector">
+          <!-- Generato via JS -->
+        </div>
+      </div>
+
+      <!-- Filtri Temporali & Contestuali -->
+      <div class="toolbar-box" style="margin-bottom:12px;width:100%;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;gap:10px;align-items:stretch;">
+        <div style="width:100%;min-width:0;">
+          <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">📅 Periodo</div>
+          <div class="scroll-pills" id="analytics-time-pills">
+            <button class="btn-filt" onclick="setAnalyticsRange('7d', this)">7 Giorni</button>
+            <button class="btn-filt" onclick="setAnalyticsRange('14d', this)">14 Giorni</button>
+            <button class="btn-filt" onclick="setAnalyticsRange('30d', this)">30 Giorni</button>
+            <button class="btn-filt" onclick="setAnalyticsRange('offseason', this)">🌴 Off-Season (≤ 23 Ago)</button>
+            <button class="btn-filt" onclick="setAnalyticsRange('preseason', this)">⚡ Pre-Season (≥ 24 Ago)</button>
+            <button class="btn-filt active" onclick="setAnalyticsRange('all', this)">📅 Tutta la Stagione</button>
+          </div>
+        </div>
+        <div style="width:100%;min-width:0;">
+          <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">🗓️ Giorni della Settimana (Microciclo)</div>
+          <div class="scroll-pills">
+            <button class="btn-filt active" onclick="setAnalyticsDay('all', this)">Tutti i Giorni</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(1, this)">Lunedì</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(2, this)">Martedì</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(3, this)">Mercoledì</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(4, this)">Giovedì</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(5, this)">Venerdì</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(6, this)">Sabato</button>
+            <button class="btn-filt" onclick="setAnalyticsDay(0, this)">Domenica</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selettore Metriche Visibili nel Grafico -->
+      <div class="card-box" style="margin-bottom:12px;padding:10px 14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;">
+            🔘 Metriche nel Grafico:
+          </div>
+          <div class="filter-pills" id="metric-toggles">
+            <button class="btn-filt active" id="tog-readiness" onclick="toggleMetric('readiness')" style="border-color:#f59e0b;color:#fde68a;">🎯 Readiness</button>
+            <button class="btn-filt active" id="tog-fatica" onclick="toggleMetric('fatica')" style="border-color:#10b981;color:#6ee7b7;">⚡ Energia</button>
+            <button class="btn-filt active" id="tog-sonno" onclick="toggleMetric('sonno')" style="border-color:#3b82f6;color:#93c5fd;">😴 Sonno</button>
+            <button class="btn-filt active" id="tog-dolori" onclick="toggleMetric('dolori')" style="border-color:#ef4444;color:#fca5a5;">🩹 Dolori</button>
+            <button class="btn-filt" id="tog-stress" onclick="toggleMetric('stress')" style="border-color:#a855f7;color:#d8b4fe;">🧠 Stress</button>
+            <button class="btn-filt" id="tog-peso" onclick="toggleMetric('peso')" style="border-color:#06b6d4;color:#67e8f9;">⚖️ Peso</button>
+            <button class="btn-filt" id="tog-vbt" onclick="toggleMetric('vbt')" style="border-color:#38bdf8;color:#7dd3fc;">🏎️ VBT (m/s ➔ kg)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI Summary del Periodo Selezionato (RESPONSIVE NO OVERFLOW) -->
+      <div style="display:grid;grid-template-columns:repeat(7, 1fr);gap:4px;margin-bottom:14px;width:100%;box-sizing:border-box;" id="analytics-kpi-grid">
+        <div class="kpi-card" id="an-card-readiness" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Readiness</div>
+          <div class="kpi-val" id="an-kpi-readiness" style="color:var(--mv-amber);font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media</div>
+        </div>
+        <div class="kpi-card" id="an-card-fatica" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Energia</div>
+          <div class="kpi-val" id="an-kpi-fatica" style="color:#6ee7b7;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fatica</div>
+        </div>
+        <div class="kpi-card" id="an-card-sonno" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sonno</div>
+          <div class="kpi-val" id="an-kpi-sonno" style="color:#93c5fd;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Qualità</div>
+        </div>
+        <div class="kpi-card" id="an-card-dolori" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Dolori</div>
+          <div class="kpi-val" id="an-kpi-dolori" style="color:#fca5a5;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fastidi</div>
+        </div>
+        <div class="kpi-card" id="an-card-stress" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Stress</div>
+          <div class="kpi-val" id="an-kpi-stress" style="color:#d8b4fe;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tensione</div>
+        </div>
+        <div class="kpi-card" id="an-card-peso" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;display:none;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Peso</div>
+          <div class="kpi-val" id="an-kpi-peso" style="color:#67e8f9;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (kg)</div>
+        </div>
+        <div class="kpi-card" id="an-card-vbt" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;display:none;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">VBT Squat</div>
+          <div class="kpi-val" id="an-kpi-vbt" style="color:#38bdf8;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (m/s)</div>
+        </div>
+      </div>
+
+      <!-- GRAFICO 1: TREND LONGITUDINALE -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <h3 class="card-title" style="margin-bottom:0;" id="trend-chart-title">📈 Andamento Longitudinale nel Tempo</h3>
+          <span style="font-size:0.72rem;color:var(--mv-muted);" id="trend-chart-subtitle">301 record storici</span>
+        </div>
+        <div style="position:relative;height:320px;width:100%;">
+          <canvas id="wellnessTrendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- GRAFICO VBT: PROFILO CARICO-VELOCITÀ (ASCISSE: VELOCITÀ m/s, ORDINATE: CARICO kg) -->
+      <div class="card-box" id="box-vbt-scatter" style="margin-bottom:14px;display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <h3 class="card-title" style="margin-bottom:2px;" id="vbt-chart-title">🏎️ Profilo VBT Back Squat — Carico vs Velocità</h3>
+            <p style="font-size:0.75rem;color:var(--mv-muted);margin:0;" id="vbt-chart-subtitle">Ascisse (X): Velocità concentrica media (m/s) · Ordinate (Y): Carico sollevato (kg)</p>
+          </div>
+          <div style="font-size:0.75rem;background:#182846;padding:4px 10px;border-radius:8px;border:1px solid #1e335a;color:#7dd3fc;" id="vbt-summary-badge">
+            Rilevazioni Enode
+          </div>
+        </div>
+        <div style="position:relative;height:340px;width:100%;">
+          <canvas id="vbtScatterChart"></canvas>
+        </div>
+      </div>
+
+      <!-- GRAFICO 2: DINAMICA DEL MICROCICLO (LUNEDÌ ➔ DOMENICA) -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <h3 class="card-title">📊 Risposta nei Giorni della Settimana (Curva di Carico Lun ➔ Dom)</h3>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Mostra la media delle risposte giorno per giorno per individuare il punto di massimo affaticamento e il rimbalzo pre-gara.</p>
+        <div style="position:relative;height:240px;width:100%;">
+          <canvas id="wellnessMicrocycleChart"></canvas>
+        </div>
+      </div>
+
+      <!-- CRONOLOGIA NOTE & SEGNALAZIONI DEL SOGGETTO -->
+      <div class="card-box">
+        <h3 class="card-title">📝 Storico Segnalazioni & Note Cliniche nel Periodo</h3>
+        <div id="analytics-notes-timeline" style="display:flex;flex-direction:column;gap:8px;max-height:300px;overflow-y:auto;">
+          <!-- Popolato via JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VISTA 2: MATRICE 1RM & CARICHI SALA PESI -->
+    <div class="c-panel" id="panel-massimali">
+      
+      <div class="card-box">
+        <h3 class="card-title">🏋️ Matrice Massimali 1RM & Forza Relativa (1RM / BW)</h3>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Benchmark S&C Volley Femminile: Squat 1.4-1.6x BW · Clean 0.7-0.9x BW · Military 0.45x BW · Ratio Pull:Push ≥ 1.2:1</p>
+        <div class="coach-tbl-wrap">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Atleta</th>
+                <th>BW</th>
+                <th>Squat</th>
+                <th>Bench</th>
+                <th>Military</th>
+                <th>Clean</th>
+                <th>Row</th>
+                <th>Lat</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-1rm-body">
+              <tr><td colspan="8" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento massimali...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VISTA 3: JUMP BUDGET & WORKLOAD MONITORING -->
+    <div class="c-panel" id="panel-jump">
+      
+      <div class="card-box">
+        <h3 class="card-title">🏐 Jump Budget Settimanale per Ruolo</h3>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Linee guida per la gestione dei salti e la prevenzione del Jumper's Knee (tendinopatia rotulea) nel volley femminile.</p>
+        <div class="coach-tbl-wrap">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Ruolo</th>
+                <th>Target Salti / Settimana</th>
+                <th>Focus Salto & Atterraggio</th>
+                <th>Aggiustamento su Alert Giallo/Rosso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Schiacciatrici / Opposti</strong></td>
+                <td><span style="color:var(--mv-amber);font-weight:800">250 – 400</span></td>
+                <td>Attacchi in 4/2, Pipe, Battute Jump Float/Spin</td>
+                <td><span style="color:#fde68a">Riduci 20-30% rincorse attacco</span></td>
+              </tr>
+              <tr>
+                <td><strong>Centrali</strong></td>
+                <td><span style="color:var(--mv-amber);font-weight:800">300 – 450</span></td>
+                <td>Muri continui dx/sx, Primi tempi, Fast</td>
+                <td><span style="color:#fde68a">Sostituisci muro jump con footwork a terra</span></td>
+              </tr>
+              <tr>
+                <td><strong>Palleggiatrici</strong></td>
+                <td><span style="color:var(--mv-amber);font-weight:800">200 – 350</span></td>
+                <td>Palleggi in salto, Muro palla piazzata</td>
+                <td><span style="color:#fde68a">Palleggio a terra prioritario</span></td>
+              </tr>
+              <tr>
+                <td><strong>Liberi</strong></td>
+                <td><span style="color:var(--mv-emerald);font-weight:800">&lt; 50</span></td>
+                <td>Reattività a terra, cambi di direzione, tuffi</td>
+                <td><span style="color:#6ee7b7">Lavoro di mobilità anca/caviglia</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card-box">
+        <h3 class="card-title">📈 Acute:Chronic Workload Ratio (ACWR Benchmark)</h3>
+        <div style="background:#060b16;border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.08);line-height:1.6;font-size:0.82rem;color:#cbd5e1;">
+          <div style="margin-bottom:8px;">
+            <strong style="color:var(--mv-emerald)">🟢 Sweet Spot (ACWR 0.8 – 1.3):</strong> Massima progressione della forza e della capacità di salto con minimo rischio di infortunio.
+          </div>
+          <div style="margin-bottom:8px;">
+            <strong style="color:var(--mv-amber)">🟡 Overreaching Funzionale (ACWR 1.3 – 1.5):</strong> Monitorare attentamente il sonno e la fatica muscolare.
+          </div>
+          <div>
+            <strong style="color:var(--mv-coral)">🔴 Danger Zone (ACWR &gt; 1.5):</strong> Spike improvviso di volume/intensità. Il rischio di tendinopatia rotulea e lesioni muscolari triplica. Prevedere scarico immediato.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="app-footer">
+      <div>Marsala Volley · Preparazione Fisica Serie A2</div>
+      <div style="color:var(--mv-amber);margin-top:2px;">Coach Command Center v2026.4</div>
+    </footer>
+
   </main>
 
-  <!-- Prehab Modal -->
-  <div class="prehab-modal" id="prehab-modal" onclick="closePrehabModal(event)">
-    <div class="prehab-modal-box" onclick="event.stopPropagation()">
-      <h3 class="prehab-modal-title" id="pm-name">Nome Atleta</h3>
-      <div class="prehab-modal-sub" id="pm-phase">Fase 1</div>
-      <div id="pm-content"></div>
-      <button class="btn-action" style="margin-top:16px;width:100%;justify-content:center" onclick="closePrehabModal()">Chiudi</button>
-    </div>
-  </div>
-
-  <!-- Load Master Data -->
-  <script src="data.js"></script>
-
+  <script src="../data.js?v=20260901v35"></script>
   <script>
-    let currentFilter = 'all';
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
+    const TOKEN   = 'mv26-prd-3xF7wNqK';
 
-    function initCoach() {
-      document.getElementById('kpi-roster').textContent = ROSTER.length;
-      const highCount = ROSTER.filter(a => a.risk_level === 'HIGH').length;
-      document.getElementById('kpi-urgent').textContent = highCount;
+    const BASELINE_WEIGHTS = {
+      1: 63.5, 2: 67.6, 3: 73.4, 4: 71.4, 5: 55.2,
+      6: 67.7, 7: 77.0, 8: 79.2, 9: 64.7, 11: 58.8,
+      12: 63.6, 13: 78.0, 14: 70.3
+    };
 
-      renderMatrix();
+    const TRUE_BASELINES = {
+      1:  { squat: 100, bench: 40, military: 30, clean: 40,   row: 30, lat: 50, rdl: 60 },
+      2:  { squat: 95,  bench: 40, military: 20, clean: 35,   row: 40, lat: 45, rdl: 40 },
+      3:  { squat: 125, bench: 35, military: 44, clean: 60,   row: 40, lat: 40, rdl: 70 },
+      4:  { squat: 93,  bench: 45, military: 25, clean: 50,   row: 43, lat: 45, rdl: 45 },
+      5:  { squat: 90,  bench: 40, military: 25, clean: 30,   row: 30, lat: 40, rdl: 50 },
+      6:  { squat: 80,  bench: 35, military: 26, clean: 50,   row: 45, lat: 35, rdl: 50 },
+      7:  { squat: 100, bench: 42, military: 40, clean: 60,   row: 55, lat: 50, rdl: 50 },
+      8:  { squat: 105, bench: 45, military: 20, clean: 55,   row: 60, lat: 40, rdl: 60 },
+      9:  { squat: 150, bench: 35, military: 20, clean: 35,   row: 30, lat: 34.3, rdl: 25 },
+      11: { squat: 105, bench: 30, military: 22, clean: 50,   row: 45, lat: 43, rdl: 60 },
+      12: { squat: 134, bench: 51, military: 35, clean: 21,   row: 60, lat: 45, rdl: 83 },
+      13: { squat: 93,  bench: 35, military: 22, clean: 52,   row: 48, lat: 45, rdl: 84 },
+      14: { squat: 120, bench: 55, military: 35, clean: 55,   row: 50, lat: 45, rdl: 70 }
+    };
+
+    let liveWellnessData = {};
+    let live1RMData = {};
+    let liveCustomLoads = [];
+    let liveSessionRatings = [];
+    let liveTodaySessions = {};
+    let liveVBTData = [];
+    let liveCMJData = [];
+    let currentFilterStatus = 'all';
+    let currentFilterRole = 'all';
+
+    async function initCoach() {
+      initCampoSection();
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw-coach.js?v=225', { scope: './' }).then(reg => reg.update()).catch(() => {});
+      }
+      await refreshAllCoachData();
     }
 
-    function filterRisk(level, btn) {
-      currentFilter = level;
-      document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+    async function refreshAllCoachData() {
+      document.getElementById('sync-clock').textContent = 'Sincronizzazione in corso...';
+      await Promise.all([
+        fetchLiveWellness(),
+        fetchLiveProgressi()
+      ]);
+      document.getElementById('sync-clock').textContent = `Ultimo agg: ${new Date().toLocaleTimeString('it-IT')}`;
+      renderReadinessRoster();
+      renderSedutePanel();
+      render1RMTable();
+      renderVBTTable();
+      renderCMJTable();
+      renderWellnessAnalytics();
+    }
+
+    async function fetchLiveWellness() {
+      try {
+        const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Wellness`);
+        const json = await res.json();
+        const rows = json.dati || [];
+        liveWellnessData = {};
+        const todayStr = new Date().toISOString().slice(0, 10);
+
+        rawWellnessRecords = [];
+        rows.forEach(r => {
+          const aid = parseInt(r.ID_Giocatrice);
+          const rDate = (r.Data || '').slice(0, 10);
+          if (!rDate || rDate.length < 10 || !rDate.includes('-')) return; // Salta record senza data valida
+
+          const athObj = ROSTER.find(a => a.id === aid);
+          const athName = athObj ? athObj.name : `Atleta #${aid}`;
+
+          // Normalizzazione scale:
+          // - Sonno e Readiness prima del 25 agosto erano su scala 1-5 (x2)
+          // - Fatica fino al 1 settembre era espressa come "Fatica 1-5" (1=nulla -> 10 energia, 5=max -> 2 energia)
+          const isOld5PointScaleGeneral = (rDate < '2026-08-25');
+          const isOldFaticaScale = (rDate <= '2026-09-01');
+
+          function normalizeScore(val, isEnergy = false) {
+            if (val === null || val === undefined || val === '') return null;
+            let num = parseFloat(val);
+            if (isNaN(num)) return null;
+            if (isEnergy) {
+              if (isOldFaticaScale && num <= 5) {
+                // Inversione scala: Fatica 1 -> Energia 10, Fatica 2 -> Energia 8, Fatica 3 -> Energia 6...
+                num = Math.max(0, Math.min(10, Math.round((6 - num) * 2)));
+              }
+            } else {
+              if (isOld5PointScaleGeneral && num <= 5) {
+                num = Math.min(10, Math.round(num * 2));
+              }
+            }
+            return isNaN(num) ? null : num;
+          }
+
+          let sSonno = normalizeScore(r.Qualita_Sonno, false);
+          let sFatica = normalizeScore(r.Fatica, true);
+          let sReady = normalizeScore(r.Readines != null && r.Readines !== '' ? r.Readines : r.Disponibilita, false);
+
+          // Gestione speciale Dolori (evitare NaN se stringa testuale e convertire scala)
+          let sDolori = null;
+          let extraNoteFromDolori = '';
+          if (r.Dolori !== null && r.Dolori !== undefined && r.Dolori !== '') {
+            if (typeof r.Dolori === 'number') {
+              sDolori = (isOld5PointScaleGeneral && r.Dolori <= 5) ? Math.min(10, Math.round(r.Dolori * 2)) : r.Dolori;
+            } else if (typeof r.Dolori === 'string') {
+              const trimmed = r.Dolori.trim();
+              if (!isNaN(Number(trimmed)) && trimmed.length > 0) {
+                const n = parseFloat(trimmed);
+                sDolori = (isOld5PointScaleGeneral && n <= 5) ? Math.min(10, Math.round(n * 2)) : n;
+              } else {
+                extraNoteFromDolori = trimmed;
+                sDolori = 3; // Fastidio moderato prudenziale
+              }
+            }
+          }
+
+          let inferredStress = null;
+          if (r.Stress !== undefined && r.Stress !== '' && r.Stress !== null && !isNaN(Number(r.Stress))) {
+            inferredStress = parseInt(r.Stress);
+          } else if (r.stress !== undefined && r.stress !== '' && r.stress !== null && !isNaN(Number(r.stress))) {
+            inferredStress = parseInt(r.stress);
+          } else if (typeof r.Note === 'number' && r.Note >= 0 && r.Note <= 10) {
+            inferredStress = parseInt(r.Note);
+          } else if (typeof r.Note === 'string' && r.Note.trim().length > 0 && !isNaN(Number(r.Note.trim())) && Number(r.Note.trim()) >= 0 && Number(r.Note.trim()) <= 10) {
+            inferredStress = parseInt(r.Note.trim());
+          } else {
+            inferredStress = null;
+          }
+
+          let inferredNote = '';
+          if (r.Note && typeof r.Note === 'string' && isNaN(Number(r.Note.trim()))) {
+            inferredNote = r.Note.trim();
+          }
+          if (extraNoteFromDolori) {
+            inferredNote = inferredNote ? `${inferredNote} (${extraNoteFromDolori})` : extraNoteFromDolori;
+          }
+
+          rawWellnessRecords.push({
+            aid: aid,
+            athName: athName,
+            date: rDate,
+            timestamp: r.Timestamp,
+            sonno: sSonno,
+            fatica: sFatica,
+            readiness: sReady,
+            dolori: sDolori,
+            stress: inferredStress,
+            note: inferredNote
+          });
+
+          if (!liveWellnessData[aid] || r.Timestamp > liveWellnessData[aid].timestamp) {
+            let inferredStress = null;
+            if (r.Stress !== undefined && r.Stress !== '' && r.Stress !== null && !isNaN(Number(r.Stress))) {
+              inferredStress = parseInt(r.Stress);
+            } else if (r.stress !== undefined && r.stress !== '' && r.stress !== null && !isNaN(Number(r.stress))) {
+              inferredStress = parseInt(r.stress);
+            } else if (typeof r.Note === 'number' && r.Note >= 0 && r.Note <= 10) {
+              inferredStress = parseInt(r.Note);
+            } else if (typeof r.Note === 'string' && r.Note.trim().length > 0 && !isNaN(Number(r.Note.trim())) && Number(r.Note.trim()) >= 0 && Number(r.Note.trim()) <= 10) {
+              inferredStress = parseInt(r.Note.trim());
+            } else {
+              inferredStress = null;
+            }
+
+            let inferredNote = '';
+            if (r.Note && typeof r.Note === 'string' && isNaN(Number(r.Note.trim()))) {
+              inferredNote = r.Note;
+            }
+
+            liveWellnessData[aid] = {
+              date: rDate,
+              sonno: r.Qualita_Sonno !== '' ? parseInt(r.Qualita_Sonno) : null,
+              fatica: r.Fatica !== '' ? parseInt(r.Fatica) : null,
+              readiness: (r.Readines !== '' && r.Readines != null) ? parseInt(r.Readines) : (r.Disponibilita ? parseInt(r.Disponibilita) : null),
+              dolori: r.Dolori !== '' ? parseInt(r.Dolori) : null,
+              stress: inferredStress,
+              note: inferredNote,
+              timestamp: r.Timestamp,
+              isToday: (rDate === todayStr || (r.Timestamp && r.Timestamp.startsWith(todayStr)))
+            };
+          }
+        });
+      } catch (e) {}
+    }
+
+    function getRPEColor(rpe) {
+      if (rpe === null || rpe === undefined || isNaN(rpe)) return '#94a3b8';
+      if (rpe <= 5) return '#10b981'; // Verde (sforzo moderato/recuperabile)
+      if (rpe <= 7) return '#38bdf8'; // Azzurro/Blu (intensità target ottimale)
+      if (rpe <= 8) return '#f59e0b'; // Giallo/Ambra (impegno alto)
+      return '#ef4444';               // Rosso (sforzo massimale / RPE 9-10)
+    }
+
+    function getFatigueColor(fat) {
+      if (fat === null || fat === undefined || isNaN(fat)) return '#94a3b8';
+      if (fat <= 4) return '#10b981'; // Verde (fresca / bassa fatica)
+      if (fat <= 6) return '#38bdf8'; // Azzurro (moderata)
+      if (fat <= 8) return '#f59e0b'; // Giallo (alta)
+      return '#ef4444';               // Rosso (esausta / fatica estrema)
+    }
+
+    async function fetchLiveProgressi() {
+      try {
+        const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Progressi`);
+        const json = await res.json();
+        const rows = json.dati || [];
+        live1RMData = {};
+        liveCustomLoads = [];
+        liveSessionRatings = [];
+        liveTodaySessions = {};
+        liveVBTData = [];
+        liveCMJData = [];
+        rawWeightRecords = [];
+        rawVBTRecords = [];
+
+        const sessionAgg = {};
+        const now = new Date();
+        const todayIso = now.toISOString().slice(0, 10);
+        const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+        const live1RMTs = {};
+
+        const customLoadsMap = {};
+        const seenVBT = new Set();
+        const seenCMJ = new Set();
+
+        rows.forEach(r => {
+          const aid = parseInt(r.ID_Giocatrice || r.id_giocatrice);
+          const athObj = ROSTER.find(a => a.id === aid);
+          // SCARTA IMMEDIATAMENTE QUALSIASI RECORD NON APPARTENENTE AL ROSTER UFFICIALE (es. test id 99, 0, null)
+          if (!athObj) return;
+
+          const note = String(r.Note_Atleta || r.Note || r.note || '').trim();
+          const exRaw = String(r.Esercizio || r.esercizio || '').trim();
+          const ex = exRaw.toLowerCase();
+          const nSeduta = String(r.N_Seduta || r.n_seduta || '').trim() || 'W2';
+          // SCARTA QUALSIASI RECORD DI TEST O SIMULAZIONE
+          if (ex === 'test' || ex.includes('test verifica') || nSeduta.toLowerCase().includes('test-demo') || note.toLowerCase().includes('test verifica')) return;
+
+          const athName = athObj.name;
+          const athRole = athObj.role;
+          const numMatch = String(r.Valore || r.valore || r.rm_stimato || r.Kg_Usati || '').match(/\d+(?:[.,]\d+)?/);
+          const val = numMatch ? parseFloat(numMatch[0].replace(',', '.')) : 0;
+          const valStr = String(r.Valore || r.valore || r.Kg_Usati || '').trim();
+          const rDate = String(r.Data || r.Timestamp || '').slice(0, 10);
+          const ts = String(r.Timestamp || '');
+
+          if (!live1RMData[aid]) live1RMData[aid] = {};
+          if (!live1RMTs[aid]) live1RMTs[aid] = {};
+
+          // Filtra resync spurio di sedute W2 avvenute stamattina
+          const isSpuriousW2 = (nSeduta === 'W2-S2' && (ts.includes('2026-09-08') || rDate === '2026-09-08'));
+          if (isSpuriousW2) return;
+
+          // 1. MONITORAGGIO VBT (Velocità concentrica media Back Squat Enode)
+          const isVbt = ex.includes('(vbt)') || ex.includes('vbt') || note.toLowerCase().includes('encoder');
+          if (isVbt) {
+            let vel = null;
+            const vMatch = valStr.replace(',', '.').match(/\d+(?:\.\d+)?/);
+            if (vMatch) {
+              vel = parseFloat(vMatch[0]);
+              if (vel >= 5 && vel <= 150 && !valStr.includes('.')) vel = vel / 100;
+            }
+            if (vel !== null && vel > 0 && vel <= 2.5) {
+              const base = TRUE_BASELINES[aid] || {};
+              const sq1RM = live1RMData[aid]?.squat || base.squat || 0;
+              const bw = live1RMData[aid]?.bw || BASELINE_WEIGHTS[aid] || 65;
+              
+              // Calcolo carico Back Squat (target 75% o specificato)
+              let loadKg = 0;
+              const kgMatch = String(r.Kg_Usati || r.kg_usati || '').replace(',', '.').match(/\d+(?:\.\d+)?/);
+              if (kgMatch && parseFloat(kgMatch[0]) >= 20) {
+                loadKg = parseFloat(kgMatch[0]);
+              } else if (sq1RM > 0) {
+                loadKg = Math.max(0, Math.round(((0.75 * (sq1RM + bw)) - bw) * 2) / 2);
+              }
+
+              const vbtKey = `${aid}_${nSeduta}_${vel.toFixed(2)}_${rDate}`;
+              if (!seenVBT.has(vbtKey)) {
+                seenVBT.add(vbtKey);
+                const rec = {
+                  aid: aid,
+                  athName: athName,
+                  role: athRole,
+                  exercise: exRaw || 'Squat (Parallelo)',
+                  vel: parseFloat(vel.toFixed(2)),
+                  kg: loadKg,
+                  session: nSeduta.startsWith('W3') ? 'W3 · Seduta 1' : nSeduta,
+                  date: rDate || '2026-09-07',
+                  ts: ts
+                };
+                liveVBTData.unshift(rec);
+                rawVBTRecords.push(rec);
+              }
+            }
+            return; // Esci per non inquinare altre categorie
+          }
+
+          // 2. TEST NEUROMUSCOLARE CMJ (Pedana Chronojump)
+          const isCmj = ex.includes('cmj') || ex.includes('chronojump');
+          if (isCmj) {
+            let cleanHeight = valStr;
+            if (cleanHeight.toLowerCase().includes('1899-12-31t') || cleanHeight.toLowerCase().includes('1899-12-30t')) {
+              const tp = cleanHeight.split('T')[1].slice(0, 5);
+              const parts = tp.split(':');
+              cleanHeight = `${parseInt(parts[0], 10)}.${parts[1]} cm`;
+            } else {
+              const hMatch = cleanHeight.replace(',', '.').match(/\d+(?:\.\d+)?/);
+              if (hMatch) cleanHeight = `${parseFloat(hMatch[0])} cm`;
+            }
+            const cmjKey = `${aid}_${nSeduta}_${cleanHeight}_${ts.slice(0, 16)}`;
+            if (!seenCMJ.has(cmjKey)) {
+              seenCMJ.add(cmjKey);
+              liveCMJData.unshift({
+                aid: aid,
+                athName: athName,
+                role: athRole,
+                height: cleanHeight,
+                session: nSeduta,
+                date: rDate || 'Oggi',
+                ts: ts
+              });
+            }
+            return; // Esci per non inquinare altre categorie
+          }
+
+          // 3. 1RM MASSIMALI UFFICIALI (BLINDATURA TOTALE CONTRO VARIANTI E CARICHI ACCESSORI)
+          const isVariantOrAccessory = ex.includes('vbt') || ex.includes('split') || ex.includes('jump') || ex.includes('step') || ex.includes('cluster') || ex.includes('half') || ex.includes('drop') || ex.includes('tempo');
+          if (!isVariantOrAccessory && val > 0) {
+            const isSquat1RM = (ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || ex === 'back squat') || (ex.startsWith('1rm') && ex.includes('squat'));
+            const isClean1RM = (ex === '1rm-clean' || ex === '1rm_clean' || ex === 'clean' || ex === 'power clean');
+            const isBench1RM = ex === '1rm-bench' || ex === '1rm_bench' || ex === 'bench' || ex === 'bench press' || ex === 'panca';
+            const isMilitary1RM = ex === '1rm-military' || ex === '1rm_military' || ex === 'military' || ex === 'military press' || ex === 'shoulder';
+            const isRow1RM = (ex === '1rm-row' || ex === '1rm_row' || ex === 'row' || ex === 'rematore' || ex === 'row bb') && !ex.includes('seal') && !ex.includes('birddog');
+            const isLat1RM = ex === '1rm-lat' || ex === '1rm_lat' || ex === 'lat' || ex === 'lat machine';
+            const isBW = ex.includes('peso') || ex.includes('bw') || ex === 'peso-corporeo';
+
+            const updateIfNewer = (lift, v) => {
+              const prevTs = live1RMTs[aid][lift] || '';
+              if (!prevTs || ts >= prevTs) {
+                live1RMData[aid][lift] = v;
+                live1RMTs[aid][lift] = ts;
+              }
+            };
+
+            // Blinda con soglie fisiologiche reali: squat >= 30kg, panca/military/clean/row/lat >= 15kg, bw 40-130kg
+            if (isSquat1RM && val >= 30) updateIfNewer('squat', val);
+            if (isClean1RM && val >= 20) updateIfNewer('clean', val);
+            if (isBench1RM && val >= 15) updateIfNewer('bench', val);
+            if (isMilitary1RM && val >= 15) updateIfNewer('military', val);
+            if (isRow1RM && val >= 15) updateIfNewer('row', val);
+            if (isLat1RM && val >= 15) updateIfNewer('lat', val);
+            if (isBW && val >= 40 && val <= 130 && !valStr.startsWith('1900') && !valStr.startsWith('1899')) {
+              updateIfNewer('bw', val);
+              rawWeightRecords.push({
+                aid: aid,
+                athName: athName,
+                date: rDate,
+                timestamp: ts,
+                peso: val
+              });
+            }
+          }
+
+          // 4. CARICHI ACCESSORI & NOTE SQUADRA (Deduplicati e puliti da autoformattazione Sheets)
+          if (valStr && valStr.trim().length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.startsWith('1rm') && !ex.includes('peso-corporeo') && !ex.includes('step up')) {
+            let cleanL = valStr;
+            if (cleanL.startsWith('1899-12-31T') || cleanL.startsWith('1899-12-30T')) {
+              const timePart = cleanL.slice(11, 16);
+              const parts = timePart.split(':');
+              cleanL = `${parseInt(parts[0], 10)}.${parts[1]}`;
+            } else if (cleanL.startsWith('2026-10-10')) {
+              cleanL = '10+10 kg';
+            }
+            const loadKey = `${aid}_${r.Esercizio}_${nSeduta}`;
+            customLoadsMap[loadKey] = {
+              aid: aid,
+              athName: athName,
+              exercise: r.Esercizio,
+              load: cleanL,
+              note: note,
+              session: nSeduta,
+              date: rDate || 'Oggi',
+              ts: ts
+            };
+          }
+
+          // --- PARSING VALUTAZIONI SEDUTE PESI (sRPE & FATICA) ---
+          if (ex.includes('chiusura')) {
+            let rpe = null;
+            let fat = null;
+            const rpeM = valStr.match(/RPE\s*(\d+(?:[.,]\d+)?)/i);
+            const fatM = valStr.match(/Fatica\s*(\d+(?:[.,]\d+)?)/i);
+            if (rpeM) rpe = parseFloat(rpeM[1]);
+            if (fatM) fat = parseFloat(fatM[1]);
+
+            // Esclude test di agosto obsoleti
+            if (rDate && rDate < '2026-08-25') return;
+            // Victoria Sassolini: esclude tocco prematuro accidentale su Seduta 3 del 07/09 con RPE 1
+            if (aid === 3 && (String(nSeduta) === '3' || nSeduta === 3) && rDate <= '2026-09-07' && rpe === 1) return;
+
+            // Normalizza data effettiva della seduta
+            let actualDate = rDate;
+            if (note.includes('07/09/2026') && actualDate === '2026-09-08') {
+              actualDate = '2026-09-07';
+            }
+
+            let sessionLabel = nSeduta;
+            if (nSeduta === '1' || nSeduta === 'W3_1' || nSeduta === 'W3-LunP' || nSeduta === 'W3-Lun') {
+              sessionLabel = 'W3 · Seduta 1';
+            }
+
+            liveSessionRatings.push({
+              aid: aid,
+              athName: athName,
+              role: athRole,
+              session: sessionLabel,
+              date: actualDate,
+              rpe: rpe,
+              fat: fat,
+              note: note,
+              ts: ts
+            });
+          } else if (ex === 'rpe-seduta' || ex === 'rpe') {
+            const m = valStr.match(/\d+(?:\.\d+)?/);
+            const num = m ? parseFloat(m[0]) : (val > 0 ? val : null);
+            const key = `${aid}_${nSeduta}_${rDate}`;
+            if (!sessionAgg[key]) {
+              sessionAgg[key] = {
+                aid: aid,
+                athName: athName,
+                role: athRole,
+                session: nSeduta,
+                date: rDate,
+                rpe: num,
+                fat: null,
+                note: note,
+                ts: ts
+              };
+            } else {
+              sessionAgg[key].rpe = num;
+              if (note) sessionAgg[key].note = note;
+            }
+          } else if (ex === 'fatica-seduta' || ex === 'fatica') {
+            const m = valStr.match(/\d+(?:\.\d+)?/);
+            const num = m ? parseFloat(m[0]) : (val > 0 ? val : null);
+            const key = `${aid}_${nSeduta}_${rDate}`;
+            if (!sessionAgg[key]) {
+              sessionAgg[key] = {
+                aid: aid,
+                athName: athName,
+                role: athRole,
+                session: nSeduta,
+                date: rDate,
+                rpe: null,
+                fat: num,
+                note: note,
+                ts: ts
+              };
+            } else {
+              sessionAgg[key].fat = num;
+              if (note) sessionAgg[key].note = note;
+            }
+          }
+        });
+
+        // Estrai carichi accessori deduplicati (più recenti per primi)
+        liveCustomLoads = Object.values(customLoadsMap);
+        liveCustomLoads.sort((a, b) => {
+          const tA = (a.ts || a.date || '');
+          const tB = (b.ts || b.date || '');
+          return tB.localeCompare(tA);
+        });
+
+        // Unisci aggregati
+        Object.values(sessionAgg).forEach(s => {
+          liveSessionRatings.push(s);
+        });
+
+        // Ordina sessioni: più recenti per prime
+        liveSessionRatings.sort((a, b) => {
+          const tA = (a.ts || a.date || '');
+          const tB = (b.ts || b.date || '');
+          return tB.localeCompare(tA);
+        });
+
+        // Mappa l'ultima seduta registrata per atleta
+        liveSessionRatings.forEach(s => {
+          if (!liveTodaySessions[s.aid]) {
+            const isToday = (s.date === todayIso || s.date === localIso);
+            liveTodaySessions[s.aid] = { ...s, isToday: isToday };
+          }
+        });
+      } catch (e) {}
+    }
+
+        function shareWellnessReportWhatsApp() {
+      const today = new Date();
+      const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+      const dateFormatted = today.toLocaleDateString('it-IT', options);
+      const capDate = dateFormatted.charAt(0).toUpperCase() + dateFormatted.slice(1);
+
+      let countFilled = 0;
+      let totalReadiness = 0;
+      let readinessCount = 0;
+      const alerts = [];
+      const rosterLines = [];
+
+      ROSTER.forEach(a => {
+        const w = liveWellnessData[a.id];
+        if (w && w.isToday) {
+          countFilled++;
+          if (w.readiness !== null) {
+            totalReadiness += w.readiness;
+            readinessCount++;
+          }
+          const traffic = getAthleteTrafficStatus(w);
+          const hasNote = (w.note && w.note.trim().length > 0);
+          if (traffic.type === 'red' || traffic.type === 'yellow' || hasNote) {
+            alerts.push({ ath: a, w: w, traffic: traffic });
+          }
+          const tagEmoji = traffic.type === 'green' ? '🟢' : (traffic.type === 'yellow' ? '🟡' : '🔴');
+          const surname = a.name.split(' ').pop();
+          const roleShort = a.role.slice(0, 1);
+          rosterLines.push(`${tagEmoji} #${a.id} ${surname} (${roleShort}) | R:${w.readiness ?? '-'} S:${w.sonno ?? '-'} E:${w.fatica ?? '-'} D:${w.dolori ?? '-'} St:${w.stress ?? '-'}`);
+        } else {
+          const surname = a.name.split(' ').pop();
+          const roleShort = a.role.slice(0, 1);
+          rosterLines.push(`⚪ #${a.id} ${surname} (${roleShort}) | _Non compilato_`);
+        }
+      });
+
+      const avgPct = readinessCount > 0 ? Math.round((totalReadiness / readinessCount) * 10) : '--';
+
+      let msg = '🏐 *MARSALA VOLLEY — DAILY REPORT* 🏐\n';
+      msg += '📅 *' + capDate + '*\n\n';
+
+      msg += '📊 *QUADRO GENERALE SQUADRA:*\n';
+      msg += '• Readiness Media: *' + avgPct + '%* ' + (avgPct !== '--' && avgPct >= 75 ? '🟢' : (avgPct !== '--' && avgPct >= 60 ? '🟡' : '🔴')) + '\n';
+      msg += '• Compilazione: *' + countFilled + ' / ' + ROSTER.length + ' Atlete*\n';
+      msg += '• Atlete da Monitorare: *' + alerts.length + '*\n\n';
+
+      if (alerts.length > 0) {
+        msg += '🚨 *SEGNALAZIONI & FASTIDI:*\n';
+        alerts.forEach(item => {
+          const em = item.traffic.type === 'red' ? '🔴' : '🟡';
+          msg += em + ' *#' + item.ath.id + ' ' + item.ath.name + '* (' + item.ath.role + ')\n';
+          if (item.w.dolori !== null && item.w.dolori >= 4) msg += '   • Dolori: *' + item.w.dolori + '/10*\n';
+          if (item.w.fatica !== null && item.w.fatica <= 6) msg += '   • Energia: *' + item.w.fatica + '/10*\n';
+          if (item.w.sonno !== null && item.w.sonno <= 6) msg += '   • Sonno: *' + item.w.sonno + '/10*\n';
+          if (item.w.readiness !== null && item.w.readiness <= 6) msg += '   • Readiness: *' + item.w.readiness + '/10*\n';
+          if (item.w.stress !== null && item.w.stress >= 4) msg += '   • Stress: *' + item.w.stress + '/10*\n';
+          if (item.w.note) msg += '   💬 _"' + item.w.note + '"_\n';
+        });
+        msg += '\n';
+      } else {
+        msg += '✅ *Nessuna segnalazione critica o dolore segnalato stamattina.*\n\n';
+      }
+
+      msg += '👥 *DETTAGLIO ROSTER:*\n';
+      msg += rosterLines.join('\n') + '\n\n';
+
+      msg += '🔗 *Command Center:* https://pamangiapane-lgtm.github.io/schede-allenamento/coach/';
+
+      const waUrl = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(msg);
+      window.open(waUrl, '_blank');
+    }
+
+    function switchCoachTab(tab, btn) {
+      document.querySelectorAll('.c-tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      renderMatrix();
+      document.querySelectorAll('.c-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`panel-${tab}`).classList.add('active');
     }
 
-    function renderMatrix() {
-      const tbody = document.getElementById('matrix-tbody');
-      const filtered = ROSTER.filter(a => currentFilter === 'all' || a.risk_level === currentFilter);
+    /* ==========================================
+       LOGICA SEZIONE CAMPO S&C (W3)
+       ========================================== */
+    function switchCampoDay(day, btn) {
+      document.querySelectorAll('.btn-c-day').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      
+      const days = ['lun', 'mer', 'ven'];
+      if (day === 'all') {
+        days.forEach(d => {
+          const el = document.getElementById(`campo-day-${d}`);
+          if (el) el.classList.add('active');
+        });
+      } else {
+        days.forEach(d => {
+          const el = document.getElementById(`campo-day-${d}`);
+          if (el) {
+            if (d === day) el.classList.add('active');
+            else el.classList.remove('active');
+          }
+        });
+      }
+    }
 
-      tbody.innerHTML = filtered.map(a => {
-        const risk = a.risk_level || 'LOW';
-        const riskBadge = `<span class="risk-tag ${risk.toLowerCase()}">${risk === 'HIGH' ? '🔴 ALTO' : risk === 'MEDIUM' ? '🟡 MEDIO' : '🟢 BASSO'}</span>`;
-        const flags = (a.clinical_flags && a.clinical_flags.length > 0) ? a.clinical_flags.join(' · ') : 'Nessuna limitazione attiva';
-        const hasPrehab = PREHAB_DATA[String(a.id)] != null;
+    function saveCampoEdits() {
+      const container = document.getElementById('campo-days-container');
+      if (!container) return;
+      localStorage.setItem('coach_mv_campo_edits_w3', container.innerHTML);
+      showCampoToast('✅ Modifiche salvate nella memoria del browser!');
+    }
+
+    function resetCampoEdits() {
+      if (confirm('Vuoi ripristinare il programma Campo originario di W3?')) {
+        localStorage.removeItem('coach_mv_campo_edits_w3');
+        location.reload();
+      }
+    }
+
+    function showCampoToast(msg) {
+      const toast = document.getElementById('campo-toast');
+      if (!toast) return;
+      toast.innerHTML = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 3500);
+    }
+
+    function copyCampoSummary() {
+      let text = '🏐 *MARSALA VOLLEY A2 — SEDUTA CAMPO S&C (W3)*\n';
+      const activeDays = document.querySelectorAll('.campo-day-section.active');
+      activeDays.forEach(sec => {
+        const title = sec.querySelector('.campo-day-title')?.innerText.replace(/\s+/g, ' ').trim() || '';
+        const meta = sec.querySelector('.campo-day-meta')?.innerText.replace(/\s+/g, ' ').trim() || '';
+        text += `\n📌 *${title}*\n_${meta}_\n`;
+        
+        const blocks = sec.querySelectorAll('.campo-block');
+        blocks.forEach(b => {
+          const bTitle = b.querySelector('.block-head span:not(.time-tag):not(.tag-synapse)')?.innerText.trim() || '';
+          const time = b.querySelector('.time-tag')?.innerText.trim() || '';
+          const desc = b.querySelector('.block-desc')?.innerText.replace(/\s+/g, ' ').trim() || '';
+          text += `▪️ *[${time}] ${bTitle}*: ${desc}\n`;
+        });
+        
+        const safety = sec.querySelector('.safety-banner')?.innerText.replace(/\s+/g, ' ').trim() || '';
+        if (safety) text += `🛡️ *${safety}*\n`;
+      });
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCampoToast('📋 Schema copiato negli appunti per WhatsApp/Staff!');
+        }).catch(() => {
+          showCampoToast('⚠️ Impossibile copiare automaticamente, seleziona il testo.');
+        });
+      } else {
+        showCampoToast('📋 Copia non supportata su questo browser.');
+      }
+    }
+
+    function initCampoSection() {
+      const saved = localStorage.getItem('coach_mv_campo_edits_w3');
+      if (saved) {
+        const container = document.getElementById('campo-days-container');
+        if (container) container.innerHTML = saved;
+      }
+    }
+
+
+    function setRosterFilter(status, btn) {
+      currentFilterStatus = status;
+      btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderReadinessRoster();
+    }
+
+    function setRoleFilter(role, btn) {
+      currentFilterRole = role;
+      btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderReadinessRoster();
+    }
+
+    function getMetricStatus(catId, val) {
+      if (val === null || val === undefined) return 'grey';
+      if (catId === 'sonno' || catId === 'fatica' || catId === 'readiness') {
+        if (val >= 8) return 'green';
+        if (val >= 6) return 'yellow';
+        return 'red';
+      } else if (catId === 'dolori') {
+        // Dolori: 0-2 Verde, 3-4 Giallo, >= 5 Rosso
+        if (val <= 2) return 'green';
+        if (val <= 4) return 'yellow';
+        return 'red';
+      } else if (catId === 'stress') {
+        // Stress: 0-3 Verde, 4 Giallo, >= 5 Rosso
+        if (val <= 3) return 'green';
+        if (val <= 4) return 'yellow';
+        return 'red';
+      }
+      return 'green';
+    }
+
+    function getMetricColor(status) {
+      if (status === 'green') return '#6ee7b7';
+      if (status === 'yellow') return '#fde68a';
+      if (status === 'red') return '#fca5a5';
+      return '#94a3b8';
+    }
+
+    function isSecondYellowOrRed(catId, val) {
+      if (val === null || val === undefined) return false;
+      if (catId === 'dolori') {
+        return val >= 4; // 3 è 1° giallo (No Alert), 4 è 2° giallo (Alert), >=5 è Rosso
+      }
+      if (catId === 'sonno' || catId === 'fatica' || catId === 'readiness') {
+        return val <= 6; // 7 è 1° giallo (No Alert), 6 è 2° giallo (Alert), <=5 è Rosso
+      }
+      if (catId === 'stress') {
+        return val >= 4; // 3 è 1° giallo (No Alert), 4 è 2° giallo (Alert), >=5 è Rosso
+      }
+      return false;
+    }
+
+    function getAthleteTrafficStatus(w) {
+      if (!w || !w.isToday) return { type: 'grey', label: 'Da Compilare', text: 'Nessun dato oggi' };
+      
+      const sSonno = getMetricStatus('sonno', w.sonno);
+      const sFatica = getMetricStatus('fatica', w.fatica);
+      const sReady = getMetricStatus('readiness', w.readiness);
+      const sDolori = getMetricStatus('dolori', w.dolori);
+      const sStress = getMetricStatus('stress', w.stress);
+
+      if (sSonno === 'red' || sFatica === 'red' || sReady === 'red' || sDolori === 'red' || sStress === 'red') {
+        return { type: 'red', label: 'Alert Rosso', text: 'Rimodula / Valutazione' };
+      }
+
+      const has2ndYellow = isSecondYellowOrRed('dolori', w.dolori) ||
+                           isSecondYellowOrRed('sonno', w.sonno) ||
+                           isSecondYellowOrRed('fatica', w.fatica) ||
+                           isSecondYellowOrRed('readiness', w.readiness) ||
+                           isSecondYellowOrRed('stress', w.stress);
+
+      // Conteggio totale valori gialli
+      let countYellow = 0;
+      if (sSonno === 'yellow') countYellow++;
+      if (sFatica === 'yellow') countYellow++;
+      if (sReady === 'yellow') countYellow++;
+      if (sDolori === 'yellow') countYellow++;
+      if (sStress === 'yellow') countYellow++;
+
+      const has4Yellows = countYellow >= 4;
+      const hasNote = (w.note && w.note.trim().length > 0);
+
+      // Se ha un 2° giallo O se ha 4+ valori in giallo -> Alert Giallo (Attenzione)
+      if (has2ndYellow || has4Yellows) {
+        return { 
+          type: 'yellow', 
+          label: 'Attenzione', 
+          text: has4Yellows && !has2ndYellow ? '4 Valori Gialli (Fatica Sistemica)' : 'Riduci salti 20%' 
+        };
+      }
+
+      // Se ha scritto una nota ma nessun valore da alert -> In alert ma con badge da "Ottimale"
+      if (hasNote) {
+        return { 
+          type: 'green', 
+          label: 'Ottimale', 
+          text: '100% Carico OK (Nota segnalata)',
+          isNoteAlert: true 
+        };
+      }
+
+      return { type: 'green', label: 'Ottimale', text: '100% Carico OK' };
+    }
+
+    function renderReadinessRoster() {
+      let countFilled = 0;
+      let alertList = [];
+      let totalReadiness = 0;
+      let readinessCount = 0;
+
+      // Escludi staff coach (ID 99 o ruolo staff)
+      const ATHLETES = ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff'));
+
+      const filteredAthletes = ATHLETES.filter(a => {
+        if (currentFilterRole !== 'all' && !a.role.toLowerCase().includes(currentFilterRole.toLowerCase())) return false;
+        const w = liveWellnessData[a.id];
+        const traffic = getAthleteTrafficStatus(w);
+        if (currentFilterStatus === 'alert' && traffic.type !== 'red' && traffic.type !== 'yellow' && !traffic.isNoteAlert) return false;
+        if (currentFilterStatus === 'done' && (!w || !w.isToday)) return false;
+        if (currentFilterStatus === 'missing' && (w && w.isToday)) return false;
+        return true;
+      });
+
+      ATHLETES.forEach(a => {
+        const w = liveWellnessData[a.id];
+        if (w && w.isToday) {
+          countFilled++;
+          if (w.readiness !== null) {
+            totalReadiness += w.readiness;
+            readinessCount++;
+          }
+          const traffic = getAthleteTrafficStatus(w);
+          const hasNote = (w.note && w.note.trim().length > 0);
+          if (traffic.type === 'red' || traffic.type === 'yellow' || traffic.isNoteAlert) {
+            alertList.push({ ath: a, w: w, traffic: traffic, hasNote: hasNote });
+          }
+        }
+      });
+
+      // Ordinamento alert per gravità decrescente:
+      // 1. Rossi (Massima gravità)
+      // 2. Gialli (Attenzione: prima dolori più alti e deficit readiness/fatica)
+      // 3. Verdi con nota (Ottimale / Note cliniche)
+      alertList.sort((a, b) => {
+        const getCat = (item) => item.traffic.type === 'red' ? 0 : (item.traffic.type === 'yellow' ? 1 : 2);
+        const catA = getCat(a);
+        const catB = getCat(b);
+        if (catA !== catB) return catA - catB;
+
+        // A parità di categoria, calcola indice di gravità: dolori più alti e deficit readiness/fatica
+        const score = (item) => {
+          const dol = item.w.dolori || 0;
+          const rDef = 10 - (item.w.readiness !== null ? item.w.readiness : 10);
+          const fDef = 10 - (item.w.fatica !== null ? item.w.fatica : 10);
+          const sDef = 10 - (item.w.sonno !== null ? item.w.sonno : 10);
+          return dol * 3 + rDef * 2 + fDef + sDef;
+        };
+        return score(b) - score(a);
+      });
+
+      // Aggiorna KPI
+      document.getElementById('kpi-wellness-count').textContent = `${countFilled} / ${ATHLETES.length}`;
+      document.getElementById('kpi-wellness-status').textContent = countFilled === ATHLETES.length ? 'Tutte compilate!' : `${ATHLETES.length - countFilled} mancanti`;
+      document.getElementById('kpi-alert-count').textContent = alertList.length;
+      document.getElementById('kpi-alert-sub').textContent = alertList.length === 0 ? 'Nessun fastidio critico' : `${alertList.length} atlete da monitorare`;
+      
+      let countSessionsToday = 0;
+      ATHLETES.forEach(a => {
+        if (liveTodaySessions[a.id] && liveTodaySessions[a.id].isToday) countSessionsToday++;
+      });
+      const kpiSess = document.getElementById('kpi-sessions-count');
+      if (kpiSess) kpiSess.textContent = `${countSessionsToday} / ${ATHLETES.length}`;
+      const kpiSessSub = document.getElementById('kpi-sessions-status');
+      if (kpiSessSub) {
+        kpiSessSub.textContent = countSessionsToday === ROSTER.length 
+          ? 'Tutte registrate!' 
+          : (countSessionsToday > 0 ? `${countSessionsToday} registrate oggi` : 'In attesa di fine seduta');
+      }
+
+      const avgPct = readinessCount > 0 ? Math.round((totalReadiness / readinessCount) * 10) : '--';
+      document.getElementById('kpi-team-readiness').textContent = avgPct !== '--' ? `${avgPct}%` : '--';
+      document.getElementById('kpi-team-status').textContent = avgPct >= 75 ? '🟢 Squadra in forma' : (avgPct >= 60 ? '🟡 Fatica moderata' : '🔴 Scarico raccomandato');
+
+      // Render Alert Banner (RIASSUNTO COMPLETO GIALLI, ROSSI E NOTE)
+      const bannerBox = document.getElementById('alert-banner-box');
+      const bannerList = document.getElementById('alert-banner-list');
+
+      if (alertList.length === 0) {
+        bannerBox.className = 'alert-banner clean';
+        bannerList.innerHTML = `<div style="color:#6ee7b7;font-weight:700;font-size:0.85rem;padding:6px 0;">✓ Tutte le atlete compilate sono in fascia VERDE (100% pronte) e nessuna nota segnalata.</div>`;
+      } else {
+        bannerBox.className = 'alert-banner';
+        bannerList.innerHTML = alertList.map(item => {
+          const w = item.w;
+          const colSonno = getMetricColor(getMetricStatus('sonno', w.sonno));
+          const colFatica = getMetricColor(getMetricStatus('fatica', w.fatica));
+          const colDolori = getMetricColor(getMetricStatus('dolori', w.dolori));
+          const colStress = getMetricColor(getMetricStatus('stress', w.stress));
+          const colReady = getMetricColor(getMetricStatus('readiness', w.readiness));
+
+          return `
+            <div style="background:#090f1d;border:1px solid ${item.traffic.type === 'red' ? 'rgba(239,68,68,0.5)' : (item.traffic.type === 'green' ? 'rgba(16,185,129,0.5)' : 'rgba(232,160,32,0.4)')};border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:0 3px 10px rgba(0,0,0,0.3);">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                <div style="font-size:0.88rem;font-weight:800;color:#fff;">
+                  #${item.ath.id} ${item.ath.name} <span style="font-size:0.75rem;font-weight:600;color:var(--mv-muted)">(${item.ath.role})</span>
+                </div>
+                <span class="traffic-tag ${item.traffic.type}">${item.traffic.label}</span>
+              </div>
+              
+              <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:#060a14;padding:6px 8px;border-radius:8px;border:1px solid rgba(255,255,255,0.05);text-align:center;">
+                <div><div style="font-size:0.65rem;color:#94a3b8;font-weight:700;">Sonno</div><div style="font-size:0.82rem;font-weight:800;color:${colSonno}">${w.sonno !== null ? w.sonno : '—'}</div></div>
+                <div><div style="font-size:0.65rem;color:#94a3b8;font-weight:700;">Energia</div><div style="font-size:0.82rem;font-weight:800;color:${colFatica}">${w.fatica !== null ? w.fatica : '—'}</div></div>
+                <div><div style="font-size:0.65rem;color:#94a3b8;font-weight:700;">Dolori</div><div style="font-size:0.82rem;font-weight:800;color:${colDolori}">${w.dolori !== null ? w.dolori : '—'}</div></div>
+                <div><div style="font-size:0.65rem;color:#94a3b8;font-weight:700;">Stress</div><div style="font-size:0.82rem;font-weight:800;color:${colStress}">${w.stress !== null ? w.stress : '—'}</div></div>
+                <div><div style="font-size:0.65rem;color:#94a3b8;font-weight:700;">Readiness</div><div style="font-size:0.82rem;font-weight:800;color:${colReady}">${w.readiness !== null ? w.readiness : '—'}</div></div>
+              </div>
+
+              ${w.note ? `
+                <div style="margin-top:8px;background:rgba(232,160,32,0.12);border-left:3px solid var(--mv-amber);padding:6px 10px;border-radius:4px;font-size:0.78rem;color:#fde68a;font-style:italic;">
+                  💬 <strong>Nota atleta:</strong> "${w.note}"
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Render Roster Cards
+      const container = document.getElementById('roster-readiness-list');
+      if (filteredAthletes.length === 0) {
+        container.innerHTML = `<div style="text-align:center;color:var(--mv-muted);padding:20px;">Nessuna atleta corrisponde ai filtri selezionati.</div>`;
+        return;
+      }
+
+      container.innerHTML = filteredAthletes.map(a => {
+        const w = liveWellnessData[a.id];
+        const traffic = getAthleteTrafficStatus(w);
+
+        const subScoresHtml = (w && w.isToday) ? `
+          <div class="w-scores-grid">
+            <div class="w-score-pill">
+              <span class="w-score-lbl">Sonno</span>
+              <span class="w-score-val" style="color:${getMetricColor(getMetricStatus('sonno', w.sonno))}">${w.sonno}/10</span>
+            </div>
+            <div class="w-score-pill">
+              <span class="w-score-lbl">Energia</span>
+              <span class="w-score-val" style="color:${getMetricColor(getMetricStatus('fatica', w.fatica))}">${w.fatica}/10</span>
+            </div>
+            <div class="w-score-pill">
+              <span class="w-score-lbl">Dolori</span>
+              <span class="w-score-val" style="color:${getMetricColor(getMetricStatus('dolori', w.dolori))}">${w.dolori}/10</span>
+            </div>
+            <div class="w-score-pill">
+              <span class="w-score-lbl">Stress</span>
+              <span class="w-score-val" style="color:${getMetricColor(getMetricStatus('stress', w.stress))}">${w.stress !== null ? w.stress + '/10' : '—'}</span>
+            </div>
+            <div class="w-score-pill">
+              <span class="w-score-lbl">Readiness</span>
+              <span class="w-score-val" style="color:${getMetricColor(getMetricStatus('readiness', w.readiness))};font-weight:800;">${w.readiness}/10</span>
+            </div>
+          </div>
+          ${w.note ? `<div style="font-size:0.75rem;color:#fde68a;font-style:italic;margin-top:6px;width:100%;">💬 "${w.note}"</div>` : ''}
+        ` : `<div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;margin-top:4px;">Questionario non ancora compilato stamattina</div>`;
+
+        const sess = liveTodaySessions[a.id];
+        const todaySessionPill = (sess && sess.isToday) ? `
+          <div style="margin-top:8px;padding:5px 8px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);border-radius:6px;font-size:0.72rem;color:#6ee7b7;display:flex;justify-content:space-between;align-items:center;">
+            <span>🏋️ Seduta Pesi (${sess.session}) completata</span>
+            <span style="font-weight:800;">RPE ${sess.rpe !== null ? sess.rpe + '/10' : '—'} · Fatica ${sess.fat !== null ? sess.fat + '/10' : '—'}</span>
+          </div>
+        ` : '';
+
+        return `
+          <div class="roster-ath-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+              <div class="ath-ident">
+                <div class="ath-num">#${a.id}</div>
+                <div>
+                  <div class="ath-info-name">${a.name}</div>
+                  <div class="ath-info-role">${a.role} · Marsala Volley</div>
+                </div>
+              </div>
+              <span class="traffic-tag ${traffic.type}">${traffic.label}</span>
+            </div>
+            ${subScoresHtml}
+            ${todaySessionPill}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderSedutePanel() {
+      const now = new Date();
+      const todayIso = now.toISOString().slice(0, 10);
+      const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+      const dateLabel = document.getElementById('today-date-label');
+      if (dateLabel) {
+        const dStr = now.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
+        dateLabel.textContent = dStr.charAt(0).toUpperCase() + dStr.slice(1);
+      }
+
+      const doneToday = [];
+      const missingToday = [];
+
+      ROSTER.forEach(a => {
+        const sess = liveTodaySessions[a.id];
+        if (sess && sess.isToday) {
+          doneToday.push({ ath: a, sess: sess });
+        } else {
+          missingToday.push(a);
+        }
+      });
+
+      // Aggiorna KPI Header
+      const kpiSess = document.getElementById('kpi-sessions-count');
+      if (kpiSess) kpiSess.textContent = `${doneToday.length} / ${ROSTER.length}`;
+      const kpiSessSub = document.getElementById('kpi-sessions-status');
+      if (kpiSessSub) {
+        kpiSessSub.textContent = doneToday.length === ROSTER.length 
+          ? 'Tutte registrate!' 
+          : (doneToday.length > 0 ? `${doneToday.length} atlete completate` : 'In attesa di fine seduta');
+      }
+
+      // Badge nel pannello
+      const badgeToday = document.getElementById('badge-today-sessions-count');
+      if (badgeToday) badgeToday.textContent = `${doneToday.length} / ${ROSTER.length} atlete`;
+
+      const countDone = document.getElementById('count-done-today');
+      if (countDone) countDone.textContent = doneToday.length;
+      const countMiss = document.getElementById('count-missing-today');
+      if (countMiss) countMiss.textContent = missingToday.length;
+
+      // Render Lista Completate Oggi
+      const listDone = document.getElementById('list-done-today');
+      if (listDone) {
+        if (doneToday.length === 0) {
+          listDone.innerHTML = `<div style="color:var(--mv-muted);font-size:0.78rem;font-style:italic;padding:8px 0;">Nessuna atleta ha ancora registrato la seduta oggi.</div>`;
+        } else {
+          listDone.innerHTML = doneToday.map(item => {
+            const s = item.sess;
+            const rpeCol = getRPEColor(s.rpe);
+            const fatCol = getFatigueColor(s.fat);
+            return `
+              <div style="background:#060a14;border:1px solid rgba(16,185,129,0.3);border-radius:8px;padding:8px 10px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                  <div style="font-weight:800;color:#fff;font-size:0.82rem;">#${item.ath.id} ${item.ath.name} <span style="font-size:0.7rem;color:var(--mv-muted)">(${item.ath.role})</span></div>
+                  <span style="background:rgba(232,160,32,0.15);color:#fde68a;font-weight:800;padding:1px 6px;border-radius:4px;font-size:0.68rem;border:1px solid rgba(232,160,32,0.3);">${s.session}</span>
+                </div>
+                <div style="display:flex;gap:12px;align-items:center;">
+                  <span style="font-size:0.75rem;color:#cbd5e1;">sRPE: <strong style="color:${rpeCol};font-size:0.88rem;">${s.rpe !== null ? s.rpe + '/10' : '—'}</strong></span>
+                  <span style="color:var(--mv-border)">|</span>
+                  <span style="font-size:0.75rem;color:#cbd5e1;">Fatica: <strong style="color:${fatCol};font-size:0.88rem;">${s.fat !== null ? s.fat + '/10' : '—'}</strong></span>
+                </div>
+                ${s.note ? `<div style="font-size:0.72rem;color:#fde68a;font-style:italic;margin-top:4px;">💬 "${s.note}"</div>` : ''}
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // Render Lista Mancanti Oggi
+      const listMiss = document.getElementById('list-missing-today');
+      if (listMiss) {
+        if (missingToday.length === 0) {
+          listMiss.innerHTML = `<div style="color:#6ee7b7;font-size:0.78rem;font-weight:700;padding:8px 0;">✓ Tutte le atlete del roster hanno registrato la seduta!</div>`;
+        } else {
+          listMiss.innerHTML = missingToday.map(a => `
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 8px;background:rgba(255,255,255,0.02);border-radius:6px;border:1px solid rgba(255,255,255,0.04);">
+              <span style="font-size:0.78rem;color:#cbd5e1;">#${a.id} ${a.name} <span style="font-size:0.7rem;color:var(--mv-muted)">(${a.role})</span></span>
+              <span style="font-size:0.68rem;color:var(--mv-amber);font-weight:700;">Da inviare</span>
+            </div>
+          `).join('');
+        }
+      }
+
+      renderSessionRatingsTable();
+      renderVBTTable();
+      renderCMJTable();
+      renderCustomLoadsTable();
+    }
+
+        function formatDateTimeIT(isoDate, isoTs) {
+      const now = new Date();
+      const todayIso = now.toISOString().slice(0, 10);
+      const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+      
+      const dStr = String(isoDate || '').slice(0, 10);
+      let timePart = '';
+      if (isoTs && isoTs.includes('T')) {
+        try {
+          const dt = new Date(isoTs);
+          if (!isNaN(dt.getTime())) {
+            timePart = ' ' + dt.toLocaleTimeString('it-IT', { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit' });
+          }
+        } catch(e) {}
+      }
+      
+      if (dStr === todayIso || dStr === localIso) {
+        return `<strong style="color:#6ee7b7">🟢 Oggi${timePart}</strong>`;
+      }
+      if (dStr === '2026-09-07') {
+        return `<strong style="color:#93c5fd">📅 Ieri (07/09)${timePart}</strong>`;
+      }
+      return `<span style="color:var(--mv-muted)">${dStr}${timePart}</span>`;
+    }
+
+    function render1RMTable() {
+      const tbody = document.getElementById('tbl-1rm-body');
+      tbody.innerHTML = ROSTER.map(a => {
+        const base = TRUE_BASELINES[a.id] || {};
+        const live = live1RMData[a.id] || {};
+        let bw = live.bw || BASELINE_WEIGHTS[a.id] || 65;
+        if (bw < 40 || bw > 130) bw = BASELINE_WEIGHTS[a.id] || 65;
+
+        const sq = live.squat || base.squat || 0;
+        const bp = live.bench || base.bench || 0;
+        const mp = live.military || base.military || 0;
+        const cl = live.clean || base.clean || 0;
+        const rw = live.row || base.row || 0;
+        const lt = live.lat || base.lat || 0;
+
+        const sqRatio = sq > 0 ? (sq / bw).toFixed(1) + 'x' : '—';
+        const bpRatio = bp > 0 ? (bp / bw).toFixed(1) + 'x' : '—';
+        const mpRatio = mp > 0 ? (mp / bw).toFixed(1) + 'x' : '—';
 
         return `
           <tr>
-            <td>
-              <div class="ath-cell">
-                <span class="ath-num">${a.number || '#'}</span>
-                <div>
-                  <a href="app.html?id=${a.id}" target="_blank" class="ath-name">${a.name}</a>
-                </div>
-              </div>
-            </td>
-            <td><span class="ath-role">${a.role}</span></td>
-            <td>${riskBadge}</td>
-            <td style="max-width:280px;font-size:0.78rem;color:#cbd5e1;white-space:normal">${flags}</td>
-            <td>
-              ${hasPrehab ? `<button class="btn-action" onclick="openPrehabModal(${a.id})">🛡️ Vedi Protocollo F1</button>` : '<span style="color:#64748b">—</span>'}
-            </td>
-            <td>
-              <div style="display:flex;align-items:center;gap:6px">
-                <span class="risk-tag low" style="font-size:0.75rem">85% Pronto</span>
-                <span style="font-size:0.7rem;color:var(--mv-muted)">💤4 ⚡4 🛡️4 💥5</span>
-              </div>
-            </td>
-            <td>
-              <a href="app.html?id=${a.id}" target="_blank" class="btn-action">↗ Apri Scheda</a>
-            </td>
+            <td><strong>#${a.id} ${a.name}</strong> <span style="font-size:0.7rem;color:var(--mv-muted)">(${a.role})</span></td>
+            <td><strong style="color:#93c5fd">${bw} kg</strong></td>
+            <td><span class="rm-val-strong">${sq > 0 ? sq + 'k' : '—'}</span> <span class="rm-ratio-tag">${sqRatio}</span></td>
+            <td><span class="rm-val-strong">${bp > 0 ? bp + 'k' : '—'}</span> <span class="rm-ratio-tag">${bpRatio}</span></td>
+            <td><span class="rm-val-strong">${mp > 0 ? mp + 'k' : '—'}</span> <span class="rm-ratio-tag">${mpRatio}</span></td>
+            <td><span class="rm-val-strong">${cl > 0 ? cl + 'k' : '—'}</span></td>
+            <td><span class="rm-val-strong">${rw > 0 ? rw + 'k' : '—'}</span></td>
+            <td><span class="rm-val-strong">${lt > 0 ? lt + 'k' : '—'}</span></td>
           </tr>
         `;
       }).join('');
     }
 
-    function openPrehabModal(athId) {
-      const a = ROSTER.find(item => item.id === athId);
-      const p = PREHAB_DATA[String(athId)];
-      if (!a || !p) return;
+    function renderSessionRatingsTable() {
+      const tbody = document.getElementById('tbl-sessions-body');
+      const badgeTot = document.getElementById('badge-sessions-total');
+      if (!tbody) return;
 
-      document.getElementById('pm-name').textContent = a.name;
-      const f1 = p.phases?.F1;
-      if (!f1) return;
+      if (badgeTot) badgeTot.textContent = `${liveSessionRatings.length} registrazioni`;
 
-      document.getElementById('pm-phase').textContent = `${f1.title} · Obiettivo: ${f1.objective || 'Miglioramento ROM'}`;
-      document.getElementById('pm-content').innerHTML = (f1.exercises || []).map((ex, i) => `
-        <div style="background:var(--mv-surface2);border-radius:8px;padding:10px 12px;margin-bottom:8px;">
-          <div style="font-weight:700;color:#fff;font-size:0.88rem">${i+1}. ${ex.exercise}</div>
-          <div style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;margin:2px 0">🎯 ${ex.params} · ${ex.target}</div>
-          <div style="font-size:0.75rem;color:#94a3b8">${ex.notes}</div>
-        </div>
+      if (liveSessionRatings.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessuna valutazione seduta registrata nel database.</td></tr>`;
+        return;
+      }
+
+      const now = new Date();
+      const todayIso = now.toISOString().slice(0, 10);
+      const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+      tbody.innerHTML = liveSessionRatings.slice(0, 100).map(s => {
+        const rpeCol = getRPEColor(s.rpe);
+        const fatCol = getFatigueColor(s.fat);
+        const dateDisplay = formatDateTimeIT(s.date, s.ts);
+
+        return `
+          <tr>
+            <td><strong>${s.athName}</strong> <span style="font-size:0.7rem;color:var(--mv-muted)">(${s.role})</span></td>
+            <td><span style="background:rgba(232,160,32,0.15);color:#fde68a;font-weight:800;padding:2px 8px;border-radius:5px;border:1px solid rgba(232,160,32,0.3);font-size:0.75rem;">${s.session}</span></td>
+            <td><span style="font-size:0.75rem;">${dateDisplay}</span></td>
+            <td><span style="display:inline-block;padding:2px 8px;border-radius:6px;font-weight:800;background:#090f1d;border:1px solid ${rpeCol};color:${rpeCol}">${s.rpe !== null ? s.rpe + '/10' : '—'}</span></td>
+            <td><span style="display:inline-block;padding:2px 8px;border-radius:6px;font-weight:800;background:#090f1d;border:1px solid ${fatCol};color:${fatCol}">${s.fat !== null ? s.fat + '/10' : '—'}</span></td>
+            <td><span style="font-size:0.75rem;color:${s.note ? '#fde68a' : 'var(--mv-muted)'};font-style:${s.note ? 'italic' : 'normal'}">${s.note ? `💬 "${s.note}"` : '—'}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderVBTTable() {
+      const tbody = document.getElementById('tbl-vbt-body');
+      const badgeTot = document.getElementById('badge-vbt-total');
+      if (!tbody) return;
+
+      if (badgeTot) badgeTot.textContent = `${liveVBTData.length} rilevazioni`;
+
+      if (liveVBTData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessuna rilevazione VBT registrata finora.</td></tr>`;
+        return;
+      }
+
+      const now = new Date();
+      const todayIso = now.toISOString().slice(0, 10);
+      const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+      tbody.innerHTML = liveVBTData.slice(0, 60).map(v => {
+        const velNum = parseFloat(v.vel);
+        let badgeColor = '#10b981'; // Verde (esplosivo >= 0.80)
+        let badgeText = '⚡ Veloce / Esplosivo';
+        if (velNum < 0.65) {
+          badgeColor = '#f59e0b'; // Giallo/Ambra (< 0.65)
+          badgeText = '🏋️ Carico Alto / Fatica';
+        } else if (velNum < 0.80) {
+          badgeColor = '#38bdf8'; // Azzurro (0.65 - 0.79)
+          badgeText = '🎯 Target Ottimale';
+        }
+
+        const isToday = (v.date === todayIso || v.date === localIso || (v.ts && (v.ts.slice(0, 10) === todayIso || v.ts.slice(0, 10) === localIso)));
+        const dateDisplay = isToday ? `<strong style="color:#6ee7b7">🟢 Oggi ${v.ts ? v.ts.slice(11, 16) : ''}</strong>` : `${v.date} ${v.ts ? v.ts.slice(11, 16) : ''}`;
+
+        return `
+          <tr>
+            <td><strong>${v.athName}</strong> <span style="font-size:0.7rem;color:var(--mv-muted)">(${v.role})</span></td>
+            <td><span style="font-size:0.8rem;color:#cbd5e1">${v.exercise}</span></td>
+            <td>
+              <span style="display:inline-block;padding:3px 10px;border-radius:6px;font-weight:800;background:#090f1d;border:1px solid ${badgeColor};color:${badgeColor};font-size:0.88rem;">
+                ${v.vel} m/s
+              </span>
+              <span style="font-size:0.7rem;color:var(--mv-muted);margin-left:6px;">${badgeText}</span>
+            </td>
+            <td><span style="background:rgba(232,160,32,0.15);color:#fde68a;font-weight:800;padding:2px 8px;border-radius:5px;border:1px solid rgba(232,160,32,0.3);font-size:0.75rem;">${v.session}</span></td>
+            <td><span style="font-size:0.75rem;">${dateDisplay}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderCMJTable() {
+      const tbody = document.getElementById('tbl-cmj-body');
+      const badgeTot = document.getElementById('badge-cmj-total');
+      if (!tbody) return;
+
+      if (badgeTot) badgeTot.textContent = `${liveCMJData.length} salti`;
+
+      if (liveCMJData.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessun test CMJ registrato finora.</td></tr>`;
+        return;
+      }
+
+      const now = new Date();
+      const todayIso = now.toISOString().slice(0, 10);
+      const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+      tbody.innerHTML = liveCMJData.slice(0, 60).map(c => {
+        const hNum = parseFloat(c.height.replace(',', '.').replace(/cm/i, '')) || 0;
+        let badgeColor = '#38bdf8';
+        let badgeText = 'Buona prontezza';
+        if (hNum >= 34) {
+          badgeColor = '#10b981';
+          badgeText = '🌟 Picco Esplosivo';
+        } else if (hNum < 20) {
+          badgeColor = '#f59e0b';
+          badgeText = 'Da monitorare';
+        }
+
+        const isToday = (c.date === todayIso || c.date === localIso || (c.ts && (c.ts.slice(0, 10) === todayIso || c.ts.slice(0, 10) === localIso)));
+        const dateDisplay = isToday ? `<strong style="color:#6ee7b7">🟢 Oggi ${c.ts ? c.ts.slice(11, 16) : ''}</strong>` : `${c.date} ${c.ts ? c.ts.slice(11, 16) : ''}`;
+
+        return `
+          <tr>
+            <td><strong>${c.athName}</strong> <span style="font-size:0.7rem;color:var(--mv-muted)">(${c.role})</span></td>
+            <td>
+              <span style="display:inline-block;padding:3px 10px;border-radius:6px;font-weight:800;background:#090f1d;border:1px solid ${badgeColor};color:${badgeColor};font-size:0.88rem;">
+                ${c.height}
+              </span>
+            </td>
+            <td><span style="font-size:0.75rem;color:${badgeColor};font-weight:700">${badgeText}</span></td>
+            <td><span style="background:rgba(232,160,32,0.15);color:#fde68a;font-weight:800;padding:2px 8px;border-radius:5px;border:1px solid rgba(232,160,32,0.3);font-size:0.75rem;">${c.session}</span></td>
+            <td><span style="font-size:0.75rem;">${dateDisplay}</span></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderCustomLoadsTable() {
+      const tbody = document.getElementById('tbl-custom-loads-body');
+      if (!tbody) return;
+      if (liveCustomLoads.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessun carico accessorio registrato di recente.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = liveCustomLoads.slice(0, 100).map(item => `
+        <tr>
+          <td><strong>${item.athName}</strong></td>
+          <td>${item.exercise}</td>
+          <td><span style="background:rgba(232,160,32,0.15);color:#fde68a;font-weight:800;padding:2px 8px;border-radius:5px;border:1px solid rgba(232,160,32,0.3)">${item.load}</span></td>
+          <td><span style="font-size:0.75rem;color:${item.note ? '#fde68a' : 'var(--mv-muted)'};font-style:${item.note ? 'italic' : 'normal'}">${item.note ? `💬 "${item.note}"` : '—'}</span></td>
+          <td><span style="font-size:0.75rem;color:var(--mv-muted)">${item.session}</span></td>
+          <td><span style="font-size:0.75rem;color:var(--mv-muted)">${item.date}</span></td>
+        </tr>
       `).join('');
-
-      document.getElementById('prehab-modal').classList.add('open');
     }
 
-    function closePrehabModal(e) {
-      document.getElementById('prehab-modal').classList.remove('open');
+    
+    // ==========================================
+    // WELLNESS ANALYTICS & TREND ENGINE
+    // ==========================================
+    let rawWellnessRecords = [];
+    let rawWeightRecords = [];
+    let rawVBTRecords = [];
+    let anCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
+    let anCurrentRange = 'all';
+    let anCurrentDay = 'all';
+    let anVisibleMetrics = { readiness: true, fatica: true, sonno: true, dolori: true, stress: false, peso: false, vbt: false };
+    let trendChartInstance = null;
+    let microcycleChartInstance = null;
+    let vbtScatterChartInstance = null;
+
+    function initAnalyticsUI() {
+      // Inizializza selettore atlete
+      const selector = document.getElementById('analytics-athlete-selector');
+      if (!selector) return;
+
+      let pillsHtml = `<button class="btn-filt ${anCurrentAthlete === 0 ? 'active' : ''}" onclick="setAnalyticsTarget(0, this)" style="white-space:nowrap;">👥 Tutta la Squadra</button>`;
+      ROSTER.forEach(a => {
+        const isActive = (anCurrentAthlete === a.id) ? 'active' : '';
+        pillsHtml += `<button class="btn-filt ${isActive}" onclick="setAnalyticsTarget(${a.id}, this)" style="white-space:nowrap;">#${a.id} ${a.name.split(' ')[1] || a.name}</button>`;
+      });
+      selector.innerHTML = pillsHtml;
     }
 
+    function drillDownAthlete(aid) {
+      anCurrentAthlete = aid;
+      initAnalyticsUI();
+      switchCoachTab('analytics', document.getElementById('btn-tab-analytics'));
+      renderWellnessAnalytics();
+    }
+
+    function setAnalyticsTarget(aid, btn) {
+      anCurrentAthlete = aid;
+      if (btn) {
+        btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      renderWellnessAnalytics();
+    }
+
+    function setAnalyticsRange(range, btn) {
+      anCurrentRange = range;
+      if (btn) {
+        btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      renderWellnessAnalytics();
+    }
+
+    function setAnalyticsDay(day, btn) {
+      anCurrentDay = day;
+      if (btn) {
+        btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      renderWellnessAnalytics();
+    }
+
+    function toggleMetric(metric) {
+      anVisibleMetrics[metric] = !anVisibleMetrics[metric];
+      const btn = document.getElementById(`tog-${metric}`);
+      if (btn) {
+        if (anVisibleMetrics[metric]) btn.classList.add('active');
+        else btn.classList.remove('active');
+      }
+      renderWellnessAnalytics();
+    }
+
+    function filterWellnessData() {
+      let data = [...rawWellnessRecords];
+
+      // Filtro Atleta
+      if (anCurrentAthlete > 0) {
+        data = data.filter(r => r.aid === anCurrentAthlete);
+      }
+
+      // Filtro Temporale
+      const now = new Date();
+      if (anCurrentRange === '7d') {
+        const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '14d') {
+        const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '30d') {
+        const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === 'offseason') {
+        data = data.filter(r => r.date <= '2026-08-23');
+      } else if (anCurrentRange === 'preseason') {
+        data = data.filter(r => r.date >= '2026-08-24');
+      }
+
+      // Filtro Giorno della Settimana (1=Lun, 2=Mar, ..., 0=Dom)
+      if (anCurrentDay !== 'all') {
+        const targetDay = parseInt(anCurrentDay);
+        data = data.filter(r => {
+          const d = new Date(r.date);
+          return d.getDay() === targetDay;
+        });
+      }
+
+      return data;
+    }
+
+    function filterWeightData() {
+      let data = [...rawWeightRecords];
+
+      // Filtro Atleta
+      if (anCurrentAthlete > 0) {
+        data = data.filter(r => r.aid === anCurrentAthlete);
+      }
+
+      // Deduplica mantenendo l'ultima pesata registrata per (atleta, data)
+      const latestMap = new Map();
+      data.forEach(r => {
+        const key = `${r.aid}_${r.date}`;
+        const prev = latestMap.get(key);
+        if (!prev || (r.timestamp && r.timestamp >= prev.timestamp)) {
+          latestMap.set(key, r);
+        }
+      });
+      data = Array.from(latestMap.values());
+
+      // Filtro Temporale
+      const now = new Date();
+      if (anCurrentRange === '7d') {
+        const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '14d') {
+        const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '30d') {
+        const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === 'offseason') {
+        data = data.filter(r => r.date <= '2026-08-23');
+      } else if (anCurrentRange === 'preseason') {
+        data = data.filter(r => r.date >= '2026-08-24');
+      }
+
+      // Filtro Giorno della Settimana
+      if (anCurrentDay !== 'all') {
+        const targetDay = parseInt(anCurrentDay);
+        data = data.filter(r => {
+          const d = new Date(r.date);
+          return d.getDay() === targetDay;
+        });
+      }
+
+      return data;
+    }
+
+    function filterVBTData() {
+      let data = [...rawVBTRecords];
+
+      // Filtro Atleta
+      if (anCurrentAthlete > 0) {
+        data = data.filter(r => r.aid === anCurrentAthlete);
+      }
+
+      // Filtro Temporale
+      const now = new Date();
+      if (anCurrentRange === '7d') {
+        const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '14d') {
+        const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '30d') {
+        const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === 'offseason') {
+        data = data.filter(r => r.date <= '2026-08-23');
+      } else if (anCurrentRange === 'preseason') {
+        data = data.filter(r => r.date >= '2026-08-24');
+      }
+
+      // Filtro Giorno della Settimana
+      if (anCurrentDay !== 'all') {
+        const targetDay = parseInt(anCurrentDay);
+        data = data.filter(r => {
+          const d = new Date(r.date);
+          return d.getDay() === targetDay;
+        });
+      }
+
+      return data;
+    }
+
+    function renderWellnessAnalytics() {
+      initAnalyticsUI();
+      const filtered = filterWellnessData();
+      const filteredWeight = filterWeightData();
+      const filteredVBT = filterVBTData();
+
+      // Titoli dinamici
+      const targetName = (anCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === anCurrentAthlete)?.name || `Atleta #${anCurrentAthlete}`);
+      document.getElementById('trend-chart-title').textContent = `📈 Trend: ${targetName}`;
+      document.getElementById('trend-chart-subtitle').textContent = `${filtered.length} record wellness · ${filteredWeight.length} pesate · ${filteredVBT.length} rilevazioni VBT`;
+
+      // 1. Calcolo KPI Summary
+      let sumReady = 0, sumFatica = 0, sumSonno = 0, sumDolori = 0, sumStress = 0, sumPeso = 0, sumVbt = 0;
+      let cReady = 0, cFatica = 0, cSonno = 0, cDolori = 0, cStress = 0, cPeso = 0, cVbt = 0;
+
+      filtered.forEach(r => {
+        if (typeof r.readiness === 'number' && !isNaN(r.readiness)) { sumReady += r.readiness; cReady++; }
+        if (typeof r.fatica === 'number' && !isNaN(r.fatica)) { sumFatica += r.fatica; cFatica++; }
+        if (typeof r.sonno === 'number' && !isNaN(r.sonno)) { sumSonno += r.sonno; cSonno++; }
+        if (typeof r.dolori === 'number' && !isNaN(r.dolori)) { sumDolori += r.dolori; cDolori++; }
+        if (typeof r.stress === 'number' && !isNaN(r.stress)) { sumStress += r.stress; cStress++; }
+      });
+
+      filteredWeight.forEach(r => {
+        if (typeof r.peso === 'number' && !isNaN(r.peso) && r.peso > 0) { sumPeso += r.peso; cPeso++; }
+      });
+
+      filteredVBT.forEach(r => {
+        if (typeof r.vel === 'number' && !isNaN(r.vel) && r.vel > 0) { sumVbt += r.vel; cVbt++; }
+      });
+
+      document.getElementById('an-kpi-readiness').textContent = cReady > 0 ? (sumReady / cReady).toFixed(1) + '/10' : '--';
+      document.getElementById('an-kpi-fatica').textContent = cFatica > 0 ? (sumFatica / cFatica).toFixed(1) + '/10' : '--';
+      document.getElementById('an-kpi-sonno').textContent = cSonno > 0 ? (sumSonno / cSonno).toFixed(1) + '/10' : '--';
+      document.getElementById('an-kpi-dolori').textContent = cDolori > 0 ? (sumDolori / cDolori).toFixed(1) + '/10' : '--';
+      document.getElementById('an-kpi-stress').textContent = cStress > 0 ? (sumStress / cStress).toFixed(1) + '/10' : '--';
+      const kpiPesoEl = document.getElementById('an-kpi-peso');
+      if (kpiPesoEl) kpiPesoEl.textContent = cPeso > 0 ? (sumPeso / cPeso).toFixed(1) + ' kg' : '--';
+      const kpiVbtEl = document.getElementById('an-kpi-vbt');
+      if (kpiVbtEl) kpiVbtEl.textContent = cVbt > 0 ? (sumVbt / cVbt).toFixed(2) + ' m/s' : '--';
+
+      // Visualizzazione / occultamento card KPI in base alle metriche selezionate
+      const metricsList = ['readiness', 'fatica', 'sonno', 'dolori', 'stress', 'peso', 'vbt'];
+      let activeKpiCount = 0;
+      metricsList.forEach(m => {
+        const card = document.getElementById(`an-card-${m}`);
+        if (card) {
+          const isVis = Boolean(anVisibleMetrics[m]);
+          card.style.display = isVis ? '' : 'none';
+          if (isVis) activeKpiCount++;
+        }
+      });
+      const kpiGrid = document.getElementById('analytics-kpi-grid');
+      if (kpiGrid) {
+        if (activeKpiCount > 0) {
+          kpiGrid.style.display = 'grid';
+          kpiGrid.style.gridTemplateColumns = `repeat(${activeKpiCount}, 1fr)`;
+        } else {
+          kpiGrid.style.display = 'none';
+        }
+      }
+
+      // 2. Costruzione Dati per Grafico Temporale
+      const dateMap = {};
+      filtered.forEach(r => {
+        if (!r.date || r.date.length < 10 || !r.date.includes('-')) return;
+        if (!dateMap[r.date]) {
+          dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], peso: [], notes: [] };
+        }
+        if (r.readiness !== null) dateMap[r.date].readiness.push(r.readiness);
+        if (r.fatica !== null) dateMap[r.date].fatica.push(r.fatica);
+        if (r.sonno !== null) dateMap[r.date].sonno.push(r.sonno);
+        if (r.dolori !== null) dateMap[r.date].dolori.push(r.dolori);
+        if (r.stress !== null) dateMap[r.date].stress.push(r.stress);
+        if (r.note && r.note.trim()) dateMap[r.date].notes.push({ ath: r.athName, note: r.note });
+      });
+
+      filteredWeight.forEach(r => {
+        if (!r.date || r.date.length < 10 || !r.date.includes('-')) return;
+        if (!dateMap[r.date]) {
+          dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], peso: [], notes: [] };
+        }
+        if (!dateMap[r.date].peso) dateMap[r.date].peso = [];
+        if (r.peso !== null && r.peso !== undefined) dateMap[r.date].peso.push(r.peso);
+      });
+
+      const sortedDates = Object.keys(dateMap).sort().filter(d => d && d.length >= 10 && d.includes('-'));
+      const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
+
+      const monthAbbr = { '01':'GEN', '02':'FEB', '03':'MAR', '04':'APR', '05':'MAG', '06':'GIU', '07':'LUG', '08':'AGO', '09':'SET', '10':'OTT', '11':'NOV', '12':'DIC' };
+
+      const totalPoints = sortedDates.length;
+      let step = 1;
+      if (totalPoints > 35) step = 4;
+      else if (totalPoints > 18) step = 2;
+      else step = 1;
+
+      let lastSeenMonth = null;
+      const labels = sortedDates.map((d, idx) => {
+        const parts = d.split('-');
+        const m = parts[1];
+        const dayNum = String(parseInt(parts[2], 10) || '');
+
+        // Calcolo giorno settimana (0=Dom, 1=Lun, ..., 6=Sab)
+        const dt = new Date(`${parts[0]}-${parts[1]}-${parts[2]}T12:00:00`);
+        const dayOfWeek = dt.getDay();
+        const isSat = (dayOfWeek === 6);
+        const isSun = (dayOfWeek === 0);
+
+        const isMonthStart = (m !== lastSeenMonth);
+        if (isMonthStart) lastSeenMonth = m;
+
+        const isFirst = (idx === 0);
+        const isLast = (idx === totalPoints - 1);
+        const isStepTick = (idx % step === 0);
+
+        if (isMonthStart || isFirst) {
+          const mTag = monthAbbr[m] || m;
+          if (isSat) return [dayNum, `S · ${mTag}`];
+          if (isSun) return [dayNum, `D · ${mTag}`];
+          return [dayNum, mTag]; // 2 righe: Giorno sopra, MESE ORO sotto
+        } else if (isSat) {
+          return [dayNum, 'S']; // Sabato: 'S' sotto
+        } else if (isSun) {
+          return [dayNum, 'D']; // Domenica: 'D' sotto
+        } else if (totalPoints <= 14 || isLast || isStepTick) {
+          return dayNum;
+        } else {
+          return ''; // Spazio vuoto per respiro visivo
+        }
+      });
+
+      const hasWellnessActive = Boolean(anVisibleMetrics.readiness || anVisibleMetrics.fatica || anVisibleMetrics.sonno || anVisibleMetrics.dolori || anVisibleMetrics.stress);
+      const isPesoOnly = Boolean(anVisibleMetrics.peso && !hasWellnessActive);
+
+      let minPeso = 45, maxPeso = 85;
+      if (anVisibleMetrics.peso) {
+        const allPesoValues = [];
+        sortedDates.forEach(d => {
+          if (dateMap[d].peso && dateMap[d].peso.length) {
+            dateMap[d].peso.forEach(p => allPesoValues.push(p));
+          }
+        });
+        if (allPesoValues.length > 0) {
+          const minVal = Math.min(...allPesoValues);
+          const maxVal = Math.max(...allPesoValues);
+          minPeso = Math.floor(minVal - 2);
+          maxPeso = Math.ceil(maxVal + 2);
+          if (maxPeso - minPeso < 5) {
+            minPeso -= 2;
+            maxPeso += 2;
+          }
+        }
+      }
+
+      const datasets = [];
+      if (anVisibleMetrics.readiness) {
+        datasets.push({
+          label: 'Readiness 🎯',
+          data: sortedDates.map(d => avg(dateMap[d].readiness)),
+          borderColor: '#f59e0b',
+          backgroundColor: 'rgba(245, 158, 11, 0.1)',
+          yAxisID: 'y',
+          tension: 0.35,
+          borderWidth: 3,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        });
+      }
+      if (anVisibleMetrics.fatica) {
+        datasets.push({
+          label: 'Energia ⚡',
+          data: sortedDates.map(d => avg(dateMap[d].fatica)),
+          borderColor: '#10b981',
+          backgroundColor: 'transparent',
+          yAxisID: 'y',
+          tension: 0.35,
+          borderWidth: 2,
+          pointRadius: 3
+        });
+      }
+      if (anVisibleMetrics.sonno) {
+        datasets.push({
+          label: 'Sonno 😴',
+          data: sortedDates.map(d => avg(dateMap[d].sonno)),
+          borderColor: '#3b82f6',
+          backgroundColor: 'transparent',
+          yAxisID: 'y',
+          tension: 0.35,
+          borderWidth: 2,
+          pointRadius: 3
+        });
+      }
+      if (anVisibleMetrics.dolori) {
+        datasets.push({
+          label: 'Dolori 🩹',
+          data: sortedDates.map(d => avg(dateMap[d].dolori)),
+          borderColor: '#ef4444',
+          backgroundColor: 'transparent',
+          yAxisID: 'y',
+          tension: 0.35,
+          borderWidth: 2,
+          pointRadius: 3
+        });
+      }
+      if (anVisibleMetrics.stress) {
+        datasets.push({
+          label: 'Stress 🧠',
+          data: sortedDates.map(d => avg(dateMap[d].stress)),
+          borderColor: '#a855f7',
+          backgroundColor: 'transparent',
+          yAxisID: 'y',
+          tension: 0.35,
+          borderWidth: 2,
+          pointRadius: 3
+        });
+      }
+      if (anVisibleMetrics.peso) {
+        datasets.push({
+          label: 'Peso (kg) ⚖️',
+          data: sortedDates.map(d => (dateMap[d].peso && dateMap[d].peso.length) ? avg(dateMap[d].peso) : null),
+          borderColor: '#06b6d4',
+          backgroundColor: 'rgba(6, 182, 212, 0.08)',
+          yAxisID: hasWellnessActive ? 'yPeso' : 'y',
+          tension: 0.35,
+          borderWidth: 2.5,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          spanGaps: true
+        });
+      }
+
+      const chartScales = {
+        x: {
+          grid: { color: 'rgba(255, 255, 255, 0.04)' },
+          ticks: {
+            callback: function(val, index) {
+              return labels[index];
+            },
+            color: function(context) {
+              const label = labels[context.index];
+              if (Array.isArray(label)) {
+                const sub = label[1] || '';
+                if (sub === 'S' || sub === 'D' || sub.startsWith('S ') || sub.startsWith('D ')) {
+                  return '#38bdf8';
+                }
+                return '#f59e0b';
+              }
+              return '#94a3b8';
+            },
+            font: function(context) {
+              const label = labels[context.index];
+              return Array.isArray(label) ? { weight: '800', size: 10 } : { size: 10 };
+            },
+            autoSkip: false,
+            maxRotation: 0,
+            minRotation: 0
+          }
+        }
+      };
+
+      if (isPesoOnly) {
+        chartScales.y = {
+          position: 'left',
+          min: minPeso,
+          max: maxPeso,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
+          ticks: {
+            color: '#67e8f9',
+            callback: function(val) { return val + ' kg'; }
+          },
+          title: {
+            display: true,
+            text: 'Peso Corporeo (kg)',
+            color: '#67e8f9',
+            font: { weight: '700', size: 11 }
+          }
+        };
+      } else {
+        chartScales.y = {
+          position: 'left',
+          min: 0,
+          max: 10,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
+          ticks: { color: '#94a3b8', stepSize: 2 },
+          title: {
+            display: true,
+            text: 'Score Wellness (0-10)',
+            color: '#94a3b8',
+            font: { weight: '700', size: 11 }
+          }
+        };
+        if (anVisibleMetrics.peso) {
+          chartScales.yPeso = {
+            position: 'right',
+            min: minPeso,
+            max: maxPeso,
+            grid: { drawOnChartArea: false },
+            ticks: {
+              color: '#67e8f9',
+              callback: function(val) { return val + ' kg'; }
+            },
+            title: {
+              display: true,
+              text: 'Peso (kg)',
+              color: '#67e8f9',
+              font: { weight: '700', size: 11 }
+            }
+          };
+        }
+      }
+
+      // Render o Update Chart 1
+      const ctxTrend = document.getElementById('wellnessTrendChart');
+      if (ctxTrend) {
+        if (trendChartInstance) trendChartInstance.destroy();
+        trendChartInstance = new Chart(ctxTrend, {
+          type: 'line',
+          data: { labels: labels, datasets: datasets },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: '#090f1d',
+                borderColor: '#1f365d',
+                borderWidth: 1,
+                titleColor: '#fff',
+                bodyColor: '#cbd5e1',
+                padding: 10,
+                callbacks: {
+                  title: function(context) {
+                    const idx = context[0].dataIndex;
+                    const d = sortedDates[idx];
+                    const parts = d.split('-');
+                    const dt = new Date(`${parts[0]}-${parts[1]}-${parts[2]}T12:00:00`);
+                    const dNames = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+                    const dayName = dNames[dt.getDay()] || '';
+                    return `📅 ${dayName} ${parts[2]}/${parts[1]}/${parts[0]}`;
+                  },
+                  label: function(context) {
+                    const label = context.dataset.label || '';
+                    const val = context.parsed.y;
+                    if (val === null || val === undefined) return null;
+                    if (context.dataset.yAxisID === 'yPeso' || isPesoOnly) {
+                      return `${label}: ${val.toFixed(1)} kg`;
+                    }
+                    return `${label}: ${val}/10`;
+                  },
+                  afterBody: function(context) {
+                    const idx = context[0].dataIndex;
+                    const d = sortedDates[idx];
+                    const notes = dateMap[d].notes;
+                    if (notes && notes.length) {
+                      return notes.map(n => `💬 ${n.ath}: "${n.note}"`).join('\n');
+                    }
+                    return '';
+                  }
+                }
+              }
+            },
+            scales: chartScales
+          }
+        });
+      }
+
+      // 2B. Costruzione e Render Grafico VBT Scatter (Ascisse: Velocità m/s, Ordinate: Carico kg)
+      const boxVbt = document.getElementById('box-vbt-scatter');
+      if (boxVbt) {
+        if (anVisibleMetrics.vbt) {
+          boxVbt.style.display = 'block';
+          const athColors = {
+            1: '#38bdf8', 2: '#f59e0b', 3: '#10b981', 4: '#ec4899', 5: '#a855f7',
+            6: '#06b6d4', 7: '#e11d48', 8: '#84cc16', 9: '#f97316', 11: '#6366f1',
+            12: '#14b8a6', 13: '#eab308', 14: '#d946ef'
+          };
+
+          const vbtTitleEl = document.getElementById('vbt-chart-title');
+          const vbtSubEl = document.getElementById('vbt-chart-subtitle');
+          const vbtBadgeEl = document.getElementById('vbt-summary-badge');
+          
+          if (vbtTitleEl) vbtTitleEl.textContent = `🏎️ Profilo VBT Back Squat: ${targetName}`;
+          if (vbtSubEl) vbtSubEl.textContent = `Ascisse (X): Velocità concentrica media (m/s) · Ordinate (Y): Carico sollevato (kg) · ${filteredVBT.length} rilevazioni`;
+          if (vbtBadgeEl) {
+            const avgV = cVbt > 0 ? (sumVbt / cVbt).toFixed(2) : '--';
+            vbtBadgeEl.textContent = `Media: ${avgV} m/s (${cVbt} punti)`;
+          }
+
+          let vbtDatasets = [];
+
+          if (anCurrentAthlete > 0) {
+            const ath = ROSTER.find(a => a.id === anCurrentAthlete);
+            const aName = ath ? ath.name : `Atleta #${anCurrentAthlete}`;
+            const color = athColors[anCurrentAthlete] || '#38bdf8';
+
+            const points = filteredVBT.map(r => ({
+              x: r.vel,
+              y: r.kg,
+              date: r.date,
+              session: r.session,
+              name: aName
+            }));
+
+            vbtDatasets.push({
+              label: `${aName} (Rilevazioni Enode)`,
+              data: points,
+              backgroundColor: color,
+              borderColor: '#ffffff',
+              borderWidth: 1.5,
+              pointRadius: 7,
+              pointHoverRadius: 9,
+              showLine: false
+            });
+
+            // Se ci sono punti, traccia la linea di tendenza del profilo Carico-Velocità
+            if (points.length >= 2) {
+              const xs = points.map(p => p.x);
+              const ys = points.map(p => p.y);
+              const n = points.length;
+              const sumX = xs.reduce((a,b)=>a+b, 0);
+              const sumY = ys.reduce((a,b)=>a+b, 0);
+              const sumXY = points.reduce((a,p)=>a + p.x * p.y, 0);
+              const sumX2 = xs.reduce((a,b)=>a + b*b, 0);
+              const denom = (n * sumX2 - sumX * sumX);
+              const slope = denom !== 0 ? (n * sumXY - sumX * sumY) / denom : 0;
+              const intercept = (sumY - slope * sumX) / n;
+
+              const minX = 0.4;
+              const maxX = 1.1;
+              vbtDatasets.push({
+                label: `Profilo F-V (${aName})`,
+                data: [
+                  { x: minX, y: Math.max(0, +(slope * minX + intercept).toFixed(1)) },
+                  { x: maxX, y: Math.max(0, +(slope * maxX + intercept).toFixed(1)) }
+                ],
+                borderColor: color,
+                borderDash: [5, 5],
+                borderWidth: 2,
+                pointRadius: 0,
+                fill: false,
+                showLine: true
+              });
+            }
+          } else {
+            // Tutta la squadra: raggruppa per atleta
+            const groupedByAth = {};
+            filteredVBT.forEach(r => {
+              if (!groupedByAth[r.aid]) groupedByAth[r.aid] = [];
+              groupedByAth[r.aid].push({
+                x: r.vel,
+                y: r.kg,
+                date: r.date,
+                session: r.session,
+                name: r.athName
+              });
+            });
+
+            Object.keys(groupedByAth).forEach(aidStr => {
+              const aid = parseInt(aidStr);
+              const ath = ROSTER.find(a => a.id === aid);
+              const aName = ath ? ath.name.split(' ')[1] || ath.name : `#${aid}`;
+              const color = athColors[aid] || '#38bdf8';
+              vbtDatasets.push({
+                label: `#${aid} ${aName}`,
+                data: groupedByAth[aid],
+                backgroundColor: color,
+                borderColor: '#ffffff',
+                borderWidth: 1,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                showLine: false
+              });
+            });
+          }
+
+          const ctxVbt = document.getElementById('vbtScatterChart');
+          if (ctxVbt) {
+            if (vbtScatterChartInstance) vbtScatterChartInstance.destroy();
+            vbtScatterChartInstance = new Chart(ctxVbt, {
+              type: 'scatter',
+              data: { datasets: vbtDatasets },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: (anCurrentAthlete === 0),
+                    position: 'top',
+                    labels: { color: '#cbd5e1', font: { size: 10 }, boxWidth: 10, padding: 6 }
+                  },
+                  tooltip: {
+                    backgroundColor: '#090f1d',
+                    borderColor: '#1e335a',
+                    borderWidth: 1,
+                    padding: 10,
+                    titleColor: '#38bdf8',
+                    bodyColor: '#fff',
+                    callbacks: {
+                      title: function(items) {
+                        const raw = items[0].raw;
+                        return `🏎️ ${raw.name || 'Atleta'}`;
+                      },
+                      label: function(context) {
+                        const p = context.raw;
+                        if (!p || typeof p.x !== 'number') return null;
+                        return [
+                          `• Velocità (X): ${p.x.toFixed(2)} m/s`,
+                          `• Carico (Y): ${p.y} kg`,
+                          `• Sessione: ${p.session || 'W3 S1'} · ${p.date || ''}`
+                        ];
+                      }
+                    }
+                  }
+                },
+                scales: {
+                  x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    min: 0.35,
+                    max: 1.25,
+                    grid: { color: 'rgba(255, 255, 255, 0.06)' },
+                    ticks: {
+                      color: '#38bdf8',
+                      stepSize: 0.1,
+                      callback: v => v.toFixed(2) + ' m/s'
+                    },
+                    title: {
+                      display: true,
+                      text: '◀ Più Pesante / Lento — VELOCITÀ (m/s) — Più Veloce / Esplosivo ▶',
+                      color: '#38bdf8',
+                      font: { weight: 'bold', size: 11 }
+                    }
+                  },
+                  y: {
+                    type: 'linear',
+                    min: 20,
+                    max: 160,
+                    grid: { color: 'rgba(255, 255, 255, 0.06)' },
+                    ticks: {
+                      color: '#f59e0b',
+                      stepSize: 20,
+                      callback: v => v + ' kg'
+                    },
+                    title: {
+                      display: true,
+                      text: 'CARICO BACK SQUAT (kg)',
+                      color: '#f59e0b',
+                      font: { weight: 'bold', size: 11 }
+                    }
+                  }
+                }
+              }
+            });
+          }
+        } else {
+          boxVbt.style.display = 'none';
+        }
+      }
+
+      // 3. Costruzione Dati per Grafico Microciclo (Giorno della Settimana)
+      const dayNames = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+      const dayOrder = [1, 2, 3, 4, 5, 6, 0]; // Da Lunedì a Domenica
+      const dayStats = { 0: {r:[], f:[], d:[]}, 1: {r:[], f:[], d:[]}, 2: {r:[], f:[], d:[]}, 3: {r:[], f:[], d:[]}, 4: {r:[], f:[], d:[]}, 5: {r:[], f:[], d:[]}, 6: {r:[], f:[], d:[]} };
+
+      filtered.forEach(r => {
+        const dObj = new Date(r.date);
+        const dayIdx = dObj.getDay();
+        if (r.readiness !== null) dayStats[dayIdx].r.push(r.readiness);
+        if (r.fatica !== null) dayStats[dayIdx].f.push(r.fatica);
+        if (r.dolori !== null) dayStats[dayIdx].d.push(r.dolori);
+      });
+
+      const microLabels = dayOrder.map(idx => dayNames[idx].slice(0, 3));
+      const microReadyData = dayOrder.map(idx => avg(dayStats[idx].r));
+      const microEnergyData = dayOrder.map(idx => avg(dayStats[idx].f));
+      const microDoloriData = dayOrder.map(idx => avg(dayStats[idx].d));
+
+      const ctxMicro = document.getElementById('wellnessMicrocycleChart');
+      if (ctxMicro) {
+        if (microcycleChartInstance) microcycleChartInstance.destroy();
+        microcycleChartInstance = new Chart(ctxMicro, {
+          type: 'bar',
+          data: {
+            labels: microLabels,
+            datasets: [
+              { label: 'Readiness 🎯', data: microReadyData, backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 4 },
+              { label: 'Energia ⚡', data: microEnergyData, backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 4 },
+              { label: 'Dolori 🩹', data: microDoloriData, backgroundColor: 'rgba(239, 68, 68, 0.85)', borderRadius: 4 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false } // Legenda interna disattivata
+            },
+            scales: {
+              y: { min: 0, max: 10, grid: { color: 'rgba(255, 255, 255, 0.06)' }, ticks: { color: '#94a3b8', stepSize: 2 } },
+              x: { grid: { display: false }, ticks: { color: '#cbd5e1', font: { weight: 'bold' } } }
+            }
+          }
+        });
+      }
+
+      // 4. Popolamento Timeline Note
+      const notesTimeline = document.getElementById('analytics-notes-timeline');
+      if (notesTimeline) {
+        const notesList = filtered.filter(r => r.note && r.note.trim().length > 0).sort((a,b) => b.date.localeCompare(a.date));
+        if (notesList.length === 0) {
+          notesTimeline.innerHTML = `<div style="text-align:center;color:var(--mv-muted);font-size:0.8rem;padding:14px;">Nessuna segnalazione o nota registrata per i filtri selezionati.</div>`;
+        } else {
+          notesTimeline.innerHTML = notesList.map(n => `
+            <div style="background:#090f1d;border-left:3px solid var(--mv-amber);padding:8px 12px;border-radius:6px;font-size:0.8rem;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                <strong style="color:#fff;">#${n.aid} ${n.athName}</strong>
+                <span style="font-size:0.7rem;color:var(--mv-muted);">${n.date} · Dolori ${n.dolori !== null ? n.dolori : '—'}/10 · Stress ${n.stress !== null ? n.stress : '—'}/10</span>
+              </div>
+              <div style="color:#fde68a;font-style:italic;">💬 "${n.note}"</div>
+            </div>
+          `).join('');
+        }
+      }
+    }
+    
     window.addEventListener('DOMContentLoaded', initCoach);
   </script>
 </body>

@@ -1231,12 +1231,13 @@
             <button class="btn-filt active" id="tog-dolori" onclick="toggleMetric('dolori')" style="border-color:#ef4444;color:#fca5a5;">🩹 Dolori</button>
             <button class="btn-filt" id="tog-stress" onclick="toggleMetric('stress')" style="border-color:#a855f7;color:#d8b4fe;">🧠 Stress</button>
             <button class="btn-filt" id="tog-peso" onclick="toggleMetric('peso')" style="border-color:#06b6d4;color:#67e8f9;">⚖️ Peso</button>
+            <button class="btn-filt" id="tog-vbt" onclick="toggleMetric('vbt')" style="border-color:#38bdf8;color:#7dd3fc;">🏎️ VBT (m/s ➔ kg)</button>
           </div>
         </div>
       </div>
 
       <!-- KPI Summary del Periodo Selezionato (RESPONSIVE NO OVERFLOW) -->
-      <div style="display:grid;grid-template-columns:repeat(6, 1fr);gap:4px;margin-bottom:14px;width:100%;box-sizing:border-box;" id="analytics-kpi-grid">
+      <div style="display:grid;grid-template-columns:repeat(7, 1fr);gap:4px;margin-bottom:14px;width:100%;box-sizing:border-box;" id="analytics-kpi-grid">
         <div class="kpi-card" id="an-card-readiness" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
           <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Readiness</div>
           <div class="kpi-val" id="an-kpi-readiness" style="color:var(--mv-amber);font-size:0.95rem;margin:2px 0;">--</div>
@@ -1262,10 +1263,15 @@
           <div class="kpi-val" id="an-kpi-stress" style="color:#d8b4fe;font-size:0.95rem;margin:2px 0;">--</div>
           <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tensione</div>
         </div>
-        <div class="kpi-card" id="an-card-peso" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+        <div class="kpi-card" id="an-card-peso" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;display:none;">
           <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Peso</div>
           <div class="kpi-val" id="an-kpi-peso" style="color:#67e8f9;font-size:0.95rem;margin:2px 0;">--</div>
           <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (kg)</div>
+        </div>
+        <div class="kpi-card" id="an-card-vbt" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;display:none;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">VBT Squat</div>
+          <div class="kpi-val" id="an-kpi-vbt" style="color:#38bdf8;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (m/s)</div>
         </div>
       </div>
 
@@ -1277,6 +1283,22 @@
         </div>
         <div style="position:relative;height:320px;width:100%;">
           <canvas id="wellnessTrendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- GRAFICO VBT: PROFILO CARICO-VELOCITÀ (ASCISSE: VELOCITÀ m/s, ORDINATE: CARICO kg) -->
+      <div class="card-box" id="box-vbt-scatter" style="margin-bottom:14px;display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <h3 class="card-title" style="margin-bottom:2px;" id="vbt-chart-title">🏎️ Profilo VBT Back Squat — Carico vs Velocità</h3>
+            <p style="font-size:0.75rem;color:var(--mv-muted);margin:0;" id="vbt-chart-subtitle">Ascisse (X): Velocità concentrica media (m/s) · Ordinate (Y): Carico sollevato (kg)</p>
+          </div>
+          <div style="font-size:0.75rem;background:#182846;padding:4px 10px;border-radius:8px;border:1px solid #1e335a;color:#7dd3fc;" id="vbt-summary-badge">
+            Rilevazioni Enode
+          </div>
+        </div>
+        <div style="position:relative;height:340px;width:100%;">
+          <canvas id="vbtScatterChart"></canvas>
         </div>
       </div>
 
@@ -1438,7 +1460,7 @@
     async function initCoach() {
       initCampoSection();
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=224', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=225', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -1617,6 +1639,7 @@
         liveVBTData = [];
         liveCMJData = [];
         rawWeightRecords = [];
+        rawVBTRecords = [];
 
         const sessionAgg = {};
         const now = new Date();
@@ -1666,20 +1689,36 @@
               vel = parseFloat(vMatch[0]);
               if (vel >= 5 && vel <= 150 && !valStr.includes('.')) vel = vel / 100;
             }
-            if (vel !== null && vel > 0) {
+            if (vel !== null && vel > 0 && vel <= 2.5) {
+              const base = TRUE_BASELINES[aid] || {};
+              const sq1RM = live1RMData[aid]?.squat || base.squat || 0;
+              const bw = live1RMData[aid]?.bw || BASELINE_WEIGHTS[aid] || 65;
+              
+              // Calcolo carico Back Squat (target 75% o specificato)
+              let loadKg = 0;
+              const kgMatch = String(r.Kg_Usati || r.kg_usati || '').replace(',', '.').match(/\d+(?:\.\d+)?/);
+              if (kgMatch && parseFloat(kgMatch[0]) >= 20) {
+                loadKg = parseFloat(kgMatch[0]);
+              } else if (sq1RM > 0) {
+                loadKg = Math.max(0, Math.round(((0.75 * (sq1RM + bw)) - bw) * 2) / 2);
+              }
+
               const vbtKey = `${aid}_${nSeduta}_${vel.toFixed(2)}_${rDate}`;
               if (!seenVBT.has(vbtKey)) {
                 seenVBT.add(vbtKey);
-                liveVBTData.unshift({
+                const rec = {
                   aid: aid,
                   athName: athName,
                   role: athRole,
                   exercise: exRaw || 'Squat (Parallelo)',
-                  vel: vel.toFixed(2),
+                  vel: parseFloat(vel.toFixed(2)),
+                  kg: loadKg,
                   session: nSeduta.startsWith('W3') ? 'W3 · Seduta 1' : nSeduta,
                   date: rDate || '2026-09-07',
                   ts: ts
-                });
+                };
+                liveVBTData.unshift(rec);
+                rawVBTRecords.push(rec);
               }
             }
             return; // Esci per non inquinare altre categorie
@@ -2646,12 +2685,14 @@
     // ==========================================
     let rawWellnessRecords = [];
     let rawWeightRecords = [];
+    let rawVBTRecords = [];
     let anCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
     let anCurrentRange = 'all';
     let anCurrentDay = 'all';
-    let anVisibleMetrics = { readiness: true, fatica: true, sonno: true, dolori: true, stress: false, peso: false };
+    let anVisibleMetrics = { readiness: true, fatica: true, sonno: true, dolori: true, stress: false, peso: false, vbt: false };
     let trendChartInstance = null;
     let microcycleChartInstance = null;
+    let vbtScatterChartInstance = null;
 
     function initAnalyticsUI() {
       // Inizializza selettore atlete
@@ -2756,8 +2797,6 @@
       }
 
       // Deduplica mantenendo l'ultima pesata registrata per (atleta, data)
-      // in modo che se l'atleta aggiorna o invia più volte il peso lo stesso giorno,
-      // viene usato il valore finale più recente (esatto valore inserito nell'app)
       const latestMap = new Map();
       data.forEach(r => {
         const key = `${r.aid}_${r.date}`;
@@ -2797,19 +2836,57 @@
       return data;
     }
 
+    function filterVBTData() {
+      let data = [...rawVBTRecords];
+
+      // Filtro Atleta
+      if (anCurrentAthlete > 0) {
+        data = data.filter(r => r.aid === anCurrentAthlete);
+      }
+
+      // Filtro Temporale
+      const now = new Date();
+      if (anCurrentRange === '7d') {
+        const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '14d') {
+        const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '30d') {
+        const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === 'offseason') {
+        data = data.filter(r => r.date <= '2026-08-23');
+      } else if (anCurrentRange === 'preseason') {
+        data = data.filter(r => r.date >= '2026-08-24');
+      }
+
+      // Filtro Giorno della Settimana
+      if (anCurrentDay !== 'all') {
+        const targetDay = parseInt(anCurrentDay);
+        data = data.filter(r => {
+          const d = new Date(r.date);
+          return d.getDay() === targetDay;
+        });
+      }
+
+      return data;
+    }
+
     function renderWellnessAnalytics() {
       initAnalyticsUI();
       const filtered = filterWellnessData();
       const filteredWeight = filterWeightData();
+      const filteredVBT = filterVBTData();
 
       // Titoli dinamici
       const targetName = (anCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === anCurrentAthlete)?.name || `Atleta #${anCurrentAthlete}`);
       document.getElementById('trend-chart-title').textContent = `📈 Trend: ${targetName}`;
-      document.getElementById('trend-chart-subtitle').textContent = `${filtered.length} record wellness · ${filteredWeight.length} pesate analizzate`;
+      document.getElementById('trend-chart-subtitle').textContent = `${filtered.length} record wellness · ${filteredWeight.length} pesate · ${filteredVBT.length} rilevazioni VBT`;
 
       // 1. Calcolo KPI Summary
-      let sumReady = 0, sumFatica = 0, sumSonno = 0, sumDolori = 0, sumStress = 0, sumPeso = 0;
-      let cReady = 0, cFatica = 0, cSonno = 0, cDolori = 0, cStress = 0, cPeso = 0;
+      let sumReady = 0, sumFatica = 0, sumSonno = 0, sumDolori = 0, sumStress = 0, sumPeso = 0, sumVbt = 0;
+      let cReady = 0, cFatica = 0, cSonno = 0, cDolori = 0, cStress = 0, cPeso = 0, cVbt = 0;
 
       filtered.forEach(r => {
         if (typeof r.readiness === 'number' && !isNaN(r.readiness)) { sumReady += r.readiness; cReady++; }
@@ -2823,6 +2900,10 @@
         if (typeof r.peso === 'number' && !isNaN(r.peso) && r.peso > 0) { sumPeso += r.peso; cPeso++; }
       });
 
+      filteredVBT.forEach(r => {
+        if (typeof r.vel === 'number' && !isNaN(r.vel) && r.vel > 0) { sumVbt += r.vel; cVbt++; }
+      });
+
       document.getElementById('an-kpi-readiness').textContent = cReady > 0 ? (sumReady / cReady).toFixed(1) + '/10' : '--';
       document.getElementById('an-kpi-fatica').textContent = cFatica > 0 ? (sumFatica / cFatica).toFixed(1) + '/10' : '--';
       document.getElementById('an-kpi-sonno').textContent = cSonno > 0 ? (sumSonno / cSonno).toFixed(1) + '/10' : '--';
@@ -2830,9 +2911,11 @@
       document.getElementById('an-kpi-stress').textContent = cStress > 0 ? (sumStress / cStress).toFixed(1) + '/10' : '--';
       const kpiPesoEl = document.getElementById('an-kpi-peso');
       if (kpiPesoEl) kpiPesoEl.textContent = cPeso > 0 ? (sumPeso / cPeso).toFixed(1) + ' kg' : '--';
+      const kpiVbtEl = document.getElementById('an-kpi-vbt');
+      if (kpiVbtEl) kpiVbtEl.textContent = cVbt > 0 ? (sumVbt / cVbt).toFixed(2) + ' m/s' : '--';
 
       // Visualizzazione / occultamento card KPI in base alle metriche selezionate
-      const metricsList = ['readiness', 'fatica', 'sonno', 'dolori', 'stress', 'peso'];
+      const metricsList = ['readiness', 'fatica', 'sonno', 'dolori', 'stress', 'peso', 'vbt'];
       let activeKpiCount = 0;
       metricsList.forEach(m => {
         const card = document.getElementById(`an-card-${m}`);
@@ -3156,6 +3239,199 @@
             scales: chartScales
           }
         });
+      }
+
+      // 2B. Costruzione e Render Grafico VBT Scatter (Ascisse: Velocità m/s, Ordinate: Carico kg)
+      const boxVbt = document.getElementById('box-vbt-scatter');
+      if (boxVbt) {
+        if (anVisibleMetrics.vbt) {
+          boxVbt.style.display = 'block';
+          const athColors = {
+            1: '#38bdf8', 2: '#f59e0b', 3: '#10b981', 4: '#ec4899', 5: '#a855f7',
+            6: '#06b6d4', 7: '#e11d48', 8: '#84cc16', 9: '#f97316', 11: '#6366f1',
+            12: '#14b8a6', 13: '#eab308', 14: '#d946ef'
+          };
+
+          const vbtTitleEl = document.getElementById('vbt-chart-title');
+          const vbtSubEl = document.getElementById('vbt-chart-subtitle');
+          const vbtBadgeEl = document.getElementById('vbt-summary-badge');
+          
+          if (vbtTitleEl) vbtTitleEl.textContent = `🏎️ Profilo VBT Back Squat: ${targetName}`;
+          if (vbtSubEl) vbtSubEl.textContent = `Ascisse (X): Velocità concentrica media (m/s) · Ordinate (Y): Carico sollevato (kg) · ${filteredVBT.length} rilevazioni`;
+          if (vbtBadgeEl) {
+            const avgV = cVbt > 0 ? (sumVbt / cVbt).toFixed(2) : '--';
+            vbtBadgeEl.textContent = `Media: ${avgV} m/s (${cVbt} punti)`;
+          }
+
+          let vbtDatasets = [];
+
+          if (anCurrentAthlete > 0) {
+            const ath = ROSTER.find(a => a.id === anCurrentAthlete);
+            const aName = ath ? ath.name : `Atleta #${anCurrentAthlete}`;
+            const color = athColors[anCurrentAthlete] || '#38bdf8';
+
+            const points = filteredVBT.map(r => ({
+              x: r.vel,
+              y: r.kg,
+              date: r.date,
+              session: r.session,
+              name: aName
+            }));
+
+            vbtDatasets.push({
+              label: `${aName} (Rilevazioni Enode)`,
+              data: points,
+              backgroundColor: color,
+              borderColor: '#ffffff',
+              borderWidth: 1.5,
+              pointRadius: 7,
+              pointHoverRadius: 9,
+              showLine: false
+            });
+
+            // Se ci sono punti, traccia la linea di tendenza del profilo Carico-Velocità
+            if (points.length >= 2) {
+              const xs = points.map(p => p.x);
+              const ys = points.map(p => p.y);
+              const n = points.length;
+              const sumX = xs.reduce((a,b)=>a+b, 0);
+              const sumY = ys.reduce((a,b)=>a+b, 0);
+              const sumXY = points.reduce((a,p)=>a + p.x * p.y, 0);
+              const sumX2 = xs.reduce((a,b)=>a + b*b, 0);
+              const denom = (n * sumX2 - sumX * sumX);
+              const slope = denom !== 0 ? (n * sumXY - sumX * sumY) / denom : 0;
+              const intercept = (sumY - slope * sumX) / n;
+
+              const minX = 0.4;
+              const maxX = 1.1;
+              vbtDatasets.push({
+                label: `Profilo F-V (${aName})`,
+                data: [
+                  { x: minX, y: Math.max(0, +(slope * minX + intercept).toFixed(1)) },
+                  { x: maxX, y: Math.max(0, +(slope * maxX + intercept).toFixed(1)) }
+                ],
+                borderColor: color,
+                borderDash: [5, 5],
+                borderWidth: 2,
+                pointRadius: 0,
+                fill: false,
+                showLine: true
+              });
+            }
+          } else {
+            // Tutta la squadra: raggruppa per atleta
+            const groupedByAth = {};
+            filteredVBT.forEach(r => {
+              if (!groupedByAth[r.aid]) groupedByAth[r.aid] = [];
+              groupedByAth[r.aid].push({
+                x: r.vel,
+                y: r.kg,
+                date: r.date,
+                session: r.session,
+                name: r.athName
+              });
+            });
+
+            Object.keys(groupedByAth).forEach(aidStr => {
+              const aid = parseInt(aidStr);
+              const ath = ROSTER.find(a => a.id === aid);
+              const aName = ath ? ath.name.split(' ')[1] || ath.name : `#${aid}`;
+              const color = athColors[aid] || '#38bdf8';
+              vbtDatasets.push({
+                label: `#${aid} ${aName}`,
+                data: groupedByAth[aid],
+                backgroundColor: color,
+                borderColor: '#ffffff',
+                borderWidth: 1,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                showLine: false
+              });
+            });
+          }
+
+          const ctxVbt = document.getElementById('vbtScatterChart');
+          if (ctxVbt) {
+            if (vbtScatterChartInstance) vbtScatterChartInstance.destroy();
+            vbtScatterChartInstance = new Chart(ctxVbt, {
+              type: 'scatter',
+              data: { datasets: vbtDatasets },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: {
+                    display: (anCurrentAthlete === 0),
+                    position: 'top',
+                    labels: { color: '#cbd5e1', font: { size: 10 }, boxWidth: 10, padding: 6 }
+                  },
+                  tooltip: {
+                    backgroundColor: '#090f1d',
+                    borderColor: '#1e335a',
+                    borderWidth: 1,
+                    padding: 10,
+                    titleColor: '#38bdf8',
+                    bodyColor: '#fff',
+                    callbacks: {
+                      title: function(items) {
+                        const raw = items[0].raw;
+                        return `🏎️ ${raw.name || 'Atleta'}`;
+                      },
+                      label: function(context) {
+                        const p = context.raw;
+                        if (!p || typeof p.x !== 'number') return null;
+                        return [
+                          `• Velocità (X): ${p.x.toFixed(2)} m/s`,
+                          `• Carico (Y): ${p.y} kg`,
+                          `• Sessione: ${p.session || 'W3 S1'} · ${p.date || ''}`
+                        ];
+                      }
+                    }
+                  }
+                },
+                scales: {
+                  x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    min: 0.35,
+                    max: 1.25,
+                    grid: { color: 'rgba(255, 255, 255, 0.06)' },
+                    ticks: {
+                      color: '#38bdf8',
+                      stepSize: 0.1,
+                      callback: v => v.toFixed(2) + ' m/s'
+                    },
+                    title: {
+                      display: true,
+                      text: '◀ Più Pesante / Lento — VELOCITÀ (m/s) — Più Veloce / Esplosivo ▶',
+                      color: '#38bdf8',
+                      font: { weight: 'bold', size: 11 }
+                    }
+                  },
+                  y: {
+                    type: 'linear',
+                    min: 20,
+                    max: 160,
+                    grid: { color: 'rgba(255, 255, 255, 0.06)' },
+                    ticks: {
+                      color: '#f59e0b',
+                      stepSize: 20,
+                      callback: v => v + ' kg'
+                    },
+                    title: {
+                      display: true,
+                      text: 'CARICO BACK SQUAT (kg)',
+                      color: '#f59e0b',
+                      font: { weight: 'bold', size: 11 }
+                    }
+                  }
+                }
+              }
+            });
+          }
+        } else {
+          boxVbt.style.display = 'none';
+        }
       }
 
       // 3. Costruzione Dati per Grafico Microciclo (Giorno della Settimana)
