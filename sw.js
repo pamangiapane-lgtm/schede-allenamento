@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v228-timer-margins)
-const CACHE_NAME = 'marsala-pwa-v228-timer-margins';
+// Service Worker App Marsala Volley (v229-clean-ratings)
+const CACHE_NAME = 'marsala-pwa-v229-clean-ratings';
 
 const ASSETS_TO_CACHE = [
   './',

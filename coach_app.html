@@ -1939,8 +1939,12 @@
 
             // Esclude test di agosto obsoleti
             if (rDate && rDate < '2026-08-25') return;
-            // Victoria Sassolini: esclude tocco prematuro accidentale su Seduta 3 del 07/09 con RPE 1
-            if (aid === 3 && (String(nSeduta) === '3' || nSeduta === 3) && rDate <= '2026-09-07' && rpe === 1) return;
+            // Esclude qualsiasi tocco prematuro/accidentale su sedute future di W3 e W4 (es. Seduta 2 prima del 09/09, Seduta 3 prima dell'11/09)
+            const nSedStr = String(nSeduta).toLowerCase();
+            const isSed3 = nSedStr === '3' || nSedStr === 'w3_3' || nSedStr.includes('ven') || nSedStr.includes('s3');
+            const isSed2 = nSedStr === '2' || nSedStr === 'w3_2' || nSedStr.includes('mer') || nSedStr.includes('s2');
+            if (rDate < '2026-09-09' && isSed2) return;
+            if (rDate < '2026-09-11' && isSed3) return;
 
             // Normalizza data effettiva della seduta
             let actualDate = rDate;

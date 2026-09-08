@@ -1669,7 +1669,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=228').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=229').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -1724,6 +1724,27 @@
           }
         }
       });
+
+      // Sanifica valutazioni premature accidentali per sedute future di W3
+      const todayIso = new Date().toISOString().slice(0, 10);
+      if (todayIso < '2026-09-09') {
+        localStorage.removeItem(`mv_session_rating_${aid}_W3_2`);
+        localStorage.removeItem(`mv_session_rating_${aid}_2`);
+        localStorage.removeItem(`mv_synced_mv_session_rating_${aid}_W3_2`);
+        localStorage.removeItem(`mv_synced_mv_session_rating_${aid}_2`);
+      }
+      if (todayIso < '2026-09-11') {
+        localStorage.removeItem(`mv_session_rating_${aid}_W3_3`);
+        localStorage.removeItem(`mv_session_rating_${aid}_3`);
+        localStorage.removeItem(`mv_synced_mv_session_rating_${aid}_W3_3`);
+        localStorage.removeItem(`mv_synced_mv_session_rating_${aid}_3`);
+      }
+      if (aid === 2 && todayIso < '2026-09-11') {
+        localStorage.removeItem('mv_session_rating_2_W3_3');
+        localStorage.removeItem('mv_session_rating_2_3');
+        localStorage.removeItem('mv_synced_mv_session_rating_2_W3_3');
+        localStorage.removeItem('mv_synced_mv_session_rating_2_3');
+      }
     }
 
     async function syncProgressiFromCloud() {
@@ -1771,18 +1792,24 @@
               else if (rDate >= '2026-08-31' && rDate < '2026-09-07') recWeek = 'W2';
 
               if (recWeek && (rpe !== null || fat !== null)) {
-                if (recWeek === 'W3' && sNum > 1 && rDate <= '2026-09-07') {
-                  // Salta test accidentale
-                } else {
-                  const updatedPayload = {
-                    rpe: rpe,
-                    fat: fat,
-                    note: r.Note_Atleta || r.note_atleta || '',
-                    date: rDate,
-                    ts: ts || new Date().toISOString()
-                  };
-                  localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${recWeek}_${sNum}`, JSON.stringify(updatedPayload));
+                // Filtro rigido: esclude valutazioni premature accidentali su sedute future
+                if (recWeek === 'W3') {
+                  if (sNum === 2 && rDate < '2026-09-09') return;
+                  if (sNum === 3 && rDate < '2026-09-11') return;
+                } else if (recWeek === 'W4') {
+                  if (sNum === 1 && rDate < '2026-09-14') return;
+                  if (sNum === 2 && rDate < '2026-09-16') return;
+                  if (sNum === 3 && rDate < '2026-09-18') return;
                 }
+
+                const updatedPayload = {
+                  rpe: rpe,
+                  fat: fat,
+                  note: r.Note_Atleta || r.note_atleta || '',
+                  date: rDate,
+                  ts: ts || new Date().toISOString()
+                };
+                localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${recWeek}_${sNum}`, JSON.stringify(updatedPayload));
               }
             }
 
@@ -3364,7 +3391,18 @@ function renderSessions() {
       }
     }
 
-        function getSessionRating(aid, week, sNum) {
+    function getSessionRating(aid, week, sNum) {
+      // 0. Controllo temporale anti-prematurità: sedute non ancora disputate
+      const today = new Date().toISOString().slice(0, 10);
+      if (week === 'W3') {
+        if (String(sNum) === '2' && today < '2026-09-09') return null;
+        if (String(sNum) === '3' && today < '2026-09-11') return null;
+      } else if (week === 'W4') {
+        if (String(sNum) === '1' && today < '2026-09-14') return null;
+        if (String(sNum) === '2' && today < '2026-09-16') return null;
+        if (String(sNum) === '3' && today < '2026-09-18') return null;
+      }
+
       // 1. Chiave isolata per settimana (es. mv_session_rating_3_W3_1)
       const scopedRaw = localStorage.getItem(`mv_session_rating_${aid}_${week}_${sNum}`);
       if (scopedRaw) {
@@ -3382,7 +3420,8 @@ function renderSessions() {
           if (week === 'W3') {
             if (d >= '2026-09-07' && d <= '2026-09-13') {
               if (String(sNum) === '1') return obj;
-              if (d > '2026-09-07') return obj;
+              if (String(sNum) === '2' && d >= '2026-09-09') return obj;
+              if (String(sNum) === '3' && d >= '2026-09-11') return obj;
             }
           } else if (week === 'W4') {
             if (d >= '2026-09-14') return obj;

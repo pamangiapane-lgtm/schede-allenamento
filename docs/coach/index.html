@@ -1421,6 +1421,8 @@
   </main>
 
   <script src="../data.js?v=20260901v35"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../supabase-client.js?v=2.0"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -1482,9 +1484,34 @@
 
     async function fetchLiveWellness() {
       try {
-        const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Wellness`);
-        const json = await res.json();
-        const rows = json.dati || [];
+        let rows = [];
+        if (window.MV_SUPABASE) {
+          const sb = window.MV_SUPABASE.getSb();
+          if (sb) {
+            const { data, error } = await sb
+              .from('wellness_logs')
+              .select('*')
+              .order('date', { ascending: false });
+            if (!error && data && data.length > 0) {
+              rows = data.map(d => ({
+                ID_Giocatrice: d.athlete_id,
+                Data: d.date,
+                Qualita_Sonno: d.sleep_quality,
+                Fatica: d.fatigue,
+                Readines: d.readiness,
+                Dolori: d.soreness,
+                Stress: d.stress,
+                Note: d.note,
+                Timestamp: d.created_at
+              }));
+            }
+          }
+        }
+        if (rows.length === 0) {
+          const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Wellness`);
+          const json = await res.json();
+          rows = json.dati || [];
+        }
         liveWellnessData = {};
         const todayStr = new Date().toISOString().slice(0, 10);
 
@@ -1629,9 +1656,97 @@
 
     async function fetchLiveProgressi() {
       try {
-        const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Progressi`);
-        const json = await res.json();
-        const rows = json.dati || [];
+        let rows = [];
+        if (window.MV_SUPABASE) {
+          const sb = window.MV_SUPABASE.getSb();
+          if (sb) {
+            if (!window._sbRealtimeSubscribed) {
+              window._sbRealtimeSubscribed = true;
+              window.MV_SUPABASE.subscribeRealtime((type, payload) => {
+                console.log('[Realtime Push]', type, payload);
+                fetchLiveWellness().then(() => fetchLiveProgressi());
+              });
+            }
+
+            const [tRes, sRes, aRes] = await Promise.all([
+              sb.from('training_sets').select('*').order('date', { ascending: false }).limit(1000),
+              sb.from('session_ratings').select('*').order('date', { ascending: false }).limit(300),
+              sb.from('athletes').select('*')
+            ]);
+
+            if (!tRes.error && tRes.data) {
+              tRes.data.forEach(t => {
+                let valStr = '';
+                if (t.vbt_velocity != null) valStr = `${t.vbt_velocity} m/s`;
+                else if (t.cmj_height != null) valStr = `${t.cmj_height} cm`;
+                else if (t.load_kg != null) valStr = `${t.load_kg}`;
+
+                rows.push({
+                  ID_Giocatrice: t.athlete_id,
+                  N_Seduta: t.session_code,
+                  Esercizio: t.exercise_name,
+                  Valore: valStr,
+                  Kg_Usati: t.load_kg != null ? `${t.load_kg}` : '',
+                  Reps_Fatte: t.reps_done || '',
+                  Data: t.date,
+                  Note_Atleta: t.note || '',
+                  Timestamp: t.timestamp
+                });
+              });
+
+              if (sRes.data) {
+                sRes.data.forEach(s => {
+                  rows.push({
+                    ID_Giocatrice: s.athlete_id,
+                    N_Seduta: s.session_code,
+                    Esercizio: 'Chiusura-Seduta',
+                    Valore: `RPE ${s.srpe != null ? s.srpe : '—'}/10 · Fatica ${s.fatigue != null ? s.fatigue : '—'}/10`,
+                    Data: s.date,
+                    Note_Atleta: s.note || '',
+                    Timestamp: s.created_at
+                  });
+                });
+              }
+
+              if (aRes.data) {
+                aRes.data.forEach(a => {
+                  if (a.baseline_weight) {
+                    rows.push({
+                      ID_Giocatrice: a.id,
+                      N_Seduta: 0,
+                      Esercizio: 'Peso-corporeo',
+                      Valore: `${a.baseline_weight}`,
+                      Data: new Date().toISOString().slice(0, 10),
+                      Timestamp: a.created_at
+                    });
+                  }
+                  const lifts = [
+                    ['squat', a.baseline_squat], ['bench', a.baseline_bench], ['clean', a.baseline_clean],
+                    ['row', a.baseline_row], ['lat', a.baseline_lat], ['military', a.baseline_military], ['rdl', a.baseline_rdl]
+                  ];
+                  lifts.forEach(([lName, lVal]) => {
+                    if (lVal > 0) {
+                      rows.push({
+                        ID_Giocatrice: a.id,
+                        N_Seduta: 0,
+                        Esercizio: `1RM-${lName}`,
+                        Valore: `${lVal} kg`,
+                        Data: new Date().toISOString().slice(0, 10),
+                        Timestamp: a.created_at
+                      });
+                    }
+                  });
+                });
+              }
+            }
+          }
+        }
+
+        if (rows.length === 0) {
+          const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Progressi`);
+          const json = await res.json();
+          rows = json.dati || [];
+        }
         live1RMData = {};
         liveCustomLoads = [];
         liveSessionRatings = [];
@@ -1824,8 +1939,12 @@
 
             // Esclude test di agosto obsoleti
             if (rDate && rDate < '2026-08-25') return;
-            // Victoria Sassolini: esclude tocco prematuro accidentale su Seduta 3 del 07/09 con RPE 1
-            if (aid === 3 && (String(nSeduta) === '3' || nSeduta === 3) && rDate <= '2026-09-07' && rpe === 1) return;
+            // Esclude qualsiasi tocco prematuro/accidentale su sedute future di W3 e W4 (es. Seduta 2 prima del 09/09, Seduta 3 prima dell'11/09)
+            const nSedStr = String(nSeduta).toLowerCase();
+            const isSed3 = nSedStr === '3' || nSedStr === 'w3_3' || nSedStr.includes('ven') || nSedStr.includes('s3');
+            const isSed2 = nSedStr === '2' || nSedStr === 'w3_2' || nSedStr.includes('mer') || nSedStr.includes('s2');
+            if (rDate < '2026-09-09' && isSed2) return;
+            if (rDate < '2026-09-11' && isSed3) return;
 
             // Normalizza data effettiva della seduta
             let actualDate = rDate;
