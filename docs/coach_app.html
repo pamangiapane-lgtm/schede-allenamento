@@ -1763,6 +1763,14 @@
 
         const live1RMTs = {};
 
+        // Ordina rows in ordine cronologico crescente (dal più vecchio al più recente)
+        // così per ogni metrica/seduta la prima occorrenza valida è il primo test storico reale eseguito
+        rows.sort((a, b) => {
+          const tsA = String(a.Timestamp || a.timestamp || a.Data || a.data || '');
+          const tsB = String(b.Timestamp || b.timestamp || b.Data || b.data || '');
+          return tsA.localeCompare(tsB);
+        });
+
         const customLoadsMap = {};
         const seenVBT = new Set();
         const seenCMJ = new Set();
@@ -1795,6 +1803,9 @@
           const isSpuriousW2 = (nSeduta === 'W2-S2' && (ts.includes('2026-09-08') || rDate === '2026-09-08'));
           if (isSpuriousW2) return;
 
+          // Filtro assoluto: scarta record con date spurie 1899 o 1900
+          if (valStr.includes('1899') || valStr.includes('1900')) return;
+
           // 1. MONITORAGGIO VBT (Velocità concentrica media Back Squat Enode)
           const isVbt = ex.includes('(vbt)') || ex.includes('vbt') || note.toLowerCase().includes('encoder');
           if (isVbt) {
@@ -1804,7 +1815,7 @@
               vel = parseFloat(vMatch[0]);
               if (vel >= 5 && vel <= 150 && !valStr.includes('.')) vel = vel / 100;
             }
-            if (vel !== null && vel > 0 && vel <= 2.5) {
+            if (vel !== null && vel >= 0.25 && vel <= 2.5) {
               const base = TRUE_BASELINES[aid] || {};
               const sq1RM = live1RMData[aid]?.squat || base.squat || 0;
               const bw = live1RMData[aid]?.bw || BASELINE_WEIGHTS[aid] || 65;
@@ -1818,7 +1829,9 @@
                 loadKg = Math.max(0, Math.round(((0.75 * (sq1RM + bw)) - bw) * 2) / 2);
               }
 
-              const vbtKey = `${aid}_${nSeduta}_${vel.toFixed(2)}_${rDate}`;
+              // Unificazione doppi log: priorità al record più vecchio per atleta e seduta
+              const cleanSessKey = (nSeduta.toUpperCase().includes('W3') || nSeduta === 'W2-S2') ? 'W3_1' : nSeduta;
+              const vbtKey = `${aid}_${cleanSessKey}`;
               if (!seenVBT.has(vbtKey)) {
                 seenVBT.add(vbtKey);
                 const rec = {
@@ -1832,7 +1845,7 @@
                   date: rDate || '2026-09-07',
                   ts: ts
                 };
-                liveVBTData.unshift(rec);
+                liveVBTData.push(rec);
                 rawVBTRecords.push(rec);
               }
             }
@@ -1842,24 +1855,28 @@
           // 2. TEST NEUROMUSCOLARE CMJ (Pedana Chronojump)
           const isCmj = ex.includes('cmj') || ex.includes('chronojump');
           if (isCmj) {
+            // Gaia Biondi (#6) non ha effettuato il test CMJ: scarta qualsiasi residuo spurio
+            if (aid === 6) return;
+
             let cleanHeight = valStr;
-            if (cleanHeight.toLowerCase().includes('1899-12-31t') || cleanHeight.toLowerCase().includes('1899-12-30t')) {
-              const tp = cleanHeight.split('T')[1].slice(0, 5);
-              const parts = tp.split(':');
-              cleanHeight = `${parseInt(parts[0], 10)}.${parts[1]} cm`;
-            } else {
-              const hMatch = cleanHeight.replace(',', '.').match(/\d+(?:\.\d+)?/);
-              if (hMatch) cleanHeight = `${parseFloat(hMatch[0])} cm`;
-            }
-            const cmjKey = `${aid}_${nSeduta}_${cleanHeight}_${ts.slice(0, 16)}`;
+            const hMatch = cleanHeight.replace(',', '.').match(/\d+(?:\.\d+)?/);
+            if (!hMatch) return;
+            const hNum = parseFloat(hMatch[0]);
+            // Soglia fisiologica salti pallavoliste A2 (18 - 55 cm)
+            if (hNum < 18 || hNum > 55) return;
+            cleanHeight = `${hNum} cm`;
+
+            // Unificazione doppi log: priorità al record più vecchio per atleta e seduta
+            const cleanSessKey = (nSeduta.toUpperCase().includes('W3') || nSeduta === 'W2-S2') ? 'W3_1' : nSeduta;
+            const cmjKey = `${aid}_${cleanSessKey}`;
             if (!seenCMJ.has(cmjKey)) {
               seenCMJ.add(cmjKey);
-              liveCMJData.unshift({
+              liveCMJData.push({
                 aid: aid,
                 athName: athName,
                 role: athRole,
                 height: cleanHeight,
-                session: nSeduta,
+                session: nSeduta.startsWith('W3') ? 'W3 · Seduta 1' : nSeduta,
                 date: rDate || 'Oggi',
                 ts: ts
               });
@@ -1906,13 +1923,18 @@
           }
 
           // 4. CARICHI ACCESSORI & NOTE SQUADRA (Deduplicati e puliti da autoformattazione Sheets)
-          if (valStr && valStr.trim().length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.startsWith('1rm') && !ex.includes('peso-corporeo') && !ex.includes('step up')) {
+          if (valStr && valStr.trim().length > 0 && 
+              !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && 
+              !ex.startsWith('1rm') && !ex.includes('peso-corporeo') && !ex.includes('step up') &&
+              !valStr.includes('1899') && !valStr.includes('1900')) {
+            
+            const isBodyweightOrPogo = ex.includes('pogo') || ex.includes('cluster') || ex.includes('attivazione');
+            if (isBodyweightOrPogo && (valStr.includes('3.05') || valStr.includes('13.27') || !isNaN(parseFloat(valStr)))) {
+              return;
+            }
+
             let cleanL = valStr;
-            if (cleanL.startsWith('1899-12-31T') || cleanL.startsWith('1899-12-30T')) {
-              const timePart = cleanL.slice(11, 16);
-              const parts = timePart.split(':');
-              cleanL = `${parseInt(parts[0], 10)}.${parts[1]}`;
-            } else if (cleanL.startsWith('2026-10-10')) {
+            if (cleanL.startsWith('2026-10-10')) {
               cleanL = '10+10 kg';
             }
             const loadKey = `${aid}_${r.Esercizio}_${nSeduta}`;

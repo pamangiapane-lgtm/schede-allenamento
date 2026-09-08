@@ -1495,7 +1495,7 @@
     // DATI CONFERMATI W3 S1 (07/09/2026) PER TUTTE LE 13 ATLETE
     const W3_S1_CONFIRMED_DATA = {
       "1": {
-        rpe: 6, fat: 7, vbt: "0.68 m/s", cmj: "34.2 cm",
+        rpe: 6, fat: 7, vbt: "0.68 m/s", cmj: "31.6 cm",
         loads: {
           "3B. Floor Chest Press con Manubri": "10+10 kg",
           "4B. Dumbbell Seal Row su panca 30°": "12.5+12.5 kg",
@@ -1507,11 +1507,11 @@
         }
       },
       "2": {
-        rpe: 7, fat: 5, vbt: "0.89 m/s", cmj: "37.5 cm",
+        rpe: 7, fat: 5, vbt: "0.89 m/s", cmj: "33.4 cm",
         loads: {}
       },
       "3": {
-        rpe: 6, fat: 3, vbt: "0.87 m/s", cmj: "37.5 cm",
+        rpe: 6, fat: 3, vbt: "0.87 m/s", cmj: "33.8 cm",
         loads: {
           "3B. Floor Chest Press con Manubri": "15+15 kg",
           "4B. Dumbbell Seal Row su panca 30°": "20+20 kg",
@@ -1521,7 +1521,7 @@
         }
       },
       "4": {
-        rpe: 5, fat: 5, vbt: "0.64 m/s", cmj: "33.5 cm",
+        rpe: 5, fat: 5, vbt: "0.64 m/s", cmj: "29.5 cm",
         loads: {
           "3B. Dumbbell Floor Chest Press": "15+15 kg",
           "3C. Lat Pulldown Narrow Neutral Grip": "35 kg",
@@ -1542,11 +1542,11 @@
         }
       },
       "6": {
-        rpe: 6, fat: 3, vbt: "0.00 m/s", cmj: "33.1 cm",
+        rpe: 6, fat: 3, vbt: "0.74 m/s", cmj: null,
         loads: {}
       },
       "7": {
-        rpe: 3, fat: 3, vbt: "0.00 m/s", cmj: "38.3 cm",
+        rpe: 3, fat: 3, vbt: "0.71 m/s", cmj: "38.3 cm",
         loads: {
           "3B. Floor Chest Press con Manubri": "12.5 kg",
           "4B. Dumbbell Seal Row su panca 30°": "20+20 kg",
@@ -1557,7 +1557,7 @@
         }
       },
       "8": {
-        rpe: 4, fat: 3, vbt: null, cmj: "35.2 cm",
+        rpe: 4, fat: 3, vbt: null, cmj: "31.1 cm",
         loads: {
           "3B. Floor Chest Press con Manubri": "15+15 kg",
           "4B. Dumbbell Seal Row su panca 30°": "15+15 kg",
@@ -1565,7 +1565,7 @@
         }
       },
       "9": {
-        rpe: 2, fat: 3, vbt: "0.66 m/s", cmj: "33.6 cm",
+        rpe: 2, fat: 3, vbt: "0.66 m/s", cmj: "34.7 cm",
         loads: {
           "3B. Floor Chest Press con Manubri": "15+15 kg",
           "4B. Dumbbell Seal Row su panca 30°": "12.5+12.5 kg",
@@ -1573,7 +1573,7 @@
         }
       },
       "11": {
-        rpe: 6, fat: 5, vbt: "0.86 m/s", cmj: "39.4 cm",
+        rpe: 6, fat: 5, vbt: "0.86 m/s", cmj: "35.4 cm",
         loads: {
           "4A. Split Squat con manubri (piede ant. su disco)": "corpo libero",
           "3C. Lat Machine Presa Neutra Stretta": "30 kg",
@@ -1592,7 +1592,7 @@
         }
       },
       "13": {
-        rpe: 6, fat: 4, vbt: "0.93 m/s", cmj: "30.2 cm",
+        rpe: 6, fat: 4, vbt: "0.93 m/s", cmj: "26.1 cm",
         loads: {
           "3B. Floor Chest Press con Manubri": "12.5+12.5 kg",
           "4B. Dumbbell Seal Row su panca 30°": "17.5+17.5 kg",
@@ -1641,6 +1641,10 @@
         const kC2 = `mv_load_${athId}_CMJ Test Chronojump`;
         if (!localStorage.getItem(kC2)) localStorage.setItem(kC2, conf.cmj);
         localStorage.setItem(`mv_load_${athId}_W3_1_CMJ_Test`, conf.cmj);
+      } else {
+        localStorage.removeItem(`mv_load_${athId}_CMJ_Test`);
+        localStorage.removeItem(`mv_load_${athId}_CMJ Test Chronojump`);
+        localStorage.removeItem(`mv_load_${athId}_W3_1_CMJ_Test`);
       }
 
       // 4. Loads
@@ -1724,6 +1728,44 @@
           }
         }
       });
+
+      // Sanifica date spurie 1899/1900, VBT a 0 o irrealistici e carichi spuri
+      try {
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+          const k = localStorage.key(i);
+          if (!k) continue;
+          const val = localStorage.getItem(k) || '';
+          // 1. Rimuovi qualsiasi chiave che contenga 1899 o 1900 o il cui valore li contenga
+          if (k.includes('1899') || k.includes('1900') || val.includes('1899') || val.includes('1900')) {
+            localStorage.removeItem(k);
+            continue;
+          }
+          // 2. Rimuovi VBT a 0 o irrealistici (< 0.25 o > 2.50)
+          if (k.startsWith(`mv_vbt_${aid}_`) || (k.startsWith('mv_vbt_') && k.includes(`_${aid}_`))) {
+            const num = parseFloat(val.replace(',', '.'));
+            if (isNaN(num) || num < 0.25 || num > 2.50 || val.startsWith('0') || val === '0.00 m/s' || val === '0 m/s') {
+              localStorage.removeItem(k);
+              continue;
+            }
+          }
+          // 3. Rimuovi CMJ corrotti o non effettuati (es. Biondi #6)
+          if (k.includes('CMJ') && (k.includes(`_${aid}_`) || k.startsWith(`mv_load_${aid}_`))) {
+            if (aid === 6) {
+              localStorage.removeItem(k);
+              continue;
+            }
+            const numCmj = parseFloat(val.replace(',', '.'));
+            if (!isNaN(numCmj) && (numCmj < 18 || numCmj > 55)) {
+              localStorage.removeItem(k);
+              continue;
+            }
+          }
+          // 4. Se è un esercizio a corpo libero (es. Pogo Hops) e ha un valore falso (3.05 o residui numerici)
+          if (k.toLowerCase().includes('pogo') && (val.includes('3.05') || val.includes('13.27') || val.includes('1899') || !val.trim())) {
+            localStorage.removeItem(k);
+          }
+        }
+      } catch(e) {}
 
       // Sanifica valutazioni premature accidentali per sedute future di W3
       const todayIso = new Date().toISOString().slice(0, 10);
@@ -1849,37 +1891,57 @@
             if (isLat1RM) recordCloud1RM('lat', 15);
             if (isRdl1RM) recordCloud1RM('rdl', 20);
 
+            // Filtro assoluto: scarta qualsiasi valore con 1899 o 1900
+            if (valStr.includes('1899') || valStr.includes('1900')) return;
+
             // 2. VBT (Velocità Enode)
             if (ex.includes('(vbt)') || ex.includes('vbt')) {
               const cleanExName = (r.Esercizio || '').replace(/\s*\(vbt\)/i, '').trim();
-              let formattedVbt = valStr;
               const numM = valStr.replace(',', '.').match(/\d+(?:\.\d+)?/);
               if (numM) {
                 let v = parseFloat(numM[0]);
                 if (v >= 5 && v <= 150 && !valStr.includes('.')) v = v / 100;
-                formattedVbt = `${v.toFixed(2)} m/s`;
+                // Soglia di validità fisiologica VBT (0.25 - 2.50 m/s): scarta zeri o sync vuoti
+                if (v >= 0.25 && v <= 2.50) {
+                  const formattedVbt = `${v.toFixed(2)} m/s`;
+                  const prevVbt = localStorage.getItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`);
+                  const prevV = prevVbt ? parseFloat(prevVbt.replace(',', '.')) : 0;
+                  // Non sovrascrivere un VBT valido già presente con letture spurie successive
+                  if (!prevVbt || isNaN(prevV) || prevV < 0.25) {
+                    localStorage.setItem(`mv_vbt_${currentAthlete.id}_${cleanExName}`, formattedVbt);
+                    localStorage.setItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`, formattedVbt);
+                    localStorage.setItem(`mv_vbt_${currentAthlete.id}_Squat (Parallelo)`, formattedVbt);
+                  }
+                }
               }
-              localStorage.setItem(`mv_vbt_${currentAthlete.id}_${cleanExName}`, formattedVbt);
-              localStorage.setItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`, formattedVbt);
-              localStorage.setItem(`mv_vbt_${currentAthlete.id}_Squat (Parallelo)`, formattedVbt);
             }
 
             // 3. CMJ Test Chronojump (Altezza in cm pulita)
-            if (ex.includes('cmj') || ex.includes('chronojump')) {
-              let cmjVal = valStr;
-              if (cmjVal.toLowerCase().includes('1899-12-31t')) {
-                const tp = cmjVal.split('T')[1].slice(0, 5);
-                cmjVal = tp.replace(':', '.') + ' cm';
-              } else {
-                const numM = cmjVal.replace(',', '.').match(/\d+(?:\.\d+)?/);
-                if (numM) cmjVal = `${parseFloat(numM[0])} cm`;
+            if ((ex.includes('cmj') || ex.includes('chronojump')) && currentAthlete.id !== 6) {
+              const numM = valStr.replace(',', '.').match(/\d+(?:\.\d+)?/);
+              if (numM) {
+                const h = parseFloat(numM[0]);
+                // Range valido fisiologico CMJ femminile A2: 18 - 55 cm
+                if (h >= 18 && h <= 55) {
+                  const cmjVal = `${h} cm`;
+                  localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ_Test`, cmjVal);
+                  localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ Test Chronojump`, cmjVal);
+                }
               }
-              localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ_Test`, cmjVal);
-              localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ Test Chronojump`, cmjVal);
             }
 
             // 4. Carichi Accessori & Note (Floor Press, Seal Row, Split Squat, Medball, ecc.)
-            if (valStr && valStr.length > 0 && !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && !ex.startsWith('1rm-') && !ex.includes('peso-corporeo')) {
+            if (valStr && valStr.length > 0 && 
+                !ex.includes('rpe') && !ex.includes('fatica') && !ex.includes('chiusura') && 
+                !ex.startsWith('1rm-') && !ex.includes('peso-corporeo') && 
+                !ex.includes('vbt') && !ex.includes('cmj') && !ex.includes('chronojump')) {
+              
+              // Se l'esercizio è a corpo libero / salti (es. Pogo Hops, Attivazione) e il valore è un residuo numerico strano, scartalo
+              const isBodyweightOrPogo = ex.includes('pogo') || ex.includes('linea in cluster') || ex.includes('attivazione');
+              if (isBodyweightOrPogo && (valStr.includes('3.05') || valStr.includes('13.27') || !isNaN(parseFloat(valStr)))) {
+                return;
+              }
+
               let cleanLoad = valStr;
               if (cleanLoad.startsWith('2026-10-10')) {
                 cleanLoad = '10+10 kg';
