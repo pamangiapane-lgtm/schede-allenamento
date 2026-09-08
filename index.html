@@ -1673,7 +1673,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=229').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=230').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -1856,15 +1856,16 @@
             }
 
             // 1. MASSIMALI 1RM E PESO CORPOREO (Con filtri rigorosi anti-inquinamento)
-            const isSquat1RM = (ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || ex === 'back squat' || ex === 'squat / step up') &&
-                               !ex.includes('vbt') && !ex.includes('split') && !ex.includes('cluster') && !ex.includes('jump') && !ex.includes('step up') && !ex.includes('half');
-            const isClean1RM = (ex === '1rm-clean' || ex === '1rm_clean' || ex === 'clean' || ex === 'power clean') && !ex.includes('split');
-            const isBench1RM = (ex === '1rm-bench' || ex === '1rm_bench' || ex === 'bench' || ex === 'bench press' || ex === 'panca');
-            const isMilitary1RM = (ex === '1rm-military' || ex === '1rm_military' || ex === 'military' || ex === 'military press' || ex === 'shoulder');
-            const isRow1RM = (ex === '1rm-row' || ex === '1rm_row' || ex === 'row' || ex === 'rematore' || ex === 'row bb') && !ex.includes('seal') && !ex.includes('birddog');
-            const isLat1RM = (ex === '1rm-lat' || ex === '1rm_lat' || ex === 'lat' || ex === 'lat machine');
-            const isRdl1RM = (ex.startsWith('1rm-rdl') || ex === 'rdl' || ex === 'stacco');
-            const isBW = (ex.includes('peso') || ex.includes('bw') || ex === 'peso-corporeo') && !ex.includes('vbt') && !ex.includes('split');
+            // I set di routine (es. 'Bench Press', 'Row BB', 'Lat Machine') NON DEVONO MAI inquinare i massimali 1RM
+            const isExplicit1RM = ex.startsWith('1rm-') || ex.startsWith('1rm_') || ex.startsWith('1rm ');
+            const isSquat1RM = isExplicit1RM && ex.includes('squat');
+            const isClean1RM = isExplicit1RM && ex.includes('clean');
+            const isBench1RM = isExplicit1RM && (ex.includes('bench') || ex.includes('panca'));
+            const isMilitary1RM = isExplicit1RM && (ex.includes('military') || ex.includes('shoulder') || ex.includes('press'));
+            const isRow1RM = isExplicit1RM && (ex.includes('row') || ex.includes('rematore'));
+            const isLat1RM = isExplicit1RM && ex.includes('lat');
+            const isRdl1RM = isExplicit1RM && (ex.includes('rdl') || ex.includes('stacco'));
+            const isBW = (ex === 'peso-corporeo' || ex === 'bw' || ex === 'peso' || ex === 'peso corporeo') && !ex.includes('vbt') && !ex.includes('split');
 
             if (isBW && val >= 40 && val <= 130 && !valStr.startsWith('1900') && !valStr.startsWith('1899')) {
               if (!latestCloudBWTs || ts >= latestCloudBWTs) {

@@ -449,7 +449,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "52",
-        "Note": "Clean / Powerbag + Half Squat Dinamico 20X0 + Landmine Press + Single DB Row + Cluster Hurdles"
+        "Note": "Clean / Powerbag + Squat Parallelo max 0.65 m/s (4x3 @ 80%) + Landmine Press + Single DB Row + Cluster Hurdles"
       },
       {
         "Numero_Seduta": "W3-VenR",
@@ -775,11 +775,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (33.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (67.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -1250,11 +1250,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (46.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (62.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -1725,11 +1725,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (62.0 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (85.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -2200,11 +2200,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3B. Dynamic Half Squat",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (34.0 kg) [\"6\"]",
-              "Tempo": "20X0",
-              "Note Tecniche": "Jump-specific half squat (~110-120° knee angle). Maximal upward acceleration (VBT target 0.70-0.75 m/s)"
+              "Esercizio": "3B. Parallel Squat (max 0.65 m/s)",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (60.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Femur-tibia parallel (~90°). Controlled 2s descent, strict stop at parallel, maximal acceleration (Enode target max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "# Main",
@@ -2675,11 +2675,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (46.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (61.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -3150,11 +3150,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (35.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (50.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -3625,11 +3625,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (53.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (64.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -4100,11 +4100,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (50.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (68.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -4575,11 +4575,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (85.0 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (107.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -5050,11 +5050,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (55.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (72.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -5525,11 +5525,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (66.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (94.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -6000,11 +6000,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (38.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (59.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -7387,11 +7387,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (33.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (67.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -7862,11 +7862,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (46.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (62.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -8337,11 +8337,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (62.0 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (85.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -8812,11 +8812,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (34.0 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "3B. Parallel Squat (max 0.65 m/s)",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (60.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Femur-tibia parallel (~90°). Controlled 2s descent, strict stop at parallel, maximal acceleration (Enode target max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -9287,11 +9287,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (46.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (61.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -9762,11 +9762,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (35.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (50.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -10237,11 +10237,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (53.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (64.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -10712,11 +10712,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (50.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (68.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -11187,11 +11187,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (85.0 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (107.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -11662,11 +11662,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (55.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (72.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -12137,11 +12137,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (66.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (94.5 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",
@@ -12612,11 +12612,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3B. Half Squat Dinamico**",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "70% (38.5 kg) [\"6\"]",
-              "Tempo": "`20X0`",
-              "Note Tecniche": "Mezzo squat specifico del salto (angolo ~110-120° femore-tibia, flessione ~60-70°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
+              "Esercizio": "**3B. Squat Parallelo (max 0.65 m/s)**",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "80% (59.0 kg) [\"6-7\"]",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
             {
               "Blocco": "**# Main**",

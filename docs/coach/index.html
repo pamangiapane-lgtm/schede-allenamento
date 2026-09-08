@@ -1462,7 +1462,7 @@
     async function initCoach() {
       initCampoSection();
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=226', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=227', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -1884,16 +1884,19 @@
             return; // Esci per non inquinare altre categorie
           }
 
-          // 3. 1RM MASSIMALI UFFICIALI (BLINDATURA TOTALE CONTRO VARIANTI E CARICHI ACCESSORI)
-          const isVariantOrAccessory = ex.includes('vbt') || ex.includes('split') || ex.includes('jump') || ex.includes('step') || ex.includes('cluster') || ex.includes('half') || ex.includes('drop') || ex.includes('tempo');
-          if (!isVariantOrAccessory && val > 0) {
-            const isSquat1RM = (ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || ex === 'back squat') || (ex.startsWith('1rm') && ex.includes('squat'));
-            const isClean1RM = (ex === '1rm-clean' || ex === '1rm_clean' || ex === 'clean' || ex === 'power clean');
-            const isBench1RM = ex === '1rm-bench' || ex === '1rm_bench' || ex === 'bench' || ex === 'bench press' || ex === 'panca';
-            const isMilitary1RM = ex === '1rm-military' || ex === '1rm_military' || ex === 'military' || ex === 'military press' || ex === 'shoulder';
-            const isRow1RM = (ex === '1rm-row' || ex === '1rm_row' || ex === 'row' || ex === 'rematore' || ex === 'row bb') && !ex.includes('seal') && !ex.includes('birddog');
-            const isLat1RM = ex === '1rm-lat' || ex === '1rm_lat' || ex === 'lat' || ex === 'lat machine';
-            const isBW = ex.includes('peso') || ex.includes('bw') || ex === 'peso-corporeo';
+          // 3. 1RM MASSIMALI UFFICIALI (STRETTAMENTE LIMITATI AI TEST 1RM ESPLICITI)
+          // I set di routine (es. 'Bench Press', 'Row BB', 'Lat Machine') NON DEVONO MAI inquinare i massimali 1RM
+          const isExplicit1RM = ex.startsWith('1rm-') || ex.startsWith('1rm_') || ex.startsWith('1rm ');
+          const isBW = (ex === 'peso-corporeo' || ex === 'bw' || ex === 'peso' || ex === 'peso corporeo') && !ex.includes('vbt') && !ex.includes('split');
+
+          if (isExplicit1RM && val > 0) {
+            const isSquat1RM = ex.includes('squat');
+            const isClean1RM = ex.includes('clean');
+            const isBench1RM = ex.includes('bench') || ex.includes('panca');
+            const isMilitary1RM = ex.includes('military') || ex.includes('shoulder') || ex.includes('press');
+            const isRow1RM = ex.includes('row') || ex.includes('rematore');
+            const isLat1RM = ex.includes('lat');
+            const isRdl1RM = ex.includes('rdl') || ex.includes('stacco');
 
             const updateIfNewer = (lift, v) => {
               const prevTs = live1RMTs[aid][lift] || '';
@@ -1903,23 +1906,27 @@
               }
             };
 
-            // Blinda con soglie fisiologiche reali: squat >= 30kg, panca/military/clean/row/lat >= 15kg, bw 40-130kg
+            // Blinda con soglie fisiologiche reali: squat >= 30kg, clean/rdl >= 20kg, panca/military/row/lat >= 15kg
             if (isSquat1RM && val >= 30) updateIfNewer('squat', val);
             if (isClean1RM && val >= 20) updateIfNewer('clean', val);
             if (isBench1RM && val >= 15) updateIfNewer('bench', val);
             if (isMilitary1RM && val >= 15) updateIfNewer('military', val);
             if (isRow1RM && val >= 15) updateIfNewer('row', val);
             if (isLat1RM && val >= 15) updateIfNewer('lat', val);
-            if (isBW && val >= 40 && val <= 130 && !valStr.startsWith('1900') && !valStr.startsWith('1899')) {
-              updateIfNewer('bw', val);
-              rawWeightRecords.push({
-                aid: aid,
-                athName: athName,
-                date: rDate,
-                timestamp: ts,
-                peso: val
-              });
+            if (isRdl1RM && val >= 20) updateIfNewer('rdl', val);
+          } else if (isBW && val >= 40 && val <= 130 && !valStr.startsWith('1900') && !valStr.startsWith('1899')) {
+            const prevTs = live1RMTs[aid]['bw'] || '';
+            if (!prevTs || ts >= prevTs) {
+              live1RMData[aid]['bw'] = val;
+              live1RMTs[aid]['bw'] = ts;
             }
+            rawWeightRecords.push({
+              aid: aid,
+              athName: athName,
+              date: rDate,
+              timestamp: ts,
+              peso: val
+            });
           }
 
           // 4. CARICHI ACCESSORI & NOTE SQUADRA (Deduplicati e puliti da autoformattazione Sheets)
@@ -2661,12 +2668,12 @@
           <tr>
             <td><strong>#${a.id} ${a.name}</strong> <span style="font-size:0.7rem;color:var(--mv-muted)">(${a.role})</span></td>
             <td><strong style="color:#93c5fd">${bw} kg</strong></td>
-            <td><span class="rm-val-strong">${sq > 0 ? sq + 'k' : '—'}</span> <span class="rm-ratio-tag">${sqRatio}</span></td>
-            <td><span class="rm-val-strong">${bp > 0 ? bp + 'k' : '—'}</span> <span class="rm-ratio-tag">${bpRatio}</span></td>
-            <td><span class="rm-val-strong">${mp > 0 ? mp + 'k' : '—'}</span> <span class="rm-ratio-tag">${mpRatio}</span></td>
-            <td><span class="rm-val-strong">${cl > 0 ? cl + 'k' : '—'}</span></td>
-            <td><span class="rm-val-strong">${rw > 0 ? rw + 'k' : '—'}</span></td>
-            <td><span class="rm-val-strong">${lt > 0 ? lt + 'k' : '—'}</span></td>
+            <td><span class="rm-val-strong">${sq > 0 ? sq + ' kg' : '—'}</span> <span class="rm-ratio-tag">${sqRatio}</span></td>
+            <td><span class="rm-val-strong">${bp > 0 ? bp + ' kg' : '—'}</span> <span class="rm-ratio-tag">${bpRatio}</span></td>
+            <td><span class="rm-val-strong">${mp > 0 ? mp + ' kg' : '—'}</span> <span class="rm-ratio-tag">${mpRatio}</span></td>
+            <td><span class="rm-val-strong">${cl > 0 ? cl + ' kg' : '—'}</span></td>
+            <td><span class="rm-val-strong">${rw > 0 ? rw + ' kg' : '—'}</span></td>
+            <td><span class="rm-val-strong">${lt > 0 ? lt + ' kg' : '—'}</span></td>
           </tr>
         `;
       }).join('');
