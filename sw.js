@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v227-supabase-dev)
-const CACHE_NAME = 'marsala-pwa-v227-supabase-dev';
+// Service Worker App Marsala Volley (v227-timer-tab)
+const CACHE_NAME = 'marsala-pwa-v227-timer-tab';
 
 const ASSETS_TO_CACHE = [
   './',

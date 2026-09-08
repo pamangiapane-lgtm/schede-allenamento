@@ -162,24 +162,25 @@
 
     .nav-tabs {
       display: grid;
-      grid-template-columns: 1.2fr 1fr 1fr;
-      gap: 8px;
-      padding: 0 4px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+      padding: 0 2px;
     }
     .nav-tab-btn {
       background: #0f192d;
       border: 1px solid #1f365d;
       color: #94a3b8;
-      border-radius: 10px;
-      padding: 11px 6px;
-      font-size: 0.82rem;
+      border-radius: 8px;
+      padding: 9px 2px;
+      font-size: 0.74rem;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 5px;
+      gap: 3px;
+      white-space: nowrap;
       transition: all 0.15s;
       box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
@@ -193,6 +194,13 @@
       border-color: var(--mv-amber);
       box-shadow: 0 4px 14px rgba(232, 160, 32, 0.4);
       transform: translateY(-1px);
+    }
+    @media (max-width: 380px) {
+      .nav-tab-btn {
+        font-size: 0.67rem;
+        padding: 8px 1px;
+        gap: 2px;
+      }
     }
 
     /* Week Pill Switcher */
@@ -926,6 +934,138 @@
       border: 1px solid rgba(232, 160, 32, 0.35);
       letter-spacing: 0.5px;
     }
+
+    /* ==========================================
+       SEZIONE TIMER (4^ SEZIONE APP)
+       ========================================== */
+    .timer-mode-switcher {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+      background: #060b16;
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .timer-mode-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-weight: 800;
+      font-size: 0.74rem;
+      padding: 8px 4px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .timer-mode-btn.active {
+      background: #182846;
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .timer-display-box {
+      background: #060b16;
+      border: 2px solid #1e335a;
+      border-radius: 16px;
+      padding: 22px 14px;
+      text-align: center;
+      margin-bottom: 14px;
+      position: relative;
+      transition: all 0.2s;
+    }
+    .timer-display-box.running {
+      border-color: #38bdf8;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.18);
+    }
+    .timer-display-box.finished {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.08);
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.3);
+      animation: timerPulse 1.2s infinite;
+    }
+    @keyframes timerPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+    .timer-time-big {
+      font-family: 'JetBrains Mono', monospace, system-ui;
+      font-size: 3.6rem;
+      font-weight: 900;
+      color: #f8fafc;
+      letter-spacing: 2px;
+      line-height: 1;
+      margin: 8px 0;
+    }
+    .timer-time-sub {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .timer-presets {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .btn-timer-preset {
+      background: #0f192d;
+      border: 1px solid #1e335a;
+      color: #cbd5e1;
+      padding: 8px 2px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-timer-preset:hover, .btn-timer-preset.active {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--mv-amber);
+      border-color: var(--mv-amber);
+    }
+    .timer-controls-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .btn-timer-main {
+      background: var(--mv-emerald);
+      color: #000;
+      font-weight: 900;
+      font-size: 1rem;
+      padding: 13px 8px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+    }
+    .btn-timer-main.pause {
+      background: var(--mv-amber);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+    }
+    .btn-timer-sec {
+      background: #0f192d;
+      border: 1px solid #1e335a;
+      color: #cbd5e1;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 10px 4px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
   </style>
 </head>
 <body>
@@ -1006,7 +1146,8 @@
         <div class="nav-tabs">
           <button class="nav-tab-btn active" id="tab-btn-wellness" onclick="switchNav('wellness', this)">🌅 Wellness</button>
           <button class="nav-tab-btn" id="tab-btn-sedute" onclick="switchNav('sedute', this)">🏋️ Sedute</button>
-          <button class="nav-tab-btn" id="tab-btn-profilo" onclick="switchNav('profilo', this)">📊 Stima 1RM</button>
+          <button class="nav-tab-btn" id="tab-btn-profilo" onclick="switchNav('profilo', this)">📊 1RM</button>
+          <button class="nav-tab-btn" id="tab-btn-timer" onclick="switchNav('timer', this)">⏱️ Timer</button>
         </div>
       </div>
 
@@ -1125,6 +1266,98 @@
           <h3 class="card-title">📦 Riepilogo Ultimi Carichi Usati</h3>
           <p style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:12px;">Elenco dei carichi e manubri registrati nelle tue sedute di allenamento. Si aggiornano automaticamente.</p>
           <div id="riepilogo-carichi-container"></div>
+        </div>
+      </div>
+
+      <!-- TAB 4: TIMER ALLENAMENTO (RECUPERO, CRONOMETRO, EMOM) -->
+      <div class="tab-panel" id="tab-timer">
+        <div class="card-box">
+          <!-- Switcher modalità Timer -->
+          <div class="timer-mode-switcher">
+            <button class="timer-mode-btn active" id="timer-btn-mode-rest" onclick="switchTimerMode('rest')">⏱️ Recupero</button>
+            <button class="timer-mode-btn" id="timer-btn-mode-chrono" onclick="switchTimerMode('chrono')">⚡ Cronometro</button>
+            <button class="timer-mode-btn" id="timer-btn-mode-emom" onclick="switchTimerMode('emom')">🔄 Intervalli / EMOM</button>
+          </div>
+
+          <!-- 1. PANNELLO TIMER RECUPERO -->
+          <div id="timer-panel-rest">
+            <div class="timer-display-box" id="rest-display-box">
+              <div class="timer-time-sub" id="rest-status-label">Recupero Serie</div>
+              <div class="timer-time-big" id="rest-time-display">01:30</div>
+              <div style="display:flex; justify-content:center; gap:8px; margin-top:8px;">
+                <button class="btn-timer-preset" style="padding:4px 12px; font-size:0.75rem;" onclick="adjustRestTimer(-15)">-15s</button>
+                <button class="btn-timer-preset" style="padding:4px 12px; font-size:0.75rem;" onclick="adjustRestTimer(15)">+15s</button>
+              </div>
+            </div>
+
+            <!-- Preimpostazioni rapide -->
+            <div class="timer-presets">
+              <button class="btn-timer-preset" onclick="setRestPreset(30, this)">30s</button>
+              <button class="btn-timer-preset" onclick="setRestPreset(60, this)">60s</button>
+              <button class="btn-timer-preset active" id="preset-90" onclick="setRestPreset(90, this)">90s</button>
+              <button class="btn-timer-preset" onclick="setRestPreset(120, this)">2 min</button>
+              <button class="btn-timer-preset" onclick="setRestPreset(180, this)">3 min</button>
+            </div>
+
+            <!-- Controlli principali -->
+            <div class="timer-controls-grid">
+              <button class="btn-timer-sec" onclick="resetRestTimer()">↺ Reset</button>
+              <button class="btn-timer-main" id="btn-rest-toggle" onclick="toggleRestTimer()">▶ AVVIA</button>
+              <button class="btn-timer-sec" onclick="adjustRestTimer(30)">+30s</button>
+            </div>
+          </div>
+
+          <!-- 2. PANNELLO CRONOMETRO -->
+          <div id="timer-panel-chrono" style="display:none;">
+            <div class="timer-display-box" id="chrono-display-box">
+              <div class="timer-time-sub">Cronometro</div>
+              <div class="timer-time-big" id="chrono-time-display">00:00.0</div>
+            </div>
+
+            <div class="timer-controls-grid">
+              <button class="btn-timer-sec" onclick="handleChronoSecondary()">↺ Reset</button>
+              <button class="btn-timer-main" id="btn-chrono-toggle" onclick="toggleChrono()">▶ AVVIA</button>
+              <button class="btn-timer-sec" onclick="recordChronoLap()">🚩 Giro</button>
+            </div>
+
+            <div id="chrono-laps-container"></div>
+          </div>
+
+          <!-- 3. PANNELLO EMOM / INTERVALLI -->
+          <div id="timer-panel-emom" style="display:none;">
+            <div class="timer-display-box" id="emom-display-box">
+              <div class="timer-time-sub" id="emom-phase-label" style="color:var(--mv-emerald);">Pronto</div>
+              <div class="timer-time-big" id="emom-time-display">00:40</div>
+              <div class="timer-time-sub" id="emom-round-label">Round 1 / 5</div>
+            </div>
+
+            <!-- Configurazione Intervalli -->
+            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-bottom:14px;">
+              <div style="background:#090f1d; border:1px solid #1e335a; border-radius:8px; padding:6px; text-align:center;">
+                <label style="display:block; font-size:0.68rem; color:#94a3b8; font-weight:700;">Lavoro (s)</label>
+                <input type="number" id="emom-input-work" value="40" min="5" max="300" step="5" style="width:100%; background:transparent; border:none; color:#fff; text-align:center; font-weight:800; font-size:1rem; outline:none;" onchange="updateEmomConfig()">
+              </div>
+              <div style="background:#090f1d; border:1px solid #1e335a; border-radius:8px; padding:6px; text-align:center;">
+                <label style="display:block; font-size:0.68rem; color:#94a3b8; font-weight:700;">Riposo (s)</label>
+                <input type="number" id="emom-input-rest" value="20" min="0" max="300" step="5" style="width:100%; background:transparent; border:none; color:#fff; text-align:center; font-weight:800; font-size:1rem; outline:none;" onchange="updateEmomConfig()">
+              </div>
+              <div style="background:#090f1d; border:1px solid #1e335a; border-radius:8px; padding:6px; text-align:center;">
+                <label style="display:block; font-size:0.68rem; color:#94a3b8; font-weight:700;">Giri Totali</label>
+                <input type="number" id="emom-input-rounds" value="5" min="1" max="50" step="1" style="width:100%; background:transparent; border:none; color:#fff; text-align:center; font-weight:800; font-size:1rem; outline:none;" onchange="updateEmomConfig()">
+              </div>
+            </div>
+
+            <div class="timer-controls-grid">
+              <button class="btn-timer-sec" onclick="resetEmomTimer()">↺ Reset</button>
+              <button class="btn-timer-main" id="btn-emom-toggle" onclick="toggleEmomTimer()">▶ AVVIA</button>
+              <button class="btn-timer-sec" onclick="skipEmomPhase()">⏭ Salta</button>
+            </div>
+          </div>
+
+          <!-- Note acustiche/vibrazione -->
+          <div style="text-align:center; margin-top:14px; font-size:0.72rem; color:var(--mv-muted);">
+            🔊 Segnali sonori di avviso e vibrazione integrati · 100% Offline
+          </div>
         </div>
       </div>
 
@@ -1357,7 +1590,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=224').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=227').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -1648,9 +1881,17 @@
       document.getElementById('ath-role').textContent = `${roleText} · Marsala Volley`;
 
       if (isEN) {
-        document.getElementById('tab-btn-profilo').textContent = '📊 1RM Profile';
-        document.getElementById('tab-btn-sedute').textContent = '🏋️ Sessions';
         document.getElementById('tab-btn-wellness').textContent = '🌅 Wellness';
+        document.getElementById('tab-btn-sedute').textContent = '🏋️ Sessions';
+        document.getElementById('tab-btn-profilo').textContent = '📊 1RM';
+        const timerBtn = document.getElementById('tab-btn-timer');
+        if (timerBtn) timerBtn.textContent = '⏱️ Timer';
+      } else {
+        document.getElementById('tab-btn-wellness').textContent = '🌅 Wellness';
+        document.getElementById('tab-btn-sedute').textContent = '🏋️ Sedute';
+        document.getElementById('tab-btn-profilo').textContent = '📊 1RM';
+        const timerBtn = document.getElementById('tab-btn-timer');
+        if (timerBtn) timerBtn.textContent = '⏱️ Timer';
       }
     }
 
@@ -3573,6 +3814,412 @@ function renderSessions() {
         outputArray[i] = rawData.charCodeAt(i);
       }
       return outputArray;
+    }
+
+    // ==========================================
+    // SEZIONE TIMER: AUDIO & TIMER ENGINE (OFFLINE)
+    // ==========================================
+    let timerAudioCtx = null;
+    function playTimerTone(freq, type, duration) {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        if (!timerAudioCtx) timerAudioCtx = new AudioContext();
+        if (timerAudioCtx.state === 'suspended') timerAudioCtx.resume();
+        const osc = timerAudioCtx.createOscillator();
+        const gain = timerAudioCtx.createGain();
+        osc.type = type || 'sine';
+        osc.frequency.setValueAtTime(freq, timerAudioCtx.currentTime);
+        gain.gain.setValueAtTime(0.25, timerAudioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, timerAudioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(timerAudioCtx.destination);
+        osc.start();
+        osc.stop(timerAudioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    function timerBeepShort() {
+      playTimerTone(587.33, 'sine', 0.12);
+      if (navigator.vibrate) { try { navigator.vibrate(80); } catch(e){} }
+    }
+
+    function timerBeepLong() {
+      playTimerTone(880, 'triangle', 0.4);
+      setTimeout(() => playTimerTone(880, 'triangle', 0.5), 220);
+      if (navigator.vibrate) { try { navigator.vibrate([150, 80, 250]); } catch(e){} }
+    }
+
+    // Modalità Timer: 'rest' | 'chrono' | 'emom'
+    let currentTimerMode = 'rest';
+    function switchTimerMode(mode) {
+      currentTimerMode = mode;
+      document.querySelectorAll('.timer-mode-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById(`timer-btn-mode-${mode}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      document.getElementById('timer-panel-rest').style.display = (mode === 'rest') ? 'block' : 'none';
+      document.getElementById('timer-panel-chrono').style.display = (mode === 'chrono') ? 'block' : 'none';
+      document.getElementById('timer-panel-emom').style.display = (mode === 'emom') ? 'block' : 'none';
+    }
+
+    function formatTimeMMSS(sec) {
+      const s = Math.max(0, Math.floor(sec));
+      const m = Math.floor(s / 60);
+      const remS = s % 60;
+      return `${String(m).padStart(2, '0')}:${String(remS).padStart(2, '0')}`;
+    }
+
+    // 1. RECUPERO (REST TIMER)
+    let restDuration = 90;
+    let restRemaining = 90;
+    let restTimerInterval = null;
+    let restIsRunning = false;
+
+    function updateRestDisplay() {
+      const disp = document.getElementById('rest-time-display');
+      const box = document.getElementById('rest-display-box');
+      if (disp) disp.textContent = formatTimeMMSS(restRemaining);
+      if (box) {
+        if (restRemaining === 0) {
+          box.classList.add('finished');
+          box.classList.remove('running');
+        } else if (restIsRunning) {
+          box.classList.add('running');
+          box.classList.remove('finished');
+        } else {
+          box.classList.remove('running', 'finished');
+        }
+      }
+    }
+
+    function setRestPreset(sec, btn) {
+      pauseRestTimer();
+      restDuration = sec;
+      restRemaining = sec;
+      document.querySelectorAll('.btn-timer-preset').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const lbl = document.getElementById('rest-status-label');
+      if (lbl) lbl.textContent = 'Recupero Serie';
+      updateRestDisplay();
+    }
+
+    function adjustRestTimer(delta) {
+      restRemaining = Math.max(0, restRemaining + delta);
+      if (!restIsRunning) restDuration = restRemaining;
+      updateRestDisplay();
+    }
+
+    function toggleRestTimer() {
+      if (restIsRunning) {
+        pauseRestTimer();
+      } else {
+        startRestTimer();
+      }
+    }
+
+    function startRestTimer() {
+      if (restRemaining <= 0) {
+        restRemaining = restDuration || 90;
+      }
+      restIsRunning = true;
+      const btn = document.getElementById('btn-rest-toggle');
+      if (btn) {
+        btn.innerHTML = '⏸ PAUSA';
+        btn.classList.add('pause');
+      }
+      const lbl = document.getElementById('rest-status-label');
+      if (lbl) lbl.textContent = 'Recupero in Corso...';
+      updateRestDisplay();
+
+      clearInterval(restTimerInterval);
+      restTimerInterval = setInterval(() => {
+        restRemaining--;
+        if (restRemaining <= 3 && restRemaining > 0) {
+          timerBeepShort();
+        }
+        if (restRemaining <= 0) {
+          restRemaining = 0;
+          pauseRestTimer();
+          timerBeepLong();
+          const lblDone = document.getElementById('rest-status-label');
+          if (lblDone) lblDone.textContent = '🔔 TEMPO SCADUTO! PROSSIMA SERIE!';
+        }
+        updateRestDisplay();
+      }, 1000);
+    }
+
+    function pauseRestTimer() {
+      restIsRunning = false;
+      clearInterval(restTimerInterval);
+      restTimerInterval = null;
+      const btn = document.getElementById('btn-rest-toggle');
+      if (btn) {
+        btn.innerHTML = '▶ AVVIA';
+        btn.classList.remove('pause');
+      }
+      updateRestDisplay();
+    }
+
+    function resetRestTimer() {
+      pauseRestTimer();
+      restRemaining = restDuration;
+      const lbl = document.getElementById('rest-status-label');
+      if (lbl) lbl.textContent = 'Recupero Serie';
+      updateRestDisplay();
+    }
+
+    // 2. CRONOMETRO (STOPWATCH)
+    let chronoStartTime = 0;
+    let chronoElapsedTime = 0;
+    let chronoInterval = null;
+    let chronoIsRunning = false;
+    let chronoLaps = [];
+
+    function formatChrono(ms) {
+      const totalDeci = Math.floor(ms / 100);
+      const tenths = totalDeci % 10;
+      const totalSec = Math.floor(ms / 1000);
+      const s = totalSec % 60;
+      const m = Math.floor(totalSec / 60);
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}.${tenths}`;
+    }
+
+    function updateChronoDisplay() {
+      const disp = document.getElementById('chrono-time-display');
+      if (disp) disp.textContent = formatChrono(chronoElapsedTime);
+    }
+
+    function toggleChrono() {
+      if (chronoIsRunning) {
+        chronoIsRunning = false;
+        clearInterval(chronoInterval);
+        chronoInterval = null;
+        const btn = document.getElementById('btn-chrono-toggle');
+        if (btn) {
+          btn.innerHTML = '▶ RIPRENDI';
+          btn.classList.remove('pause');
+        }
+        const box = document.getElementById('chrono-display-box');
+        if (box) box.classList.remove('running');
+      } else {
+        chronoIsRunning = true;
+        chronoStartTime = performance.now() - chronoElapsedTime;
+        const btn = document.getElementById('btn-chrono-toggle');
+        if (btn) {
+          btn.innerHTML = '⏸ STOP';
+          btn.classList.add('pause');
+        }
+        const box = document.getElementById('chrono-display-box');
+        if (box) box.classList.add('running');
+        clearInterval(chronoInterval);
+        chronoInterval = setInterval(() => {
+          chronoElapsedTime = performance.now() - chronoStartTime;
+          updateChronoDisplay();
+        }, 80);
+      }
+    }
+
+    function recordChronoLap() {
+      if (!chronoElapsedTime) return;
+      const lapIndex = chronoLaps.length + 1;
+      chronoLaps.unshift({ index: lapIndex, time: chronoElapsedTime });
+      renderChronoLaps();
+    }
+
+    function handleChronoSecondary() {
+      chronoIsRunning = false;
+      clearInterval(chronoInterval);
+      chronoInterval = null;
+      chronoElapsedTime = 0;
+      chronoLaps = [];
+      const btn = document.getElementById('btn-chrono-toggle');
+      if (btn) {
+        btn.innerHTML = '▶ AVVIA';
+        btn.classList.remove('pause');
+      }
+      const box = document.getElementById('chrono-display-box');
+      if (box) box.classList.remove('running');
+      updateChronoDisplay();
+      renderChronoLaps();
+    }
+
+    function renderChronoLaps() {
+      const container = document.getElementById('chrono-laps-container');
+      if (!container) return;
+      if (chronoLaps.length === 0) {
+        container.innerHTML = '';
+        return;
+      }
+      container.innerHTML = `
+        <div style="background:#090f1d; border:1px solid #1e335a; border-radius:8px; padding:6px 10px; margin-top:8px;">
+          <div style="display:flex; justify-content:space-between; font-weight:800; color:#94a3b8; border-bottom:1px solid #1e335a; padding-bottom:4px; margin-bottom:4px; font-size:0.75rem;">
+            <span>Giro</span>
+            <span>Tempo</span>
+          </div>
+          ${chronoLaps.map(l => `
+            <div style="display:flex; justify-content:space-between; padding:4px 0; border-bottom:1px dashed rgba(255,255,255,0.06); color:#cbd5e1; font-size:0.78rem;">
+              <span>Giro ${l.index}</span>
+              <strong style="font-family:'JetBrains Mono',monospace; color:var(--mv-amber);">${formatChrono(l.time)}</strong>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    // 3. EMOM / INTERVALLI
+    let emomWork = 40;
+    let emomRest = 20;
+    let emomTotalRounds = 5;
+    let emomCurrentRound = 1;
+    let emomPhase = 'ready'; // 'ready' | 'work' | 'rest' | 'done'
+    let emomRemaining = 40;
+    let emomInterval = null;
+    let emomIsRunning = false;
+
+    function updateEmomConfig() {
+      if (emomIsRunning) return;
+      const wInput = document.getElementById('emom-input-work');
+      const rInput = document.getElementById('emom-input-rest');
+      const rdInput = document.getElementById('emom-input-rounds');
+      if (wInput) emomWork = Math.max(5, parseInt(wInput.value) || 40);
+      if (rInput) emomRest = Math.max(0, parseInt(rInput.value) || 0);
+      if (rdInput) emomTotalRounds = Math.max(1, parseInt(rdInput.value) || 5);
+      resetEmomTimer();
+    }
+
+    function updateEmomDisplay() {
+      const disp = document.getElementById('emom-time-display');
+      const phaseLbl = document.getElementById('emom-phase-label');
+      const roundLbl = document.getElementById('emom-round-label');
+      const box = document.getElementById('emom-display-box');
+
+      if (disp) disp.textContent = formatTimeMMSS(emomRemaining);
+      if (roundLbl) roundLbl.textContent = `Round ${emomCurrentRound} / ${emomTotalRounds}`;
+
+      if (box) {
+        box.classList.remove('running', 'finished');
+        if (emomPhase === 'work' && emomIsRunning) {
+          box.classList.add('running');
+          if (phaseLbl) {
+            phaseLbl.textContent = '🔥 LAVORO';
+            phaseLbl.style.color = 'var(--mv-emerald)';
+          }
+        } else if (emomPhase === 'rest' && emomIsRunning) {
+          box.classList.add('running');
+          if (phaseLbl) {
+            phaseLbl.textContent = '⏸️ RECUPERO';
+            phaseLbl.style.color = 'var(--mv-amber)';
+          }
+        } else if (emomPhase === 'done') {
+          box.classList.add('finished');
+          if (phaseLbl) {
+            phaseLbl.textContent = '🏆 COMPLETATO!';
+            phaseLbl.style.color = 'var(--mv-emerald)';
+          }
+        } else {
+          if (phaseLbl) {
+            phaseLbl.textContent = 'Pronto';
+            phaseLbl.style.color = '#94a3b8';
+          }
+        }
+      }
+    }
+
+    function toggleEmomTimer() {
+      if (emomIsRunning) {
+        pauseEmomTimer();
+      } else {
+        startEmomTimer();
+      }
+    }
+
+    function startEmomTimer() {
+      if (emomPhase === 'ready' || emomPhase === 'done') {
+        emomPhase = 'work';
+        emomCurrentRound = 1;
+        emomRemaining = emomWork;
+        timerBeepLong();
+      }
+      emomIsRunning = true;
+      const btn = document.getElementById('btn-emom-toggle');
+      if (btn) {
+        btn.innerHTML = '⏸ PAUSA';
+        btn.classList.add('pause');
+      }
+      updateEmomDisplay();
+
+      clearInterval(emomInterval);
+      emomInterval = setInterval(() => {
+        emomRemaining--;
+        if (emomRemaining <= 3 && emomRemaining > 0) {
+          timerBeepShort();
+        }
+        if (emomRemaining <= 0) {
+          timerBeepLong();
+          if (emomPhase === 'work') {
+            if (emomRest > 0) {
+              emomPhase = 'rest';
+              emomRemaining = emomRest;
+            } else {
+              advanceEmomRound();
+            }
+          } else if (emomPhase === 'rest') {
+            advanceEmomRound();
+          }
+        }
+        updateEmomDisplay();
+      }, 1000);
+    }
+
+    function advanceEmomRound() {
+      if (emomCurrentRound >= emomTotalRounds) {
+        emomPhase = 'done';
+        emomRemaining = 0;
+        pauseEmomTimer();
+        timerBeepLong();
+      } else {
+        emomCurrentRound++;
+        emomPhase = 'work';
+        emomRemaining = emomWork;
+      }
+    }
+
+    function skipEmomPhase() {
+      if (!emomIsRunning && emomPhase === 'ready') return;
+      if (emomPhase === 'work') {
+        if (emomRest > 0) {
+          emomPhase = 'rest';
+          emomRemaining = emomRest;
+        } else {
+          advanceEmomRound();
+        }
+      } else if (emomPhase === 'rest') {
+        advanceEmomRound();
+      }
+      updateEmomDisplay();
+    }
+
+    function pauseEmomTimer() {
+      emomIsRunning = false;
+      clearInterval(emomInterval);
+      emomInterval = null;
+      const btn = document.getElementById('btn-emom-toggle');
+      if (btn) {
+        btn.innerHTML = (emomPhase === 'done') ? '↺ RIAVVIA' : '▶ RIPRENDI';
+        btn.classList.remove('pause');
+      }
+      updateEmomDisplay();
+    }
+
+    function resetEmomTimer() {
+      pauseEmomTimer();
+      emomPhase = 'ready';
+      emomCurrentRound = 1;
+      emomRemaining = emomWork;
+      const btn = document.getElementById('btn-emom-toggle');
+      if (btn) btn.innerHTML = '▶ AVVIA';
+      updateEmomDisplay();
     }
 
     window.addEventListener('DOMContentLoaded', init);
