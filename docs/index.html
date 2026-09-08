@@ -1462,7 +1462,7 @@
 
   </main>
 
-  <script src="data.js?v=20260906v214"></script>
+  <script src="data.js?v=20260908v232"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js?v=2.0"></script>
   <script>
@@ -1686,7 +1686,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=231').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=232').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
