@@ -1138,6 +1138,8 @@
   </main>
 
   <script src="data.js?v=20260906v214"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js?v=2.0"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -1702,6 +1704,10 @@
         setTimeout(() => { toast.style.display = 'none'; }, 2000);
       }
 
+      if (window.MV_SUPABASE) {
+        window.MV_SUPABASE.updateAthlete(currentAthlete.id, { baseline_weight: numVal });
+      }
+
       try {
         fetch(`${GAS_URL}?token=${TOKEN}`, {
           method: 'POST',
@@ -1794,6 +1800,13 @@
         toast.style.display = 'inline';
         setTimeout(() => { toast.style.display = 'none'; }, 2000);
       }
+      if (window.MV_SUPABASE) {
+        const colMap = { squat: 'baseline_squat', bench: 'baseline_bench', clean: 'baseline_clean', row: 'baseline_row', lat: 'baseline_lat', military: 'baseline_military', rdl: 'baseline_rdl' };
+        if (colMap[rmId]) {
+          window.MV_SUPABASE.updateAthlete(currentAthlete.id, { [colMap[rmId]]: parseFloat(val) });
+        }
+      }
+
       try {
         await fetch(`${GAS_URL}?token=${TOKEN}`, {
           method: 'POST',
@@ -2024,6 +2037,24 @@
         setTimeout(() => { toast.style.display = 'none'; }, 2000);
       }
 
+      if (window.MV_SUPABASE) {
+        if (isCmj) {
+          window.MV_SUPABASE.saveTrainingSet({
+            athlete_id: currentAthlete.id,
+            session_code: nSeduta || 'W-Seduta',
+            exercise_name: 'CMJ Test Chronojump',
+            cmj_height: parseFloat(cleanVal)
+          });
+        } else {
+          window.MV_SUPABASE.saveTrainingSet({
+            athlete_id: currentAthlete.id,
+            session_code: nSeduta || 'W-Seduta',
+            exercise_name: exName,
+            load_kg: parseFloat(cleanVal)
+          });
+        }
+      }
+
       try {
         fetch(`${GAS_URL}?token=${TOKEN}`, {
           method: 'POST',
@@ -2115,6 +2146,16 @@
       if (toast) {
         toast.style.display = 'inline';
         setTimeout(() => { toast.style.display = 'none'; }, 2000);
+      }
+
+      if (window.MV_SUPABASE) {
+        window.MV_SUPABASE.saveTrainingSet({
+          athlete_id: currentAthlete.id,
+          session_code: nSeduta || 'W-Seduta',
+          exercise_name: `${exName} (VBT)`,
+          vbt_velocity: parseFloat(formattedVal),
+          note: `Velocità media rilevata con encoder VBT Enode: ${formattedVal}`
+        });
       }
 
       try {
@@ -3175,6 +3216,17 @@ function renderSessions() {
         const rpeDisplay = parsed.rpe !== null ? `${parsed.rpe}/10` : '—';
         const fatDisplay = parsed.fat !== null ? `${parsed.fat}/10` : '—';
 
+        if (window.MV_SUPABASE) {
+          window.MV_SUPABASE.saveSessionRating({
+            athlete_id: currentAthlete.id,
+            session_code: `${currentWeek}_${nSeduta}`,
+            date: parsed.date || new Date().toISOString().slice(0, 10),
+            srpe: parsed.rpe != null ? parseFloat(parsed.rpe) : null,
+            fatigue: parsed.fat != null ? parseFloat(parsed.fat) : null,
+            note: parsed.note || ''
+          });
+        }
+
         await fetch(`${GAS_URL}?token=${TOKEN}`, {
           method: 'POST',
           mode: 'no-cors',
@@ -3347,6 +3399,19 @@ function renderSessions() {
         stress: wellnessRatings.stress,
         note: note
       };
+
+      if (window.MV_SUPABASE) {
+        window.MV_SUPABASE.saveWellness({
+          athlete_id: currentAthlete.id,
+          date: new Date().toISOString().slice(0, 10),
+          sleep_quality: wellnessRatings.sonno,
+          fatigue: wellnessRatings.fatica,
+          readiness: wellnessRatings.readiness,
+          soreness: wellnessRatings.dolori,
+          stress: wellnessRatings.stress,
+          note: note
+        });
+      }
 
       try {
         await fetch(`${GAS_URL}?token=${TOKEN}`, {
