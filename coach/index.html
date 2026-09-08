@@ -1230,12 +1230,13 @@
             <button class="btn-filt active" id="tog-sonno" onclick="toggleMetric('sonno')" style="border-color:#3b82f6;color:#93c5fd;">😴 Sonno</button>
             <button class="btn-filt active" id="tog-dolori" onclick="toggleMetric('dolori')" style="border-color:#ef4444;color:#fca5a5;">🩹 Dolori</button>
             <button class="btn-filt" id="tog-stress" onclick="toggleMetric('stress')" style="border-color:#a855f7;color:#d8b4fe;">🧠 Stress</button>
+            <button class="btn-filt" id="tog-peso" onclick="toggleMetric('peso')" style="border-color:#06b6d4;color:#67e8f9;">⚖️ Peso</button>
           </div>
         </div>
       </div>
 
       <!-- KPI Summary del Periodo Selezionato (RESPONSIVE NO OVERFLOW) -->
-      <div style="display:grid;grid-template-columns:repeat(5, 1fr);gap:4px;margin-bottom:14px;width:100%;box-sizing:border-box;" id="analytics-kpi-grid">
+      <div style="display:grid;grid-template-columns:repeat(6, 1fr);gap:4px;margin-bottom:14px;width:100%;box-sizing:border-box;" id="analytics-kpi-grid">
         <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
           <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Readiness</div>
           <div class="kpi-val" id="an-kpi-readiness" style="color:var(--mv-amber);font-size:0.95rem;margin:2px 0;">--</div>
@@ -1260,6 +1261,11 @@
           <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Stress</div>
           <div class="kpi-val" id="an-kpi-stress" style="color:#d8b4fe;font-size:0.95rem;margin:2px 0;">--</div>
           <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tensione</div>
+        </div>
+        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Peso</div>
+          <div class="kpi-val" id="an-kpi-peso" style="color:#67e8f9;font-size:0.95rem;margin:2px 0;">--</div>
+          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (kg)</div>
         </div>
       </div>
 
@@ -1432,7 +1438,7 @@
     async function initCoach() {
       initCampoSection();
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=219', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=222', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -1610,6 +1616,7 @@
         liveTodaySessions = {};
         liveVBTData = [];
         liveCMJData = [];
+        rawWeightRecords = [];
 
         const sessionAgg = {};
         const now = new Date();
@@ -1732,7 +1739,16 @@
             if (isMilitary1RM && val >= 15) updateIfNewer('military', val);
             if (isRow1RM && val >= 15) updateIfNewer('row', val);
             if (isLat1RM && val >= 15) updateIfNewer('lat', val);
-            if (isBW && val >= 40 && val <= 130 && !valStr.startsWith('1900') && !valStr.startsWith('1899')) updateIfNewer('bw', val);
+            if (isBW && val >= 40 && val <= 130 && !valStr.startsWith('1900') && !valStr.startsWith('1899')) {
+              updateIfNewer('bw', val);
+              rawWeightRecords.push({
+                aid: aid,
+                athName: athName,
+                date: rDate,
+                timestamp: ts,
+                peso: val
+              });
+            }
           }
 
           // 4. CARICHI ACCESSORI & NOTE SQUADRA (Deduplicati e puliti da autoformattazione Sheets)
@@ -2629,10 +2645,11 @@
     // WELLNESS ANALYTICS & TREND ENGINE
     // ==========================================
     let rawWellnessRecords = [];
+    let rawWeightRecords = [];
     let anCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
     let anCurrentRange = 'all';
     let anCurrentDay = 'all';
-    let anVisibleMetrics = { readiness: true, fatica: true, sonno: true, dolori: true, stress: false };
+    let anVisibleMetrics = { readiness: true, fatica: true, sonno: true, dolori: true, stress: false, peso: false };
     let trendChartInstance = null;
     let microcycleChartInstance = null;
 
@@ -2730,18 +2747,56 @@
       return data;
     }
 
+    function filterWeightData() {
+      let data = [...rawWeightRecords];
+
+      // Filtro Atleta
+      if (anCurrentAthlete > 0) {
+        data = data.filter(r => r.aid === anCurrentAthlete);
+      }
+
+      // Filtro Temporale
+      const now = new Date();
+      if (anCurrentRange === '7d') {
+        const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '14d') {
+        const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === '30d') {
+        const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+        data = data.filter(r => r.date >= cutoff);
+      } else if (anCurrentRange === 'offseason') {
+        data = data.filter(r => r.date <= '2026-08-23');
+      } else if (anCurrentRange === 'preseason') {
+        data = data.filter(r => r.date >= '2026-08-24');
+      }
+
+      // Filtro Giorno della Settimana
+      if (anCurrentDay !== 'all') {
+        const targetDay = parseInt(anCurrentDay);
+        data = data.filter(r => {
+          const d = new Date(r.date);
+          return d.getDay() === targetDay;
+        });
+      }
+
+      return data;
+    }
+
     function renderWellnessAnalytics() {
       initAnalyticsUI();
       const filtered = filterWellnessData();
+      const filteredWeight = filterWeightData();
 
       // Titoli dinamici
       const targetName = (anCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === anCurrentAthlete)?.name || `Atleta #${anCurrentAthlete}`);
       document.getElementById('trend-chart-title').textContent = `📈 Trend: ${targetName}`;
-      document.getElementById('trend-chart-subtitle').textContent = `${filtered.length} record analizzati`;
+      document.getElementById('trend-chart-subtitle').textContent = `${filtered.length} record wellness · ${filteredWeight.length} pesate analizzate`;
 
       // 1. Calcolo KPI Summary
-      let sumReady = 0, sumFatica = 0, sumSonno = 0, sumDolori = 0, sumStress = 0;
-      let cReady = 0, cFatica = 0, cSonno = 0, cDolori = 0, cStress = 0;
+      let sumReady = 0, sumFatica = 0, sumSonno = 0, sumDolori = 0, sumStress = 0, sumPeso = 0;
+      let cReady = 0, cFatica = 0, cSonno = 0, cDolori = 0, cStress = 0, cPeso = 0;
 
       filtered.forEach(r => {
         if (typeof r.readiness === 'number' && !isNaN(r.readiness)) { sumReady += r.readiness; cReady++; }
@@ -2751,18 +2806,24 @@
         if (typeof r.stress === 'number' && !isNaN(r.stress)) { sumStress += r.stress; cStress++; }
       });
 
+      filteredWeight.forEach(r => {
+        if (typeof r.peso === 'number' && !isNaN(r.peso) && r.peso > 0) { sumPeso += r.peso; cPeso++; }
+      });
+
       document.getElementById('an-kpi-readiness').textContent = cReady > 0 ? (sumReady / cReady).toFixed(1) + '/10' : '--';
       document.getElementById('an-kpi-fatica').textContent = cFatica > 0 ? (sumFatica / cFatica).toFixed(1) + '/10' : '--';
       document.getElementById('an-kpi-sonno').textContent = cSonno > 0 ? (sumSonno / cSonno).toFixed(1) + '/10' : '--';
       document.getElementById('an-kpi-dolori').textContent = cDolori > 0 ? (sumDolori / cDolori).toFixed(1) + '/10' : '--';
       document.getElementById('an-kpi-stress').textContent = cStress > 0 ? (sumStress / cStress).toFixed(1) + '/10' : '--';
+      const kpiPesoEl = document.getElementById('an-kpi-peso');
+      if (kpiPesoEl) kpiPesoEl.textContent = cPeso > 0 ? (sumPeso / cPeso).toFixed(1) + ' kg' : '--';
 
       // 2. Costruzione Dati per Grafico Temporale
       const dateMap = {};
       filtered.forEach(r => {
         if (!r.date || r.date.length < 10 || !r.date.includes('-')) return;
         if (!dateMap[r.date]) {
-          dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], notes: [] };
+          dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], peso: [], notes: [] };
         }
         if (r.readiness !== null) dateMap[r.date].readiness.push(r.readiness);
         if (r.fatica !== null) dateMap[r.date].fatica.push(r.fatica);
@@ -2772,8 +2833,17 @@
         if (r.note && r.note.trim()) dateMap[r.date].notes.push({ ath: r.athName, note: r.note });
       });
 
+      filteredWeight.forEach(r => {
+        if (!r.date || r.date.length < 10 || !r.date.includes('-')) return;
+        if (!dateMap[r.date]) {
+          dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], peso: [], notes: [] };
+        }
+        if (!dateMap[r.date].peso) dateMap[r.date].peso = [];
+        if (r.peso !== null && r.peso !== undefined) dateMap[r.date].peso.push(r.peso);
+      });
+
       const sortedDates = Object.keys(dateMap).sort().filter(d => d && d.length >= 10 && d.includes('-'));
-      const avg = arr => arr.length ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
+      const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
 
       const monthAbbr = { '01':'GEN', '02':'FEB', '03':'MAR', '04':'APR', '05':'MAG', '06':'GIU', '07':'LUG', '08':'AGO', '09':'SET', '10':'OTT', '11':'NOV', '12':'DIC' };
 
@@ -2818,6 +2888,29 @@
         }
       });
 
+      const hasWellnessActive = Boolean(anVisibleMetrics.readiness || anVisibleMetrics.fatica || anVisibleMetrics.sonno || anVisibleMetrics.dolori || anVisibleMetrics.stress);
+      const isPesoOnly = Boolean(anVisibleMetrics.peso && !hasWellnessActive);
+
+      let minPeso = 45, maxPeso = 85;
+      if (anVisibleMetrics.peso) {
+        const allPesoValues = [];
+        sortedDates.forEach(d => {
+          if (dateMap[d].peso && dateMap[d].peso.length) {
+            dateMap[d].peso.forEach(p => allPesoValues.push(p));
+          }
+        });
+        if (allPesoValues.length > 0) {
+          const minVal = Math.min(...allPesoValues);
+          const maxVal = Math.max(...allPesoValues);
+          minPeso = Math.floor(minVal - 2);
+          maxPeso = Math.ceil(maxVal + 2);
+          if (maxPeso - minPeso < 5) {
+            minPeso -= 2;
+            maxPeso += 2;
+          }
+        }
+      }
+
       const datasets = [];
       if (anVisibleMetrics.readiness) {
         datasets.push({
@@ -2825,6 +2918,7 @@
           data: sortedDates.map(d => avg(dateMap[d].readiness)),
           borderColor: '#f59e0b',
           backgroundColor: 'rgba(245, 158, 11, 0.1)',
+          yAxisID: 'y',
           tension: 0.35,
           borderWidth: 3,
           pointRadius: 4,
@@ -2837,6 +2931,7 @@
           data: sortedDates.map(d => avg(dateMap[d].fatica)),
           borderColor: '#10b981',
           backgroundColor: 'transparent',
+          yAxisID: 'y',
           tension: 0.35,
           borderWidth: 2,
           pointRadius: 3
@@ -2848,6 +2943,7 @@
           data: sortedDates.map(d => avg(dateMap[d].sonno)),
           borderColor: '#3b82f6',
           backgroundColor: 'transparent',
+          yAxisID: 'y',
           tension: 0.35,
           borderWidth: 2,
           pointRadius: 3
@@ -2859,6 +2955,7 @@
           data: sortedDates.map(d => avg(dateMap[d].dolori)),
           borderColor: '#ef4444',
           backgroundColor: 'transparent',
+          yAxisID: 'y',
           tension: 0.35,
           borderWidth: 2,
           pointRadius: 3
@@ -2870,10 +2967,105 @@
           data: sortedDates.map(d => avg(dateMap[d].stress)),
           borderColor: '#a855f7',
           backgroundColor: 'transparent',
+          yAxisID: 'y',
           tension: 0.35,
           borderWidth: 2,
           pointRadius: 3
         });
+      }
+      if (anVisibleMetrics.peso) {
+        datasets.push({
+          label: 'Peso (kg) ⚖️',
+          data: sortedDates.map(d => (dateMap[d].peso && dateMap[d].peso.length) ? avg(dateMap[d].peso) : null),
+          borderColor: '#06b6d4',
+          backgroundColor: 'rgba(6, 182, 212, 0.08)',
+          yAxisID: hasWellnessActive ? 'yPeso' : 'y',
+          tension: 0.35,
+          borderWidth: 2.5,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          spanGaps: true
+        });
+      }
+
+      const chartScales = {
+        x: {
+          grid: { color: 'rgba(255, 255, 255, 0.04)' },
+          ticks: {
+            callback: function(val, index) {
+              return labels[index];
+            },
+            color: function(context) {
+              const label = labels[context.index];
+              if (Array.isArray(label)) {
+                const sub = label[1] || '';
+                if (sub === 'S' || sub === 'D' || sub.startsWith('S ') || sub.startsWith('D ')) {
+                  return '#38bdf8';
+                }
+                return '#f59e0b';
+              }
+              return '#94a3b8';
+            },
+            font: function(context) {
+              const label = labels[context.index];
+              return Array.isArray(label) ? { weight: '800', size: 10 } : { size: 10 };
+            },
+            autoSkip: false,
+            maxRotation: 0,
+            minRotation: 0
+          }
+        }
+      };
+
+      if (isPesoOnly) {
+        chartScales.y = {
+          position: 'left',
+          min: minPeso,
+          max: maxPeso,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
+          ticks: {
+            color: '#67e8f9',
+            callback: function(val) { return val + ' kg'; }
+          },
+          title: {
+            display: true,
+            text: 'Peso Corporeo (kg)',
+            color: '#67e8f9',
+            font: { weight: '700', size: 11 }
+          }
+        };
+      } else {
+        chartScales.y = {
+          position: 'left',
+          min: 0,
+          max: 10,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
+          ticks: { color: '#94a3b8', stepSize: 2 },
+          title: {
+            display: true,
+            text: 'Score Wellness (0-10)',
+            color: '#94a3b8',
+            font: { weight: '700', size: 11 }
+          }
+        };
+        if (anVisibleMetrics.peso) {
+          chartScales.yPeso = {
+            position: 'right',
+            min: minPeso,
+            max: maxPeso,
+            grid: { drawOnChartArea: false },
+            ticks: {
+              color: '#67e8f9',
+              callback: function(val) { return val + ' kg'; }
+            },
+            title: {
+              display: true,
+              text: 'Peso (kg)',
+              color: '#67e8f9',
+              font: { weight: '700', size: 11 }
+            }
+          };
+        }
       }
 
       // Render o Update Chart 1
@@ -2888,7 +3080,7 @@
             maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
             plugins: {
-              legend: { display: false }, // Legenda interna disattivata (ci sono i filtri sopra)
+              legend: { display: false },
               tooltip: {
                 backgroundColor: '#090f1d',
                 borderColor: '#1f365d',
@@ -2906,6 +3098,15 @@
                     const dayName = dNames[dt.getDay()] || '';
                     return `📅 ${dayName} ${parts[2]}/${parts[1]}/${parts[0]}`;
                   },
+                  label: function(context) {
+                    const label = context.dataset.label || '';
+                    const val = context.parsed.y;
+                    if (val === null || val === undefined) return null;
+                    if (context.dataset.yAxisID === 'yPeso' || isPesoOnly) {
+                      return `${label}: ${val.toFixed(1)} kg`;
+                    }
+                    return `${label}: ${val}/10`;
+                  },
                   afterBody: function(context) {
                     const idx = context[0].dataIndex;
                     const d = sortedDates[idx];
@@ -2918,40 +3119,7 @@
                 }
               }
             },
-            scales: {
-              y: {
-                min: 0,
-                max: 10,
-                grid: { color: 'rgba(255, 255, 255, 0.06)' },
-                ticks: { color: '#94a3b8', stepSize: 2 }
-              },
-              x: {
-                grid: { color: 'rgba(255, 255, 255, 0.04)' },
-                ticks: {
-                  callback: function(val, index) {
-                    return labels[index];
-                  },
-                  color: function(context) {
-                    const label = labels[context.index];
-                    if (Array.isArray(label)) {
-                      const sub = label[1] || '';
-                      if (sub === 'S' || sub === 'D' || sub.startsWith('S ') || sub.startsWith('D ')) {
-                        return '#38bdf8'; // STESSO COLORE azzurro brillante per Sabato (S) e Domenica (D)
-                      }
-                      return '#f59e0b'; // Oro per Cambio Mese
-                    }
-                    return '#94a3b8';
-                  },
-                  font: function(context) {
-                    const label = labels[context.index];
-                    return Array.isArray(label) ? { weight: '800', size: 10 } : { size: 10 };
-                  },
-                  autoSkip: false,
-                  maxRotation: 0,
-                  minRotation: 0
-                }
-              }
-            }
+            scales: chartScales
           }
         });
       }

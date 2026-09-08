@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (Isolato)
-const CACHE_NAME = 'coach-mv-v219-dedup';
+// Service Worker Coach Command Center (v222)
+const CACHE_NAME = 'coach-mv-v222-weight-trend';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
