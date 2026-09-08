@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v234-taxo)
-const CACHE_NAME = 'marsala-pwa-v234-taxo';
+// Service Worker App Marsala Volley (v235-nelly)
+const CACHE_NAME = 'marsala-pwa-v235-nelly';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260909v234',
+  './data.js?v=20260909v235',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',

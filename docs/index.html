@@ -1462,7 +1462,7 @@
 
   </main>
 
-  <script src="data.js?v=20260909v234"></script>
+  <script src="data.js?v=20260909v235"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js?v=2.0"></script>
   <script>
@@ -1685,7 +1685,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=234').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=235').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
         navigator.serviceWorker.addEventListener('controllerchange', () => {

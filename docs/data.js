@@ -6570,6 +6570,14 @@ const WEEKS_DATA = {
               "Note Tecniche": "Front pulldown to chest/sternum, 3s hold at bottom, depressed shoulders."
             },
             {
+              "blocco": "# Power",
+              "Esercizio": "Drop Jump da Box",
+              "Set x Reps": "1 x 4",
+              "Carico (kg/RPE)": "BW",
+              "Tempo": "Max RFD",
+              "Note Tecniche": "Drop from 25-30 cm box: reactive landing, minimal ground contact time (<200ms) and maximal vertical rebound. Focus on ankle stiffness and anti-valgus left knee alignment."
+            },
+            {
               "blocco": "# Babdominals + Transfer",
               "Esercizio": "1. Clean to 1/4 squat",
               "Set x Reps": "3 x 4",
