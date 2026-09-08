@@ -1460,7 +1460,7 @@
     async function initCoach() {
       initCampoSection();
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=225', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=226', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -3302,13 +3302,13 @@
               const slope = denom !== 0 ? (n * sumXY - sumX * sumY) / denom : 0;
               const intercept = (sumY - slope * sumX) / n;
 
-              const minX = 0.4;
-              const maxX = 1.1;
+              const minX = 0.30;
+              const maxX = 1.15;
               vbtDatasets.push({
                 label: `Profilo F-V (${aName})`,
                 data: [
-                  { x: minX, y: Math.max(0, +(slope * minX + intercept).toFixed(1)) },
-                  { x: maxX, y: Math.max(0, +(slope * maxX + intercept).toFixed(1)) }
+                  { x: minX, y: Math.min(110, Math.max(0, +(slope * minX + intercept).toFixed(1))) },
+                  { x: maxX, y: Math.min(110, Math.max(0, +(slope * maxX + intercept).toFixed(1))) }
                 ],
                 borderColor: color,
                 borderDash: [5, 5],
@@ -3393,8 +3393,8 @@
                   x: {
                     type: 'linear',
                     position: 'bottom',
-                    min: 0.35,
-                    max: 1.25,
+                    min: 0.30,
+                    max: 1.20,
                     grid: { color: 'rgba(255, 255, 255, 0.06)' },
                     ticks: {
                       color: '#38bdf8',
@@ -3411,11 +3411,11 @@
                   y: {
                     type: 'linear',
                     min: 20,
-                    max: 160,
+                    max: 110,
                     grid: { color: 'rgba(255, 255, 255, 0.06)' },
                     ticks: {
                       color: '#f59e0b',
-                      stepSize: 20,
+                      stepSize: 10,
                       callback: v => v + ' kg'
                     },
                     title: {
