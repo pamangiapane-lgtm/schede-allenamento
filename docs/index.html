@@ -1462,7 +1462,7 @@
 
   </main>
 
-  <script src="data.js?v=20260908v233"></script>
+  <script src="data.js?v=20260909v234"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js?v=2.0"></script>
   <script>
@@ -1672,11 +1672,10 @@
 
     const ORDERED_CATEGORIES = [
       { id: 'Attivazione', icon: '🔥', label: 'Attivazione & Prehab' },
-      { id: 'Potenza',     icon: '⚡', label: 'Potenza' },
-      { id: 'Forza',       icon: '🏋️', label: 'Forza Principale' },
-      { id: 'Spinta',      icon: '🏹', label: 'Spinta' },
-      { id: 'Tirata',      icon: '🎯', label: 'Tirata' },
-      { id: 'Core',        icon: '🛡️', label: 'Core & Stabilità' }
+      { id: 'Pliometria',  icon: '🦘', label: 'Pliometria (Salti)' },
+      { id: 'Potenza',     icon: '⚡', label: 'Potenza (Girate & Palle Mediche)' },
+      { id: 'Main',        icon: '🏋️', label: 'Main (Gambe · Spinta · Tirata)' },
+      { id: 'Accessori',   icon: '🛡️', label: 'Accessori (Core & Stabilità)' }
     ];
 
     let currentAthlete = null;
@@ -1686,7 +1685,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=233').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=234').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
         navigator.serviceWorker.addEventListener('controllerchange', () => {
@@ -3040,55 +3039,76 @@ function normalizeExercise(raw, week) {
 }
 
 function categorizeExerciseNorm(norm) {
-  const lowName = norm.exName.toLowerCase();
+  const low = norm.exName.toLowerCase();
   const lowBlock = (norm.blocco || '').toLowerCase();
 
-  if (lowName.includes('cmj') || lowName.includes('chronojump') || lowName.includes('profilazione')) {
-    return 'CMJ';
-  }
+  // 1. Attivazione & Prehab
   if (
-    lowName.includes('respirazione') || lowName.includes('mobilità') || lowName.includes('mobility') ||
-    lowName.includes('stretching') || lowName.includes('foam roller') || lowName.includes('wall slide') ||
-    lowName.includes('couch stretch') || lowName.includes('90/90') || lowName.includes('short foot') ||
-    lowName.includes('clamshell') || lowName.includes('prehab') || lowName.includes('breathing') ||
-    lowBlock.includes('prehab')
+    low.includes('respirazione') || low.includes('breathing') ||
+    low.includes('mobilità') || low.includes('mobility') ||
+    low.includes('stretching') || low.includes('foam roller') ||
+    low.includes('couch stretch') || low.includes('90/90') ||
+    low.includes('short foot') || low.includes('clamshell') ||
+    low.includes('passive hang') || low.includes('bar hang') ||
+    (low.includes('prehab') && !low.includes('jump') && !low.includes('cmj'))
   ) {
-    return 'Attivazione';
+    if (!low.includes('cmj') && !low.includes('jump') && !low.includes('profilazione')) {
+      return 'Attivazione';
+    }
   }
+
+  // 2. Pliometria (Salti, Balzi, Rimbalzi, Atterraggi, CMJ)
   if (
-    lowName.includes('clean') || lowName.includes('snatch') || lowName.includes('pogo') ||
-    lowName.includes('jump') || lowName.includes('balz') || lowName.includes('atterragg') ||
-    lowName.includes('hop') || lowName.includes('hurdle') || lowName.includes('slam') ||
-    lowName.includes('throw') || lowBlock.includes('potenza') || lowBlock.includes('power')
+    low.includes('pogo') || low.includes('drop jump') || low.includes('drop-jump') ||
+    low.includes('drop-landing') || low.includes('box jump') || low.includes('hurdle') ||
+    low.includes('jump squat') || low.includes('squat jump') || low.includes('balz') ||
+    low.includes('atterragg') || low.includes('cmj') || low.includes('chronojump') ||
+    low.includes('profilazione') || lowBlock.includes('plyo') || low.includes('jump ban')
   ) {
-    return 'Potenza';
+    return 'Pliometria';
   }
-  if (
-    (lowName.includes('squat') && !lowName.includes('split') && !lowName.includes('spanish')) ||
-    lowName.includes('box squat') || lowName.includes('half squat') ||
-    lowName.includes('rdl') || lowName.includes('stacco') || lowName.includes('deadlift') ||
-    lowBlock.includes('forza') || lowBlock.includes('strength')
-  ) {
-    return 'Forza';
-  }
-  if (
-    lowName.includes('floor') || lowName.includes('bench') || lowName.includes('panca') ||
-    lowName.includes('push press') || lowName.includes('military') || lowName.includes('landmine') ||
-    lowName.includes('chest press') || lowName.includes('alzate') || lowName.includes('lateral raise') ||
-    lowName.includes('dip') || lowBlock.includes('spinta') || lowBlock.includes('push')
-  ) {
-    return 'Spinta';
-  }
-  const isLat = /\b(lat|pulldown|pull-down)\b/i.test(lowName) && !/\b(laterali?|lateral|ipsilaterale?|ipsilateral)\b/i.test(lowName);
-  if (
-    (lowName.includes('row') && !lowName.includes('throw')) ||
-    isLat || lowName.includes('rematore') || lowName.includes('pull-up') ||
-    lowName.includes('chin-up') || lowName.includes('pulley') || lowName.includes('face pull') ||
-    lowBlock.includes('tirata') || lowBlock.includes('pull')
-  ) {
-    return 'Tirata';
-  }
-  return 'Core';
+
+  // 3. Potenza (Girate e Palle Mediche)
+  const isGirata = (low.includes('clean') && !low.includes('clean squat')) || low.includes('snatch') || low.includes('strappo') || low.includes('girat');
+  const isPallaMedica = low.includes('medball') || low.includes('palla medica') ||
+                        (low.includes('mb') && (low.includes('throw') || low.includes('pass') || low.includes('slam'))) ||
+                        low.includes('ball throw') || low.includes('flor ball');
+  if (isGirata || isPallaMedica) return 'Potenza';
+
+  // 4. Main (Gambe, Spinta, Tirata)
+  // 4a. Gambe (Squat principale, RDL / Stacco)
+  const isGambeMain = (
+    (low.includes('squat') && !low.includes('split') && !low.includes('spanish') && !low.includes('wall squat') && !low.includes('clean squat')) ||
+    low.includes('box squat') || low.includes('half squat') || low.includes('parallel squat') ||
+    (low.includes('rdl') && !low.includes('single-leg') && !low.includes('single leg') && !low.includes('one leg')) ||
+    low.includes('romanian deadlift') || low.includes('stiff leg deadlift') ||
+    (low === 'stacco' || low.includes('stacco da terra') || low === 'deadlift')
+  );
+
+  // 4b. Spinta (Panca, Floor Chest Press, Military, Push Press, Landmine, Dip)
+  const isSpintaMain = (
+    low.includes('floor chest press') || low.includes('flor chest press') ||
+    low.includes('bench press') || low.includes('panca piana') || low.includes('panca') ||
+    low.includes('military') || low.includes('push press') ||
+    low.includes('landmine press') || low.includes('shoulder press') ||
+    low.includes('distensioni') || (low.includes('dip') && !low.includes('rotator'))
+  ) && !low.includes('pullover');
+
+  // 4c. Tirata (Lat Machine, Row BB, Seal Row, Pulley, Pull-up, Chin-up, Trazioni)
+  const isLat = /\b(lat|pulldown|pull-down)\b/i.test(low) && !/\b(laterali?|lateral|ipsilaterale?|ipsilateral)\b/i.test(low);
+  const isTirataMain = (
+    low.includes('row bb') || low.includes('underhand row') ||
+    low.includes('seal row') || low.includes('pulley') ||
+    isLat || low.includes('pull-up') || low.includes('chin-up') ||
+    low.includes('trazioni') || low.includes('rematore con bilanciere') ||
+    low.includes('single-arm dumbbell row') || low.includes('single-arm row') ||
+    low.includes('one hand db row')
+  );
+
+  if (isGambeMain || isSpintaMain || isTirataMain) return 'Main';
+
+  // 5. Accessori (Tutto il resto: Core, Spalle accessorie, Gambe accessorie, ecc.)
+  return 'Accessori';
 }
 
 function renderStandardExerciseCard(norm, sed, athlete, week) {
@@ -3235,32 +3255,29 @@ function renderCmjTestCard(sed, athlete, isEN) {
     : "All'ingresso in sala pesi dopo l'attivazione: mani rigorosamente ai fianchi su pedana Chronojump, discesa controllata ed esplosione verticale massimale. Esegui <strong>3 salti con 45s di riposo passivo</strong> tra ogni tentativo. Misura altezza di picco (cm) e prontezza neuromuscolare d'ingresso.";
 
   return `
-    <div class="method-group">
-      <div class="method-title">⚡ ${isEN ? 'Neuromuscular Test CMJ (Chronojump Mat)' : 'Test Neuromuscolare CMJ (Pedana Chronojump)'}</div>
-      <div class="exercise-card">
-        <div class="ex-head-row">
-          <div class="ex-name">Chronojump Countermovement Jump (CMJ) Test</div>
-          <div class="ex-rest-badge">⏱ ${isEN ? 'Rest 45s between jumps' : 'Rec. 45s tra i salti'}</div>
-        </div>
-        <div class="ex-grid">
-          <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">1</div></div>
-          <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;white-space:nowrap;">${isEN ? '3 jumps' : '3 salti'}</div></div>
-          <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;font-size:0.85rem;white-space:nowrap;">Max RFD</div></div>
-          <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">X</div></div>
-        </div>
-        <button class="ex-notes-toggle" type="button" onclick="toggleNotes(this, 'n-cmj-${sNum}')">
-          <span>ℹ️ ${isEN ? 'Coach technical notes' : 'Note tecniche coach'}</span> <span class="notes-chevron">▾</span>
-        </button>
-        <div class="ex-notes-body" id="n-cmj-${sNum}">
-          <div>${cmjNoteText}</div>
-        </div>
-        <div class="ex-load-log-box" style="margin-top:10px;">
-          <span class="ex-load-log-lbl">📝 ${isEN ? 'Recorded CMJ Height:' : 'Altezza CMJ registrata:'}</span>
-          <div class="ex-load-input-wrap">
-            <input type="text" class="ex-load-input" id="ex-log-cmj-test" placeholder="${savedCmj ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedCmj}` : (isEN ? 'e.g. 38.5 cm' : 'es. 38.5 cm')}" value="${savedCmj}" oninput="onCustomExerciseLoadInput('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}', this.value)">
-            <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}')">${savedCmj ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
-            <span id="toast-ex-log-cmj-test" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
-          </div>
+    <div class="exercise-card">
+      <div class="ex-head-row">
+        <div class="ex-name">Chronojump Countermovement Jump (CMJ) Test</div>
+        <div class="ex-rest-badge">⏱ ${isEN ? 'Rest 45s between jumps' : 'Rec. 45s tra i salti'}</div>
+      </div>
+      <div class="ex-grid">
+        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">1</div></div>
+        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;white-space:nowrap;">${isEN ? '3 jumps' : '3 salti'}</div></div>
+        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;font-size:0.85rem;white-space:nowrap;">Max RFD</div></div>
+        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">X</div></div>
+      </div>
+      <button class="ex-notes-toggle" type="button" onclick="toggleNotes(this, 'n-cmj-${sNum}')">
+        <span>ℹ️ ${isEN ? 'Coach technical notes' : 'Note tecniche coach'}</span> <span class="notes-chevron">▾</span>
+      </button>
+      <div class="ex-notes-body" id="n-cmj-${sNum}">
+        <div>${cmjNoteText}</div>
+      </div>
+      <div class="ex-load-log-box" style="margin-top:10px;">
+        <span class="ex-load-log-lbl">📝 ${isEN ? 'Recorded CMJ Height:' : 'Altezza CMJ registrata:'}</span>
+        <div class="ex-load-input-wrap">
+          <input type="text" class="ex-load-input" id="ex-log-cmj-test" placeholder="${savedCmj ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedCmj}` : (isEN ? 'e.g. 38.5 cm' : 'es. 38.5 cm')}" value="${savedCmj}" oninput="onCustomExerciseLoadInput('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}', this.value)">
+          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}')">${savedCmj ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
+          <span id="toast-ex-log-cmj-test" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
         </div>
       </div>
     </div>
@@ -3312,36 +3329,36 @@ function renderSessions() {
 
     const normalizedList = rawList.map(raw => normalizeExercise(raw, currentWeek));
 
-    // Filter out CMJ from Prehab
+    // Group exercises into 5 categories
     const attivazioneList = [];
+    const pliometriaList = [];
     const potenzaList = [];
-    const forzaList = [];
-    const spintaList = [];
-    const tirataList = [];
-    const coreList = [];
+    const mainList = [];
+    const accessoriList = [];
 
     normalizedList.forEach(norm => {
       const lowExName = norm.exName.toLowerCase();
       if (!isNelly && (lowExName.includes('prehab esterno') || lowExName.includes('1a. prehab'))) {
         return;
       }
-      const cat = categorizeExerciseNorm(norm);
-      if (cat === 'CMJ') {
-        if (sNum === 1) return;
-        potenzaList.unshift(norm);
+      if (lowExName.includes('jump ban')) {
         return;
-      } else if (cat === 'Attivazione') {
+      }
+      const cat = categorizeExerciseNorm(norm);
+      if (cat === 'Attivazione') {
         attivazioneList.push(norm);
+      } else if (cat === 'Pliometria') {
+        // In Seduta 1, CMJ test is handled by renderCmjTestCard
+        if (sNum === 1 && (lowExName.includes('cmj') || lowExName.includes('chronojump') || lowExName.includes('profilazione'))) {
+          return;
+        }
+        pliometriaList.push(norm);
       } else if (cat === 'Potenza') {
         potenzaList.push(norm);
-      } else if (cat === 'Forza') {
-        forzaList.push(norm);
-      } else if (cat === 'Spinta') {
-        spintaList.push(norm);
-      } else if (cat === 'Tirata') {
-        tirataList.push(norm);
+      } else if (cat === 'Main') {
+        mainList.push(norm);
       } else {
-        coreList.push(norm);
+        accessoriList.push(norm);
       }
     });
 
@@ -3384,71 +3401,54 @@ function renderSessions() {
           </div>
           <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#fff;color:#1e3a8a;font-weight:800;font-size:0.82rem;padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.2);">${isEN ? 'Open Portal ↗' : 'Apri Portale ↗'}</a>
         </div>
-        ` : (sNum === 1 ? `
-        ${renderCmjTestCard(sed, currentAthlete, isEN)}
-        ` : ''))}
+        ` : '')}
 
         ${attivazioneList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
       </div>
     `;
 
-    // 2. CMJ Test Group (in mezzo alla seduta tra Attivazione e Forza in Seduta 1 per atlete non-Nelly)
-    let cmjHtml = '';
-    if (sNum === 1 && !isNelly) {
-      cmjHtml = renderCmjTestCard(sed, currentAthlete, isEN);
+    // 2. Pliometria Group (Salti)
+    let pliometriaHtml = '';
+    const hasCmjInS1 = (sNum === 1);
+    if (hasCmjInS1 || pliometriaList.length > 0) {
+      pliometriaHtml = `
+        <div class="method-group">
+          <div class="method-title">${isEN ? '🦘 Plyometrics (Jumps)' : '🦘 Pliometria (Salti)'}</div>
+          ${hasCmjInS1 ? renderCmjTestCard(sed, currentAthlete, isEN) : ''}
+          ${pliometriaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+        </div>
+      `;
     }
 
-    // 3. Potenza Group
+    // 3. Potenza Group (Girate & Palle Mediche)
     let potenzaHtml = '';
     if (potenzaList.length > 0) {
       potenzaHtml = `
         <div class="method-group">
-          <div class="method-title">${isEN ? '⚡ Power & Explosiveness' : '⚡ Potenza & Esplosività'}</div>
+          <div class="method-title">${isEN ? '⚡ Power (Cleans & Medballs)' : '⚡ Potenza (Girate & Palle Mediche)'}</div>
           ${potenzaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
         </div>
       `;
     }
 
-    // 4. Forza Principale Group
-    let forzaHtml = '';
-    if (forzaList.length > 0) {
-      forzaHtml = `
+    // 4. Main Group (Gambe · Spinta · Tirata)
+    let mainHtml = '';
+    if (mainList.length > 0) {
+      mainHtml = `
         <div class="method-group">
-          <div class="method-title">${isEN ? '🏋️ Main Strength (VBT Enode)' : '🏋️ Forza Principale (VBT Enode)'}</div>
-          ${forzaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+          <div class="method-title">${isEN ? '🏋️ Main (Legs · Push · Pull)' : '🏋️ Main (Gambe · Spinta · Tirata)'}</div>
+          ${mainList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
         </div>
       `;
     }
 
-    // 5. Spinta Group
-    let spintaHtml = '';
-    if (spintaList.length > 0) {
-      spintaHtml = `
+    // 5. Accessori Group (Core & Stabilità)
+    let accessoriHtml = '';
+    if (accessoriList.length > 0) {
+      accessoriHtml = `
         <div class="method-group">
-          <div class="method-title">${isEN ? '🏹 Upper Body Push (Horizontal & Vertical)' : '🏹 Spinta (Orizzontale & Verticale)'}</div>
-          ${spintaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
-        </div>
-      `;
-    }
-
-    // 6. Tirata Group
-    let tirataHtml = '';
-    if (tirataList.length > 0) {
-      tirataHtml = `
-        <div class="method-group">
-          <div class="method-title">${isEN ? '🎯 Upper Body Pull (Vertical & Horizontal)' : '🎯 Tirata (Verticale & Orizzontale)'}</div>
-          ${tirataList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
-        </div>
-      `;
-    }
-
-    // 7. Core & Accessori Group
-    let coreHtml = '';
-    if (coreList.length > 0) {
-      coreHtml = `
-        <div class="method-group">
-          <div class="method-title">${isEN ? '🛡️ Core & Accessories' : '🛡️ Core & Accessori'}</div>
-          ${coreList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+          <div class="method-title">${isEN ? '🛡️ Accessories (Core & Stability)' : '🛡️ Accessori (Core & Stabilità)'}</div>
+          ${accessoriList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
         </div>
       `;
     }
@@ -3503,12 +3503,10 @@ function renderSessions() {
         <div class="session-body">
           ${fridayBanHtml}
           ${attivazioneHtml}
-          ${cmjHtml}
+          ${pliometriaHtml}
           ${potenzaHtml}
-          ${forzaHtml}
-          ${spintaHtml}
-          ${tirataHtml}
-          ${coreHtml}
+          ${mainHtml}
+          ${accessoriHtml}
           ${renderSessionEnd(sed.Numero_Seduta)}
         </div>
       </div>
