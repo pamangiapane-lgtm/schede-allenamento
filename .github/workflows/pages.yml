@@ -21,25 +21,51 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: main
-          path: main-build
-
-      - name: Checkout dev
-        uses: actions/checkout@v4
-        with:
-          ref: dev
-          path: dev-build
 
       - name: Prepara cartella pubblicazione
         run: |
-          cp -r main-build site
-          rm -rf site/.github site/backup_locale site/apps_script_prod_project site/apps_script_dev_project site/_strumenti site/dev
-          mkdir -p site/dev
-          cp -r dev-build/* site/dev/
-          rm -rf site/dev/.git site/dev/.github site/dev/backup_locale site/dev/apps_script_prod_project site/dev/apps_script_dev_project site/dev/_strumenti
+          mkdir -p site
+          cp -r * site/ 2>/dev/null || true
+          rm -rf site/.git site/.github site/backup_locale site/apps_script_prod_project site/apps_script_dev_project site/_strumenti site/dev
+
+          # Redirect automatico per chi ha ancora salvato il vecchio link /dev/
+          mkdir -p site/dev/coach
+          cat << 'EOF' > site/dev/index.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <meta http-equiv="refresh" content="0; url=../">
+            <title>Reindirizzamento all'App Ufficiale...</title>
+            <script>
+              window.location.replace('../' + window.location.search);
+            </script>
+          </head>
+          <body>
+            <p>Reindirizzamento all'app ufficiale in corso... <a href="../">Clicca qui</a>.</p>
+          </body>
+          </html>
+          EOF
+
+          cat << 'EOF' > site/dev/coach/index.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset="utf-8">
+            <meta http-equiv="refresh" content="0; url=../../coach/">
+            <title>Reindirizzamento al Coach Command Center...</title>
+            <script>
+              window.location.replace('../../coach/' + window.location.search);
+            </script>
+          </head>
+          <body>
+            <p>Reindirizzamento al pannello Coach ufficiale in corso... <a href="../../coach/">Clicca qui</a>.</p>
+          </body>
+          </html>
+          EOF
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
