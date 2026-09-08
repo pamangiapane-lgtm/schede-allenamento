@@ -2776,6 +2776,13 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
   if (athlete.id === 14) return null; // Nelly segue il suo programma a carichi/buffer dedicati
   const low = (exName || '').toLowerCase();
   const cStr = (rawCarico || '').toLowerCase();
+
+  // Se è specificato un RPE puro senza %, non sovrascrivere con carichi 1RM
+  if (cStr.includes('rpe') && !cStr.includes('%')) return null;
+
+  // Gli esercizi a gamba singola non devono ereditare l'1RM bipodalico
+  if (low.includes('single-leg') || low.includes('one leg') || low.includes('1-leg') || low.includes('ipsilaterale') || low.includes('split')) return null;
+
   const defaultPct = (week === 'W3') ? 70 : 75;
 
   const mDbPair = cStr.match(/(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)/);
@@ -2900,10 +2907,11 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
 
   // 5. Power Clean / WL
   if (low.includes('clean') && !low.includes('split')) {
+    if (!mPct) return null; // mantieni testo/carico esplicito se non c'è %
     const rmKey = RM_KEYS.find(k => k.id === 'clean');
     const rmVal = getAthlete1RM(rmKey);
     if (rmVal > 0) {
-      const pct = mPct ? parseInt(mPct[1]) : defaultPct;
+      const pct = parseInt(mPct[1]);
       const targetKg = calcTargetLoad(rmKey, rmVal, pct);
       return {
         rmKey,
@@ -2918,10 +2926,11 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
 
   // 6. Push Press / Military Press / Landmine Press
   if (low.includes('push press') || low.includes('military') || low.includes('landmine')) {
+    if (!mPct) return null; // se non c'è %, mantieni RPE o carico prescritto
     const rmKey = RM_KEYS.find(k => k.id === 'military');
     const rmVal = getAthlete1RM(rmKey);
     if (rmVal > 0) {
-      const pct = mPct ? parseInt(mPct[1]) : defaultPct;
+      const pct = parseInt(mPct[1]);
       const targetKg = calcTargetLoad(rmKey, rmVal, pct);
       return {
         rmKey,
@@ -2936,10 +2945,11 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
 
   // 7. Romanian Deadlift (RDL) / Stacco Rumeno
   if (low.includes('rdl') || low.includes('stacco') || (low.includes('deadlift') && !low.includes('single-leg'))) {
+    if (!mPct) return null;
     const rmKey = RM_KEYS.find(k => k.id === 'rdl');
     const rmVal = rmKey ? getAthlete1RM(rmKey) : 0;
     if (rmVal > 0) {
-      const pct = mPct ? parseInt(mPct[1]) : ((week === 'W3') ? 70 : 75);
+      const pct = parseInt(mPct[1]);
       const targetKg = calcTargetLoad(rmKey, rmVal, pct);
       return {
         rmKey,

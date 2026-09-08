@@ -449,7 +449,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "52",
-        "Note": "Clean / Powerbag + Squat Parallelo max 0.65 m/s (4x3 @ 80%) + Landmine Press + Single DB Row + Cluster Hurdles"
+        "Note": "Clean / Powerbag (target 35k) + Squat Parallelo max 0.65 m/s (4x3 @ 80%) + Landmine RPE 8 + Alzate Laterali RPE 8 + Drop Jump 2x4"
       },
       {
         "Numero_Seduta": "W3-VenR",
@@ -759,17 +759,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "28.0 kg",
+              "Carico (kg/RPE)": "28.0 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -785,41 +785,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+17.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (7 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -1234,17 +1234,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "24.5 kg",
+              "Carico (kg/RPE)": "24.5 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -1260,41 +1260,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+14.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (18 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -1709,11 +1709,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
@@ -1735,41 +1735,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+31.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (22 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -2183,12 +2183,12 @@ const WEEKS_DATA = {
               "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
             },
             {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Mini-Hurdle Hops (20cm Hurdles) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Blocco": "**# Plyo**",
+              "Esercizio": "2A. Box Drop Jump",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "X",
-              "Note Tecniche": "15s intra-set pause. Pure elastic rebound"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop from 25-30 cm box: reactive landing, minimal ground contact time (<200ms) and maximal vertical explosion. Focus on ankle stiffness"
             },
             {
               "Blocco": "# Main",
@@ -2210,41 +2210,41 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Single-Arm Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+19.5 kg) [\"6\"]",
-              "Tempo": "2010",
-              "Note Tecniche": "Half-kneeling (ipsilateral knee on floor), explosive press at 45° in scapular plane"
+              "Carico (kg/RPE)": "RPE 8",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Half-kneeling (knee down on same side). Scapular plane at 30°, diagonal 45° push at RPE 8, tight glute on grounded knee"
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row on Bench",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (15 kg) [\"6\"]",
-              "Tempo": "2011",
-              "Note Tecniche": "Three points of contact, horizontal torso, elbow tight to ribcage, 1s peak contraction"
+              "Esercizio": "3D. Dumbbell Lateral Raises",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
+              "Tempo": "`2011`",
+              "Note Tecniche": "Standing or seated, slight forward torso lean, abduction in scapular plane (30° fwd) to shoulder height. Controlled eccentric, no swinging"
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL with Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL with Dumbbell (Ipsilateral)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
-              "Tempo": "2010",
-              "Note Tecniche": "CONTRALATERAL load (KB opposite to stance leg). Knee soft, hinge back, active foot arch"
+              "Carico (kg/RPE)": "RPE 6",
+              "Tempo": "`2010`",
+              "Note Tecniche": "IPSILATERAL load (dumbbell in SAME hand as supporting leg). Pure hip hinge, level pelvis without rotation, slight knee unlock. Focus on posterior chain and ankle-hip stability"
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. High Cable Face Pull with External Rotation",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
-              "Tempo": "2012",
-              "Note Tecniche": "Thumbs rotated back, rope to eye level, lower trapezius and rotator cuff reinforcement"
+              "Esercizio": "4B. Resistance Band Face Pull",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
+              "Tempo": "`2012`",
+              "Note Tecniche": "Band anchored at eye level. Pull to face with external rotation (thumbs back, elbows high). Rotator cuff and rear delt reinforcement"
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Standing Band Pallof Press",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
-              "Tempo": "1111",
-              "Note Tecniche": "Pure anti-rotation, rigid upright torso"
+              "Carico (kg/RPE)": "RPE 8",
+              "Tempo": "`1111`",
+              "Note Tecniche": "Pure anti-rotation with band or cable, solid and perpendicular torso, 1s hold at extended arms. Resistance at RPE 8"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -2659,17 +2659,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Powerbag Clean to Chest (o KB Clean)**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "21.0 kg",
+              "Carico (kg/RPE)": "21.0 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -2685,41 +2685,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+17.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (10 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -3134,11 +3134,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
@@ -3160,41 +3160,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+18.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (16 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -3609,11 +3609,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
@@ -3635,41 +3635,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+28.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (19 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -4084,17 +4084,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "24.5 kg",
+              "Carico (kg/RPE)": "24.5 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -4110,41 +4110,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+22.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (21 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -4559,11 +4559,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
@@ -4585,41 +4585,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+21.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (16 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -5034,11 +5034,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
@@ -5060,41 +5060,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+15.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (10 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -5509,17 +5509,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "29.5 kg",
+              "Carico (kg/RPE)": "29.5 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -5535,41 +5535,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+24.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (21 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -5984,17 +5984,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "31.0 kg",
+              "Carico (kg/RPE)": "31.0 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -6010,41 +6010,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+17.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (13 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -7371,17 +7371,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "28.0 kg",
+              "Carico (kg/RPE)": "28.0 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -7397,41 +7397,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+17.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (7 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -7846,17 +7846,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "24.5 kg",
+              "Carico (kg/RPE)": "24.5 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -7872,41 +7872,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+14.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (18 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -8321,11 +8321,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
@@ -8347,41 +8347,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+31.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (22 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -8796,11 +8796,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Box Drop Jump",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop from 25-30 cm box: reactive landing, minimal ground contact time (<200ms) and maximal vertical explosion. Focus on ankle stiffness"
             },
             {
               "Blocco": "**# Main**",
@@ -8820,43 +8820,43 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
+              "Esercizio": "3C. Half-Kneeling Single-Arm Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+19.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Half-kneeling (knee down on same side). Scapular plane at 30°, diagonal 45° push at RPE 8, tight glute on grounded knee"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (15 kg) [\"6\"]",
+              "Esercizio": "3D. Dumbbell Lateral Raises",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "Standing or seated, slight forward torso lean, abduction in scapular plane (30° fwd) to shoulder height. Controlled eccentric, no swinging"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL with Dumbbell (Ipsilateral)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "IPSILATERAL load (dumbbell in SAME hand as supporting leg). Pure hip hinge, level pelvis without rotation, slight knee unlock. Focus on posterior chain and ankle-hip stability"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Resistance Band Face Pull",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Band anchored at eye level. Pull to face with external rotation (thumbs back, elbows high). Rotator cuff and rear delt reinforcement"
             },
             {
               "Blocco": "**# Core+Trans.**",
-              "Esercizio": "5A. Pallof Press in piedi con elastico",
+              "Esercizio": "5A. Standing Band Pallof Press",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Pure anti-rotation with band or cable, solid and perpendicular torso, 1s hold at extended arms. Resistance at RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -9271,17 +9271,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Powerbag Clean to Chest (o KB Clean)**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "21.0 kg",
+              "Carico (kg/RPE)": "21.0 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -9297,41 +9297,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+17.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (10 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -9746,11 +9746,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
@@ -9772,41 +9772,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+18.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (16 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -10221,11 +10221,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
@@ -10247,41 +10247,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+28.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (19 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -10696,17 +10696,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "24.5 kg",
+              "Carico (kg/RPE)": "24.5 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -10722,41 +10722,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+22.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (21 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -11171,11 +11171,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
@@ -11197,41 +11197,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+21.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (16 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -11646,11 +11646,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
@@ -11672,41 +11672,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+15.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (10 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -12121,17 +12121,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "29.5 kg",
+              "Carico (kg/RPE)": "29.5 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -12147,41 +12147,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+24.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (21 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
@@ -12596,17 +12596,17 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "**# Plyo**",
-              "Esercizio": "2A. Mini-Hurdle Hops (Ostacoli 20cm) in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Esercizio": "2A. Drop Jump da Box",
+              "Set x Reps": "2 x 4",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Rimbalzo elastico puro"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Drop da box 25-30 cm: caduta a gambe reattive, contatto al suolo brevissimo (<200ms) e rimbalzo verticale massimale. Focus stiffness caviglia"
             },
             {
               "Blocco": "**# Main**",
               "Esercizio": "**3A. Power Clean con Bilanciere**",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "31.0 kg",
+              "Carico (kg/RPE)": "31.0 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -12622,41 +12622,41 @@ const WEEKS_DATA = {
               "Blocco": "**# Main**",
               "Esercizio": "**3C. Half-Kneeling Landmine Press Monolaterale**",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "70% (+17.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
-              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla, gluteo a terra serrato"
+              "Note Tecniche": "Mezzo inginocchiata (ginocchio a terra omolaterale). Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
             },
             {
               "Blocco": "**# Main**",
-              "Esercizio": "**3D. Single-Arm Dumbbell Row su panca**",
-              "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "70% (13 kg) [\"6\"]",
+              "Esercizio": "**3D. Alzate Laterali con Manubri**",
+              "Set x Reps": "3 x 8-10",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Tre appoggi stabili, busto orizzontale, gomito aderente che sale verso l'anca, 1\" contrazione dorsale"
+              "Note Tecniche": "In piedi o sedute, busto leggermente flesso in avanti, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio, controllo eccentrico"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "10 kg (\"8\")",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba in appoggio). Cerniera d'anca pura, bacino a squadro, ginocchio sbloccato 15-20°. Focus gluteo medio e catena crociata"
+              "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
             {
               "Blocco": "**# Accessories**",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "12.5 kg",
+              "Esercizio": "4B. Face Pull con Elastico",
+              "Set x Reps": "2 x 10",
+              "Carico (kg/RPE)": "Elastico",
               "Tempo": "`2012`",
-              "Note Tecniche": "Pollici ruotati indietro, fune agli occhi, rinforzo extrarotatori cuffia posteriore"
+              "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
             {
               "Blocco": "**# Core+Trans.**",
               "Esercizio": "5A. Pallof Press in piedi con elastico",
               "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "7.5 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
-              "Note Tecniche": "Anti-rotazione pura, tronco solido e perpendicolare, stop 1\" a braccia distese"
+              "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido e perpendicolare, stop 1\" a braccia distese. Resistenza a RPE 8"
             },
             {
               "Blocco": "**# Core+Trans.**",
