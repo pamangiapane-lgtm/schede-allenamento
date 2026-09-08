@@ -938,44 +938,66 @@
     /* ==========================================
        SEZIONE TIMER (4^ SEZIONE APP)
        ========================================== */
+    #tab-timer .card-box {
+      padding: 16px 12px;
+      overflow: hidden;
+    }
     .timer-mode-switcher {
-      display: flex;
-      gap: 6px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
       margin-bottom: 14px;
       background: #060b16;
       padding: 4px;
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.08);
+      box-sizing: border-box;
+      width: 100%;
     }
     .timer-mode-btn {
-      flex: 1;
       background: transparent;
-      border: none;
+      border: 1px solid transparent;
       color: #94a3b8;
       font-weight: 800;
       font-size: 0.74rem;
-      padding: 8px 4px;
+      padding: 8px 2px;
       border-radius: 6px;
       cursor: pointer;
       transition: all 0.15s;
       text-align: center;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      min-width: 0;
+      box-sizing: border-box;
     }
     .timer-mode-btn.active {
       background: #182846;
       color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-color: rgba(56, 189, 248, 0.3);
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    @media (max-width: 380px) {
+      .timer-mode-btn {
+        font-size: 0.68rem;
+        padding: 7px 1px;
+        gap: 2px;
+      }
     }
     .timer-display-box {
       background: #060b16;
       border: 2px solid #1e335a;
       border-radius: 16px;
-      padding: 22px 14px;
+      padding: 16px 8px;
       text-align: center;
       margin-bottom: 14px;
       position: relative;
       transition: all 0.2s;
+      box-sizing: border-box;
+      width: 100%;
+      overflow: hidden;
     }
     .timer-display-box.running {
       border-color: #38bdf8;
@@ -993,36 +1015,46 @@
     }
     .timer-time-big {
       font-family: 'JetBrains Mono', monospace, system-ui;
-      font-size: 3.6rem;
+      font-size: 3.2rem;
       font-weight: 900;
       color: #f8fafc;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       line-height: 1;
-      margin: 8px 0;
+      margin: 6px 0;
+    }
+    @media (max-width: 380px) {
+      .timer-time-big {
+        font-size: 2.6rem;
+      }
     }
     .timer-time-sub {
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 700;
       color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
     .timer-presets {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
+      gap: 4px;
       margin-bottom: 14px;
+      box-sizing: border-box;
+      width: 100%;
     }
     .btn-timer-preset {
       background: #0f192d;
       border: 1px solid #1e335a;
       color: #cbd5e1;
-      padding: 8px 2px;
+      padding: 8px 1px;
       border-radius: 8px;
       font-weight: 800;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       cursor: pointer;
       transition: all 0.15s;
+      min-width: 0;
+      box-sizing: border-box;
+      text-align: center;
     }
     .btn-timer-preset:hover, .btn-timer-preset.active {
       background: rgba(245, 158, 11, 0.15);
@@ -1034,22 +1066,26 @@
       grid-template-columns: 1fr 2fr 1fr;
       gap: 8px;
       margin-bottom: 12px;
+      box-sizing: border-box;
+      width: 100%;
     }
     .btn-timer-main {
       background: var(--mv-emerald);
       color: #000;
       font-weight: 900;
-      font-size: 1rem;
-      padding: 13px 8px;
+      font-size: 0.95rem;
+      padding: 12px 6px;
       border-radius: 10px;
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       transition: all 0.15s;
       box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+      min-width: 0;
+      box-sizing: border-box;
     }
     .btn-timer-main.pause {
       background: var(--mv-amber);
@@ -1060,11 +1096,54 @@
       border: 1px solid #1e335a;
       color: #cbd5e1;
       font-weight: 800;
-      font-size: 0.85rem;
-      padding: 10px 4px;
+      font-size: 0.80rem;
+      padding: 10px 2px;
       border-radius: 10px;
       cursor: pointer;
       transition: all 0.15s;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    /* EMOM / Intervalli Grid & Inputs */
+    .emom-config-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .emom-config-box {
+      background: #090f1d;
+      border: 1px solid #1e335a;
+      border-radius: 8px;
+      padding: 6px 2px;
+      text-align: center;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    .emom-config-label {
+      display: block;
+      font-size: 0.67rem;
+      color: #94a3b8;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+    .emom-input-val {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #fff;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace, system-ui;
+      font-weight: 900;
+      font-size: 1.05rem;
+      outline: none;
+      padding: 0;
+      box-sizing: border-box;
+      min-width: 0;
     }
   </style>
 </head>
@@ -1275,8 +1354,8 @@
           <!-- Switcher modalità Timer -->
           <div class="timer-mode-switcher">
             <button class="timer-mode-btn active" id="timer-btn-mode-rest" onclick="switchTimerMode('rest')">⏱️ Recupero</button>
-            <button class="timer-mode-btn" id="timer-btn-mode-chrono" onclick="switchTimerMode('chrono')">⚡ Cronometro</button>
-            <button class="timer-mode-btn" id="timer-btn-mode-emom" onclick="switchTimerMode('emom')">🔄 Intervalli / EMOM</button>
+            <button class="timer-mode-btn" id="timer-btn-mode-chrono" onclick="switchTimerMode('chrono')">⚡ Crono</button>
+            <button class="timer-mode-btn" id="timer-btn-mode-emom" onclick="switchTimerMode('emom')">🔄 EMOM</button>
           </div>
 
           <!-- 1. PANNELLO TIMER RECUPERO -->
@@ -1332,18 +1411,18 @@
             </div>
 
             <!-- Configurazione Intervalli -->
-            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-bottom:14px;">
-              <div style="background:#090f1d; border:1px solid #1e335a; border-radius:8px; padding:6px; text-align:center;">
-                <label style="display:block; font-size:0.68rem; color:#94a3b8; font-weight:700;">Lavoro (s)</label>
-                <input type="number" id="emom-input-work" value="40" min="5" max="300" step="5" style="width:100%; background:transparent; border:none; color:#fff; text-align:center; font-weight:800; font-size:1rem; outline:none;" onchange="updateEmomConfig()">
+            <div class="emom-config-grid">
+              <div class="emom-config-box">
+                <label class="emom-config-label">Lavoro (s)</label>
+                <input type="number" class="emom-input-val" id="emom-input-work" value="40" min="5" max="300" step="5" onchange="updateEmomConfig()">
               </div>
-              <div style="background:#090f1d; border:1px solid #1e335a; border-radius:8px; padding:6px; text-align:center;">
-                <label style="display:block; font-size:0.68rem; color:#94a3b8; font-weight:700;">Riposo (s)</label>
-                <input type="number" id="emom-input-rest" value="20" min="0" max="300" step="5" style="width:100%; background:transparent; border:none; color:#fff; text-align:center; font-weight:800; font-size:1rem; outline:none;" onchange="updateEmomConfig()">
+              <div class="emom-config-box">
+                <label class="emom-config-label">Riposo (s)</label>
+                <input type="number" class="emom-input-val" id="emom-input-rest" value="20" min="0" max="300" step="5" onchange="updateEmomConfig()">
               </div>
-              <div style="background:#090f1d; border:1px solid #1e335a; border-radius:8px; padding:6px; text-align:center;">
-                <label style="display:block; font-size:0.68rem; color:#94a3b8; font-weight:700;">Giri Totali</label>
-                <input type="number" id="emom-input-rounds" value="5" min="1" max="50" step="1" style="width:100%; background:transparent; border:none; color:#fff; text-align:center; font-weight:800; font-size:1rem; outline:none;" onchange="updateEmomConfig()">
+              <div class="emom-config-box">
+                <label class="emom-config-label">Giri</label>
+                <input type="number" class="emom-input-val" id="emom-input-rounds" value="5" min="1" max="50" step="1" onchange="updateEmomConfig()">
               </div>
             </div>
 
@@ -1590,7 +1669,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=227').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=228').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
