@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v236-fix-autoclose)
-const CACHE_NAME = 'marsala-pwa-v236-fix-autoclose';
+// Service Worker App Marsala Volley (v237-nelly-order)
+const CACHE_NAME = 'marsala-pwa-v237-nelly-order';
 
 const ASSETS_TO_CACHE = [
   './',

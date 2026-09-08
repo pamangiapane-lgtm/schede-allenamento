@@ -1685,7 +1685,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=236').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=237').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
@@ -3285,6 +3285,22 @@ function renderCmjTestCard(sed, athlete, isEN) {
   `;
 }
 
+function getNellyBlockInfo(bName, isEN) {
+  const low = (bName || '').toLowerCase();
+  if (low.includes('prehab')) {
+    return { icon: '🛡️', title: isEN ? 'Prehab Protocol' : 'Protocollo Prehab' };
+  } else if (low.includes('main')) {
+    return { icon: '🏋️', title: isEN ? 'Main Exercises (Strength)' : 'Esercizi Principali (Forza)' };
+  } else if (low.includes('accessor')) {
+    return { icon: '🧩', title: isEN ? 'Accessories' : 'Accessori' };
+  } else if (low.includes('power')) {
+    return { icon: '⚡', title: isEN ? 'Power (Plyometrics)' : 'Potenza (Pliometria)' };
+  } else if (low.includes('abdom') || low.includes('transfer')) {
+    return { icon: '🎯', title: isEN ? 'Abdominals & Transfer' : 'Addominali & Trasferimento' };
+  }
+  return { icon: '📋', title: (bName || 'Esercizi').replace(/[*#]/g, '').trim() };
+}
+
 function renderSessions() {
   const container = document.getElementById('sessions-container');
   if (!container) return;
@@ -3353,127 +3369,190 @@ function renderSessions() {
 
     const normalizedList = rawList.map(raw => normalizeExercise(raw, currentWeek));
 
-    // Group exercises into 5 categories
-    const attivazioneList = [];
-    const pliometriaList = [];
-    const potenzaList = [];
-    const mainList = [];
-    const accessoriList = [];
+    let sessionExercisesHtml = '';
 
-    normalizedList.forEach(norm => {
-      const lowExName = norm.exName.toLowerCase();
-      if (!isNelly && (lowExName.includes('prehab esterno') || lowExName.includes('1a. prehab'))) {
-        return;
-      }
-      if (lowExName.includes('jump ban')) {
-        return;
-      }
-      const cat = categorizeExerciseNorm(norm);
-      if (cat === 'Attivazione') {
-        attivazioneList.push(norm);
-      } else if (cat === 'Pliometria') {
-        // In Seduta 1, CMJ test is handled by renderCmjTestCard
-        if (sNum === 1 && (lowExName.includes('cmj') || lowExName.includes('chronojump') || lowExName.includes('profilazione'))) {
+    if (isNelly) {
+      // Per Nelly Adamczewska: ordine originale sequenziale dei suoi blocchi dedicati, con Drop Jump integrato
+      const nellyActivationHtml = `
+        <div class="method-group">
+          <div class="method-title">${isEN ? '🔥 Activation' : '🔥 Attivazione'}</div>
+          
+          <div class="exercise-card">
+            <div class="ex-head-row">
+              <div class="ex-name">${isEN ? 'Team Breathing (Box Breathing)' : 'Respirazione di Squadra (Box Breathing)'}</div>
+            </div>
+            <div class="ex-grid">
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">2</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">${isEN ? '10 cycles' : '10 cicli'}</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${isEN ? 'Control' : 'Controllo'}</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${isEN ? 'Fluid' : 'Fluido'}</div></div>
+            </div>
+            <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">${isEN ? 'In circle with the team: 4s inhale, 4s hold, 4s exhale, 4s hold empty. Parasympathetic activation and focus.' : 'In cerchio con la squadra: 4s inspira, 4s trattieni, 4s espira, 4s vuoto. Attivazione parasimpatica e focus.'}</div>
+          </div>
+
+          <div class="exercise-card">
+            <div class="ex-head-row">
+              <div class="ex-name">${isEN ? 'Free Dynamic Mobility' : 'Mobilità Dinamica Libera'}</div>
+            </div>
+            <div class="ex-grid">
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">1</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">5 min</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${isEN ? 'Fluid' : 'Fluida'}</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${isEN ? 'Fluid' : 'Fluido'}</div></div>
+            </div>
+            <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">${isEN ? 'Free and targeted joint mobility for hips, ankles, thoracic spine and shoulders before loading.' : 'Mobilità articolare libera e mirata per anche, caviglie, colonna toracica e spalle prima del carico.'}</div>
+          </div>
+        </div>
+      `;
+
+      const nellyBlocksMap = new Map();
+      normalizedList.forEach(norm => {
+        let b = (norm.blocco || 'Esercizi').replace(/[*#]/g, '').trim();
+        if (!b) b = 'Esercizi';
+        if (!nellyBlocksMap.has(b)) nellyBlocksMap.set(b, []);
+        nellyBlocksMap.get(b).push(norm);
+      });
+
+      const nellyBlocksHtml = Array.from(nellyBlocksMap.entries()).map(([bName, list]) => {
+        const info = getNellyBlockInfo(bName, isEN);
+        return `
+          <div class="method-group">
+            <div class="method-title">${info.icon} ${info.title}</div>
+            ${list.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+          </div>
+        `;
+      }).join('');
+
+      sessionExercisesHtml = `
+        ${nellyActivationHtml}
+        ${nellyBlocksHtml}
+      `;
+    } else {
+      // Suddivisione a 5 categorie S&C valida per tutte le altre atlete della squadra
+      const attivazioneList = [];
+      const pliometriaList = [];
+      const potenzaList = [];
+      const mainList = [];
+      const accessoriList = [];
+
+      normalizedList.forEach(norm => {
+        const lowExName = norm.exName.toLowerCase();
+        if (lowExName.includes('prehab esterno') || lowExName.includes('1a. prehab') || lowExName.includes('jump ban')) {
           return;
         }
-        pliometriaList.push(norm);
-      } else if (cat === 'Potenza') {
-        potenzaList.push(norm);
-      } else if (cat === 'Main') {
-        mainList.push(norm);
-      } else {
-        accessoriList.push(norm);
+        const cat = categorizeExerciseNorm(norm);
+        if (cat === 'Attivazione') {
+          attivazioneList.push(norm);
+        } else if (cat === 'Pliometria') {
+          // In Seduta 1, CMJ test is handled by renderCmjTestCard
+          if (sNum === 1 && (lowExName.includes('cmj') || lowExName.includes('chronojump') || lowExName.includes('profilazione'))) {
+            return;
+          }
+          pliometriaList.push(norm);
+        } else if (cat === 'Potenza') {
+          potenzaList.push(norm);
+        } else if (cat === 'Main') {
+          mainList.push(norm);
+        } else {
+          accessoriList.push(norm);
+        }
+      });
+
+      // 1. Attivazione & Prehab Group
+      let attivazioneHtml = `
+        <div class="method-group">
+          <div class="method-title">${isEN ? '🔥 Activation & Prehab' : '🔥 Attivazione & Prehab'}</div>
+          
+          <div class="exercise-card">
+            <div class="ex-head-row">
+              <div class="ex-name">${isEN ? 'Team Breathing (Box Breathing)' : 'Respirazione di Squadra (Box Breathing)'}</div>
+            </div>
+            <div class="ex-grid">
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">2</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">${isEN ? '10 cycles' : '10 cicli'}</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${isEN ? 'Control' : 'Controllo'}</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${isEN ? 'Fluid' : 'Fluido'}</div></div>
+            </div>
+            <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">${isEN ? 'In circle with the team: 4s inhale, 4s hold, 4s exhale, 4s hold empty. Parasympathetic activation and focus.' : 'In cerchio con la squadra: 4s inspira, 4s trattieni, 4s espira, 4s vuoto. Attivazione parasimpatica e focus.'}</div>
+          </div>
+
+          <div class="exercise-card">
+            <div class="ex-head-row">
+              <div class="ex-name">${isEN ? 'Free Dynamic Mobility' : 'Mobilità Dinamica Libera'}</div>
+            </div>
+            <div class="ex-grid">
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">1</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">5 min</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${isEN ? 'Fluid' : 'Fluida'}</div></div>
+              <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${isEN ? 'Fluid' : 'Fluido'}</div></div>
+            </div>
+            <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">${isEN ? 'Free and targeted joint mobility for hips, ankles, thoracic spine and shoulders before loading.' : 'Mobilità articolare libera e mirata per anche, caviglie, colonna toracica e spalle prima del carico.'}</div>
+          </div>
+
+          <div style="background:linear-gradient(135deg,#1e3a8a,#2563eb);border:1px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+            <div>
+              <div style="font-weight:800;color:#fff;font-size:0.92rem">🛡️ ${isEN ? 'Individual Prehab Protocol' : 'Protocollo Prehab Individuale'}</div>
+              <div style="font-size:0.75rem;color:#bfdbfe">${isEN ? 'Execute your 5 assigned corrective exercises' : 'Esegui i tuoi 5 esercizi correttivi assegnati'}</div>
+            </div>
+            <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#fff;color:#1e3a8a;font-weight:800;font-size:0.82rem;padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.2);">${isEN ? 'Open Portal ↗' : 'Apri Portale ↗'}</a>
+          </div>
+
+          ${attivazioneList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+        </div>
+      `;
+
+      // 2. Pliometria Group (Salti)
+      let pliometriaHtml = '';
+      const hasCmjInS1 = (sNum === 1);
+      if (hasCmjInS1 || pliometriaList.length > 0) {
+        pliometriaHtml = `
+          <div class="method-group">
+            <div class="method-title">${isEN ? '🦘 Plyometrics (Jumps)' : '🦘 Pliometria (Salti)'}</div>
+            ${hasCmjInS1 ? renderCmjTestCard(sed, currentAthlete, isEN) : ''}
+            ${pliometriaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
+          </div>
+        `;
       }
-    });
 
-    // 1. Attivazione & Prehab Group
-    let attivazioneHtml = `
-      <div class="method-group">
-        <div class="method-title">${isEN ? '🔥 Activation & Prehab' : '🔥 Attivazione & Prehab'}</div>
-        
-        <div class="exercise-card">
-          <div class="ex-head-row">
-            <div class="ex-name">${isEN ? 'Team Breathing (Box Breathing)' : 'Respirazione di Squadra (Box Breathing)'}</div>
+      // 3. Potenza Group (Girate & Palle Mediche)
+      let potenzaHtml = '';
+      if (potenzaList.length > 0) {
+        potenzaHtml = `
+          <div class="method-group">
+            <div class="method-title">${isEN ? '⚡ Power (Cleans & Medballs)' : '⚡ Potenza (Girate & Palle Mediche)'}</div>
+            ${potenzaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
           </div>
-          <div class="ex-grid">
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">2</div></div>
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">${isEN ? '10 cycles' : '10 cicli'}</div></div>
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${isEN ? 'Control' : 'Controllo'}</div></div>
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${isEN ? 'Fluid' : 'Fluido'}</div></div>
+        `;
+      }
+
+      // 4. Main Group (Gambe · Spinta · Tirata)
+      let mainHtml = '';
+      if (mainList.length > 0) {
+        mainHtml = `
+          <div class="method-group">
+            <div class="method-title">${isEN ? '🏋️ Main (Legs · Push · Pull)' : '🏋️ Main (Gambe · Spinta · Tirata)'}</div>
+            ${mainList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
           </div>
-          <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">${isEN ? 'In circle with the team: 4s inhale, 4s hold, 4s exhale, 4s hold empty. Parasympathetic activation and focus.' : 'In cerchio con la squadra: 4s inspira, 4s trattieni, 4s espira, 4s vuoto. Attivazione parasimpatica e focus.'}</div>
-        </div>
+        `;
+      }
 
-        <div class="exercise-card">
-          <div class="ex-head-row">
-            <div class="ex-name">${isEN ? 'Free Dynamic Mobility' : 'Mobilità Dinamica Libera'}</div>
+      // 5. Accessori Group (Core & Stabilità)
+      let accessoriHtml = '';
+      if (accessoriList.length > 0) {
+        accessoriHtml = `
+          <div class="method-group">
+            <div class="method-title">${isEN ? '🛡️ Accessories (Core & Stability)' : '🛡️ Accessori (Core & Stabilità)'}</div>
+            ${accessoriList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
           </div>
-          <div class="ex-grid">
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">1</div></div>
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">5 min</div></div>
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;">${isEN ? 'Fluid' : 'Fluida'}</div></div>
-            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${isEN ? 'Fluid' : 'Fluido'}</div></div>
-          </div>
-          <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">${isEN ? 'Free and targeted joint mobility for hips, ankles, thoracic spine and shoulders before loading.' : 'Mobilità articolare libera e mirata per anche, caviglie, colonna toracica e spalle prima del carico.'}</div>
-        </div>
+        `;
+      }
 
-        ${(!isNelly ? `
-        <div style="background:linear-gradient(135deg,#1e3a8a,#2563eb);border:1px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
-          <div>
-            <div style="font-weight:800;color:#fff;font-size:0.92rem">🛡️ ${isEN ? 'Individual Prehab Protocol' : 'Protocollo Prehab Individuale'}</div>
-            <div style="font-size:0.75rem;color:#bfdbfe">${isEN ? 'Execute your 5 assigned corrective exercises' : 'Esegui i tuoi 5 esercizi correttivi assegnati'}</div>
-          </div>
-          <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#fff;color:#1e3a8a;font-weight:800;font-size:0.82rem;padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.2);">${isEN ? 'Open Portal ↗' : 'Apri Portale ↗'}</a>
-        </div>
-        ` : '')}
-
-        ${attivazioneList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
-      </div>
-    `;
-
-    // 2. Pliometria Group (Salti)
-    let pliometriaHtml = '';
-    const hasCmjInS1 = (sNum === 1);
-    if (hasCmjInS1 || pliometriaList.length > 0) {
-      pliometriaHtml = `
-        <div class="method-group">
-          <div class="method-title">${isEN ? '🦘 Plyometrics (Jumps)' : '🦘 Pliometria (Salti)'}</div>
-          ${hasCmjInS1 ? renderCmjTestCard(sed, currentAthlete, isEN) : ''}
-          ${pliometriaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
-        </div>
-      `;
-    }
-
-    // 3. Potenza Group (Girate & Palle Mediche)
-    let potenzaHtml = '';
-    if (potenzaList.length > 0) {
-      potenzaHtml = `
-        <div class="method-group">
-          <div class="method-title">${isEN ? '⚡ Power (Cleans & Medballs)' : '⚡ Potenza (Girate & Palle Mediche)'}</div>
-          ${potenzaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
-        </div>
-      `;
-    }
-
-    // 4. Main Group (Gambe · Spinta · Tirata)
-    let mainHtml = '';
-    if (mainList.length > 0) {
-      mainHtml = `
-        <div class="method-group">
-          <div class="method-title">${isEN ? '🏋️ Main (Legs · Push · Pull)' : '🏋️ Main (Gambe · Spinta · Tirata)'}</div>
-          ${mainList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
-        </div>
-      `;
-    }
-
-    // 5. Accessori Group (Core & Stabilità)
-    let accessoriHtml = '';
-    if (accessoriList.length > 0) {
-      accessoriHtml = `
-        <div class="method-group">
-          <div class="method-title">${isEN ? '🛡️ Accessories (Core & Stability)' : '🛡️ Accessori (Core & Stabilità)'}</div>
-          ${accessoriList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
-        </div>
+      sessionExercisesHtml = `
+        ${attivazioneHtml}
+        ${pliometriaHtml}
+        ${potenzaHtml}
+        ${mainHtml}
+        ${accessoriHtml}
       `;
     }
 
@@ -3502,7 +3581,7 @@ function renderSessions() {
     else if (sNameEN.toLowerCase().includes('prevention')) sNameEN = 'Prevention';
 
     const nellyTitlesEN = { 1: 'Prevention', 2: 'Strength 1', 3: 'Power 1' };
-        const sessionTitle = isEN ? (isNelly ? (nellyTitlesEN[sNum] || `Session ${sNum}`) : `Session ${sNum}`) : (isNelly ? (sed.Nome_Seduta || `Seduta ${sNum}`) : `Seduta ${sNum}`);
+    const sessionTitle = isEN ? (isNelly ? (nellyTitlesEN[sNum] || `Session ${sNum}`) : `Session ${sNum}`) : (isNelly ? (sed.Nome_Seduta || `Seduta ${sNum}`) : `Seduta ${sNum}`);
     const savedObj = getSessionRating(currentAthlete.id, currentWeek, sNum);
     const initialRpe = savedObj?.rpe ?? sessionRatings[sNum]?.rpe ?? null;
     const isSessionSaved = (initialRpe !== null && initialRpe !== undefined);
@@ -3528,11 +3607,7 @@ function renderSessions() {
         </div>
         <div class="session-body">
           ${fridayBanHtml}
-          ${attivazioneHtml}
-          ${pliometriaHtml}
-          ${potenzaHtml}
-          ${mainHtml}
-          ${accessoriHtml}
+          ${sessionExercisesHtml}
           ${renderSessionEnd(sed.Numero_Seduta)}
         </div>
       </div>
