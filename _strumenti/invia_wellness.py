@@ -26,7 +26,7 @@ NOTIFICA_TITOLO = '🏐 Marsala Volley — Morning Wellness'
 NOTIFICA_TESTO  = 'Buongiorno! Ricordati di compilare il tuo Wellness di oggi 🌅'
 
 ROSTER_NAMES = {
-    1: "Ludovica Allasia",
+    1: "Veronica Allasia",
     2: "Giulia Marcuzzi",
     3: "Cecilia Sassolini",
     4: "Anja Asonja",
