@@ -1462,7 +1462,7 @@
 
   </main>
 
-  <script src="data.js?v=20260908v232"></script>
+  <script src="data.js?v=20260908v233"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js?v=2.0"></script>
   <script>
@@ -1686,7 +1686,12 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=232').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=233').then(reg => {
+          reg.update().catch(() => {});
+        }).catch(() => {});
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          window.location.reload();
+        });
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -1994,14 +1999,24 @@
       } catch (e) {}
     }
 
-    function forceAppRefresh() {
-      if ('caches' in window) {
-        caches.keys().then(keys => Promise.all(keys.map(k => caches.delete(k)))).then(() => {
-          window.location.reload(true);
-        });
-      } else {
-        window.location.reload(true);
+    async function forceAppRefresh() {
+      try {
+        if ('serviceWorker' in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          for (let reg of regs) {
+            await reg.unregister();
+          }
+        }
+        if ('caches' in window) {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k)));
+        }
+      } catch (e) {
+        console.error('Refresh purge error:', e);
       }
+      const cleanPath = window.location.pathname;
+      const q = window.location.search ? (window.location.search.replace(/([?&])ts=\d+/, '') + '&ts=' + Date.now()) : ('?ts=' + Date.now());
+      window.location.href = cleanPath + q;
     }
 
     function showRosterSelection() {
@@ -3028,22 +3043,49 @@ function categorizeExerciseNorm(norm) {
   const lowName = norm.exName.toLowerCase();
   const lowBlock = (norm.blocco || '').toLowerCase();
 
-  if (lowName.includes('cmj') || lowName.includes('chronojump')) {
+  if (lowName.includes('cmj') || lowName.includes('chronojump') || lowName.includes('profilazione')) {
     return 'CMJ';
   }
-  if (lowName.includes('respirazione') || lowName.includes('mobilità') || lowName.includes('stretching') || lowName.includes('foam roller') || lowName.includes('wall slide') || lowName.includes('couch stretch') || lowName.includes('90/90') || lowName.includes('short foot') || lowName.includes('clamshell') || lowName.includes('prehab') || lowBlock.includes('prehab')) {
+  if (
+    lowName.includes('respirazione') || lowName.includes('mobilità') || lowName.includes('mobility') ||
+    lowName.includes('stretching') || lowName.includes('foam roller') || lowName.includes('wall slide') ||
+    lowName.includes('couch stretch') || lowName.includes('90/90') || lowName.includes('short foot') ||
+    lowName.includes('clamshell') || lowName.includes('prehab') || lowName.includes('breathing') ||
+    lowBlock.includes('prehab')
+  ) {
     return 'Attivazione';
   }
-  if (lowName.includes('clean') || lowName.includes('snatch') || lowName.includes('pogo') || lowName.includes('jump squat') || lowName.includes('box jump') || lowName.includes('balz') || lowName.includes('atterragg') || lowName.includes('slam') || lowName.includes('throw') || lowBlock.includes('potenza')) {
+  if (
+    lowName.includes('clean') || lowName.includes('snatch') || lowName.includes('pogo') ||
+    lowName.includes('jump') || lowName.includes('balz') || lowName.includes('atterragg') ||
+    lowName.includes('hop') || lowName.includes('hurdle') || lowName.includes('slam') ||
+    lowName.includes('throw') || lowBlock.includes('potenza') || lowBlock.includes('power')
+  ) {
     return 'Potenza';
   }
-  if ((lowName.includes('squat') && !lowName.includes('split') && !lowName.includes('spanish')) || lowName.includes('box squat') || lowName.includes('half squat')) {
+  if (
+    (lowName.includes('squat') && !lowName.includes('split') && !lowName.includes('spanish')) ||
+    lowName.includes('box squat') || lowName.includes('half squat') ||
+    lowName.includes('rdl') || lowName.includes('stacco') || lowName.includes('deadlift') ||
+    lowBlock.includes('forza') || lowBlock.includes('strength')
+  ) {
     return 'Forza';
   }
-  if (lowName.includes('floor') || lowName.includes('bench') || lowName.includes('panca') || lowName.includes('push press') || lowName.includes('military') || lowName.includes('landmine') || lowName.includes('chest press') || lowBlock.includes('spinta')) {
+  if (
+    lowName.includes('floor') || lowName.includes('bench') || lowName.includes('panca') ||
+    lowName.includes('push press') || lowName.includes('military') || lowName.includes('landmine') ||
+    lowName.includes('chest press') || lowName.includes('alzate') || lowName.includes('lateral raise') ||
+    lowName.includes('dip') || lowBlock.includes('spinta') || lowBlock.includes('push')
+  ) {
     return 'Spinta';
   }
-  if (((lowName.includes('row') && !lowName.includes('throw')) || (lowName.includes('lat') && !lowName.includes('laterale')) || lowName.includes('rematore') || lowName.includes('pull-up') || lowName.includes('pulley') || lowName.includes('face pull') || lowBlock.includes('tirata'))) {
+  const isLat = /\b(lat|pulldown|pull-down)\b/i.test(lowName) && !/\b(laterali?|lateral|ipsilaterale?|ipsilateral)\b/i.test(lowName);
+  if (
+    (lowName.includes('row') && !lowName.includes('throw')) ||
+    isLat || lowName.includes('rematore') || lowName.includes('pull-up') ||
+    lowName.includes('chin-up') || lowName.includes('pulley') || lowName.includes('face pull') ||
+    lowBlock.includes('tirata') || lowBlock.includes('pull')
+  ) {
     return 'Tirata';
   }
   return 'Core';
@@ -3285,6 +3327,8 @@ function renderSessions() {
       }
       const cat = categorizeExerciseNorm(norm);
       if (cat === 'CMJ') {
+        if (sNum === 1) return;
+        potenzaList.unshift(norm);
         return;
       } else if (cat === 'Attivazione') {
         attivazioneList.push(norm);

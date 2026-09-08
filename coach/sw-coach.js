@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v226)
-const CACHE_NAME = 'coach-mv-v226-vbt-scales';
+// Service Worker Coach Command Center (v233)
+const CACHE_NAME = 'coach-mv-v233-w3s2';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

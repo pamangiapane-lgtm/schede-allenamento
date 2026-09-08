@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v232-w3s2)
-const CACHE_NAME = 'marsala-pwa-v232-w3s2';
+// Service Worker App Marsala Volley (v233-w3s2)
+const CACHE_NAME = 'marsala-pwa-v233-w3s2';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260908v232',
+  './data.js?v=20260908v233',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',
@@ -31,6 +31,24 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
+
+  // Richieste HTML / navigazione: sempre Network-First per mostrare le modifiche subito
+  if (event.request.mode === 'navigate' || event.request.destination === 'document' || event.request.url.includes('index.html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          if (response && response.status === 200) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(event.request).then(c => c || caches.match('./index.html')))
+    );
+    return;
+  }
+
+  // Risorse statiche
   event.respondWith(
     fetch(event.request)
       .then(response => {
