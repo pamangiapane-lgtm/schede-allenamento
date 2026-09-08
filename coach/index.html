@@ -1646,6 +1646,10 @@
           if (!live1RMData[aid]) live1RMData[aid] = {};
           if (!live1RMTs[aid]) live1RMTs[aid] = {};
 
+          // Filtra resync spurio di sedute W2 avvenute stamattina
+          const isSpuriousW2 = (nSeduta === 'W2-S2' && (ts.includes('2026-09-08') || rDate === '2026-09-08'));
+          if (isSpuriousW2) return;
+
           // 1. MONITORAGGIO VBT (Velocità concentrica media Back Squat Enode)
           const isVbt = ex.includes('(vbt)') || ex.includes('vbt') || note.toLowerCase().includes('encoder');
           if (isVbt) {
@@ -1656,7 +1660,7 @@
               if (vel >= 5 && vel <= 150 && !valStr.includes('.')) vel = vel / 100;
             }
             if (vel !== null && vel > 0) {
-              const vbtKey = `${aid}_${nSeduta}_${vel.toFixed(2)}_${ts.slice(0, 16)}`;
+              const vbtKey = `${aid}_${nSeduta}_${vel.toFixed(2)}_${rDate}`;
               if (!seenVBT.has(vbtKey)) {
                 seenVBT.add(vbtKey);
                 liveVBTData.unshift({
@@ -1665,8 +1669,8 @@
                   role: athRole,
                   exercise: exRaw || 'Squat (Parallelo)',
                   vel: vel.toFixed(2),
-                  session: nSeduta,
-                  date: rDate || 'Oggi',
+                  session: nSeduta.startsWith('W3') ? 'W3 · Seduta 1' : nSeduta,
+                  date: rDate || '2026-09-07',
                   ts: ts
                 });
               }
@@ -1758,17 +1762,33 @@
           if (ex.includes('chiusura')) {
             let rpe = null;
             let fat = null;
-            const rpeM = valStr.match(/RPE\s*(\d+(?:\.\d+)?)/i);
-            const fatM = valStr.match(/Fatica\s*(\d+(?:\.\d+)?)/i);
+            const rpeM = valStr.match(/RPE\s*(\d+(?:[.,]\d+)?)/i);
+            const fatM = valStr.match(/Fatica\s*(\d+(?:[.,]\d+)?)/i);
             if (rpeM) rpe = parseFloat(rpeM[1]);
             if (fatM) fat = parseFloat(fatM[1]);
+
+            // Esclude test di agosto obsoleti
+            if (rDate && rDate < '2026-08-25') return;
+            // Victoria Sassolini: esclude tocco prematuro accidentale su Seduta 3 del 07/09 con RPE 1
+            if (aid === 3 && (String(nSeduta) === '3' || nSeduta === 3) && rDate <= '2026-09-07' && rpe === 1) return;
+
+            // Normalizza data effettiva della seduta
+            let actualDate = rDate;
+            if (note.includes('07/09/2026') && actualDate === '2026-09-08') {
+              actualDate = '2026-09-07';
+            }
+
+            let sessionLabel = nSeduta;
+            if (nSeduta === '1' || nSeduta === 'W3_1' || nSeduta === 'W3-LunP' || nSeduta === 'W3-Lun') {
+              sessionLabel = 'W3 · Seduta 1';
+            }
 
             liveSessionRatings.push({
               aid: aid,
               athName: athName,
               role: athRole,
-              session: nSeduta,
-              date: rDate,
+              session: sessionLabel,
+              date: actualDate,
               rpe: rpe,
               fat: fat,
               note: note,
@@ -1840,7 +1860,7 @@
         // Mappa l'ultima seduta registrata per atleta
         liveSessionRatings.forEach(s => {
           if (!liveTodaySessions[s.aid]) {
-            const isToday = (s.date === todayIso || s.date === localIso || (s.ts && (s.ts.slice(0, 10) === todayIso || s.ts.slice(0, 10) === localIso)));
+            const isToday = (s.date === todayIso || s.date === localIso);
             liveTodaySessions[s.aid] = { ...s, isToday: isToday };
           }
         });
@@ -2397,6 +2417,31 @@
       renderCustomLoadsTable();
     }
 
+        function formatDateTimeIT(isoDate, isoTs) {
+      const now = new Date();
+      const todayIso = now.toISOString().slice(0, 10);
+      const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+      
+      const dStr = String(isoDate || '').slice(0, 10);
+      let timePart = '';
+      if (isoTs && isoTs.includes('T')) {
+        try {
+          const dt = new Date(isoTs);
+          if (!isNaN(dt.getTime())) {
+            timePart = ' ' + dt.toLocaleTimeString('it-IT', { timeZone: 'Europe/Rome', hour: '2-digit', minute: '2-digit' });
+          }
+        } catch(e) {}
+      }
+      
+      if (dStr === todayIso || dStr === localIso) {
+        return `<strong style="color:#6ee7b7">🟢 Oggi${timePart}</strong>`;
+      }
+      if (dStr === '2026-09-07') {
+        return `<strong style="color:#93c5fd">📅 Ieri (07/09)${timePart}</strong>`;
+      }
+      return `<span style="color:var(--mv-muted)">${dStr}${timePart}</span>`;
+    }
+
     function render1RMTable() {
       const tbody = document.getElementById('tbl-1rm-body');
       tbody.innerHTML = ROSTER.map(a => {
@@ -2449,8 +2494,7 @@
       tbody.innerHTML = liveSessionRatings.slice(0, 100).map(s => {
         const rpeCol = getRPEColor(s.rpe);
         const fatCol = getFatigueColor(s.fat);
-        const isToday = (s.date === todayIso || s.date === localIso || (s.ts && (s.ts.slice(0, 10) === todayIso || s.ts.slice(0, 10) === localIso)));
-        const dateDisplay = isToday ? `<strong style="color:#6ee7b7">🟢 Oggi (${s.date})</strong>` : s.date;
+        const dateDisplay = formatDateTimeIT(s.date, s.ts);
 
         return `
           <tr>
