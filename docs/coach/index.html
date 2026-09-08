@@ -1237,32 +1237,32 @@
 
       <!-- KPI Summary del Periodo Selezionato (RESPONSIVE NO OVERFLOW) -->
       <div style="display:grid;grid-template-columns:repeat(6, 1fr);gap:4px;margin-bottom:14px;width:100%;box-sizing:border-box;" id="analytics-kpi-grid">
-        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+        <div class="kpi-card" id="an-card-readiness" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
           <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Readiness</div>
           <div class="kpi-val" id="an-kpi-readiness" style="color:var(--mv-amber);font-size:0.95rem;margin:2px 0;">--</div>
           <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media</div>
         </div>
-        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+        <div class="kpi-card" id="an-card-fatica" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
           <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Energia</div>
           <div class="kpi-val" id="an-kpi-fatica" style="color:#6ee7b7;font-size:0.95rem;margin:2px 0;">--</div>
           <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fatica</div>
         </div>
-        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+        <div class="kpi-card" id="an-card-sonno" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
           <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sonno</div>
           <div class="kpi-val" id="an-kpi-sonno" style="color:#93c5fd;font-size:0.95rem;margin:2px 0;">--</div>
           <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Qualità</div>
         </div>
-        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+        <div class="kpi-card" id="an-card-dolori" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
           <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Dolori</div>
           <div class="kpi-val" id="an-kpi-dolori" style="color:#fca5a5;font-size:0.95rem;margin:2px 0;">--</div>
           <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fastidi</div>
         </div>
-        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+        <div class="kpi-card" id="an-card-stress" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
           <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Stress</div>
           <div class="kpi-val" id="an-kpi-stress" style="color:#d8b4fe;font-size:0.95rem;margin:2px 0;">--</div>
           <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tensione</div>
         </div>
-        <div class="kpi-card" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
+        <div class="kpi-card" id="an-card-peso" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
           <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Peso</div>
           <div class="kpi-val" id="an-kpi-peso" style="color:#67e8f9;font-size:0.95rem;margin:2px 0;">--</div>
           <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (kg)</div>
@@ -1438,7 +1438,7 @@
     async function initCoach() {
       initCampoSection();
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=222', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=223', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -2755,6 +2755,19 @@
         data = data.filter(r => r.aid === anCurrentAthlete);
       }
 
+      // Deduplica mantenendo l'ultima pesata registrata per (atleta, data)
+      // in modo che se l'atleta aggiorna o invia più volte il peso lo stesso giorno,
+      // viene usato il valore finale più recente (esatto valore inserito nell'app)
+      const latestMap = new Map();
+      data.forEach(r => {
+        const key = `${r.aid}_${r.date}`;
+        const prev = latestMap.get(key);
+        if (!prev || (r.timestamp && r.timestamp >= prev.timestamp)) {
+          latestMap.set(key, r);
+        }
+      });
+      data = Array.from(latestMap.values());
+
       // Filtro Temporale
       const now = new Date();
       if (anCurrentRange === '7d') {
@@ -2817,6 +2830,27 @@
       document.getElementById('an-kpi-stress').textContent = cStress > 0 ? (sumStress / cStress).toFixed(1) + '/10' : '--';
       const kpiPesoEl = document.getElementById('an-kpi-peso');
       if (kpiPesoEl) kpiPesoEl.textContent = cPeso > 0 ? (sumPeso / cPeso).toFixed(1) + ' kg' : '--';
+
+      // Visualizzazione / occultamento card KPI in base alle metriche selezionate
+      const metricsList = ['readiness', 'fatica', 'sonno', 'dolori', 'stress', 'peso'];
+      let activeKpiCount = 0;
+      metricsList.forEach(m => {
+        const card = document.getElementById(`an-card-${m}`);
+        if (card) {
+          const isVis = Boolean(anVisibleMetrics[m]);
+          card.style.display = isVis ? '' : 'none';
+          if (isVis) activeKpiCount++;
+        }
+      });
+      const kpiGrid = document.getElementById('analytics-kpi-grid');
+      if (kpiGrid) {
+        if (activeKpiCount > 0) {
+          kpiGrid.style.display = 'grid';
+          kpiGrid.style.gridTemplateColumns = `repeat(${activeKpiCount}, 1fr)`;
+        } else {
+          kpiGrid.style.display = 'none';
+        }
+      }
 
       // 2. Costruzione Dati per Grafico Temporale
       const dateMap = {};

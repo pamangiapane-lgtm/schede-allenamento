@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v222)
-const CACHE_NAME = 'coach-mv-v222-weight-trend';
+// Service Worker Coach Command Center (v223)
+const CACHE_NAME = 'coach-mv-v223-kpi-metrics-fix';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
