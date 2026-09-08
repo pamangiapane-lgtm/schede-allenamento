@@ -36,20 +36,10 @@ jobs:
       - name: Prepara cartella pubblicazione
         run: |
           cp -r main-build site
-          rm -rf site/.github site/backup_locale site/apps_script_prod_project site/apps_script_dev_project site/_strumenti
+          rm -rf site/.github site/backup_locale site/apps_script_prod_project site/apps_script_dev_project site/_strumenti site/dev
           mkdir -p site/dev
-          cp dev-build/index.html    site/dev/index.html
-          cp dev-build/scheda.html   site/dev/scheda.html
-          cp dev-build/style.css     site/dev/style.css
-          cp dev-build/sw.js         site/dev/sw.js
-          cp dev-build/manifest.json site/dev/manifest.json
-          cp dev-build/offline.html  site/dev/offline.html  2>/dev/null || true
-          cp dev-build/icon.svg      site/dev/icon.svg      2>/dev/null || true
-          cp dev-build/report.html   site/dev/report.html   2>/dev/null || true
-          cp dev-build/coach.html    site/dev/coach.html    2>/dev/null || true
-          cp dev-build/storico.html      site/dev/storico.html      2>/dev/null || true
-          cp dev-build/email_atleti.html site/dev/email_atleti.html 2>/dev/null || true
-          cp dev-build/report-staff.html site/dev/report-staff.html 2>/dev/null || true
+          cp -r dev-build/* site/dev/
+          rm -rf site/dev/.git site/dev/.github site/dev/backup_locale site/dev/apps_script_prod_project site/dev/apps_script_dev_project site/dev/_strumenti
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
