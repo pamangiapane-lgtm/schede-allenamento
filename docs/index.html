@@ -402,16 +402,6 @@
       gap: 4px;
       letter-spacing: 0.3px;
     }
-    .badge-saved-num {
-      background: rgba(16,185,129,0.18);
-      border: 1px solid rgba(16,185,129,0.45);
-      color: #6ee7b7;
-      font-size: 0.74rem;
-      font-weight: 800;
-      padding: 3px 8px;
-      border-radius: 6px;
-      white-space: nowrap;
-    }
     .session-title { font-size: 1.05rem; font-weight: 800; color: #fff; margin-top: 4px; }
     .session-meta { font-size: 0.75rem; color: var(--mv-muted); margin-top: 2px; }
     .session-chevron { font-size: 1.2rem; color: var(--mv-muted); transition: transform 0.2s; }
@@ -1365,7 +1355,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=221').then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw.js?v=222').then(reg => reg.update()).catch(() => {});
       }
 
       const urlParams = new URLSearchParams(window.location.search);
@@ -1598,6 +1588,7 @@
       }
       localStorage.setItem('mv_selected_athlete', currentAthlete.id);
       isEN = (currentAthlete.id === 4 || currentAthlete.id === 14);
+      sessionRatings = {};
 
       const newUrl = window.location.pathname + '?id=' + currentAthlete.id;
       window.history.replaceState({ path: newUrl }, '', newUrl);
@@ -1709,6 +1700,7 @@
 
     function switchWeek(week, btn) {
       currentWeek = week;
+      sessionRatings = {};
       document.querySelectorAll('.week-pill').forEach(p => {
         p.classList.remove('active');
         if (btn) {
@@ -1964,13 +1956,6 @@
       // Il numero resta direttamente visibile nell'input formattato
       input.value = cleanVal;
 
-      // Mostra o aggiorna il badge di conferma con il numero visibile nello specifico tab
-      const badge = document.getElementById(`badge-${inputId}`);
-      if (badge) {
-        badge.textContent = `✓ ${cleanVal}`;
-        badge.style.display = 'inline-flex';
-      }
-
       // Prevenzione click multipli / duplicati ravvicinati (antirimbalzo 3s)
       const now = Date.now();
       if (lastSavedCustomLoads[inputId] && 
@@ -2056,13 +2041,6 @@
 
       // Il numero resta direttamente visibile nell'input formattato
       input.value = formattedVal;
-
-      // Mostra o aggiorna il badge di conferma con il numero visibile nello specifico tab
-      const badgeVbt = document.getElementById(`badge-${inputId}`);
-      if (badgeVbt) {
-        badgeVbt.textContent = `✓ ${formattedVal}`;
-        badgeVbt.style.display = 'inline-flex';
-      }
 
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_${exName}`, formattedVal);
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`, formattedVal);
@@ -2636,7 +2614,6 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
         <div class="ex-load-input-wrap">
           <input type="text" class="ex-load-input" id="ex-vbt-${safeExId}" placeholder="${savedVbt ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedVbt}` : (isEN ? 'e.g. 0.65 m/s' : 'es. 0.65 m/s')}" value="${savedVbt}" oninput="onCustomExerciseVbtInput('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', this.value)">
           <button type="button" class="btn-save-mini" onclick="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}')">${savedVbt ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
-          <span class="badge-saved-num" id="badge-ex-vbt-${safeExId}" style="${savedVbt ? 'display:inline-flex;' : 'display:none;'}">✓ ${savedVbt}</span>
           <span id="toast-ex-vbt-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
         </div>
       </div>
@@ -2648,7 +2625,6 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
         <div class="ex-load-input-wrap">
           <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}', this.value)">
           <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">${savedLoad ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
-          <span class="badge-saved-num" id="badge-ex-log-${safeExId}" style="${savedLoad ? 'display:inline-flex;' : 'display:none;'}">✓ ${savedLoad}</span>
           <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
         </div>
       </div>
@@ -2708,7 +2684,6 @@ function renderCmjTestCard(sed, athlete, isEN) {
           <div class="ex-load-input-wrap">
             <input type="text" class="ex-load-input" id="ex-log-cmj-test" placeholder="${savedCmj ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedCmj}` : (isEN ? 'e.g. 38.5 cm' : 'es. 38.5 cm')}" value="${savedCmj}" oninput="onCustomExerciseLoadInput('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}', this.value)">
             <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}')">${savedCmj ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
-            <span class="badge-saved-num" id="badge-ex-log-cmj-test" style="${savedCmj ? 'display:inline-flex;' : 'display:none;'}">✓ ${savedCmj}</span>
             <span id="toast-ex-log-cmj-test" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
           </div>
         </div>
@@ -3112,6 +3087,7 @@ function renderSessions() {
         ts: new Date().toISOString()
       };
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`, JSON.stringify(payload));
+      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
       if (rpe !== null && rpe !== undefined) {
         updateSessionHeaderStatus(nSeduta, rpe);
       }
@@ -3136,6 +3112,7 @@ function renderSessions() {
         ts: new Date().toISOString()
       };
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`, JSON.stringify(payload));
+      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
       if (rpe !== null && rpe !== undefined) {
         updateSessionHeaderStatus(nSeduta, rpe);
       }
@@ -3191,16 +3168,35 @@ function renderSessions() {
     }
 
     async function submitSession(nSeduta, btn) {
-      btn.disabled = true;
-      btn.textContent = isEN ? 'Saving...' : 'Salvataggio in corso...';
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = isEN ? 'Saving...' : 'Salvataggio in corso...';
+      }
+
+      if (sessionRatings[nSeduta]) {
+        const rpe = sessionRatings[nSeduta].rpe ?? null;
+        const fat = sessionRatings[nSeduta].fat ?? null;
+        const note = document.getElementById(`note-end-${nSeduta}`)?.value.trim() || '';
+        const payload = {
+          rpe: rpe,
+          fat: fat,
+          note: note,
+          date: new Date().toISOString().slice(0, 10),
+          ts: new Date().toISOString()
+        };
+        localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`, JSON.stringify(payload));
+        localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
+      }
 
       clearTimeout(debounceSessionTimers[nSeduta]);
       await autoSaveSessionRatingToCloud(nSeduta);
 
-      btn.disabled = false;
-      btn.textContent = '✓ Salvato!';
-      btn.style.background = 'var(--mv-emerald)';
-      btn.style.color = '#fff';
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = isEN ? '✓ Saved!' : '✓ Salvato!';
+        btn.style.background = 'var(--mv-emerald)';
+        btn.style.color = '#fff';
+      }
 
       const curSaved = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`) || localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`);
       if (curSaved) {
