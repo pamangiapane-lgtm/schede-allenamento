@@ -380,6 +380,37 @@
       padding: 2px 8px;
       border-radius: 5px;
       text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .session-badge.session-badge-saved {
+      background: rgba(16,185,129,0.22);
+      border: 1px solid rgba(16,185,129,0.5);
+      color: #6ee7b7;
+    }
+    .session-rpe-badge {
+      background: #064e3b;
+      border: 1px solid #10b981;
+      color: #a7f3d0;
+      font-size: 0.76rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      letter-spacing: 0.3px;
+    }
+    .badge-saved-num {
+      background: rgba(16,185,129,0.18);
+      border: 1px solid rgba(16,185,129,0.45);
+      color: #6ee7b7;
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
     }
     .session-title { font-size: 1.05rem; font-weight: 800; color: #fff; margin-top: 4px; }
     .session-meta { font-size: 0.75rem; color: var(--mv-muted); margin-top: 2px; }
@@ -1156,6 +1187,168 @@
       { id: 'rdl',      name: 'Stacco Rumeno',  baseline: 'rdl',      hasBW: false }
     ];
 
+    
+    // DATI CONFERMATI W3 S1 (07/09/2026) PER TUTTE LE 13 ATLETE
+    const W3_S1_CONFIRMED_DATA = {
+      "1": {
+        rpe: 6, fat: 7, vbt: "0.68 m/s", cmj: "34.2 cm",
+        loads: {
+          "3B. Floor Chest Press con Manubri": "10+10 kg",
+          "4B. Dumbbell Seal Row su panca 30°": "12.5+12.5 kg",
+          "3C. Lat Machine Presa Neutra Stretta": "30 kg",
+          "4A. Split Squat con manubri (piede ant. su disco)": "0 kg",
+          "5A. Deadbug con sovraccarico KB": "4 kg",
+          "5B. Medball Chest Pass contro muro": "4 kg",
+          "Wrist Roller per il Palleggio": "2 kg"
+        }
+      },
+      "2": {
+        rpe: 7, fat: 5, vbt: "0.89 m/s", cmj: "37.5 cm",
+        loads: {}
+      },
+      "3": {
+        rpe: 6, fat: 3, vbt: "0.87 m/s", cmj: "37.5 cm",
+        loads: {
+          "3B. Floor Chest Press con Manubri": "15+15 kg",
+          "4B. Dumbbell Seal Row su panca 30°": "20+20 kg",
+          "3C. Lat Machine Presa Neutra Stretta": "34 kg",
+          "5A. Deadbug con sovraccarico KB": "4 kg",
+          "4A. Split Squat con manubri (piede ant. su disco)": "8+8 kg"
+        }
+      },
+      "4": {
+        rpe: 5, fat: 5, vbt: "0.64 m/s", cmj: "33.5 cm",
+        loads: {
+          "3B. Dumbbell Floor Chest Press": "15+15 kg",
+          "3C. Lat Pulldown Narrow Neutral Grip": "35 kg",
+          "4A. Dumbbell Split Squat (Front Foot Elevated)": "without",
+          "4B. Dumbbell Seal Row on 30° Incline Bench": "9+9 kg",
+          "5A. Kettlebell Loaded Deadbug": "4 kg",
+          "5B. Wall Medball Chest Pass": "4 kg"
+        }
+      },
+      "5": {
+        rpe: 7, fat: 6, vbt: "0.80 m/s", cmj: "30.2 cm",
+        loads: {
+          "3B. Floor Chest Press con Manubri": "12 kg",
+          "4B. Dumbbell Seal Row su panca 30°": "12.5 kg",
+          "3C. Lat Machine Presa Neutra Stretta": "30 kg",
+          "5A. Deadbug con sovraccarico KB": "4 kg",
+          "5B. Medball Chest Pass contro muro": "4 kg"
+        }
+      },
+      "6": {
+        rpe: 6, fat: 3, vbt: "0.00 m/s", cmj: "33.1 cm",
+        loads: {}
+      },
+      "7": {
+        rpe: 3, fat: 3, vbt: "0.00 m/s", cmj: "38.3 cm",
+        loads: {
+          "3B. Floor Chest Press con Manubri": "12.5 kg",
+          "4B. Dumbbell Seal Row su panca 30°": "20+20 kg",
+          "3C. Lat Machine Presa Neutra Stretta": "35 kg",
+          "4A. Split Squat con manubri (piede ant. su disco)": "10+10 kg",
+          "5A. Deadbug con sovraccarico KB": "6 kg",
+          "5B. Medball Chest Pass contro muro": "4 kg"
+        }
+      },
+      "8": {
+        rpe: 4, fat: 3, vbt: null, cmj: "35.2 cm",
+        loads: {
+          "3B. Floor Chest Press con Manubri": "15+15 kg",
+          "4B. Dumbbell Seal Row su panca 30°": "15+15 kg",
+          "3C. Lat Machine Presa Neutra Stretta": "28 kg"
+        }
+      },
+      "9": {
+        rpe: 2, fat: 3, vbt: "0.66 m/s", cmj: "33.6 cm",
+        loads: {
+          "3B. Floor Chest Press con Manubri": "15+15 kg",
+          "4B. Dumbbell Seal Row su panca 30°": "12.5+12.5 kg",
+          "5A. Deadbug con sovraccarico KB": "6 kg"
+        }
+      },
+      "11": {
+        rpe: 6, fat: 5, vbt: "0.86 m/s", cmj: "39.4 cm",
+        loads: {
+          "4A. Split Squat con manubri (piede ant. su disco)": "corpo libero",
+          "3C. Lat Machine Presa Neutra Stretta": "30 kg",
+          "Prone Y-Raise (Postura Difesa Bassa)": "elastico nero"
+        }
+      },
+      "12": {
+        rpe: 7, fat: 5, vbt: "0.64 m/s", cmj: "34.8 cm",
+        loads: {
+          "3B. Floor Chest Press con Manubri": "15+15 kg",
+          "4B. Dumbbell Seal Row su panca 30°": "20+20 kg",
+          "5A. Deadbug con sovraccarico KB": "4 kg",
+          "5B. Medball Chest Pass contro muro": "4 kg",
+          "Wrist Roller per il Palleggio": "4 kg",
+          "4A. Split Squat con manubri (piede ant. su disco)": "8+8 kg"
+        }
+      },
+      "13": {
+        rpe: 6, fat: 4, vbt: "0.93 m/s", cmj: "30.2 cm",
+        loads: {
+          "3B. Floor Chest Press con Manubri": "12.5+12.5 kg",
+          "4B. Dumbbell Seal Row su panca 30°": "17.5+17.5 kg",
+          "3C. Lat Machine Presa Neutra Stretta": "37 kg",
+          "5A. Deadbug con sovraccarico KB": "6 kg",
+          "4A. Split Squat con manubri (piede ant. su disco)": "8+8 kg",
+          "5B. Medball Chest Pass contro muro": "4 kg"
+        }
+      },
+      "14": {
+        rpe: 6, fat: 6, vbt: null, cmj: "28.6 cm",
+        loads: {}
+      }
+    };
+
+    function applyConfirmedW3S1Data(athId) {
+      if (!athId) return;
+      const conf = W3_S1_CONFIRMED_DATA[String(athId)];
+      if (!conf) return;
+
+      // 1. Session 1 rating W3
+      const keyRating = `mv_session_rating_${athId}_1`;
+      if (!localStorage.getItem(keyRating) && conf.rpe !== null) {
+        localStorage.setItem(keyRating, JSON.stringify({
+          rpe: conf.rpe,
+          fat: conf.fat,
+          note: 'Registrata W3 S1 (07/09/2026)',
+          date: '2026-09-07',
+          ts: '2026-09-07T10:00:00.000Z'
+        }));
+      }
+
+      // 2. VBT
+      if (conf.vbt) {
+        const k1 = `mv_vbt_${athId}_3A. Squat (Parallelo)`;
+        if (!localStorage.getItem(k1)) localStorage.setItem(k1, conf.vbt);
+        const k2 = `mv_vbt_${athId}_Squat (Parallelo)`;
+        if (!localStorage.getItem(k2)) localStorage.setItem(k2, conf.vbt);
+        localStorage.setItem(`mv_vbt_${athId}_W3_1_3A. Squat (Parallelo)`, conf.vbt);
+      }
+
+      // 3. CMJ
+      if (conf.cmj) {
+        const kC1 = `mv_load_${athId}_CMJ_Test`;
+        if (!localStorage.getItem(kC1)) localStorage.setItem(kC1, conf.cmj);
+        const kC2 = `mv_load_${athId}_CMJ Test Chronojump`;
+        if (!localStorage.getItem(kC2)) localStorage.setItem(kC2, conf.cmj);
+        localStorage.setItem(`mv_load_${athId}_W3_1_CMJ_Test`, conf.cmj);
+      }
+
+      // 4. Loads
+      if (conf.loads) {
+        Object.entries(conf.loads).forEach(([ex, val]) => {
+          const kGeneric = `mv_load_${athId}_${ex}`;
+          if (!localStorage.getItem(kGeneric)) localStorage.setItem(kGeneric, val);
+          localStorage.setItem(`mv_load_${athId}_W3_1_${ex}`, val);
+        });
+      }
+    }
+
     const ORDERED_CATEGORIES = [
       { id: 'Attivazione', icon: '🔥', label: 'Attivazione & Prehab' },
       { id: 'Potenza',     icon: '⚡', label: 'Potenza' },
@@ -1197,6 +1390,9 @@
         });
       }
 
+      if (currentAthlete && currentAthlete.id) {
+        applyConfirmedW3S1Data(currentAthlete.id);
+      }
       initWellnessRatingBars();
       checkPushSubscriptionState();
       await syncProgressiFromCloud();
@@ -1215,6 +1411,37 @@
             const numMatch = String(r.Valore || r.RM_Stimato || r.Kg_Usati || '').match(/\d+(?:[.,]\d+)?/);
             const val = numMatch ? parseFloat(numMatch[0].replace(',', '.')) : 0;
             const valStr = String(r.Valore || r.Kg_Usati || '').trim();
+
+            // 0. Chiusura Seduta (RPE & Fatica salvati)
+            if (ex.includes('chiusura') || ex.includes('rpe-seduta') || ex.includes('fatica-seduta')) {
+              let rpe = null, fat = null;
+              const rpeM = valStr.match(/RPE\s*(\d+(?:[.,]\d+)?)/i);
+              const fatM = valStr.match(/Fatica\s*(\d+(?:[.,]\d+)?)/i);
+              if (rpeM) rpe = parseFloat(rpeM[1].replace(',', '.'));
+              if (fatM) fat = parseFloat(fatM[1].replace(',', '.'));
+              if (rpe === null && val > 0 && ex.includes('rpe')) rpe = val;
+              if (fat === null && val > 0 && ex.includes('fatica')) fat = val;
+
+              let sNum = 1;
+              const nSedRaw = String(r.N_Seduta || '').toLowerCase();
+              if (nSedRaw.includes('3') || nSedRaw.includes('ven')) sNum = 3;
+              else if (nSedRaw.includes('2') || nSedRaw.includes('mer')) sNum = 2;
+              else sNum = 1;
+
+              if (rpe !== null || fat !== null) {
+                const curRaw = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${sNum}`);
+                let curObj = {};
+                try { if (curRaw) curObj = JSON.parse(curRaw); } catch(e) {}
+                const updatedPayload = {
+                  rpe: (rpe !== null) ? rpe : (curObj.rpe ?? null),
+                  fat: (fat !== null) ? fat : (curObj.fat ?? null),
+                  note: r.Note_Atleta || curObj.note || '',
+                  date: String(r.Data || r.Timestamp || '').slice(0, 10),
+                  ts: r.Timestamp || curObj.ts || new Date().toISOString()
+                };
+                localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${sNum}`, JSON.stringify(updatedPayload));
+              }
+            }
 
             // Solo 1RM specifici (esclude tassativamente VBT, split squat, cluster, jump, ecc.)
             const isSquat1RM = (ex === '1rm-squat' || ex === '1rm_squat' || ex === 'squat' || ex === 'back squat') &&
@@ -1279,8 +1506,19 @@
               let cleanLoad = valStr;
               if (cleanLoad.startsWith('2026-10-10')) {
                 cleanLoad = '10+10 kg';
+              } else if (/^\d+(?:\.\d+)?\s*-\s*\d+(?:\.\d+)?$/.test(cleanLoad)) {
+                cleanLoad = cleanLoad.replace('-', '+') + ' kg';
+              } else if (/^\d+(?:\.\d+)?\s*\+\s*\d+(?:\.\d+)?$/.test(cleanLoad) && !cleanLoad.toLowerCase().includes('kg')) {
+                cleanLoad = cleanLoad + ' kg';
               }
               localStorage.setItem(`mv_load_${currentAthlete.id}_${r.Esercizio}`, cleanLoad);
+              if (r.N_Seduta) {
+                let sNum = 1;
+                const nSedRaw = String(r.N_Seduta).toLowerCase();
+                if (nSedRaw.includes('3') || nSedRaw.includes('ven')) sNum = 3;
+                else if (nSedRaw.includes('2') || nSedRaw.includes('mer')) sNum = 2;
+                localStorage.setItem(`mv_load_${currentAthlete.id}_W3_${sNum}_${r.Esercizio}`, cleanLoad);
+              }
             }
           }
         });
@@ -1340,6 +1578,7 @@
       document.getElementById('roster-view').classList.remove('active');
       document.getElementById('athlete-view').classList.add('active');
 
+      applyConfirmedW3S1Data(currentAthlete.id);
       renderHero();
       renderBodyWeight();
       render1RMProfile();
@@ -1674,11 +1913,28 @@
         localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ_Test`, cleanVal);
         localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ Test Chronojump`, cleanVal);
       } else {
-        // Se scrive 10-10 lo trasformiamo in 10+10 kg per evitare che Google Sheets lo interpreti come data 10 Ottobre
-        if (/^\d+\s*-\s*\d+$/.test(cleanVal)) {
+        // Se scrive 10-10 o 12.5-12.5 lo trasformiamo in 10+10 kg o 12.5+12.5 kg
+        if (/^\d+(?:\.\d+)?\s*-\s*\d+(?:\.\d+)?$/.test(cleanVal)) {
           cleanVal = cleanVal.replace('-', '+') + ' kg';
+        } else if (/^\d+(?:\.\d+)?\s*\+\s*\d+(?:\.\d+)?$/.test(cleanVal) && !cleanVal.toLowerCase().includes('kg')) {
+          cleanVal = cleanVal + ' kg';
+        } else if (/^\d+(?:\.\d+)?$/.test(cleanVal) && !cleanVal.toLowerCase().includes('kg')) {
+          cleanVal = cleanVal + ' kg';
         }
         localStorage.setItem(`mv_load_${currentAthlete.id}_${exName}`, cleanVal);
+        if (typeof currentWeek !== 'undefined') {
+          localStorage.setItem(`mv_load_${currentAthlete.id}_${currentWeek}_${nSeduta}_${exName}`, cleanVal);
+        }
+      }
+
+      // Il numero resta direttamente visibile nell'input formattato
+      input.value = cleanVal;
+
+      // Mostra o aggiorna il badge di conferma con il numero visibile nello specifico tab
+      const badge = document.getElementById(`badge-${inputId}`);
+      if (badge) {
+        badge.textContent = `✓ ${cleanVal}`;
+        badge.style.display = 'inline-flex';
       }
 
       // Prevenzione click multipli / duplicati ravvicinati (antirimbalzo 3s)
@@ -1755,9 +2011,22 @@
         formattedVal = `${cleanVal} m/s`;
       }
 
+      // Il numero resta direttamente visibile nell'input formattato
+      input.value = formattedVal;
+
+      // Mostra o aggiorna il badge di conferma con il numero visibile nello specifico tab
+      const badgeVbt = document.getElementById(`badge-${inputId}`);
+      if (badgeVbt) {
+        badgeVbt.textContent = `✓ ${formattedVal}`;
+        badgeVbt.style.display = 'inline-flex';
+      }
+
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_${exName}`, formattedVal);
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`, formattedVal);
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_Squat (Parallelo)`, formattedVal);
+      if (typeof currentWeek !== 'undefined') {
+        localStorage.setItem(`mv_vbt_${currentAthlete.id}_${currentWeek}_${nSeduta}_${exName}`, formattedVal);
+      }
 
       // Prevenzione click multipli / duplicati ravvicinati (antirimbalzo 3s)
       const now = Date.now();
@@ -2279,7 +2548,8 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
   const isEN = (athlete && (athlete.id === 4 || athlete.id === 14));
   const { exName, serie, reps, carico, tempo, recupero, note } = norm;
   const safeExId = exName.replace(/[^a-zA-Z0-9]/g, '_');
-  const savedLoad = localStorage.getItem(`mv_load_${athlete.id}_${exName}`) || '';
+  const savedLoad = localStorage.getItem(`mv_load_${athlete.id}_${week}_${sed.Numero_Seduta}_${exName}`) ||
+                    localStorage.getItem(`mv_load_${athlete.id}_${exName}`) || '';
 
   // Check 1RM calculation
   const rmData = getExercise1RMData(exName, carico, athlete, week);
@@ -2354,7 +2624,8 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
         <span class="ex-load-log-lbl" style="color:var(--mv-amber);">⚡ ${isEN ? 'Mean Velocity (m/s):' : 'Velocità Media (m/s):'}</span>
         <div class="ex-load-input-wrap">
           <input type="text" class="ex-load-input" id="ex-vbt-${safeExId}" placeholder="${savedVbt ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedVbt}` : (isEN ? 'e.g. 0.65 m/s' : 'es. 0.65 m/s')}" value="${savedVbt}" oninput="onCustomExerciseVbtInput('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', this.value)">
-          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}')">${isEN ? 'Save' : 'Salva'}</button>
+          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}')">${savedVbt ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
+          <span class="badge-saved-num" id="badge-ex-vbt-${safeExId}" style="${savedVbt ? 'display:inline-flex;' : 'display:none;'}">✓ ${savedVbt}</span>
           <span id="toast-ex-vbt-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
         </div>
       </div>
@@ -2365,7 +2636,8 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
         <span class="ex-load-log-lbl">📝 ${isEN ? 'Load Used:' : 'Carico Usato:'}</span>
         <div class="ex-load-input-wrap">
           <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}', this.value)">
-          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">${isEN ? 'Save' : 'Salva'}</button>
+          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">${savedLoad ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
+          <span class="badge-saved-num" id="badge-ex-log-${safeExId}" style="${savedLoad ? 'display:inline-flex;' : 'display:none;'}">✓ ${savedLoad}</span>
           <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
         </div>
       </div>
@@ -2393,7 +2665,9 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
 
 function renderCmjTestCard(sed, athlete, isEN) {
   const sNum = sed.Numero_Seduta;
-  const savedCmj = localStorage.getItem(`mv_load_${athlete.id}_CMJ_Test`) || '';
+  const savedCmj = localStorage.getItem(`mv_load_${athlete.id}_W3_${sNum}_CMJ_Test`) ||
+                   localStorage.getItem(`mv_load_${athlete.id}_CMJ_Test`) ||
+                   localStorage.getItem(`mv_load_${athlete.id}_CMJ Test Chronojump`) || '';
   const cmjNoteText = isEN
     ? "Upon entering the weight room after activation: hands strictly on hips on Chronojump mat, controlled descent and maximal vertical explosion. Perform <strong>3 jumps with 45s passive rest</strong> between attempts. Measure peak height (cm) and neuromuscular readiness."
     : "All'ingresso in sala pesi dopo l'attivazione: mani rigorosamente ai fianchi su pedana Chronojump, discesa controllata ed esplosione verticale massimale. Esegui <strong>3 salti con 45s di riposo passivo</strong> tra ogni tentativo. Misura altezza di picco (cm) e prontezza neuromuscolare d'ingresso.";
@@ -2422,7 +2696,8 @@ function renderCmjTestCard(sed, athlete, isEN) {
           <span class="ex-load-log-lbl">📝 ${isEN ? 'Recorded CMJ Height:' : 'Altezza CMJ registrata:'}</span>
           <div class="ex-load-input-wrap">
             <input type="text" class="ex-load-input" id="ex-log-cmj-test" placeholder="${savedCmj ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedCmj}` : (isEN ? 'e.g. 38.5 cm' : 'es. 38.5 cm')}" value="${savedCmj}" oninput="onCustomExerciseLoadInput('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}', this.value)">
-            <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}')">${isEN ? 'Save' : 'Salva'}</button>
+            <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}')">${savedCmj ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
+            <span class="badge-saved-num" id="badge-ex-log-cmj-test" style="${savedCmj ? 'display:inline-flex;' : 'display:none;'}">✓ ${savedCmj}</span>
             <span id="toast-ex-log-cmj-test" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
           </div>
         </div>
@@ -2639,14 +2914,28 @@ function renderSessions() {
 
     const nellyTitlesEN = { 1: 'Prevention', 2: 'Strength 1', 3: 'Power 1' };
         const sessionTitle = isEN ? (isNelly ? (nellyTitlesEN[sNum] || `Session ${sNum}`) : `Session ${sNum}`) : (isNelly ? (sed.Nome_Seduta || `Seduta ${sNum}`) : `Seduta ${sNum}`);
-    const sessionBadge = isEN ? `Session ${sNum} · ${dayEN}` : (isNelly ? `Seduta ${sNum} · ${sed.Giorno || ''}` : `${sed.Giorno || `Seduta ${sNum}`}`);
+    const savedRaw = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${sNum}`);
+    let savedObj = null;
+    if (savedRaw) {
+      try { savedObj = JSON.parse(savedRaw); } catch(e) {}
+    }
+    const initialRpe = savedObj?.rpe ?? sessionRatings[sNum]?.rpe ?? null;
+    const isSessionSaved = (initialRpe !== null && initialRpe !== undefined);
+
+    let sessionBadge = isEN ? `Session ${sNum} · ${dayEN}` : (isNelly ? `Seduta ${sNum} · ${sed.Giorno || ''}` : `${sed.Giorno || `Seduta ${sNum}`}`);
+    if (isSessionSaved) {
+      sessionBadge = isEN ? `Session ${sNum} · ${dayEN} · ✓ Done` : `${sed.Giorno || `Seduta ${sNum}`} · ✓ Registrata`;
+    }
     const sessionMeta = isEN ? `📍 ${sed.Luogo === 'Palestra' || !sed.Luogo ? 'Weight Room' : sed.Luogo} · ⏱ ~${sed.Durata_min || 55} min` : `📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 55} min`;
 
     return `
       <div class="session-card ${isOpen}" id="card-${sed.Numero_Seduta}">
         <div class="session-head" onclick="toggleSession('${sed.Numero_Seduta}')">
           <div>
-            <span class="session-badge">${sessionBadge}</span>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <span class="session-badge ${isSessionSaved ? 'session-badge-saved' : ''}" id="session-head-badge-${sNum}">${sessionBadge}</span>
+              <span class="session-rpe-badge" id="session-badge-status-${sNum}" style="${isSessionSaved ? 'display:inline-flex;' : 'display:none;'}">✓ RPE ${initialRpe}/10</span>
+            </div>
             <div class="session-title">${sessionTitle}</div>
             <div class="session-meta">${sessionMeta}</div>
           </div>
@@ -2750,6 +3039,23 @@ function renderSessions() {
     let sessionRatings = {};
     const debounceSessionTimers = {};
 
+    
+    function updateSessionHeaderStatus(nSeduta, rpeVal) {
+      const badgeEl = document.getElementById(`session-badge-status-${nSeduta}`);
+      if (badgeEl && rpeVal !== null && rpeVal !== undefined) {
+        badgeEl.textContent = `✓ RPE ${rpeVal}/10`;
+        badgeEl.style.display = 'inline-flex';
+      }
+      const headBadge = document.getElementById(`session-head-badge-${nSeduta}`);
+      if (headBadge && rpeVal !== null && rpeVal !== undefined) {
+        headBadge.classList.add('session-badge-saved');
+        const rawText = headBadge.textContent;
+        const mainPart = rawText.split('·')[0].trim();
+        const isEN = (currentAthlete && (currentAthlete.id === 4 || currentAthlete.id === 14));
+        headBadge.textContent = `${mainPart} · ${isEN ? '✓ Done' : '✓ Registrata'}`;
+      }
+    }
+
     function setRating(type, nSeduta, val, btn) {
       if (!sessionRatings[nSeduta]) sessionRatings[nSeduta] = {};
       sessionRatings[nSeduta][type] = val;
@@ -2775,6 +3081,9 @@ function renderSessions() {
         ts: new Date().toISOString()
       };
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
+      if (rpe !== null && rpe !== undefined) {
+        updateSessionHeaderStatus(nSeduta, rpe);
+      }
 
       // Auto-salvataggio su cloud (debounce 1.5s)
       clearTimeout(debounceSessionTimers[nSeduta]);
@@ -2796,6 +3105,9 @@ function renderSessions() {
         ts: new Date().toISOString()
       };
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
+      if (rpe !== null && rpe !== undefined) {
+        updateSessionHeaderStatus(nSeduta, rpe);
+      }
 
       clearTimeout(debounceSessionTimers[nSeduta]);
       debounceSessionTimers[nSeduta] = setTimeout(() => {
@@ -2849,6 +3161,16 @@ function renderSessions() {
       btn.textContent = '✓ Salvato!';
       btn.style.background = 'var(--mv-emerald)';
       btn.style.color = '#fff';
+
+      const curSaved = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`);
+      if (curSaved) {
+        try {
+          const parsed = JSON.parse(curSaved);
+          if (parsed && parsed.rpe !== null && parsed.rpe !== undefined) {
+            updateSessionHeaderStatus(nSeduta, parsed.rpe);
+          }
+        } catch(e) {}
+      }
       const msg = document.getElementById(`save-msg-${nSeduta}`);
       if (msg) {
         msg.textContent = isEN ? '✓ Session saved & synchronized' : '✓ Seduta registrata e sincronizzata!';
