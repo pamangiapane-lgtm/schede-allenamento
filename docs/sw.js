@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v222-clean-ui)
-const CACHE_NAME = 'marsala-pwa-v222-clean-ui';
+// Service Worker App Marsala Volley (v224-clean-1rm-bw)
+const CACHE_NAME = 'marsala-pwa-v224-clean-1rm-bw';
 
 const ASSETS_TO_CACHE = [
   './',

@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v223)
-const CACHE_NAME = 'coach-mv-v223-kpi-metrics-fix';
+// Service Worker Coach Command Center (v224)
+const CACHE_NAME = 'coach-mv-v224-clean-1rm-bw';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
