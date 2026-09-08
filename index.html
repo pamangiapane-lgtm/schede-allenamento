@@ -1155,7 +1155,7 @@
 
 
     const BASELINE_WEIGHTS = {
-      1: 63.5, 2: 66.8, 3: 74.0, 4: 73.0, 5: 55.5,
+      1: 63.5, 2: 67.6, 3: 74.0, 4: 73.0, 5: 55.5,
       6: 69.0, 7: 78.0, 8: 77.0, 9: 66.0, 11: 60.0,
       12: 63.5, 13: 68.0, 14: 70.0, 99: 80.0
     };
@@ -1404,6 +1404,8 @@
         const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Progressi`);
         const json = await res.json();
         const rows = json.dati || [];
+        let latestCloudBW = null;
+        let latestCloudBWTs = '';
         
         rows.forEach(r => {
           if (parseInt(r.ID_Giocatrice) === currentAthlete.id) {
@@ -1412,7 +1414,7 @@
             const val = numMatch ? parseFloat(numMatch[0].replace(',', '.')) : 0;
             const valStr = String(r.Valore || r.Kg_Usati || '').trim();
 
-            // 0. Chiusura Seduta (RPE & Fatica salvati)
+            // 0. Chiusura Seduta (RPE & Fatica salvati isolati per settimana)
             if (ex.includes('chiusura') || ex.includes('rpe-seduta') || ex.includes('fatica-seduta')) {
               let rpe = null, fat = null;
               const rpeM = valStr.match(/RPE\s*(\d+(?:[.,]\d+)?)/i);
@@ -1428,18 +1430,29 @@
               else if (nSedRaw.includes('2') || nSedRaw.includes('mer')) sNum = 2;
               else sNum = 1;
 
-              if (rpe !== null || fat !== null) {
-                const curRaw = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${sNum}`);
-                let curObj = {};
-                try { if (curRaw) curObj = JSON.parse(curRaw); } catch(e) {}
-                const updatedPayload = {
-                  rpe: (rpe !== null) ? rpe : (curObj.rpe ?? null),
-                  fat: (fat !== null) ? fat : (curObj.fat ?? null),
-                  note: r.Note_Atleta || curObj.note || '',
-                  date: String(r.Data || r.Timestamp || '').slice(0, 10),
-                  ts: r.Timestamp || curObj.ts || new Date().toISOString()
-                };
-                localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${sNum}`, JSON.stringify(updatedPayload));
+              const rDate = String(r.Data || r.Timestamp || '').slice(0, 10);
+              let recWeek = null;
+              if (nSedRaw.includes('w4')) recWeek = 'W4';
+              else if (nSedRaw.includes('w3')) recWeek = 'W3';
+              else if (nSedRaw.includes('w2')) recWeek = 'W2';
+              else if (rDate >= '2026-09-14') recWeek = 'W4';
+              else if (rDate >= '2026-09-07' && rDate <= '2026-09-13') recWeek = 'W3';
+              else if (rDate >= '2026-08-31' && rDate < '2026-09-07') recWeek = 'W2';
+
+              if (recWeek && (rpe !== null || fat !== null)) {
+                // Per W3: S2 (mercoledì) e S3 (venerdì) non possono essere registrate prima del loro svolgimento
+                if (recWeek === 'W3' && sNum > 1 && rDate <= '2026-09-07') {
+                  // Salta tocco prematuro o test accidentale
+                } else {
+                  const updatedPayload = {
+                    rpe: rpe,
+                    fat: fat,
+                    note: r.Note_Atleta || '',
+                    date: rDate,
+                    ts: r.Timestamp || new Date().toISOString()
+                  };
+                  localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${recWeek}_${sNum}`, JSON.stringify(updatedPayload));
+                }
               }
             }
 
@@ -1469,7 +1482,12 @@
               if (isRow1RM && val >= 15) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_row`, val);
               if (isLat1RM && val >= 15) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_lat`, val);
               if ((ex.includes('rdl') || ex.includes('stacco')) && val >= 20) setIfEmptyOrOlder(`mv_1rm_${currentAthlete.id}_rdl`, val);
-              if (isBW && val >= 40 && val <= 130) setIfEmptyOrOlder(`mv_bw_${currentAthlete.id}`, val);
+              if (isBW && val >= 40 && val <= 130 && !valStr.startsWith('1900') && !valStr.startsWith('1899')) {
+              if (!latestCloudBWTs || rowTs >= latestCloudBWTs) {
+                latestCloudBW = val;
+                latestCloudBWTs = rowTs;
+              }
+            }
             }
             
             // 2. VBT (Velocità Enode)
@@ -1526,6 +1544,15 @@
         render1RMProfile();
         renderRiepilogoCarichi();
         renderSessions();
+        if (latestCloudBW !== null) {
+          const curBw = parseFloat(localStorage.getItem(`mv_bw_${currentAthlete.id}`)) || 0;
+          if (curBw < 40 || curBw > 130 || curBw === 0 || curBw !== latestCloudBW) {
+            localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(latestCloudBW));
+            const inputBw = document.getElementById('input-bw');
+            if (inputBw) inputBw.value = latestCloudBW;
+            render1RMProfile();
+          }
+        }
       } catch (e) {}
     }
 
@@ -1602,8 +1629,15 @@
     }
 
     function getAthleteBW() {
-      const savedBw = localStorage.getItem(`mv_bw_${currentAthlete.id}`);
-      if (savedBw && parseFloat(savedBw) > 0) return parseFloat(savedBw);
+      const savedBwRaw = localStorage.getItem(`mv_bw_${currentAthlete.id}`);
+      const savedBw = parseFloat(savedBwRaw);
+      if (!isNaN(savedBw) && savedBw >= 40 && savedBw <= 130) {
+        return savedBw;
+      }
+      // Rimuove qualsiasi valore errato salvato precedentemente (es. 1900)
+      if (savedBw > 130 || savedBw < 40) {
+        localStorage.removeItem(`mv_bw_${currentAthlete.id}`);
+      }
       return BASELINE_WEIGHTS[currentAthlete.id] || 65;
     }
 
@@ -1981,6 +2015,15 @@
           })
         });
         localStorage.setItem(`mv_synced_mv_load_${currentAthlete.id}_${exName}`, cleanVal);
+        if (latestCloudBW !== null) {
+          const curBw = parseFloat(localStorage.getItem(`mv_bw_${currentAthlete.id}`)) || 0;
+          if (curBw < 40 || curBw > 130 || curBw === 0 || curBw !== latestCloudBW) {
+            localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(latestCloudBW));
+            const inputBw = document.getElementById('input-bw');
+            if (inputBw) inputBw.value = latestCloudBW;
+            render1RMProfile();
+          }
+        }
       } catch (e) {}
 
       renderRiepilogoCarichi();
@@ -2072,6 +2115,15 @@
           })
         });
         localStorage.setItem(`mv_synced_mv_vbt_${currentAthlete.id}_${exName}`, formattedVal);
+        if (latestCloudBW !== null) {
+          const curBw = parseFloat(localStorage.getItem(`mv_bw_${currentAthlete.id}`)) || 0;
+          if (curBw < 40 || curBw > 130 || curBw === 0 || curBw !== latestCloudBW) {
+            localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(latestCloudBW));
+            const inputBw = document.getElementById('input-bw');
+            if (inputBw) inputBw.value = latestCloudBW;
+            render1RMProfile();
+          }
+        }
       } catch (e) {}
     }
 
@@ -2110,7 +2162,16 @@
                 })
               });
               localStorage.setItem(syncKey, val);
-            } catch (e) {}
+              if (latestCloudBW !== null) {
+          const curBw = parseFloat(localStorage.getItem(`mv_bw_${currentAthlete.id}`)) || 0;
+          if (curBw < 40 || curBw > 130 || curBw === 0 || curBw !== latestCloudBW) {
+            localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(latestCloudBW));
+            const inputBw = document.getElementById('input-bw');
+            if (inputBw) inputBw.value = latestCloudBW;
+            render1RMProfile();
+          }
+        }
+      } catch (e) {}
           }
         }
       }
@@ -2143,7 +2204,16 @@
                 })
               });
               localStorage.setItem(syncKey, String(numVal));
-            } catch (e) {}
+              if (latestCloudBW !== null) {
+          const curBw = parseFloat(localStorage.getItem(`mv_bw_${currentAthlete.id}`)) || 0;
+          if (curBw < 40 || curBw > 130 || curBw === 0 || curBw !== latestCloudBW) {
+            localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(latestCloudBW));
+            const inputBw = document.getElementById('input-bw');
+            if (inputBw) inputBw.value = latestCloudBW;
+            render1RMProfile();
+          }
+        }
+      } catch (e) {}
           }
         }
       }
@@ -2177,7 +2247,16 @@
                 });
                 localStorage.setItem(syncKey, raw);
               }
-            } catch (e) {}
+              if (latestCloudBW !== null) {
+          const curBw = parseFloat(localStorage.getItem(`mv_bw_${currentAthlete.id}`)) || 0;
+          if (curBw < 40 || curBw > 130 || curBw === 0 || curBw !== latestCloudBW) {
+            localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(latestCloudBW));
+            const inputBw = document.getElementById('input-bw');
+            if (inputBw) inputBw.value = latestCloudBW;
+            render1RMProfile();
+          }
+        }
+      } catch (e) {}
           }
         }
       }
@@ -2914,11 +2993,7 @@ function renderSessions() {
 
     const nellyTitlesEN = { 1: 'Prevention', 2: 'Strength 1', 3: 'Power 1' };
         const sessionTitle = isEN ? (isNelly ? (nellyTitlesEN[sNum] || `Session ${sNum}`) : `Session ${sNum}`) : (isNelly ? (sed.Nome_Seduta || `Seduta ${sNum}`) : `Seduta ${sNum}`);
-    const savedRaw = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${sNum}`);
-    let savedObj = null;
-    if (savedRaw) {
-      try { savedObj = JSON.parse(savedRaw); } catch(e) {}
-    }
+    const savedObj = getSessionRating(currentAthlete.id, currentWeek, sNum);
     const initialRpe = savedObj?.rpe ?? sessionRatings[sNum]?.rpe ?? null;
     const isSessionSaved = (initialRpe !== null && initialRpe !== undefined);
 
@@ -2979,12 +3054,36 @@ function renderSessions() {
       }
     }
 
-    function renderSessionEnd(nSeduta) {
-      const savedRaw = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`);
-      let savedObj = null;
-      if (savedRaw) {
-        try { savedObj = JSON.parse(savedRaw); } catch(e) {}
+        function getSessionRating(aid, week, sNum) {
+      // 1. Chiave isolata per settimana (es. mv_session_rating_3_W3_1)
+      const scopedRaw = localStorage.getItem(`mv_session_rating_${aid}_${week}_${sNum}`);
+      if (scopedRaw) {
+        try {
+          const obj = JSON.parse(scopedRaw);
+          if (obj && (obj.rpe !== null || obj.fat !== null)) return obj;
+        } catch(e) {}
       }
+      // 2. Chiave generica legacy, solo se valida e coerente per la settimana corrente
+      const legacyRaw = localStorage.getItem(`mv_session_rating_${aid}_${sNum}`);
+      if (legacyRaw) {
+        try {
+          const obj = JSON.parse(legacyRaw);
+          const d = obj.date || '';
+          if (week === 'W3') {
+            if (d >= '2026-09-07' && d <= '2026-09-13') {
+              if (String(sNum) === '1') return obj;
+              if (d > '2026-09-07') return obj;
+            }
+          } else if (week === 'W4') {
+            if (d >= '2026-09-14') return obj;
+          }
+        } catch(e) {}
+      }
+      return null;
+    }
+
+    function renderSessionEnd(nSeduta) {
+      const savedObj = getSessionRating(currentAthlete.id, currentWeek, nSeduta);
       const initialRpe = savedObj?.rpe ?? sessionRatings[nSeduta]?.rpe ?? null;
       const initialFat = savedObj?.fat ?? sessionRatings[nSeduta]?.fat ?? null;
       const initialNote = savedObj?.note || '';
@@ -3080,7 +3179,7 @@ function renderSessions() {
         date: new Date().toISOString().slice(0, 10),
         ts: new Date().toISOString()
       };
-      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
+      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`, JSON.stringify(payload));
       if (rpe !== null && rpe !== undefined) {
         updateSessionHeaderStatus(nSeduta, rpe);
       }
@@ -3104,7 +3203,7 @@ function renderSessions() {
         date: new Date().toISOString().slice(0, 10),
         ts: new Date().toISOString()
       };
-      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
+      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`, JSON.stringify(payload));
       if (rpe !== null && rpe !== undefined) {
         updateSessionHeaderStatus(nSeduta, rpe);
       }
@@ -3117,7 +3216,7 @@ function renderSessions() {
 
     async function autoSaveSessionRatingToCloud(nSeduta) {
       if (!currentAthlete || !currentAthlete.id) return;
-      const raw = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`);
+      const raw = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`) || localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`);
       if (!raw) return;
       try {
         const parsed = JSON.parse(raw);
@@ -3133,7 +3232,7 @@ function renderSessions() {
             token: TOKEN,
             azione: 'log_progressi',
             id_giocatrice: currentAthlete.id,
-            n_seduta: nSeduta,
+            n_seduta: `${currentWeek}_${nSeduta}`,
             esercizio: 'Chiusura-Seduta',
             data: parsed.date || new Date().toISOString().slice(0, 10),
             valore: `RPE ${rpeDisplay} · Fatica ${fatDisplay}`,
@@ -3141,11 +3240,20 @@ function renderSessions() {
           })
         });
 
-        localStorage.setItem(`mv_synced_mv_session_rating_${currentAthlete.id}_${nSeduta}`, raw);
+        localStorage.setItem(`mv_synced_mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`, raw);
         const saveMsg = document.getElementById(`save-msg-${nSeduta}`);
         if (saveMsg) {
           saveMsg.textContent = isEN ? '✓ Saved automatically!' : '✓ Salvato automaticamente!';
           saveMsg.style.display = 'block';
+        }
+        if (latestCloudBW !== null) {
+          const curBw = parseFloat(localStorage.getItem(`mv_bw_${currentAthlete.id}`)) || 0;
+          if (curBw < 40 || curBw > 130 || curBw === 0 || curBw !== latestCloudBW) {
+            localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(latestCloudBW));
+            const inputBw = document.getElementById('input-bw');
+            if (inputBw) inputBw.value = latestCloudBW;
+            render1RMProfile();
+          }
         }
       } catch (e) {}
     }
@@ -3162,7 +3270,7 @@ function renderSessions() {
       btn.style.background = 'var(--mv-emerald)';
       btn.style.color = '#fff';
 
-      const curSaved = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`);
+      const curSaved = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`) || localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`);
       if (curSaved) {
         try {
           const parsed = JSON.parse(curSaved);
@@ -3355,6 +3463,15 @@ function renderSessions() {
             });
           }
         }
+        if (latestCloudBW !== null) {
+          const curBw = parseFloat(localStorage.getItem(`mv_bw_${currentAthlete.id}`)) || 0;
+          if (curBw < 40 || curBw > 130 || curBw === 0 || curBw !== latestCloudBW) {
+            localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(latestCloudBW));
+            const inputBw = document.getElementById('input-bw');
+            if (inputBw) inputBw.value = latestCloudBW;
+            render1RMProfile();
+          }
+        }
       } catch (e) {}
 
       if (btn) {
@@ -3397,7 +3514,16 @@ function renderSessions() {
             });
             await fetch(`${GAS_URL}?${params.toString()}`, { mode: 'no-cors' });
           }
-        } catch (e) {
+          if (latestCloudBW !== null) {
+          const curBw = parseFloat(localStorage.getItem(`mv_bw_${currentAthlete.id}`)) || 0;
+          if (curBw < 40 || curBw > 130 || curBw === 0 || curBw !== latestCloudBW) {
+            localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(latestCloudBW));
+            const inputBw = document.getElementById('input-bw');
+            if (inputBw) inputBw.value = latestCloudBW;
+            render1RMProfile();
+          }
+        }
+      } catch (e) {
           console.warn('Errore registrazione push:', e);
         }
       }

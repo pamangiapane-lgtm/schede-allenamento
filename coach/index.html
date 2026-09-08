@@ -1398,7 +1398,7 @@
     const TOKEN   = 'mv26-prd-3xF7wNqK';
 
     const BASELINE_WEIGHTS = {
-      1: 63.5, 2: 66.8, 3: 74.0, 4: 73.0, 5: 55.5,
+      1: 63.5, 2: 67.6, 3: 74.0, 4: 73.0, 5: 55.5,
       6: 69.0, 7: 78.0, 8: 77.0, 9: 66.0, 11: 60.0,
       12: 63.5, 13: 68.0, 14: 70.0
     };
@@ -1728,7 +1728,7 @@
             if (isMilitary1RM && val >= 15) updateIfNewer('military', val);
             if (isRow1RM && val >= 15) updateIfNewer('row', val);
             if (isLat1RM && val >= 15) updateIfNewer('lat', val);
-            if (isBW && val >= 40 && val <= 130) updateIfNewer('bw', val);
+            if (isBW && val >= 40 && val <= 130 && !valStr.startsWith('1900') && !valStr.startsWith('1899')) updateIfNewer('bw', val);
           }
 
           // 4. CARICHI ACCESSORI & NOTE SQUADRA (Deduplicati e puliti da autoformattazione Sheets)
@@ -2402,7 +2402,8 @@
       tbody.innerHTML = ROSTER.map(a => {
         const base = TRUE_BASELINES[a.id] || {};
         const live = live1RMData[a.id] || {};
-        const bw = live.bw || BASELINE_WEIGHTS[a.id] || 65;
+        let bw = live.bw || BASELINE_WEIGHTS[a.id] || 65;
+        if (bw < 40 || bw > 130) bw = BASELINE_WEIGHTS[a.id] || 65;
 
         const sq = live.squat || base.squat || 0;
         const bp = live.bench || base.bench || 0;
