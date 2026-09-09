@@ -1525,7 +1525,7 @@
     async function initCoach() {
       initCampoSection();
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=234', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=235', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -1548,35 +1548,98 @@
     async function fetchLiveWellness() {
       try {
         let rows = [];
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const localTodayStr = new Date().toLocaleDateString('sv-SE');
+
+        // 1. Fetch da Supabase
+        let sbRows = [];
         if (window.MV_SUPABASE) {
           const sb = window.MV_SUPABASE.getSb();
           if (sb) {
-            const { data, error } = await sb
-              .from('wellness_logs')
-              .select('*')
-              .order('date', { ascending: false });
-            if (!error && data && data.length > 0) {
-              rows = data.map(d => ({
-                ID_Giocatrice: d.athlete_id,
-                Data: d.date,
-                Qualita_Sonno: d.sleep_quality,
-                Fatica: d.fatigue,
-                Readines: d.readiness,
-                Dolori: d.soreness,
-                Stress: d.stress,
-                Note: d.note,
-                Timestamp: d.created_at
-              }));
+            try {
+              const { data, error } = await sb
+                .from('wellness_logs')
+                .select('*')
+                .order('date', { ascending: false });
+              if (!error && data && data.length > 0) {
+                sbRows = data.map(d => ({
+                  ID_Giocatrice: d.athlete_id,
+                  Data: d.date,
+                  Qualita_Sonno: d.sleep_quality,
+                  Fatica: d.fatigue,
+                  Readines: d.readiness,
+                  Dolori: d.soreness,
+                  Stress: d.stress,
+                  Note: d.note,
+                  Timestamp: d.created_at
+                }));
+              }
+            } catch (err) {
+              console.warn('[Coach Supabase Fetch Error]', err);
             }
           }
         }
-        if (rows.length === 0) {
-          const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Wellness`);
-          const json = await res.json();
-          rows = json.dati || [];
+
+        // Verifica se ci sono atlete attive mancanti per oggi su Supabase
+        const targetAids = ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff')).map(a => a.id);
+        const presentTodayInSb = new Set();
+        sbRows.forEach(r => {
+          const rDate = (r.Data || '').slice(0, 10);
+          const tsDate = (r.Timestamp || '').slice(0, 10);
+          if (rDate === todayStr || rDate === localTodayStr || tsDate === todayStr || tsDate === localTodayStr) {
+            presentTodayInSb.add(parseInt(r.ID_Giocatrice));
+          }
+        });
+        const missingTodayInSb = targetAids.filter(id => !presentTodayInSb.has(id));
+
+        // 2. Fetch da Google Sheets (se Supabase vuoto o se manca anche solo un'atleta oggi)
+        let gasRows = [];
+        if (sbRows.length === 0 || missingTodayInSb.length > 0) {
+          try {
+            const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Wellness`);
+            const json = await res.json();
+            gasRows = json.dati || [];
+          } catch (err) {
+            console.warn('[Coach GAS Fetch Error]', err);
+          }
         }
+
+        // 3. Merge resiliente con deduplicazione e self-healing backfill verso Supabase
+        if (gasRows.length > 0) {
+          const sbKeys = new Set(sbRows.map(r => `${parseInt(r.ID_Giocatrice)}_${(r.Data || '').slice(0, 10)}`));
+          const toAddFromGas = [];
+          gasRows.forEach(gr => {
+            const gid = parseInt(gr.ID_Giocatrice);
+            const gDate = (gr.Data || '').slice(0, 10);
+            const key = `${gid}_${gDate}`;
+            if (!sbKeys.has(key)) {
+              toAddFromGas.push(gr);
+              // Backfill automatico verso Supabase se online
+              if (window.MV_SUPABASE && window.MV_SUPABASE.getSb() && (gDate === todayStr || gDate === localTodayStr)) {
+                window.MV_SUPABASE.salvaWellness({
+                  ID_Giocatrice: gid,
+                  Data: gDate,
+                  Qualita_Sonno: gr.Qualita_Sonno,
+                  Fatica: gr.Fatica,
+                  Readines: gr.Readines || gr.Disponibilita,
+                  Dolori: gr.Dolori,
+                  Stress: gr.Stress,
+                  Note: gr.Note,
+                  Timestamp: gr.Timestamp
+                }).catch(() => {});
+              }
+            }
+          });
+          rows = [...sbRows, ...toAddFromGas];
+        } else {
+          rows = sbRows;
+        }
+
+        if (rows.length === 0 && gasRows.length > 0) {
+          rows = gasRows;
+        }
+
         liveWellnessData = {};
-        const todayStr = new Date().toISOString().slice(0, 10);
 
         rawWellnessRecords = [];
         rows.forEach(r => {
@@ -1685,6 +1748,8 @@
               inferredNote = r.Note;
             }
 
+            const isTodayRec = (rDate === todayStr || rDate === localTodayStr || (r.Timestamp && (r.Timestamp.startsWith(todayStr) || r.Timestamp.startsWith(localTodayStr))));
+
             liveWellnessData[aid] = {
               date: rDate,
               sonno: r.Qualita_Sonno !== '' ? parseInt(r.Qualita_Sonno) : null,
@@ -1694,7 +1759,7 @@
               stress: inferredStress,
               note: inferredNote,
               timestamp: r.Timestamp,
-              isToday: (rDate === todayStr || (r.Timestamp && r.Timestamp.startsWith(todayStr)))
+              isToday: isTodayRec
             };
           }
         });
