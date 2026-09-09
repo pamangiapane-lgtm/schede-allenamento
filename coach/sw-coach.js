@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v233)
-const CACHE_NAME = 'coach-mv-v233-w3s2';
+// Service Worker Coach Command Center (v234)
+const CACHE_NAME = 'coach-mv-v234-reminder';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

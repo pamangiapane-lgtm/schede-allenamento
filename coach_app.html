@@ -631,6 +631,58 @@
       border-radius: 3px;
     }
 
+    /* Modal Solleciti Reminder WhatsApp */
+    .reminder-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(4, 8, 16, 0.84);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+    .reminder-modal-overlay.active {
+      display: flex;
+    }
+    .reminder-modal-sheet {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      width: 100%;
+      max-width: 520px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.6);
+      overflow: hidden;
+      animation: modalFadeIn 0.16s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(10px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    #global-coach-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #064e3b;
+      color: #a7f3d0;
+      border: 1px solid #10b981;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      z-index: 10000;
+      display: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -707,20 +759,31 @@
         </div>
       </div>
 
-      <!-- Toolbar Filtro -->
-      <div class="toolbar-box">
-        <div class="filter-pills">
-          <button class="btn-filt active" onclick="setRosterFilter('all', this)">Tutte</button>
-          <button class="btn-filt" onclick="setRosterFilter('alert', this)">🚨 Con Alert</button>
-          <button class="btn-filt" onclick="setRosterFilter('done', this)">✅ Compilato Oggi</button>
-          <button class="btn-filt" onclick="setRosterFilter('missing', this)">⏳ Da Compilare</button>
+      <!-- Toolbar Filtro & Azioni WhatsApp -->
+      <div class="toolbar-box" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+          <div class="filter-pills">
+            <button class="btn-filt active" onclick="setRosterFilter('all', this)">Tutte</button>
+            <button class="btn-filt" onclick="setRosterFilter('alert', this)">🚨 Con Alert</button>
+            <button class="btn-filt" onclick="setRosterFilter('done', this)">✅ Compilato Oggi</button>
+            <button class="btn-filt" onclick="setRosterFilter('missing', this)">⏳ Da Compilare</button>
+          </div>
+          <div class="filter-pills">
+            <button class="btn-filt" onclick="setRoleFilter('all', this)">Tutti Ruoli</button>
+            <button class="btn-filt" onclick="setRoleFilter('Schiacciatrice', this)">Schiacc.</button>
+            <button class="btn-filt" onclick="setRoleFilter('Centrale', this)">Centrali</button>
+            <button class="btn-filt" onclick="setRoleFilter('Palleggiatrice', this)">Pall.</button>
+            <button class="btn-filt" onclick="setRoleFilter('Libero', this)">Liberi</button>
+          </div>
         </div>
-        <div class="filter-pills">
-          <button class="btn-filt" onclick="setRoleFilter('all', this)">Tutti Ruoli</button>
-          <button class="btn-filt" onclick="setRoleFilter('Schiacciatrice', this)">Schiacc.</button>
-          <button class="btn-filt" onclick="setRoleFilter('Centrale', this)">Centrali</button>
-          <button class="btn-filt" onclick="setRoleFilter('Palleggiatrice', this)">Pall.</button>
-          <button class="btn-filt" onclick="setRoleFilter('Libero', this)">Liberi</button>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <button class="btn-filt" id="btn-manual-reminder" onclick="openManualReminderModal()" style="background:rgba(232,160,32,0.18);border:1px solid var(--mv-amber);color:var(--mv-gold-text);font-weight:700;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;cursor:pointer;">
+            <span>📲 Invia Reminder</span>
+            <span id="badge-reminder-missing" style="background:var(--mv-amber);color:#071226;padding:1px 6px;border-radius:10px;font-size:0.68rem;font-weight:800;">--</span>
+          </button>
+          <button class="btn-filt" onclick="shareWellnessReportWhatsApp()" style="background:rgba(37,211,102,0.15);border:1px solid #25d366;color:#86efac;font-weight:700;display:inline-flex;align-items:center;gap:5px;padding:6px 10px;cursor:pointer;" title="Condividi Report Squadra su WhatsApp">
+            <span>📊 Report WA</span>
+          </button>
         </div>
       </div>
 
@@ -1462,7 +1525,7 @@
     async function initCoach() {
       initCampoSection();
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=233', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=234', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -2142,6 +2205,179 @@
       window.open(waUrl, '_blank');
     }
 
+    /* ==========================================
+       RUBRICA & SOLLECITI WELLNESS WHATSAPP
+       ========================================== */
+    const RUBRICA_ATLETE = {
+      1:  { nome: "Veronica Allasia",   tel: "+393319318832" },
+      2:  { nome: "Maria Marcuzzi",     tel: "+393917336630" },
+      3:  { nome: "Victoria Sassolini", tel: "+393880910814" },
+      4:  { nome: "Anja Asonja",        tel: "+40721655234" },
+      5:  { nome: "Chiara Lo Dico",     tel: "+393315792921" },
+      6:  { nome: "Gaia Biondi",        tel: "+393737735471" },
+      7:  { nome: "Elisa Bole",         tel: "+393290149243" },
+      8:  { nome: "Federica Nonnati",   tel: "+393926963470" },
+      9:  { nome: "Sara Dodi",          tel: "+393388111510" },
+      11: { nome: "Luna Cicola",        tel: "+393518317652" },
+      12: { nome: "Erin Grippo",        tel: "+393807788016" },
+      13: { nome: "Giulia Caserta",     tel: "+393459356879" },
+      14: { nome: "Nelly Adamczewska",  tel: "+48575615552" }
+    };
+
+    function showCoachToast(msg) {
+      const toast = document.getElementById('global-coach-toast');
+      if (!toast) return;
+      toast.innerHTML = msg;
+      toast.style.display = 'block';
+      toast.style.opacity = '1';
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => { toast.style.display = 'none'; }, 200);
+      }, 3200);
+    }
+
+    function getReminderMessageForAthlete(ath) {
+      const aid = ath.id;
+      const firstName = ath.name.split(' ')[0];
+      const targetUrl = `https://pamangiapane-lgtm.github.io/schede-allenamento/?id=${aid}&wellness=1`;
+      
+      if (aid === 4 || aid === 14) {
+        return `🏐 *Marsala Volley — Technical Staff*\n\nHi ${firstName}!\nYour Morning Wellness questionnaire for today's session is still pending.\n\nPlease complete it now:\n👉 ${targetUrl}\n\nThank you for your cooperation! 💪`;
+      } else {
+        return `🏐 *Marsala Volley — Staff Tecnico*\n\nCiao ${firstName}!\nRisulta mancante la compilazione del tuo questionario Wellness per la seduta odierna.\n\nCompilalo adesso prima di iniziare:\n👉 ${targetUrl}\n\nGrazie per la collaborazione! 💪`;
+      }
+    }
+
+    function getMissingAthletesList() {
+      const ATHLETES = ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff'));
+      return ATHLETES.filter(a => {
+        const w = liveWellnessData[a.id];
+        return !w || !w.isToday;
+      });
+    }
+
+    function getGroupReminderMessage(missingList) {
+      const names = missingList.map(a => `#${a.id} ${a.name.split(' ').pop()}`).join(', ');
+      return `🏐 *MARSALA VOLLEY — PROMEMORIA WELLNESS* 🏐\n\nRagazze buongiorno! Prima di iniziare l'allenamento ricordatevi di compilare il questionario Morning Wellness:\n👉 https://pamangiapane-lgtm.github.io/schede-allenamento/\n\n⏳ *In attesa di compilazione (${missingList.length}):*\n${names}\n\nGrazie per la collaborazione! 💪`;
+    }
+
+    function openManualReminderModal() {
+      const modal = document.getElementById('reminder-modal');
+      const listContainer = document.getElementById('reminder-modal-list');
+      const subtitle = document.getElementById('reminder-modal-subtitle');
+      const groupBar = document.getElementById('reminder-group-bar');
+      if (!modal || !listContainer) return;
+
+      const missing = getMissingAthletesList();
+
+      if (missing.length === 0) {
+        subtitle.textContent = 'Tutte le 13 atlete hanno compilato!';
+        if (groupBar) groupBar.style.display = 'none';
+        listContainer.innerHTML = `
+          <div style="text-align:center;padding:24px 12px;">
+            <div style="font-size:2.2rem;margin-bottom:8px;">🎉</div>
+            <div style="font-size:0.95rem;font-weight:800;color:#6ee7b7;margin-bottom:4px;">Squadra al Completo!</div>
+            <div style="font-size:0.78rem;color:var(--mv-muted);margin-bottom:14px;">Tutte le 13 atlete hanno già registrato il Morning Wellness di oggi.</div>
+            <button onclick="shareWellnessReportWhatsApp();closeManualReminderModal();" style="background:rgba(37,211,102,0.2);border:1px solid #25d366;color:#86efac;font-weight:700;padding:8px 16px;border-radius:8px;font-size:0.8rem;cursor:pointer;">
+              📊 Condividi Report Staff su WhatsApp
+            </button>
+          </div>
+        `;
+      } else {
+        subtitle.textContent = `${missing.length} ${missing.length === 1 ? 'atleta mancante' : 'atlete mancanti'} oggi`;
+        if (groupBar) groupBar.style.display = 'flex';
+        listContainer.innerHTML = missing.map(a => {
+          const info = RUBRICA_ATLETE[a.id] || { tel: '' };
+          return `
+            <div style="display:flex;align-items:center;justify-content:space-between;background:#060a14;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:30px;height:30px;border-radius:8px;background:rgba(232,160,32,0.15);border:1px solid var(--mv-amber);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.75rem;color:var(--mv-gold-text);">
+                  #${a.id}
+                </div>
+                <div>
+                  <div style="font-size:0.84rem;font-weight:800;color:#fff;">${a.name}</div>
+                  <div style="font-size:0.7rem;color:var(--mv-muted);">${a.role} · ${info.tel || 'Tel n/d'}</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:6px;">
+                <button onclick="sendSingleReminder(${a.id})" style="background:rgba(37,211,102,0.18);border:1px solid #25d366;color:#86efac;font-size:0.72rem;font-weight:700;padding:5px 10px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;" title="Invia promemoria WhatsApp">
+                  <span>💬 Invia</span>
+                </button>
+                <button onclick="copySingleReminder(${a.id})" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#cbd5e1;font-size:0.72rem;padding:5px 8px;border-radius:6px;cursor:pointer;" title="Copia messaggio negli appunti">
+                  📋
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      modal.classList.add('active');
+    }
+
+    function closeManualReminderModal() {
+      const modal = document.getElementById('reminder-modal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function handleReminderOverlayClick(e) {
+      if (e.target.id === 'reminder-modal') {
+        closeManualReminderModal();
+      }
+    }
+
+    function sendSingleReminder(athId) {
+      const ath = ROSTER.find(a => a.id === athId);
+      const info = RUBRICA_ATLETE[athId];
+      if (!ath || !info) {
+        showCoachToast('⚠️ Recapito telefonico non disponibile');
+        return;
+      }
+      const msg = getReminderMessageForAthlete(ath);
+      const cleanTel = info.tel.replace(/[^0-9]/g, '');
+      const waUrl = `https://api.whatsapp.com/send?phone=${cleanTel}&text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, '_blank');
+      showCoachToast(`📲 WhatsApp aperto per #${ath.id} ${ath.name.split(' ')[0]}`);
+    }
+
+    function copySingleReminder(athId) {
+      const ath = ROSTER.find(a => a.id === athId);
+      if (!ath) return;
+      const msg = getReminderMessageForAthlete(ath);
+      navigator.clipboard.writeText(msg).then(() => {
+        showCoachToast(`📋 Messaggio copiato per #${ath.id} ${ath.name.split(' ')[0]}!`);
+      }).catch(() => {
+        showCoachToast('⚠️ Impossibile copiare negli appunti');
+      });
+    }
+
+    function shareGroupReminderWhatsApp() {
+      const missing = getMissingAthletesList();
+      if (missing.length === 0) {
+        showCoachToast('✅ Nessuna atleta mancante!');
+        return;
+      }
+      const msg = getGroupReminderMessage(missing);
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+      window.open(waUrl, '_blank');
+      showCoachToast('📲 WhatsApp aperto con promemoria gruppo');
+    }
+
+    function copyGroupReminder() {
+      const missing = getMissingAthletesList();
+      if (missing.length === 0) {
+        showCoachToast('✅ Nessuna atleta mancante!');
+        return;
+      }
+      const msg = getGroupReminderMessage(missing);
+      navigator.clipboard.writeText(msg).then(() => {
+        showCoachToast('📋 Testo promemoria gruppo copiato negli appunti!');
+      }).catch(() => {
+        showCoachToast('⚠️ Impossibile copiare negli appunti');
+      });
+    }
+
     function switchCoachTab(tab, btn) {
       document.querySelectorAll('.c-tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -2404,6 +2640,14 @@
       document.getElementById('kpi-alert-count').textContent = alertList.length;
       document.getElementById('kpi-alert-sub').textContent = alertList.length === 0 ? 'Nessun fastidio critico' : `${alertList.length} atlete da monitorare`;
       
+      const missingCount = ATHLETES.length - countFilled;
+      const badgeRem = document.getElementById('badge-reminder-missing');
+      if (badgeRem) {
+        badgeRem.textContent = missingCount === 0 ? '✓' : `${missingCount}`;
+        badgeRem.style.background = missingCount === 0 ? 'var(--mv-emerald)' : 'var(--mv-amber)';
+        badgeRem.style.color = '#071226';
+      }
+      
       let countSessionsToday = 0;
       ATHLETES.forEach(a => {
         if (liveTodaySessions[a.id] && liveTodaySessions[a.id].isToday) countSessionsToday++;
@@ -2500,7 +2744,14 @@
             </div>
           </div>
           ${w.note ? `<div style="font-size:0.75rem;color:#fde68a;font-style:italic;margin-top:6px;width:100%;">💬 "${w.note}"</div>` : ''}
-        ` : `<div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;margin-top:4px;">Questionario non ancora compilato stamattina</div>`;
+        ` : `
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;flex-wrap:wrap;gap:6px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.04);">
+            <span style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;">Questionario non ancora compilato stamattina</span>
+            <button onclick="sendSingleReminder(${a.id})" style="background:rgba(37,211,102,0.15);border:1px solid #25d366;color:#86efac;font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
+              <span>📲 Sollecita WhatsApp</span>
+            </button>
+          </div>
+        `;
 
         const sess = liveTodaySessions[a.id];
         const todaySessionPill = (sess && sess.isToday) ? `
@@ -3649,5 +3900,41 @@
     
     window.addEventListener('DOMContentLoaded', initCoach);
   </script>
+  <!-- Global Coach Toast -->
+  <div id="global-coach-toast"></div>
+
+  <!-- Modal Sollecito Wellness Manuale -->
+  <div id="reminder-modal" class="reminder-modal-overlay" onclick="handleReminderOverlayClick(event)">
+    <div class="reminder-modal-sheet" onclick="event.stopPropagation()">
+      <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;background:#091222;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:1.2rem;">📲</span>
+          <div>
+            <div style="font-size:0.95rem;font-weight:800;color:#fff;">Solleciti Wellness Mattutino</div>
+            <div style="font-size:0.72rem;color:var(--mv-muted);" id="reminder-modal-subtitle">Caricamento stato compilazioni...</div>
+          </div>
+        </div>
+        <button onclick="closeManualReminderModal()" style="background:transparent;border:none;color:#94a3b8;font-size:1.3rem;cursor:pointer;padding:4px 8px;line-height:1;">✕</button>
+      </div>
+      
+      <!-- Quick Group Actions -->
+      <div id="reminder-group-bar" style="padding:10px 16px;background:rgba(255,255,255,0.02);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+        <span style="font-size:0.72rem;color:var(--mv-muted);">Azioni rapide:</span>
+        <div style="display:flex;gap:6px;">
+          <button onclick="shareGroupReminderWhatsApp()" style="background:rgba(37,211,102,0.18);border:1px solid #25d366;color:#86efac;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
+            <span>📢 Gruppo Squadra</span>
+          </button>
+          <button onclick="copyGroupReminder()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#cbd5e1;font-size:0.72rem;font-weight:600;padding:4px 10px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
+            <span>📋 Copia Testo</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- List of missing athletes -->
+      <div id="reminder-modal-list" style="padding:14px 16px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;max-height:60vh;">
+        <!-- Filled dynamically -->
+      </div>
+    </div>
+  </div>
 </body>
 </html>
