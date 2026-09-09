@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v237-nelly-order)
-const CACHE_NAME = 'marsala-pwa-v237-nelly-order';
+// Service Worker App Marsala Volley (v238-synapse-c2)
+const CACHE_NAME = 'marsala-pwa-v238-synapse-c2';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260909v235',
+  './data.js?v=20260909v238',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',
