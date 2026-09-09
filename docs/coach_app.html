@@ -2044,8 +2044,21 @@
                 loadKg = Math.max(0, Math.round(((0.75 * (sq1RM + bw)) - bw) * 2) / 2);
               }
 
-              // Unificazione doppi log: priorità al record più vecchio per atleta e seduta
-              const cleanSessKey = (nSeduta.toUpperCase().includes('W3') || nSeduta === 'W2-S2') ? 'W3_1' : nSeduta;
+              // Unificazione doppi log per atleta e seduta
+              let cleanSessKey = 'W3_1';
+              let sessionLabel = 'W3 · Seduta 1';
+              const nUp = nSeduta.toUpperCase();
+              if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || rDate === '2026-09-09') {
+                cleanSessKey = 'W3_2';
+                sessionLabel = 'W3 · Seduta 2';
+              } else if (nUp.includes('VEN') || nUp.includes('S3') || nUp.endsWith('_3') || rDate === '2026-09-11') {
+                cleanSessKey = 'W3_3';
+                sessionLabel = 'W3 · Seduta 3';
+              } else if (nUp.includes('W2')) {
+                cleanSessKey = nSeduta;
+                sessionLabel = nSeduta;
+              }
+
               const vbtKey = `${aid}_${cleanSessKey}`;
               if (!seenVBT.has(vbtKey)) {
                 seenVBT.add(vbtKey);
@@ -2056,8 +2069,8 @@
                   exercise: exRaw || 'Squat (Parallelo)',
                   vel: parseFloat(vel.toFixed(2)),
                   kg: loadKg,
-                  session: nSeduta.startsWith('W3') ? 'W3 · Seduta 1' : nSeduta,
-                  date: rDate || '2026-09-07',
+                  session: sessionLabel,
+                  date: rDate || (cleanSessKey === 'W3_2' ? '2026-09-09' : '2026-09-07'),
                   ts: ts
                 };
                 liveVBTData.push(rec);
@@ -2081,8 +2094,21 @@
             if (hNum < 18 || hNum > 55) return;
             cleanHeight = `${hNum} cm`;
 
-            // Unificazione doppi log: priorità al record più vecchio per atleta e seduta
-            const cleanSessKey = (nSeduta.toUpperCase().includes('W3') || nSeduta === 'W2-S2') ? 'W3_1' : nSeduta;
+            // Unificazione doppi log per atleta e seduta
+            let cleanSessKey = 'W3_1';
+            let sessionLabel = 'W3 · Seduta 1';
+            const nUp = nSeduta.toUpperCase();
+            if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || rDate === '2026-09-09') {
+              cleanSessKey = 'W3_2';
+              sessionLabel = 'W3 · Seduta 2';
+            } else if (nUp.includes('VEN') || nUp.includes('S3') || nUp.endsWith('_3') || rDate === '2026-09-11') {
+              cleanSessKey = 'W3_3';
+              sessionLabel = 'W3 · Seduta 3';
+            } else if (nUp.includes('W2')) {
+              cleanSessKey = nSeduta;
+              sessionLabel = nSeduta;
+            }
+
             const cmjKey = `${aid}_${cleanSessKey}`;
             if (!seenCMJ.has(cmjKey)) {
               seenCMJ.add(cmjKey);
@@ -2091,8 +2117,8 @@
                 athName: athName,
                 role: athRole,
                 height: cleanHeight,
-                session: nSeduta.startsWith('W3') ? 'W3 · Seduta 1' : nSeduta,
-                date: rDate || 'Oggi',
+                session: sessionLabel,
+                date: rDate || (cleanSessKey === 'W3_2' ? '2026-09-09' : '2026-09-07'),
                 ts: ts
               });
             }
@@ -2197,7 +2223,12 @@
             }
 
             let sessionLabel = nSeduta;
-            if (nSeduta === '1' || nSeduta === 'W3_1' || nSeduta === 'W3-LunP' || nSeduta === 'W3-Lun') {
+            const nUp = String(nSeduta).toUpperCase();
+            if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || nSeduta === '2' || actualDate === '2026-09-09') {
+              sessionLabel = 'W3 · Seduta 2';
+            } else if (nUp.includes('VEN') || nUp.includes('S3') || nUp.endsWith('_3') || nSeduta === '3' || actualDate === '2026-09-11') {
+              sessionLabel = 'W3 · Seduta 3';
+            } else if (nUp.includes('LUN') || nUp.includes('S1') || nUp.endsWith('_1') || nSeduta === '1' || actualDate === '2026-09-07') {
               sessionLabel = 'W3 · Seduta 1';
             }
 
@@ -3141,7 +3172,13 @@
       const todayIso = now.toISOString().slice(0, 10);
       const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 
-      tbody.innerHTML = liveVBTData.slice(0, 60).map(v => {
+      const sortedVbt = [...liveVBTData].sort((a, b) => {
+        const tA = String(a.ts || a.date || '');
+        const tB = String(b.ts || b.date || '');
+        return tB.localeCompare(tA);
+      });
+
+      tbody.innerHTML = sortedVbt.slice(0, 60).map(v => {
         const velNum = parseFloat(v.vel);
         let badgeColor = '#10b981'; // Verde (esplosivo >= 0.80)
         let badgeText = '⚡ Veloce / Esplosivo';
@@ -3189,7 +3226,13 @@
       const todayIso = now.toISOString().slice(0, 10);
       const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 
-      tbody.innerHTML = liveCMJData.slice(0, 60).map(c => {
+      const sortedCmj = [...liveCMJData].sort((a, b) => {
+        const tA = String(a.ts || a.date || '');
+        const tB = String(b.ts || b.date || '');
+        return tB.localeCompare(tA);
+      });
+
+      tbody.innerHTML = sortedCmj.slice(0, 60).map(c => {
         const hNum = parseFloat(c.height.replace(',', '.').replace(/cm/i, '')) || 0;
         let badgeColor = '#38bdf8';
         let badgeText = 'Buona prontezza';

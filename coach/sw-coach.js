@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v238-synapse-c2)
-const CACHE_NAME = 'coach-mv-v238-synapse-c2';
+// Service Worker Coach Command Center (v239-vbt-fix)
+const CACHE_NAME = 'coach-mv-v239-vbt-fix';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
