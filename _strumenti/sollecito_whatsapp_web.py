@@ -10,6 +10,7 @@ import sys
 import json
 import time
 import urllib.parse
+import subprocess
 import requests
 from datetime import datetime
 from playwright.sync_api import sync_playwright
@@ -30,6 +31,9 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROFILE_DIR = os.path.join(SCRIPT_DIR, 'wa_web_profile')
 RUBRICA_FILE = os.path.join(SCRIPT_DIR, 'rubrica_atlete.json')
 LOG_FILE = os.path.join(SCRIPT_DIR, 'solleciti_inviati.log')
+STATUS_FILE = os.path.join(SCRIPT_DIR, 'wa_status.json')
+QR_SHOT_FILE = os.path.join(SCRIPT_DIR, 'ultimo_qr_richiesto.png')
+LOCK_FILE = os.path.join(SCRIPT_DIR, 'sollecito.lock')
 
 GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec'
 TOKEN   = os.environ.get('APP_TOKEN') or 'mv26-prd-3xF7wNqK'
@@ -120,6 +124,145 @@ def pulisci_numero(num):
         s = '39' + s
     return s
 
+def invia_notifica_windows(titolo, messaggio):
+    """Invia notifica nativa Windows Toast sul desktop dello staff."""
+    try:
+        ps_cmd = f"""
+        [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
+        $template = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent([Windows.UI.Notifications.ToastTemplateType]::ToastText02)
+        $textNodes = $template.GetElementsByTagName('text')
+        $textNodes.Item(0).AppendChild($template.CreateTextNode('{titolo}')) | Out-Null
+        $textNodes.Item(1).AppendChild($template.CreateTextNode('{messaggio}')) | Out-Null
+        $toast = [Windows.UI.Notifications.ToastNotification]::new($template)
+        $notifier = [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier('Marsala Volley Staff')
+        $notifier.Show($toast)
+        """
+        subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, timeout=6)
+    except Exception as e:
+        print(f"[Notifica] Errore invio notifica: {e}")
+
+def pulisci_lock_orfani():
+    """Elimina i file di lock di Chromium se una sessione precedente si è chiusa in modo anomalo."""
+    for lock_name in ['SingletonLock', 'SingletonCookie', 'SingletonSocket']:
+        lock_path = os.path.join(PROFILE_DIR, lock_name)
+        if os.path.exists(lock_path):
+            try:
+                os.remove(lock_path)
+                print(f"[Pulizia] Rimosso lock orfano: {lock_name}")
+            except Exception as e:
+                print(f"[Attenzione] Impossibile rimuovere {lock_name}: {e}")
+
+def acquisisci_lock():
+    """Garantisce che una sola istanza del bot stia accedendo al profilo WhatsApp Web."""
+    if os.path.exists(LOCK_FILE):
+        try:
+            with open(LOCK_FILE, 'r') as f:
+                pid = int(f.read().strip())
+            import ctypes
+            kernel32 = ctypes.windll.kernel32
+            PROCESS_QUERY_INFORMATION = 0x0400
+            handle = kernel32.OpenProcess(PROCESS_QUERY_INFORMATION, False, pid)
+            if handle != 0:
+                kernel32.CloseHandle(handle)
+                print(f"[Lock] Un'altra istanza di sollecito è già attiva (PID: {pid}). Operazione terminata per prevenire conflitti.")
+                return False
+        except Exception:
+            pass
+    try:
+        with open(LOCK_FILE, 'w') as f:
+            f.write(str(os.getpid()))
+        return True
+    except Exception:
+        return True
+
+def rilascia_lock():
+    try:
+        if os.path.exists(LOCK_FILE):
+            os.remove(LOCK_FILE)
+    except Exception:
+        pass
+
+def attendi_e_stabilizza_connessione_wa(page, timeout_sec=65):
+    """Attende WhatsApp Web, gestisce 'Usa qui', 'Riprova' e monitora disconnessioni."""
+    start_t = time.time()
+    print(f"⏳ Stabilizzazione connessione WhatsApp Web (timeout: {timeout_sec}s)...")
+    qr_count = 0
+
+    while time.time() - start_t < timeout_sec:
+        # 1. Rileva e clicca popup 'Usa qui'
+        try:
+            usa_qui = page.locator('button:has-text("Usa qui"), div[role="button"]:has-text("Usa qui"), button:has-text("Use here")').first
+            if usa_qui.is_visible(timeout=500):
+                print("⚡ Rilevato popup 'Usa qui' (sessione aperta altrove). Clicco per riattivare su questo dispositivo...")
+                usa_qui.click()
+                time.sleep(2)
+        except Exception:
+            pass
+
+        # 2. Rileva e clicca 'Riprova' / 'Retry'
+        try:
+            riprova = page.locator('button:has-text("Riprova"), button:has-text("Retry")').first
+            if riprova.is_visible(timeout=500):
+                print("🔄 Rilevato pulsante 'Riprova'. Clicco...")
+                riprova.click()
+                time.sleep(2)
+        except Exception:
+            pass
+
+        # 3. Verifica sessione autenticata (pane-side o input box)
+        try:
+            pane = page.locator('div[id="pane-side"], div[contenteditable="true"]').first
+            if pane.is_visible(timeout=1000):
+                print("✅ Connessione a WhatsApp Web stabilita con successo!")
+                try:
+                    with open(STATUS_FILE, 'w', encoding='utf-8') as f:
+                        json.dump({
+                            "timestamp": datetime.now().isoformat(),
+                            "date_readable": datetime.now().strftime('%d/%m/%Y %H:%M'),
+                            "status": "CONNECTED",
+                            "detail": "Sessione operativa e pronta all'invio."
+                        }, f, indent=2)
+                except Exception:
+                    pass
+                return True
+        except Exception:
+            pass
+
+        # 4. Verifica se mostra QR Code
+        try:
+            qr = page.locator('canvas, div[data-ref]').first
+            if qr.is_visible(timeout=1000):
+                qr_count += 1
+                if qr_count >= 8:  # Visibile per più di 12 secondi
+                    print("❌ Rilevato QR Code: sessione WhatsApp non collegata o disconnessa!")
+                    try:
+                        page.screenshot(path=QR_SHOT_FILE)
+                        print(f"📸 Screenshot QR salvato in: {QR_SHOT_FILE}")
+                    except Exception:
+                        pass
+                    try:
+                        with open(STATUS_FILE, 'w', encoding='utf-8') as f:
+                            json.dump({
+                                "timestamp": datetime.now().isoformat(),
+                                "date_readable": datetime.now().strftime('%d/%m/%Y %H:%M'),
+                                "status": "DISCONNECTED",
+                                "detail": "Disconnesso. Richiesta scansione QR Code."
+                            }, f, indent=2)
+                    except Exception:
+                        pass
+                    invia_notifica_windows(
+                        "⚠️ WhatsApp Web Disconnesso",
+                        "I solleciti non possono partire. Scansiona il QR Code dal telefono Staff!"
+                    )
+                    return False
+        except Exception:
+            pass
+
+        time.sleep(1.5)
+
+    print("⚠️ Timeout stabilizzazione WhatsApp Web.")
+    return False
+
 def login_setup():
     """Apre la finestra per inquadrare il QR Code una volta sola e salvare il profilo."""
     print("="*70)
@@ -188,6 +331,7 @@ def invia_messaggi(destinatari, dry_run=False):
             print(f"   [DRY-RUN] #{a['id']:02d} {a['name']} ({a['tel']}) -> pronto per invio")
         return len(destinatari), 0
 
+    pulisci_lock_orfani()
     os.makedirs(PROFILE_DIR, exist_ok=True)
     inviati = 0
     errori = 0
@@ -205,14 +349,24 @@ def invia_messaggi(destinatari, dry_run=False):
             ]
         )
         page = browser_context.pages[0] if browser_context.pages else browser_context.new_page()
-        page.goto("https://web.whatsapp.com")
+        page.goto("https://web.whatsapp.com", wait_until='domcontentloaded')
 
-        # Verifica che il login sia attivo
-        try:
-            page.wait_for_selector('div[contenteditable="true"], div[id="pane-side"]', timeout=35000)
-            print("✅ Connessione a WhatsApp Web stabilita con successo!")
-        except Exception:
-            print("❌ ERRORE: Sessione WhatsApp non attiva o non pronta!")
+        # Verifica con tolleranza, gestione automatica 'Usa qui' e retry
+        connesso = attendi_e_stabilizza_connessione_wa(page, timeout_sec=65)
+        if not connesso:
+            print("🔄 Tentativo di ricarica pagina (retry post-stabilizzazione)...")
+            try:
+                page.reload(wait_until='domcontentloaded')
+                connesso = attendi_e_stabilizza_connessione_wa(page, timeout_sec=35)
+            except Exception:
+                pass
+
+        if not connesso:
+            print("❌ ERRORE CRITICO: Sessione WhatsApp non attiva o non pronta!")
+            invia_notifica_windows(
+                "❌ Solleciti WhatsApp Falliti",
+                "Impossibile collegarsi a WhatsApp Web. Controlla il telefono dello staff (+39 350 083 0803)."
+            )
             browser_context.close()
             return 0, len(destinatari)
 
@@ -294,61 +448,67 @@ def main():
         login_setup()
         return
 
-    # 1. Attesa rete internet (se risveglio da sospensione)
-    if not attendi_rete(timeout_sec=120):
-        print("[!] Rete internet non disponibile. Operazione annullata.")
+    if not acquisisci_lock():
         return
 
-    rubrica = carica_rubrica()
+    try:
+        # 1. Attesa rete internet (se risveglio da sospensione)
+        if not attendi_rete(timeout_sec=120):
+            print("[!] Rete internet non disponibile. Operazione annullata.")
+            return
 
-    # Modalità Test Mirato
-    target_ids = None
-    for arg in sys.argv:
-        if arg.startswith('--target-ids='):
-            target_ids = [int(x.strip()) for x in arg.split('=')[1].split(',') if x.strip().isdigit()]
+        rubrica = carica_rubrica()
 
-    compilati = chi_ha_compilato_oggi()
-    print(f"📋 Giocatrici che hanno GIÀ compilato oggi ({len(compilati)}/13): {sorted(list(compilati))}")
+        # Modalità Test Mirato
+        target_ids = None
+        for arg in sys.argv:
+            if arg.startswith('--target-ids='):
+                target_ids = [int(x.strip()) for x in arg.split('=')[1].split(',') if x.strip().isdigit()]
 
-    if target_ids:
-        candidati = [a for a in ROSTER if a['id'] in target_ids]
-        if not candidati and 99 in target_ids:
-            candidati = [{"id": 99, "name": "Paulo Mangiapane (Coach)"}]
-        print(f"🎯 Modalità Test Mirato su ID: {target_ids}")
-    else:
-        candidati = [a for a in ROSTER if a['id'] != 99]
+        compilati = chi_ha_compilato_oggi()
+        print(f"📋 Giocatrici che hanno GIÀ compilato oggi ({len(compilati)}/13): {sorted(list(compilati))}")
 
-    force = '--force' in sys.argv or (target_ids is not None)
-    dry_run = '--dry-run' in sys.argv
+        if target_ids:
+            candidati = [a for a in ROSTER if a['id'] in target_ids]
+            if not candidati and 99 in target_ids:
+                candidati = [{"id": 99, "name": "Paulo Mangiapane (Coach)"}]
+            print(f"🎯 Modalità Test Mirato su ID: {target_ids}")
+        else:
+            candidati = [a for a in ROSTER if a['id'] != 99]
 
-    destinatari = []
-    for a in candidati:
-        aid = a['id']
-        if not force and aid in compilati:
-            continue
-        if not force and gia_sollecitata_oggi(aid):
-            print(f"   ℹ️ #{aid:02d} {a['name']}: già sollecitata oggi, salto.")
-            continue
+        force = '--force' in sys.argv or (target_ids is not None)
+        dry_run = '--dry-run' in sys.argv
 
-        raw_tel = rubrica.get(str(aid), {}).get('tel', '')
-        tel = pulisci_numero(raw_tel)
-        if not tel:
-            print(f"   ⚠️ #{aid:02d} {a['name']}: telefono mancante in rubrica.")
-            continue
+        destinatari = []
+        for a in candidati:
+            aid = a['id']
+            if not force and aid in compilati:
+                continue
+            if not force and gia_sollecitata_oggi(aid):
+                print(f"   ℹ️ #{aid:02d} {a['name']}: già sollecitata oggi, salto.")
+                continue
 
-        destinatari.append({
-            "id": aid,
-            "name": a['name'],
-            "tel": tel
-        })
+            raw_tel = rubrica.get(str(aid), {}).get('tel', '')
+            tel = pulisci_numero(raw_tel)
+            if not tel:
+                print(f"   ⚠️ #{aid:02d} {a['name']}: telefono mancante in rubrica.")
+                continue
 
-    print(f"⏳ Destinatari da sollecitare ({len(destinatari)}): {[d['name'] for d in destinatari]}")
-    if not destinatari:
-        print("🎉 Nessun messaggio da inviare. Tutte in regola o già avvisate!")
-        return
+            destinatari.append({
+                "id": aid,
+                "name": a['name'],
+                "tel": tel
+            })
 
-    inviati, errori = invia_messaggi(destinatari, dry_run=dry_run)
-    print(f"\n🎯 Riepilogo: {inviati} inviati, {errori} errori.")
+        print(f"⏳ Destinatari da sollecitare ({len(destinatari)}): {[d['name'] for d in destinatari]}")
+        if not destinatari:
+            print("🎉 Nessun messaggio da inviare. Tutte in regola o già avvisate!")
+            return
+
+        inviati, errori = invia_messaggi(destinatari, dry_run=dry_run)
+        print(f"\n🎯 Riepilogo: {inviati} inviati, {errori} errori.")
+    finally:
+        rilascia_lock()
 
 if __name__ == '__main__':
     main()

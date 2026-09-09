@@ -9,6 +9,8 @@ _strumenti/*
 !_strumenti/invia_wellness.py
 !_strumenti/test_wellness_pipeline.py
 !_strumenti/sollecito_whatsapp_web.py
+!_strumenti/keepalive_whatsapp.py
+!_strumenti/run_keepalive.bat
 !_strumenti/collega_whatsapp_web.py
 !_strumenti/genera_w3_w4_data.py
 backup_locale/
