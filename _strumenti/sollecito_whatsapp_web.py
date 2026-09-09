@@ -35,6 +35,8 @@ GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOx
 TOKEN   = os.environ.get('APP_TOKEN') or 'mv26-prd-3xF7wNqK'
 BASE_APP_URL = 'https://pamangiapane-lgtm.github.io/schede-allenamento/'
 
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+
 ROSTER = [
     {"id": 1, "name": "Veronica Allasia"},
     {"id": 2, "name": "Maria Marcuzzi"},
@@ -136,6 +138,7 @@ def login_setup():
         browser_context = p.chromium.launch_persistent_context(
             user_data_dir=PROFILE_DIR,
             headless=False,
+            user_agent=USER_AGENT,
             viewport={'width': 1200, 'height': 850},
             args=['--disable-blink-features=AutomationControlled']
         )
@@ -188,8 +191,6 @@ def invia_messaggi(destinatari, dry_run=False):
     os.makedirs(PROFILE_DIR, exist_ok=True)
     inviati = 0
     errori = 0
-
-    USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
 
     with sync_playwright() as p:
         print("🌐 Avvio browser con profilo WhatsApp Web salvato...")
