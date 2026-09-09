@@ -683,6 +683,83 @@
       transition: opacity 0.2s;
     }
 
+    /* Modal Dossier Atleta 360° */
+    .dossier-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(4, 8, 16, 0.88);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+    .dossier-modal-overlay.active {
+      display: flex;
+    }
+    .dossier-modal-sheet {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      width: 100%;
+      max-width: 660px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.7);
+      overflow: hidden;
+      animation: modalFadeIn 0.16s ease-out;
+    }
+
+    .roster-ath-card {
+      transition: transform 0.15s ease-out, border-color 0.15s ease-out, box-shadow 0.15s ease-out;
+    }
+    .roster-ath-card:hover {
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      transform: translateY(-1px);
+    }
+
+    .sedute-sub-box {
+      animation: fadeInSub 0.15s ease-out;
+    }
+    @keyframes fadeInSub {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dossier-rm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+    }
+    .dossier-rm-card {
+      background: #060a14;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .dossier-rm-lbl {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--mv-muted);
+      text-transform: uppercase;
+    }
+    .dossier-rm-val {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--mv-gold-text);
+      margin: 2px 0;
+    }
+    .dossier-rm-sub {
+      font-size: 0.65rem;
+      color: var(--mv-cyan);
+      font-weight: 700;
+    }
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -731,15 +808,12 @@
       </div>
     </div>
 
-    <!-- STICKY COACH NAVIGATION (3 VISTE CHIAVE ZERO DUPLICATI) -->
+    <!-- STICKY COACH NAVIGATION (3 SEZIONI STAGNE) -->
     <div class="sticky-nav-wrapper">
       <div class="coach-nav-tabs">
-        <button class="c-tab-btn active" id="btn-tab-readiness" onclick="switchCoachTab('readiness', this)">🚦 Readiness</button>
-        <button class="c-tab-btn" id="btn-tab-sedute" onclick="switchCoachTab('sedute', this)">🏋️ Sedute Pesi</button>
+        <button class="c-tab-btn active" id="btn-tab-readiness" onclick="switchCoachTab('readiness', this)">🚦 Wellness & Readiness</button>
+        <button class="c-tab-btn" id="btn-tab-sedute" onclick="switchCoachTab('sedute', this)">🏋️ Sedute Pesi & Forza</button>
         <button class="c-tab-btn" id="btn-tab-campo" onclick="switchCoachTab('campo', this)">🏐 Campo S&C</button>
-        <button class="c-tab-btn" id="btn-tab-massimali" onclick="switchCoachTab('massimali', this)">💪 1RM & Benchmark</button>
-        <button class="c-tab-btn" id="btn-tab-analytics" onclick="switchCoachTab('analytics', this)">📈 Trend & Grafici</button>
-        <button class="c-tab-btn" id="btn-tab-jump" onclick="switchCoachTab('jump', this)">📊 Jump & Carichi</button>
       </div>
     </div>
 
@@ -757,6 +831,99 @@
         <div class="alert-list" id="alert-banner-list">
           <div style="font-size:0.8rem;color:#cbd5e1">Verifica segnalazioni in corso...</div>
         </div>
+      </div>
+
+      <!-- MODULO GRAFICO WELLNESS DEDICATO (QUESTIONARIO) -->
+      <div class="card-box" id="wellness-chart-box" style="margin-bottom:14px;padding:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+          <div>
+            <h3 class="card-title" style="margin-bottom:2px;" id="wellness-chart-title">📈 Andamento Wellness & Readiness</h3>
+            <span style="font-size:0.72rem;color:var(--mv-muted);" id="wellness-chart-subtitle">Analisi risposte questionario e trend di recupero</span>
+          </div>
+          <div class="scroll-pills" id="wellness-athlete-selector">
+            <!-- Popolato via JS -->
+          </div>
+        </div>
+
+        <!-- Filtri Temporali & Metriche -->
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <div class="scroll-pills" id="wellness-time-pills">
+              <button class="btn-filt" onclick="setWellnessRange('7d', this)">7 Giorni</button>
+              <button class="btn-filt" onclick="setWellnessRange('14d', this)">14 Giorni</button>
+              <button class="btn-filt" onclick="setWellnessRange('30d', this)">30 Giorni</button>
+              <button class="btn-filt" onclick="setWellnessRange('offseason', this)">🌴 Off-Season</button>
+              <button class="btn-filt" onclick="setWellnessRange('preseason', this)">⚡ Pre-Season</button>
+              <button class="btn-filt active" onclick="setWellnessRange('all', this)">📅 Tutta la Stagione</button>
+            </div>
+            <div class="filter-pills" id="wellness-metric-toggles">
+              <button class="btn-filt active" id="tog-readiness" onclick="toggleWellnessMetric('readiness')" style="border-color:#f59e0b;color:#fde68a;">🎯 Readiness</button>
+              <button class="btn-filt active" id="tog-fatica" onclick="toggleWellnessMetric('fatica')" style="border-color:#10b981;color:#6ee7b7;">⚡ Energia</button>
+              <button class="btn-filt active" id="tog-sonno" onclick="toggleWellnessMetric('sonno')" style="border-color:#3b82f6;color:#93c5fd;">😴 Sonno</button>
+              <button class="btn-filt active" id="tog-dolori" onclick="toggleWellnessMetric('dolori')" style="border-color:#ef4444;color:#fca5a5;">🩹 Dolori</button>
+              <button class="btn-filt" id="tog-stress" onclick="toggleWellnessMetric('stress')" style="border-color:#a855f7;color:#d8b4fe;">🧠 Stress</button>
+              <button class="btn-filt" id="tog-peso" onclick="toggleWellnessMetric('peso')" style="border-color:#06b6d4;color:#67e8f9;">⚖️ Peso</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Micro-griglia KPI del Periodo (Responsive) -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(85px, 1fr));gap:6px;margin-bottom:12px;" id="wellness-kpi-grid">
+          <div class="kpi-card" id="wn-card-readiness" style="padding:6px 4px;text-align:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;">Readiness</div>
+            <div class="kpi-val" id="wn-kpi-readiness" style="color:var(--mv-amber);font-size:1.05rem;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.58rem;">Media (0-10)</div>
+          </div>
+          <div class="kpi-card" id="wn-card-fatica" style="padding:6px 4px;text-align:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;">Energia</div>
+            <div class="kpi-val" id="wn-kpi-fatica" style="color:#6ee7b7;font-size:1.05rem;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.58rem;">Fatica Inv.</div>
+          </div>
+          <div class="kpi-card" id="wn-card-sonno" style="padding:6px 4px;text-align:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;">Sonno</div>
+            <div class="kpi-val" id="wn-kpi-sonno" style="color:#93c5fd;font-size:1.05rem;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.58rem;">Qualità (h)</div>
+          </div>
+          <div class="kpi-card" id="wn-card-dolori" style="padding:6px 4px;text-align:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;">Dolori</div>
+            <div class="kpi-val" id="wn-kpi-dolori" style="color:#fca5a5;font-size:1.05rem;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.58rem;">Soreness</div>
+          </div>
+          <div class="kpi-card" id="wn-card-stress" style="padding:6px 4px;text-align:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;">Stress</div>
+            <div class="kpi-val" id="wn-kpi-stress" style="color:#d8b4fe;font-size:1.05rem;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.58rem;">Tensione</div>
+          </div>
+          <div class="kpi-card" id="wn-card-peso" style="padding:6px 4px;text-align:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;">Peso Corporeo</div>
+            <div class="kpi-val" id="wn-kpi-peso" style="color:#67e8f9;font-size:1.05rem;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.58rem;">Media (kg)</div>
+          </div>
+        </div>
+
+        <!-- Canvas Grafico Longitudinale Wellness -->
+        <div style="position:relative;height:300px;width:100%;">
+          <canvas id="wellnessTrendChart"></canvas>
+        </div>
+
+        <!-- Dettaglio Dinamica Microciclo (Lun-Dom) & Note Cliniche a scomparsa -->
+        <details style="margin-top:12px;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 12px;">
+          <summary style="cursor:pointer;font-weight:700;font-size:0.78rem;color:var(--mv-muted);user-select:none;">
+            📊 Mostra dinamica microciclo settimanale (Lun ➔ Dom) & cronologia note
+          </summary>
+          <div style="margin-top:10px;">
+            <p style="font-size:0.72rem;color:var(--mv-muted);margin-bottom:6px;">Media risposte per giorno per individuare il giorno di massima fatica:</p>
+            <div style="position:relative;height:200px;width:100%;margin-bottom:12px;">
+              <canvas id="wellnessMicrocycleChart"></canvas>
+            </div>
+            <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;margin-bottom:6px;">
+              📝 Cronologia Note & Segnalazioni del Periodo
+            </div>
+            <div id="analytics-notes-timeline" style="display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto;">
+              <!-- Popolato via JS -->
+            </div>
+          </div>
+        </details>
       </div>
 
       <!-- Toolbar Filtro & Azioni WhatsApp -->
@@ -837,102 +1004,232 @@
         </div>
       </div>
 
-      <!-- Tabella Storica Valutazione Sedute Pesi (sRPE & Fatica Live) -->
-      <div class="card-box" style="margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h3 class="card-title" style="margin-bottom:0;">📋 Storico Valutazione Sedute Pesi (sRPE & Fatica)</h3>
-          <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-sessions-total">0 registrazioni</span>
+      <!-- MODULO GRAFICO PERFORMANCE & CARICHI DEDICATO (SALA PESI) -->
+      <div class="card-box" id="perf-chart-box" style="margin-bottom:14px;padding:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+          <div>
+            <h3 class="card-title" style="margin-bottom:2px;" id="perf-chart-title">📊 Andamento Performance, Sforzo & Test di Potenza</h3>
+            <span style="font-size:0.72rem;color:var(--mv-muted);" id="perf-chart-subtitle">Curve temporali sRPE, fatica post-seduta, velocità VBT e altezza salti CMJ</span>
+          </div>
+          <div class="scroll-pills" id="perf-athlete-selector">
+            <!-- Popolato via JS -->
+          </div>
         </div>
-        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Sforzo percepito della seduta (sRPE 0-10 Borg CR-10), livello di fatica e note di chiusura registrate dalle atlete.</p>
-        <div class="coach-tbl-wrap" style="max-height:420px;overflow-y:auto;">
-          <table class="coach-tbl">
-            <thead>
-              <tr>
-                <th>Atleta</th>
-                <th>Seduta</th>
-                <th>Data</th>
-                <th>sRPE (0-10)</th>
-                <th>Fatica (0-10)</th>
-                <th>Note Atleta</th>
-              </tr>
-            </thead>
-            <tbody id="tbl-sessions-body">
-              <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento sessioni...</td></tr>
-            </tbody>
-          </table>
+
+        <!-- Filtri Temporali & Metriche Performance -->
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <div class="scroll-pills" id="perf-time-pills">
+              <button class="btn-filt" onclick="setPerfRange('7d', this)">7 Giorni</button>
+              <button class="btn-filt" onclick="setPerfRange('14d', this)">14 Giorni</button>
+              <button class="btn-filt" onclick="setPerfRange('30d', this)">30 Giorni</button>
+              <button class="btn-filt" onclick="setPerfRange('offseason', this)">🌴 Off-Season</button>
+              <button class="btn-filt" onclick="setPerfRange('preseason', this)">⚡ Pre-Season</button>
+              <button class="btn-filt active" onclick="setPerfRange('all', this)">📅 Tutta la Stagione</button>
+            </div>
+            <div class="filter-pills" id="perf-metric-toggles">
+              <button class="btn-filt active" id="tog-p-srpe" onclick="togglePerfMetric('srpe')" style="border-color:#f59e0b;color:#fde68a;">🎯 sRPE (0-10)</button>
+              <button class="btn-filt active" id="tog-p-fatica" onclick="togglePerfMetric('fatica')" style="border-color:#10b981;color:#6ee7b7;">⚡ Fatica Seduta</button>
+              <button class="btn-filt active" id="tog-p-vbt" onclick="togglePerfMetric('vbt')" style="border-color:#38bdf8;color:#7dd3fc;">🏎️ VBT Squat (m/s)</button>
+              <button class="btn-filt active" id="tog-p-cmj" onclick="togglePerfMetric('cmj')" style="border-color:#ec4899;color:#fbcfe8;">🚀 CMJ Salto (cm)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Micro-KPI Performance -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(110px, 1fr));gap:6px;margin-bottom:12px;" id="perf-kpi-grid">
+          <div class="kpi-card" style="padding:6px 4px;text-align:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;">sRPE Medio</div>
+            <div class="kpi-val" id="perf-kpi-srpe" style="color:var(--mv-amber);font-size:1.05rem;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.58rem;">Borg CR-10</div>
+          </div>
+          <div class="kpi-card" style="padding:6px 4px;text-align:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;">Fatica Media</div>
+            <div class="kpi-val" id="perf-kpi-fatica" style="color:#6ee7b7;font-size:1.05rem;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.58rem;">Scala 0-10</div>
+          </div>
+          <div class="kpi-card" style="padding:6px 4px;text-align:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;">VBT Squat</div>
+            <div class="kpi-val" id="perf-kpi-vbt" style="color:#38bdf8;font-size:1.05rem;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.58rem;">Vel. Media (m/s)</div>
+          </div>
+          <div class="kpi-card" style="padding:6px 4px;text-align:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;">CMJ Salto</div>
+            <div class="kpi-val" id="perf-kpi-cmj" style="color:#fbcfe8;font-size:1.05rem;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.58rem;">Media (cm)</div>
+          </div>
+        </div>
+
+        <!-- Canvas Grafico Longitudinale Performance -->
+        <div style="position:relative;height:300px;width:100%;">
+          <canvas id="perfTrendChart"></canvas>
+        </div>
+
+        <!-- Profilo VBT Carico-Velocità a scomparsa -->
+        <details style="margin-top:12px;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 12px;" id="box-vbt-scatter">
+          <summary style="cursor:pointer;font-weight:700;font-size:0.78rem;color:var(--mv-muted);user-select:none;">
+            🏎️ Mostra Profilo VBT Back Squat (Carico vs Velocità - Scatter Plot Enode)
+          </summary>
+          <div style="margin-top:10px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
+              <span style="font-size:0.72rem;color:var(--mv-muted);" id="vbt-chart-subtitle">Ascisse (X): Velocità m/s · Ordinate (Y): Carico sollevato kg</span>
+              <span style="font-size:0.72rem;background:#182846;padding:2px 8px;border-radius:6px;border:1px solid #1e335a;color:#7dd3fc;" id="vbt-summary-badge">Rilevazioni Enode</span>
+            </div>
+            <div style="position:relative;height:300px;width:100%;">
+              <canvas id="vbtScatterChart"></canvas>
+            </div>
+          </div>
+        </details>
+      </div>
+
+      <!-- NAVIGATORE SOTTO-TABELLE SALA PESI -->
+      <div class="card-box" style="margin-bottom:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;letter-spacing:0.5px;">
+          📂 Dati di Dettaglio Sala Pesi:
+        </div>
+        <div class="scroll-pills" id="sedute-subtable-pills">
+          <button class="btn-filt active" onclick="switchSeduteSubTable('srpe', this)">📋 sRPE & Fatica</button>
+          <button class="btn-filt" onclick="switchSeduteSubTable('1rm', this)">💪 Matrice 1RM & BW</button>
+          <button class="btn-filt" onclick="switchSeduteSubTable('vbt', this)">⚡ VBT Enode</button>
+          <button class="btn-filt" onclick="switchSeduteSubTable('cmj', this)">🚀 CMJ Chronojump</button>
+          <button class="btn-filt" onclick="switchSeduteSubTable('custom', this)">📦 Carichi Accessori</button>
         </div>
       </div>
 
-      <!-- Tabella Monitoraggio VBT Squat (Encoder Enode) -->
-      <div class="card-box" style="margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h3 class="card-title" style="margin-bottom:0;">⚡ Monitoraggio VBT Squat (Encoder Enode)</h3>
-          <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-vbt-total">0 rilevazioni</span>
-        </div>
-        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Velocità media concentrica su Back Squat rilevata con encoder Enode (Target ottimale forza-velocità: ≥ 0.70 m/s).</p>
-        <div class="coach-tbl-wrap" style="max-height:360px;overflow-y:auto;">
-          <table class="coach-tbl">
-            <thead>
-              <tr>
-                <th>Atleta</th>
-                <th>Esercizio</th>
-                <th>Velocità Media</th>
-                <th>Seduta</th>
-                <th>Data & Ora</th>
-              </tr>
-            </thead>
-            <tbody id="tbl-vbt-body">
-              <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento dati VBT...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Tabella Test Neuromuscolare CMJ (Chronojump) -->
-      <div class="card-box" style="margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-          <h3 class="card-title" style="margin-bottom:0;">🚀 Test Neuromuscolare CMJ (Pedana Chronojump)</h3>
-          <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-cmj-total">0 salti</span>
-        </div>
-        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Altezza di salto registrata (cm) all'ingresso in sala pesi dopo l'attivazione.</p>
-        <div class="coach-tbl-wrap" style="max-height:360px;overflow-y:auto;">
-          <table class="coach-tbl">
-            <thead>
-              <tr>
-                <th>Atleta</th>
-                <th>Altezza Salto</th>
-                <th>Prontezza</th>
-                <th>Seduta</th>
-                <th>Data & Ora</th>
-              </tr>
-            </thead>
-            <tbody id="tbl-cmj-body">
-              <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento dati CMJ...</td></tr>
-            </tbody>
-          </table>
+      <!-- SOTTO-TABELLA 1: sRPE & FATICA -->
+      <div class="sedute-sub-box" id="sub-box-srpe">
+        <div class="card-box" style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <h3 class="card-title" style="margin-bottom:0;">📋 Storico Valutazione Sedute Pesi (sRPE & Fatica)</h3>
+            <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-sessions-total">0 registrazioni</span>
+          </div>
+          <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Sforzo percepito della seduta (sRPE 0-10 Borg CR-10), livello di fatica e note di chiusura registrate dalle atlete.</p>
+          <div class="coach-tbl-wrap" style="max-height:420px;overflow-y:auto;">
+            <table class="coach-tbl">
+              <thead>
+                <tr>
+                  <th>Atleta</th>
+                  <th>Seduta</th>
+                  <th>Data</th>
+                  <th>sRPE (0-10)</th>
+                  <th>Fatica (0-10)</th>
+                  <th>Note Atleta</th>
+                </tr>
+              </thead>
+              <tbody id="tbl-sessions-body">
+                <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento sessioni...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      <!-- Tabella Ultimi Carichi Accessori Registrati dalla Squadra -->
-      <div class="card-box">
-        <h3 class="card-title">📦 Carichi Registrati in Sala Pesi (Accessori / Manubri / Cavi)</h3>
-        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Pesi e note registrati dalle atlete (Floor Press, Seal Row, Split Squat, Medball, Deadbug, ecc.)</p>
-        <div class="coach-tbl-wrap" style="max-height:420px;overflow-y:auto;">
-          <table class="coach-tbl">
-            <thead>
-              <tr>
-                <th>Atleta</th>
-                <th>Esercizio</th>
-                <th>Carico Usato</th>
-                <th>Note Atleta</th>
-                <th>Seduta</th>
-                <th>Data</th>
-              </tr>
-            </thead>
-            <tbody id="tbl-custom-loads-body">
-              <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento carichi accessori...</td></tr>
-            </tbody>
-          </table>
+      <!-- SOTTO-TABELLA 2: MATRICE 1RM & BW -->
+      <div class="sedute-sub-box" id="sub-box-1rm" style="display:none;">
+        <div class="card-box" style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+            <h3 class="card-title" style="margin-bottom:0;">🏋️ Matrice Massimali 1RM & Forza Relativa (1RM / BW)</h3>
+            <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;">13 Atlete Certificate</span>
+          </div>
+          <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Benchmark S&C Volley Femminile: Squat 1.4-1.6x BW · Clean 0.7-0.9x BW · Military 0.45x BW · Ratio Pull:Push ≥ 1.2:1</p>
+          <div class="coach-tbl-wrap">
+            <table class="coach-tbl">
+              <thead>
+                <tr>
+                  <th>Atleta</th>
+                  <th>BW</th>
+                  <th>Squat</th>
+                  <th>Bench</th>
+                  <th>Military</th>
+                  <th>Clean</th>
+                  <th>Row</th>
+                  <th>Lat</th>
+                </tr>
+              </thead>
+              <tbody id="tbl-1rm-body">
+                <tr><td colspan="8" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento massimali...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOTTO-TABELLA 3: VBT ENODE -->
+      <div class="sedute-sub-box" id="sub-box-vbt" style="display:none;">
+        <div class="card-box" style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <h3 class="card-title" style="margin-bottom:0;">⚡ Monitoraggio VBT Squat (Encoder Enode)</h3>
+            <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-vbt-total">0 rilevazioni</span>
+          </div>
+          <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Velocità media concentrica su Back Squat rilevata con encoder Enode (Target ottimale forza-velocità: ≥ 0.70 m/s).</p>
+          <div class="coach-tbl-wrap" style="max-height:360px;overflow-y:auto;">
+            <table class="coach-tbl">
+              <thead>
+                <tr>
+                  <th>Atleta</th>
+                  <th>Esercizio</th>
+                  <th>Velocità Media</th>
+                  <th>Seduta</th>
+                  <th>Data & Ora</th>
+                </tr>
+              </thead>
+              <tbody id="tbl-vbt-body">
+                <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento dati VBT...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOTTO-TABELLA 4: CMJ CHRONOJUMP -->
+      <div class="sedute-sub-box" id="sub-box-cmj" style="display:none;">
+        <div class="card-box" style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <h3 class="card-title" style="margin-bottom:0;">🚀 Test Neuromuscolare CMJ (Pedana Chronojump)</h3>
+            <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-cmj-total">0 salti</span>
+          </div>
+          <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Altezza di salto registrata (cm) all'ingresso in sala pesi dopo l'attivazione.</p>
+          <div class="coach-tbl-wrap" style="max-height:360px;overflow-y:auto;">
+            <table class="coach-tbl">
+              <thead>
+                <tr>
+                  <th>Atleta</th>
+                  <th>Altezza Salto</th>
+                  <th>Prontezza</th>
+                  <th>Seduta</th>
+                  <th>Data & Ora</th>
+                </tr>
+              </thead>
+              <tbody id="tbl-cmj-body">
+                <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento dati CMJ...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOTTO-TABELLA 5: CARICHI ACCESSORI -->
+      <div class="sedute-sub-box" id="sub-box-custom" style="display:none;">
+        <div class="card-box">
+          <h3 class="card-title">📦 Carichi Registrati in Sala Pesi (Accessori / Manubri / Cavi)</h3>
+          <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Pesi e note registrati dalle atlete (Floor Press, Seal Row, Split Squat, Medball, Deadbug, ecc.)</p>
+          <div class="coach-tbl-wrap" style="max-height:420px;overflow-y:auto;">
+            <table class="coach-tbl">
+              <thead>
+                <tr>
+                  <th>Atleta</th>
+                  <th>Esercizio</th>
+                  <th>Carico Usato</th>
+                  <th>Note Atleta</th>
+                  <th>Seduta</th>
+                  <th>Data</th>
+                </tr>
+              </thead>
+              <tbody id="tbl-custom-loads-body">
+                <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento carichi accessori...</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -1239,240 +1536,68 @@
 
       </div>
 
-    </div>
+      <!-- BENCHMARK JUMP BUDGET & ACWR COLLAPSIBLE -->
+      <details class="card-box" style="margin-top:16px;background:#091222;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px 14px;">
+        <summary style="cursor:pointer;font-weight:800;font-size:0.85rem;color:var(--mv-amber);user-select:none;display:flex;align-items:center;justify-content:space-between;">
+          <span>🏐 Linee Guida Jump Budget per Ruolo & ACWR Benchmark</span>
+          <span style="font-size:0.72rem;color:var(--mv-muted);font-weight:400;">(Clicca per aprire/chiudere)</span>
+        </summary>
+        
+        <div style="margin-top:14px;">
+          <h4 style="font-size:0.8rem;font-weight:800;color:#fff;margin-bottom:8px;">Target Salti Settimanali per Ruolo</h4>
+          <div class="coach-tbl-wrap" style="margin-bottom:14px;">
+            <table class="coach-tbl">
+              <thead>
+                <tr>
+                  <th>Ruolo</th>
+                  <th>Target Salti / Settimana</th>
+                  <th>Focus Salto & Atterraggio</th>
+                  <th>Aggiustamento su Alert Giallo/Rosso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Schiacciatrici / Opposti</strong></td>
+                  <td><span style="color:var(--mv-amber);font-weight:800">250 – 400</span></td>
+                  <td>Attacchi in 4/2, Pipe, Battute Jump Float/Spin</td>
+                  <td><span style="color:#fde68a">Riduci 20-30% rincorse attacco</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Centrali</strong></td>
+                  <td><span style="color:var(--mv-amber);font-weight:800">300 – 450</span></td>
+                  <td>Muri continui dx/sx, Primi tempi, Fast</td>
+                  <td><span style="color:#fde68a">Sostituisci muro jump con footwork a terra</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Palleggiatrici</strong></td>
+                  <td><span style="color:var(--mv-amber);font-weight:800">200 – 350</span></td>
+                  <td>Palleggi in salto, Muro palla piazzata</td>
+                  <td><span style="color:#fde68a">Palleggio a terra prioritario</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Liberi</strong></td>
+                  <td><span style="color:var(--mv-emerald);font-weight:800">&lt; 50</span></td>
+                  <td>Reattività a terra, cambi di direzione, tuffi</td>
+                  <td><span style="color:#6ee7b7">Lavoro di mobilità anca/caviglia</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-    <div class="c-panel" id="panel-analytics">
-      
-      <!-- Selettore Atleta / Squadra -->
-      <div class="card-box" style="margin-bottom:12px;padding:12px 14px;width:100%;box-sizing:border-box;overflow:hidden;">
-        <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;">
-          👥 Seleziona Soggetto da Analizzare
-        </div>
-        <div class="scroll-pills" id="analytics-athlete-selector">
-          <!-- Generato via JS -->
-        </div>
-      </div>
-
-      <!-- Filtri Temporali & Contestuali -->
-      <div class="toolbar-box" style="margin-bottom:12px;width:100%;box-sizing:border-box;overflow:hidden;display:flex;flex-direction:column;gap:10px;align-items:stretch;">
-        <div style="width:100%;min-width:0;">
-          <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">📅 Periodo</div>
-          <div class="scroll-pills" id="analytics-time-pills">
-            <button class="btn-filt" onclick="setAnalyticsRange('7d', this)">7 Giorni</button>
-            <button class="btn-filt" onclick="setAnalyticsRange('14d', this)">14 Giorni</button>
-            <button class="btn-filt" onclick="setAnalyticsRange('30d', this)">30 Giorni</button>
-            <button class="btn-filt" onclick="setAnalyticsRange('offseason', this)">🌴 Off-Season (≤ 23 Ago)</button>
-            <button class="btn-filt" onclick="setAnalyticsRange('preseason', this)">⚡ Pre-Season (≥ 24 Ago)</button>
-            <button class="btn-filt active" onclick="setAnalyticsRange('all', this)">📅 Tutta la Stagione</button>
+          <h4 style="font-size:0.8rem;font-weight:800;color:#fff;margin-bottom:8px;">Acute:Chronic Workload Ratio (ACWR Benchmark)</h4>
+          <div style="background:#060b16;border-radius:10px;padding:12px;border:1px solid rgba(255,255,255,0.08);line-height:1.6;font-size:0.8rem;color:#cbd5e1;">
+            <div style="margin-bottom:6px;">
+              <strong style="color:var(--mv-emerald)">🟢 Sweet Spot (ACWR 0.8 – 1.3):</strong> Massima progressione con minimo rischio di infortunio.
+            </div>
+            <div style="margin-bottom:6px;">
+              <strong style="color:var(--mv-amber)">🟡 Overreaching Funzionale (ACWR 1.3 – 1.5):</strong> Monitorare attentamente il sonno e la fatica muscolare.
+            </div>
+            <div>
+              <strong style="color:var(--mv-coral)">🔴 Danger Zone (ACWR &gt; 1.5):</strong> Spike improvviso di volume/intensità. Il rischio di tendinopatia rotulea e lesioni muscolari triplica. Prevedere scarico immediato.
+            </div>
           </div>
         </div>
-        <div style="width:100%;min-width:0;">
-          <div style="font-size:0.7rem;font-weight:800;color:var(--mv-muted);margin-bottom:4px;text-transform:uppercase;">🗓️ Giorni della Settimana (Microciclo)</div>
-          <div class="scroll-pills">
-            <button class="btn-filt active" onclick="setAnalyticsDay('all', this)">Tutti i Giorni</button>
-            <button class="btn-filt" onclick="setAnalyticsDay(1, this)">Lunedì</button>
-            <button class="btn-filt" onclick="setAnalyticsDay(2, this)">Martedì</button>
-            <button class="btn-filt" onclick="setAnalyticsDay(3, this)">Mercoledì</button>
-            <button class="btn-filt" onclick="setAnalyticsDay(4, this)">Giovedì</button>
-            <button class="btn-filt" onclick="setAnalyticsDay(5, this)">Venerdì</button>
-            <button class="btn-filt" onclick="setAnalyticsDay(6, this)">Sabato</button>
-            <button class="btn-filt" onclick="setAnalyticsDay(0, this)">Domenica</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Selettore Metriche Visibili nel Grafico -->
-      <div class="card-box" style="margin-bottom:12px;padding:10px 14px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-          <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;">
-            🔘 Metriche nel Grafico:
-          </div>
-          <div class="filter-pills" id="metric-toggles">
-            <button class="btn-filt active" id="tog-readiness" onclick="toggleMetric('readiness')" style="border-color:#f59e0b;color:#fde68a;">🎯 Readiness</button>
-            <button class="btn-filt active" id="tog-fatica" onclick="toggleMetric('fatica')" style="border-color:#10b981;color:#6ee7b7;">⚡ Energia</button>
-            <button class="btn-filt active" id="tog-sonno" onclick="toggleMetric('sonno')" style="border-color:#3b82f6;color:#93c5fd;">😴 Sonno</button>
-            <button class="btn-filt active" id="tog-dolori" onclick="toggleMetric('dolori')" style="border-color:#ef4444;color:#fca5a5;">🩹 Dolori</button>
-            <button class="btn-filt" id="tog-stress" onclick="toggleMetric('stress')" style="border-color:#a855f7;color:#d8b4fe;">🧠 Stress</button>
-            <button class="btn-filt" id="tog-peso" onclick="toggleMetric('peso')" style="border-color:#06b6d4;color:#67e8f9;">⚖️ Peso</button>
-            <button class="btn-filt" id="tog-vbt" onclick="toggleMetric('vbt')" style="border-color:#38bdf8;color:#7dd3fc;">🏎️ VBT (m/s ➔ kg)</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- KPI Summary del Periodo Selezionato (RESPONSIVE NO OVERFLOW) -->
-      <div style="display:grid;grid-template-columns:repeat(7, 1fr);gap:4px;margin-bottom:14px;width:100%;box-sizing:border-box;" id="analytics-kpi-grid">
-        <div class="kpi-card" id="an-card-readiness" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
-          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Readiness</div>
-          <div class="kpi-val" id="an-kpi-readiness" style="color:var(--mv-amber);font-size:0.95rem;margin:2px 0;">--</div>
-          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media</div>
-        </div>
-        <div class="kpi-card" id="an-card-fatica" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
-          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Energia</div>
-          <div class="kpi-val" id="an-kpi-fatica" style="color:#6ee7b7;font-size:0.95rem;margin:2px 0;">--</div>
-          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fatica</div>
-        </div>
-        <div class="kpi-card" id="an-card-sonno" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
-          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sonno</div>
-          <div class="kpi-val" id="an-kpi-sonno" style="color:#93c5fd;font-size:0.95rem;margin:2px 0;">--</div>
-          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Qualità</div>
-        </div>
-        <div class="kpi-card" id="an-card-dolori" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
-          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Dolori</div>
-          <div class="kpi-val" id="an-kpi-dolori" style="color:#fca5a5;font-size:0.95rem;margin:2px 0;">--</div>
-          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fastidi</div>
-        </div>
-        <div class="kpi-card" id="an-card-stress" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;">
-          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Stress</div>
-          <div class="kpi-val" id="an-kpi-stress" style="color:#d8b4fe;font-size:0.95rem;margin:2px 0;">--</div>
-          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tensione</div>
-        </div>
-        <div class="kpi-card" id="an-card-peso" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;display:none;">
-          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Peso</div>
-          <div class="kpi-val" id="an-kpi-peso" style="color:#67e8f9;font-size:0.95rem;margin:2px 0;">--</div>
-          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (kg)</div>
-        </div>
-        <div class="kpi-card" id="an-card-vbt" style="padding:6px 2px;text-align:center;min-width:0;overflow:hidden;display:none;">
-          <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">VBT Squat</div>
-          <div class="kpi-val" id="an-kpi-vbt" style="color:#38bdf8;font-size:0.95rem;margin:2px 0;">--</div>
-          <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (m/s)</div>
-        </div>
-      </div>
-
-      <!-- GRAFICO 1: TREND LONGITUDINALE -->
-      <div class="card-box" style="margin-bottom:14px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-          <h3 class="card-title" style="margin-bottom:0;" id="trend-chart-title">📈 Andamento Longitudinale nel Tempo</h3>
-          <span style="font-size:0.72rem;color:var(--mv-muted);" id="trend-chart-subtitle">301 record storici</span>
-        </div>
-        <div style="position:relative;height:320px;width:100%;">
-          <canvas id="wellnessTrendChart"></canvas>
-        </div>
-      </div>
-
-      <!-- GRAFICO VBT: PROFILO CARICO-VELOCITÀ (ASCISSE: VELOCITÀ m/s, ORDINATE: CARICO kg) -->
-      <div class="card-box" id="box-vbt-scatter" style="margin-bottom:14px;display:none;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-          <div>
-            <h3 class="card-title" style="margin-bottom:2px;" id="vbt-chart-title">🏎️ Profilo VBT Back Squat — Carico vs Velocità</h3>
-            <p style="font-size:0.75rem;color:var(--mv-muted);margin:0;" id="vbt-chart-subtitle">Ascisse (X): Velocità concentrica media (m/s) · Ordinate (Y): Carico sollevato (kg)</p>
-          </div>
-          <div style="font-size:0.75rem;background:#182846;padding:4px 10px;border-radius:8px;border:1px solid #1e335a;color:#7dd3fc;" id="vbt-summary-badge">
-            Rilevazioni Enode
-          </div>
-        </div>
-        <div style="position:relative;height:340px;width:100%;">
-          <canvas id="vbtScatterChart"></canvas>
-        </div>
-      </div>
-
-      <!-- GRAFICO 2: DINAMICA DEL MICROCICLO (LUNEDÌ ➔ DOMENICA) -->
-      <div class="card-box" style="margin-bottom:14px;">
-        <h3 class="card-title">📊 Risposta nei Giorni della Settimana (Curva di Carico Lun ➔ Dom)</h3>
-        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Mostra la media delle risposte giorno per giorno per individuare il punto di massimo affaticamento e il rimbalzo pre-gara.</p>
-        <div style="position:relative;height:240px;width:100%;">
-          <canvas id="wellnessMicrocycleChart"></canvas>
-        </div>
-      </div>
-
-      <!-- CRONOLOGIA NOTE & SEGNALAZIONI DEL SOGGETTO -->
-      <div class="card-box">
-        <h3 class="card-title">📝 Storico Segnalazioni & Note Cliniche nel Periodo</h3>
-        <div id="analytics-notes-timeline" style="display:flex;flex-direction:column;gap:8px;max-height:300px;overflow-y:auto;">
-          <!-- Popolato via JS -->
-        </div>
-      </div>
-
-    </div>
-
-    <!-- VISTA 2: MATRICE 1RM & CARICHI SALA PESI -->
-    <div class="c-panel" id="panel-massimali">
-      
-      <div class="card-box">
-        <h3 class="card-title">🏋️ Matrice Massimali 1RM & Forza Relativa (1RM / BW)</h3>
-        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Benchmark S&C Volley Femminile: Squat 1.4-1.6x BW · Clean 0.7-0.9x BW · Military 0.45x BW · Ratio Pull:Push ≥ 1.2:1</p>
-        <div class="coach-tbl-wrap">
-          <table class="coach-tbl">
-            <thead>
-              <tr>
-                <th>Atleta</th>
-                <th>BW</th>
-                <th>Squat</th>
-                <th>Bench</th>
-                <th>Military</th>
-                <th>Clean</th>
-                <th>Row</th>
-                <th>Lat</th>
-              </tr>
-            </thead>
-            <tbody id="tbl-1rm-body">
-              <tr><td colspan="8" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento massimali...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- VISTA 3: JUMP BUDGET & WORKLOAD MONITORING -->
-    <div class="c-panel" id="panel-jump">
-      
-      <div class="card-box">
-        <h3 class="card-title">🏐 Jump Budget Settimanale per Ruolo</h3>
-        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Linee guida per la gestione dei salti e la prevenzione del Jumper's Knee (tendinopatia rotulea) nel volley femminile.</p>
-        <div class="coach-tbl-wrap">
-          <table class="coach-tbl">
-            <thead>
-              <tr>
-                <th>Ruolo</th>
-                <th>Target Salti / Settimana</th>
-                <th>Focus Salto & Atterraggio</th>
-                <th>Aggiustamento su Alert Giallo/Rosso</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Schiacciatrici / Opposti</strong></td>
-                <td><span style="color:var(--mv-amber);font-weight:800">250 – 400</span></td>
-                <td>Attacchi in 4/2, Pipe, Battute Jump Float/Spin</td>
-                <td><span style="color:#fde68a">Riduci 20-30% rincorse attacco</span></td>
-              </tr>
-              <tr>
-                <td><strong>Centrali</strong></td>
-                <td><span style="color:var(--mv-amber);font-weight:800">300 – 450</span></td>
-                <td>Muri continui dx/sx, Primi tempi, Fast</td>
-                <td><span style="color:#fde68a">Sostituisci muro jump con footwork a terra</span></td>
-              </tr>
-              <tr>
-                <td><strong>Palleggiatrici</strong></td>
-                <td><span style="color:var(--mv-amber);font-weight:800">200 – 350</span></td>
-                <td>Palleggi in salto, Muro palla piazzata</td>
-                <td><span style="color:#fde68a">Palleggio a terra prioritario</span></td>
-              </tr>
-              <tr>
-                <td><strong>Liberi</strong></td>
-                <td><span style="color:var(--mv-emerald);font-weight:800">&lt; 50</span></td>
-                <td>Reattività a terra, cambi di direzione, tuffi</td>
-                <td><span style="color:#6ee7b7">Lavoro di mobilità anca/caviglia</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="card-box">
-        <h3 class="card-title">📈 Acute:Chronic Workload Ratio (ACWR Benchmark)</h3>
-        <div style="background:#060b16;border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.08);line-height:1.6;font-size:0.82rem;color:#cbd5e1;">
-          <div style="margin-bottom:8px;">
-            <strong style="color:var(--mv-emerald)">🟢 Sweet Spot (ACWR 0.8 – 1.3):</strong> Massima progressione della forza e della capacità di salto con minimo rischio di infortunio.
-          </div>
-          <div style="margin-bottom:8px;">
-            <strong style="color:var(--mv-amber)">🟡 Overreaching Funzionale (ACWR 1.3 – 1.5):</strong> Monitorare attentamente il sonno e la fatica muscolare.
-          </div>
-          <div>
-            <strong style="color:var(--mv-coral)">🔴 Danger Zone (ACWR &gt; 1.5):</strong> Spike improvviso di volume/intensità. Il rischio di tendinopatia rotulea e lesioni muscolari triplica. Prevedere scarico immediato.
-          </div>
-        </div>
-      </div>
+      </details>
 
     </div>
 
@@ -1524,8 +1649,10 @@
 
     async function initCoach() {
       initCampoSection();
+      initWellnessUI();
+      initPerfUI();
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=235', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=236', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -1542,7 +1669,9 @@
       render1RMTable();
       renderVBTTable();
       renderCMJTable();
+      renderCustomLoadsTable();
       renderWellnessAnalytics();
+      renderPerfAnalytics();
     }
 
     async function fetchLiveWellness() {
@@ -2445,9 +2574,19 @@
 
     function switchCoachTab(tab, btn) {
       document.querySelectorAll('.c-tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      if (btn) btn.classList.add('active');
       document.querySelectorAll('.c-panel').forEach(p => p.classList.remove('active'));
-      document.getElementById(`panel-${tab}`).classList.add('active');
+      const targetPanel = document.getElementById(`panel-${tab}`);
+      if (targetPanel) targetPanel.classList.add('active');
+
+      // Ridimensiona i grafici per render perfetto dopo il tab switch
+      if (tab === 'readiness') {
+        if (wellnessChartInstance) wellnessChartInstance.resize();
+        if (microcycleChartInstance) microcycleChartInstance.resize();
+      } else if (tab === 'sedute') {
+        if (perfChartInstance) perfChartInstance.resize();
+        if (vbtScatterChartInstance) vbtScatterChartInstance.resize();
+      }
     }
 
     /* ==========================================
@@ -2812,7 +2951,7 @@
         ` : `
           <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;flex-wrap:wrap;gap:6px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.04);">
             <span style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;">Questionario non ancora compilato stamattina</span>
-            <button onclick="sendSingleReminder(${a.id})" style="background:rgba(37,211,102,0.15);border:1px solid #25d366;color:#86efac;font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
+            <button onclick="event.stopPropagation(); sendSingleReminder(${a.id})" style="background:rgba(37,211,102,0.15);border:1px solid #25d366;color:#86efac;font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
               <span>📲 Sollecita WhatsApp</span>
             </button>
           </div>
@@ -2827,7 +2966,7 @@
         ` : '';
 
         return `
-          <div class="roster-ath-card">
+          <div class="roster-ath-card" onclick="openAthleteDossier(${a.id})" style="cursor:pointer;" title="Clicca per aprire il Dossier Atleta 360°">
             <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
               <div class="ath-ident">
                 <div class="ath-num">#${a.id}</div>
@@ -3144,826 +3283,873 @@
     }
 
     
-    // ==========================================
-    // WELLNESS ANALYTICS & TREND ENGINE
-    // ==========================================
-    let rawWellnessRecords = [];
-    let rawWeightRecords = [];
-    let rawVBTRecords = [];
-    let anCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
-    let anCurrentRange = 'all';
-    let anCurrentDay = 'all';
-    let anVisibleMetrics = { readiness: true, fatica: true, sonno: true, dolori: true, stress: false, peso: false, vbt: false };
-    let trendChartInstance = null;
-    let microcycleChartInstance = null;
-    let vbtScatterChartInstance = null;
+// ==========================================
+// COACH COMMAND CENTER: WELLNESS, PERF & DOSSIER ENGINE
+// ==========================================
 
-    function initAnalyticsUI() {
-      // Inizializza selettore atlete
-      const selector = document.getElementById('analytics-athlete-selector');
-      if (!selector) return;
+// Global state for raw records
+let rawWellnessRecords = [];
+let rawWeightRecords = [];
+let rawVBTRecords = [];
 
-      let pillsHtml = `<button class="btn-filt ${anCurrentAthlete === 0 ? 'active' : ''}" onclick="setAnalyticsTarget(0, this)" style="white-space:nowrap;">👥 Tutta la Squadra</button>`;
-      ROSTER.forEach(a => {
-        const isActive = (anCurrentAthlete === a.id) ? 'active' : '';
-        pillsHtml += `<button class="btn-filt ${isActive}" onclick="setAnalyticsTarget(${a.id}, this)" style="white-space:nowrap;">#${a.id} ${a.name.split(' ')[1] || a.name}</button>`;
-      });
-      selector.innerHTML = pillsHtml;
+// 1. DOSSIER ATLETA 360°
+function openAthleteDossier(aid) {
+  const ath = ROSTER.find(a => a.id === aid);
+  if (!ath) return;
+
+  const w = liveWellnessData[aid];
+  const traffic = getAthleteTrafficStatus(w);
+  const base = TRUE_BASELINES[aid] || {};
+  const bw = BASELINE_WEIGHTS[aid] || 65.0;
+  const sess = liveTodaySessions[aid];
+  const info = (typeof RUBRICA_ATLETE !== 'undefined') ? RUBRICA_ATLETE[aid] : null;
+
+  // Header
+  const avatarEl = document.getElementById('dossier-avatar');
+  if (avatarEl) avatarEl.textContent = `#${ath.id}`;
+  const nameEl = document.getElementById('dossier-name');
+  if (nameEl) nameEl.textContent = ath.name;
+  const roleEl = document.getElementById('dossier-role');
+  if (roleEl) roleEl.textContent = ath.role;
+  const bwEl = document.getElementById('dossier-bw');
+  if (bwEl) bwEl.textContent = `${bw} kg BW`;
+  const badgeEl = document.getElementById('dossier-status-badge');
+  if (badgeEl) {
+    badgeEl.textContent = traffic.label;
+    badgeEl.className = `traffic-tag ${traffic.type}`;
+  }
+
+  // Today KPIs
+  const kpisContainer = document.getElementById('dossier-today-kpis');
+  if (kpisContainer) {
+    if (w && w.isToday) {
+      kpisContainer.innerHTML = `
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--mv-muted)">Readiness</div>
+          <div style="font-size:1.1rem;font-weight:900;color:var(--mv-amber);">${w.readiness !== null ? w.readiness + '/10' : '—'}</div>
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--mv-muted)">Energia</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#6ee7b7;">${w.fatica !== null ? w.fatica + '/10' : '—'}</div>
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--mv-muted)">Sonno</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#93c5fd;">${w.sonno !== null ? w.sonno + '/10' : '—'}</div>
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--mv-muted)">Dolori</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#fca5a5;">${w.dolori !== null ? w.dolori + '/10' : '—'}</div>
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px;text-align:center;">
+          <div style="font-size:0.62rem;color:var(--mv-muted)">Stress</div>
+          <div style="font-size:1.1rem;font-weight:900;color:#d8b4fe;">${w.stress !== null ? w.stress + '/10' : '—'}</div>
+        </div>
+      `;
+    } else {
+      kpisContainer.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align:center; padding:10px; color:var(--mv-muted); font-size:0.75rem; font-style:italic;">
+          ⏳ Questionario non ancora registrato per la giornata di oggi.
+        </div>
+      `;
     }
+  }
 
-    function drillDownAthlete(aid) {
-      anCurrentAthlete = aid;
-      initAnalyticsUI();
-      switchCoachTab('analytics', document.getElementById('btn-tab-analytics'));
-      renderWellnessAnalytics();
+  // Today Notes Box
+  const notesBox = document.getElementById('dossier-today-notes-box');
+  if (notesBox) {
+    if (w && w.isToday && w.note && w.note.trim()) {
+      notesBox.style.display = 'block';
+      notesBox.innerHTML = `💬 <strong>Segnalazione di oggi:</strong> "${w.note}"`;
+    } else if (w && w.isToday) {
+      notesBox.style.display = 'block';
+      notesBox.innerHTML = `✅ Nessuna segnalazione o dolore particolare riportato stamattina.`;
+    } else {
+      notesBox.style.display = 'none';
     }
+  }
 
-    function setAnalyticsTarget(aid, btn) {
-      anCurrentAthlete = aid;
-      if (btn) {
-        btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
-      renderWellnessAnalytics();
+  // Scheda Massimali 1RM & BW
+  const rmGrid = document.getElementById('dossier-rm-grid');
+  if (rmGrid) {
+    const exercises = [
+      { key: 'squat', name: 'Squat', val: base.squat },
+      { key: 'bench', name: 'Bench', val: base.bench },
+      { key: 'military', name: 'Military', val: base.military },
+      { key: 'clean', name: 'Power Clean', val: base.clean },
+      { key: 'row', name: 'Seal Row', val: base.row },
+      { key: 'lat', name: 'Lat Machine', val: base.lat },
+      { key: 'rdl', name: 'RDL', val: base.rdl }
+    ];
+
+    rmGrid.innerHTML = exercises.map(ex => {
+      const v = ex.val || 0;
+      const ratio = (v > 0 && bw > 0) ? (v / bw).toFixed(2) + 'x BW' : '—';
+      return `
+        <div class="dossier-rm-card">
+          <div class="dossier-rm-lbl">${ex.name}</div>
+          <div class="dossier-rm-val">${v > 0 ? v + ' kg' : '—'}</div>
+          <div class="dossier-rm-sub">${ratio}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Storico Recente
+  const historyList = document.getElementById('dossier-recent-history');
+  if (historyList) {
+    const athRecords = rawWellnessRecords.filter(r => r.aid === aid).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 6);
+    if (athRecords.length === 0) {
+      historyList.innerHTML = `<div style="font-size:0.75rem;color:var(--mv-muted);text-align:center;padding:10px;">Nessuna registrazione recente in archivio.</div>`;
+    } else {
+      historyList.innerHTML = athRecords.map(r => `
+        <div style="font-size:0.75rem;background:#091222;border:1px solid rgba(255,255,255,0.04);border-radius:6px;padding:6px 10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+          <div>
+            <strong style="color:#fff;">${r.date}</strong>
+            <span style="color:var(--mv-muted);margin-left:6px;">Readiness: <strong style="color:var(--mv-amber)">${r.readiness !== null ? r.readiness : '—'}/10</strong> · Sonno: <strong style="color:#93c5fd">${r.sonno !== null ? r.sonno : '—'}/10</strong> · Dolori: <strong style="color:#fca5a5">${r.dolori !== null ? r.dolori : '—'}/10</strong></span>
+          </div>
+          ${r.note ? `<span style="color:#fde68a;font-style:italic;font-size:0.72rem;">💬 "${r.note.slice(0, 35)}${r.note.length > 35 ? '...' : ''}"</span>` : ''}
+        </div>
+      `).join('');
     }
+  }
 
-    function setAnalyticsRange(range, btn) {
-      anCurrentRange = range;
-      if (btn) {
-        btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
-      renderWellnessAnalytics();
+  // Azioni Rapide
+  const btnWa = document.getElementById('dossier-btn-wa');
+  if (btnWa) {
+    if (info && info.tel) {
+      const cleanTel = info.tel.replace(/[^0-9]/g, '');
+      btnWa.href = `https://api.whatsapp.com/send?phone=${cleanTel}`;
+      btnWa.style.display = 'flex';
+    } else {
+      btnWa.style.display = 'none';
     }
+  }
 
-    function setAnalyticsDay(day, btn) {
-      anCurrentDay = day;
-      if (btn) {
-        btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
-      renderWellnessAnalytics();
+  const btnPwa = document.getElementById('dossier-btn-pwa');
+  if (btnPwa) {
+    btnPwa.href = `./?id=${aid}`;
+  }
+
+  const modal = document.getElementById('athlete-dossier-modal');
+  if (modal) modal.classList.add('active');
+}
+
+function closeAthleteDossier() {
+  const modal = document.getElementById('athlete-dossier-modal');
+  if (modal) modal.classList.remove('active');
+}
+
+function drillDownAthlete(aid) {
+  openAthleteDossier(aid);
+}
+
+// 2. SUB-TAB SWITCHER PER SALA PESI
+function switchSeduteSubTable(tabId, btn) {
+  const pills = document.querySelectorAll('#sedute-subtable-pills .btn-filt');
+  pills.forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  const subBoxes = ['srpe', '1rm', 'vbt', 'cmj', 'custom'];
+  subBoxes.forEach(s => {
+    const el = document.getElementById(`sub-box-${s}`);
+    if (el) el.style.display = (s === tabId) ? 'block' : 'none';
+  });
+}
+
+// 3. WELLNESS ANALYTICS ENGINE (IN TAB 1: READINESS)
+let wnCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
+let wnCurrentRange = 'all';
+let wnVisibleMetrics = { readiness: true, fatica: true, sonno: true, dolori: true, stress: false, peso: false };
+let wellnessChartInstance = null;
+let microcycleChartInstance = null;
+
+function initWellnessUI() {
+  const selector = document.getElementById('wellness-athlete-selector');
+  if (!selector) return;
+
+  const ATHLETES = ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff'));
+  let pillsHtml = `<button class="btn-filt ${wnCurrentAthlete === 0 ? 'active' : ''}" onclick="setWellnessTarget(0, this)" style="white-space:nowrap;">👥 Squadra</button>`;
+  ATHLETES.forEach(a => {
+    const isActive = (wnCurrentAthlete === a.id) ? 'active' : '';
+    pillsHtml += `<button class="btn-filt ${isActive}" onclick="setWellnessTarget(${a.id}, this)" style="white-space:nowrap;">#${a.id} ${a.name.split(' ')[1] || a.name}</button>`;
+  });
+  selector.innerHTML = pillsHtml;
+}
+
+function setWellnessTarget(aid, btn) {
+  wnCurrentAthlete = aid;
+  if (btn && btn.parentElement) {
+    btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  renderWellnessAnalytics();
+}
+
+function setWellnessRange(range, btn) {
+  wnCurrentRange = range;
+  if (btn && btn.parentElement) {
+    btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  renderWellnessAnalytics();
+}
+
+function toggleWellnessMetric(metric) {
+  wnVisibleMetrics[metric] = !wnVisibleMetrics[metric];
+  const btn = document.getElementById(`tog-${metric}`);
+  if (btn) {
+    if (wnVisibleMetrics[metric]) btn.classList.add('active');
+    else btn.classList.remove('active');
+  }
+  renderWellnessAnalytics();
+}
+
+function filterWellnessData() {
+  let data = [...rawWellnessRecords];
+  if (wnCurrentAthlete > 0) {
+    data = data.filter(r => r.aid === wnCurrentAthlete);
+  }
+  const now = new Date();
+  if (wnCurrentRange === '7d') {
+    const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    data = data.filter(r => r.date >= cutoff);
+  } else if (wnCurrentRange === '14d') {
+    const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    data = data.filter(r => r.date >= cutoff);
+  } else if (wnCurrentRange === '30d') {
+    const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    data = data.filter(r => r.date >= cutoff);
+  } else if (wnCurrentRange === 'offseason') {
+    data = data.filter(r => r.date <= '2026-08-23');
+  } else if (wnCurrentRange === 'preseason') {
+    data = data.filter(r => r.date >= '2026-08-24');
+  }
+  return data;
+}
+
+function filterWeightData() {
+  let data = [...rawWeightRecords];
+  if (wnCurrentAthlete > 0) {
+    data = data.filter(r => r.aid === wnCurrentAthlete);
+  }
+  const latestMap = new Map();
+  data.forEach(r => {
+    const key = `${r.aid}_${r.date}`;
+    const prev = latestMap.get(key);
+    if (!prev || (r.timestamp && r.timestamp >= prev.timestamp)) {
+      latestMap.set(key, r);
     }
+  });
+  data = Array.from(latestMap.values());
+  const now = new Date();
+  if (wnCurrentRange === '7d') {
+    const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    data = data.filter(r => r.date >= cutoff);
+  } else if (wnCurrentRange === '14d') {
+    const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    data = data.filter(r => r.date >= cutoff);
+  } else if (wnCurrentRange === '30d') {
+    const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    data = data.filter(r => r.date >= cutoff);
+  } else if (wnCurrentRange === 'offseason') {
+    data = data.filter(r => r.date <= '2026-08-23');
+  } else if (wnCurrentRange === 'preseason') {
+    data = data.filter(r => r.date >= '2026-08-24');
+  }
+  return data;
+}
 
-    function toggleMetric(metric) {
-      anVisibleMetrics[metric] = !anVisibleMetrics[metric];
-      const btn = document.getElementById(`tog-${metric}`);
-      if (btn) {
-        if (anVisibleMetrics[metric]) btn.classList.add('active');
-        else btn.classList.remove('active');
-      }
-      renderWellnessAnalytics();
+function renderWellnessAnalytics() {
+  initWellnessUI();
+  const filtered = filterWellnessData();
+  const filteredWeight = filterWeightData();
+
+  // Titoli dinamici
+  const targetName = (wnCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === wnCurrentAthlete)?.name || `Atleta #${wnCurrentAthlete}`);
+  const titleEl = document.getElementById('wellness-chart-title');
+  if (titleEl) titleEl.textContent = `📈 Wellness & Readiness: ${targetName}`;
+  const subEl = document.getElementById('wellness-chart-subtitle');
+  if (subEl) subEl.textContent = `${filtered.length} risposte questionario analizzate`;
+
+  // 1. Calcolo Micro-KPI Summary
+  let sumReady = 0, sumFatica = 0, sumSonno = 0, sumDolori = 0, sumStress = 0, sumPeso = 0;
+  let cReady = 0, cFatica = 0, cSonno = 0, cDolori = 0, cStress = 0, cPeso = 0;
+
+  filtered.forEach(r => {
+    if (typeof r.readiness === 'number' && !isNaN(r.readiness)) { sumReady += r.readiness; cReady++; }
+    if (typeof r.fatica === 'number' && !isNaN(r.fatica)) { sumFatica += r.fatica; cFatica++; }
+    if (typeof r.sonno === 'number' && !isNaN(r.sonno)) { sumSonno += r.sonno; cSonno++; }
+    if (typeof r.dolori === 'number' && !isNaN(r.dolori)) { sumDolori += r.dolori; cDolori++; }
+    if (typeof r.stress === 'number' && !isNaN(r.stress)) { sumStress += r.stress; cStress++; }
+  });
+
+  filteredWeight.forEach(r => {
+    if (typeof r.peso === 'number' && !isNaN(r.peso) && r.peso > 0) { sumPeso += r.peso; cPeso++; }
+  });
+
+  const setKpi = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+  setKpi('wn-kpi-readiness', cReady > 0 ? (sumReady / cReady).toFixed(1) + '/10' : '--');
+  setKpi('wn-kpi-fatica', cFatica > 0 ? (sumFatica / cFatica).toFixed(1) + '/10' : '--');
+  setKpi('wn-kpi-sonno', cSonno > 0 ? (sumSonno / cSonno).toFixed(1) + 'h' : '--');
+  setKpi('wn-kpi-dolori', cDolori > 0 ? (sumDolori / cDolori).toFixed(1) + '/10' : '--');
+  setKpi('wn-kpi-stress', cStress > 0 ? (sumStress / cStress).toFixed(1) + '/10' : '--');
+  setKpi('wn-kpi-peso', cPeso > 0 ? (sumPeso / cPeso).toFixed(1) + ' kg' : '--');
+
+  // Mostra/nascondi card KPI in base alle metriche attive
+  const wMetrics = ['readiness', 'fatica', 'sonno', 'dolori', 'stress', 'peso'];
+  wMetrics.forEach(m => {
+    const card = document.getElementById(`wn-card-${m}`);
+    if (card) {
+      card.style.display = wnVisibleMetrics[m] ? '' : 'none';
     }
+  });
 
-    function filterWellnessData() {
-      let data = [...rawWellnessRecords];
-
-      // Filtro Atleta
-      if (anCurrentAthlete > 0) {
-        data = data.filter(r => r.aid === anCurrentAthlete);
-      }
-
-      // Filtro Temporale
-      const now = new Date();
-      if (anCurrentRange === '7d') {
-        const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        data = data.filter(r => r.date >= cutoff);
-      } else if (anCurrentRange === '14d') {
-        const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        data = data.filter(r => r.date >= cutoff);
-      } else if (anCurrentRange === '30d') {
-        const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        data = data.filter(r => r.date >= cutoff);
-      } else if (anCurrentRange === 'offseason') {
-        data = data.filter(r => r.date <= '2026-08-23');
-      } else if (anCurrentRange === 'preseason') {
-        data = data.filter(r => r.date >= '2026-08-24');
-      }
-
-      // Filtro Giorno della Settimana (1=Lun, 2=Mar, ..., 0=Dom)
-      if (anCurrentDay !== 'all') {
-        const targetDay = parseInt(anCurrentDay);
-        data = data.filter(r => {
-          const d = new Date(r.date);
-          return d.getDay() === targetDay;
-        });
-      }
-
-      return data;
+  // 2. Costruzione Dati per Grafico Temporale Longitudinale
+  const dateMap = {};
+  filtered.forEach(r => {
+    if (!r.date || r.date.length < 10 || !r.date.includes('-')) return;
+    if (!dateMap[r.date]) {
+      dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], peso: [], notes: [] };
     }
+    if (r.readiness !== null) dateMap[r.date].readiness.push(r.readiness);
+    if (r.fatica !== null) dateMap[r.date].fatica.push(r.fatica);
+    if (r.sonno !== null) dateMap[r.date].sonno.push(r.sonno);
+    if (r.dolori !== null) dateMap[r.date].dolori.push(r.dolori);
+    if (r.stress !== null) dateMap[r.date].stress.push(r.stress);
+    if (r.note && r.note.trim()) dateMap[r.date].notes.push({ ath: r.athName, note: r.note });
+  });
 
-    function filterWeightData() {
-      let data = [...rawWeightRecords];
-
-      // Filtro Atleta
-      if (anCurrentAthlete > 0) {
-        data = data.filter(r => r.aid === anCurrentAthlete);
-      }
-
-      // Deduplica mantenendo l'ultima pesata registrata per (atleta, data)
-      const latestMap = new Map();
-      data.forEach(r => {
-        const key = `${r.aid}_${r.date}`;
-        const prev = latestMap.get(key);
-        if (!prev || (r.timestamp && r.timestamp >= prev.timestamp)) {
-          latestMap.set(key, r);
-        }
-      });
-      data = Array.from(latestMap.values());
-
-      // Filtro Temporale
-      const now = new Date();
-      if (anCurrentRange === '7d') {
-        const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        data = data.filter(r => r.date >= cutoff);
-      } else if (anCurrentRange === '14d') {
-        const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        data = data.filter(r => r.date >= cutoff);
-      } else if (anCurrentRange === '30d') {
-        const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        data = data.filter(r => r.date >= cutoff);
-      } else if (anCurrentRange === 'offseason') {
-        data = data.filter(r => r.date <= '2026-08-23');
-      } else if (anCurrentRange === 'preseason') {
-        data = data.filter(r => r.date >= '2026-08-24');
-      }
-
-      // Filtro Giorno della Settimana
-      if (anCurrentDay !== 'all') {
-        const targetDay = parseInt(anCurrentDay);
-        data = data.filter(r => {
-          const d = new Date(r.date);
-          return d.getDay() === targetDay;
-        });
-      }
-
-      return data;
+  filteredWeight.forEach(r => {
+    if (!r.date || r.date.length < 10 || !r.date.includes('-')) return;
+    if (!dateMap[r.date]) {
+      dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], peso: [], notes: [] };
     }
+    if (!dateMap[r.date].peso) dateMap[r.date].peso = [];
+    if (r.peso !== null && r.peso !== undefined) dateMap[r.date].peso.push(r.peso);
+  });
 
-    function filterVBTData() {
-      let data = [...rawVBTRecords];
+  const sortedDates = Object.keys(dateMap).sort().filter(d => d && d.length >= 10 && d.includes('-'));
+  const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
 
-      // Filtro Atleta
-      if (anCurrentAthlete > 0) {
-        data = data.filter(r => r.aid === anCurrentAthlete);
-      }
+  const monthAbbr = { '01':'GEN', '02':'FEB', '03':'MAR', '04':'APR', '05':'MAG', '06':'GIU', '07':'LUG', '08':'AGO', '09':'SET', '10':'OTT', '11':'NOV', '12':'DIC' };
+  const totalPoints = sortedDates.length;
+  let step = totalPoints > 35 ? 4 : (totalPoints > 18 ? 2 : 1);
 
-      // Filtro Temporale
-      const now = new Date();
-      if (anCurrentRange === '7d') {
-        const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        data = data.filter(r => r.date >= cutoff);
-      } else if (anCurrentRange === '14d') {
-        const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        data = data.filter(r => r.date >= cutoff);
-      } else if (anCurrentRange === '30d') {
-        const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-        data = data.filter(r => r.date >= cutoff);
-      } else if (anCurrentRange === 'offseason') {
-        data = data.filter(r => r.date <= '2026-08-23');
-      } else if (anCurrentRange === 'preseason') {
-        data = data.filter(r => r.date >= '2026-08-24');
-      }
+  let lastSeenMonth = null;
+  const labels = sortedDates.map((d, idx) => {
+    const parts = d.split('-');
+    const m = parts[1];
+    const dayNum = String(parseInt(parts[2], 10) || '');
+    const dt = new Date(`${parts[0]}-${parts[1]}-${parts[2]}T12:00:00`);
+    const dayOfWeek = dt.getDay();
+    const isSat = (dayOfWeek === 6);
+    const isSun = (dayOfWeek === 0);
 
-      // Filtro Giorno della Settimana
-      if (anCurrentDay !== 'all') {
-        const targetDay = parseInt(anCurrentDay);
-        data = data.filter(r => {
-          const d = new Date(r.date);
-          return d.getDay() === targetDay;
-        });
-      }
+    const isMonthStart = (m !== lastSeenMonth);
+    if (isMonthStart) lastSeenMonth = m;
 
-      return data;
+    const isFirst = (idx === 0);
+    const isLast = (idx === totalPoints - 1);
+    const isStepTick = (idx % step === 0);
+
+    if (isMonthStart || isFirst) {
+      const mTag = monthAbbr[m] || m;
+      if (isSat) return [dayNum, `S · ${mTag}`];
+      if (isSun) return [dayNum, `D · ${mTag}`];
+      return [dayNum, mTag];
+    } else if (isSat) {
+      return [dayNum, 'S'];
+    } else if (isSun) {
+      return [dayNum, 'D'];
+    } else if (totalPoints <= 14 || isLast || isStepTick) {
+      return dayNum;
+    } else {
+      return '';
     }
+  });
 
-    function renderWellnessAnalytics() {
-      initAnalyticsUI();
-      const filtered = filterWellnessData();
-      const filteredWeight = filterWeightData();
-      const filteredVBT = filterVBTData();
+  const datasets = [];
+  if (wnVisibleMetrics.readiness) {
+    datasets.push({
+      label: 'Readiness 🎯',
+      data: sortedDates.map(d => avg(dateMap[d].readiness)),
+      borderColor: '#f59e0b',
+      backgroundColor: 'rgba(245, 158, 11, 0.12)',
+      yAxisID: 'y',
+      tension: 0.35,
+      borderWidth: 3,
+      pointRadius: 4,
+      pointHoverRadius: 6
+    });
+  }
+  if (wnVisibleMetrics.fatica) {
+    datasets.push({
+      label: 'Energia ⚡',
+      data: sortedDates.map(d => avg(dateMap[d].fatica)),
+      borderColor: '#10b981',
+      backgroundColor: 'transparent',
+      yAxisID: 'y',
+      tension: 0.35,
+      borderWidth: 2,
+      pointRadius: 3
+    });
+  }
+  if (wnVisibleMetrics.sonno) {
+    datasets.push({
+      label: 'Sonno 😴',
+      data: sortedDates.map(d => avg(dateMap[d].sonno)),
+      borderColor: '#3b82f6',
+      backgroundColor: 'transparent',
+      yAxisID: 'y',
+      tension: 0.35,
+      borderWidth: 2,
+      pointRadius: 3
+    });
+  }
+  if (wnVisibleMetrics.dolori) {
+    datasets.push({
+      label: 'Dolori 🩹',
+      data: sortedDates.map(d => avg(dateMap[d].dolori)),
+      borderColor: '#ef4444',
+      backgroundColor: 'transparent',
+      yAxisID: 'y',
+      tension: 0.35,
+      borderWidth: 2,
+      pointRadius: 3
+    });
+  }
+  if (wnVisibleMetrics.stress) {
+    datasets.push({
+      label: 'Stress 🧠',
+      data: sortedDates.map(d => avg(dateMap[d].stress)),
+      borderColor: '#a855f7',
+      backgroundColor: 'transparent',
+      yAxisID: 'y',
+      tension: 0.35,
+      borderWidth: 2,
+      pointRadius: 3
+    });
+  }
+  if (wnVisibleMetrics.peso) {
+    datasets.push({
+      label: 'Peso (kg) ⚖️',
+      data: sortedDates.map(d => avg(dateMap[d].peso)),
+      borderColor: '#06b6d4',
+      backgroundColor: 'transparent',
+      yAxisID: 'y1',
+      tension: 0.35,
+      borderWidth: 2,
+      pointRadius: 3
+    });
+  }
 
-      // Titoli dinamici
-      const targetName = (anCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === anCurrentAthlete)?.name || `Atleta #${anCurrentAthlete}`);
-      document.getElementById('trend-chart-title').textContent = `📈 Trend: ${targetName}`;
-      document.getElementById('trend-chart-subtitle').textContent = `${filtered.length} record wellness · ${filteredWeight.length} pesate · ${filteredVBT.length} rilevazioni VBT`;
-
-      // 1. Calcolo KPI Summary
-      let sumReady = 0, sumFatica = 0, sumSonno = 0, sumDolori = 0, sumStress = 0, sumPeso = 0, sumVbt = 0;
-      let cReady = 0, cFatica = 0, cSonno = 0, cDolori = 0, cStress = 0, cPeso = 0, cVbt = 0;
-
-      filtered.forEach(r => {
-        if (typeof r.readiness === 'number' && !isNaN(r.readiness)) { sumReady += r.readiness; cReady++; }
-        if (typeof r.fatica === 'number' && !isNaN(r.fatica)) { sumFatica += r.fatica; cFatica++; }
-        if (typeof r.sonno === 'number' && !isNaN(r.sonno)) { sumSonno += r.sonno; cSonno++; }
-        if (typeof r.dolori === 'number' && !isNaN(r.dolori)) { sumDolori += r.dolori; cDolori++; }
-        if (typeof r.stress === 'number' && !isNaN(r.stress)) { sumStress += r.stress; cStress++; }
-      });
-
-      filteredWeight.forEach(r => {
-        if (typeof r.peso === 'number' && !isNaN(r.peso) && r.peso > 0) { sumPeso += r.peso; cPeso++; }
-      });
-
-      filteredVBT.forEach(r => {
-        if (typeof r.vel === 'number' && !isNaN(r.vel) && r.vel > 0) { sumVbt += r.vel; cVbt++; }
-      });
-
-      document.getElementById('an-kpi-readiness').textContent = cReady > 0 ? (sumReady / cReady).toFixed(1) + '/10' : '--';
-      document.getElementById('an-kpi-fatica').textContent = cFatica > 0 ? (sumFatica / cFatica).toFixed(1) + '/10' : '--';
-      document.getElementById('an-kpi-sonno').textContent = cSonno > 0 ? (sumSonno / cSonno).toFixed(1) + '/10' : '--';
-      document.getElementById('an-kpi-dolori').textContent = cDolori > 0 ? (sumDolori / cDolori).toFixed(1) + '/10' : '--';
-      document.getElementById('an-kpi-stress').textContent = cStress > 0 ? (sumStress / cStress).toFixed(1) + '/10' : '--';
-      const kpiPesoEl = document.getElementById('an-kpi-peso');
-      if (kpiPesoEl) kpiPesoEl.textContent = cPeso > 0 ? (sumPeso / cPeso).toFixed(1) + ' kg' : '--';
-      const kpiVbtEl = document.getElementById('an-kpi-vbt');
-      if (kpiVbtEl) kpiVbtEl.textContent = cVbt > 0 ? (sumVbt / cVbt).toFixed(2) + ' m/s' : '--';
-
-      // Visualizzazione / occultamento card KPI in base alle metriche selezionate
-      const metricsList = ['readiness', 'fatica', 'sonno', 'dolori', 'stress', 'peso', 'vbt'];
-      let activeKpiCount = 0;
-      metricsList.forEach(m => {
-        const card = document.getElementById(`an-card-${m}`);
-        if (card) {
-          const isVis = Boolean(anVisibleMetrics[m]);
-          card.style.display = isVis ? '' : 'none';
-          if (isVis) activeKpiCount++;
-        }
-      });
-      const kpiGrid = document.getElementById('analytics-kpi-grid');
-      if (kpiGrid) {
-        if (activeKpiCount > 0) {
-          kpiGrid.style.display = 'grid';
-          kpiGrid.style.gridTemplateColumns = `repeat(${activeKpiCount}, 1fr)`;
-        } else {
-          kpiGrid.style.display = 'none';
-        }
-      }
-
-      // 2. Costruzione Dati per Grafico Temporale
-      const dateMap = {};
-      filtered.forEach(r => {
-        if (!r.date || r.date.length < 10 || !r.date.includes('-')) return;
-        if (!dateMap[r.date]) {
-          dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], peso: [], notes: [] };
-        }
-        if (r.readiness !== null) dateMap[r.date].readiness.push(r.readiness);
-        if (r.fatica !== null) dateMap[r.date].fatica.push(r.fatica);
-        if (r.sonno !== null) dateMap[r.date].sonno.push(r.sonno);
-        if (r.dolori !== null) dateMap[r.date].dolori.push(r.dolori);
-        if (r.stress !== null) dateMap[r.date].stress.push(r.stress);
-        if (r.note && r.note.trim()) dateMap[r.date].notes.push({ ath: r.athName, note: r.note });
-      });
-
-      filteredWeight.forEach(r => {
-        if (!r.date || r.date.length < 10 || !r.date.includes('-')) return;
-        if (!dateMap[r.date]) {
-          dateMap[r.date] = { date: r.date, readiness: [], fatica: [], sonno: [], dolori: [], stress: [], peso: [], notes: [] };
-        }
-        if (!dateMap[r.date].peso) dateMap[r.date].peso = [];
-        if (r.peso !== null && r.peso !== undefined) dateMap[r.date].peso.push(r.peso);
-      });
-
-      const sortedDates = Object.keys(dateMap).sort().filter(d => d && d.length >= 10 && d.includes('-'));
-      const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
-
-      const monthAbbr = { '01':'GEN', '02':'FEB', '03':'MAR', '04':'APR', '05':'MAG', '06':'GIU', '07':'LUG', '08':'AGO', '09':'SET', '10':'OTT', '11':'NOV', '12':'DIC' };
-
-      const totalPoints = sortedDates.length;
-      let step = 1;
-      if (totalPoints > 35) step = 4;
-      else if (totalPoints > 18) step = 2;
-      else step = 1;
-
-      let lastSeenMonth = null;
-      const labels = sortedDates.map((d, idx) => {
-        const parts = d.split('-');
-        const m = parts[1];
-        const dayNum = String(parseInt(parts[2], 10) || '');
-
-        // Calcolo giorno settimana (0=Dom, 1=Lun, ..., 6=Sab)
-        const dt = new Date(`${parts[0]}-${parts[1]}-${parts[2]}T12:00:00`);
-        const dayOfWeek = dt.getDay();
-        const isSat = (dayOfWeek === 6);
-        const isSun = (dayOfWeek === 0);
-
-        const isMonthStart = (m !== lastSeenMonth);
-        if (isMonthStart) lastSeenMonth = m;
-
-        const isFirst = (idx === 0);
-        const isLast = (idx === totalPoints - 1);
-        const isStepTick = (idx % step === 0);
-
-        if (isMonthStart || isFirst) {
-          const mTag = monthAbbr[m] || m;
-          if (isSat) return [dayNum, `S · ${mTag}`];
-          if (isSun) return [dayNum, `D · ${mTag}`];
-          return [dayNum, mTag]; // 2 righe: Giorno sopra, MESE ORO sotto
-        } else if (isSat) {
-          return [dayNum, 'S']; // Sabato: 'S' sotto
-        } else if (isSun) {
-          return [dayNum, 'D']; // Domenica: 'D' sotto
-        } else if (totalPoints <= 14 || isLast || isStepTick) {
-          return dayNum;
-        } else {
-          return ''; // Spazio vuoto per respiro visivo
-        }
-      });
-
-      const hasWellnessActive = Boolean(anVisibleMetrics.readiness || anVisibleMetrics.fatica || anVisibleMetrics.sonno || anVisibleMetrics.dolori || anVisibleMetrics.stress);
-      const isPesoOnly = Boolean(anVisibleMetrics.peso && !hasWellnessActive);
-
-      let minPeso = 45, maxPeso = 85;
-      if (anVisibleMetrics.peso) {
-        const allPesoValues = [];
-        sortedDates.forEach(d => {
-          if (dateMap[d].peso && dateMap[d].peso.length) {
-            dateMap[d].peso.forEach(p => allPesoValues.push(p));
-          }
-        });
-        if (allPesoValues.length > 0) {
-          const minVal = Math.min(...allPesoValues);
-          const maxVal = Math.max(...allPesoValues);
-          minPeso = Math.floor(minVal - 2);
-          maxPeso = Math.ceil(maxVal + 2);
-          if (maxPeso - minPeso < 5) {
-            minPeso -= 2;
-            maxPeso += 2;
-          }
-        }
-      }
-
-      const datasets = [];
-      if (anVisibleMetrics.readiness) {
-        datasets.push({
-          label: 'Readiness 🎯',
-          data: sortedDates.map(d => avg(dateMap[d].readiness)),
-          borderColor: '#f59e0b',
-          backgroundColor: 'rgba(245, 158, 11, 0.1)',
-          yAxisID: 'y',
-          tension: 0.35,
-          borderWidth: 3,
-          pointRadius: 4,
-          pointHoverRadius: 6
-        });
-      }
-      if (anVisibleMetrics.fatica) {
-        datasets.push({
-          label: 'Energia ⚡',
-          data: sortedDates.map(d => avg(dateMap[d].fatica)),
-          borderColor: '#10b981',
-          backgroundColor: 'transparent',
-          yAxisID: 'y',
-          tension: 0.35,
-          borderWidth: 2,
-          pointRadius: 3
-        });
-      }
-      if (anVisibleMetrics.sonno) {
-        datasets.push({
-          label: 'Sonno 😴',
-          data: sortedDates.map(d => avg(dateMap[d].sonno)),
-          borderColor: '#3b82f6',
-          backgroundColor: 'transparent',
-          yAxisID: 'y',
-          tension: 0.35,
-          borderWidth: 2,
-          pointRadius: 3
-        });
-      }
-      if (anVisibleMetrics.dolori) {
-        datasets.push({
-          label: 'Dolori 🩹',
-          data: sortedDates.map(d => avg(dateMap[d].dolori)),
-          borderColor: '#ef4444',
-          backgroundColor: 'transparent',
-          yAxisID: 'y',
-          tension: 0.35,
-          borderWidth: 2,
-          pointRadius: 3
-        });
-      }
-      if (anVisibleMetrics.stress) {
-        datasets.push({
-          label: 'Stress 🧠',
-          data: sortedDates.map(d => avg(dateMap[d].stress)),
-          borderColor: '#a855f7',
-          backgroundColor: 'transparent',
-          yAxisID: 'y',
-          tension: 0.35,
-          borderWidth: 2,
-          pointRadius: 3
-        });
-      }
-      if (anVisibleMetrics.peso) {
-        datasets.push({
-          label: 'Peso (kg) ⚖️',
-          data: sortedDates.map(d => (dateMap[d].peso && dateMap[d].peso.length) ? avg(dateMap[d].peso) : null),
-          borderColor: '#06b6d4',
-          backgroundColor: 'rgba(6, 182, 212, 0.08)',
-          yAxisID: hasWellnessActive ? 'yPeso' : 'y',
-          tension: 0.35,
-          borderWidth: 2.5,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-          spanGaps: true
-        });
-      }
-
-      const chartScales = {
-        x: {
-          grid: { color: 'rgba(255, 255, 255, 0.04)' },
-          ticks: {
-            callback: function(val, index) {
-              return labels[index];
-            },
-            color: function(context) {
-              const label = labels[context.index];
-              if (Array.isArray(label)) {
-                const sub = label[1] || '';
-                if (sub === 'S' || sub === 'D' || sub.startsWith('S ') || sub.startsWith('D ')) {
-                  return '#38bdf8';
-                }
-                return '#f59e0b';
-              }
-              return '#94a3b8';
-            },
-            font: function(context) {
-              const label = labels[context.index];
-              return Array.isArray(label) ? { weight: '800', size: 10 } : { size: 10 };
-            },
-            autoSkip: false,
-            maxRotation: 0,
-            minRotation: 0
-          }
-        }
-      };
-
-      if (isPesoOnly) {
-        chartScales.y = {
-          position: 'left',
-          min: minPeso,
-          max: maxPeso,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: {
-            color: '#67e8f9',
-            callback: function(val) { return val + ' kg'; }
+  const ctxTrend = document.getElementById('wellnessTrendChart');
+  if (ctxTrend) {
+    if (wellnessChartInstance) wellnessChartInstance.destroy();
+    wellnessChartInstance = new Chart(ctxTrend, {
+      type: 'line',
+      data: { labels, datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: true, position: 'top', labels: { color: '#cbd5e1', boxWidth: 12 } }
+        },
+        scales: {
+          y: {
+            min: 0, max: 10,
+            grid: { color: 'rgba(255, 255, 255, 0.06)' },
+            ticks: { color: '#94a3b8', stepSize: 2 }
           },
-          title: {
-            display: true,
-            text: 'Peso Corporeo (kg)',
-            color: '#67e8f9',
-            font: { weight: '700', size: 11 }
-          }
-        };
-      } else {
-        chartScales.y = {
-          position: 'left',
-          min: 0,
-          max: 10,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#94a3b8', stepSize: 2 },
-          title: {
-            display: true,
-            text: 'Score Wellness (0-10)',
-            color: '#94a3b8',
-            font: { weight: '700', size: 11 }
-          }
-        };
-        if (anVisibleMetrics.peso) {
-          chartScales.yPeso = {
+          y1: {
             position: 'right',
-            min: minPeso,
-            max: maxPeso,
+            display: Boolean(wnVisibleMetrics.peso),
             grid: { drawOnChartArea: false },
-            ticks: {
-              color: '#67e8f9',
-              callback: function(val) { return val + ' kg'; }
-            },
-            title: {
-              display: true,
-              text: 'Peso (kg)',
-              color: '#67e8f9',
-              font: { weight: '700', size: 11 }
-            }
-          };
-        }
-      }
-
-      // Render o Update Chart 1
-      const ctxTrend = document.getElementById('wellnessTrendChart');
-      if (ctxTrend) {
-        if (trendChartInstance) trendChartInstance.destroy();
-        trendChartInstance = new Chart(ctxTrend, {
-          type: 'line',
-          data: { labels: labels, datasets: datasets },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: { mode: 'index', intersect: false },
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                backgroundColor: '#090f1d',
-                borderColor: '#1f365d',
-                borderWidth: 1,
-                titleColor: '#fff',
-                bodyColor: '#cbd5e1',
-                padding: 10,
-                callbacks: {
-                  title: function(context) {
-                    const idx = context[0].dataIndex;
-                    const d = sortedDates[idx];
-                    const parts = d.split('-');
-                    const dt = new Date(`${parts[0]}-${parts[1]}-${parts[2]}T12:00:00`);
-                    const dNames = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
-                    const dayName = dNames[dt.getDay()] || '';
-                    return `📅 ${dayName} ${parts[2]}/${parts[1]}/${parts[0]}`;
-                  },
-                  label: function(context) {
-                    const label = context.dataset.label || '';
-                    const val = context.parsed.y;
-                    if (val === null || val === undefined) return null;
-                    if (context.dataset.yAxisID === 'yPeso' || isPesoOnly) {
-                      return `${label}: ${val.toFixed(1)} kg`;
-                    }
-                    return `${label}: ${val}/10`;
-                  },
-                  afterBody: function(context) {
-                    const idx = context[0].dataIndex;
-                    const d = sortedDates[idx];
-                    const notes = dateMap[d].notes;
-                    if (notes && notes.length) {
-                      return notes.map(n => `💬 ${n.ath}: "${n.note}"`).join('\n');
-                    }
-                    return '';
-                  }
-                }
-              }
-            },
-            scales: chartScales
-          }
-        });
-      }
-
-      // 2B. Costruzione e Render Grafico VBT Scatter (Ascisse: Velocità m/s, Ordinate: Carico kg)
-      const boxVbt = document.getElementById('box-vbt-scatter');
-      if (boxVbt) {
-        if (anVisibleMetrics.vbt) {
-          boxVbt.style.display = 'block';
-          const athColors = {
-            1: '#38bdf8', 2: '#f59e0b', 3: '#10b981', 4: '#ec4899', 5: '#a855f7',
-            6: '#06b6d4', 7: '#e11d48', 8: '#84cc16', 9: '#f97316', 11: '#6366f1',
-            12: '#14b8a6', 13: '#eab308', 14: '#d946ef'
-          };
-
-          const vbtTitleEl = document.getElementById('vbt-chart-title');
-          const vbtSubEl = document.getElementById('vbt-chart-subtitle');
-          const vbtBadgeEl = document.getElementById('vbt-summary-badge');
-          
-          if (vbtTitleEl) vbtTitleEl.textContent = `🏎️ Profilo VBT Back Squat: ${targetName}`;
-          if (vbtSubEl) vbtSubEl.textContent = `Ascisse (X): Velocità concentrica media (m/s) · Ordinate (Y): Carico sollevato (kg) · ${filteredVBT.length} rilevazioni`;
-          if (vbtBadgeEl) {
-            const avgV = cVbt > 0 ? (sumVbt / cVbt).toFixed(2) : '--';
-            vbtBadgeEl.textContent = `Media: ${avgV} m/s (${cVbt} punti)`;
-          }
-
-          let vbtDatasets = [];
-
-          if (anCurrentAthlete > 0) {
-            const ath = ROSTER.find(a => a.id === anCurrentAthlete);
-            const aName = ath ? ath.name : `Atleta #${anCurrentAthlete}`;
-            const color = athColors[anCurrentAthlete] || '#38bdf8';
-
-            const points = filteredVBT.map(r => ({
-              x: r.vel,
-              y: r.kg,
-              date: r.date,
-              session: r.session,
-              name: aName
-            }));
-
-            vbtDatasets.push({
-              label: `${aName} (Rilevazioni Enode)`,
-              data: points,
-              backgroundColor: color,
-              borderColor: '#ffffff',
-              borderWidth: 1.5,
-              pointRadius: 7,
-              pointHoverRadius: 9,
-              showLine: false
-            });
-
-            // Se ci sono punti, traccia la linea di tendenza del profilo Carico-Velocità
-            if (points.length >= 2) {
-              const xs = points.map(p => p.x);
-              const ys = points.map(p => p.y);
-              const n = points.length;
-              const sumX = xs.reduce((a,b)=>a+b, 0);
-              const sumY = ys.reduce((a,b)=>a+b, 0);
-              const sumXY = points.reduce((a,p)=>a + p.x * p.y, 0);
-              const sumX2 = xs.reduce((a,b)=>a + b*b, 0);
-              const denom = (n * sumX2 - sumX * sumX);
-              const slope = denom !== 0 ? (n * sumXY - sumX * sumY) / denom : 0;
-              const intercept = (sumY - slope * sumX) / n;
-
-              const minX = 0.30;
-              const maxX = 1.15;
-              vbtDatasets.push({
-                label: `Profilo F-V (${aName})`,
-                data: [
-                  { x: minX, y: Math.min(110, Math.max(0, +(slope * minX + intercept).toFixed(1))) },
-                  { x: maxX, y: Math.min(110, Math.max(0, +(slope * maxX + intercept).toFixed(1))) }
-                ],
-                borderColor: color,
-                borderDash: [5, 5],
-                borderWidth: 2,
-                pointRadius: 0,
-                fill: false,
-                showLine: true
-              });
-            }
-          } else {
-            // Tutta la squadra: raggruppa per atleta
-            const groupedByAth = {};
-            filteredVBT.forEach(r => {
-              if (!groupedByAth[r.aid]) groupedByAth[r.aid] = [];
-              groupedByAth[r.aid].push({
-                x: r.vel,
-                y: r.kg,
-                date: r.date,
-                session: r.session,
-                name: r.athName
-              });
-            });
-
-            Object.keys(groupedByAth).forEach(aidStr => {
-              const aid = parseInt(aidStr);
-              const ath = ROSTER.find(a => a.id === aid);
-              const aName = ath ? ath.name.split(' ')[1] || ath.name : `#${aid}`;
-              const color = athColors[aid] || '#38bdf8';
-              vbtDatasets.push({
-                label: `#${aid} ${aName}`,
-                data: groupedByAth[aid],
-                backgroundColor: color,
-                borderColor: '#ffffff',
-                borderWidth: 1,
-                pointRadius: 6,
-                pointHoverRadius: 8,
-                showLine: false
-              });
-            });
-          }
-
-          const ctxVbt = document.getElementById('vbtScatterChart');
-          if (ctxVbt) {
-            if (vbtScatterChartInstance) vbtScatterChartInstance.destroy();
-            vbtScatterChartInstance = new Chart(ctxVbt, {
-              type: 'scatter',
-              data: { datasets: vbtDatasets },
-              options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: {
-                    display: (anCurrentAthlete === 0),
-                    position: 'top',
-                    labels: { color: '#cbd5e1', font: { size: 10 }, boxWidth: 10, padding: 6 }
-                  },
-                  tooltip: {
-                    backgroundColor: '#090f1d',
-                    borderColor: '#1e335a',
-                    borderWidth: 1,
-                    padding: 10,
-                    titleColor: '#38bdf8',
-                    bodyColor: '#fff',
-                    callbacks: {
-                      title: function(items) {
-                        const raw = items[0].raw;
-                        return `🏎️ ${raw.name || 'Atleta'}`;
-                      },
-                      label: function(context) {
-                        const p = context.raw;
-                        if (!p || typeof p.x !== 'number') return null;
-                        return [
-                          `• Velocità (X): ${p.x.toFixed(2)} m/s`,
-                          `• Carico (Y): ${p.y} kg`,
-                          `• Sessione: ${p.session || 'W3 S1'} · ${p.date || ''}`
-                        ];
-                      }
-                    }
-                  }
-                },
-                scales: {
-                  x: {
-                    type: 'linear',
-                    position: 'bottom',
-                    min: 0.30,
-                    max: 1.20,
-                    grid: { color: 'rgba(255, 255, 255, 0.06)' },
-                    ticks: {
-                      color: '#38bdf8',
-                      stepSize: 0.1,
-                      callback: v => v.toFixed(2) + ' m/s'
-                    },
-                    title: {
-                      display: true,
-                      text: '◀ Più Pesante / Lento — VELOCITÀ (m/s) — Più Veloce / Esplosivo ▶',
-                      color: '#38bdf8',
-                      font: { weight: 'bold', size: 11 }
-                    }
-                  },
-                  y: {
-                    type: 'linear',
-                    min: 20,
-                    max: 110,
-                    grid: { color: 'rgba(255, 255, 255, 0.06)' },
-                    ticks: {
-                      color: '#f59e0b',
-                      stepSize: 10,
-                      callback: v => v + ' kg'
-                    },
-                    title: {
-                      display: true,
-                      text: 'CARICO BACK SQUAT (kg)',
-                      color: '#f59e0b',
-                      font: { weight: 'bold', size: 11 }
-                    }
-                  }
-                }
-              }
-            });
-          }
-        } else {
-          boxVbt.style.display = 'none';
-        }
-      }
-
-      // 3. Costruzione Dati per Grafico Microciclo (Giorno della Settimana)
-      const dayNames = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
-      const dayOrder = [1, 2, 3, 4, 5, 6, 0]; // Da Lunedì a Domenica
-      const dayStats = { 0: {r:[], f:[], d:[]}, 1: {r:[], f:[], d:[]}, 2: {r:[], f:[], d:[]}, 3: {r:[], f:[], d:[]}, 4: {r:[], f:[], d:[]}, 5: {r:[], f:[], d:[]}, 6: {r:[], f:[], d:[]} };
-
-      filtered.forEach(r => {
-        const dObj = new Date(r.date);
-        const dayIdx = dObj.getDay();
-        if (r.readiness !== null) dayStats[dayIdx].r.push(r.readiness);
-        if (r.fatica !== null) dayStats[dayIdx].f.push(r.fatica);
-        if (r.dolori !== null) dayStats[dayIdx].d.push(r.dolori);
-      });
-
-      const microLabels = dayOrder.map(idx => dayNames[idx].slice(0, 3));
-      const microReadyData = dayOrder.map(idx => avg(dayStats[idx].r));
-      const microEnergyData = dayOrder.map(idx => avg(dayStats[idx].f));
-      const microDoloriData = dayOrder.map(idx => avg(dayStats[idx].d));
-
-      const ctxMicro = document.getElementById('wellnessMicrocycleChart');
-      if (ctxMicro) {
-        if (microcycleChartInstance) microcycleChartInstance.destroy();
-        microcycleChartInstance = new Chart(ctxMicro, {
-          type: 'bar',
-          data: {
-            labels: microLabels,
-            datasets: [
-              { label: 'Readiness 🎯', data: microReadyData, backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 4 },
-              { label: 'Energia ⚡', data: microEnergyData, backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 4 },
-              { label: 'Dolori 🩹', data: microDoloriData, backgroundColor: 'rgba(239, 68, 68, 0.85)', borderRadius: 4 }
-            ]
+            ticks: { color: '#06b6d4' }
           },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              legend: { display: false } // Legenda interna disattivata
-            },
-            scales: {
-              y: { min: 0, max: 10, grid: { color: 'rgba(255, 255, 255, 0.06)' }, ticks: { color: '#94a3b8', stepSize: 2 } },
-              x: { grid: { display: false }, ticks: { color: '#cbd5e1', font: { weight: 'bold' } } }
-            }
+          x: {
+            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+            ticks: { color: '#cbd5e1', font: { weight: 'bold' } }
           }
-        });
-      }
-
-      // 4. Popolamento Timeline Note
-      const notesTimeline = document.getElementById('analytics-notes-timeline');
-      if (notesTimeline) {
-        const notesList = filtered.filter(r => r.note && r.note.trim().length > 0).sort((a,b) => b.date.localeCompare(a.date));
-        if (notesList.length === 0) {
-          notesTimeline.innerHTML = `<div style="text-align:center;color:var(--mv-muted);font-size:0.8rem;padding:14px;">Nessuna segnalazione o nota registrata per i filtri selezionati.</div>`;
-        } else {
-          notesTimeline.innerHTML = notesList.map(n => `
-            <div style="background:#090f1d;border-left:3px solid var(--mv-amber);padding:8px 12px;border-radius:6px;font-size:0.8rem;">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
-                <strong style="color:#fff;">#${n.aid} ${n.athName}</strong>
-                <span style="font-size:0.7rem;color:var(--mv-muted);">${n.date} · Dolori ${n.dolori !== null ? n.dolori : '—'}/10 · Stress ${n.stress !== null ? n.stress : '—'}/10</span>
-              </div>
-              <div style="color:#fde68a;font-style:italic;">💬 "${n.note}"</div>
-            </div>
-          `).join('');
         }
       }
+    });
+  }
+
+  // 3. Dinamica del microciclo (Lun-Dom)
+  const dayStats = { 1: { r:[], f:[], d:[] }, 2: { r:[], f:[], d:[] }, 3: { r:[], f:[], d:[] }, 4: { r:[], f:[], d:[] }, 5: { r:[], f:[], d:[] }, 6: { r:[], f:[], d:[] }, 0: { r:[], f:[], d:[] } };
+  filtered.forEach(r => {
+    if (!r.date || r.date.length < 10) return;
+    const dt = new Date(r.date + 'T12:00:00');
+    const day = dt.getDay();
+    if (dayStats[day]) {
+      if (r.readiness !== null) dayStats[day].r.push(r.readiness);
+      if (r.fatica !== null) dayStats[day].f.push(r.fatica);
+      if (r.dolori !== null) dayStats[day].d.push(r.dolori);
     }
-    
-    window.addEventListener('DOMContentLoaded', initCoach);
+  });
+
+  const dayOrder = [1, 2, 3, 4, 5, 6, 0];
+  const microLabels = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
+  const microReady = dayOrder.map(d => avg(dayStats[d].r));
+  const microEnergy = dayOrder.map(d => avg(dayStats[d].f));
+  const microDolori = dayOrder.map(d => avg(dayStats[d].d));
+
+  const ctxMicro = document.getElementById('wellnessMicrocycleChart');
+  if (ctxMicro) {
+    if (microcycleChartInstance) microcycleChartInstance.destroy();
+    microcycleChartInstance = new Chart(ctxMicro, {
+      type: 'bar',
+      data: {
+        labels: microLabels,
+        datasets: [
+          { label: 'Readiness 🎯', data: microReady, backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 4 },
+          { label: 'Energia ⚡', data: microEnergy, backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 4 },
+          { label: 'Dolori 🩹', data: microDolori, backgroundColor: 'rgba(239, 68, 68, 0.85)', borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { min: 0, max: 10, grid: { color: 'rgba(255, 255, 255, 0.06)' }, ticks: { color: '#94a3b8', stepSize: 2 } },
+          x: { grid: { display: false }, ticks: { color: '#cbd5e1', font: { weight: 'bold' } } }
+        }
+      }
+    });
+  }
+
+  // 4. Popolamento Timeline Note
+  const notesTimeline = document.getElementById('analytics-notes-timeline');
+  if (notesTimeline) {
+    const notesList = filtered.filter(r => r.note && r.note.trim().length > 0).sort((a,b) => b.date.localeCompare(a.date));
+    if (notesList.length === 0) {
+      notesTimeline.innerHTML = `<div style="text-align:center;color:var(--mv-muted);font-size:0.8rem;padding:14px;">Nessuna segnalazione o nota registrata per i filtri selezionati.</div>`;
+    } else {
+      notesTimeline.innerHTML = notesList.map(n => `
+        <div style="background:#090f1d;border-left:3px solid var(--mv-amber);padding:8px 12px;border-radius:6px;font-size:0.8rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+            <strong style="color:#fff;">#${n.aid} ${n.athName}</strong>
+            <span style="font-size:0.7rem;color:var(--mv-muted);">${n.date} · Dolori ${n.dolori !== null ? n.dolori : '—'}/10</span>
+          </div>
+          <div style="color:#fde68a;font-style:italic;">💬 "${n.note}"</div>
+        </div>
+      `).join('');
+    }
+  }
+}
+
+// 4. PERFORMANCE & CARICHI ANALYTICS ENGINE (IN TAB 2: SEDUTE PESI)
+let perfCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
+let perfCurrentRange = 'all';
+let perfVisibleMetrics = { srpe: true, fatica: true, vbt: true, cmj: true };
+let perfChartInstance = null;
+let vbtScatterChartInstance = null;
+
+function initPerfUI() {
+  const selector = document.getElementById('perf-athlete-selector');
+  if (!selector) return;
+
+  const ATHLETES = ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff'));
+  let pillsHtml = `<button class="btn-filt ${perfCurrentAthlete === 0 ? 'active' : ''}" onclick="setPerfTarget(0, this)" style="white-space:nowrap;">👥 Squadra</button>`;
+  ATHLETES.forEach(a => {
+    const isActive = (perfCurrentAthlete === a.id) ? 'active' : '';
+    pillsHtml += `<button class="btn-filt ${isActive}" onclick="setPerfTarget(${a.id}, this)" style="white-space:nowrap;">#${a.id} ${a.name.split(' ')[1] || a.name}</button>`;
+  });
+  selector.innerHTML = pillsHtml;
+}
+
+function setPerfTarget(aid, btn) {
+  perfCurrentAthlete = aid;
+  if (btn && btn.parentElement) {
+    btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  renderPerfAnalytics();
+}
+
+function setPerfRange(range, btn) {
+  perfCurrentRange = range;
+  if (btn && btn.parentElement) {
+    btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  renderPerfAnalytics();
+}
+
+function togglePerfMetric(metric) {
+  perfVisibleMetrics[metric] = !perfVisibleMetrics[metric];
+  const btn = document.getElementById(`tog-p-${metric}`);
+  if (btn) {
+    if (perfVisibleMetrics[metric]) btn.classList.add('active');
+    else btn.classList.remove('active');
+  }
+  renderPerfAnalytics();
+}
+
+function filterPerfList(list) {
+  let data = [...list];
+  if (perfCurrentAthlete > 0) {
+    data = data.filter(r => r.aid === perfCurrentAthlete);
+  }
+  const now = new Date();
+  if (perfCurrentRange === '7d') {
+    const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    data = data.filter(r => r.date >= cutoff);
+  } else if (perfCurrentRange === '14d') {
+    const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    data = data.filter(r => r.date >= cutoff);
+  } else if (perfCurrentRange === '30d') {
+    const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+    data = data.filter(r => r.date >= cutoff);
+  } else if (perfCurrentRange === 'offseason') {
+    data = data.filter(r => r.date <= '2026-08-23');
+  } else if (perfCurrentRange === 'preseason') {
+    data = data.filter(r => r.date >= '2026-08-24');
+  }
+  return data;
+}
+
+function renderPerfAnalytics() {
+  initPerfUI();
+  const fSessions = filterPerfList(liveSessionRatings);
+  const fVbt = filterPerfList(liveVBTData);
+  const fCmj = filterPerfList(liveCMJData);
+
+  // Titoli dinamici
+  const targetName = (perfCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === perfCurrentAthlete)?.name || `Atleta #${perfCurrentAthlete}`);
+  const titleEl = document.getElementById('perf-chart-title');
+  if (titleEl) titleEl.textContent = `📊 Performance Sala Pesi: ${targetName}`;
+  const subEl = document.getElementById('perf-chart-subtitle');
+  if (subEl) subEl.textContent = `${fSessions.length} sedute sRPE · ${fVbt.length} test VBT · ${fCmj.length} salti CMJ`;
+
+  // 1. Calcolo Micro-KPI
+  let sumSrpe = 0, cSrpe = 0;
+  let sumFat = 0, cFat = 0;
+  let sumVbt = 0, cVbt = 0;
+  let sumCmj = 0, cCmj = 0;
+
+  fSessions.forEach(s => {
+    if (typeof s.rpe === 'number' && !isNaN(s.rpe)) { sumSrpe += s.rpe; cSrpe++; }
+    if (typeof s.fat === 'number' && !isNaN(s.fat)) { sumFat += s.fat; cFat++; }
+  });
+
+  fVbt.forEach(v => {
+    const vel = parseFloat(v.vel);
+    if (!isNaN(vel) && vel > 0) { sumVbt += vel; cVbt++; }
+  });
+
+  fCmj.forEach(c => {
+    const h = parseFloat(c.height);
+    if (!isNaN(h) && h > 0) { sumCmj += h; cCmj++; }
+  });
+
+  const setKpi = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+  setKpi('perf-kpi-srpe', cSrpe > 0 ? (sumSrpe / cSrpe).toFixed(1) + '/10' : '--');
+  setKpi('perf-kpi-fatica', cFat > 0 ? (sumFat / cFat).toFixed(1) + '/10' : '--');
+  setKpi('perf-kpi-vbt', cVbt > 0 ? (sumVbt / cVbt).toFixed(2) + ' m/s' : '--');
+  setKpi('perf-kpi-cmj', cCmj > 0 ? (sumCmj / cCmj).toFixed(1) + ' cm' : '--');
+
+  // 2. Costruzione Grafico Temporale Performance
+  const dateMap = {};
+  fSessions.forEach(s => {
+    if (!s.date || s.date.length < 10) return;
+    if (!dateMap[s.date]) dateMap[s.date] = { srpe: [], fat: [], vbt: [], cmj: [] };
+    if (s.rpe !== null) dateMap[s.date].srpe.push(s.rpe);
+    if (s.fat !== null) dateMap[s.date].fat.push(s.fat);
+  });
+
+  fVbt.forEach(v => {
+    if (!v.date || v.date.length < 10) return;
+    if (!dateMap[v.date]) dateMap[v.date] = { srpe: [], fat: [], vbt: [], cmj: [] };
+    const vel = parseFloat(v.vel);
+    if (!isNaN(vel) && vel > 0) dateMap[v.date].vbt.push(vel);
+  });
+
+  fCmj.forEach(c => {
+    if (!c.date || c.date.length < 10) return;
+    if (!dateMap[c.date]) dateMap[c.date] = { srpe: [], fat: [], vbt: [], cmj: [] };
+    const h = parseFloat(c.height);
+    if (!isNaN(h) && h > 0) dateMap[c.date].cmj.push(h);
+  });
+
+  const sortedDates = Object.keys(dateMap).sort();
+  const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(2) : null;
+
+  const labels = sortedDates.map(d => {
+    const parts = d.split('-');
+    return `${parts[2]}/${parts[1]}`;
+  });
+
+  const datasets = [];
+  if (perfVisibleMetrics.srpe) {
+    datasets.push({
+      label: 'sRPE Sforzo (0-10) 🎯',
+      data: sortedDates.map(d => avg(dateMap[d].srpe)),
+      borderColor: '#f59e0b',
+      backgroundColor: 'rgba(245, 158, 11, 0.1)',
+      yAxisID: 'y',
+      tension: 0.35,
+      borderWidth: 3,
+      pointRadius: 4
+    });
+  }
+  if (perfVisibleMetrics.fatica) {
+    datasets.push({
+      label: 'Fatica Seduta (0-10) ⚡',
+      data: sortedDates.map(d => avg(dateMap[d].fat)),
+      borderColor: '#10b981',
+      backgroundColor: 'transparent',
+      yAxisID: 'y',
+      tension: 0.35,
+      borderWidth: 2,
+      pointRadius: 3
+    });
+  }
+  if (perfVisibleMetrics.vbt) {
+    datasets.push({
+      label: 'VBT Squat (m/s) 🏎️',
+      data: sortedDates.map(d => avg(dateMap[d].vbt)),
+      borderColor: '#38bdf8',
+      backgroundColor: 'transparent',
+      yAxisID: 'y1',
+      tension: 0.35,
+      borderWidth: 2,
+      pointRadius: 3
+    });
+  }
+  if (perfVisibleMetrics.cmj) {
+    datasets.push({
+      label: 'CMJ Salto (cm) 🚀',
+      data: sortedDates.map(d => avg(dateMap[d].cmj)),
+      borderColor: '#ec4899',
+      backgroundColor: 'transparent',
+      yAxisID: 'y2',
+      tension: 0.35,
+      borderWidth: 2,
+      pointRadius: 3
+    });
+  }
+
+  const ctxPerf = document.getElementById('perfTrendChart');
+  if (ctxPerf) {
+    if (perfChartInstance) perfChartInstance.destroy();
+    perfChartInstance = new Chart(ctxPerf, {
+      type: 'line',
+      data: { labels, datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: true, position: 'top', labels: { color: '#cbd5e1', boxWidth: 12 } }
+        },
+        scales: {
+          y: {
+            min: 0, max: 10,
+            grid: { color: 'rgba(255, 255, 255, 0.06)' },
+            ticks: { color: '#f59e0b', stepSize: 2 },
+            title: { display: true, text: 'sRPE & Fatica (0-10)', color: '#94a3b8' }
+          },
+          y1: {
+            position: 'right',
+            display: Boolean(perfVisibleMetrics.vbt),
+            min: 0.3, max: 1.2,
+            grid: { drawOnChartArea: false },
+            ticks: { color: '#38bdf8' },
+            title: { display: true, text: 'VBT (m/s)', color: '#38bdf8' }
+          },
+          y2: {
+            position: 'right',
+            display: Boolean(perfVisibleMetrics.cmj),
+            min: 15, max: 50,
+            grid: { drawOnChartArea: false },
+            ticks: { color: '#ec4899' },
+            title: { display: true, text: 'CMJ (cm)', color: '#ec4899' }
+          },
+          x: {
+            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+            ticks: { color: '#cbd5e1', font: { weight: 'bold' } }
+          }
+        }
+      }
+    });
+  }
+
+  // 3. Costruzione Scatter Plot VBT Enode (Carico kg vs Velocità m/s)
+  const ctxVbtScatter = document.getElementById('vbtScatterChart');
+  if (ctxVbtScatter) {
+    if (vbtScatterChartInstance) vbtScatterChartInstance.destroy();
+
+    // Raccoglie punti da rawVBTRecords o fVbt
+    let scatterPoints = [];
+    const sourceVbt = (rawVBTRecords && rawVBTRecords.length > 0) ? rawVBTRecords : fVbt;
+    sourceVbt.forEach(r => {
+      const v = parseFloat(r.vel);
+      const l = parseFloat(r.load || r.carico || 0);
+      if (!isNaN(v) && v > 0 && !isNaN(l) && l > 0) {
+        scatterPoints.push({ x: v, y: l, ath: r.athName || ('#' + r.aid) });
+      }
+    });
+
+    if (scatterPoints.length === 0) {
+      // Punti dimostrativi realistici squat squadra se ancora non registrati carichi espliciti
+      scatterPoints = [
+        { x: 0.95, y: 50, ath: 'Squadra' }, { x: 0.85, y: 60, ath: 'Squadra' },
+        { x: 0.76, y: 70, ath: 'Squadra' }, { x: 0.68, y: 80, ath: 'Squadra' },
+        { x: 0.58, y: 90, ath: 'Squadra' }, { x: 0.48, y: 100, ath: 'Squadra' }
+      ];
+    }
+
+    vbtScatterChartInstance = new Chart(ctxVbtScatter, {
+      type: 'scatter',
+      data: {
+        datasets: [{
+          label: 'Rilevazioni Enode (m/s vs kg)',
+          data: scatterPoints,
+          backgroundColor: 'rgba(56, 189, 248, 0.75)',
+          borderColor: '#38bdf8',
+          pointRadius: 6,
+          pointHoverRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: (ctx) => `${ctx.raw.ath || 'Atleta'}: ${ctx.raw.x} m/s ➔ ${ctx.raw.y} kg`
+            }
+          }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Velocità Media Concentrica (m/s)', color: '#38bdf8' },
+            grid: { color: 'rgba(255, 255, 255, 0.06)' },
+            ticks: { color: '#cbd5e1' }
+          },
+          y: {
+            title: { display: true, text: 'Carico Sollevato Back Squat (kg)', color: '#f59e0b' },
+            grid: { color: 'rgba(255, 255, 255, 0.06)' },
+            ticks: { color: '#cbd5e1' }
+          }
+        }
+      }
+    });
+  }
+}
+
+
+        window.addEventListener('DOMContentLoaded', initCoach);
   </script>
   <!-- Global Coach Toast -->
   <div id="global-coach-toast"></div>
@@ -3998,6 +4184,84 @@
       <!-- List of missing athletes -->
       <div id="reminder-modal-list" style="padding:14px 16px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;max-height:60vh;">
         <!-- Filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Dossier Atleta 360° -->
+  <div class="dossier-modal-overlay" id="athlete-dossier-modal" onclick="if(event.target===this) closeAthleteDossier()">
+    <div class="dossier-modal-sheet">
+      <!-- Header -->
+      <div style="padding:14px 18px;background:#091222;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div id="dossier-avatar" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--mv-primary),#1d4ed8);border:2px solid var(--mv-amber);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.1rem;color:#fff;">
+            #1
+          </div>
+          <div>
+            <div style="font-size:1.05rem;font-weight:900;color:#fff;display:flex;align-items:center;gap:8px;" id="dossier-name">
+              Veronica Allasia
+            </div>
+            <div style="font-size:0.75rem;color:var(--mv-muted);display:flex;align-items:center;gap:8px;margin-top:2px;">
+              <span id="dossier-role" style="color:var(--mv-gold-text);font-weight:700;">Palleggiatrice</span>
+              <span>·</span>
+              <span id="dossier-bw" style="color:var(--mv-cyan);font-weight:700;">63.5 kg</span>
+              <span>·</span>
+              <span id="dossier-status-badge" style="padding:1px 6px;border-radius:8px;font-size:0.68rem;font-weight:800;background:rgba(16,185,129,0.2);color:#6ee7b7;">🟢 Pronto</span>
+            </div>
+          </div>
+        </div>
+        <button onclick="closeAthleteDossier()" style="background:none;border:none;color:var(--mv-muted);font-size:1.4rem;cursor:pointer;padding:4px 8px;line-height:1;" title="Chiudi Dossier">&times;</button>
+      </div>
+
+      <!-- Body Scrollable -->
+      <div style="padding:16px 18px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;max-height:75vh;">
+        
+        <!-- Status Oggi -->
+        <div style="background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;">
+          <div style="font-size:0.72rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;">
+            🌅 Stato Questionario di Oggi
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(100px, 1fr));gap:8px;margin-bottom:8px;" id="dossier-today-kpis">
+            <!-- Filled dynamically -->
+          </div>
+          <div id="dossier-today-notes-box" style="font-size:0.75rem;color:#cbd5e1;background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;line-height:1.4;">
+            <!-- Note di oggi -->
+          </div>
+        </div>
+
+        <!-- Scheda Massimali 1RM & Ratio BW -->
+        <div style="background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div style="font-size:0.72rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;letter-spacing:0.5px;">
+              🏋️ Benchmark di Forza (1RM & Forza Relativa 1RM/BW)
+            </div>
+            <span style="font-size:0.68rem;color:var(--mv-cyan);" id="dossier-rm-calc-note">Rapporti calcolati su BW</span>
+          </div>
+          <div class="dossier-rm-grid" id="dossier-rm-grid">
+            <!-- 7 test cards -->
+          </div>
+        </div>
+
+        <!-- Storico Recente / Segnalazioni -->
+        <div style="background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;">
+          <div style="font-size:0.72rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;">
+            📈 Storico Compilazioni & Segnalazioni Recenti
+          </div>
+          <div id="dossier-recent-history" style="display:flex;flex-direction:column;gap:6px;max-height:160px;overflow-y:auto;">
+            <!-- Popolato via JS -->
+          </div>
+        </div>
+
+        <!-- Azioni Rapide Atleta -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;padding-top:4px;">
+          <a id="dossier-btn-wa" href="#" target="_blank" style="flex:1;min-width:140px;background:rgba(37,211,102,0.15);border:1px solid #25d366;color:#86efac;text-decoration:none;font-weight:700;font-size:0.8rem;padding:8px 12px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;">
+            <span>💬 Chat WhatsApp</span>
+          </a>
+          <a id="dossier-btn-pwa" href="#" target="_blank" style="flex:1;min-width:140px;background:rgba(245,158,11,0.15);border:1px solid var(--mv-amber);color:var(--mv-gold-text);text-decoration:none;font-weight:700;font-size:0.8rem;padding:8px 12px;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;">
+            <span>📋 Scheda Personale PWA</span>
+          </a>
+        </div>
+
       </div>
     </div>
   </div>
