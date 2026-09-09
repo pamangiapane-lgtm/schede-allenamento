@@ -23,13 +23,13 @@
       box-sizing: border-box;
     }
     html, body {
-      max-width: 100vw;
-      overflow-x: hidden !important;
+      max-width: 100%;
+      overflow-x: clip;
       position: relative;
     }
     .container {
-      max-width: 100vw;
-      overflow-x: hidden;
+      max-width: 900px;
+      margin: 0 auto;
       padding: 10px 12px;
     }
     :root {
@@ -61,18 +61,14 @@
       padding-bottom: 80px;
     }
 
-    /* Top Coach Header Sticky */
+    /* Top Coach Header */
     .coach-header {
       background: var(--mv-navy-dark);
       border-bottom: 1px solid var(--mv-border);
-      padding: 12px 18px;
+      padding: 10px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
     }
     .brand-wrap { display: flex; align-items: center; gap: 12px; }
     .brand-logo { width: 38px; height: 38px; border-radius: 10px; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
@@ -113,49 +109,48 @@
     .kpi-val { font-size: 1.4rem; font-weight: 800; line-height: 1.1; margin: 2px 0; }
     .kpi-sub { font-size: 0.7rem; color: #94a3b8; font-weight: 600; white-space: nowrap; }
 
-    /* Sticky Coach Navigation Tabs (PERFEZIONATO) */
+    /* Sticky Coach Navigation Tabs (SEMPRE VISIBILE IN ALTO, UNICA RIGA) */
     .sticky-nav-wrapper {
+      position: -webkit-sticky;
       position: sticky;
-      top: 58px;
-      z-index: 95;
-      background: #090f1d;
-      padding: 10px 0 10px 0;
-      margin: 0 -4px 14px -4px;
-      border-bottom: 1px solid rgba(31, 54, 93, 0.7);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+      top: 0;
+      z-index: 999;
+      background: rgba(9, 15, 29, 0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 6px 12px;
+      border-bottom: 1px solid var(--mv-border);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      width: 100%;
     }
     .coach-nav-tabs {
       display: flex;
       gap: 6px;
-      padding: 0 2px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
       width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
       box-sizing: border-box;
-    }
-    .coach-nav-tabs::-webkit-scrollbar {
-      display: none;
     }
     .c-tab-btn {
       flex: 1 1 0;
-      min-width: max-content;
+      min-width: 0;
       background: #0f192d;
       border: 1px solid #1f365d;
       color: #94a3b8;
       border-radius: 8px;
-      padding: 8px 10px;
-      font-size: 0.78rem;
-      font-weight: 700;
+      padding: 8px 4px;
+      font-size: 0.8rem;
+      font-weight: 800;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 4px;
+      gap: 5px;
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       transition: all 0.15s ease;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
     .c-tab-btn:hover {
       background: #16243f;
@@ -163,10 +158,19 @@
     }
     .c-tab-btn.active {
       background: var(--mv-amber);
-      color: #000;
+      color: #071226;
       border-color: var(--mv-amber);
-      box-shadow: 0 4px 14px rgba(232, 160, 32, 0.4);
-      transform: translateY(-1px);
+      box-shadow: 0 2px 10px rgba(232, 160, 32, 0.4);
+    }
+    @media (max-width: 580px) {
+      .tab-txt-ext {
+        display: none;
+      }
+      .c-tab-btn {
+        font-size: 0.74rem;
+        padding: 7px 2px;
+        gap: 3px;
+      }
     }
 
     /* Tab Panels */
@@ -774,8 +778,22 @@
         <div class="brand-sub">S&C Command Center · Serie A2</div>
       </div>
     </div>
-
   </header>
+
+  <!-- STICKY COACH NAVIGATION (SEMPRE VISIBILE IN ALTO SU UNICA RIGA) -->
+  <div class="sticky-nav-wrapper">
+    <div class="coach-nav-tabs">
+      <button class="c-tab-btn active" id="btn-tab-readiness" onclick="switchCoachTab('readiness', this)">
+        <span>🚦</span> <span>Wellness<span class="tab-txt-ext"> & Readiness</span></span>
+      </button>
+      <button class="c-tab-btn" id="btn-tab-sedute" onclick="switchCoachTab('sedute', this)">
+        <span>🏋️</span> <span>Sedute<span class="tab-txt-ext"> Pesi & Forza</span></span>
+      </button>
+      <button class="c-tab-btn" id="btn-tab-campo" onclick="switchCoachTab('campo', this)">
+        <span>🏐</span> <span>Campo<span class="tab-txt-ext"> S&C</span></span>
+      </button>
+    </div>
+  </div>
 
   <main class="container">
 
@@ -808,15 +826,6 @@
       </div>
     </div>
 
-    <!-- STICKY COACH NAVIGATION (3 SEZIONI STAGNE) -->
-    <div class="sticky-nav-wrapper">
-      <div class="coach-nav-tabs">
-        <button class="c-tab-btn active" id="btn-tab-readiness" onclick="switchCoachTab('readiness', this)">🚦 Wellness & Readiness</button>
-        <button class="c-tab-btn" id="btn-tab-sedute" onclick="switchCoachTab('sedute', this)">🏋️ Sedute Pesi & Forza</button>
-        <button class="c-tab-btn" id="btn-tab-campo" onclick="switchCoachTab('campo', this)">🏐 Campo S&C</button>
-      </div>
-    </div>
-
     <!-- VISTA 1: READINESS & EARLY WARNING ALERT (PRIMA DELL'ALLENAMENTO) -->
     <div class="c-panel active" id="panel-readiness">
       
@@ -833,97 +842,71 @@
         </div>
       </div>
 
-      <!-- MODULO GRAFICO WELLNESS DEDICATO (QUESTIONARIO) -->
-      <div class="card-box" id="wellness-chart-box" style="margin-bottom:14px;padding:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-          <div>
-            <h3 class="card-title" style="margin-bottom:2px;" id="wellness-chart-title">📈 Andamento Wellness & Readiness</h3>
-            <span style="font-size:0.72rem;color:var(--mv-muted);" id="wellness-chart-subtitle">Analisi risposte questionario e trend di recupero</span>
+      <!-- MODULO GRAFICO WELLNESS DEDICATO (QUESTIONARIO SQUADRA) -->
+      <div class="card-box" id="wellness-chart-box" style="margin-bottom:14px;padding:12px 14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <h3 class="card-title" style="margin-bottom:0;" id="wellness-chart-title">📈 Andamento Wellness Squadra</h3>
+          <span style="font-size:0.72rem;color:var(--mv-muted);" id="wellness-chart-subtitle">Record analizzati</span>
+        </div>
+
+        <!-- Filtri Temporali & Metriche (Compatti) -->
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:8px;">
+          <div class="scroll-pills" id="wellness-time-pills">
+            <button class="btn-filt" onclick="setWellnessRange('7d', this)">7 Giorni</button>
+            <button class="btn-filt" onclick="setWellnessRange('14d', this)">14 Giorni</button>
+            <button class="btn-filt" onclick="setWellnessRange('30d', this)">30 Giorni</button>
+            <button class="btn-filt" onclick="setWellnessRange('offseason', this)">🌴 Off-Season</button>
+            <button class="btn-filt" onclick="setWellnessRange('preseason', this)">⚡ Pre-Season</button>
+            <button class="btn-filt active" onclick="setWellnessRange('all', this)">📅 Tutta la Stagione</button>
           </div>
-          <div class="scroll-pills" id="wellness-athlete-selector">
-            <!-- Popolato via JS -->
+          <div class="scroll-pills" id="wellness-metric-toggles">
+            <button class="btn-filt active" id="tog-readiness" onclick="toggleWellnessMetric('readiness')" style="border-color:#f59e0b;color:#fde68a;">🎯 Readiness</button>
+            <button class="btn-filt active" id="tog-fatica" onclick="toggleWellnessMetric('fatica')" style="border-color:#10b981;color:#6ee7b7;">⚡ Energia</button>
+            <button class="btn-filt active" id="tog-sonno" onclick="toggleWellnessMetric('sonno')" style="border-color:#3b82f6;color:#93c5fd;">😴 Sonno</button>
+            <button class="btn-filt active" id="tog-dolori" onclick="toggleWellnessMetric('dolori')" style="border-color:#ef4444;color:#fca5a5;">🩹 Dolori</button>
+            <button class="btn-filt" id="tog-stress" onclick="toggleWellnessMetric('stress')" style="border-color:#a855f7;color:#d8b4fe;">🧠 Stress</button>
+            <button class="btn-filt" id="tog-peso" onclick="toggleWellnessMetric('peso')" style="border-color:#06b6d4;color:#67e8f9;">⚖️ Peso</button>
           </div>
         </div>
 
-        <!-- Filtri Temporali & Metriche -->
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-            <div class="scroll-pills" id="wellness-time-pills">
-              <button class="btn-filt" onclick="setWellnessRange('7d', this)">7 Giorni</button>
-              <button class="btn-filt" onclick="setWellnessRange('14d', this)">14 Giorni</button>
-              <button class="btn-filt" onclick="setWellnessRange('30d', this)">30 Giorni</button>
-              <button class="btn-filt" onclick="setWellnessRange('offseason', this)">🌴 Off-Season</button>
-              <button class="btn-filt" onclick="setWellnessRange('preseason', this)">⚡ Pre-Season</button>
-              <button class="btn-filt active" onclick="setWellnessRange('all', this)">📅 Tutta la Stagione</button>
-            </div>
-            <div class="filter-pills" id="wellness-metric-toggles">
-              <button class="btn-filt active" id="tog-readiness" onclick="toggleWellnessMetric('readiness')" style="border-color:#f59e0b;color:#fde68a;">🎯 Readiness</button>
-              <button class="btn-filt active" id="tog-fatica" onclick="toggleWellnessMetric('fatica')" style="border-color:#10b981;color:#6ee7b7;">⚡ Energia</button>
-              <button class="btn-filt active" id="tog-sonno" onclick="toggleWellnessMetric('sonno')" style="border-color:#3b82f6;color:#93c5fd;">😴 Sonno</button>
-              <button class="btn-filt active" id="tog-dolori" onclick="toggleWellnessMetric('dolori')" style="border-color:#ef4444;color:#fca5a5;">🩹 Dolori</button>
-              <button class="btn-filt" id="tog-stress" onclick="toggleWellnessMetric('stress')" style="border-color:#a855f7;color:#d8b4fe;">🧠 Stress</button>
-              <button class="btn-filt" id="tog-peso" onclick="toggleWellnessMetric('peso')" style="border-color:#06b6d4;color:#67e8f9;">⚖️ Peso</button>
-            </div>
+        <!-- Micro-griglia KPI del Periodo (UNICA RIGA COMPATTA) -->
+        <div style="display:grid;grid-template-columns:repeat(6, 1fr);gap:4px;margin-bottom:10px;width:100%;box-sizing:border-box;" id="wellness-kpi-grid">
+          <div class="kpi-card" id="wn-card-readiness" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
+            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Readiness</div>
+            <div class="kpi-val" id="wn-kpi-readiness" style="color:var(--mv-amber);font-size:0.95rem;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (0-10)</div>
           </div>
-        </div>
-
-        <!-- Micro-griglia KPI del Periodo (Responsive) -->
-        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(85px, 1fr));gap:6px;margin-bottom:12px;" id="wellness-kpi-grid">
-          <div class="kpi-card" id="wn-card-readiness" style="padding:6px 4px;text-align:center;">
-            <div class="kpi-lbl" style="font-size:0.62rem;">Readiness</div>
-            <div class="kpi-val" id="wn-kpi-readiness" style="color:var(--mv-amber);font-size:1.05rem;margin:2px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.58rem;">Media (0-10)</div>
+          <div class="kpi-card" id="wn-card-fatica" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
+            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Energia</div>
+            <div class="kpi-val" id="wn-kpi-fatica" style="color:#6ee7b7;font-size:0.95rem;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fatica Inv.</div>
           </div>
-          <div class="kpi-card" id="wn-card-fatica" style="padding:6px 4px;text-align:center;">
-            <div class="kpi-lbl" style="font-size:0.62rem;">Energia</div>
-            <div class="kpi-val" id="wn-kpi-fatica" style="color:#6ee7b7;font-size:1.05rem;margin:2px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.58rem;">Fatica Inv.</div>
+          <div class="kpi-card" id="wn-card-sonno" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
+            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sonno</div>
+            <div class="kpi-val" id="wn-kpi-sonno" style="color:#93c5fd;font-size:0.95rem;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Qualità (h)</div>
           </div>
-          <div class="kpi-card" id="wn-card-sonno" style="padding:6px 4px;text-align:center;">
-            <div class="kpi-lbl" style="font-size:0.62rem;">Sonno</div>
-            <div class="kpi-val" id="wn-kpi-sonno" style="color:#93c5fd;font-size:1.05rem;margin:2px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.58rem;">Qualità (h)</div>
+          <div class="kpi-card" id="wn-card-dolori" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
+            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Dolori</div>
+            <div class="kpi-val" id="wn-kpi-dolori" style="color:#fca5a5;font-size:0.95rem;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Soreness</div>
           </div>
-          <div class="kpi-card" id="wn-card-dolori" style="padding:6px 4px;text-align:center;">
-            <div class="kpi-lbl" style="font-size:0.62rem;">Dolori</div>
-            <div class="kpi-val" id="wn-kpi-dolori" style="color:#fca5a5;font-size:1.05rem;margin:2px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.58rem;">Soreness</div>
+          <div class="kpi-card" id="wn-card-stress" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
+            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Stress</div>
+            <div class="kpi-val" id="wn-kpi-stress" style="color:#d8b4fe;font-size:0.95rem;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tensione</div>
           </div>
-          <div class="kpi-card" id="wn-card-stress" style="padding:6px 4px;text-align:center;">
-            <div class="kpi-lbl" style="font-size:0.62rem;">Stress</div>
-            <div class="kpi-val" id="wn-kpi-stress" style="color:#d8b4fe;font-size:1.05rem;margin:2px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.58rem;">Tensione</div>
-          </div>
-          <div class="kpi-card" id="wn-card-peso" style="padding:6px 4px;text-align:center;">
-            <div class="kpi-lbl" style="font-size:0.62rem;">Peso Corporeo</div>
-            <div class="kpi-val" id="wn-kpi-peso" style="color:#67e8f9;font-size:1.05rem;margin:2px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.58rem;">Media (kg)</div>
+          <div class="kpi-card" id="wn-card-peso" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
+            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Peso</div>
+            <div class="kpi-val" id="wn-kpi-peso" style="color:#67e8f9;font-size:0.95rem;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (kg)</div>
           </div>
         </div>
 
         <!-- Canvas Grafico Longitudinale Wellness -->
-        <div style="position:relative;height:300px;width:100%;">
+        <div style="position:relative;height:260px;width:100%;">
           <canvas id="wellnessTrendChart"></canvas>
         </div>
-
-        <!-- Dettaglio Dinamica Microciclo (Lun-Dom) & Note Cliniche a scomparsa -->
-        <details style="margin-top:12px;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 12px;">
-          <summary style="cursor:pointer;font-weight:700;font-size:0.78rem;color:var(--mv-muted);user-select:none;">
-            📊 Mostra dinamica microciclo settimanale (Lun ➔ Dom) & cronologia note
-          </summary>
-          <div style="margin-top:10px;">
-            <p style="font-size:0.72rem;color:var(--mv-muted);margin-bottom:6px;">Media risposte per giorno per individuare il giorno di massima fatica:</p>
-            <div style="position:relative;height:200px;width:100%;margin-bottom:12px;">
-              <canvas id="wellnessMicrocycleChart"></canvas>
-            </div>
-            <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;margin-bottom:6px;">
-              📝 Cronologia Note & Segnalazioni del Periodo
-            </div>
-            <div id="analytics-notes-timeline" style="display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto;">
-              <!-- Popolato via JS -->
-            </div>
-          </div>
-        </details>
       </div>
 
       <!-- Toolbar Filtro & Azioni WhatsApp -->
@@ -1005,81 +988,60 @@
       </div>
 
       <!-- MODULO GRAFICO PERFORMANCE & CARICHI DEDICATO (SALA PESI) -->
-      <div class="card-box" id="perf-chart-box" style="margin-bottom:14px;padding:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+      <div class="card-box" id="perf-chart-box" style="margin-bottom:14px;padding:12px 14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
           <div>
-            <h3 class="card-title" style="margin-bottom:2px;" id="perf-chart-title">📊 Andamento Performance, Sforzo & Test di Potenza</h3>
-            <span style="font-size:0.72rem;color:var(--mv-muted);" id="perf-chart-subtitle">Curve temporali sRPE, fatica post-seduta, velocità VBT e altezza salti CMJ</span>
-          </div>
-          <div class="scroll-pills" id="perf-athlete-selector">
-            <!-- Popolato via JS -->
+            <h3 class="card-title" style="margin-bottom:2px;font-size:0.92rem;" id="perf-chart-title">📊 Andamento Performance, Sforzo & Test di Potenza</h3>
+            <span style="font-size:0.7rem;color:var(--mv-muted);" id="perf-chart-subtitle">Curve temporali sRPE, fatica post-seduta, velocità VBT e altezza salti CMJ</span>
           </div>
         </div>
 
         <!-- Filtri Temporali & Metriche Performance -->
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-            <div class="scroll-pills" id="perf-time-pills">
-              <button class="btn-filt" onclick="setPerfRange('7d', this)">7 Giorni</button>
-              <button class="btn-filt" onclick="setPerfRange('14d', this)">14 Giorni</button>
-              <button class="btn-filt" onclick="setPerfRange('30d', this)">30 Giorni</button>
-              <button class="btn-filt" onclick="setPerfRange('offseason', this)">🌴 Off-Season</button>
-              <button class="btn-filt" onclick="setPerfRange('preseason', this)">⚡ Pre-Season</button>
-              <button class="btn-filt active" onclick="setPerfRange('all', this)">📅 Tutta la Stagione</button>
-            </div>
-            <div class="filter-pills" id="perf-metric-toggles">
-              <button class="btn-filt active" id="tog-p-srpe" onclick="togglePerfMetric('srpe')" style="border-color:#f59e0b;color:#fde68a;">🎯 sRPE (0-10)</button>
-              <button class="btn-filt active" id="tog-p-fatica" onclick="togglePerfMetric('fatica')" style="border-color:#10b981;color:#6ee7b7;">⚡ Fatica Seduta</button>
-              <button class="btn-filt active" id="tog-p-vbt" onclick="togglePerfMetric('vbt')" style="border-color:#38bdf8;color:#7dd3fc;">🏎️ VBT Squat (m/s)</button>
-              <button class="btn-filt active" id="tog-p-cmj" onclick="togglePerfMetric('cmj')" style="border-color:#ec4899;color:#fbcfe8;">🚀 CMJ Salto (cm)</button>
-            </div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;">
+          <div class="scroll-pills" id="perf-time-pills">
+            <button class="btn-filt" onclick="setPerfRange('7d', this)">7 Giorni</button>
+            <button class="btn-filt" onclick="setPerfRange('14d', this)">14 Giorni</button>
+            <button class="btn-filt" onclick="setPerfRange('30d', this)">30 Giorni</button>
+            <button class="btn-filt" onclick="setPerfRange('offseason', this)">🌴 Off-Season</button>
+            <button class="btn-filt" onclick="setPerfRange('preseason', this)">⚡ Pre-Season</button>
+            <button class="btn-filt active" onclick="setPerfRange('all', this)">📅 Tutta la Stagione</button>
+          </div>
+          <div class="scroll-pills" id="perf-metric-toggles">
+            <button class="btn-filt active" id="tog-p-srpe" onclick="togglePerfMetric('srpe')" style="border-color:#f59e0b;color:#fde68a;">🎯 sRPE (0-10)</button>
+            <button class="btn-filt active" id="tog-p-fatica" onclick="togglePerfMetric('fatica')" style="border-color:#10b981;color:#6ee7b7;">⚡ Fatica Seduta</button>
+            <button class="btn-filt active" id="tog-p-vbt" onclick="togglePerfMetric('vbt')" style="border-color:#38bdf8;color:#7dd3fc;">🏎️ VBT Squat (m/s)</button>
+            <button class="btn-filt active" id="tog-p-cmj" onclick="togglePerfMetric('cmj')" style="border-color:#ec4899;color:#fbcfe8;">🚀 CMJ Salto (cm)</button>
           </div>
         </div>
 
-        <!-- Micro-KPI Performance -->
-        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(110px, 1fr));gap:6px;margin-bottom:12px;" id="perf-kpi-grid">
-          <div class="kpi-card" style="padding:6px 4px;text-align:center;">
-            <div class="kpi-lbl" style="font-size:0.62rem;">sRPE Medio</div>
-            <div class="kpi-val" id="perf-kpi-srpe" style="color:var(--mv-amber);font-size:1.05rem;margin:2px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.58rem;">Borg CR-10</div>
+        <!-- Micro-griglia KPI del Periodo (UNICA RIGA COMPATTA) -->
+        <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:4px;margin-bottom:10px;width:100%;box-sizing:border-box;" id="perf-kpi-grid">
+          <div class="kpi-card" id="perf-card-srpe" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
+            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">sRPE Medio</div>
+            <div class="kpi-val" id="perf-kpi-srpe" style="color:var(--mv-amber);font-size:0.95rem;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Borg CR-10</div>
           </div>
-          <div class="kpi-card" style="padding:6px 4px;text-align:center;">
-            <div class="kpi-lbl" style="font-size:0.62rem;">Fatica Media</div>
-            <div class="kpi-val" id="perf-kpi-fatica" style="color:#6ee7b7;font-size:1.05rem;margin:2px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.58rem;">Scala 0-10</div>
+          <div class="kpi-card" id="perf-card-fatica" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
+            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fatica Media</div>
+            <div class="kpi-val" id="perf-kpi-fatica" style="color:#6ee7b7;font-size:0.95rem;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Scala 0-10</div>
           </div>
-          <div class="kpi-card" style="padding:6px 4px;text-align:center;">
-            <div class="kpi-lbl" style="font-size:0.62rem;">VBT Squat</div>
-            <div class="kpi-val" id="perf-kpi-vbt" style="color:#38bdf8;font-size:1.05rem;margin:2px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.58rem;">Vel. Media (m/s)</div>
+          <div class="kpi-card" id="perf-card-vbt" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
+            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">VBT Squat</div>
+            <div class="kpi-val" id="perf-kpi-vbt" style="color:#38bdf8;font-size:0.95rem;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Vel. Media (m/s)</div>
           </div>
-          <div class="kpi-card" style="padding:6px 4px;text-align:center;">
-            <div class="kpi-lbl" style="font-size:0.62rem;">CMJ Salto</div>
-            <div class="kpi-val" id="perf-kpi-cmj" style="color:#fbcfe8;font-size:1.05rem;margin:2px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.58rem;">Media (cm)</div>
+          <div class="kpi-card" id="perf-card-cmj" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
+            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">CMJ Salto</div>
+            <div class="kpi-val" id="perf-kpi-cmj" style="color:#fbcfe8;font-size:0.95rem;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (cm)</div>
           </div>
         </div>
 
         <!-- Canvas Grafico Longitudinale Performance -->
-        <div style="position:relative;height:300px;width:100%;">
+        <div style="position:relative;height:260px;width:100%;">
           <canvas id="perfTrendChart"></canvas>
         </div>
-
-        <!-- Profilo VBT Carico-Velocità a scomparsa -->
-        <details style="margin-top:12px;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:8px 12px;" id="box-vbt-scatter">
-          <summary style="cursor:pointer;font-weight:700;font-size:0.78rem;color:var(--mv-muted);user-select:none;">
-            🏎️ Mostra Profilo VBT Back Squat (Carico vs Velocità - Scatter Plot Enode)
-          </summary>
-          <div style="margin-top:10px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
-              <span style="font-size:0.72rem;color:var(--mv-muted);" id="vbt-chart-subtitle">Ascisse (X): Velocità m/s · Ordinate (Y): Carico sollevato kg</span>
-              <span style="font-size:0.72rem;background:#182846;padding:2px 8px;border-radius:6px;border:1px solid #1e335a;color:#7dd3fc;" id="vbt-summary-badge">Rilevazioni Enode</span>
-            </div>
-            <div style="position:relative;height:300px;width:100%;">
-              <canvas id="vbtScatterChart"></canvas>
-            </div>
-          </div>
-        </details>
       </div>
 
       <!-- NAVIGATORE SOTTO-TABELLE SALA PESI -->
@@ -3776,49 +3738,6 @@ function renderWellnessAnalytics() {
     });
   }
 
-  // 3. Dinamica del microciclo (Lun-Dom)
-  const dayStats = { 1: { r:[], f:[], d:[] }, 2: { r:[], f:[], d:[] }, 3: { r:[], f:[], d:[] }, 4: { r:[], f:[], d:[] }, 5: { r:[], f:[], d:[] }, 6: { r:[], f:[], d:[] }, 0: { r:[], f:[], d:[] } };
-  filtered.forEach(r => {
-    if (!r.date || r.date.length < 10) return;
-    const dt = new Date(r.date + 'T12:00:00');
-    const day = dt.getDay();
-    if (dayStats[day]) {
-      if (r.readiness !== null) dayStats[day].r.push(r.readiness);
-      if (r.fatica !== null) dayStats[day].f.push(r.fatica);
-      if (r.dolori !== null) dayStats[day].d.push(r.dolori);
-    }
-  });
-
-  const dayOrder = [1, 2, 3, 4, 5, 6, 0];
-  const microLabels = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
-  const microReady = dayOrder.map(d => avg(dayStats[d].r));
-  const microEnergy = dayOrder.map(d => avg(dayStats[d].f));
-  const microDolori = dayOrder.map(d => avg(dayStats[d].d));
-
-  const ctxMicro = document.getElementById('wellnessMicrocycleChart');
-  if (ctxMicro) {
-    if (microcycleChartInstance) microcycleChartInstance.destroy();
-    microcycleChartInstance = new Chart(ctxMicro, {
-      type: 'bar',
-      data: {
-        labels: microLabels,
-        datasets: [
-          { label: 'Readiness 🎯', data: microReady, backgroundColor: 'rgba(245, 158, 11, 0.85)', borderRadius: 4 },
-          { label: 'Energia ⚡', data: microEnergy, backgroundColor: 'rgba(16, 185, 129, 0.85)', borderRadius: 4 },
-          { label: 'Dolori 🩹', data: microDolori, backgroundColor: 'rgba(239, 68, 68, 0.85)', borderRadius: 4 }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          y: { min: 0, max: 10, grid: { color: 'rgba(255, 255, 255, 0.06)' }, ticks: { color: '#94a3b8', stepSize: 2 } },
-          x: { grid: { display: false }, ticks: { color: '#cbd5e1', font: { weight: 'bold' } } }
-        }
-      }
-    });
-  }
 
   // 4. Popolamento Timeline Note
   const notesTimeline = document.getElementById('analytics-notes-timeline');
@@ -4080,68 +3999,6 @@ function renderPerfAnalytics() {
     });
   }
 
-  // 3. Costruzione Scatter Plot VBT Enode (Carico kg vs Velocità m/s)
-  const ctxVbtScatter = document.getElementById('vbtScatterChart');
-  if (ctxVbtScatter) {
-    if (vbtScatterChartInstance) vbtScatterChartInstance.destroy();
-
-    // Raccoglie punti da rawVBTRecords o fVbt
-    let scatterPoints = [];
-    const sourceVbt = (rawVBTRecords && rawVBTRecords.length > 0) ? rawVBTRecords : fVbt;
-    sourceVbt.forEach(r => {
-      const v = parseFloat(r.vel);
-      const l = parseFloat(r.load || r.carico || 0);
-      if (!isNaN(v) && v > 0 && !isNaN(l) && l > 0) {
-        scatterPoints.push({ x: v, y: l, ath: r.athName || ('#' + r.aid) });
-      }
-    });
-
-    if (scatterPoints.length === 0) {
-      // Punti dimostrativi realistici squat squadra se ancora non registrati carichi espliciti
-      scatterPoints = [
-        { x: 0.95, y: 50, ath: 'Squadra' }, { x: 0.85, y: 60, ath: 'Squadra' },
-        { x: 0.76, y: 70, ath: 'Squadra' }, { x: 0.68, y: 80, ath: 'Squadra' },
-        { x: 0.58, y: 90, ath: 'Squadra' }, { x: 0.48, y: 100, ath: 'Squadra' }
-      ];
-    }
-
-    vbtScatterChartInstance = new Chart(ctxVbtScatter, {
-      type: 'scatter',
-      data: {
-        datasets: [{
-          label: 'Rilevazioni Enode (m/s vs kg)',
-          data: scatterPoints,
-          backgroundColor: 'rgba(56, 189, 248, 0.75)',
-          borderColor: '#38bdf8',
-          pointRadius: 6,
-          pointHoverRadius: 8
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: (ctx) => `${ctx.raw.ath || 'Atleta'}: ${ctx.raw.x} m/s ➔ ${ctx.raw.y} kg`
-            }
-          }
-        },
-        scales: {
-          x: {
-            title: { display: true, text: 'Velocità Media Concentrica (m/s)', color: '#38bdf8' },
-            grid: { color: 'rgba(255, 255, 255, 0.06)' },
-            ticks: { color: '#cbd5e1' }
-          },
-          y: {
-            title: { display: true, text: 'Carico Sollevato Back Squat (kg)', color: '#f59e0b' },
-            grid: { color: 'rgba(255, 255, 255, 0.06)' },
-            ticks: { color: '#cbd5e1' }
-          }
-        }
-      }
-    });
-  }
 }
 
 
