@@ -764,6 +764,165 @@
       font-weight: 700;
     }
 
+    /* ==========================================
+       STILI SEZIONE METODOLOGIA & PARAMETRI S&C
+       ========================================== */
+    .met-toolbar {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .met-select-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .met-select {
+      background: #091222;
+      border: 1px solid var(--mv-border);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      outline: none;
+      cursor: pointer;
+    }
+    .met-select:focus {
+      border-color: var(--mv-amber);
+    }
+    .met-badge-info {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(232, 160, 32, 0.12);
+      border: 1px solid rgba(232, 160, 32, 0.3);
+      color: var(--mv-amber);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .met-pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    @media (min-width: 768px) {
+      .met-pillars-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .met-pillar-full {
+        grid-column: span 2;
+      }
+    }
+    .met-pillar-card {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .met-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 8px;
+    }
+    .met-card-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .met-card-sub {
+      font-size: 0.7rem;
+      color: var(--mv-muted);
+      font-weight: 600;
+    }
+    .met-kpi-subgrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 8px;
+    }
+    .met-mini-kpi {
+      background: #060a14;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 8px 10px;
+      text-align: center;
+    }
+    .met-mini-kpi .k-lbl {
+      font-size: 0.62rem;
+      font-weight: 800;
+      color: var(--mv-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .met-mini-kpi .k-val {
+      font-size: 1.25rem;
+      font-weight: 900;
+      margin: 2px 0;
+      line-height: 1.1;
+    }
+    .met-mini-kpi .k-sub {
+      font-size: 0.62rem;
+      color: #cbd5e1;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .met-dist-bar-wrap {
+      background: #060a14;
+      border-radius: 6px;
+      overflow: hidden;
+      height: 10px;
+      display: flex;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .met-dist-seg {
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+    .met-zone-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.75rem;
+      padding: 4px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.05);
+    }
+    .met-zone-row:last-child {
+      border-bottom: none;
+    }
+    .met-zone-badge {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -791,6 +950,9 @@
       </button>
       <button class="c-tab-btn" id="btn-tab-campo" onclick="switchCoachTab('campo', this)">
         <span>🏐</span> <span>Campo<span class="tab-txt-ext"> S&C</span></span>
+      </button>
+      <button class="c-tab-btn" id="btn-tab-metodologia" onclick="switchCoachTab('metodologia', this)">
+        <span>📐</span> <span>Parametri<span class="tab-txt-ext"> S&C</span></span>
       </button>
     </div>
   </div>
@@ -1539,6 +1701,291 @@
 
     </div>
 
+    <!-- VISTA 4: METODOLOGIA, CARICHI & PARAMETRI S&C -->
+    <div class="c-panel" id="panel-metodologia">
+      
+      <!-- Toolbar di Controllo e Selezione Seduta Generica -->
+      <div class="met-toolbar">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <div>
+            <h3 class="card-title" style="margin-bottom:2px;font-size:1.05rem;display:flex;align-items:center;gap:8px;">
+              <span>📐</span>
+              <span>Laboratorio Metodologico S&C — Triangolazione Teoria & Campo</span>
+            </h3>
+            <span style="font-size:0.72rem;color:var(--mv-muted);">Analisi quantitativa, qualitativa e profilo Forza-Velocità collegato all'app schede (data.js)</span>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button class="btn-campo-act" onclick="copyMethodologySummary()" title="Copia riassunto metodologico per lo staff">
+              📋 Copia Report
+            </button>
+            <button class="btn-campo-act" onclick="renderMethodologyAnalysis()" title="Ricalcola istantaneamente tutti i parametri">
+              🔄 Ricalcola
+            </button>
+          </div>
+        </div>
+
+        <div class="met-select-group">
+          <!-- Selezione Settimana / Fase -->
+          <div style="display:flex;align-items:center;gap:4px;">
+            <label style="font-size:0.72rem;color:var(--mv-muted);font-weight:700;">Settimana:</label>
+            <select id="met-select-week" class="met-select" onchange="renderMethodologyAnalysis()">
+              <option value="W3" selected>W3 (Picco Forza Strutturale · Squillante MED)</option>
+              <option value="W4">W4 (Trasmutazione & Contrast Power)</option>
+            </select>
+          </div>
+
+          <!-- Selezione Seduta Generica -->
+          <div style="display:flex;align-items:center;gap:4px;">
+            <label style="font-size:0.72rem;color:var(--mv-muted);font-weight:700;">Seduta di Riferimento:</label>
+            <select id="met-select-seduta" class="met-select" onchange="renderMethodologyAnalysis()">
+              <option value="1" selected>Seduta 1 (Lunedì — Squat VBT, Lat, Floor Press, Pogo)</option>
+              <option value="2">Seduta 2 (Mercoledì — Clean, Half Squat, Landmine, Hurdles)</option>
+              <option value="3">Seduta 3 (Venerdì — RDL Buffer 3, Pulley · STRICT JUMP BAN)</option>
+              <option value="ALL">Microciclo Completo (S1 + S2 + S3 Aggregati)</option>
+            </select>
+          </div>
+
+          <!-- Selezione Atleta di Riferimento o Squadra -->
+          <div style="display:flex;align-items:center;gap:4px;">
+            <label style="font-size:0.72rem;color:var(--mv-muted);font-weight:700;">Profilo Atleta:</label>
+            <select id="met-select-ath" class="met-select" onchange="renderMethodologyAnalysis()">
+              <option value="team" selected>👥 Media Squadra A2 (BW 67.8 kg · 1RM Medi)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Banner Dinamico Seduta -->
+        <div id="met-session-banner" style="background:#091222;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 12px;font-size:0.76rem;color:#cbd5e1;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <!-- Popolato via JS -->
+        </div>
+      </div>
+
+      <!-- I TRE GRANDI PILASTRI METODOLOGICI -->
+      <div class="met-pillars-grid">
+        
+        <!-- PILASTRO 1: QUANTITÀ DELL'ALLENAMENTO -->
+        <div class="met-pillar-card">
+          <div class="met-card-head">
+            <div class="met-card-title">
+              <span style="color:var(--mv-amber);">📦</span>
+              <span>1. Quantità dell'Allenamento</span>
+            </div>
+            <span class="met-card-sub">Volume, Densitometria & Impatti</span>
+          </div>
+
+          <!-- Mini KPI Quantità -->
+          <div class="met-kpi-subgrid">
+            <div class="met-mini-kpi">
+              <div class="k-lbl">Volume-Load</div>
+              <div class="k-val" id="met-val-tonnage" style="color:var(--mv-amber);">-- kg</div>
+              <div class="k-sub" id="met-sub-tonnage">Tonnage Meccanico</div>
+            </div>
+            <div class="met-mini-kpi">
+              <div class="k-lbl">Reps Totali</div>
+              <div class="k-val" id="met-val-reps" style="color:#fff;">--</div>
+              <div class="k-sub">Volume Totale</div>
+            </div>
+            <div class="met-mini-kpi">
+              <div class="k-lbl">Quality Reps</div>
+              <div class="k-val" id="met-val-quality-reps" style="color:var(--mv-emerald);">--</div>
+              <div class="k-sub">Zatsiorsky MED (≥70%)</div>
+            </div>
+            <div class="met-mini-kpi">
+              <div class="k-lbl">Jump Budget</div>
+              <div class="k-val" id="met-val-jump-budget" style="color:var(--mv-blue);">--</div>
+              <div class="k-sub" id="met-sub-jump">Impatti Pliometrici</div>
+            </div>
+          </div>
+
+          <!-- Ripartizione Tonnage per Distretto -->
+          <div style="background:#060a14;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);">
+            <div style="display:flex;justify-content:space-between;font-size:0.72rem;font-weight:700;color:var(--mv-muted);margin-bottom:4px;">
+              <span>Ripartizione Distretti Corporei:</span>
+              <span id="met-txt-dist-breakdown">Lower --% · Upper --% · Core/Acc --%</span>
+            </div>
+            <div class="met-dist-bar-wrap">
+              <div id="met-bar-lower" class="met-dist-seg" style="background:#3b82f6;width:0%;" title="Lower Body"></div>
+              <div id="met-bar-upper" class="met-dist-seg" style="background:#e8a020;width:0%;" title="Upper Body"></div>
+              <div id="met-bar-core" class="met-dist-seg" style="background:#10b981;width:0%;" title="Core & Accessori"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.68rem;color:#94a3b8;margin-top:6px;">
+              <span>🔵 Lower: <strong id="met-kg-lower" style="color:#fff;">-- kg</strong></span>
+              <span>🟡 Upper: <strong id="met-kg-upper" style="color:#fff;">-- kg</strong></span>
+              <span>🟢 Core/Acc: <strong id="met-kg-core" style="color:#fff;">-- kg</strong></span>
+            </div>
+          </div>
+
+          <!-- Densità & TUT -->
+          <div style="font-size:0.73rem;color:#cbd5e1;background:#091222;border-radius:6px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;">
+            <span>⏱️ <strong>TUT Stimato:</strong> <span id="met-val-tut" style="color:var(--mv-amber);">-- min</span></span>
+            <span>⚖️ <strong>Work:Rest Ratio:</strong> <span id="met-val-workrest" style="color:#6ee7b7;">1:4 (Potenza Pura)</span></span>
+          </div>
+        </div>
+
+        <!-- PILASTRO 2: QUALITÀ DELL'ALLENAMENTO -->
+        <div class="met-pillar-card">
+          <div class="met-card-head">
+            <div class="met-card-title">
+              <span style="color:var(--mv-emerald);">⚡</span>
+              <span>2. Qualità dell'Allenamento</span>
+            </div>
+            <span class="met-card-sub">Intensità Neurale, VBT & Cut-Off</span>
+          </div>
+
+          <!-- Mini KPI Qualità -->
+          <div class="met-kpi-subgrid">
+            <div class="met-mini-kpi">
+              <div class="k-lbl">Velocità Media</div>
+              <div class="k-val" id="met-val-vbt-target" style="color:#38bdf8;">-- m/s</div>
+              <div class="k-sub">MPV Target Squat</div>
+            </div>
+            <div class="met-mini-kpi">
+              <div class="k-lbl">Cut-off Enode</div>
+              <div class="k-val" id="met-val-vloss" style="color:var(--mv-coral);">-10%</div>
+              <div class="k-sub">Velocity Loss Max</div>
+            </div>
+            <div class="met-mini-kpi">
+              <div class="k-lbl">%1RM Media</div>
+              <div class="k-val" id="met-val-pct" style="color:var(--mv-amber);">-- %</div>
+              <div class="k-sub">Main Lifts Buffer</div>
+            </div>
+            <div class="met-mini-kpi">
+              <div class="k-lbl">Buffer / RIR</div>
+              <div class="k-val" id="met-val-rir" style="color:var(--mv-emerald);">RIR 2-3</div>
+              <div class="k-sub">RPE 7-8 Programmato</div>
+            </div>
+          </div>
+
+          <!-- Alert Semaforico Fatica / RFD -->
+          <div id="met-quality-alert" style="background:#060a14;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);font-size:0.75rem;line-height:1.4;">
+            <!-- Popolato via JS -->
+          </div>
+
+          <!-- Regola A2 In-Season VBT -->
+          <div style="background:#091222;border:1px dashed rgba(56,189,248,0.3);border-radius:6px;padding:8px 10px;font-size:0.73rem;color:#7dd3fc;line-height:1.4;">
+            💡 <strong>Principio Bryan Mann / Squillante:</strong> Il cut-off al <strong>-10% di Velocity Loss</strong> garantisce che nessuna serie produca affaticamento metabolico o grinding. Se la rep cala oltre il 10%, la serie viene interrotta immediatamente per preservare la reattività in campo.
+          </div>
+        </div>
+
+        <!-- PILASTRO 3: CARATTERISTICHE ALLENATE (CONTINUUM FORZA-VELOCITÀ) -->
+        <div class="met-pillar-card met-pillar-full">
+          <div class="met-card-head">
+            <div class="met-card-title">
+              <span style="color:#d8b4fe;">🎯</span>
+              <span>3. Caratteristiche Allenate & Continuum Forza-Velocità</span>
+            </div>
+            <span class="met-card-sub">Tassonomia Zatsiorsky & Bryan Mann</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr;gap:12px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:12px;align-items:center;">
+              <!-- Lista Barre Zone F-V -->
+              <div style="display:flex;flex-direction:column;gap:6px;">
+                <div class="met-zone-row">
+                  <span class="met-zone-badge" style="background:rgba(239,68,68,0.2);color:#fca5a5;border:1px solid rgba(239,68,68,0.4);">Forza Massima (&lt;0.50 m/s · &gt;85%)</span>
+                  <div style="flex:1;background:#060a14;height:6px;border-radius:3px;overflow:hidden;margin:0 8px;">
+                    <div id="met-zonebar-max" style="background:#ef4444;height:100%;width:0%;"></div>
+                  </div>
+                  <strong id="met-zonepct-max" style="color:#fca5a5;font-size:0.75rem;">0%</strong>
+                </div>
+
+                <div class="met-zone-row">
+                  <span class="met-zone-badge" style="background:rgba(245,158,11,0.2);color:#fde68a;border:1px solid rgba(245,158,11,0.4);">Strength-Speed (0.50-0.75 m/s · 70-85%)</span>
+                  <div style="flex:1;background:#060a14;height:6px;border-radius:3px;overflow:hidden;margin:0 8px;">
+                    <div id="met-zonebar-ss" style="background:#f59e0b;height:100%;width:0%;"></div>
+                  </div>
+                  <strong id="met-zonepct-ss" style="color:#fde68a;font-size:0.75rem;">0%</strong>
+                </div>
+
+                <div class="met-zone-row">
+                  <span class="met-zone-badge" style="background:rgba(56,189,248,0.2);color:#7dd3fc;border:1px solid rgba(56,189,248,0.4);">Speed-Strength / RFD (0.75-1.00 m/s · 50-70%)</span>
+                  <div style="flex:1;background:#060a14;height:6px;border-radius:3px;overflow:hidden;margin:0 8px;">
+                    <div id="met-zonebar-rf" style="background:#38bdf8;height:100%;width:0%;"></div>
+                  </div>
+                  <strong id="met-zonepct-rf" style="color:#7dd3fc;font-size:0.75rem;">0%</strong>
+                </div>
+
+                <div class="met-zone-row">
+                  <span class="met-zone-badge" style="background:rgba(168,85,247,0.2);color:#d8b4fe;border:1px solid rgba(168,85,247,0.4);">Balistica / Pliometria (&gt;1.00 m/s · Elastic SSC)</span>
+                  <div style="flex:1;background:#060a14;height:6px;border-radius:3px;overflow:hidden;margin:0 8px;">
+                    <div id="met-zonebar-pl" style="background:#a855f7;height:100%;width:0%;"></div>
+                  </div>
+                  <strong id="met-zonepct-pl" style="color:#d8b4fe;font-size:0.75rem;">0%</strong>
+                </div>
+
+                <div class="met-zone-row">
+                  <span class="met-zone-badge" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border:1px solid rgba(16,185,129,0.4);">Forza Strutturale / Prehab / Isometria</span>
+                  <div style="flex:1;background:#060a14;height:6px;border-radius:3px;overflow:hidden;margin:0 8px;">
+                    <div id="met-zonebar-pr" style="background:#10b981;height:100%;width:0%;"></div>
+                  </div>
+                  <strong id="met-zonepct-pr" style="color:#6ee7b7;font-size:0.75rem;">0%</strong>
+                </div>
+              </div>
+
+              <!-- Canvas Grafico Radar / Donut -->
+              <div style="position:relative;height:210px;width:100%;display:flex;align-items:center;justify-content:center;">
+                <canvas id="methodologyChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- TABELLA DETTAGLIATA ESERCIZI DELLA SEDUTA SELEZIONATA -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+          <div>
+            <h3 class="card-title" style="margin-bottom:2px;font-size:0.95rem;">📋 Matrice Analitica Esercizi (Scomposizione del Carico)</h3>
+            <span style="font-size:0.7rem;color:var(--mv-muted);">Serie, ripetizioni, carico calcolato su 1RM/BW reale, tonnage ed effetto neuromuscolare target</span>
+          </div>
+          <span id="met-tbl-badge" style="font-size:0.72rem;background:rgba(232,160,32,0.15);color:var(--mv-amber);padding:3px 8px;border-radius:6px;font-weight:800;">-- Esercizi</span>
+        </div>
+
+        <div class="coach-tbl-wrap" style="max-height:480px;overflow-y:auto;">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Blocco</th>
+                <th>Esercizio</th>
+                <th>Set x Reps</th>
+                <th>Carico Calcolato</th>
+                <th>Tonnage (kg)</th>
+                <th>Target VBT</th>
+                <th>Zona Motoria</th>
+                <th>Note & Buffer Coach</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-metodologia-body">
+              <tr><td colspan="8" style="text-align:center;padding:16px;color:var(--mv-muted);">Caricamento dati seduta...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DOTTRINA TEORICA DI RIFERIMENTO (ACCORDION COACH) -->
+      <details class="card-box" style="margin-bottom:14px;cursor:pointer;">
+        <summary style="font-weight:800;color:var(--mv-amber);font-size:0.85rem;display:flex;align-items:center;gap:6px;outline:none;">
+          <span>📚 Rationale Scientifico & Dottrina di Riferimento (Clicca per espandere)</span>
+        </summary>
+        <div style="margin-top:12px;font-size:0.78rem;line-height:1.6;color:#cbd5e1;display:flex;flex-direction:column;gap:10px;">
+          <div style="background:#060a14;padding:10px;border-radius:6px;border-left:3px solid var(--mv-amber);">
+            <strong style="color:#fff;">1. Bompa & Zatsiorsky — Minimum Effective Dose (MED):</strong><br>
+            Nel volley d'élite, l'obiettivo delle 2 sedute settimanali in-season non è l'ipertrofia massiva, ma la stimolazione ad alta soglia delle unità motorie (Fibre IIx). Con sole 12-18 ripetizioni ad alta intensità per esercizio cardine, si mantiene il 90-95% della forza massima senza generare fatica residua da acido lattico o danno muscolare eccentrico prolungato.
+          </div>
+          <div style="background:#060a14;padding:10px;border-radius:6px;border-left:3px solid #38bdf8;">
+            <strong style="color:#fff;">2. Bryan Mann & González-Badillo — Velocity-Based Training:</strong><br>
+            La velocità del bilanciere è il misuratore più accurato dello stato del SNC. Il cut-off del 10% assicura che il reclutamento rimanga al 100% balistico ed esplosivo. Nella pallavolo femminile, le zone Strength-Speed (0.50-0.75 m/s) e Speed-Strength (0.75-1.00 m/s) garantiscono il massimo transfer allo stacco del salto d'attacco e del muro.
+          </div>
+          <div style="background:#060a14;padding:10px;border-radius:6px;border-left:3px solid #10b981;">
+            <strong style="color:#fff;">3. NSCA Standard & Jump Budget:</strong><br>
+            Ogni salto con sovraccarico o pliometria ad alta intensità attinge allo stesso pool neuromuscolare dei salti tecnici sul parquet (attacchi, muri, float jump). Mantenere il Jump Budget della sala pesi entro i 15-25 impatti a inizio settimana e a ZERO assoluto a meno di 30 ore dalla gara (Strict Friday Jump Ban) azzera le tendinopatie rotulee.
+          </div>
+        </div>
+      </details>
+
+    </div>
+
     <footer class="app-footer">
       <div>Marsala Volley · Preparazione Fisica Serie A2</div>
       <div style="color:var(--mv-amber);margin-top:2px;">Coach Command Center v2026.4</div>
@@ -1546,7 +1993,7 @@
 
   </main>
 
-  <script src="../data.js?v=20260909v238"></script>
+  <script src="../data.js?v=20260910v242"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../supabase-client.js?v=2.0"></script>
   <script>
@@ -1589,11 +2036,12 @@
       initCampoSection();
       initWellnessUI();
       initPerfUI();
+      initMethodologyUI();
       try { renderReadinessRoster(); } catch (e) {}
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=241', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=242', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -1619,6 +2067,7 @@
       try { renderCustomLoadsTable(); } catch (e) { console.error('[renderCustomLoadsTable]', e); }
       try { renderWellnessAnalytics(); } catch (e) { console.error('[renderWellnessAnalytics]', e); }
       try { renderPerfAnalytics(); } catch (e) { console.error('[renderPerfAnalytics]', e); }
+      try { renderMethodologyAnalysis(); } catch (e) { console.error('[renderMethodologyAnalysis]', e); }
     }
 
     async function fetchLiveWellness() {
@@ -2631,6 +3080,9 @@
       } else if (tab === 'sedute') {
         if (perfChartInstance) perfChartInstance.resize();
         if (vbtScatterChartInstance) vbtScatterChartInstance.resize();
+      } else if (tab === 'metodologia') {
+        if (typeof methodologyChartInstance !== 'undefined' && methodologyChartInstance) methodologyChartInstance.resize();
+        renderMethodologyAnalysis();
       }
     }
 
@@ -5255,6 +5707,564 @@ function renderPerfAnalytics() {
   }
 }
 
+/* ==========================================================================
+   MODULO METODOLOGIA, CARICHI & PARAMETRI S&C (TRIANGOLAZIONE SCIENZA & CAMPO)
+   ========================================================================== */
+let methodologyChartInstance = null;
+let lastMethodologyResult = null;
+
+function initMethodologyUI() {
+  const athSel = document.getElementById('met-select-ath');
+  if (!athSel) return;
+
+  // Popola il selettore atlete dal ROSTER reale
+  if (typeof ROSTER !== 'undefined' && Array.isArray(ROSTER)) {
+    let html = '<option value="team" selected>👥 Media Squadra A2 (BW 67.8 kg · 1RM Medi)</option>';
+    ROSTER.forEach(a => {
+      const bw = a.bw || (typeof BASELINE_WEIGHTS !== 'undefined' && BASELINE_WEIGHTS[a.id]) || 65;
+      html += `<option value="${a.id}">#${a.number || a.id} ${a.name} (${a.role} · BW ${bw} kg)</option>`;
+    });
+    athSel.innerHTML = html;
+  }
+}
+
+function calculateMethodology(weekId, sedutaId, athleteId) {
+  const weekObj = (typeof WEEKS_DATA !== 'undefined' && WEEKS_DATA[weekId]) ? WEEKS_DATA[weekId] : (typeof WEEKS_DATA !== 'undefined' ? WEEKS_DATA.W3 : null);
+  let exercises = [];
+  let athName = 'Media Squadra A2';
+  let athRole = 'Squadra';
+  let athBw = 67.8;
+  let ath1RM = { squat: 103, bench: 40, clean: 45, military: 28, row: 44, lat: 43, rdl: 55 };
+
+  if (athleteId !== 'team') {
+    const aid = parseInt(athleteId);
+    const ath = (typeof ROSTER !== 'undefined') ? ROSTER.find(a => a.id === aid) : null;
+    if (ath) {
+      athName = ath.name;
+      athRole = ath.role || '';
+      athBw = ath.bw || (typeof BASELINE_WEIGHTS !== 'undefined' && BASELINE_WEIGHTS[aid]) || 65;
+      ath1RM = ath.baseline_1rm || (typeof TRUE_BASELINES !== 'undefined' && TRUE_BASELINES[aid]) || ath1RM;
+    }
+    const athData = weekObj && weekObj.atleti && weekObj.atleti[String(aid)];
+    const seduteObj = weekId === 'W4' ? (athData && athData.w4_sedute) : (athData && athData.w3_sedute);
+    if (seduteObj) {
+      if (sedutaId === 'ALL') {
+        ['1', '2', '3'].forEach(k => {
+          if (seduteObj[k]) exercises.push(...seduteObj[k]);
+        });
+      } else if (seduteObj[sedutaId]) {
+        exercises = seduteObj[sedutaId];
+      }
+    }
+  }
+
+  // Fallback programmatico sul blueprint di squadra se l'atleta non ha scheda separata o se è team
+  if (exercises.length === 0 && weekObj) {
+    const prog = weekObj.programma_squadra && weekObj.programma_squadra.gym_sessions;
+    if (prog) {
+      if (sedutaId === 'ALL') {
+        prog.forEach(s => exercises.push(...s.esercizi));
+      } else {
+        const found = prog.find(s => s.id === ('S' + sedutaId));
+        if (found) exercises = found.esercizi;
+      }
+    }
+  }
+
+  let totalTonnage = 0, lowerTonnage = 0, upperTonnage = 0, accessTonnage = 0;
+  let totalReps = 0, qualityReps = 0, jumpBudget = 0;
+  let totalSecondsTUT = 0;
+  let zoneReps = {
+    max_strength: 0,
+    strength_speed: 0,
+    speed_strength: 0,
+    speed_elastic: 0,
+    structural_prehab: 0
+  };
+  let parsedList = [];
+  let mainLiftsPcts = [];
+
+  exercises.forEach((e) => {
+    const exName = (e.Esercizio || '').trim();
+    if (!exName || exName.includes('STRICT FRIDAY JUMP BAN') || exName.includes('🛑')) return;
+    const block = (e.Blocco || '').toLowerCase();
+    const setRepsStr = (e['Set x Reps'] || '').trim();
+    const loadStr = (e['Carico (kg/RPE)'] || '').trim();
+    const tempoStr = e.Tempo || '2010';
+    const notesStr = e['Note Tecniche'] || '';
+
+    // Sets e reps
+    let sets = 1, reps = 1;
+    const mCluster = setRepsStr.match(/(\d+)\s*x\s*\((\d+)\+(\d+)\+(\d+)\)/i);
+    const mNormal = setRepsStr.match(/(\d+)\s*x\s*(\d+)(?:\+(\d+))?/i);
+    const mRange = setRepsStr.match(/(\d+)\s*x\s*(\d+)-(\d+)/i);
+    
+    if (mCluster) {
+      sets = parseInt(mCluster[1]);
+      reps = parseInt(mCluster[2]) + parseInt(mCluster[3]) + parseInt(mCluster[4]);
+    } else if (mRange) {
+      sets = parseInt(mRange[1]);
+      reps = Math.round((parseInt(mRange[2]) + parseInt(mRange[3])) / 2);
+    } else if (mNormal) {
+      sets = parseInt(mNormal[1]);
+      reps = parseInt(mNormal[2]) + (mNormal[3] ? parseInt(mNormal[3]) : 0);
+    }
+
+    // Jump budget (Zero salti se STRICT FRIDAY JUMP BAN o Seduta 3 pre-gara)
+    const isPlyo = block.includes('plyo') || /pogo|jump|balzi|hurdle|cmj|drop jump/i.test(exName);
+    const isBan = /ban|zero salti|no jump|friday/i.test(exName) || sedutaId === '3';
+    if (isPlyo && !isBan) {
+      jumpBudget += (sets * reps);
+    }
+
+    // Calcolo del carico in kg (con equazione dinamica Marsala se Squat)
+    let kg = 0;
+    let computedLoadLabel = loadStr;
+    const mKgDumbbell = loadStr.match(/(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)\s*kg/i);
+    const mKgSingle = loadStr.match(/(\d+(?:\.\d+)?)\s*kg/i);
+    const mPercentDetailed = loadStr.match(/(\d+(?:\.\d+)?)\s*%\s*\((?:(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)|(\d+(?:\.\d+)?))\s*kg\)/i);
+    const mPercentOnly = loadStr.match(/(\d+(?:\.\d+)?)\s*%/i);
+
+    if (mPercentDetailed) {
+      if (mPercentDetailed[2] && mPercentDetailed[3]) {
+        kg = parseFloat(mPercentDetailed[2]) + parseFloat(mPercentDetailed[3]);
+        computedLoadLabel = `${mPercentDetailed[1]}% (${mPercentDetailed[2]}+${mPercentDetailed[3]} kg)`;
+      } else if (mPercentDetailed[4]) {
+        kg = parseFloat(mPercentDetailed[4]);
+        computedLoadLabel = `${mPercentDetailed[1]}% (${kg} kg)`;
+      }
+      mainLiftsPcts.push(parseFloat(mPercentDetailed[1]));
+    } else if (mPercentOnly) {
+      const pctVal = parseFloat(mPercentOnly[1]);
+      mainLiftsPcts.push(pctVal);
+      const pct = pctVal / 100;
+      if (/squat/i.test(exName)) {
+        kg = Math.max(20, Math.round((pct * (ath1RM.squat + athBw)) - athBw));
+        computedLoadLabel = `${pctVal}% (${kg} kg bilanciere)`;
+      } else if (/bench|floor/i.test(exName)) {
+        const eachKg = Math.round((pct * ath1RM.bench) / 2);
+        kg = eachKg * 2;
+        computedLoadLabel = `${pctVal}% (${eachKg}+${eachKg} kg)`;
+      } else if (/clean/i.test(exName)) {
+        kg = Math.round(pct * ath1RM.clean);
+        computedLoadLabel = `${pctVal}% (${kg} kg)`;
+      } else if (/rdl|stacco/i.test(exName)) {
+        kg = Math.round(pct * ath1RM.rdl);
+        computedLoadLabel = `${pctVal}% (${kg} kg)`;
+      } else if (/row/i.test(exName)) {
+        const eachKg = Math.round((pct * ath1RM.row) / 2);
+        kg = eachKg * 2;
+        computedLoadLabel = `${pctVal}% (${eachKg}+${eachKg} kg)`;
+      } else if (/lat/i.test(exName)) {
+        kg = Math.round(pct * ath1RM.lat);
+        computedLoadLabel = `${pctVal}% (${kg} kg)`;
+      } else {
+        kg = 30;
+      }
+    } else if (mKgDumbbell) {
+      kg = parseFloat(mKgDumbbell[1]) + parseFloat(mKgDumbbell[2]);
+    } else if (mKgSingle) {
+      kg = parseFloat(mKgSingle[1]);
+    }
+
+    // Fallback euristico se atleta è team e il carico è descrittivo (es. "Dinamico", "Medio", target in note)
+    if (kg === 0 && athleteId === 'team') {
+      const mPctInNote = notesStr.match(/(\d+(?:\.\d+)?)\s*%/i) || exName.match(/(\d+(?:\.\d+)?)\s*%/i);
+      const mKgInNote = notesStr.match(/target\s*(\d+(?:\.\d+)?)\s*k/i) || notesStr.match(/(\d+(?:\.\d+)?)\s*kg/i);
+      if (mPctInNote) {
+        const pctVal = parseFloat(mPctInNote[1]);
+        mainLiftsPcts.push(pctVal);
+        const pct = pctVal / 100;
+        if (/squat/i.test(exName)) {
+          kg = Math.max(20, Math.round((pct * (ath1RM.squat + athBw)) - athBw));
+          computedLoadLabel = `${pctVal}% (${kg} kg bilanciere)`;
+        } else if (/clean/i.test(exName)) {
+          kg = Math.round(pct * ath1RM.clean);
+          computedLoadLabel = `${pctVal}% (${kg} kg)`;
+        }
+      } else if (mKgInNote) {
+        kg = parseFloat(mKgInNote[1]);
+        computedLoadLabel = `${kg} kg (Target Team)`;
+      } else if (/clean|powerbag/i.test(exName)) {
+        kg = 35; // Standard team powerbag
+        computedLoadLabel = '35 kg (Powerbag Team)';
+      } else if (/half squat/i.test(exName)) {
+        kg = Math.max(20, Math.round(0.70 * (ath1RM.squat + athBw) - athBw));
+        computedLoadLabel = `70% (${kg} kg)`;
+      } else if (/landmine/i.test(exName)) {
+        kg = 15;
+        computedLoadLabel = '15 kg (Landmine)';
+      } else if (/rdl|stacco/i.test(exName)) {
+        kg = Math.round(0.70 * ath1RM.rdl);
+        computedLoadLabel = `70% (${kg} kg)`;
+      }
+    }
+
+    const exTonnage = sets * reps * (kg > 0 ? kg : 0);
+    totalTonnage += exTonnage;
+    totalReps += sets * reps;
+
+    // TUT stimato (secondi sotto tensione per rep)
+    let repSec = 3;
+    if (tempoStr.includes('2010')) repSec = 3;
+    else if (tempoStr.includes('2020') || tempoStr.includes('2012')) repSec = 4;
+    else if (tempoStr.includes('X') || tempoStr.includes('RFD')) repSec = 1.2;
+    totalSecondsTUT += (sets * reps * repSec);
+
+    // Ripartizione per distretto corporeo
+    if (/squat|rdl|stacco|split|glute|lunge/i.test(exName)) {
+      lowerTonnage += exTonnage;
+    } else if (/press|bench|lat|row|clean|pulley|pullover/i.test(exName)) {
+      upperTonnage += exTonnage;
+    } else {
+      accessTonnage += exTonnage;
+    }
+
+    // Ripetizioni Efficaci (Quality Reps MED Zatsiorsky)
+    const isMain = block.includes('main') || /squat|clean|rdl|bench|floor press|lat machine/i.test(exName);
+    if (isMain || loadStr.includes('%') || kg >= 20) {
+      qualityReps += (sets * reps);
+    }
+
+    // Determinazione Zona Forza-Velocità e Target VBT (Bryan Mann)
+    let zone = 'structural_prehab';
+    let vbtTarget = 'TUT Controllato';
+    let zoneBadge = '<span class="met-zone-badge" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border:1px solid rgba(16,185,129,0.35);">Strutturale</span>';
+
+    if (/squat/i.test(exName) && loadStr.includes('80%')) {
+      zone = 'max_strength';
+      vbtTarget = '0.50 – 0.60 m/s';
+      zoneBadge = '<span class="met-zone-badge" style="background:rgba(239,68,68,0.2);color:#fca5a5;border:1px solid rgba(239,68,68,0.35);">Forza Max</span>';
+    } else if (/squat/i.test(exName) || /rdl/i.test(exName)) {
+      zone = 'strength_speed';
+      vbtTarget = (weekId === 'W4') ? '0.65 – 0.75 m/s' : '0.60 – 0.65 m/s';
+      zoneBadge = '<span class="met-zone-badge" style="background:rgba(245,158,11,0.2);color:#fde68a;border:1px solid rgba(245,158,11,0.35);">Strength-Speed</span>';
+    } else if (/clean|powerbag|chest pass|half squat|push press/i.test(exName)) {
+      zone = 'speed_strength';
+      vbtTarget = '0.75 – 1.00 m/s';
+      zoneBadge = '<span class="met-zone-badge" style="background:rgba(56,189,248,0.2);color:#7dd3fc;border:1px solid rgba(56,189,248,0.35);">Speed-Strength</span>';
+    } else if (isPlyo) {
+      zone = 'speed_elastic';
+      vbtTarget = '> 1.00 m/s (Max RFD)';
+      zoneBadge = '<span class="met-zone-badge" style="background:rgba(168,85,247,0.2);color:#d8b4fe;border:1px solid rgba(168,85,247,0.35);">Pliometria SSC</span>';
+    } else {
+      zone = 'structural_prehab';
+      vbtTarget = 'TUT Controllato';
+      zoneBadge = '<span class="met-zone-badge" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border:1px solid rgba(16,185,129,0.35);">Strutturale</span>';
+    }
+    zoneReps[zone] += (sets * reps);
+
+    parsedList.push({
+      name: exName,
+      block: block.replace(/\*+/g, '').replace(/#/g, '').trim(),
+      setReps: setRepsStr,
+      loadLabel: computedLoadLabel,
+      kg,
+      tonnage: exTonnage,
+      vbtTarget,
+      zone,
+      zoneBadge,
+      tempo: tempoStr,
+      notes: notesStr
+    });
+  });
+
+  const avgPct = mainLiftsPcts.length > 0 ? Math.round(mainLiftsPcts.reduce((a,b)=>a+b,0) / mainLiftsPcts.length) : 75;
+
+  return {
+    weekId,
+    sedutaId,
+    athleteId,
+    athName,
+    athRole,
+    athBw,
+    totalTonnage: Math.round(totalTonnage),
+    lowerTonnage: Math.round(lowerTonnage),
+    upperTonnage: Math.round(upperTonnage),
+    accessTonnage: Math.round(accessTonnage),
+    totalReps,
+    qualityReps,
+    jumpBudget,
+    totalMinutesTUT: (totalSecondsTUT / 60).toFixed(1),
+    avgPct,
+    zoneReps,
+    parsedList
+  };
+}
+
+function renderMethodologyAnalysis() {
+  const weekSel = document.getElementById('met-select-week');
+  const sedutaSel = document.getElementById('met-select-seduta');
+  const athSel = document.getElementById('met-select-ath');
+  if (!weekSel || !sedutaSel || !athSel) return;
+
+  const weekId = weekSel.value;
+  const sedutaId = sedutaSel.value;
+  const athleteId = athSel.value;
+
+  const res = calculateMethodology(weekId, sedutaId, athleteId);
+  lastMethodologyResult = res;
+
+  // 1. Aggiorna Banner Dinamico
+  const bannerEl = document.getElementById('met-session-banner');
+  if (bannerEl) {
+    let sessionName = `Seduta ${sedutaId}`;
+    if (sedutaId === '1') sessionName = 'Seduta 1 (Lunedì · Forza Dinamica & Squat VBT)';
+    else if (sedutaId === '2') sessionName = 'Seduta 2 (Mercoledì · Potenza, Clean & Contrast)';
+    else if (sedutaId === '3') sessionName = 'Seduta 3 (Venerdì · RDL Buffer 3 · STRICT FRIDAY JUMP BAN)';
+    else if (sedutaId === 'ALL') sessionName = 'Microciclo Completo (S1 + S2 + S3 Aggregati)';
+
+    let ruleBadge = '<span style="color:#6ee7b7;font-weight:700;">🟢 Enode VBT -10% Cut-Off Attivo</span>';
+    if (sedutaId === '3') {
+      ruleBadge = '<span style="color:#f87171;font-weight:800;background:rgba(239,68,68,0.15);padding:2px 8px;border-radius:4px;border:1px solid rgba(239,68,68,0.4);">🛑 STRICT FRIDAY JUMP BAN (0 Salti)</span>';
+    }
+
+    bannerEl.innerHTML = `
+      <div>
+        <strong>${sessionName}</strong> · Riferimento: <span style="color:var(--mv-amber);font-weight:700;">${res.athName}</span> (${res.athBw} kg)
+      </div>
+      <div>${ruleBadge}</div>
+    `;
+  }
+
+  // 2. Pilastro 1: Quantità
+  const tonEl = document.getElementById('met-val-tonnage');
+  const subTonEl = document.getElementById('met-sub-tonnage');
+  if (tonEl) tonEl.textContent = `${res.totalTonnage.toLocaleString('it-IT')} kg`;
+  if (subTonEl) subTonEl.textContent = res.athleteId === 'team' ? 'Tonnage Stimato Squadra' : `Tonnage Indiv. (#${res.athleteId})`;
+
+  const repsEl = document.getElementById('met-val-reps');
+  if (repsEl) repsEl.textContent = res.totalReps;
+
+  const qRepsEl = document.getElementById('met-val-quality-reps');
+  if (qRepsEl) qRepsEl.textContent = `${res.qualityReps} reps`;
+
+  const jbEl = document.getElementById('met-val-jump-budget');
+  const jbSubEl = document.getElementById('met-sub-jump');
+  if (jbEl) {
+    jbEl.textContent = res.jumpBudget;
+    if (res.sedutaId === '3') {
+      jbEl.style.color = '#10b981';
+      if (jbSubEl) jbSubEl.textContent = 'Zero Salti (Conforme)';
+    } else if (res.jumpBudget <= 25) {
+      jbEl.style.color = '#38bdf8';
+      if (jbSubEl) jbSubEl.textContent = 'Range Sicuro (≤25)';
+    } else {
+      jbEl.style.color = '#f59e0b';
+      if (jbSubEl) jbSubEl.textContent = 'Alto Impatto (>25)';
+    }
+  }
+
+  // Ripartizione Tonnage Barre Distretto
+  const sumTon = (res.lowerTonnage + res.upperTonnage + res.accessTonnage) || 1;
+  const pctLow = Math.round((res.lowerTonnage / sumTon) * 100);
+  const pctUpp = Math.round((res.upperTonnage / sumTon) * 100);
+  const pctAcc = Math.max(0, 100 - pctLow - pctUpp);
+
+  const txtDist = document.getElementById('met-txt-dist-breakdown');
+  if (txtDist) txtDist.textContent = `Lower ${pctLow}% · Upper ${pctUpp}% · Core/Acc ${pctAcc}%`;
+
+  const bLow = document.getElementById('met-bar-lower');
+  const bUpp = document.getElementById('met-bar-upper');
+  const bCore = document.getElementById('met-bar-core');
+  if (bLow) bLow.style.width = `${pctLow}%`;
+  if (bUpp) bUpp.style.width = `${pctUpp}%`;
+  if (bCore) bCore.style.width = `${pctAcc}%`;
+
+  const kgLow = document.getElementById('met-kg-lower');
+  const kgUpp = document.getElementById('met-kg-upper');
+  const kgCore = document.getElementById('met-kg-core');
+  if (kgLow) kgLow.textContent = `${res.lowerTonnage.toLocaleString('it-IT')} kg`;
+  if (kgUpp) kgUpp.textContent = `${res.upperTonnage.toLocaleString('it-IT')} kg`;
+  if (kgCore) kgCore.textContent = `${res.accessTonnage.toLocaleString('it-IT')} kg`;
+
+  const tutEl = document.getElementById('met-val-tut');
+  if (tutEl) tutEl.textContent = `~${res.totalMinutesTUT} min`;
+
+  // 3. Pilastro 2: Qualità
+  const vbtTargetEl = document.getElementById('met-val-vbt-target');
+  if (vbtTargetEl) {
+    if (res.sedutaId === '1') vbtTargetEl.textContent = (res.weekId === 'W4') ? '0.65 – 0.75' : '0.60 – 0.65';
+    else if (res.sedutaId === '2') vbtTargetEl.textContent = '0.75 – 1.00';
+    else if (res.sedutaId === '3') vbtTargetEl.textContent = 'TUT / Iso';
+    else vbtTargetEl.textContent = '0.60 – 1.00';
+  }
+
+  const pctEl = document.getElementById('met-val-pct');
+  if (pctEl) pctEl.textContent = `${res.avgPct}% 1RM`;
+
+  const qAlertEl = document.getElementById('met-quality-alert');
+  if (qAlertEl) {
+    if (res.sedutaId === '3') {
+      qAlertEl.innerHTML = '<strong style="color:#6ee7b7">🟢 Rigenerazione & Pre-Gara:</strong> RDL tassativo con Buffer 3 (RPE 6). Nessun affaticamento del SNC, decompressione colonna vertebrale attiva.';
+    } else if (res.sedutaId === '2') {
+      qAlertEl.innerHTML = '<strong style="color:#38bdf8">⚡ Potenza Neurale & RFD:</strong> Contrast training e metodo dinamico. Minima fatica metabolica, massima stimolazione dell\'intento esplosivo.';
+    } else {
+      qAlertEl.innerHTML = '<strong style="color:#fde68a">🟡 Forza Strutturale & VBT:</strong> Monitoraggio con encoder Enode. Taglio automatico della serie non appena la velocità cala del 10%.';
+    }
+  }
+
+  // 4. Pilastro 3: Continuum Forza-Velocità
+  const z = res.zoneReps;
+  const totZ = (z.max_strength + z.strength_speed + z.speed_strength + z.speed_elastic + z.structural_prehab) || 1;
+  const pMax = Math.round((z.max_strength / totZ) * 100);
+  const pSS = Math.round((z.strength_speed / totZ) * 100);
+  const pRF = Math.round((z.speed_strength / totZ) * 100);
+  const pPL = Math.round((z.speed_elastic / totZ) * 100);
+  const pPR = Math.max(0, 100 - pMax - pSS - pRF - pPL);
+
+  const zMaxBar = document.getElementById('met-zonebar-max');
+  const zMaxPct = document.getElementById('met-zonepct-max');
+  if (zMaxBar) zMaxBar.style.width = `${pMax}%`;
+  if (zMaxPct) zMaxPct.textContent = `${pMax}% (${z.max_strength} reps)`;
+
+  const zSSBar = document.getElementById('met-zonebar-ss');
+  const zSSPct = document.getElementById('met-zonepct-ss');
+  if (zSSBar) zSSBar.style.width = `${pSS}%`;
+  if (zSSPct) zSSPct.textContent = `${pSS}% (${z.strength_speed} reps)`;
+
+  const zRFBar = document.getElementById('met-zonebar-rf');
+  const zRFPct = document.getElementById('met-zonepct-rf');
+  if (zRFBar) zRFBar.style.width = `${pRF}%`;
+  if (zRFPct) zRFPct.textContent = `${pRF}% (${z.speed_strength} reps)`;
+
+  const zPLBar = document.getElementById('met-zonebar-pl');
+  const zPLPct = document.getElementById('met-zonepct-pl');
+  if (zPLBar) zPLBar.style.width = `${pPL}%`;
+  if (zPLPct) zPLPct.textContent = `${pPL}% (${z.speed_elastic} reps)`;
+
+  const zPRBar = document.getElementById('met-zonebar-pr');
+  const zPRPct = document.getElementById('met-zonepct-pr');
+  if (zPRBar) zPRBar.style.width = `${pPR}%`;
+  if (zPRPct) zPRPct.textContent = `${pPR}% (${z.structural_prehab} reps)`;
+
+  // Render Grafico Chart.js
+  renderMethodologyChart(res.zoneReps);
+
+  // 5. Tabella Dettagliata Esercizi
+  const tblBadge = document.getElementById('met-tbl-badge');
+  if (tblBadge) tblBadge.textContent = `${res.parsedList.length} Esercizi Rilevati`;
+
+  const tblBody = document.getElementById('tbl-metodologia-body');
+  if (tblBody) {
+    if (res.parsedList.length === 0) {
+      tblBody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:16px;color:var(--mv-muted);">Nessun esercizio presente per la combinazione selezionata.</td></tr>';
+    } else {
+      tblBody.innerHTML = res.parsedList.map(e => `
+        <tr>
+          <td><span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;">${e.block || 'Base'}</span></td>
+          <td><strong style="color:#fff;">${e.name.replace(/\*+/g, '')}</strong></td>
+          <td><span style="font-weight:700;color:var(--mv-amber);">${e.setReps}</span></td>
+          <td><span style="font-weight:700;color:#cbd5e1;">${e.loadLabel}</span></td>
+          <td><strong style="color:${e.tonnage > 0 ? '#38bdf8' : 'var(--mv-muted)'}">${e.tonnage > 0 ? e.tonnage + ' kg' : 'BW'}</strong></td>
+          <td><span style="font-size:0.72rem;color:#93c5fd;font-weight:600;">${e.vbtTarget}</span></td>
+          <td>${e.zoneBadge}</td>
+          <td><span style="font-size:0.7rem;color:#cbd5e1;">${e.notes ? e.notes : (e.tempo ? 'Tempo: ' + e.tempo : '-')}</span></td>
+        </tr>
+      `).join('');
+    }
+  }
+}
+
+function renderMethodologyChart(zoneReps) {
+  const canvas = document.getElementById('methodologyChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  if (methodologyChartInstance) {
+    methodologyChartInstance.destroy();
+    methodologyChartInstance = null;
+  }
+
+  const dataValues = [
+    zoneReps.max_strength || 0,
+    zoneReps.strength_speed || 0,
+    zoneReps.speed_strength || 0,
+    zoneReps.speed_elastic || 0,
+    zoneReps.structural_prehab || 0
+  ];
+
+  const total = dataValues.reduce((a, b) => a + b, 0);
+  const chartData = total === 0 ? [1, 1, 1, 1, 1] : dataValues;
+
+  methodologyChartInstance = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Forza Max', 'Strength-Speed', 'Speed-Strength (RFD)', 'Balistica (Pliometria)', 'Strutturale (Prehab)'],
+      datasets: [{
+        data: chartData,
+        backgroundColor: [
+          '#ef4444',
+          '#f59e0b',
+          '#38bdf8',
+          '#a855f7',
+          '#10b981'
+        ],
+        borderColor: '#0f192d',
+        borderWidth: 2,
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          callbacks: {
+            label: function(context) {
+              const val = context.raw || 0;
+              const pct = total > 0 ? Math.round((val / total) * 100) : 0;
+              return ` ${context.label}: ${val} reps (${pct}%)`;
+            }
+          }
+        }
+      },
+      cutout: '62%'
+    }
+  });
+}
+
+function copyMethodologySummary() {
+  if (!lastMethodologyResult) {
+    showCoachToast('⚠️ Nessun dato metodologico disponibile');
+    return;
+  }
+  const r = lastMethodologyResult;
+  const text = `🏐 *MARSALA VOLLEY — REPORT METODOLOGICO S&C* 🏐
+━━━━━━━━━━━━━━━━━━━━━━
+📅 *Fase:* ${r.weekId} · *Seduta:* ${r.sedutaId === 'ALL' ? 'Microciclo Completo' : 'Seduta ' + r.sedutaId}
+👤 *Atleta Riferimento:* ${r.athName} (${r.athBw} kg)
+
+📦 *1. QUANTITÀ DELL'ALLENAMENTO:*
+• Volume-Load (Tonnage): *${r.totalTonnage.toLocaleString('it-IT')} kg*
+• Lower Body: ${r.lowerTonnage} kg | Upper Body: ${r.upperTonnage} kg
+• Ripetizioni Totali: *${r.totalReps}* (di cui *${r.qualityReps}* Quality Reps MED)
+• Jump Budget: *${r.jumpBudget} impatti* ${r.sedutaId === '3' ? '(🛑 Strict Friday Jump Ban)' : ''}
+• TUT Stimato: *~${r.totalMinutesTUT} min* (Work:Rest 1:4)
+
+⚡ *2. QUALITÀ DELL'ALLENAMENTO (VBT):*
+• Velocità Target (MPV): *0.60 – 1.00 m/s*
+• Velocity Loss Cut-off: *-10% Threshold Enode*
+• %1RM Media Main Lifts: *${r.avgPct}%* (Buffer RIR 2-3 / RPE 7-8)
+
+🎯 *3. CONTINUUM FORZA-VELOCITÀ:*
+• Strength-Speed (0.50-0.75 m/s): *${r.zoneReps.strength_speed} reps*
+• Speed-Strength RFD (0.75-1.00 m/s): *${r.zoneReps.speed_strength} reps*
+• Pliometria SSC (>1.00 m/s): *${r.zoneReps.speed_elastic} reps*
+• Strutturale / Prehab: *${r.zoneReps.structural_prehab} reps*
+━━━━━━━━━━━━━━━━━━━━━━
+Marsala Volley S&C Command Center`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    showCoachToast('📋 Report Metodologico copiato negli appunti!');
+  }).catch(() => {
+    showCoachToast('⚠️ Impossibile copiare negli appunti');
+  });
+}
 
         if (document.readyState === 'loading') {
           window.addEventListener('DOMContentLoaded', initCoach);
