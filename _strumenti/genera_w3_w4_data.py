@@ -40,7 +40,25 @@ ATHLETES_MAP = [
 def parse_markdown_table(lines):
     if len(lines) < 3:
         return []
-    headers = [c.strip() for c in lines[0].strip('|').split('|')]
+    raw_headers = [c.strip() for c in lines[0].strip('|').split('|')]
+    header_map = {
+        "block": "Blocco",
+        "blocco": "Blocco",
+        "exercise": "Esercizio",
+        "esercizio": "Esercizio",
+        "sets x reps": "Set x Reps",
+        "set x reps": "Set x Reps",
+        "load (kg / rpe)": "Carico (kg/RPE)",
+        "load (kg/rpe)": "Carico (kg/RPE)",
+        "carico (kg/rpe)": "Carico (kg/RPE)",
+        "carico": "Carico (kg/RPE)",
+        "tempo": "Tempo",
+        "coach technical notes": "Note Tecniche",
+        "note tecniche": "Note Tecniche",
+        "notes": "Note Tecniche",
+        "note": "Note Tecniche"
+    }
+    headers = [header_map.get(h.lower().strip('* '), h) for h in raw_headers]
     rows = []
     current_blocco = ""
     for line in lines[2:]:
@@ -340,7 +358,15 @@ def main():
     athletes_data = {}
     for ath in ATHLETES_MAP:
         print(f"Parsing individual program for {ath['name']}...")
-        ind_data = parse_athlete_individual(ath)
+        if ath["id"] == 14:
+            nelly_json_path = os.path.join(BASE_DIR, "data", "nelly_data.json")
+            if os.path.exists(nelly_json_path):
+                with open(nelly_json_path, "r", encoding="utf-8") as nf:
+                    ind_data = json.load(nf)
+            else:
+                ind_data = parse_athlete_individual(ath)
+        else:
+            ind_data = parse_athlete_individual(ath)
         athletes_data[str(ath["id"])] = ind_data
         print(f"  ID {ath['id']}: W3 S1={len(ind_data['w3_sedute'].get(1, []))}, S2={len(ind_data['w3_sedute'].get(2, []))}, S3={len(ind_data['w3_sedute'].get(3, []))}")
         print(f"           W4 S1={len(ind_data['w4_sedute'].get(1, []))}, S2={len(ind_data['w4_sedute'].get(2, []))}, S3={len(ind_data['w4_sedute'].get(3, []))}")
@@ -366,7 +392,7 @@ def main():
             "Fase": "Mattina",
             "Luogo": "Palestra",
             "Durata_min": "52",
-            "Note": "Clean/Powerbag + Half Squat 20X0 + Landmine/Push Press + Single DB Row"
+            "Note": "Squat Parallelo 80% (4x3 max 0.65 m/s) + Alzate Laterali + Clean/Powerbag + Landmine"
         },
         {
             "Numero_Seduta": "W3-VenR",
