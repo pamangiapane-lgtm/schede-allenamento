@@ -958,40 +958,34 @@
     <!-- VISTA: SEDUTE PESI & sRPE (POST-ALLENAMENTO) -->
     <div class="c-panel" id="panel-sedute">
       
-      <!-- Box Riepilogo Sedute di Oggi -->
+      <!-- Matrice Massimali 1RM & Forza Relativa (1RM / BW) -->
       <div class="card-box" style="margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <span style="font-size:1.15rem;">⚡</span>
-            <span style="font-size:0.95rem;font-weight:800;color:#fff;letter-spacing:0.3px;">Stato Sedute Pesi di Oggi</span>
-            <span style="font-size:0.75rem;font-weight:700;color:#94a3b8;background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);" id="today-date-label">Oggi</span>
+            <span style="font-size:1.15rem;">🏋️</span>
+            <h3 class="card-title" style="margin-bottom:0;">Matrice Massimali 1RM & Forza Relativa (1RM / BW)</h3>
           </div>
-          <span style="font-size:0.8rem;font-weight:800;color:var(--mv-amber);background:rgba(232,160,32,0.12);border:1px solid rgba(232,160,32,0.3);padding:3px 10px;border-radius:12px;" id="badge-today-sessions-count">0 / 13 atlete</span>
+          <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;">13 Atlete Certificate</span>
         </div>
-        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Riepilogo delle atlete che hanno completato e registrato lo sforzo percepito (sRPE) e la fatica nella seduta odierna.</p>
-        
-        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:12px;">
-          <!-- Card Completate Oggi -->
-          <div style="background:#091222;border:1px solid rgba(16,185,129,0.3);border-radius:10px;padding:12px;">
-            <div style="font-size:0.78rem;font-weight:800;color:#6ee7b7;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
-              <span>✅ Completate Oggi</span>
-              <span style="background:rgba(16,185,129,0.2);padding:1px 6px;border-radius:10px;font-size:0.7rem;" id="count-done-today">0</span>
-            </div>
-            <div id="list-done-today" style="display:flex;flex-direction:column;gap:8px;max-height:260px;overflow-y:auto;">
-              <div style="color:var(--mv-muted);font-size:0.78rem;font-style:italic;">Nessuna atleta ha ancora registrato la seduta oggi.</div>
-            </div>
-          </div>
-
-          <!-- Card Mancanti Oggi -->
-          <div style="background:#091222;border:1px solid rgba(232,160,32,0.3);border-radius:10px;padding:12px;">
-            <div style="font-size:0.78rem;font-weight:800;color:#fde68a;margin-bottom:8px;display:flex;align-items:center;gap:6px;">
-              <span>⏳ Da Registrare Oggi</span>
-              <span style="background:rgba(232,160,32,0.2);padding:1px 6px;border-radius:10px;font-size:0.7rem;" id="count-missing-today">13</span>
-            </div>
-            <div id="list-missing-today" style="display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto;">
-              <!-- Popolato via JS -->
-            </div>
-          </div>
+        <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Benchmark S&C Volley Femminile: Squat 1.4-1.6x BW · Clean 0.7-0.9x BW · Military 0.45x BW · Ratio Pull:Push ≥ 1.2:1</p>
+        <div class="coach-tbl-wrap">
+          <table class="coach-tbl">
+            <thead>
+              <tr>
+                <th>Atleta</th>
+                <th>BW</th>
+                <th>Squat</th>
+                <th>Bench</th>
+                <th>Military</th>
+                <th>Clean</th>
+                <th>Row</th>
+                <th>Lat</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-1rm-body">
+              <tr><td colspan="8" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento massimali...</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -1067,7 +1061,6 @@
         </div>
         <div class="scroll-pills" id="sedute-subtable-pills">
           <button class="btn-filt active" onclick="switchSeduteSubTable('srpe', this)">📋 sRPE & Fatica</button>
-          <button class="btn-filt" onclick="switchSeduteSubTable('1rm', this)">💪 Matrice 1RM & BW</button>
           <button class="btn-filt" onclick="switchSeduteSubTable('vbt', this)">⚡ VBT Enode</button>
           <button class="btn-filt" onclick="switchSeduteSubTable('cmj', this)">🚀 CMJ Chronojump</button>
           <button class="btn-filt" onclick="switchSeduteSubTable('custom', this)">📦 Carichi Accessori</button>
@@ -1096,36 +1089,6 @@
               </thead>
               <tbody id="tbl-sessions-body">
                 <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento sessioni...</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- SOTTO-TABELLA 2: MATRICE 1RM & BW -->
-      <div class="sedute-sub-box" id="sub-box-1rm" style="display:none;">
-        <div class="card-box" style="margin-bottom:14px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
-            <h3 class="card-title" style="margin-bottom:0;">🏋️ Matrice Massimali 1RM & Forza Relativa (1RM / BW)</h3>
-            <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;">13 Atlete Certificate</span>
-          </div>
-          <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Benchmark S&C Volley Femminile: Squat 1.4-1.6x BW · Clean 0.7-0.9x BW · Military 0.45x BW · Ratio Pull:Push ≥ 1.2:1</p>
-          <div class="coach-tbl-wrap">
-            <table class="coach-tbl">
-              <thead>
-                <tr>
-                  <th>Atleta</th>
-                  <th>BW</th>
-                  <th>Squat</th>
-                  <th>Bench</th>
-                  <th>Military</th>
-                  <th>Clean</th>
-                  <th>Row</th>
-                  <th>Lat</th>
-                </tr>
-              </thead>
-              <tbody id="tbl-1rm-body">
-                <tr><td colspan="8" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento massimali...</td></tr>
               </tbody>
             </table>
           </div>
@@ -3149,6 +3112,7 @@
       }
 
       renderSessionRatingsTable();
+      try { render1RMTable(); } catch (e) {}
       renderVBTTable();
       renderCMJTable();
       renderCustomLoadsTable();
@@ -3544,7 +3508,7 @@ function switchSeduteSubTable(tabId, btn) {
   pills.forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 
-  const subBoxes = ['srpe', '1rm', 'vbt', 'cmj', 'custom'];
+  const subBoxes = ['srpe', 'vbt', 'cmj', 'custom'];
   subBoxes.forEach(s => {
     const el = document.getElementById(`sub-box-${s}`);
     if (el) el.style.display = (s === tabId) ? 'block' : 'none';
