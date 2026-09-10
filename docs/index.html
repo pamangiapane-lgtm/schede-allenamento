@@ -1462,7 +1462,7 @@
 
   </main>
 
-  <script src="data.js?v=20260910v243"></script>
+  <script src="data.js?v=20260910v245"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js?v=2.0"></script>
   <script>
@@ -1861,7 +1861,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=237').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=245').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
@@ -2135,7 +2135,7 @@
             // Filtro assoluto: scarta qualsiasi valore con 1899 o 1900
             if (valStr.includes('1899') || valStr.includes('1900')) return;
 
-            // 2. VBT (Velocità Enode)
+            // 2. VBT (Velocità Enode + Carico Bilanciere)
             if (ex.includes('(vbt)') || ex.includes('vbt')) {
               const cleanExName = (r.Esercizio || '').replace(/\s*\(vbt\)/i, '').trim();
               const numM = valStr.replace(',', '.').match(/\d+(?:\.\d+)?/);
@@ -2157,6 +2157,27 @@
                       localStorage.setItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`, formattedVbt);
                       localStorage.setItem(`mv_vbt_${currentAthlete.id}_Squat (Parallelo)`, formattedVbt);
                       localStorage.setItem(`mv_vbt_${currentAthlete.id}_W3_1_3A. Squat (Parallelo)`, formattedVbt);
+                    }
+                  }
+                }
+              }
+
+              // Idratazione contestuale del carico kg associato alla serie VBT
+              if (r.Kg_Usati || r.kg_usati) {
+                const kgM = String(r.Kg_Usati || r.kg_usati).replace(',', '.').match(/\d+(?:\.\d+)?/);
+                if (kgM) {
+                  const kgVal = `${parseFloat(kgM[0])} kg`;
+                  localStorage.setItem(`mv_load_${currentAthlete.id}_${cleanExName}`, kgVal);
+                  localStorage.setItem(`mv_load_${currentAthlete.id}_${r.Esercizio}`, kgVal);
+                  if (cleanExName.toLowerCase().includes('squat') || ex.includes('squat')) {
+                    if (rDate === '2026-09-09' || nSedRaw.includes('mer') || nSedRaw.includes('2')) {
+                      localStorage.setItem(`mv_load_${currentAthlete.id}_3B. Squat Parallelo (max 0.65 m/s)`, kgVal);
+                      localStorage.setItem(`mv_load_${currentAthlete.id}_3B. Squat Parallelo`, kgVal);
+                      localStorage.setItem(`mv_load_${currentAthlete.id}_W3_2_3B. Squat Parallelo (max 0.65 m/s)`, kgVal);
+                    } else {
+                      localStorage.setItem(`mv_load_${currentAthlete.id}_3A. Squat (Parallelo)`, kgVal);
+                      localStorage.setItem(`mv_load_${currentAthlete.id}_Squat (Parallelo)`, kgVal);
+                      localStorage.setItem(`mv_load_${currentAthlete.id}_W3_1_3A. Squat (Parallelo)`, kgVal);
                     }
                   }
                 }
@@ -2765,7 +2786,7 @@
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_${exName}`, v);
     }
 
-    async function saveCustomExerciseVbt(exName, inputId, nSeduta) {
+    async function saveCustomExerciseVbt(exName, inputId, nSeduta, loadInputId) {
       const input = document.getElementById(inputId);
       if (!input || !currentAthlete) return;
       const val = input.value.trim();
@@ -2785,9 +2806,40 @@
       // Il numero resta direttamente visibile nell'input formattato
       input.value = formattedVal;
 
+      // Estrai carico associato
+      let actualLoadKg = null;
+      if (loadInputId) {
+        const loadInp = document.getElementById(loadInputId);
+        if (loadInp && loadInp.value.trim()) {
+          const lm = loadInp.value.replace(',', '.').match(/\d+(?:\.\d+)?/);
+          if (lm) actualLoadKg = parseFloat(lm[0]);
+        }
+      }
+      if (actualLoadKg === null) {
+        const sL = localStorage.getItem(`mv_load_${currentAthlete.id}_${exName}`) ||
+                   localStorage.getItem(`mv_load_${currentAthlete.id}_${nSeduta}_${exName}`);
+        if (sL) {
+          const lm = sL.replace(',', '.').match(/\d+(?:\.\d+)?/);
+          if (lm) actualLoadKg = parseFloat(lm[0]);
+        }
+      }
+
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_${exName}`, formattedVal);
-      localStorage.setItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`, formattedVal);
-      localStorage.setItem(`mv_vbt_${currentAthlete.id}_Squat (Parallelo)`, formattedVal);
+      if (actualLoadKg !== null) {
+        localStorage.setItem(`mv_load_${currentAthlete.id}_${exName}`, `${actualLoadKg} kg`);
+        localStorage.setItem(`mv_load_${currentAthlete.id}_${nSeduta}_${exName}`, `${actualLoadKg} kg`);
+      }
+
+      const isS1 = String(nSeduta || '').includes('1') || String(nSeduta || '').toLowerCase().includes('lun');
+      const isS2 = String(nSeduta || '').includes('2') || String(nSeduta || '').toLowerCase().includes('mer');
+      if (isS2) {
+        localStorage.setItem(`mv_vbt_${currentAthlete.id}_3B. Squat Parallelo (max 0.65 m/s)`, formattedVal);
+        localStorage.setItem(`mv_vbt_${currentAthlete.id}_3B. Squat Parallelo`, formattedVal);
+      } else if (isS1) {
+        localStorage.setItem(`mv_vbt_${currentAthlete.id}_3A. Squat (Parallelo)`, formattedVal);
+        localStorage.setItem(`mv_vbt_${currentAthlete.id}_Squat (Parallelo)`, formattedVal);
+      }
+
       if (typeof currentWeek !== 'undefined') {
         localStorage.setItem(`mv_vbt_${currentAthlete.id}_${currentWeek}_${nSeduta}_${exName}`, formattedVal);
       }
@@ -2796,12 +2848,14 @@
       const now = Date.now();
       if (lastSavedVbtLoads[inputId] && 
           lastSavedVbtLoads[inputId].val === formattedVal && 
+          lastSavedVbtLoads[inputId].load === actualLoadKg &&
           (now - lastSavedVbtLoads[inputId].time < 3000)) {
         return;
       }
-      lastSavedVbtLoads[inputId] = { val: formattedVal, time: now };
+      lastSavedVbtLoads[inputId] = { val: formattedVal, load: actualLoadKg, time: now };
 
-      const btn = input.parentElement?.querySelector('.btn-save-mini');
+      const box = input.closest('.ex-load-log-box') || input.parentElement;
+      const btn = box ? box.querySelector('.btn-save-mini') : null;
       if (btn) {
         btn.disabled = true;
         const oldText = btn.textContent;
@@ -2824,7 +2878,8 @@
           session_code: nSeduta || 'W-Seduta',
           exercise_name: `${exName} (VBT)`,
           vbt_velocity: parseFloat(formattedVal),
-          note: `Velocità media rilevata con encoder VBT Enode: ${formattedVal}`
+          load_kg: actualLoadKg,
+          note: `Velocità media rilevata con encoder VBT Enode: ${formattedVal}${actualLoadKg ? ` · Carico: ${actualLoadKg} kg` : ''}`
         });
       }
 
@@ -2842,7 +2897,8 @@
             esercizio: `${exName} (VBT)`,
             data: new Date().toISOString().slice(0, 10),
             valore: formattedVal,
-            note: `Velocità media rilevata con encoder VBT Enode: ${formattedVal}`
+            kg_usati: actualLoadKg != null ? actualLoadKg : '',
+            note: `Velocità media rilevata con encoder VBT Enode: ${formattedVal}${actualLoadKg ? ` · Carico: ${actualLoadKg} kg` : ''}`
           })
         });
         localStorage.setItem(`mv_synced_mv_vbt_${currentAthlete.id}_${exName}`, formattedVal);
@@ -3452,13 +3508,25 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
                        localStorage.getItem(`mv_vbt_${athlete.id}_W3_1_3A. Squat (Parallelo)`)
                      ) : '') ||
                      localStorage.getItem(`mv_vbt_${athlete.id}_Squat (Parallelo)`) || '';
+    const effectiveLoadVal = savedLoad || (rmData && rmData.targetKg ? `${rmData.targetKg} kg` : '');
     logHtml = `
-      <div class="ex-load-log-box" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);">
-        <span class="ex-load-log-lbl" style="color:var(--mv-amber);">⚡ ${isEN ? 'Mean Velocity (m/s):' : 'Velocità Media (m/s):'}</span>
-        <div class="ex-load-input-wrap">
-          <input type="text" class="ex-load-input" id="ex-vbt-${safeExId}" placeholder="${savedVbt ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedVbt}` : (isEN ? 'e.g. 0.65 m/s' : 'es. 0.65 m/s')}" value="${savedVbt}" oninput="onCustomExerciseVbtInput('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', this.value)">
-          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}')">${savedVbt ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
-          <span id="toast-ex-vbt-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+      <div class="ex-load-log-box" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.3);flex-direction:column;align-items:stretch;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span class="ex-load-log-lbl" style="color:var(--mv-amber);font-size:0.80rem;font-weight:800;">⚡ VBT Data (${isEN ? 'Load + Velocity' : 'Carico + Velocità'})</span>
+          <span id="toast-ex-vbt-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓ ${isEN ? 'Saved' : 'Salvato'}</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;">
+          <div style="flex:1;min-width:110px;">
+            <label style="display:block;font-size:0.68rem;color:var(--mv-muted);font-weight:700;margin-bottom:3px;">🏋️ ${isEN ? 'Load (kg)' : 'Carico (kg)'}</label>
+            <input type="text" class="ex-load-input" id="ex-load-${safeExId}" style="width:100%;box-sizing:border-box;text-align:left;padding-left:10px;" placeholder="${placeholderText}" value="${effectiveLoadVal}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-load-${safeExId}', '${sed.Numero_Seduta}', this.value)">
+          </div>
+          <div style="flex:1;min-width:110px;">
+            <label style="display:block;font-size:0.68rem;color:var(--mv-amber);font-weight:700;margin-bottom:3px;">⚡ ${isEN ? 'Mean Velocity' : 'Velocità Media'}</label>
+            <input type="text" class="ex-load-input" id="ex-vbt-${safeExId}" style="width:100%;box-sizing:border-box;text-align:left;padding-left:10px;color:var(--mv-amber);" placeholder="${savedVbt ? `${isEN ? 'Last:' : 'Ultimo:'} ${savedVbt}` : (isEN ? 'e.g. 0.65 m/s' : 'es. 0.65 m/s')}" value="${savedVbt}" oninput="onCustomExerciseVbtInput('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', this.value)">
+          </div>
+          <div>
+            <button type="button" class="btn-save-mini" style="height:35px;padding:0 14px;background:linear-gradient(135deg,var(--mv-amber),#d97706);color:#000;font-weight:900;" onclick="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', 'ex-load-${safeExId}')">${(savedVbt && savedLoad) ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
+          </div>
         </div>
       </div>
     `;

@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v241-ultra-fast)
-const CACHE_NAME = 'coach-mv-v242-metodologia';
+const CACHE_NAME = 'coach-mv-v245-vbt-load-pair';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

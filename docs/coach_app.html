@@ -2041,7 +2041,7 @@
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=242', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=245', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -2545,11 +2545,18 @@
               const sq1RM = (live1RMData[aid] && live1RMData[aid].squat) ? live1RMData[aid].squat : (base.squat || 0);
               const bw = (live1RMData[aid] && live1RMData[aid].bw) ? live1RMData[aid].bw : (BASELINE_WEIGHTS[aid] || 65);
               
-              // Calcolo carico Back Squat: priorità all'ultimo carico manuale segnato dall'atleta, altrimenti formula ufficiale: (pct * (1RM + BW) - BW)
+              // Calcolo carico Back Squat: priorità all'ultimo carico manuale segnato dall'atleta (o estratto dalle note), altrimenti formula ufficiale: (pct * (1RM + BW) - BW)
               let loadKg = 0;
               const kgMatch = String(r.Kg_Usati || r.kg_usati || '').replace(',', '.').match(/\d+(?:\.\d+)?/);
               if (kgMatch && parseFloat(kgMatch[0]) >= 20 && Math.abs(parseFloat(kgMatch[0]) - vel) > 0.05) {
                 loadKg = parseFloat(kgMatch[0]);
+              } else if (r.Note_Atleta || r.note_atleta || r.note) {
+                const noteKg = String(r.Note_Atleta || r.note_atleta || r.note || '').match(/Carico:\s*(\d+(?:\.\d+)?)/i);
+                if (noteKg && parseFloat(noteKg[1]) >= 20) {
+                  loadKg = parseFloat(noteKg[1]);
+                } else if (sq1RM > 0) {
+                  loadKg = Math.max(0, Math.round(((targetPct / 100) * (sq1RM + bw) - bw) * 2) / 2);
+                }
               } else if (sq1RM > 0) {
                 loadKg = Math.max(0, Math.round(((targetPct / 100) * (sq1RM + bw) - bw) * 2) / 2);
               }
