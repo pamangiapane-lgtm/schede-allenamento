@@ -1625,27 +1625,36 @@
       initCampoSection();
       initWellnessUI();
       initPerfUI();
+      try { renderReadinessRoster(); } catch (e) {}
+      try { renderSedutePanel(); } catch (e) {}
+      try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=236', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=241', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
 
     async function refreshAllCoachData() {
-      document.getElementById('sync-clock').textContent = 'Sincronizzazione in corso...';
-      await Promise.all([
-        fetchLiveWellness(),
-        fetchLiveProgressi()
-      ]);
-      document.getElementById('sync-clock').textContent = `Ultimo agg: ${new Date().toLocaleTimeString('it-IT')}`;
-      renderReadinessRoster();
-      renderSedutePanel();
-      render1RMTable();
-      renderVBTTable();
-      renderCMJTable();
-      renderCustomLoadsTable();
-      renderWellnessAnalytics();
-      renderPerfAnalytics();
+      const clockEl = document.getElementById('sync-clock');
+      if (clockEl) clockEl.textContent = 'Sincronizzazione in corso...';
+      try {
+        await Promise.allSettled([
+          fetchLiveWellness(),
+          fetchLiveProgressi()
+        ]);
+      } catch (err) {
+        console.warn('[Sync All Data]', err);
+      }
+      if (clockEl) clockEl.textContent = `Ultimo agg: ${new Date().toLocaleTimeString('it-IT')}`;
+
+      try { renderReadinessRoster(); } catch (e) { console.error('[renderReadinessRoster]', e); }
+      try { renderSedutePanel(); } catch (e) { console.error('[renderSedutePanel]', e); }
+      try { render1RMTable(); } catch (e) { console.error('[render1RMTable]', e); }
+      try { renderVBTTable(); } catch (e) { console.error('[renderVBTTable]', e); }
+      try { renderCMJTable(); } catch (e) { console.error('[renderCMJTable]', e); }
+      try { renderCustomLoadsTable(); } catch (e) { console.error('[renderCustomLoadsTable]', e); }
+      try { renderWellnessAnalytics(); } catch (e) { console.error('[renderWellnessAnalytics]', e); }
+      try { renderPerfAnalytics(); } catch (e) { console.error('[renderPerfAnalytics]', e); }
     }
 
     async function fetchLiveWellness() {
@@ -1695,16 +1704,39 @@
         });
         const missingTodayInSb = targetAids.filter(id => !presentTodayInSb.has(id));
 
-        // 2. Fetch da Google Sheets (se Supabase vuoto o se manca anche solo un'atleta oggi)
+        // 2. Fetch da Google Sheets (SOLO come fallback se Supabase è vuoto/offline)
         let gasRows = [];
-        if (sbRows.length === 0 || missingTodayInSb.length > 0) {
+        if (sbRows.length === 0) {
           try {
-            const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Wellness`);
-            const json = await res.json();
-            gasRows = json.dati || [];
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 3500);
+            const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Wellness`, { signal: controller.signal });
+            clearTimeout(timer);
+            if (res.ok) {
+              const json = await res.json();
+              gasRows = json.dati || [];
+            }
           } catch (err) {
-            console.warn('[Coach GAS Fetch Error]', err);
+            console.warn('[Coach GAS Wellness Timeout/Skipped]', err);
           }
+        } else if (missingTodayInSb.length > 0 && !window._gasWellnessChecked) {
+          // Se Supabase è online ma mancano atlete, controlla GAS in background senza bloccare la UI
+          window._gasWellnessChecked = true;
+          setTimeout(async () => {
+            try {
+              const controller = new AbortController();
+              const timer = setTimeout(() => controller.abort(), 4000);
+              const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Wellness`, { signal: controller.signal });
+              clearTimeout(timer);
+              if (res.ok) {
+                const json = await res.json();
+                const extra = json.dati || [];
+                if (extra.length > 0) {
+                  refreshAllCoachData();
+                }
+              }
+            } catch(e) {}
+          }, 1500);
         }
 
         // 3. Merge resiliente con deduplicazione e self-healing backfill verso Supabase
@@ -1832,7 +1864,9 @@
             note: inferredNote
           });
 
-          if (!liveWellnessData[aid] || r.Timestamp > liveWellnessData[aid].timestamp) {
+          const curW = liveWellnessData[aid];
+          const isNewer = !curW || (rDate > curW.date) || (rDate === curW.date && String(r.Timestamp || '') > String(curW.timestamp || ''));
+          if (isNewer) {
             let inferredStress = null;
             if (r.Stress !== undefined && r.Stress !== '' && r.Stress !== null && !isNaN(Number(r.Stress))) {
               inferredStress = parseInt(r.Stress);
@@ -1974,9 +2008,18 @@
         }
 
         if (rows.length === 0) {
-          const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Progressi`);
-          const json = await res.json();
-          rows = json.dati || [];
+          try {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 3500);
+            const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Progressi`, { signal: controller.signal });
+            clearTimeout(timer);
+            if (res.ok) {
+              const json = await res.json();
+              rows = json.dati || [];
+            }
+          } catch (err) {
+            console.warn('[Coach GAS Progressi Timeout/Skipped]', err);
+          }
         }
         live1RMData = {};
         liveCustomLoads = [];
@@ -5082,7 +5125,11 @@ function renderPerfAnalytics() {
 }
 
 
-        window.addEventListener('DOMContentLoaded', initCoach);
+        if (document.readyState === 'loading') {
+          window.addEventListener('DOMContentLoaded', initCoach);
+        } else {
+          initCoach();
+        }
   </script>
   <!-- Global Coach Toast -->
   <div id="global-coach-toast"></div>
