@@ -1731,12 +1731,30 @@
               if (res.ok) {
                 const json = await res.json();
                 const extra = json.dati || [];
-                if (extra.length > 0) {
-                  refreshAllCoachData();
+                if (extra.length > 0 && window.MV_SUPABASE) {
+                  let healed = false;
+                  for (const gr of extra) {
+                    const gid = parseInt(gr.ID_Giocatrice);
+                    const gDate = (gr.Data || '').slice(0, 10);
+                    if (missingTodayInSb.includes(gid) && (gDate === todayStr || gDate === localTodayStr)) {
+                      await window.MV_SUPABASE.salvaWellness({
+                        athlete_id: gid,
+                        date: gDate,
+                        sleep_quality: gr.Qualita_Sonno,
+                        fatigue: gr.Fatica,
+                        readiness: gr.Readines || gr.Disponibilita,
+                        soreness: gr.Dolori,
+                        stress: gr.Stress,
+                        note: gr.Note
+                      }).catch(() => {});
+                      healed = true;
+                    }
+                  }
+                  if (healed) refreshAllCoachData();
                 }
               }
             } catch(e) {}
-          }, 1500);
+          }, 1200);
         }
 
         // 3. Merge resiliente con deduplicazione e self-healing backfill verso Supabase
@@ -2118,7 +2136,7 @@
                 sessionLabel = nSeduta;
               }
 
-              const vbtKey = `${aid}_${cleanSessKey}`;
+              const vbtKey = `${aid}_${rDate || cleanSessKey}_${loadKg}_${vel.toFixed(2)}`;
               if (!seenVBT.has(vbtKey)) {
                 seenVBT.add(vbtKey);
                 const rec = {
@@ -4918,17 +4936,13 @@ function renderPerfAnalytics() {
         const athVbt = validVbt.filter(v => v.aid === aid).sort((a, b) => a.kg - b.kg);
         const col = ATH_PALETTE[idx % ATH_PALETTE.length];
         if (athVbt.length > 0) {
-          const kgMap = {};
-          athVbt.forEach(v => {
-            const k = Math.round(v.kg * 2) / 2;
-            if (!kgMap[k]) kgMap[k] = [];
-            kgMap[k].push(v.vel);
-          });
-          const sortedK = Object.keys(kgMap).map(Number).sort((a,b)=>a-b);
-          const curveData = sortedK.map(k => ({
-            x: k,
-            y: +(kgMap[k].reduce((a,b)=>a+b,0)/kgMap[k].length).toFixed(2),
-            ath: aName
+          const sortedVbt = [...athVbt].sort((a, b) => (a.kg !== b.kg ? a.kg - b.kg : (a.date || '').localeCompare(b.date || '')));
+          const curveData = sortedVbt.map(v => ({
+            x: v.kg,
+            y: v.vel,
+            ath: aName,
+            session: v.session,
+            date: v.date
           }));
 
           vbtDatasets.push({
@@ -4938,9 +4952,9 @@ function renderPerfAnalytics() {
             borderColor: col,
             backgroundColor: perfSelectedAthletes.length === 1 ? 'rgba(56, 189, 248, 0.12)' : 'transparent',
             borderWidth: 2.5,
-            tension: 0.25,
-            pointRadius: 5,
-            pointHoverRadius: 8,
+            tension: 0.2,
+            pointRadius: 6,
+            pointHoverRadius: 9,
             pointBackgroundColor: col,
             pointBorderColor: '#fff',
             pointBorderWidth: 1.5,
@@ -5000,10 +5014,7 @@ function renderPerfAnalytics() {
         maintainAspectRatio: false,
         layout: { padding: { left: 2, right: 6, top: 4, bottom: 2 } },
         plugins: {
-          legend: {
-            display: (!isPerfSquadra() && perfSelectedAthletes.length > 1),
-            labels: { color: '#cbd5e1', font: { size: 10, weight: '700' }, boxWidth: 10, padding: 6 }
-          },
+          legend: { display: false },
           tooltip: {
             backgroundColor: '#0b1329',
             borderColor: '#38bdf8',

@@ -22,13 +22,35 @@ ROSTER = [
 ]
 
 def crea_infografica(output_path="report_wellness_oggi.png"):
+    dati = []
+    # 1. Fetch rapido da Supabase per parità dati immediata
     try:
-        r = requests.get(GAS_URL, params={'token': TOKEN, 'azione': 'leggi', 'foglio': 'Wellness'}, timeout=20)
-        dati = r.json().get('dati', [])
+        sb_url = 'https://trhaoucqnmhqiimrkada.supabase.co/rest/v1/wellness_logs?select=*&order=created_at.desc&limit=100'
+        sb_key = 'sb_publishable_SDPimUfUqYBFlO5mZ_JdGQ_8N4sWYwd'
+        r_sb = requests.get(sb_url, headers={'apikey': sb_key, 'Authorization': f'Bearer {sb_key}'}, timeout=6)
+        if r_sb.status_code == 200:
+            for item in r_sb.json():
+                dati.append({
+                    'ID_Giocatrice': item.get('athlete_id'),
+                    'Data': item.get('date'),
+                    'Timestamp': item.get('created_at'),
+                    'Qualita_Sonno': item.get('sleep_quality'),
+                    'Fatica': item.get('fatigue'),
+                    'Readines': item.get('readiness'),
+                    'Dolori': item.get('soreness'),
+                    'Stress': item.get('stress'),
+                    'Note': item.get('note')
+                })
     except Exception as e:
-        print(f"Errore download: {e}")
-        dati = []
+        print(f"Nota: Supabase bypass: {e}")
 
+    # 2. Fetch di sicurezza da Google Sheets (Shadow Backend)
+    try:
+        r = requests.get(GAS_URL, params={'token': TOKEN, 'azione': 'leggi', 'foglio': 'Wellness'}, timeout=12)
+        gas_dati = r.json().get('dati', [])
+        dati.extend(gas_dati)
+    except Exception as e:
+        print(f"Errore download GAS: {e}")
 
     today_str = datetime.now().strftime('%Y-%m-%d')
     days_it = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
