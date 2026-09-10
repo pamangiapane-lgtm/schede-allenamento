@@ -4128,8 +4128,20 @@ function renderWellnessAnalytics() {
               ticks: { color: '#94a3b8', stepSize: 2, font: { size: 10, weight: '700' }, padding: 4 }
             },
             x: {
-              grid: { color: 'rgba(255, 255, 255, 0.04)', drawTicks: false },
-              ticks: { color: '#cbd5e1', font: { size: 10, weight: '700' }, maxRotation: 0, minRotation: 0, padding: 4 }
+              grid: {
+                display: true,
+                color: 'rgba(255, 255, 255, 0.08)',
+                drawTicks: true,
+                drawOnChartArea: true
+              },
+              ticks: {
+                color: '#cbd5e1',
+                font: { size: 10, weight: '700' },
+                maxRotation: 0,
+                minRotation: 0,
+                autoSkip: false,
+                padding: 4
+              }
             }
           },
           layout: {
@@ -4237,7 +4249,7 @@ function renderWellnessAnalytics() {
       return [dayNum, 'S'];
     } else if (isSun) {
       return [dayNum, 'D'];
-    } else if (totalPoints <= 14 || isLast || isStepTick) {
+    } else if (totalPoints <= 31 || isLast || isStepTick) {
       return dayNum;
     } else {
       return '';
@@ -4255,7 +4267,8 @@ function renderWellnessAnalytics() {
       tension: 0.35,
       borderWidth: 3,
       pointRadius: 4,
-      pointHoverRadius: 6
+      pointHoverRadius: 6,
+      spanGaps: true
     });
   }
   if (wnVisibleMetrics.fatica) {
@@ -4267,7 +4280,8 @@ function renderWellnessAnalytics() {
       yAxisID: 'y',
       tension: 0.35,
       borderWidth: 2,
-      pointRadius: 3
+      pointRadius: 3,
+      spanGaps: true
     });
   }
   if (wnVisibleMetrics.sonno) {
@@ -4279,7 +4293,8 @@ function renderWellnessAnalytics() {
       yAxisID: 'y',
       tension: 0.35,
       borderWidth: 2,
-      pointRadius: 3
+      pointRadius: 3,
+      spanGaps: true
     });
   }
   if (wnVisibleMetrics.dolori) {
@@ -4291,7 +4306,8 @@ function renderWellnessAnalytics() {
       yAxisID: 'y',
       tension: 0.35,
       borderWidth: 2,
-      pointRadius: 3
+      pointRadius: 3,
+      spanGaps: true
     });
   }
   if (wnVisibleMetrics.stress) {
@@ -4303,7 +4319,8 @@ function renderWellnessAnalytics() {
       yAxisID: 'y',
       tension: 0.35,
       borderWidth: 2,
-      pointRadius: 3
+      pointRadius: 3,
+      spanGaps: true
     });
   }
   if (wnVisibleMetrics.peso) {
@@ -4315,7 +4332,8 @@ function renderWellnessAnalytics() {
       yAxisID: 'y1',
       tension: 0.35,
       borderWidth: 2,
-      pointRadius: 3
+      pointRadius: 3,
+      spanGaps: true
     });
   }
 
@@ -4345,14 +4363,18 @@ function renderWellnessAnalytics() {
             ticks: { color: '#06b6d4', font: { size: 9, weight: '700' }, callback: v => v + 'kg', padding: 2 }
           },
           x: {
-            grid: { color: 'rgba(255, 255, 255, 0.04)', drawTicks: false },
+            grid: {
+              display: true,
+              color: 'rgba(255, 255, 255, 0.08)',
+              drawTicks: true,
+              drawOnChartArea: true
+            },
             ticks: {
               color: '#cbd5e1',
               font: { size: 10, weight: '700' },
               maxRotation: 0,
               minRotation: 0,
-              autoSkip: true,
-              maxTicksLimit: 7,
+              autoSkip: false,
               padding: 4
             }
           }
