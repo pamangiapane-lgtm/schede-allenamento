@@ -1,162 +1,144 @@
-# Scheda Sedute Campo & Palestra — Settimana 3 (FINALE UFFICIALE)
-**Stagione**: 2026/27 — Marsala Volley (Serie A2 Femminile)  
-**Fonte**: *Preseason_A2_2026_Programma_FINALE.md* (§7 "Progressione forza definitiva", §8 "Carico di salto", §13 "Sedute — Finestra 2") integrato con *MEMORIA_DI_LAVORO_COACH.md*.  
-**Scopo**: Guida esecutiva per Staff S&C e Tecnico — ordine dei metodi, esercizi, carichi %, serie, ripetizioni, recuperi, RPE, varianti individuali.  
+# ⚠️ [DOCUMENTO DISMESSO ED OBSOLETO] Scheda Sedute Campo & Palestra — Settimana 3
+
+> [!CAUTION]
+> ### 🛑 DOCUMENTO NON PIÙ IN USO — SUPERATO DAL MODELLO SQUILLANTE W3–W6
+> **Questo documento appartiene alla fase iniziale di programmazione pre-season ed è stato UFFICIALMENTE SUPERATO E DISMESSO.**  
+> **L'UNICA FONTE ATTIVA E CERTIFICATA DI RIFERIMENTO METODOLOGICO È:**  
+> 👉 **[`sedute extra/programma M parallelo/00_PROGRAMMA_SQUADRA_SQUILLANTE_W3_W6.md`](file:///c:/AI/Pallavolo/Marsala%20volley/sedute%20extra/programma%20M%20parallelo/00_PROGRAMMA_SQUADRA_SQUILLANTE_W3_W6.md)**  
+> unitamente ai **13 dossier individuali** in `sedute extra/programma M parallelo/` e alla **Web App PWA (`data.js`)**.
+> 
+> *La tabella sottostante è stata allineata a scopo di archivio storico con gli ultimi carichi e interventi metodologici certificati in app (Squat Parallelo 4×3 @ 80% VBT, Alzate Laterali in S2, S3 con Glute Bridge in Main, RDL 3×4 @ 80%, Farmer March e Protocollo Inglese Nelly Adamczewska con Power Clean 3×3 @ RPE 6).*
 
 ---
 
-## 📌 Quadro Strutturale Settimana 3 (Finestra 2)
-1. **Fine della Sabbia e dell'Acqua**: Il carico si sposta interamente su sala pesi e parquet.
-2. **Palestra (3 sedute)**:
-   * **Lunedì mattina**: *Palestra P* (Forza cluster/onda 82/85% + Spinta Orizzontale ↔ Tirata Verticale + Box Jump ruolo).
-   * **Mercoledì mattina**: *Palestra V* (Potenza Clean 78% + Jump Squat @20% + Spinta Verticale ↔ Tirata Orizzontale + Core MB).
-   * **Venerdì mattina**: *Palestra Richiamo* (Hinge Stacco RDL sub-massimale + tirata trofica — **ZERO SALTI**).
-3. **Campo Mini (3 sedute a secco)**:
-   * **Martedì pomeriggio**: *CM1* (Agility/scaletta pattern fisso + T-drill + Footwork a secco).
-   * **Giovedì pomeriggio**: *CM2* (Pliometria ruolo Drop Jump 25-30cm + balzi laterali + skimmy decelerazione).
-   * **Sabato mattina**: *CM3* (Attivazione pre-gara scarica 18-20').
-4. **Sabato pomeriggio/sera: Prima Amichevole (Partecipazione Limitata)**:
-   * Cap a 3-4 set per atleta, rotazioni su centrali e palleggiatrici per rispettare ACWR ≤ 1.5 (tetto 50-70 salti banda, 60-80 centrali/palleggio).
+## 📌 Quadro Strutturale Settimana 3 (Finestra 2 — Modello Squillante)
+1. **Focus Metodologico**: Minimum Effective Dose (MED), Volume ridotto al minimo indispensabile, VBT Enode stop al -10%, Cluster pliometrici (3+3+3) con 15" rest.
+2. **Formula Fisiologica Carico Squat (BW)**:
+   $$\text{Carico Bilanciere (kg)} = \frac{\%}{100} \times (1\text{RM} + \text{BW}) - \text{BW}$$
+3. **Palestra (3 sedute)**:
+   * **Lunedì mattina (W3-LunP)**: Squat Parallelo 3×3 @ 75% + Floor Press DB 3×4-5 @ 70% ↔ Lat Machine 3×5 @ 70% + Pogo Hops Cluster.
+   * **Mercoledì mattina (W3-MerV)**: Power Clean 3×3 + Squat Parallelo 4×3 @ 80% (VBT max 0.65 m/s) + Landmine Press 3×4+4 ↔ Alzate Laterali 3×8-10 + Drop Jump Box.
+   * **Venerdì mattina (W3-VenR)**: Passive Hang 3×30" + Glute Bridge 3×6 @ 60-80kg (in Main) + RDL 3×4 @ 80% (RIR 6) + Pulley 2×6 + Pullover 2×8 + Esercizio Ruolo + Farmer March 1 DB 2×20m — **ZERO SALTI (Strict Friday Jump Ban)**.
+4. **Campo Mini & Pre-Gara**:
+   * **Martedì pomeriggio**: CM1 (Agility/scaletta pattern fisso + T-drill + Footwork a secco).
+   * **Giovedì pomeriggio**: CM2 (Pliometria ruolo Drop Jump 25-30cm + balzi laterali + skimmy decelerazione).
+   * **Sabato mattina**: CM3 (Attivazione pre-gara scarica 18-20').
+5. **Sabato pomeriggio/sera: Prima Amichevole (Partecipazione Limitata)**:
+   * Cap a 3-4 set per atleta, rotazioni su centrali e palleggiatrici per rispettare ACWR ≤ 1.5 (tetto 50 salti).
 
 ---
 
-## 🏋️ LUNEDÌ mattina — PALESTRA P, Forza Massima (~55-58')
+## 🏋️ LUNEDÌ mattina — PALESTRA P, Spinta Orizzontale & Trazione Verticale (~50-55')
 
 | Ord. | Fase | Esercizio | Descrizione / Metodo | Volume | Intensità | Rec. | RPE | Note / Ruoli |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione generale | Mobilità articolare | Riscaldamento globale dinamico | 4' | — | — | 3 | Tutte |
-| 2 | Attivazione specifica | Glutei con banda + **CMJ Marker** | Accende catena d'anca + 3 salti CMJ monitoraggio | 4' | — | — | 3 | Tutte (CMJ = monitoraggio) |
-| 3 | Prevenzione ruolo | Forza nel range (W3-4) | Esercizi specifici ruolo | 2-3 serie | RPE 5-6 | 60-90" | 5-6 | **C**: Heel raise zavorrato / step down<br>**S/O**: Extrarot. eccentrica / Trap-3<br>**P**: Wrist roller / Farmer polsi<br>**L**: Nordic assistito / Skater |
-| **4** | **Esplosività (Superset 1A+1B)** | **1A. Lanci MB rotazionali / slam**<br>*(transizione immediata)*<br>**1B. Pogo jumps reattivi** | Potenza rotazionale e stiffness caviglia a tempo X | **2 serie × 5/lato**<br><br>**2 serie × 8 balzi** | MB 3-4 kg<br><br>Corpo libero | **60"**<br>*(dopo 1B)* | **6-7** | Tutte (esclusa Nelly) |
-| **5** | **Forza Massima (onda-cluster)** | **Squat cluster 3×(2+1)** | 2 rip + pausa 20" + 1 rip più pesante | 3×(2+1) | **82 / 85%** | 2'30" | 7-8 | Squadra standard (no Nelly/Libero). Tetto ciclo 87% non toccato. |
-| 5b | Forza Libero | **Box Squat bilanciere** | Reattività del treno inferiore in ricezione/difesa | 3×3 | **80%** | 2' | 7 | **Solo Liberi** (#05 Lo Dico, #11 Cicola) |
-| **6** | **Superserie Upper** | **Bench Press**<br>*(in superserie con)*<br>**Lat Machine / Pull-up** | **Spinta Orizzontale**<br>↔<br>**Tirata Verticale** | **3×4**<br><br>**3×6** | **75%**<br><br>RPE 7 | **90"** | **7** | **Regola Vettori Lunedì**:<br>Decompressione scapolare e dorsale post-riposo. Escluse Nelly e Liberi. |
-| 6b | Spalle & Dorso Libero | **Prone Y Raise**<br>**Single-arm Cable Row**<br>**MB slam rotazionale basso** | Stabilità scapolo-omerale e tirata cavo senza carico assiale | 3×12<br>3×8/lato<br>3×4/lato | Manubrio leggero<br>+2kg vs W2<br>MB 3-4 kg | 60" | 6 | **Solo Liberi** (Esclusione totale di Panca Piana e Rematore pesante bilanciere) |
-| 7 | Elastico-reattivo ruolo | **Box Jump** (atterraggio pulito) | Pliometria controllo atterraggio | Banda 3×4<br>Centr/Pall 2×4 | Cassetta | 90" | 6 | Dose ridotta per centrali/palleggiatrici |
-| 8 | Core | **Pallof Press** | Stabilità anti-rotazione lombo-pelvica | 2×10+10 | Cavo / Elastico | 45" | 5 | Tutte |
-| 9 | Chiusura | Mobilità e allungamento | Rientro parasimpatico | 3' | — | — | 2 | Tutte |
+| 1 | Prehab | 1A. Chronojump CMJ Readiness Test | Baseline altezza e verifica drop <7% | 1 x 2 salti | Max | — | Max RFD | Tutte (safety net) |
+| 2 | Pliometria | 2A. Pogo Hops su Linea in Cluster | Stiffness caviglia, contatto <200ms | 2 x (3+3+3) | BW | 15" intra / 60" | X | Tutte |
+| **3** | **Main Squat** | **3A. Squat Parallelo** | Parallelo femore-tibia (~90°), discesa naturale 1-2", fermo secco, salita max intenzione (VBT 0.60-0.65 m/s) | **3 x 3** | **75% (Formula BW)** | 2' | **6** | Squadra standard. Tripode plantare |
+| **4** | **Main Upper** | **3B. Floor Chest Press con Manubri** | Gomiti a 45° a terra salva-cuffia, stop 1" a terra, spinta verticale potente | **3 x 4-5** | **70%** | 90" | **6** | Zero rimbalzo, forza concentrica pura |
+| **5** | **Main Upper** | **3C. Lat Machine Presa Neutra Stretta** | Scapole depresse prima di tirare, trazione potente al petto | **3 x 5** | **70%** | 90" | **6** | Trazione verticale primaria |
+| 6 | Accessorio | 4A. Split Squat con manubri (piede ant. su disco) | Ginocchio in asse col 2° dito, risalita decisa, RIR 2 | 2 x 4+4 | Medio ("8") | 60" | 8 | Sovraccarico monopodalico |
+| 7 | Accessorio | 4B. Dumbbell Seal Row su panca 30° | SOLO MANUBRI (DB, no bilanciere). Appoggio prono panca 30°, retrazione 1" | 3 x 6 | 60% | 60" | 8 | Tutte |
+| 8 | Core | 5A. Deadbug con sovraccarico KB | Pressione costante, lombare incollata al suolo | 2 x 5+5 | 2-4 kg | 45" | 5 | Anti-estensione |
+| 9 | Transfer | 5B. Medball Chest Pass contro muro | In piedi, stance atletica ginocchia morbide, rilascio balistico esplosivo | 3 x 4 | 3 kg | 45" | X | Max velocità d'uscita |
+| 10 | Ruolo | Esercizio Ruolo Specifico | Palleggio / Centrali / Bande / Liberi | 2 x serie | Ruolo | 45" | 5-6 | **P**: Wrist roller (2x12 @ 4kg)<br>**L**: Prone Y-raise (2x8 @ 2.5kg) |
 
 ---
 
-## 🏃 MARTEDÌ pomeriggio — CM1, Agility / Scaletta a Secco (~30')
-*Il preparatore atletico si occupa esclusivamente di footwork, coordinazione e prevenzione a secco (zero tecnica con palla).*
-
-| Ord. | Fase | Esercizio | Descrizione | Volume | Intensità | Rec. | RPE | Note |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico caviglia + spalla | Pre-attivazione cuffia e caviglia | 2×10 | RPE 3-4 | 20" | 3-4 | Tutte |
-| 2 | Attivazione dinamica | Skip basso / Skip laterale | Pattern di corsa e reattività piedi | 2×15m | RPE 4 | 20" | 4 | Tutte |
-| 3 | Scaletta ruolo | Pattern per ruolo (passo a secco) | Coordinazione rapida piedi | 4× (6-8m) | RPE 5-6 | 40" | 5-6 | Gara a coppie a ritmo massimo |
-| 4 | T-drill cambi direzione | Spola a T con coni | Decelerazione e cambio multidirezionale | 4× | RPE 5-6 | 45" | 5-6 | 5-10-5 shuttle / L-drill |
-| 5 | Prevenzione ELAV & Decelerazione | **Prevenzione ruolo-specifica & Footwork a secco** | Sostituisce la tecnica palla — lavoro a secco | 8' | RPE 4-5 | — | 4-5 | **Centrali**: Retropiede/stabilità SLS<br>**Schiacciatrici**: Ritmo scapolo-omerale<br>**Palleggiatrici**: Polsi e stabilità spalla<br>**Libero**: Copenhagen e controllo valgo |
-| 6 | Chiusura | Mobilità articolare | Rientro | 3' | RPE 2 | — | 2 | Tutte |
-
----
-
-## ⚡ MERCOLEDÌ mattina — PALESTRA V, Potenza / Veloce (~52-55')
+## ⚡ MERCOLEDÌ mattina — PALESTRA V, Spinta Verticale & Trazione Orizzontale (~50-55')
 
 | Ord. | Fase | Esercizio | Descrizione / Metodo | Volume | Intensità | Rec. | RPE | Note / Ruoli |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione generale | Mobilità articolare dinamica | Prepara il corpo al gesto esplosivo | 4' | — | — | 3 | Tutte |
-| **2** | **Esplosività (Superset 1A+1B)** | **1A. Lanci MB slam / rotazionali**<br>*(transizione immediata)*<br>**1B. Pogo jumps reattivi** | Attivazione sistema nervoso senza affaticamento | **2 serie × 5/lato**<br><br>**2 serie × 8 balzi** | MB 3-4 kg<br><br>Corpo libero | **60"**<br>*(dopo 1B)* | **6** | Tutte (esclusa Nelly) |
-| **3** | **Weightlifting (WL derivato)** | **Clean** (Hang Clean / al quarto) | Tripla estensione dinamica con bilanciere | 4×2 | **78%** | 2' | 7 | Tutte (no Nelly). Priorità alla velocità. |
-| **4** | **Forza-Velocità** | **Jump Squat con bilanciere** | Massima spinta in uscita (carico leggero) | 4×3 | **20% carico equiv.** | 2' | 7 | Tutte (no Nelly). A corpo libero se fastidio. |
-| **5** | **Superserie Upper** | **Push Press**<br>*(in superserie con)*<br>**Row bilanciere / DB Row** | **Spinta Verticale**<br>↔<br>**Tirata Orizzontale** | **3×4**<br><br>**3×5** | **RPE 7**<br><br>**75%** | **90"** | **7** | **Regola Vettori Mercoledì**:<br>Adduzione scapolare in contrasto con spinta sopra la testa. |
-| 5b | Variante Clinica Sara Dodi | **Lunge p. one arm press KB**<br>*(in ss con Row DB)* | Spinta su piano scapolare protetto da posizione di affondo | 3×5 / lato<br><br>3×5 | KB<br><br>Manubrio | 90" | 6 | **Solo Sara Dodi (#09)**: azzera lo stress acromiale |
-| 5c | Upper Libero | **Prone Y Raise** + **Cable Row singolo** | Rinforzo scapolare e tirata | 3×12 / 3×8 | Manubrio/cavo | 60" | 6 | **Solo Liberi** |
-| 6 | Core dinamico | **Lanci MB rotazionali a muro/terra** | Transfer di potenza al tronco | 2×6+6 | MB 3 kg | 45" | 5 | Tutte |
-| 7 | Core anti-estensione | **Deadbug di squadra** | Controllo lombo-pelvico con schiena neutra | **3×6+6** | Corpo libero | 45" | 5 | Parametro 3×6+6 consolidato (Sara Dodi: **Deadbug Pullover 3×6+6** con carico) |
-| 8 | Chiusura | Mobilità e decompressione | Rientro parasimpatico | 3' | — | — | 2 | Tutte |
-
-*Cap rispettato: solo due blocchi ad alta intensità neurale (Clean + Jump Squat).*
-
----
-
-## 🦿 GIOVEDÌ pomeriggio — CM2, Elastico-Reattivo per Ruolo + Decelerazione (~30')
-
-| Ord. | Fase | Esercizio | Descrizione | Volume | Intensità | Rec. | RPE | Note |
-|---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione articolare | Elastico caviglia + spalla | Attivazione pre-salto | 2×10 | RPE 3-4 | 20" | 3-4 | Tutte |
-| 2 | Attivazione dinamica | Skip + balzi bassi | Pattern elastico | 2×15m | RPE 4-5 | 20" | 4-5 | Tutte |
-| 3 | Elastico-reattivo ruolo | **Drop Jump 25-30cm** | Pliometria reattiva — minimo tempo a terra | Banda 3×5<br>Centr/Pall 2×4 | Cassetta 25-30cm | 60" | 6-7 | **Solo se rimbalzo elastico visibile**; altrimenti resta a 20cm |
-| 4 | Pliometria laterale | **Balzi laterali su panca** | Potenza e stabilità laterale (blocco/difesa) | Banda 2×3/lato<br>Centr/Pall 2×2/lato | Panca | 45" | 6 | Atterraggio e stabilità ginocchio |
-| 5 | Skimmy decelerazione | Scivolamento laterale + arresto secco | Controllo anti-valgo in decelerazione frontale/laterale | 2×20"/lato | RPE 5-6 | 40" | 5-6 | Con sprint finale 3m |
-| 6 | Footwork Ruolo a Secco | Footwork & Landing mechanics | Meccanica di appoggio senza palla | 8' | RPE 4-5 | — | 4-5 | Centrali (blocco a secco), Schiacciatrici (rincorsa/landing), Libero (arresto basso) |
-| 7 | Chiusura | Mobilità articolare | Rientro | 3' | RPE 2 | — | 2 | Tutte |
+| 1 | Prehab | 1A. Profilazione Chronojump RSI/RFD | Drop Jump 25 cm (target RSI >1.80) | 2 x 3 balzi | BW | — | Max RFD | Tutte |
+| 2 | Pliometria | 2A. Drop Jump da Box (o Mini-Hurdles Cluster) | Drop 25-30 cm: rimbalzo reattivo, minimo tempo contatto (<200ms) | 2 x 4 | BW | 60" | Max RFD | Tutte |
+| **3** | **Potenza** | **3A. Power Clean BB / Powerbag Clean** | Tripla estensione esplosiva caviglia-ginocchio-anca (Powerbag per atlete con vincoli) | **3 x 3** | **28-35 kg / Dinamico** | 90" | **X** | Potenza neurale pura |
+| **4** | **Main Squat** | **3B. Squat Parallelo (VBT Enode max 0.65 m/s)** | Parallelo 90°, discesa 2", fermo secco, salita a max intenzione. Stop al -10% VL | **4 x 3** | **80% (Formula BW)** | 2' | **6-7** | **Rettificato 4×3 @ 80%** (Squillante Model) |
+| **5** | **Main Upper** | **3C. Half-Kneeling Landmine Press Monolaterale** | Mezzo inginocchiata, piano scapolare a 30°, spinta diagonale 45° salva-spalla | **3 x 4+4** | **RPE 8** | 90" | **8** | Spinta verticale protetta |
+| **6** | **Main Upper** | **3D. Alzate Laterali con Manubri** | In piedi o sedute, piano scapolare a 30°, no slancio, eccentrica controllata 1" | **3 x 8-10** | **RPE 8** | 60" | **8** | **Sostituisce DB Row** per equilibrio volume spalle |
+| 7 | Accessorio | 4A. Single-Leg RDL con Manubrio (Ipsilaterale) | Carico ipsilaterale (stessa mano della gamba d'appoggio), cerniera d'anca pura | 2 x 4+4 | RPE 6 | 60" | 6 | Catena posteriore e stabilità caviglia-anca |
+| 8 | Accessorio | 4B. Face Pull con Elastico / Cavo | Trazione al viso con extrarotazione (pollici indietro, gomiti alti) | 2 x 10 | Elastico | 45" | 7 | Rinforzo cuffia dei rotatori |
+| 9 | Core | 5A. Pallof Press in piedi con elastico | Anti-rotazione pura con elastico o cavo, tronco solido, stop 1" | 2 x 6+6 | RPE 8 | 45" | 8 | Tenuta lombo-pelvica |
+| 10 | Transfer | 5B. Rotational Medball Throw contro muro | In piedi di fianco al muro, caricamento d'anca e rotazione violenta del bacino | 3 x 3+3 | 3 kg | 45" | X | Transfer di potenza rotazionale |
+| 11 | Ruolo | 5C. Prevenzione Ruolo Specifica | Menù mirato distretto articolare | 2 x serie | Ruolo | 45" | 5-6 | **P**: Wrist roller (2x12 @ 4kg)<br>**C**: Spanish Squat (2x45")<br>**L**: Prone Y-raise (2x8 @ 2.5kg) |
 
 ---
 
 ## 🛑 VENERDÌ mattina — PALESTRA Richiamo Pre-Amichevole (~40-45')
 > [!IMPORTANT]
-> **FRIDAY JUMP BAN TASSATIVO**: Zero salti assoluti. Le gambe si consegnano fresche e reattive per il test match del sabato.
+> **STRICT FRIDAY JUMP BAN TASSATIVO**: Zero salti assoluti. Gambe consegnate fresche ed elastiche per l'amichevole del sabato.
 
 | Ord. | Fase | Esercizio | Descrizione / Metodo | Volume | Intensità | Rec. | RPE | Note / Ruoli |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Attivazione generale | Mobilità e rilascio miofasciale | Prepara il corpo senza accumulare fatica | 5' | — | — | 3 | Tutte |
-| 2 | Prevenzione ruolo | Menù completo W3-4 per ruolo | Forza nel range sotto carico | 3 serie | RPE 5 | 60-90" | 5 | Volume pieno per tutte le atlete |
-| **3** | **Forza Hinge Catena Posteriore** | **Stacco Rumeno (RDL bilanciere)** | Richiamo eccentrico catena posteriore sub-massimale | **2×3** | **75%** | 2' | 6 | Movimento controllato, schiena neutra |
-| **4** | **Tirata Decompressiva** | **Lat Machine o Row bilanciere leggero** | Richiamo della tirata a volume basso | 2×8 | RPE 5-6 | 90" | 5-6 | Decompressione scapolare |
-| 5 | Core | **Pallof press o Deadbug 3×6+6** | Tenuta isometrica leggera | 2×10+10 / 3×6+6 | — | 45" | 4 | Anti-rotazione e controllo |
-| 6 | Decompressione pre-weekend | Allungamento lombare + flessori anca | Scarico totale della colonna | 5' | — | — | 2 | Rilassamento pre-gara |
+| 1 | Prehab | 1A. Passive Hang alla sbarra con appoggio piedi | Scarico totale della colonna vertebrale e decompressione lombare | **3 x 30"** | BW parziale | 45" | 3 | Tutte |
+| **2** | **Main Hinge** | **2A. Glute Bridge con bilanciere a terra** | Spinta talloni, 2" contrazione isometrica massimale glutei al top | **3 x 6** | **60-80 kg (RIR 4)** | 90" | **6** | **Spostato in Main** (Squillante Model) |
+| **3** | **Main Hinge** | **2B. Romanian Deadlift con Bilanciere (RDL)** | Cerniera d'anca pura, bilanciere aderente cosce, fermo sotto la rotula | **3 x 4** | **80% ("RIR 6")** | 2' | **6** | Buffer 6 controllato |
+| **4** | **Main Upper** | **2C. Pulley Basso al Cavo Presa Parallela Stretta** | Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico | 2 x 6 | 70% ("6") | 90" | 6 | Decompressione scapolare |
+| 5 | Accessorio | 3A. Dumbbell Pullover su panca piana | Apertura cassa toracica e allungamento controllato del gran dorsale | 2 x 8 | 8-10 kg ("8") | 60" | 5 | Senza inarcare la lombare |
+| 6 | Ruolo | **3B. Esercizio Specifico di Ruolo** | Menù differenziato per ruolo | 3 x 8-12 | Ruolo | 60" | 6 | **P**: Wrist roller (3x12 @ 4kg)<br>**C**: Heel raise zavorrato (+10kg)<br>**S/O**: Extrarot. cavo / Trap-3<br>**L**: Copenhagen plank (3x15"/lato) |
+| 7 | Core & Grip | **4A. Farmer March con un manubrio (Suitcase Carry)** | Marcia a ginocchia alte monolaterale, anti-flessione e presa forte | **2 x 20m /lato** | **10-15 kg** | 60" | 6 | **Marcia** (non camminata), busto perpendicolare |
+| 8 | Chiusura | **🛑 STRICT FRIDAY JUMP BAN** | Scarico colonna e rientro | 5' | — | — | 1 | **ZERO SALTI**. Massima freschezza pre-match |
 
 ---
 
-## 🏐 SABATO mattina — CM3, Attivazione Pre-Gara (~18-20')
-*Seduta deliberatamente scarica — l'amichevole è l'unico stimolo del giorno.*
-1. **Attivazione Dinamica (8')**: Elastico per cuffia rotatori e anca + mobilità articolare a terra.
-2. **Riattivazione Neurale a Secco (6')**: Skip sul posto, reattività caviglie e brevi contatti rapidi a secco (nessun impatto elevato).
-3. **Footwork e Prontezza Motoria (4-5')**: Brevi cambi di direzione e scivolamenti ruolo a secco, poi consegna immediata allo Staff Tecnico dell'Head Coach.
+## 🇵🇱 PROTOCOLLO DEDICATO NELLY ADAMCZEWSKA (#14) (ENGLISH SPECIFICATION)
 
----
-
-## ⚔️ SABATO pomeriggio/sera — AMICHEVOLE (Partecipazione LIMITATA)
-* **Tetto Massimo**: 3-4 set giocati per atleta.
-* **Rotazioni Obbligatorie**: Centrali e palleggiatrici ruotano per non superare il tetto salti.
-* **Jump Budget**: 50-70 salti (Schiacciatrici/Liberi), 60-80 salti (Centrali/Palleggiatrici).
-* **Gate Clinico W2→W3**: CMJ ≥ baseline di squadra, zero atlete con dolore rotuleo > 2/10, velocità @80% conforme.
-
----
-
-## 🇵🇱 PROTOCOLLO DEDICATO NELLY ADAMCZEWSKA (#14)
-
-### Seduta 1 (Lunedì — Strength 3)
+### Seduta 1 (Monday — Strength 3)
 1. **Prehab Protocol**:
-   * Stiff leg deadlift bilanciere: 3 serie × 5 reps @ 3010 (30kg - 35kg - 40kg), rec 90".
-   * Twists BB standing sulle spalle: 3 serie × 5+5 reps (30kg - 35kg - 40kg), rec 60".
-   * One leg deadlift bilanciere: 3 serie × 5+5 reps @ 2010, rec 60".
-2. **Main Exercises (Strength)**:
-   * Box Squat piramidale: 4 serie: 12-8-6-4 reps @ 2010 con carichi progressivi, rec 2'.
-   * Pull Over bilanciere/manubrio: 3 serie × 6 reps @ 2010 (12-14kg), rec 90" (in superserie con DB Row).
-   * One hand DB Row: 3 serie × 6 reps @ 1030 (12-14kg), rec 90".
-3. **Accessories (3 Sets)**:
-   * Lat pull down frontale: 3 × 6 reps @ 1030 (12-15kg), rec 90".
-   * Floor chest press manubri: 3 × 6 reps @ 2010 (protezione spalla dal suolo), rec 90".
-   * Hamstring ball curl fitball: 3 × 8 reps @ 1030, rec 90".
-   * Calf raises in piedi su gradino: 3 × 6 reps @ 1020 (12-15kg), rec 60".
+   * Stiff leg deadlift: 2 × 5 @ 3010 (30 - 35 kg), rec 90".
+   * Twists with BB - standing pos: 2 × 5+5 (30 - 40 kg or light BB), rec 60".
+   * One leg deadlift DB: 2 × 5+5 @ 2010 (12 - 14 kg), rec 60".
+2. **Main Exercises**:
+   * Box Squat: 3 × 5, 4, 3 @ 2010 ("12" - "8" - "5-6"), rec 2'.
+   * Pull Over: 3 × 5, 4, 3 @ 2010 ("12" - "8" - "5-6"), rec 90".
+   * One hand DB row: 3 × 5, 4, 3 /side @ 1030 ("12" - "8" - "5-6"), rec 90".
+3. **Accessories**:
+   * Harmstring Ball curl: 3 × 6 @ 1030 (BW), rec 60".
+   * Calf Rises - standing pos: 3 × 5 @ 1020 ("12" - "10" - "8"), rec 60".
+   * Lat pull down - front: 3 × 6 @ 1030 ("12" - "10" - "8"), rec 60".
 4. **Abdominals + Transfer**:
-   * Addominali liberi (Plank / Hollow): 2 serie, rec 45".
-   * Hang Clean / Clean al quarto: 3 serie × 3 reps @ 10X0 (35-40kg), rec 2'.
-   * Floor ball throws: 3 serie × 5 reps (MB 3 kg a terra esplosivo), rec 60".
+   * Clean to 1/4 squat: 3 × 4 @ 10X0 (30 kg), rec 90".
+   * Flor ball throws: 3 × 3 (MB 3 kg), rec 45".
+   * Abdominals - self exercises: 2 × 8+8 / 20" (BW), rec 45".
 
-### Seduta 2 (Mercoledì — Power 3)
+### Seduta 2 (Wednesday — Power 3)
 1. **Prehab Protocol**:
-   * Stiff leg deadlift: 3 × 5 reps @ 3010, rec 90".
-   * Twists BB standing: 3 × 5+5 reps, rec 60".
-   * One leg deadlift: 3 × 5+5 reps @ 2010, rec 60".
-2. **Main Exercises (Power)**:
-   * Dynamic Half Squat: 4 serie: 4-3-4-3 reps @ 20X0 con carichi dinamici, rec 2'.
-   * Pull Over: 4 serie: 4-3-4-3 reps @ 2010 ss One hand DB row: 4 serie: 4-3-4-3 reps @ 1030, rec 90".
-3. **Accessories (3 Sets)**:
-   * Lat pull down: 3 × 5 reps @ 1030 (12-15kg), rec 90".
-   * Floor chest press: 3 × 5 reps @ 2010, rec 90".
-   * Hamstring ball curl: 3 × 6 reps @ 1030, rec 90".
-   * Calf raises: 3 × 5 reps @ 1020, rec 60".
+   * Stiff leg deadlift: 2 × 5 @ 3010 (30 - 35 kg), rec 90".
+   * Twists with BB - sitting pos: 2 × 5+5 (30 - 40 kg or light BB), rec 60".
+   * One leg deadlift DB: 2 × 5+5 @ 2010 (12 - 14 kg), rec 60".
+   * Clean squat with stand on one leg: 2 × 5+5 (15 kg), rec 60".
+2. **Main Exercises**:
+   * Box Squat: 3 × 5, 4, 3 @ 2010 ("12" - "8" - "5-6"), rec 2'.
+   * Pull Over: 3 × 5, 4, 3 @ 2010 ("12" - "8" - "5-6"), rec 90".
+   * One hand DB row: 3 × 5, 4, 3 /side @ 1030 ("12" - "8" - "5-6"), rec 90".
+3. **Accessories**:
+   * Harmstring Ball curl: 3 × 6 @ 1030 (BW), rec 60".
+   * Calf Rises - standing pos: 3 × 5 @ 1020 ("12" - "10" - "8"), rec 60".
+   * Lat pull down - front: 3 × 6 @ 1030 ("12" - "10" - "8"), rec 60".
 4. **Abdominals + Transfer**:
-   * Addominali: 2 serie, rec 45".
-   * Clean to split position: 3 serie × 2+2 reps @ 10X0 (35kg), rec 2'.
-   * Floor ball throws: 3 serie × 4 reps (MB 3 kg), rec 60".
+   * Clean to 1/4 squat: 3 × 4 @ 10X0 (30 kg), rec 90".
+   * Flor ball throws: 3 × 3 (MB 3 kg), rec 45".
+   * Abdominals - self exercises: 2 × 8+8 / 20" (BW), rec 45".
 
-### Seduta 3 (Venerdì — Richiamo Pre-Gara)
-* Prehab protocol completo (SLD leggero 2×6 + Twists 2×6+6).
-* RDL manubri sub-massimale: 2 × 5 reps @ 3010, rec 90".
-* Floor chest press leggera: 2 × 6 reps, rec 60".
-* Addominali e scarico colonna — **ZERO SALTI**.
+### Seduta 3 (Friday — Pre-Match Power & Decompression)
+> [!NOTE]
+> **Clinical Status:** Right wrist ganglion cyst **RESOLVED / HEALED**. Full clearance for standard bilateral and unilateral pressing/pulling.
+> **Methodological Focus:** Power clean 3×3 @ RPE 6 as pre-match technical primer. Single DB Farmer march + Tennis ball myofascial release for targeted lower back decompression.
+
+1. **# Prehab**:
+   * Stiff leg deadlift: 2 × 5 @ 3010 (30 - 35 kg), rec 90" (pure hip hinge).
+   * Twists with BB - standing pos: 2 × 5+5 (30 - 40 kg or light BB), rec 60".
+   * One leg deadlift DB: 2 × 5+5 @ 2010 (12 - 14 kg), rec 60".
+2. **# Main Exercises**:
+   * **1. Power clean**: **3 × 3 @ 10X0 (RPE 6, 30 - 35 kg)**, rec 90" (*Technical power primer, rapid triple extension, zero neural fatigue*).
+   * **2. Split squat**: 3 × 4+4 @ 2010 ("12" - "10" - "8"), rec 90".
+   * **3. Pull Over**: 3 × 4, 3, 4 @ 2010 ("12" - "8" - "6"), rec 90".
+   * **4. One hand DB row**: 3 × 4, 3, 4 /side @ 1030 ("12" - "8" - "6"), rec 90".
+3. **# Accessories**:
+   * 1. Harmstring Ball curl: 2 × 6 @ 1030 (BW), rec 60".
+   * 2. Calf Rises - standing pos: 2 × 6 @ 1020 ("12" - "10"), rec 45".
+   * 3. Lat pull down - front: 2 × 6 @ 1030 ("12" - "10"), rec 60".
+   * 4. **Dumbbell chest press**: **3 × 5 @ 2010 ("14" - "12" - "10")**, rec 90" (**Right wrist cyst healed**, standard grip, full pressing power).
+4. **# Core & Recovery**:
+   * **1. Single DB Farmer march (Suitcase carry)**: 2 × 20m /side @ 10-15 kg, Tempo `Marching`, rec 60" (high-knee marching, anti-lateral trunk flexion).
+   * **2. Tennis ball myofascial release — lower back**: 2 × 45"-60" @ BW, Tempo `Slow & deep` (targeted trigger point release using a tennis ball for lumbar erectors and QL decompression).
+   * **🛑 STRICT FRIDAY JUMP BAN**: ZERO JUMPS. High-intensity transfer block removed for pre-match recovery. Fresh elastic legs for Saturday match.
