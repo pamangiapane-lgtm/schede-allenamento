@@ -849,6 +849,9 @@
           <span style="font-size:0.72rem;color:var(--mv-muted);" id="wellness-chart-subtitle">Record analizzati</span>
         </div>
 
+        <!-- Filtro Atlete Wellness (Sopra) -->
+        <div class="scroll-pills" id="wellness-athlete-selector" style="margin-bottom:6px;gap:4px;"></div>
+
         <!-- Filtri Temporali & Metriche (Compatti) -->
         <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:8px;">
           <div class="scroll-pills" id="wellness-time-pills">
@@ -858,6 +861,8 @@
             <button class="btn-filt" onclick="setWellnessRange('offseason', this)">🌴 Off-Season</button>
             <button class="btn-filt" onclick="setWellnessRange('preseason', this)">⚡ Pre-Season</button>
             <button class="btn-filt active" onclick="setWellnessRange('all', this)">📅 Tutta la Stagione</button>
+            <button class="btn-filt" id="btn-wn-custom" onclick="openCustomRangeModal('wellness')">⚙️ Personalizza</button>
+            <button class="btn-filt" id="btn-wn-compare" onclick="openCompareModal('wellness')">⚖️ Confronta</button>
           </div>
           <div class="scroll-pills" id="wellness-metric-toggles">
             <button class="btn-filt active" id="tog-readiness" onclick="toggleWellnessMetric('readiness')" style="border-color:#f59e0b;color:#fde68a;">🎯 Readiness</button>
@@ -868,6 +873,9 @@
             <button class="btn-filt" id="tog-peso" onclick="toggleWellnessMetric('peso')" style="border-color:#06b6d4;color:#67e8f9;">⚖️ Peso</button>
           </div>
         </div>
+
+        <!-- Banner Notifica Confronto Attivo Wellness -->
+        <div id="wn-compare-banner" style="display:none;margin-bottom:8px;"></div>
 
         <!-- Micro-griglia KPI del Periodo (DINAMICA AUTO-ADATTIVA 100% LARGHEZZA) -->
         <div style="display:flex;gap:6px;margin-bottom:10px;width:100%;box-sizing:border-box;" id="wellness-kpi-grid">
@@ -904,7 +912,7 @@
         </div>
 
         <!-- Canvas Grafico Longitudinale Wellness -->
-        <div style="position:relative;height:260px;width:100%;">
+        <div style="position:relative;height:280px;width:100%;">
           <canvas id="wellnessTrendChart"></canvas>
         </div>
       </div>
@@ -996,6 +1004,9 @@
           </div>
         </div>
 
+        <!-- Filtro Atlete Performance (Sopra) -->
+        <div class="scroll-pills" id="perf-athlete-selector" style="margin-bottom:6px;gap:4px;"></div>
+
         <!-- Filtri Temporali & Metriche Performance -->
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:10px;">
           <div class="scroll-pills" id="perf-time-pills">
@@ -1005,6 +1016,8 @@
             <button class="btn-filt" onclick="setPerfRange('offseason', this)">🌴 Off-Season</button>
             <button class="btn-filt" onclick="setPerfRange('preseason', this)">⚡ Pre-Season</button>
             <button class="btn-filt active" onclick="setPerfRange('all', this)">📅 Tutta la Stagione</button>
+            <button class="btn-filt" id="btn-perf-custom" onclick="openCustomRangeModal('perf')">⚙️ Personalizza</button>
+            <button class="btn-filt" id="btn-perf-compare" onclick="openCompareModal('perf')">⚖️ Confronta</button>
           </div>
           <div class="scroll-pills" id="perf-metric-toggles">
             <button class="btn-filt active" id="tog-p-srpe" onclick="togglePerfMetric('srpe')" style="border-color:#f59e0b;color:#fde68a;">🎯 sRPE (0-10)</button>
@@ -1013,6 +1026,9 @@
             <button class="btn-filt active" id="tog-p-cmj" onclick="togglePerfMetric('cmj')" style="border-color:#ec4899;color:#fbcfe8;">🚀 CMJ Salto (cm)</button>
           </div>
         </div>
+
+        <!-- Banner Notifica Confronto Attivo Performance -->
+        <div id="perf-compare-banner" style="display:none;margin-bottom:8px;"></div>
 
         <!-- Micro-griglia KPI del Periodo (DINAMICA AUTO-ADATTIVA 100% LARGHEZZA) -->
         <div style="display:flex;gap:6px;margin-bottom:10px;width:100%;box-sizing:border-box;" id="perf-kpi-grid">
@@ -1039,7 +1055,7 @@
         </div>
 
         <!-- Canvas Grafico Longitudinale Performance -->
-        <div style="position:relative;height:260px;width:100%;">
+        <div style="position:relative;height:320px;width:100%;">
           <canvas id="perfTrendChart"></canvas>
         </div>
       </div>
@@ -2384,6 +2400,10 @@
 
       msg += '🔗 *Command Center:* https://pamangiapane-lgtm.github.io/schede-allenamento/coach/';
 
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).catch(() => {});
+      }
+      showCoachToast('📋 Report copiato negli appunti! Seleziona il gruppo Staff su WhatsApp.');
       const waUrl = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(msg);
       window.open(waUrl, '_blank');
     }
@@ -2938,11 +2958,8 @@
           </div>
           ${w.note ? `<div style="font-size:0.75rem;color:#fde68a;font-style:italic;margin-top:6px;width:100%;">💬 "${w.note}"</div>` : ''}
         ` : `
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;flex-wrap:wrap;gap:6px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.04);">
-            <span style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;">Questionario non ancora compilato stamattina</span>
-            <button onclick="event.stopPropagation(); sendSingleReminder(${a.id})" style="background:rgba(37,211,102,0.15);border:1px solid #25d366;color:#86efac;font-size:0.7rem;font-weight:700;padding:3px 8px;border-radius:6px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
-              <span>📲 Sollecita WhatsApp</span>
-            </button>
+          <div style="margin-top:6px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.04);">
+            <span style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;">⏳ Questionario non ancora compilato stamattina</span>
           </div>
         `;
 
@@ -3457,12 +3474,265 @@ function switchSeduteSubTable(tabId, btn) {
   });
 }
 
-// 3. WELLNESS ANALYTICS ENGINE (IN TAB 1: READINESS)
+// ============================================================================
+// 3. WELLNESS & PERFORMANCE ANALYTICS ENGINES (WITH CUSTOM & COMPARE MODES)
+// ============================================================================
+
+// Global Modals & Comparison State
+let currentCustomTargetSection = 'wellness';
+let currentCompareTargetSection = 'wellness';
+
+let wnCustomStart = null;
+let wnCustomEnd = null;
+let wnCompareMode = null; // null | { type: 'week'|'month'|'custom', labelA, startA, endA, labelB, startB, endB }
+
+let perfCustomStart = null;
+let perfCustomEnd = null;
+let perfCompareMode = null;
+
+function openCustomRangeModal(section) {
+  currentCustomTargetSection = section;
+  const modal = document.getElementById('custom-range-modal');
+  const title = document.getElementById('custom-range-title');
+  const startInput = document.getElementById('custom-range-start');
+  const endInput = document.getElementById('custom-range-end');
+
+  if (title) title.textContent = section === 'wellness' ? '⚙️ Personalizza Periodo Wellness' : '⚙️ Personalizza Periodo Sala Pesi';
+
+  const today = new Date().toISOString().slice(0, 10);
+  const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+
+  if (section === 'wellness') {
+    startInput.value = wnCustomStart || weekAgo;
+    endInput.value = wnCustomEnd || today;
+  } else {
+    startInput.value = perfCustomStart || weekAgo;
+    endInput.value = perfCustomEnd || today;
+  }
+
+  if (modal) modal.classList.add('active');
+}
+
+function closeCustomRangeModal() {
+  const modal = document.getElementById('custom-range-modal');
+  if (modal) modal.classList.remove('active');
+}
+
+function applyQuickPreset(preset) {
+  const startInput = document.getElementById('custom-range-start');
+  const endInput = document.getElementById('custom-range-end');
+  const today = new Date().toISOString().slice(0, 10);
+
+  if (preset === '3d') {
+    startInput.value = new Date(Date.now() - 3 * 86400000).toISOString().slice(0, 10);
+    endInput.value = today;
+  } else if (preset === '7d') {
+    startInput.value = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+    endInput.value = today;
+  } else if (preset === 'w3') {
+    startInput.value = '2026-09-07';
+    endInput.value = '2026-09-13';
+  } else if (preset === 'w2') {
+    startInput.value = '2026-08-31';
+    endInput.value = '2026-09-06';
+  } else if (preset === 'w1') {
+    startInput.value = '2026-08-24';
+    endInput.value = '2026-08-30';
+  } else if (preset === 'sep') {
+    startInput.value = '2026-09-01';
+    endInput.value = '2026-09-30';
+  } else if (preset === 'aug') {
+    startInput.value = '2026-08-01';
+    endInput.value = '2026-08-31';
+  }
+}
+
+function confirmCustomRange() {
+  const startVal = document.getElementById('custom-range-start').value;
+  const endVal = document.getElementById('custom-range-end').value;
+
+  if (!startVal || !endVal) {
+    showCoachToast('⚠️ Seleziona entrambe le date (Inizio e Fine)');
+    return;
+  }
+  if (startVal > endVal) {
+    showCoachToast('⚠️ La data di inizio deve precedere la data di fine');
+    return;
+  }
+
+  const formatShort = d => d.slice(5).replace('-', '/');
+  const label = `⚙️ ${formatShort(startVal)}-${formatShort(endVal)}`;
+
+  if (currentCustomTargetSection === 'wellness') {
+    wnCurrentRange = 'custom';
+    wnCustomStart = startVal;
+    wnCustomEnd = endVal;
+    wnCompareMode = null;
+    document.getElementById('wellness-time-pills')?.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+    const btn = document.getElementById('btn-wn-custom');
+    if (btn) {
+      btn.classList.add('active');
+      btn.textContent = label;
+    }
+    const ban = document.getElementById('wn-compare-banner');
+    if (ban) ban.style.display = 'none';
+    renderWellnessAnalytics();
+  } else {
+    perfCurrentRange = 'custom';
+    perfCustomStart = startVal;
+    perfCustomEnd = endVal;
+    perfCompareMode = null;
+    document.getElementById('perf-time-pills')?.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+    const btn = document.getElementById('btn-perf-custom');
+    if (btn) {
+      btn.classList.add('active');
+      btn.textContent = label;
+    }
+    const ban = document.getElementById('perf-compare-banner');
+    if (ban) ban.style.display = 'none';
+    renderPerfAnalytics();
+  }
+
+  closeCustomRangeModal();
+  showCoachToast(`📅 Intervallo applicato: ${startVal} ➔ ${endVal}`);
+}
+
+function openCompareModal(section) {
+  currentCompareTargetSection = section;
+  const modal = document.getElementById('compare-range-modal');
+  const title = document.getElementById('compare-modal-title');
+  if (title) title.textContent = section === 'wellness' ? '⚖️ Confronto Periodi Wellness' : '⚖️ Confronto Periodi Sala Pesi';
+
+  const cmpAStart = document.getElementById('cmp-a-start');
+  const cmpAEnd = document.getElementById('cmp-a-end');
+  const cmpBStart = document.getElementById('cmp-b-start');
+  const cmpBEnd = document.getElementById('cmp-b-end');
+  if (cmpAStart) cmpAStart.value = '2026-09-07';
+  if (cmpAEnd) cmpAEnd.value = '2026-09-13';
+  if (cmpBStart) cmpBStart.value = '2026-08-31';
+  if (cmpBEnd) cmpBEnd.value = '2026-09-06';
+
+  if (modal) modal.classList.add('active');
+}
+
+function closeCompareModal() {
+  const modal = document.getElementById('compare-range-modal');
+  if (modal) modal.classList.remove('active');
+}
+
+function toggleCompareInputs() {
+  const radioCustom = document.querySelector('input[name="cmp-type"][value="custom_compare"]');
+  const customBox = document.getElementById('custom-compare-fields');
+  if (customBox) {
+    customBox.style.display = radioCustom && radioCustom.checked ? 'flex' : 'none';
+  }
+}
+
+function confirmCompareRange() {
+  const radio = document.querySelector('input[name="cmp-type"]:checked');
+  if (!radio) return;
+
+  let cmpObj = null;
+  if (radio.value === 'w3_w2') {
+    cmpObj = {
+      type: 'week',
+      labelA: 'W3 (07-13 Set)',
+      startA: '2026-09-07',
+      endA: '2026-09-13',
+      labelB: 'W2 (31 Ago - 06 Set)',
+      startB: '2026-08-31',
+      endB: '2026-09-06'
+    };
+  } else if (radio.value === 'w2_w1') {
+    cmpObj = {
+      type: 'week',
+      labelA: 'W2 (31 Ago - 06 Set)',
+      startA: '2026-08-31',
+      endA: '2026-09-06',
+      labelB: 'W1 (24-30 Ago)',
+      startB: '2026-08-24',
+      endB: '2026-08-30'
+    };
+  } else if (radio.value === 'month_sep_aug') {
+    cmpObj = {
+      type: 'month',
+      labelA: 'Settembre 2026',
+      startA: '2026-09-01',
+      endA: '2026-09-30',
+      labelB: 'Agosto 2026',
+      startB: '2026-08-01',
+      endB: '2026-08-31'
+    };
+  } else if (radio.value === 'custom_compare') {
+    const aStart = document.getElementById('cmp-a-start').value;
+    const aEnd = document.getElementById('cmp-a-end').value;
+    const bStart = document.getElementById('cmp-b-start').value;
+    const bEnd = document.getElementById('cmp-b-end').value;
+    if (!aStart || !aEnd || !bStart || !bEnd) {
+      showCoachToast('⚠️ Inserisci tutte le date per entrambi i periodi');
+      return;
+    }
+    cmpObj = {
+      type: 'custom',
+      labelA: `${aStart.slice(5)}➔${aEnd.slice(5)}`,
+      startA: aStart,
+      endA: aEnd,
+      labelB: `${bStart.slice(5)}➔${bEnd.slice(5)}`,
+      startB: bStart,
+      endB: bEnd
+    };
+  }
+
+  if (currentCompareTargetSection === 'wellness') {
+    wnCompareMode = cmpObj;
+    document.getElementById('wellness-time-pills')?.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-wn-compare')?.classList.add('active');
+    renderWellnessAnalytics();
+  } else {
+    perfCompareMode = cmpObj;
+    document.getElementById('perf-time-pills')?.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-perf-compare')?.classList.add('active');
+    renderPerfAnalytics();
+  }
+
+  closeCompareModal();
+  showCoachToast(`⚖️ Confronto avviato: ${cmpObj.labelA} vs ${cmpObj.labelB}`);
+}
+
+function exitCompareMode(section) {
+  if (section === 'wellness') {
+    wnCompareMode = null;
+    const ban = document.getElementById('wn-compare-banner');
+    if (ban) ban.style.display = 'none';
+    document.getElementById('btn-wn-compare')?.classList.remove('active');
+    const pills = document.querySelectorAll('#wellness-time-pills .btn-filt');
+    if (pills && pills[5]) setWellnessRange('all', pills[5]);
+    else renderWellnessAnalytics();
+  } else {
+    perfCompareMode = null;
+    const ban = document.getElementById('perf-compare-banner');
+    if (ban) ban.style.display = 'none';
+    document.getElementById('btn-perf-compare')?.classList.remove('active');
+    const pills = document.querySelectorAll('#perf-time-pills .btn-filt');
+    if (pills && pills[5]) setPerfRange('all', pills[5]);
+    else renderPerfAnalytics();
+  }
+}
+
+function getMicroDayIndex(isoDate) {
+  if (!isoDate || isoDate.length < 10) return -1;
+  const parts = isoDate.split('-');
+  const dt = new Date(`${parts[0]}-${parts[1]}-${parts[2]}T12:00:00`);
+  const day = dt.getDay(); // 0=Dom, 1=Lun...
+  return (day === 0) ? 6 : (day - 1); // 0=Lun, 6=Dom
+}
+
+
+// --- 3A. WELLNESS ANALYTICS ENGINE ---
 let wnCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
 let wnCurrentRange = 'all';
 let wnVisibleMetrics = { readiness: true, fatica: true, sonno: true, dolori: true, stress: false, peso: false };
 let wellnessChartInstance = null;
-let microcycleChartInstance = null;
 
 function initWellnessUI() {
   const selector = document.getElementById('wellness-athlete-selector');
@@ -3488,6 +3758,11 @@ function setWellnessTarget(aid, btn) {
 
 function setWellnessRange(range, btn) {
   wnCurrentRange = range;
+  wnCompareMode = null;
+  const ban = document.getElementById('wn-compare-banner');
+  if (ban) ban.style.display = 'none';
+  const customBtn = document.getElementById('btn-wn-custom');
+  if (customBtn && range !== 'custom') customBtn.textContent = '⚙️ Personalizza';
   if (btn && btn.parentElement) {
     btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -3524,6 +3799,9 @@ function filterWellnessData() {
     data = data.filter(r => r.date <= '2026-08-23');
   } else if (wnCurrentRange === 'preseason') {
     data = data.filter(r => r.date >= '2026-08-24');
+  } else if (wnCurrentRange === 'custom') {
+    if (wnCustomStart) data = data.filter(r => r.date >= wnCustomStart);
+    if (wnCustomEnd) data = data.filter(r => r.date <= wnCustomEnd);
   }
   return data;
 }
@@ -3556,23 +3834,212 @@ function filterWeightData() {
     data = data.filter(r => r.date <= '2026-08-23');
   } else if (wnCurrentRange === 'preseason') {
     data = data.filter(r => r.date >= '2026-08-24');
+  } else if (wnCurrentRange === 'custom') {
+    if (wnCustomStart) data = data.filter(r => r.date >= wnCustomStart);
+    if (wnCustomEnd) data = data.filter(r => r.date <= wnCustomEnd);
   }
   return data;
 }
 
 function renderWellnessAnalytics() {
   initWellnessUI();
+  const targetName = (wnCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === wnCurrentAthlete)?.name || `Atleta #${wnCurrentAthlete}`);
+  const titleEl = document.getElementById('wellness-chart-title');
+  const subEl = document.getElementById('wellness-chart-subtitle');
+  const bannerEl = document.getElementById('wn-compare-banner');
+  const setKpi = (id, val, sub) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+    if (sub !== undefined) {
+      const card = el ? el.closest('.kpi-card') : null;
+      const subEl = card ? card.querySelector('.kpi-sub') : null;
+      if (subEl) subEl.textContent = sub;
+    }
+  };
+  const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
+
+  // 1. COMPARISON MODE FOR WELLNESS
+  if (wnCompareMode) {
+    if (bannerEl) {
+      bannerEl.style.display = 'block';
+      bannerEl.innerHTML = `
+        <div style="background:rgba(232,160,32,0.12);border:1px solid var(--mv-amber);border-radius:6px;padding:6px 10px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div style="font-size:0.75rem;color:var(--mv-gold-text);font-weight:700;">
+            ⚖️ Confronto attivo: <span style="color:#fff;">${wnCompareMode.labelA}</span> (linea continua) vs <span style="color:#94a3b8;">${wnCompareMode.labelB}</span> (linea tratteggiata)
+          </div>
+          <button onclick="exitCompareMode('wellness')" style="background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#fca5a5;padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:700;cursor:pointer;">✕ Chiudi Confronto</button>
+        </div>
+      `;
+    }
+    if (titleEl) titleEl.textContent = `⚖️ Confronto Wellness: ${targetName}`;
+    if (subEl) subEl.textContent = `${wnCompareMode.labelA} vs ${wnCompareMode.labelB}`;
+
+    let recsA = rawWellnessRecords.filter(r => r.date >= wnCompareMode.startA && r.date <= wnCompareMode.endA);
+    let recsB = rawWellnessRecords.filter(r => r.date >= wnCompareMode.startB && r.date <= wnCompareMode.endB);
+    if (wnCurrentAthlete > 0) {
+      recsA = recsA.filter(r => r.aid === wnCurrentAthlete);
+      recsB = recsB.filter(r => r.aid === wnCurrentAthlete);
+    }
+
+    const calcAvg = (arr, prop) => {
+      const vals = arr.map(r => r[prop]).filter(v => typeof v === 'number' && !isNaN(v));
+      return vals.length ? +(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1) : null;
+    };
+
+    const metricsDef = [
+      { id: 'readiness', prop: 'readiness', unit: '/10' },
+      { id: 'fatica', prop: 'fatica', unit: '/10' },
+      { id: 'sonno', prop: 'sonno', unit: 'h' },
+      { id: 'dolori', prop: 'dolori', unit: '/10' },
+      { id: 'stress', prop: 'stress', unit: '/10' }
+    ];
+
+    metricsDef.forEach(m => {
+      const vA = calcAvg(recsA, m.prop);
+      const vB = calcAvg(recsB, m.prop);
+      if (vA !== null && vB !== null) {
+        const diff = +(vA - vB).toFixed(1);
+        const sign = diff > 0 ? '+' : '';
+        setKpi(`wn-kpi-${m.id}`, `${vA} vs ${vB}`, `Δ ${sign}${diff} vs ${wnCompareMode.labelB.split(' ')[0]}`);
+      } else if (vA !== null) {
+        setKpi(`wn-kpi-${m.id}`, `${vA}${m.unit}`, `Solo ${wnCompareMode.labelA.split(' ')[0]}`);
+      } else {
+        setKpi(`wn-kpi-${m.id}`, '--', '--');
+      }
+    });
+
+    let labels = [];
+    let slotsA = [], slotsB = [];
+
+    if (wnCompareMode.type === 'week') {
+      labels = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
+      slotsA = Array.from({length: 7}, () => ({ readiness: [], fatica: [], sonno: [], dolori: [], stress: [] }));
+      slotsB = Array.from({length: 7}, () => ({ readiness: [], fatica: [], sonno: [], dolori: [], stress: [] }));
+
+      recsA.forEach(r => {
+        const idx = getMicroDayIndex(r.date);
+        if (idx >= 0 && idx < 7) {
+          if (r.readiness !== null) slotsA[idx].readiness.push(r.readiness);
+          if (r.fatica !== null) slotsA[idx].fatica.push(r.fatica);
+          if (r.sonno !== null) slotsA[idx].sonno.push(r.sonno);
+          if (r.dolori !== null) slotsA[idx].dolori.push(r.dolori);
+          if (r.stress !== null) slotsA[idx].stress.push(r.stress);
+        }
+      });
+      recsB.forEach(r => {
+        const idx = getMicroDayIndex(r.date);
+        if (idx >= 0 && idx < 7) {
+          if (r.readiness !== null) slotsB[idx].readiness.push(r.readiness);
+          if (r.fatica !== null) slotsB[idx].fatica.push(r.fatica);
+          if (r.sonno !== null) slotsB[idx].sonno.push(r.sonno);
+          if (r.dolori !== null) slotsB[idx].dolori.push(r.dolori);
+          if (r.stress !== null) slotsB[idx].stress.push(r.stress);
+        }
+      });
+    } else {
+      labels = Array.from({length: 31}, (_, i) => String(i + 1));
+      slotsA = Array.from({length: 31}, () => ({ readiness: [], fatica: [], sonno: [], dolori: [], stress: [] }));
+      slotsB = Array.from({length: 31}, () => ({ readiness: [], fatica: [], sonno: [], dolori: [], stress: [] }));
+
+      recsA.forEach(r => {
+        const day = parseInt(r.date.split('-')[2], 10) - 1;
+        if (day >= 0 && day < 31) {
+          if (r.readiness !== null) slotsA[day].readiness.push(r.readiness);
+          if (r.fatica !== null) slotsA[day].fatica.push(r.fatica);
+          if (r.sonno !== null) slotsA[day].sonno.push(r.sonno);
+          if (r.dolori !== null) slotsA[day].dolori.push(r.dolori);
+          if (r.stress !== null) slotsA[day].stress.push(r.stress);
+        }
+      });
+      recsB.forEach(r => {
+        const day = parseInt(r.date.split('-')[2], 10) - 1;
+        if (day >= 0 && day < 31) {
+          if (r.readiness !== null) slotsB[day].readiness.push(r.readiness);
+          if (r.fatica !== null) slotsB[day].fatica.push(r.fatica);
+          if (r.sonno !== null) slotsB[day].sonno.push(r.sonno);
+          if (r.dolori !== null) slotsB[day].dolori.push(r.dolori);
+          if (r.stress !== null) slotsB[day].stress.push(r.stress);
+        }
+      });
+    }
+
+    const cmpDatasets = [];
+    const colorMap = {
+      readiness: '#f59e0b',
+      fatica: '#10b981',
+      sonno: '#3b82f6',
+      dolori: '#ef4444',
+      stress: '#a855f7'
+    };
+
+    ['readiness', 'fatica', 'sonno', 'dolori', 'stress'].forEach(m => {
+      if (!wnVisibleMetrics[m]) return;
+      const c = colorMap[m];
+      cmpDatasets.push({
+        label: `${m.toUpperCase()} · ${wnCompareMode.labelA}`,
+        data: slotsA.map(s => avg(s[m])),
+        borderColor: c,
+        backgroundColor: 'transparent',
+        borderWidth: 3,
+        tension: 0.3,
+        pointRadius: 4,
+        spanGaps: true
+      });
+      cmpDatasets.push({
+        label: `${m.toUpperCase()} · ${wnCompareMode.labelB}`,
+        data: slotsB.map(s => avg(s[m])),
+        borderColor: c,
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        borderDash: [6, 4],
+        tension: 0.3,
+        pointRadius: 3,
+        spanGaps: true
+      });
+    });
+
+    const ctxTrend = document.getElementById('wellnessTrendChart');
+    if (ctxTrend) {
+      if (wellnessChartInstance) wellnessChartInstance.destroy();
+      wellnessChartInstance = new Chart(ctxTrend, {
+        type: 'line',
+        data: { labels, datasets: cmpDatasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { display: false } },
+          scales: {
+            y: {
+              min: 0, max: 10,
+              grid: { color: 'rgba(255, 255, 255, 0.06)' },
+              ticks: { color: '#94a3b8', stepSize: 2 }
+            },
+            x: {
+              grid: { color: 'rgba(255, 255, 255, 0.04)' },
+              ticks: { color: '#cbd5e1', font: { weight: 'bold' } }
+            }
+          }
+        }
+      });
+    }
+
+    ['readiness', 'fatica', 'sonno', 'dolori', 'stress', 'peso'].forEach(m => {
+      const card = document.getElementById(`wn-card-${m}`);
+      if (card) card.style.display = wnVisibleMetrics[m] ? 'flex' : 'none';
+    });
+    return;
+  }
+
+  // NORMAL CHRONOLOGICAL VIEW
+  if (bannerEl) bannerEl.style.display = 'none';
+
   const filtered = filterWellnessData();
   const filteredWeight = filterWeightData();
 
-  // Titoli dinamici
-  const targetName = (wnCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === wnCurrentAthlete)?.name || `Atleta #${wnCurrentAthlete}`);
-  const titleEl = document.getElementById('wellness-chart-title');
   if (titleEl) titleEl.textContent = `📈 Wellness & Readiness: ${targetName}`;
-  const subEl = document.getElementById('wellness-chart-subtitle');
   if (subEl) subEl.textContent = `${filtered.length} risposte questionario analizzate`;
 
-  // 1. Calcolo Micro-KPI Summary
   let sumReady = 0, sumFatica = 0, sumSonno = 0, sumDolori = 0, sumStress = 0, sumPeso = 0;
   let cReady = 0, cFatica = 0, cSonno = 0, cDolori = 0, cStress = 0, cPeso = 0;
 
@@ -3588,27 +4055,18 @@ function renderWellnessAnalytics() {
     if (typeof r.peso === 'number' && !isNaN(r.peso) && r.peso > 0) { sumPeso += r.peso; cPeso++; }
   });
 
-  const setKpi = (id, val) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = val;
-  };
-  setKpi('wn-kpi-readiness', cReady > 0 ? (sumReady / cReady).toFixed(1) + '/10' : '--');
-  setKpi('wn-kpi-fatica', cFatica > 0 ? (sumFatica / cFatica).toFixed(1) + '/10' : '--');
-  setKpi('wn-kpi-sonno', cSonno > 0 ? (sumSonno / cSonno).toFixed(1) + 'h' : '--');
-  setKpi('wn-kpi-dolori', cDolori > 0 ? (sumDolori / cDolori).toFixed(1) + '/10' : '--');
-  setKpi('wn-kpi-stress', cStress > 0 ? (sumStress / cStress).toFixed(1) + '/10' : '--');
-  setKpi('wn-kpi-peso', cPeso > 0 ? (sumPeso / cPeso).toFixed(1) + ' kg' : '--');
+  setKpi('wn-kpi-readiness', cReady > 0 ? (sumReady / cReady).toFixed(1) + '/10' : '--', 'Media (0-10)');
+  setKpi('wn-kpi-fatica', cFatica > 0 ? (sumFatica / cFatica).toFixed(1) + '/10' : '--', 'Fatica Inv.');
+  setKpi('wn-kpi-sonno', cSonno > 0 ? (sumSonno / cSonno).toFixed(1) + 'h' : '--', 'Qualità (h)');
+  setKpi('wn-kpi-dolori', cDolori > 0 ? (sumDolori / cDolori).toFixed(1) + '/10' : '--', 'Soreness');
+  setKpi('wn-kpi-stress', cStress > 0 ? (sumStress / cStress).toFixed(1) + '/10' : '--', 'Tensione');
+  setKpi('wn-kpi-peso', cPeso > 0 ? (sumPeso / cPeso).toFixed(1) + ' kg' : '--', 'Media (kg)');
 
-  // Mostra/nascondi card KPI in base alle metriche attive
-  const wMetrics = ['readiness', 'fatica', 'sonno', 'dolori', 'stress', 'peso'];
-  wMetrics.forEach(m => {
+  ['readiness', 'fatica', 'sonno', 'dolori', 'stress', 'peso'].forEach(m => {
     const card = document.getElementById(`wn-card-${m}`);
-    if (card) {
-      card.style.display = wnVisibleMetrics[m] ? 'flex' : 'none';
-    }
+    if (card) card.style.display = wnVisibleMetrics[m] ? 'flex' : 'none';
   });
 
-  // 2. Costruzione Dati per Grafico Temporale Longitudinale
   const dateMap = {};
   filtered.forEach(r => {
     if (!r.date || r.date.length < 10 || !r.date.includes('-')) return;
@@ -3633,7 +4091,6 @@ function renderWellnessAnalytics() {
   });
 
   const sortedDates = Object.keys(dateMap).sort().filter(d => d && d.length >= 10 && d.includes('-'));
-  const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : null;
 
   const monthAbbr = { '01':'GEN', '02':'FEB', '03':'MAR', '04':'APR', '05':'MAG', '06':'GIU', '07':'LUG', '08':'AGO', '09':'SET', '10':'OTT', '11':'NOV', '12':'DIC' };
   const totalPoints = sortedDates.length;
@@ -3781,8 +4238,6 @@ function renderWellnessAnalytics() {
     });
   }
 
-
-  // 4. Popolamento Timeline Note
   const notesTimeline = document.getElementById('analytics-notes-timeline');
   if (notesTimeline) {
     const notesList = filtered.filter(r => r.note && r.note.trim().length > 0).sort((a,b) => b.date.localeCompare(a.date));
@@ -3802,12 +4257,12 @@ function renderWellnessAnalytics() {
   }
 }
 
-// 4. PERFORMANCE & CARICHI ANALYTICS ENGINE (IN TAB 2: SEDUTE PESI)
+
+// --- 4. PERFORMANCE & CARICHI ANALYTICS ENGINE (IN TAB 2: SEDUTE PESI) ---
 let perfCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
 let perfCurrentRange = 'all';
 let perfVisibleMetrics = { srpe: true, fatica: true, vbt: true, cmj: true };
 let perfChartInstance = null;
-let vbtScatterChartInstance = null;
 
 function initPerfUI() {
   const selector = document.getElementById('perf-athlete-selector');
@@ -3833,6 +4288,11 @@ function setPerfTarget(aid, btn) {
 
 function setPerfRange(range, btn) {
   perfCurrentRange = range;
+  perfCompareMode = null;
+  const ban = document.getElementById('perf-compare-banner');
+  if (ban) ban.style.display = 'none';
+  const customBtn = document.getElementById('btn-perf-custom');
+  if (customBtn && range !== 'custom') customBtn.textContent = '⚙️ Personalizza';
   if (btn && btn.parentElement) {
     btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -3850,43 +4310,432 @@ function togglePerfMetric(metric) {
   renderPerfAnalytics();
 }
 
-function filterPerfList(list) {
+function filterPerfList(list, customRange, customStart, customEnd) {
   let data = [...list];
   if (perfCurrentAthlete > 0) {
     data = data.filter(r => r.aid === perfCurrentAthlete);
   }
+  const rType = customRange || perfCurrentRange;
+  const cStart = customStart || perfCustomStart;
+  const cEnd = customEnd || perfCustomEnd;
+
   const now = new Date();
-  if (perfCurrentRange === '7d') {
+  if (rType === '7d') {
     const cutoff = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
     data = data.filter(r => r.date >= cutoff);
-  } else if (perfCurrentRange === '14d') {
+  } else if (rType === '14d') {
     const cutoff = new Date(now.getTime() - 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
     data = data.filter(r => r.date >= cutoff);
-  } else if (perfCurrentRange === '30d') {
+  } else if (rType === '30d') {
     const cutoff = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
     data = data.filter(r => r.date >= cutoff);
-  } else if (perfCurrentRange === 'offseason') {
+  } else if (rType === 'offseason') {
     data = data.filter(r => r.date <= '2026-08-23');
-  } else if (perfCurrentRange === 'preseason') {
+  } else if (rType === 'preseason') {
     data = data.filter(r => r.date >= '2026-08-24');
+  } else if (rType === 'custom') {
+    if (cStart) data = data.filter(r => r.date >= cStart);
+    if (cEnd) data = data.filter(r => r.date <= cEnd);
   }
   return data;
 }
 
 function renderPerfAnalytics() {
   initPerfUI();
+  const targetName = (perfCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === perfCurrentAthlete)?.name || `Atleta #${perfCurrentAthlete}`);
+  const titleEl = document.getElementById('perf-chart-title');
+  const subEl = document.getElementById('perf-chart-subtitle');
+  const bannerEl = document.getElementById('perf-compare-banner');
+  const ctxPerf = document.getElementById('perfTrendChart');
+  if (!ctxPerf) return;
+  if (perfChartInstance) perfChartInstance.destroy();
+
+  const setKpi = (id, val, sub) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+    if (sub !== undefined) {
+      const card = el ? el.closest('.kpi-card') : null;
+      const subEl = card ? card.querySelector('.kpi-sub') : null;
+      if (subEl) subEl.textContent = sub;
+    }
+  };
+  const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(2) : null;
+
+  // 1. COMPARISON MODE FOR PERFORMANCE
+  if (perfCompareMode) {
+    if (bannerEl) {
+      bannerEl.style.display = 'block';
+      bannerEl.innerHTML = `
+        <div style="background:rgba(232,160,32,0.12);border:1px solid var(--mv-amber);border-radius:6px;padding:6px 10px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div style="font-size:0.75rem;color:var(--mv-gold-text);font-weight:700;">
+            ⚖️ Confronto attivo: <span style="color:#fff;">${perfCompareMode.labelA}</span> (linea continua) vs <span style="color:#94a3b8;">${perfCompareMode.labelB}</span> (linea tratteggiata)
+          </div>
+          <button onclick="exitCompareMode('perf')" style="background:rgba(239,68,68,0.2);border:1px solid #ef4444;color:#fca5a5;padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:700;cursor:pointer;">✕ Chiudi Confronto</button>
+        </div>
+      `;
+    }
+    if (titleEl) titleEl.textContent = `⚖️ Confronto Performance: ${targetName}`;
+    if (subEl) subEl.textContent = `${perfCompareMode.labelA} vs ${perfCompareMode.labelB}`;
+
+    const fSessA = filterPerfList(liveSessionRatings, 'custom', perfCompareMode.startA, perfCompareMode.endA);
+    const fSessB = filterPerfList(liveSessionRatings, 'custom', perfCompareMode.startB, perfCompareMode.endB);
+    const fVbtA = filterPerfList(liveVBTData, 'custom', perfCompareMode.startA, perfCompareMode.endA);
+    const fVbtB = filterPerfList(liveVBTData, 'custom', perfCompareMode.startB, perfCompareMode.endB);
+    const fCmjA = filterPerfList(liveCMJData, 'custom', perfCompareMode.startA, perfCompareMode.endA);
+    const fCmjB = filterPerfList(liveCMJData, 'custom', perfCompareMode.startB, perfCompareMode.endB);
+
+    const calcKpi = (arr, prop) => {
+      const vals = arr.map(x => parseFloat(x[prop])).filter(v => !isNaN(v) && v > 0);
+      return vals.length ? +(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2) : null;
+    };
+
+    const sRpeA = calcKpi(fSessA, 'rpe'), sRpeB = calcKpi(fSessB, 'rpe');
+    const fatA = calcKpi(fSessA, 'fat'), fatB = calcKpi(fSessB, 'fat');
+    const vbtA = calcKpi(fVbtA, 'vel'), vbtB = calcKpi(fVbtB, 'vel');
+    const cmjA = calcKpi(fCmjA, 'height'), cmjB = calcKpi(fCmjB, 'height');
+
+    const formatDiff = (a, b, unit) => {
+      if (a !== null && b !== null) {
+        const diff = +(a - b).toFixed(2);
+        const sign = diff > 0 ? '+' : '';
+        return { val: `${a} vs ${b}`, sub: `Δ ${sign}${diff} ${unit}` };
+      }
+      return { val: a !== null ? `${a} ${unit}` : '--', sub: '--' };
+    };
+
+    const rpeK = formatDiff(sRpeA, sRpeB, '');
+    setKpi('perf-kpi-srpe', rpeK.val, rpeK.sub);
+    const fatK = formatDiff(fatA, fatB, '');
+    setKpi('perf-kpi-fatica', fatK.val, fatK.sub);
+    const vbtK = formatDiff(vbtA, vbtB, 'm/s');
+    setKpi('perf-kpi-vbt', vbtK.val, vbtK.sub);
+    const cmjK = formatDiff(cmjA, cmjB, 'cm');
+    setKpi('perf-kpi-cmj', cmjK.val, cmjK.sub);
+
+    const isVbtOnly = Boolean(perfVisibleMetrics.vbt && !perfVisibleMetrics.srpe && !perfVisibleMetrics.fatica && !perfVisibleMetrics.cmj);
+
+    if (isVbtOnly) {
+      // Comparison Load-Velocity Curves
+      const prepCurve = (vList) => {
+        const valid = vList.filter(v => typeof v.kg === 'number' && v.kg > 0 && typeof v.vel === 'number' && v.vel > 0);
+        const kgMap = {};
+        valid.forEach(v => {
+          const k = Math.round(v.kg * 2) / 2;
+          if (!kgMap[k]) kgMap[k] = [];
+          kgMap[k].push(v.vel);
+        });
+        const sortedKgs = Object.keys(kgMap).map(Number).sort((a,b)=>a-b);
+        return sortedKgs.map(k => ({ x: k, y: +(kgMap[k].reduce((a,b)=>a+b,0)/kgMap[k].length).toFixed(2) }));
+      };
+
+      const curveA = prepCurve(fVbtA);
+      const curveB = prepCurve(fVbtB);
+
+      const vbtCmpDatasets = [];
+      if (curveA.length) {
+        vbtCmpDatasets.push({
+          type: 'line',
+          label: `Squat · ${perfCompareMode.labelA}`,
+          data: curveA,
+          borderColor: '#38bdf8',
+          backgroundColor: 'transparent',
+          borderWidth: 3,
+          tension: 0.25,
+          pointRadius: 5,
+          pointBackgroundColor: '#38bdf8'
+        });
+      }
+      if (curveB.length) {
+        vbtCmpDatasets.push({
+          type: 'line',
+          label: `Squat · ${perfCompareMode.labelB}`,
+          data: curveB,
+          borderColor: '#f59e0b',
+          backgroundColor: 'transparent',
+          borderWidth: 2.5,
+          borderDash: [5, 4],
+          tension: 0.25,
+          pointRadius: 4,
+          pointBackgroundColor: '#f59e0b'
+        });
+      }
+
+      perfChartInstance = new Chart(ctxPerf, {
+        type: 'line',
+        data: { datasets: vbtCmpDatasets },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: {
+              type: 'linear',
+              grid: { color: 'rgba(255, 255, 255, 0.06)' },
+              ticks: { color: '#cbd5e1', callback: val => val + ' kg' },
+              title: { display: true, text: 'Carico (kg)', color: '#38bdf8', font: { weight: 'bold', size: 10 } }
+            },
+            y: {
+              min: 0.3, max: 1.2,
+              grid: { color: 'rgba(255, 255, 255, 0.06)' },
+              ticks: { color: '#38bdf8', callback: val => val.toFixed(2) + ' m/s' },
+              title: { display: true, text: 'Velocità (m/s)', color: '#38bdf8', font: { weight: 'bold', size: 10 } }
+            }
+          }
+        }
+      });
+      return;
+    }
+
+    // Multi-metric Comparison
+    let labels = [];
+    let slotsA = [], slotsB = [];
+    if (perfCompareMode.type === 'week') {
+      labels = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
+      slotsA = Array.from({length: 7}, () => ({ srpe: [], fat: [], vbt: [], cmj: [] }));
+      slotsB = Array.from({length: 7}, () => ({ srpe: [], fat: [], vbt: [], cmj: [] }));
+      const fillSlot = (sess, vbt, cmj, targetSlots) => {
+        sess.forEach(s => {
+          const idx = getMicroDayIndex(s.date);
+          if (idx >= 0 && idx < 7) {
+            if (s.rpe !== null) targetSlots[idx].srpe.push(s.rpe);
+            if (s.fat !== null) targetSlots[idx].fat.push(s.fat);
+          }
+        });
+        vbt.forEach(v => {
+          const idx = getMicroDayIndex(v.date);
+          const vel = parseFloat(v.vel);
+          if (idx >= 0 && idx < 7 && !isNaN(vel) && vel > 0) targetSlots[idx].vbt.push(vel);
+        });
+        cmj.forEach(c => {
+          const idx = getMicroDayIndex(c.date);
+          const h = parseFloat(c.height);
+          if (idx >= 0 && idx < 7 && !isNaN(h) && h > 0) targetSlots[idx].cmj.push(h);
+        });
+      };
+      fillSlot(fSessA, fVbtA, fCmjA, slotsA);
+      fillSlot(fSessB, fVbtB, fCmjB, slotsB);
+    } else {
+      labels = Array.from({length: 31}, (_, i) => String(i + 1));
+      slotsA = Array.from({length: 31}, () => ({ srpe: [], fat: [], vbt: [], cmj: [] }));
+      slotsB = Array.from({length: 31}, () => ({ srpe: [], fat: [], vbt: [], cmj: [] }));
+      const fillSlotMonth = (sess, vbt, cmj, targetSlots) => {
+        sess.forEach(s => {
+          const day = parseInt(s.date.split('-')[2], 10) - 1;
+          if (day >= 0 && day < 31) {
+            if (s.rpe !== null) targetSlots[day].srpe.push(s.rpe);
+            if (s.fat !== null) targetSlots[day].fat.push(s.fat);
+          }
+        });
+        vbt.forEach(v => {
+          const day = parseInt(v.date.split('-')[2], 10) - 1;
+          const vel = parseFloat(v.vel);
+          if (day >= 0 && day < 31 && !isNaN(vel) && vel > 0) targetSlots[day].vbt.push(vel);
+        });
+        cmj.forEach(c => {
+          const day = parseInt(c.date.split('-')[2], 10) - 1;
+          const h = parseFloat(c.height);
+          if (day >= 0 && day < 31 && !isNaN(h) && h > 0) targetSlots[day].cmj.push(h);
+        });
+      };
+      fillSlotMonth(fSessA, fVbtA, fCmjA, slotsA);
+      fillSlotMonth(fSessB, fVbtB, fCmjB, slotsB);
+    }
+
+    // Dynamic Scales Logic
+    const hasSrpeOrFat = Boolean(perfVisibleMetrics.srpe || perfVisibleMetrics.fatica);
+    const hasVbt = Boolean(perfVisibleMetrics.vbt);
+    const hasCmj = Boolean(perfVisibleMetrics.cmj);
+
+    let perfScales = {
+      x: {
+        grid: { color: 'rgba(255, 255, 255, 0.04)' },
+        ticks: { color: '#cbd5e1', font: { weight: 'bold' } }
+      }
+    };
+
+    if (hasSrpeOrFat) {
+      perfScales.y = {
+        position: 'left',
+        min: 0, max: 10,
+        grid: { color: 'rgba(255, 255, 255, 0.06)' },
+        ticks: { color: '#f59e0b', stepSize: 2 },
+        title: { display: true, text: 'sRPE & Fatica (0-10)', color: '#94a3b8', font: { size: 10 } }
+      };
+      if (hasVbt) {
+        perfScales.y1 = {
+          position: 'right',
+          min: 0.3, max: 1.2,
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#38bdf8', stepSize: 0.2, callback: v => v.toFixed(2) + ' m/s' },
+          title: { display: true, text: 'VBT (m/s)', color: '#38bdf8', font: { size: 10 } }
+        };
+      }
+      if (hasCmj) {
+        perfScales.y2 = {
+          position: 'right',
+          min: 15, max: 55,
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#ec4899', stepSize: 10, callback: v => v + ' cm' },
+          title: { display: true, text: 'CMJ (cm)', color: '#ec4899', font: { size: 10 } }
+        };
+      }
+    } else {
+      if (hasCmj && !hasVbt) {
+        perfScales.y = {
+          position: 'left',
+          min: 15, max: 55,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
+          ticks: { color: '#ec4899', stepSize: 5, callback: v => v + ' cm' },
+          title: { display: true, text: 'CMJ Salto (cm)', color: '#ec4899', font: { size: 11, weight: 'bold' } }
+        };
+      } else if (hasVbt && !hasCmj) {
+        perfScales.y = {
+          position: 'left',
+          min: 0.3, max: 1.2,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
+          ticks: { color: '#38bdf8', stepSize: 0.1, callback: v => v.toFixed(2) + ' m/s' },
+          title: { display: true, text: 'VBT Velocità (m/s)', color: '#38bdf8', font: { size: 11, weight: 'bold' } }
+        };
+      } else if (hasCmj && hasVbt) {
+        perfScales.y = {
+          position: 'left',
+          min: 15, max: 55,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
+          ticks: { color: '#ec4899', stepSize: 5, callback: v => v + ' cm' },
+          title: { display: true, text: 'CMJ (cm)', color: '#ec4899', font: { size: 10, weight: 'bold' } }
+        };
+        perfScales.y1 = {
+          position: 'right',
+          min: 0.3, max: 1.2,
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#38bdf8', stepSize: 0.1, callback: v => v.toFixed(2) + ' m/s' },
+          title: { display: true, text: 'VBT (m/s)', color: '#38bdf8', font: { size: 10, weight: 'bold' } }
+        };
+      }
+    }
+
+    const vbtAxisId = hasSrpeOrFat ? 'y1' : (hasCmj ? 'y1' : 'y');
+    const cmjAxisId = hasSrpeOrFat ? (hasVbt ? 'y2' : 'y1') : 'y';
+
+    const datasets = [];
+    if (perfVisibleMetrics.srpe) {
+      datasets.push({
+        label: `sRPE · ${perfCompareMode.labelA}`,
+        data: slotsA.map(s => avg(s.srpe)),
+        borderColor: '#f59e0b',
+        borderWidth: 3,
+        yAxisID: 'y',
+        tension: 0.3,
+        pointRadius: 4,
+        spanGaps: true
+      });
+      datasets.push({
+        label: `sRPE · ${perfCompareMode.labelB}`,
+        data: slotsB.map(s => avg(s.srpe)),
+        borderColor: '#f59e0b',
+        borderWidth: 2,
+        borderDash: [6, 4],
+        yAxisID: 'y',
+        tension: 0.3,
+        pointRadius: 3,
+        spanGaps: true
+      });
+    }
+    if (perfVisibleMetrics.fatica) {
+      datasets.push({
+        label: `Fatica · ${perfCompareMode.labelA}`,
+        data: slotsA.map(s => avg(s.fat)),
+        borderColor: '#10b981',
+        borderWidth: 3,
+        yAxisID: 'y',
+        tension: 0.3,
+        pointRadius: 4,
+        spanGaps: true
+      });
+      datasets.push({
+        label: `Fatica · ${perfCompareMode.labelB}`,
+        data: slotsB.map(s => avg(s.fat)),
+        borderColor: '#10b981',
+        borderWidth: 2,
+        borderDash: [6, 4],
+        yAxisID: 'y',
+        tension: 0.3,
+        pointRadius: 3,
+        spanGaps: true
+      });
+    }
+    if (perfVisibleMetrics.vbt) {
+      datasets.push({
+        label: `VBT · ${perfCompareMode.labelA}`,
+        data: slotsA.map(s => avg(s.vbt)),
+        borderColor: '#38bdf8',
+        borderWidth: 3,
+        yAxisID: vbtAxisId,
+        tension: 0.3,
+        pointRadius: 4,
+        spanGaps: true
+      });
+      datasets.push({
+        label: `VBT · ${perfCompareMode.labelB}`,
+        data: slotsB.map(s => avg(s.vbt)),
+        borderColor: '#38bdf8',
+        borderWidth: 2,
+        borderDash: [6, 4],
+        yAxisID: vbtAxisId,
+        tension: 0.3,
+        pointRadius: 3,
+        spanGaps: true
+      });
+    }
+    if (perfVisibleMetrics.cmj) {
+      datasets.push({
+        label: `CMJ · ${perfCompareMode.labelA}`,
+        data: slotsA.map(s => avg(s.cmj)),
+        borderColor: '#ec4899',
+        borderWidth: 3,
+        yAxisID: cmjAxisId,
+        tension: 0.3,
+        pointRadius: 4,
+        spanGaps: true
+      });
+      datasets.push({
+        label: `CMJ · ${perfCompareMode.labelB}`,
+        data: slotsB.map(s => avg(s.cmj)),
+        borderColor: '#ec4899',
+        borderWidth: 2,
+        borderDash: [6, 4],
+        yAxisID: cmjAxisId,
+        tension: 0.3,
+        pointRadius: 3,
+        spanGaps: true
+      });
+    }
+
+    perfChartInstance = new Chart(ctxPerf, {
+      type: 'line',
+      data: { labels, datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: { legend: { display: false } },
+        scales: perfScales
+      }
+    });
+
+    return;
+  }
+
+  // NORMAL PERFORMANCE VIEW
+  if (bannerEl) bannerEl.style.display = 'none';
+
   const fSessions = filterPerfList(liveSessionRatings);
   const fVbt = filterPerfList(liveVBTData);
   const fCmj = filterPerfList(liveCMJData);
 
-  // Titoli dinamici
-  const targetName = (perfCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === perfCurrentAthlete)?.name || `Atleta #${perfCurrentAthlete}`);
-  const titleEl = document.getElementById('perf-chart-title');
   if (titleEl) titleEl.textContent = `📊 Performance Sala Pesi: ${targetName}`;
-  const subEl = document.getElementById('perf-chart-subtitle');
   if (subEl) subEl.textContent = `${fSessions.length} sedute sRPE · ${fVbt.length} test VBT · ${fCmj.length} salti CMJ`;
 
-  // 1. Calcolo Micro-KPI
   let sumSrpe = 0, cSrpe = 0;
   let sumFat = 0, cFat = 0;
   let sumVbt = 0, cVbt = 0;
@@ -3907,32 +4756,19 @@ function renderPerfAnalytics() {
     if (!isNaN(h) && h > 0) { sumCmj += h; cCmj++; }
   });
 
-  const setKpi = (id, val) => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = val;
-  };
-  setKpi('perf-kpi-srpe', cSrpe > 0 ? (sumSrpe / cSrpe).toFixed(1) + '/10' : '--');
-  setKpi('perf-kpi-fatica', cFat > 0 ? (sumFat / cFat).toFixed(1) + '/10' : '--');
-  setKpi('perf-kpi-vbt', cVbt > 0 ? (sumVbt / cVbt).toFixed(2) + ' m/s' : '--');
-  setKpi('perf-kpi-cmj', cCmj > 0 ? (sumCmj / cCmj).toFixed(1) + ' cm' : '--');
+  setKpi('perf-kpi-srpe', cSrpe > 0 ? (sumSrpe / cSrpe).toFixed(1) + '/10' : '--', 'Borg CR-10');
+  setKpi('perf-kpi-fatica', cFat > 0 ? (sumFat / cFat).toFixed(1) + '/10' : '--', 'Scala 0-10');
+  setKpi('perf-kpi-vbt', cVbt > 0 ? (sumVbt / cVbt).toFixed(2) + ' m/s' : '--', 'Vel. Media (m/s)');
+  setKpi('perf-kpi-cmj', cCmj > 0 ? (sumCmj / cCmj).toFixed(1) + ' cm' : '--', 'Media (cm)');
 
-  // Mostra/nascondi card KPI in base alle metriche attive (Dinamico auto-adattivo)
-  const pMetrics = ['srpe', 'fatica', 'vbt', 'cmj'];
-  pMetrics.forEach(m => {
+  ['srpe', 'fatica', 'vbt', 'cmj'].forEach(m => {
     const card = document.getElementById(`perf-card-${m}`);
-    if (card) {
-      card.style.display = perfVisibleMetrics[m] ? 'flex' : 'none';
-    }
+    if (card) card.style.display = perfVisibleMetrics[m] ? 'flex' : 'none';
   });
-
-  const ctxPerf = document.getElementById('perfTrendChart');
-  if (!ctxPerf) return;
-  if (perfChartInstance) perfChartInstance.destroy();
 
   const isVbtOnly = Boolean(perfVisibleMetrics.vbt && !perfVisibleMetrics.srpe && !perfVisibleMetrics.fatica && !perfVisibleMetrics.cmj);
 
   if (isVbtOnly) {
-    // ── MODALITÀ PROFILO CARICO - VELOCITÀ (VBT SQUAT) ──────────────────
     if (titleEl) titleEl.textContent = `📊 Profilo Carico-Velocità (VBT Squat): ${targetName}`;
     if (subEl) subEl.textContent = `${fVbt.length} test VBT rilevati · Relazione Carico (kg) ➔ Velocità (m/s)`;
 
@@ -3946,7 +4782,6 @@ function renderPerfAnalytics() {
     let vbtDatasets = [];
 
     if (perfCurrentAthlete > 0) {
-      // Singola Atleta: Curva Carico-Velocità dell'atleta
       vbtDatasets.push({
         type: 'line',
         label: `${targetName} (Squat)`,
@@ -3963,7 +4798,6 @@ function renderPerfAnalytics() {
         fill: true
       });
     } else {
-      // Tutta la Squadra: Punti individuali + Curva Media di Squadra
       const kgGroups = {};
       validVbt.forEach(v => {
         const roundKg = Math.round(v.kg * 2) / 2;
@@ -3978,7 +4812,6 @@ function renderPerfAnalytics() {
         count: kgGroups[k].length
       }));
 
-      // Dataset Scatter per singole atlete
       vbtDatasets.push({
         type: 'scatter',
         label: 'Test Atlete',
@@ -3991,7 +4824,6 @@ function renderPerfAnalytics() {
         pointBorderWidth: 1
       });
 
-      // Dataset Linea Media Squadra
       if (teamMeanCurve.length > 1) {
         vbtDatasets.push({
           type: 'line',
@@ -4052,9 +4884,9 @@ function renderPerfAnalytics() {
             },
             title: {
               display: true,
-              text: 'Carico (kg) ➔ Ascisse',
+              text: 'Carico (kg)',
               color: '#38bdf8',
-              font: { weight: 'bold', size: 11 }
+              font: { weight: 'bold', size: 10 }
             }
           },
           y: {
@@ -4068,9 +4900,9 @@ function renderPerfAnalytics() {
             },
             title: {
               display: true,
-              text: 'Velocità (m/s) ➔ Ordinate',
+              text: 'Velocità (m/s)',
               color: '#38bdf8',
-              font: { weight: 'bold', size: 11 }
+              font: { weight: 'bold', size: 10 }
             }
           }
         }
@@ -4078,10 +4910,7 @@ function renderPerfAnalytics() {
     });
 
   } else {
-    // ── MODALITÀ TEMPORALE MULTI-METRICA (sRPE, FATICA, CMJ, VBT) ───────────
-    if (titleEl) titleEl.textContent = `📊 Performance Sala Pesi: ${targetName}`;
-    if (subEl) subEl.textContent = `${fSessions.length} sedute sRPE · ${fVbt.length} test VBT · ${fCmj.length} salti CMJ`;
-
+    // Multi-metric temporal view
     const dateMap = {};
     fSessions.forEach(s => {
       if (!s.date || s.date.length < 10) return;
@@ -4105,12 +4934,86 @@ function renderPerfAnalytics() {
     });
 
     const sortedDates = Object.keys(dateMap).sort();
-    const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(2) : null;
-
     const labels = sortedDates.map(d => {
       const parts = d.split('-');
       return `${parts[2]}/${parts[1]}`;
     });
+
+    // Dynamic Scales Logic
+    const hasSrpeOrFat = Boolean(perfVisibleMetrics.srpe || perfVisibleMetrics.fatica);
+    const hasVbt = Boolean(perfVisibleMetrics.vbt);
+    const hasCmj = Boolean(perfVisibleMetrics.cmj);
+
+    let perfScales = {
+      x: {
+        grid: { color: 'rgba(255, 255, 255, 0.04)' },
+        ticks: { color: '#cbd5e1', font: { weight: 'bold' } }
+      }
+    };
+
+    if (hasSrpeOrFat) {
+      perfScales.y = {
+        position: 'left',
+        min: 0, max: 10,
+        grid: { color: 'rgba(255, 255, 255, 0.06)' },
+        ticks: { color: '#f59e0b', stepSize: 2 },
+        title: { display: true, text: 'sRPE & Fatica (0-10)', color: '#94a3b8', font: { size: 10 } }
+      };
+      if (hasVbt) {
+        perfScales.y1 = {
+          position: 'right',
+          min: 0.3, max: 1.2,
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#38bdf8', stepSize: 0.2, callback: v => v.toFixed(2) + ' m/s' },
+          title: { display: true, text: 'VBT (m/s)', color: '#38bdf8', font: { size: 10 } }
+        };
+      }
+      if (hasCmj) {
+        perfScales.y2 = {
+          position: 'right',
+          min: 15, max: 55,
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#ec4899', stepSize: 10, callback: v => v + ' cm' },
+          title: { display: true, text: 'CMJ (cm)', color: '#ec4899', font: { size: 10 } }
+        };
+      }
+    } else {
+      if (hasCmj && !hasVbt) {
+        perfScales.y = {
+          position: 'left',
+          min: 15, max: 55,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
+          ticks: { color: '#ec4899', stepSize: 5, callback: v => v + ' cm' },
+          title: { display: true, text: 'CMJ Salto (cm)', color: '#ec4899', font: { size: 11, weight: 'bold' } }
+        };
+      } else if (hasVbt && !hasCmj) {
+        perfScales.y = {
+          position: 'left',
+          min: 0.3, max: 1.2,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
+          ticks: { color: '#38bdf8', stepSize: 0.1, callback: v => v.toFixed(2) + ' m/s' },
+          title: { display: true, text: 'VBT Velocità (m/s)', color: '#38bdf8', font: { size: 11, weight: 'bold' } }
+        };
+      } else if (hasCmj && hasVbt) {
+        perfScales.y = {
+          position: 'left',
+          min: 15, max: 55,
+          grid: { color: 'rgba(255, 255, 255, 0.06)' },
+          ticks: { color: '#ec4899', stepSize: 5, callback: v => v + ' cm' },
+          title: { display: true, text: 'CMJ (cm)', color: '#ec4899', font: { size: 10, weight: 'bold' } }
+        };
+        perfScales.y1 = {
+          position: 'right',
+          min: 0.3, max: 1.2,
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#38bdf8', stepSize: 0.1, callback: v => v.toFixed(2) + ' m/s' },
+          title: { display: true, text: 'VBT (m/s)', color: '#38bdf8', font: { size: 10, weight: 'bold' } }
+        };
+      }
+    }
+
+    const vbtAxisId = hasSrpeOrFat ? 'y1' : (hasCmj ? 'y1' : 'y');
+    const cmjAxisId = hasSrpeOrFat ? (hasVbt ? 'y2' : 'y1') : 'y';
 
     const datasets = [];
     if (perfVisibleMetrics.srpe) {
@@ -4143,7 +5046,7 @@ function renderPerfAnalytics() {
         data: sortedDates.map(d => avg(dateMap[d].vbt)),
         borderColor: '#38bdf8',
         backgroundColor: 'transparent',
-        yAxisID: 'y1',
+        yAxisID: vbtAxisId,
         tension: 0.35,
         borderWidth: 2,
         pointRadius: 3
@@ -4155,7 +5058,7 @@ function renderPerfAnalytics() {
         data: sortedDates.map(d => avg(dateMap[d].cmj)),
         borderColor: '#ec4899',
         backgroundColor: 'transparent',
-        yAxisID: 'y2',
+        yAxisID: cmjAxisId,
         tension: 0.35,
         borderWidth: 2,
         pointRadius: 3
@@ -4172,38 +5075,10 @@ function renderPerfAnalytics() {
         plugins: {
           legend: { display: false }
         },
-        scales: {
-          y: {
-            min: 0, max: 10,
-            grid: { color: 'rgba(255, 255, 255, 0.06)' },
-            ticks: { color: '#f59e0b', stepSize: 2 },
-            title: { display: true, text: 'sRPE & Fatica (0-10)', color: '#94a3b8' }
-          },
-          y1: {
-            position: 'right',
-            display: Boolean(perfVisibleMetrics.vbt),
-            min: 0.3, max: 1.2,
-            grid: { drawOnChartArea: false },
-            ticks: { color: '#38bdf8' },
-            title: { display: true, text: 'VBT (m/s)', color: '#38bdf8' }
-          },
-          y2: {
-            position: 'right',
-            display: Boolean(perfVisibleMetrics.cmj),
-            min: 15, max: 50,
-            grid: { drawOnChartArea: false },
-            ticks: { color: '#ec4899' },
-            title: { display: true, text: 'CMJ (cm)', color: '#ec4899' }
-          },
-          x: {
-            grid: { color: 'rgba(255, 255, 255, 0.04)' },
-            ticks: { color: '#cbd5e1', font: { weight: 'bold' } }
-          }
-        }
+        scales: perfScales
       }
     });
   }
-
 }
 
 
@@ -4242,6 +5117,120 @@ function renderPerfAnalytics() {
       <!-- List of missing athletes -->
       <div id="reminder-modal-list" style="padding:14px 16px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;max-height:60vh;">
         <!-- Filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Personalizzazione Intervallo Date -->
+  <div id="custom-range-modal" class="reminder-modal-overlay" onclick="if(event.target===this) closeCustomRangeModal()">
+    <div class="reminder-modal-sheet" style="max-width:440px;" onclick="event.stopPropagation()">
+      <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;background:#091222;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:1.1rem;">⚙️</span>
+          <div>
+            <div style="font-size:0.92rem;font-weight:800;color:#fff;" id="custom-range-title">Personalizza Periodo</div>
+            <div style="font-size:0.7rem;color:var(--mv-muted);">Imposta intervallo di date da visualizzare</div>
+          </div>
+        </div>
+        <button onclick="closeCustomRangeModal()" style="background:transparent;border:none;color:#94a3b8;font-size:1.2rem;cursor:pointer;padding:4px 8px;line-height:1;">✕</button>
+      </div>
+      <div style="padding:14px 16px;display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label style="font-size:0.72rem;color:var(--mv-muted);display:block;margin-bottom:6px;font-weight:700;text-transform:uppercase;">Scorciatoie Rapide:</label>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <button class="btn-filt" onclick="applyQuickPreset('3d')" style="font-size:0.72rem;padding:3px 8px;">Ultimi 3gg</button>
+            <button class="btn-filt" onclick="applyQuickPreset('7d')" style="font-size:0.72rem;padding:3px 8px;">Ultimi 7gg</button>
+            <button class="btn-filt" onclick="applyQuickPreset('w3')" style="font-size:0.72rem;padding:3px 8px;">W3 (07-13 Set)</button>
+            <button class="btn-filt" onclick="applyQuickPreset('w2')" style="font-size:0.72rem;padding:3px 8px;">W2 (31 Ago-06 Set)</button>
+            <button class="btn-filt" onclick="applyQuickPreset('w1')" style="font-size:0.72rem;padding:3px 8px;">W1 (24-30 Ago)</button>
+            <button class="btn-filt" onclick="applyQuickPreset('sep')" style="font-size:0.72rem;padding:3px 8px;">Settembre '26</button>
+            <button class="btn-filt" onclick="applyQuickPreset('aug')" style="font-size:0.72rem;padding:3px 8px;">Agosto '26</button>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div>
+            <label style="font-size:0.72rem;color:var(--mv-muted);display:block;margin-bottom:4px;font-weight:700;">Data Inizio:</label>
+            <input type="date" id="custom-range-start" style="width:100%;background:#091222;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:8px 10px;border-radius:6px;font-size:0.85rem;box-sizing:border-box;">
+          </div>
+          <div>
+            <label style="font-size:0.72rem;color:var(--mv-muted);display:block;margin-bottom:4px;font-weight:700;">Data Fine:</label>
+            <input type="date" id="custom-range-end" style="width:100%;background:#091222;border:1px solid rgba(255,255,255,0.15);color:#fff;padding:8px 10px;border-radius:6px;font-size:0.85rem;box-sizing:border-box;">
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);">
+          <button onclick="closeCustomRangeModal()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#cbd5e1;font-size:0.8rem;padding:6px 14px;border-radius:6px;cursor:pointer;">Annulla</button>
+          <button onclick="confirmCustomRange()" style="background:var(--mv-amber);border:none;color:#060a14;font-size:0.8rem;font-weight:800;padding:6px 16px;border-radius:6px;cursor:pointer;">Applica Periodo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Confronto Settimane & Mesi -->
+  <div id="compare-range-modal" class="reminder-modal-overlay" onclick="if(event.target===this) closeCompareModal()">
+    <div class="reminder-modal-sheet" style="max-width:480px;" onclick="event.stopPropagation()">
+      <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;background:#091222;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:1.1rem;">⚖️</span>
+          <div>
+            <div style="font-size:0.92rem;font-weight:800;color:#fff;" id="compare-modal-title">Confronto Tra Periodi</div>
+            <div style="font-size:0.7rem;color:var(--mv-muted);">Confronta andamenti tra settimane o mesi</div>
+          </div>
+        </div>
+        <button onclick="closeCompareModal()" style="background:transparent;border:none;color:#94a3b8;font-size:1.2rem;cursor:pointer;padding:4px 8px;line-height:1;">✕</button>
+      </div>
+      <div style="padding:14px 16px;display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label style="font-size:0.72rem;color:var(--mv-muted);display:block;margin-bottom:6px;font-weight:700;text-transform:uppercase;">Seleziona Tipo di Confronto:</label>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <label style="display:flex;align-items:center;gap:10px;background:#091222;border:1px solid rgba(255,255,255,0.1);padding:8px 12px;border-radius:6px;cursor:pointer;">
+              <input type="radio" name="cmp-type" value="w3_w2" checked onchange="toggleCompareInputs()">
+              <div>
+                <div style="font-size:0.82rem;font-weight:700;color:#fff;">Settimana 3 vs Settimana 2</div>
+                <div style="font-size:0.7rem;color:var(--mv-muted);">07-13 Set 2026 vs 31 Ago - 06 Set 2026</div>
+              </div>
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;background:#091222;border:1px solid rgba(255,255,255,0.1);padding:8px 12px;border-radius:6px;cursor:pointer;">
+              <input type="radio" name="cmp-type" value="w2_w1" onchange="toggleCompareInputs()">
+              <div>
+                <div style="font-size:0.82rem;font-weight:700;color:#fff;">Settimana 2 vs Settimana 1</div>
+                <div style="font-size:0.7rem;color:var(--mv-muted);">31 Ago - 06 Set 2026 vs 24-30 Ago 2026</div>
+              </div>
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;background:#091222;border:1px solid rgba(255,255,255,0.1);padding:8px 12px;border-radius:6px;cursor:pointer;">
+              <input type="radio" name="cmp-type" value="month_sep_aug" onchange="toggleCompareInputs()">
+              <div>
+                <div style="font-size:0.82rem;font-weight:700;color:#fff;">Mese Corrente vs Mese Precedente</div>
+                <div style="font-size:0.7rem;color:var(--mv-muted);">Settembre 2026 vs Agosto 2026 (Pre-Season)</div>
+              </div>
+            </label>
+            <label style="display:flex;align-items:center;gap:10px;background:#091222;border:1px solid rgba(255,255,255,0.1);padding:8px 12px;border-radius:6px;cursor:pointer;">
+              <input type="radio" name="cmp-type" value="custom_compare" onchange="toggleCompareInputs()">
+              <div>
+                <div style="font-size:0.82rem;font-weight:700;color:#fff;">Due Intervalli Personalizzati</div>
+                <div style="font-size:0.7rem;color:var(--mv-muted);">Definisci manualmente Periodo A e Periodo B</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Custom Compare Inputs -->
+        <div id="custom-compare-fields" style="display:none;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:6px;display:none;flex-direction:column;gap:8px;">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--mv-amber);">Periodo A (Recente / Linea Continua):</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <input type="date" id="cmp-a-start" style="background:#091222;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:6px;border-radius:4px;font-size:0.75rem;">
+            <input type="date" id="cmp-a-end" style="background:#091222;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:6px;border-radius:4px;font-size:0.75rem;">
+          </div>
+          <div style="font-size:0.75rem;font-weight:700;color:#94a3b8;margin-top:4px;">Periodo B (Confronto / Linea Tratteggiata):</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <input type="date" id="cmp-b-start" style="background:#091222;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:6px;border-radius:4px;font-size:0.75rem;">
+            <input type="date" id="cmp-b-end" style="background:#091222;border:1px solid rgba(255,255,255,0.12);color:#fff;padding:6px;border-radius:4px;font-size:0.75rem;">
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:6px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);">
+          <button onclick="closeCompareModal()" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:#cbd5e1;font-size:0.8rem;padding:6px 14px;border-radius:6px;cursor:pointer;">Annulla</button>
+          <button onclick="confirmCompareRange()" style="background:var(--mv-amber);border:none;color:#060a14;font-size:0.8rem;font-weight:800;padding:6px 16px;border-radius:6px;cursor:pointer;">Avvia Confronto</button>
+        </div>
       </div>
     </div>
   </div>
