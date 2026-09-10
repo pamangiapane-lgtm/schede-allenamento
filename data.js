@@ -619,10 +619,10 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Half Squat Dinamico (90°)",
-              "Set x Reps": "4 x 4-5",
-              "Tempo": "`20X0` (W3) / `10X0` (W4-W5)",
-              "Note Tecniche": "Risalita esplosiva senza staccare le piante dei piedi"
+              "Esercizio": "2B. Half Squat Dinamico",
+              "Set x Reps": "3 x 3 @ 70% (\"6\")",
+              "Tempo": "`20X0`",
+              "Note Tecniche": "Mezzo squat specifico del salto (~110-120°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
             },
             {
               "Blocco": "# Main",
@@ -4079,10 +4079,10 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Half Squat Dinamico (90°)",
-              "Set x Reps": "4 x 4-5",
-              "Tempo": "`20X0` (W3) / `10X0` (W4-W5)",
-              "Note Tecniche": "Risalita esplosiva senza staccare le piante dei piedi"
+              "Esercizio": "2B. Half Squat Dinamico",
+              "Set x Reps": "3 x 3 @ 70% (\"6\")",
+              "Tempo": "`20X0`",
+              "Note Tecniche": "Mezzo squat specifico del salto (~110-120°). Inversione immediata, spinta balistica fulminea (Tempo X, VBT >0.70 m/s). Talloni a terra"
             },
             {
               "Blocco": "# Main",
