@@ -1,10 +1,10 @@
 // Service Worker App Marsala Volley (v244-w3s2-restore)
-const CACHE_NAME = 'marsala-app-v249-squillante-w3w6-master';
+const CACHE_NAME = 'marsala-app-v250-friday-clean-nelly-prehab';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260910v249',
+  './data.js?v=20260910v250',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',

@@ -18,7 +18,7 @@
 3. **Palestra (3 sedute)**:
    * **Lunedì mattina (W3-LunP)**: Squat Parallelo 3×3 @ 75% + Floor Press DB 3×4-5 @ 70% ↔ Lat Machine 3×5 @ 70% + Pogo Hops Cluster.
    * **Mercoledì mattina (W3-MerV)**: Power Clean 3×3 + Squat Parallelo 4×3 @ 80% (VBT max 0.65 m/s) + Landmine Press 3×4+4 ↔ Alzate Laterali 3×8-10 + Drop Jump Box.
-   * **Venerdì mattina (W3-VenR)**: Passive Hang 3×30" + Glute Bridge 3×6 @ 60-80kg (in Main) + RDL 3×4 @ 80% (RIR 6) + Pulley 2×6 + Pullover 2×8 + Esercizio Ruolo + Farmer March 1 DB 2×20m — **ZERO SALTI (Strict Friday Jump Ban)**.
+   * **Venerdì mattina (W3-VenR)**: Passive Hang 3×30" + Glute Bridge 3×6 @ 60-80kg (in Main) + RDL 3×4 @ 80% (RIR 6) + Pulley 2×6 + Pullover 2×8 + Esercizio Ruolo + Farmer March 1 DB 2×20m .
 4. **Campo Mini & Pre-Gara**:
    * **Martedì pomeriggio**: CM1 (Agility/scaletta pattern fisso + T-drill + Footwork a secco).
    * **Giovedì pomeriggio**: CM2 (Pliometria ruolo Drop Jump 25-30cm + balzi laterali + skimmy decelerazione).
@@ -76,7 +76,6 @@
 | 5 | Accessorio | 3A. Dumbbell Pullover su panca piana | Apertura cassa toracica e allungamento controllato del gran dorsale | 2 x 8 | 8-10 kg ("8") | 60" | 5 | Senza inarcare la lombare |
 | 6 | Ruolo | **3B. Esercizio Specifico di Ruolo** | Menù differenziato per ruolo | 3 x 8-12 | Ruolo | 60" | 6 | **P**: Wrist roller (3x12 @ 4kg)<br>**C**: Heel raise zavorrato (+10kg)<br>**S/O**: Extrarot. cavo / Trap-3<br>**L**: Copenhagen plank (3x15"/lato) |
 | 7 | Core & Grip | **4A. Farmer March con un manubrio (Suitcase Carry)** | Marcia a ginocchia alte monolaterale, anti-flessione e presa forte | **2 x 20m /lato** | **10-15 kg** | 60" | 6 | **Marcia** (non camminata), busto perpendicolare |
-| 8 | Chiusura | **🛑 STRICT FRIDAY JUMP BAN** | Scarico colonna e rientro | 5' | — | — | 1 | **ZERO SALTI**. Massima freschezza pre-match |
 
 ---
 
