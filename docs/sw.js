@@ -1,10 +1,10 @@
 // Service Worker App Marsala Volley (v244-w3s2-restore)
-const CACHE_NAME = 'marsala-pwa-v245-vbt-load-pair';
+const CACHE_NAME = 'marsala-pwa-v246-vbt-autoload';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260910v245',
+  './data.js?v=20260910v246',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',
