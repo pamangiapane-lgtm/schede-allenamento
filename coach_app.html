@@ -912,7 +912,7 @@
         </div>
 
         <!-- Canvas Grafico Longitudinale Wellness -->
-        <div style="position:relative;height:280px;width:100%;">
+        <div style="position:relative;height:320px;width:100%;">
           <canvas id="wellnessTrendChart"></canvas>
         </div>
       </div>
@@ -1055,7 +1055,7 @@
         </div>
 
         <!-- Canvas Grafico Longitudinale Performance -->
-        <div style="position:relative;height:320px;width:100%;">
+        <div style="position:relative;height:360px;width:100%;">
           <canvas id="perfTrendChart"></canvas>
         </div>
       </div>
@@ -3772,31 +3772,66 @@ function getMicroDayIndex(isoDate) {
 
 
 // --- 3A. WELLNESS ANALYTICS ENGINE ---
-let wnCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
+let wnSelectedAthletes = []; // [] = Tutta la Squadra, [1, 2] = Multi-selezione Atlete
 let wnCurrentRange = 'all';
 let wnVisibleMetrics = { readiness: true, fatica: true, sonno: true, dolori: true, stress: false, peso: false };
 let wellnessChartInstance = null;
+
+function isWnSquadra() {
+  return !wnSelectedAthletes || wnSelectedAthletes.length === 0;
+}
+
+function getWnTargetName() {
+  if (isWnSquadra()) return 'Tutta la Squadra';
+  if (wnSelectedAthletes.length === 1) {
+    const a = ROSTER.find(x => x.id === wnSelectedAthletes[0]);
+    return a ? a.name : `Atleta #${wnSelectedAthletes[0]}`;
+  }
+  if (wnSelectedAthletes.length <= 3) {
+    return wnSelectedAthletes.map(id => {
+      const a = ROSTER.find(x => x.id === id);
+      return a ? `#${a.id} ${a.name.split(' ')[1] || a.name}` : `#${id}`;
+    }).join(', ');
+  }
+  return `${wnSelectedAthletes.length} Atlete Selezionate`;
+}
 
 function initWellnessUI() {
   const selector = document.getElementById('wellness-athlete-selector');
   if (!selector) return;
 
   const ATHLETES = ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff'));
-  let pillsHtml = `<button class="btn-filt ${wnCurrentAthlete === 0 ? 'active' : ''}" onclick="setWellnessTarget(0, this)" style="white-space:nowrap;">👥 Squadra</button>`;
+  const isSquadra = isWnSquadra();
+  let pillsHtml = `<button class="btn-filt ${isSquadra ? 'active' : ''}" onclick="toggleWellnessAthlete(0)" style="white-space:nowrap;font-weight:${isSquadra ? '800' : '600'};">👥 Squadra</button>`;
   ATHLETES.forEach(a => {
-    const isActive = (wnCurrentAthlete === a.id) ? 'active' : '';
-    pillsHtml += `<button class="btn-filt ${isActive}" onclick="setWellnessTarget(${a.id}, this)" style="white-space:nowrap;">#${a.id} ${a.name.split(' ')[1] || a.name}</button>`;
+    const isSel = (!isSquadra && wnSelectedAthletes.includes(a.id));
+    const checkMark = isSel ? '✓ ' : '';
+    pillsHtml += `<button class="btn-filt ${isSel ? 'active' : ''}" onclick="toggleWellnessAthlete(${a.id})" style="white-space:nowrap;${isSel ? 'border-color:var(--mv-amber);color:var(--mv-gold-text);font-weight:800;' : ''}">${checkMark}#${a.id} ${a.name.split(' ')[1] || a.name}</button>`;
   });
   selector.innerHTML = pillsHtml;
 }
 
-function setWellnessTarget(aid, btn) {
-  wnCurrentAthlete = aid;
-  if (btn && btn.parentElement) {
-    btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+function toggleWellnessAthlete(aid) {
+  if (aid === 0) {
+    wnSelectedAthletes = [];
+  } else {
+    if (!wnSelectedAthletes || wnSelectedAthletes.length === 0) {
+      wnSelectedAthletes = [aid];
+    } else {
+      const idx = wnSelectedAthletes.indexOf(aid);
+      if (idx >= 0) {
+        wnSelectedAthletes.splice(idx, 1);
+        if (wnSelectedAthletes.length === 0) wnSelectedAthletes = [];
+      } else {
+        wnSelectedAthletes.push(aid);
+      }
+    }
   }
   renderWellnessAnalytics();
+}
+
+function setWellnessTarget(aid) {
+  toggleWellnessAthlete(aid);
 }
 
 function setWellnessRange(range, btn) {
@@ -3825,8 +3860,8 @@ function toggleWellnessMetric(metric) {
 
 function filterWellnessData() {
   let data = [...rawWellnessRecords];
-  if (wnCurrentAthlete > 0) {
-    data = data.filter(r => r.aid === wnCurrentAthlete);
+  if (!isWnSquadra()) {
+    data = data.filter(r => wnSelectedAthletes.includes(r.aid));
   }
   const now = new Date();
   if (wnCurrentRange === '7d') {
@@ -3851,8 +3886,8 @@ function filterWellnessData() {
 
 function filterWeightData() {
   let data = [...rawWeightRecords];
-  if (wnCurrentAthlete > 0) {
-    data = data.filter(r => r.aid === wnCurrentAthlete);
+  if (!isWnSquadra()) {
+    data = data.filter(r => wnSelectedAthletes.includes(r.aid));
   }
   const latestMap = new Map();
   data.forEach(r => {
@@ -3886,7 +3921,7 @@ function filterWeightData() {
 
 function renderWellnessAnalytics() {
   initWellnessUI();
-  const targetName = (wnCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === wnCurrentAthlete)?.name || `Atleta #${wnCurrentAthlete}`);
+  const targetName = getWnTargetName();
   const titleEl = document.getElementById('wellness-chart-title');
   const subEl = document.getElementById('wellness-chart-subtitle');
   const bannerEl = document.getElementById('wn-compare-banner');
@@ -3919,9 +3954,9 @@ function renderWellnessAnalytics() {
 
     let recsA = rawWellnessRecords.filter(r => r.date >= wnCompareMode.startA && r.date <= wnCompareMode.endA);
     let recsB = rawWellnessRecords.filter(r => r.date >= wnCompareMode.startB && r.date <= wnCompareMode.endB);
-    if (wnCurrentAthlete > 0) {
-      recsA = recsA.filter(r => r.aid === wnCurrentAthlete);
-      recsB = recsB.filter(r => r.aid === wnCurrentAthlete);
+    if (!isWnSquadra()) {
+      recsA = recsA.filter(r => wnSelectedAthletes.includes(r.aid));
+      recsB = recsB.filter(r => wnSelectedAthletes.includes(r.aid));
     }
 
     const calcAvg = (arr, prop) => {
@@ -4055,13 +4090,16 @@ function renderWellnessAnalytics() {
           scales: {
             y: {
               min: 0, max: 10,
-              grid: { color: 'rgba(255, 255, 255, 0.06)' },
-              ticks: { color: '#94a3b8', stepSize: 2 }
+              grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
+              ticks: { color: '#94a3b8', stepSize: 2, font: { size: 10, weight: '700' }, padding: 4 }
             },
             x: {
-              grid: { color: 'rgba(255, 255, 255, 0.04)' },
-              ticks: { color: '#cbd5e1', font: { weight: 'bold' } }
+              grid: { color: 'rgba(255, 255, 255, 0.04)', drawTicks: false },
+              ticks: { color: '#cbd5e1', font: { size: 10, weight: '700' }, maxRotation: 0, minRotation: 0, padding: 4 }
             }
+          },
+          layout: {
+            padding: { left: 2, right: 6, top: 4, bottom: 2 }
           }
         }
       });
@@ -4263,19 +4301,30 @@ function renderWellnessAnalytics() {
         scales: {
           y: {
             min: 0, max: 10,
-            grid: { color: 'rgba(255, 255, 255, 0.06)' },
-            ticks: { color: '#94a3b8', stepSize: 2 }
+            grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
+            ticks: { color: '#94a3b8', stepSize: 2, font: { size: 10, weight: '700' }, padding: 4 }
           },
           y1: {
             position: 'right',
             display: Boolean(wnVisibleMetrics.peso),
-            grid: { drawOnChartArea: false },
-            ticks: { color: '#06b6d4' }
+            grid: { drawOnChartArea: false, drawTicks: false },
+            ticks: { color: '#06b6d4', font: { size: 9, weight: '700' }, callback: v => v + 'kg', padding: 2 }
           },
           x: {
-            grid: { color: 'rgba(255, 255, 255, 0.04)' },
-            ticks: { color: '#cbd5e1', font: { weight: 'bold' } }
+            grid: { color: 'rgba(255, 255, 255, 0.04)', drawTicks: false },
+            ticks: {
+              color: '#cbd5e1',
+              font: { size: 10, weight: '700' },
+              maxRotation: 0,
+              minRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 7,
+              padding: 4
+            }
           }
+        },
+        layout: {
+          padding: { left: 2, right: 6, top: 4, bottom: 2 }
         }
       }
     });
@@ -4302,31 +4351,66 @@ function renderWellnessAnalytics() {
 
 
 // --- 4. PERFORMANCE & CARICHI ANALYTICS ENGINE (IN TAB 2: SEDUTE PESI) ---
-let perfCurrentAthlete = 0; // 0 = Squadra, 1..14 = Singola Atleta
+let perfSelectedAthletes = []; // [] = Tutta la Squadra, [1, 2] = Multi-selezione Atlete
 let perfCurrentRange = 'all';
 let perfVisibleMetrics = { srpe: true, fatica: true, vbt: true, cmj: true };
 let perfChartInstance = null;
+
+function isPerfSquadra() {
+  return !perfSelectedAthletes || perfSelectedAthletes.length === 0;
+}
+
+function getPerfTargetName() {
+  if (isPerfSquadra()) return 'Tutta la Squadra';
+  if (perfSelectedAthletes.length === 1) {
+    const a = ROSTER.find(x => x.id === perfSelectedAthletes[0]);
+    return a ? a.name : `Atleta #${perfSelectedAthletes[0]}`;
+  }
+  if (perfSelectedAthletes.length <= 3) {
+    return perfSelectedAthletes.map(id => {
+      const a = ROSTER.find(x => x.id === id);
+      return a ? `#${a.id} ${a.name.split(' ')[1] || a.name}` : `#${id}`;
+    }).join(', ');
+  }
+  return `${perfSelectedAthletes.length} Atlete Selezionate`;
+}
 
 function initPerfUI() {
   const selector = document.getElementById('perf-athlete-selector');
   if (!selector) return;
 
   const ATHLETES = ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff'));
-  let pillsHtml = `<button class="btn-filt ${perfCurrentAthlete === 0 ? 'active' : ''}" onclick="setPerfTarget(0, this)" style="white-space:nowrap;">👥 Squadra</button>`;
+  const isSquadra = isPerfSquadra();
+  let pillsHtml = `<button class="btn-filt ${isSquadra ? 'active' : ''}" onclick="togglePerfAthlete(0)" style="white-space:nowrap;font-weight:${isSquadra ? '800' : '600'};">👥 Squadra</button>`;
   ATHLETES.forEach(a => {
-    const isActive = (perfCurrentAthlete === a.id) ? 'active' : '';
-    pillsHtml += `<button class="btn-filt ${isActive}" onclick="setPerfTarget(${a.id}, this)" style="white-space:nowrap;">#${a.id} ${a.name.split(' ')[1] || a.name}</button>`;
+    const isSel = (!isSquadra && perfSelectedAthletes.includes(a.id));
+    const checkMark = isSel ? '✓ ' : '';
+    pillsHtml += `<button class="btn-filt ${isSel ? 'active' : ''}" onclick="togglePerfAthlete(${a.id})" style="white-space:nowrap;${isSel ? 'border-color:var(--mv-cyan);color:#67e8f9;font-weight:800;' : ''}">${checkMark}#${a.id} ${a.name.split(' ')[1] || a.name}</button>`;
   });
   selector.innerHTML = pillsHtml;
 }
 
-function setPerfTarget(aid, btn) {
-  perfCurrentAthlete = aid;
-  if (btn && btn.parentElement) {
-    btn.parentElement.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+function togglePerfAthlete(aid) {
+  if (aid === 0) {
+    perfSelectedAthletes = [];
+  } else {
+    if (!perfSelectedAthletes || perfSelectedAthletes.length === 0) {
+      perfSelectedAthletes = [aid];
+    } else {
+      const idx = perfSelectedAthletes.indexOf(aid);
+      if (idx >= 0) {
+        perfSelectedAthletes.splice(idx, 1);
+        if (perfSelectedAthletes.length === 0) perfSelectedAthletes = [];
+      } else {
+        perfSelectedAthletes.push(aid);
+      }
+    }
   }
   renderPerfAnalytics();
+}
+
+function setPerfTarget(aid) {
+  togglePerfAthlete(aid);
 }
 
 function setPerfRange(range, btn) {
@@ -4355,8 +4439,8 @@ function togglePerfMetric(metric) {
 
 function filterPerfList(list, customRange, customStart, customEnd) {
   let data = [...list];
-  if (perfCurrentAthlete > 0) {
-    data = data.filter(r => r.aid === perfCurrentAthlete);
+  if (!isPerfSquadra()) {
+    data = data.filter(r => perfSelectedAthletes.includes(r.aid));
   }
   const rType = customRange || perfCurrentRange;
   const cStart = customStart || perfCustomStart;
@@ -4385,7 +4469,7 @@ function filterPerfList(list, customRange, customStart, customEnd) {
 
 function renderPerfAnalytics() {
   initPerfUI();
-  const targetName = (perfCurrentAthlete === 0) ? 'Tutta la Squadra' : (ROSTER.find(a => a.id === perfCurrentAthlete)?.name || `Atleta #${perfCurrentAthlete}`);
+  const targetName = getPerfTargetName();
   const titleEl = document.getElementById('perf-chart-title');
   const subEl = document.getElementById('perf-chart-subtitle');
   const bannerEl = document.getElementById('perf-compare-banner');
@@ -4509,19 +4593,20 @@ function renderPerfAnalytics() {
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          layout: { padding: { left: 2, right: 6, top: 4, bottom: 2 } },
           plugins: { legend: { display: false } },
           scales: {
             x: {
               type: 'linear',
-              grid: { color: 'rgba(255, 255, 255, 0.06)' },
-              ticks: { color: '#cbd5e1', callback: val => val + ' kg' },
-              title: { display: true, text: 'Carico (kg)', color: '#38bdf8', font: { weight: 'bold', size: 10 } }
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { color: '#cbd5e1', font: { size: 10, weight: '700' }, callback: val => val + 'kg', maxRotation: 0, minRotation: 0, padding: 3 },
+              title: { display: false }
             },
             y: {
               min: 0.3, max: 1.2,
-              grid: { color: 'rgba(255, 255, 255, 0.06)' },
-              ticks: { color: '#38bdf8', callback: val => val.toFixed(2) + ' m/s' },
-              title: { display: true, text: 'Velocità (m/s)', color: '#38bdf8', font: { weight: 'bold', size: 10 } }
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { color: '#38bdf8', font: { size: 10, weight: '700' }, stepSize: 0.2, callback: val => val.toFixed(1), padding: 3 },
+              title: { display: false }
             }
           }
         }
@@ -4591,8 +4676,8 @@ function renderPerfAnalytics() {
 
     let perfScales = {
       x: {
-        grid: { color: 'rgba(255, 255, 255, 0.04)' },
-        ticks: { color: '#cbd5e1', font: { weight: 'bold' } }
+        grid: { color: 'rgba(255, 255, 255, 0.04)', drawTicks: false },
+        ticks: { color: '#cbd5e1', font: { size: 10, weight: '700' }, maxRotation: 0, minRotation: 0, padding: 3 }
       }
     };
 
@@ -4600,26 +4685,26 @@ function renderPerfAnalytics() {
       perfScales.y = {
         position: 'left',
         min: 0, max: 10,
-        grid: { color: 'rgba(255, 255, 255, 0.06)' },
-        ticks: { color: '#f59e0b', stepSize: 2 },
-        title: { display: true, text: 'sRPE & Fatica (0-10)', color: '#94a3b8', font: { size: 10 } }
+        grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
+        ticks: { color: '#f59e0b', font: { size: 10, weight: '700' }, stepSize: 2, padding: 3 },
+        title: { display: false }
       };
       if (hasVbt) {
         perfScales.y1 = {
           position: 'right',
           min: 0.3, max: 1.2,
-          grid: { drawOnChartArea: false },
-          ticks: { color: '#38bdf8', stepSize: 0.2, callback: v => v.toFixed(2) + ' m/s' },
-          title: { display: true, text: 'VBT (m/s)', color: '#38bdf8', font: { size: 10 } }
+          grid: { drawOnChartArea: false, drawTicks: false },
+          ticks: { color: '#38bdf8', font: { size: 9, weight: '700' }, stepSize: 0.2, callback: v => v.toFixed(1), padding: 5 },
+          title: { display: false }
         };
       }
       if (hasCmj) {
         perfScales.y2 = {
           position: 'right',
           min: 15, max: 55,
-          grid: { drawOnChartArea: false },
-          ticks: { color: '#ec4899', stepSize: 10, callback: v => v + ' cm' },
-          title: { display: true, text: 'CMJ (cm)', color: '#ec4899', font: { size: 10 } }
+          grid: { drawOnChartArea: false, drawTicks: false },
+          ticks: { color: '#ec4899', font: { size: 9, weight: '700' }, stepSize: 10, callback: v => v + 'cm', padding: 5 },
+          title: { display: false }
         };
       }
     } else {
@@ -4627,32 +4712,32 @@ function renderPerfAnalytics() {
         perfScales.y = {
           position: 'left',
           min: 15, max: 55,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#ec4899', stepSize: 5, callback: v => v + ' cm' },
-          title: { display: true, text: 'CMJ Salto (cm)', color: '#ec4899', font: { size: 11, weight: 'bold' } }
+          grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
+          ticks: { color: '#ec4899', font: { size: 10, weight: '700' }, stepSize: 10, callback: v => v + 'cm', padding: 3 },
+          title: { display: false }
         };
       } else if (hasVbt && !hasCmj) {
         perfScales.y = {
           position: 'left',
           min: 0.3, max: 1.2,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#38bdf8', stepSize: 0.1, callback: v => v.toFixed(2) + ' m/s' },
-          title: { display: true, text: 'VBT Velocità (m/s)', color: '#38bdf8', font: { size: 11, weight: 'bold' } }
+          grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
+          ticks: { color: '#38bdf8', font: { size: 10, weight: '700' }, stepSize: 0.2, callback: v => v.toFixed(1), padding: 3 },
+          title: { display: false }
         };
       } else if (hasCmj && hasVbt) {
         perfScales.y = {
           position: 'left',
           min: 15, max: 55,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#ec4899', stepSize: 5, callback: v => v + ' cm' },
-          title: { display: true, text: 'CMJ (cm)', color: '#ec4899', font: { size: 10, weight: 'bold' } }
+          grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
+          ticks: { color: '#ec4899', font: { size: 10, weight: '700' }, stepSize: 10, callback: v => v + 'cm', padding: 3 },
+          title: { display: false }
         };
         perfScales.y1 = {
           position: 'right',
           min: 0.3, max: 1.2,
-          grid: { drawOnChartArea: false },
-          ticks: { color: '#38bdf8', stepSize: 0.1, callback: v => v.toFixed(2) + ' m/s' },
-          title: { display: true, text: 'VBT (m/s)', color: '#38bdf8', font: { size: 10, weight: 'bold' } }
+          grid: { drawOnChartArea: false, drawTicks: false },
+          ticks: { color: '#38bdf8', font: { size: 9, weight: '700' }, stepSize: 0.2, callback: v => v.toFixed(1), padding: 2 },
+          title: { display: false }
         };
       }
     }
@@ -4760,6 +4845,7 @@ function renderPerfAnalytics() {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        layout: { padding: { left: 2, right: 6, top: 4, bottom: 2 } },
         interaction: { mode: 'index', intersect: false },
         plugins: { legend: { display: false } },
         scales: perfScales
@@ -4822,23 +4908,45 @@ function renderPerfAnalytics() {
     const minKg = allKgs.length ? Math.min(...allKgs) : 30;
     const maxKg = allKgs.length ? Math.max(...allKgs) : 90;
 
+    const ATH_PALETTE = ['#38bdf8', '#f59e0b', '#ec4899', '#10b981', '#a855f7', '#06b6d4'];
     let vbtDatasets = [];
 
-    if (perfCurrentAthlete > 0) {
-      vbtDatasets.push({
-        type: 'line',
-        label: `${targetName} (Squat)`,
-        data: validVbt.map(v => ({ x: v.kg, y: v.vel, ath: v.athName, session: v.session, date: v.date })),
-        borderColor: '#38bdf8',
-        backgroundColor: 'rgba(56, 189, 248, 0.15)',
-        borderWidth: 3,
-        tension: 0.25,
-        pointRadius: 6,
-        pointHoverRadius: 9,
-        pointBackgroundColor: '#38bdf8',
-        pointBorderColor: '#fff',
-        pointBorderWidth: 1.5,
-        fill: true
+    if (!isPerfSquadra() && perfSelectedAthletes.length <= 4) {
+      perfSelectedAthletes.forEach((aid, idx) => {
+        const ath = ROSTER.find(x => x.id === aid);
+        const aName = ath ? `#${ath.id} ${ath.name.split(' ')[1] || ath.name}` : `Atleta #${aid}`;
+        const athVbt = validVbt.filter(v => v.aid === aid).sort((a, b) => a.kg - b.kg);
+        const col = ATH_PALETTE[idx % ATH_PALETTE.length];
+        if (athVbt.length > 0) {
+          const kgMap = {};
+          athVbt.forEach(v => {
+            const k = Math.round(v.kg * 2) / 2;
+            if (!kgMap[k]) kgMap[k] = [];
+            kgMap[k].push(v.vel);
+          });
+          const sortedK = Object.keys(kgMap).map(Number).sort((a,b)=>a-b);
+          const curveData = sortedK.map(k => ({
+            x: k,
+            y: +(kgMap[k].reduce((a,b)=>a+b,0)/kgMap[k].length).toFixed(2),
+            ath: aName
+          }));
+
+          vbtDatasets.push({
+            type: 'line',
+            label: aName,
+            data: curveData,
+            borderColor: col,
+            backgroundColor: perfSelectedAthletes.length === 1 ? 'rgba(56, 189, 248, 0.12)' : 'transparent',
+            borderWidth: 2.5,
+            tension: 0.25,
+            pointRadius: 5,
+            pointHoverRadius: 8,
+            pointBackgroundColor: col,
+            pointBorderColor: '#fff',
+            pointBorderWidth: 1.5,
+            fill: perfSelectedAthletes.length === 1
+          });
+        }
       });
     } else {
       const kgGroups = {};
@@ -4861,8 +4969,8 @@ function renderPerfAnalytics() {
         data: validVbt.map(v => ({ x: v.kg, y: v.vel, ath: v.athName, session: v.session, date: v.date })),
         borderColor: '#38bdf8',
         backgroundColor: 'rgba(56, 189, 248, 0.85)',
-        pointRadius: 5.5,
-        pointHoverRadius: 8.5,
+        pointRadius: 5,
+        pointHoverRadius: 8,
         pointBorderColor: '#0b1329',
         pointBorderWidth: 1
       });
@@ -4890,8 +4998,12 @@ function renderPerfAnalytics() {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        layout: { padding: { left: 2, right: 6, top: 4, bottom: 2 } },
         plugins: {
-          legend: { display: false },
+          legend: {
+            display: (!isPerfSquadra() && perfSelectedAthletes.length > 1),
+            labels: { color: '#cbd5e1', font: { size: 10, weight: '700' }, boxWidth: 10, padding: 6 }
+          },
           tooltip: {
             backgroundColor: '#0b1329',
             borderColor: '#38bdf8',
@@ -4918,35 +5030,30 @@ function renderPerfAnalytics() {
             type: 'linear',
             min: Math.max(0, Math.floor(minKg / 10) * 10 - 10),
             max: Math.ceil(maxKg / 10) * 10 + 10,
-            grid: { color: 'rgba(255, 255, 255, 0.06)' },
+            grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
             ticks: {
               color: '#cbd5e1',
-              font: { weight: 'bold' },
-              callback: val => val + ' kg',
-              stepSize: 10
+              font: { size: 10, weight: '700' },
+              callback: val => val + 'kg',
+              stepSize: 10,
+              maxRotation: 0,
+              minRotation: 0,
+              padding: 3
             },
-            title: {
-              display: true,
-              text: 'Carico (kg)',
-              color: '#38bdf8',
-              font: { weight: 'bold', size: 10 }
-            }
+            title: { display: false }
           },
           y: {
             min: 0.3,
             max: 1.2,
-            grid: { color: 'rgba(255, 255, 255, 0.06)' },
+            grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
             ticks: {
               color: '#38bdf8',
-              stepSize: 0.1,
-              callback: val => val.toFixed(2) + ' m/s'
+              font: { size: 10, weight: '700' },
+              stepSize: 0.2,
+              callback: val => val.toFixed(1),
+              padding: 3
             },
-            title: {
-              display: true,
-              text: 'Velocità (m/s)',
-              color: '#38bdf8',
-              font: { weight: 'bold', size: 10 }
-            }
+            title: { display: false }
           }
         }
       }
@@ -4989,8 +5096,8 @@ function renderPerfAnalytics() {
 
     let perfScales = {
       x: {
-        grid: { color: 'rgba(255, 255, 255, 0.04)' },
-        ticks: { color: '#cbd5e1', font: { weight: 'bold' } }
+        grid: { color: 'rgba(255, 255, 255, 0.04)', drawTicks: false },
+        ticks: { color: '#cbd5e1', font: { size: 10, weight: '700' }, maxRotation: 0, minRotation: 0, padding: 3 }
       }
     };
 
@@ -4998,26 +5105,26 @@ function renderPerfAnalytics() {
       perfScales.y = {
         position: 'left',
         min: 0, max: 10,
-        grid: { color: 'rgba(255, 255, 255, 0.06)' },
-        ticks: { color: '#f59e0b', stepSize: 2 },
-        title: { display: true, text: 'sRPE & Fatica (0-10)', color: '#94a3b8', font: { size: 10 } }
+        grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
+        ticks: { color: '#f59e0b', font: { size: 10, weight: '700' }, stepSize: 2, padding: 3 },
+        title: { display: false }
       };
       if (hasVbt) {
         perfScales.y1 = {
           position: 'right',
           min: 0.3, max: 1.2,
-          grid: { drawOnChartArea: false },
-          ticks: { color: '#38bdf8', stepSize: 0.2, callback: v => v.toFixed(2) + ' m/s' },
-          title: { display: true, text: 'VBT (m/s)', color: '#38bdf8', font: { size: 10 } }
+          grid: { drawOnChartArea: false, drawTicks: false },
+          ticks: { color: '#38bdf8', font: { size: 9, weight: '700' }, stepSize: 0.2, callback: v => v.toFixed(1), padding: 5 },
+          title: { display: false }
         };
       }
       if (hasCmj) {
         perfScales.y2 = {
           position: 'right',
           min: 15, max: 55,
-          grid: { drawOnChartArea: false },
-          ticks: { color: '#ec4899', stepSize: 10, callback: v => v + ' cm' },
-          title: { display: true, text: 'CMJ (cm)', color: '#ec4899', font: { size: 10 } }
+          grid: { drawOnChartArea: false, drawTicks: false },
+          ticks: { color: '#ec4899', font: { size: 9, weight: '700' }, stepSize: 10, callback: v => v + 'cm', padding: 5 },
+          title: { display: false }
         };
       }
     } else {
@@ -5025,32 +5132,32 @@ function renderPerfAnalytics() {
         perfScales.y = {
           position: 'left',
           min: 15, max: 55,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#ec4899', stepSize: 5, callback: v => v + ' cm' },
-          title: { display: true, text: 'CMJ Salto (cm)', color: '#ec4899', font: { size: 11, weight: 'bold' } }
+          grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
+          ticks: { color: '#ec4899', font: { size: 10, weight: '700' }, stepSize: 10, callback: v => v + 'cm', padding: 3 },
+          title: { display: false }
         };
       } else if (hasVbt && !hasCmj) {
         perfScales.y = {
           position: 'left',
           min: 0.3, max: 1.2,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#38bdf8', stepSize: 0.1, callback: v => v.toFixed(2) + ' m/s' },
-          title: { display: true, text: 'VBT Velocità (m/s)', color: '#38bdf8', font: { size: 11, weight: 'bold' } }
+          grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
+          ticks: { color: '#38bdf8', font: { size: 10, weight: '700' }, stepSize: 0.2, callback: v => v.toFixed(1), padding: 3 },
+          title: { display: false }
         };
       } else if (hasCmj && hasVbt) {
         perfScales.y = {
           position: 'left',
           min: 15, max: 55,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#ec4899', stepSize: 5, callback: v => v + ' cm' },
-          title: { display: true, text: 'CMJ (cm)', color: '#ec4899', font: { size: 10, weight: 'bold' } }
+          grid: { color: 'rgba(255, 255, 255, 0.05)', drawTicks: false },
+          ticks: { color: '#ec4899', font: { size: 10, weight: '700' }, stepSize: 10, callback: v => v + 'cm', padding: 3 },
+          title: { display: false }
         };
         perfScales.y1 = {
           position: 'right',
           min: 0.3, max: 1.2,
-          grid: { drawOnChartArea: false },
-          ticks: { color: '#38bdf8', stepSize: 0.1, callback: v => v.toFixed(2) + ' m/s' },
-          title: { display: true, text: 'VBT (m/s)', color: '#38bdf8', font: { size: 10, weight: 'bold' } }
+          grid: { drawOnChartArea: false, drawTicks: false },
+          ticks: { color: '#38bdf8', font: { size: 9, weight: '700' }, stepSize: 0.2, callback: v => v.toFixed(1), padding: 2 },
+          title: { display: false }
         };
       }
     }
@@ -5114,6 +5221,7 @@ function renderPerfAnalytics() {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        layout: { padding: { left: 2, right: 6, top: 4, bottom: 2 } },
         interaction: { mode: 'index', intersect: false },
         plugins: {
           legend: { display: false }
