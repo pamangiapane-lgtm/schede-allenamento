@@ -73,7 +73,7 @@
 | **2** | **Main Hinge** | **2A. Glute Bridge con bilanciere a terra** | Spinta talloni, 2" contrazione isometrica massimale glutei al top | **3 x 6** | **60-80 kg (RIR 4)** | 90" | **6** | **Spostato in Main** (Squillante Model) |
 | **3** | **Main Hinge** | **2B. Romanian Deadlift con Bilanciere (RDL)** | Cerniera d'anca pura, bilanciere aderente cosce, fermo sotto la rotula | **3 x 4** | **80% ("RIR 6")** | 2' | **6** | Buffer 6 controllato |
 | **4** | **Main Upper** | **2C. Pulley Basso al Cavo Presa Parallela Stretta** | Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico | 2 x 6 | 70% ("6") | 90" | 6 | Decompressione scapolare |
-| 5 | Accessorio | 3A. Dumbbell Pullover su panca piana | Apertura cassa toracica e allungamento controllato del gran dorsale | 2 x 8 | 8-10 kg ("8") | 60" | 5 | Senza inarcare la lombare |
+| 5 | Accessorio | 3A. Dumbbell Pullover su panca piana | Apertura cassa toracica e allungamento controllato del gran dorsale | 2 x 8 | 10-20 kg ("8") | 60" | 5 | Senza inarcare la lombare |
 | 6 | Ruolo | **3B. Esercizio Specifico di Ruolo** | Menù differenziato per ruolo | 3 x 8-12 | Ruolo | 60" | 6 | **P**: Wrist roller (3x12 @ 4kg)<br>**C**: Heel raise zavorrato (+10kg)<br>**S/O**: Extrarot. cavo / Trap-3<br>**L**: Copenhagen plank (3x15"/lato) |
 | 7 | Core & Grip | **4A. Farmer March con un manubrio (Suitcase Carry)** | Marcia a ginocchia alte monolaterale, anti-flessione e presa forte | **2 x 20m /lato** | **10-15 kg** | 60" | 6 | **Marcia** (non camminata), busto perpendicolare |
 

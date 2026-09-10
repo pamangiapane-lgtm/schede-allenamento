@@ -1017,7 +1017,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8-10 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
@@ -1265,7 +1265,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8-10 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
@@ -1513,7 +1513,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8-10 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
@@ -1761,7 +1761,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Flat Bench Dumbbell Pullover",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8-10 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Thoracic ribcage expansion and controlled lats stretch without lumbar hyperextension"
           },
@@ -2009,7 +2009,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8-10 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
@@ -2257,7 +2257,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8-10 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
@@ -2505,7 +2505,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8-10 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
@@ -2753,7 +2753,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8-10 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
@@ -3001,7 +3001,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
@@ -3249,7 +3249,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
@@ -3497,7 +3497,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "8 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
@@ -3745,7 +3745,7 @@ const WEEKS_DATA = {
             "Blocco": "# Accessories",
             "Esercizio": "3A. Dumbbell Pullover su panca piana",
             "Set x Reps": "2 x 8",
-            "Carico (kg/RPE)": "10 kg (\"8\")",
+            "Carico (kg/RPE)": "10-20 kg (\"8\")",
             "Tempo": "`2010`",
             "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
           },
