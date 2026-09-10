@@ -869,37 +869,37 @@
           </div>
         </div>
 
-        <!-- Micro-griglia KPI del Periodo (UNICA RIGA COMPATTA) -->
-        <div style="display:grid;grid-template-columns:repeat(6, 1fr);gap:4px;margin-bottom:10px;width:100%;box-sizing:border-box;" id="wellness-kpi-grid">
-          <div class="kpi-card" id="wn-card-readiness" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
-            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Readiness</div>
-            <div class="kpi-val" id="wn-kpi-readiness" style="color:var(--mv-amber);font-size:0.95rem;margin:1px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (0-10)</div>
+        <!-- Micro-griglia KPI del Periodo (DINAMICA AUTO-ADATTIVA 100% LARGHEZZA) -->
+        <div style="display:flex;gap:6px;margin-bottom:10px;width:100%;box-sizing:border-box;" id="wellness-kpi-grid">
+          <div class="kpi-card" id="wn-card-readiness" style="flex:1 1 0;min-width:0;padding:5px 3px;text-align:center;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cbd5e1;">Readiness</div>
+            <div class="kpi-val" id="wn-kpi-readiness" style="color:var(--mv-amber);font-size:1.05rem;font-weight:800;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--mv-muted);">Media (0-10)</div>
           </div>
-          <div class="kpi-card" id="wn-card-fatica" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
-            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Energia</div>
-            <div class="kpi-val" id="wn-kpi-fatica" style="color:#6ee7b7;font-size:0.95rem;margin:1px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fatica Inv.</div>
+          <div class="kpi-card" id="wn-card-fatica" style="flex:1 1 0;min-width:0;padding:5px 3px;text-align:center;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cbd5e1;">Energia</div>
+            <div class="kpi-val" id="wn-kpi-fatica" style="color:#6ee7b7;font-size:1.05rem;font-weight:800;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--mv-muted);">Fatica Inv.</div>
           </div>
-          <div class="kpi-card" id="wn-card-sonno" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
-            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Sonno</div>
-            <div class="kpi-val" id="wn-kpi-sonno" style="color:#93c5fd;font-size:0.95rem;margin:1px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Qualità (h)</div>
+          <div class="kpi-card" id="wn-card-sonno" style="flex:1 1 0;min-width:0;padding:5px 3px;text-align:center;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cbd5e1;">Sonno</div>
+            <div class="kpi-val" id="wn-kpi-sonno" style="color:#93c5fd;font-size:1.05rem;font-weight:800;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--mv-muted);">Qualità (h)</div>
           </div>
-          <div class="kpi-card" id="wn-card-dolori" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
-            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Dolori</div>
-            <div class="kpi-val" id="wn-kpi-dolori" style="color:#fca5a5;font-size:0.95rem;margin:1px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Soreness</div>
+          <div class="kpi-card" id="wn-card-dolori" style="flex:1 1 0;min-width:0;padding:5px 3px;text-align:center;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cbd5e1;">Dolori</div>
+            <div class="kpi-val" id="wn-kpi-dolori" style="color:#fca5a5;font-size:1.05rem;font-weight:800;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--mv-muted);">Soreness</div>
           </div>
-          <div class="kpi-card" id="wn-card-stress" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
-            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Stress</div>
-            <div class="kpi-val" id="wn-kpi-stress" style="color:#d8b4fe;font-size:0.95rem;margin:1px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Tensione</div>
+          <div class="kpi-card" id="wn-card-stress" style="flex:1 1 0;min-width:0;padding:5px 3px;text-align:center;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cbd5e1;">Stress</div>
+            <div class="kpi-val" id="wn-kpi-stress" style="color:#d8b4fe;font-size:1.05rem;font-weight:800;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--mv-muted);">Tensione</div>
           </div>
-          <div class="kpi-card" id="wn-card-peso" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
-            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Peso</div>
-            <div class="kpi-val" id="wn-kpi-peso" style="color:#67e8f9;font-size:0.95rem;margin:1px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (kg)</div>
+          <div class="kpi-card" id="wn-card-peso" style="flex:1 1 0;min-width:0;padding:5px 3px;text-align:center;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cbd5e1;">Peso</div>
+            <div class="kpi-val" id="wn-kpi-peso" style="color:#67e8f9;font-size:1.05rem;font-weight:800;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--mv-muted);">Media (kg)</div>
           </div>
         </div>
 
@@ -1014,27 +1014,27 @@
           </div>
         </div>
 
-        <!-- Micro-griglia KPI del Periodo (UNICA RIGA COMPATTA) -->
-        <div style="display:grid;grid-template-columns:repeat(4, 1fr);gap:4px;margin-bottom:10px;width:100%;box-sizing:border-box;" id="perf-kpi-grid">
-          <div class="kpi-card" id="perf-card-srpe" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
-            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">sRPE Medio</div>
-            <div class="kpi-val" id="perf-kpi-srpe" style="color:var(--mv-amber);font-size:0.95rem;margin:1px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Borg CR-10</div>
+        <!-- Micro-griglia KPI del Periodo (DINAMICA AUTO-ADATTIVA 100% LARGHEZZA) -->
+        <div style="display:flex;gap:6px;margin-bottom:10px;width:100%;box-sizing:border-box;" id="perf-kpi-grid">
+          <div class="kpi-card" id="perf-card-srpe" style="flex:1 1 0;min-width:0;padding:5px 3px;text-align:center;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cbd5e1;">sRPE Medio</div>
+            <div class="kpi-val" id="perf-kpi-srpe" style="color:var(--mv-amber);font-size:1.05rem;font-weight:800;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--mv-muted);">Borg CR-10</div>
           </div>
-          <div class="kpi-card" id="perf-card-fatica" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
-            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Fatica Media</div>
-            <div class="kpi-val" id="perf-kpi-fatica" style="color:#6ee7b7;font-size:0.95rem;margin:1px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Scala 0-10</div>
+          <div class="kpi-card" id="perf-card-fatica" style="flex:1 1 0;min-width:0;padding:5px 3px;text-align:center;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cbd5e1;">Fatica Media</div>
+            <div class="kpi-val" id="perf-kpi-fatica" style="color:#6ee7b7;font-size:1.05rem;font-weight:800;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--mv-muted);">Scala 0-10</div>
           </div>
-          <div class="kpi-card" id="perf-card-vbt" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
-            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">VBT Squat</div>
-            <div class="kpi-val" id="perf-kpi-vbt" style="color:#38bdf8;font-size:0.95rem;margin:1px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Vel. Media (m/s)</div>
+          <div class="kpi-card" id="perf-card-vbt" style="flex:1 1 0;min-width:0;padding:5px 3px;text-align:center;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cbd5e1;">VBT Squat</div>
+            <div class="kpi-val" id="perf-kpi-vbt" style="color:#38bdf8;font-size:1.05rem;font-weight:800;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--mv-muted);">Vel. Media (m/s)</div>
           </div>
-          <div class="kpi-card" id="perf-card-cmj" style="padding:4px 2px;text-align:center;min-width:0;overflow:hidden;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;">
-            <div class="kpi-lbl" style="font-size:0.58rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">CMJ Salto</div>
-            <div class="kpi-val" id="perf-kpi-cmj" style="color:#fbcfe8;font-size:0.95rem;margin:1px 0;">--</div>
-            <div class="kpi-sub" style="font-size:0.52rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Media (cm)</div>
+          <div class="kpi-card" id="perf-card-cmj" style="flex:1 1 0;min-width:0;padding:5px 3px;text-align:center;background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:6px;display:flex;flex-direction:column;justify-content:center;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#cbd5e1;">CMJ Salto</div>
+            <div class="kpi-val" id="perf-kpi-cmj" style="color:#fbcfe8;font-size:1.05rem;font-weight:800;margin:1px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.55rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--mv-muted);">Media (cm)</div>
           </div>
         </div>
 
@@ -3604,7 +3604,7 @@ function renderWellnessAnalytics() {
   wMetrics.forEach(m => {
     const card = document.getElementById(`wn-card-${m}`);
     if (card) {
-      card.style.display = wnVisibleMetrics[m] ? '' : 'none';
+      card.style.display = wnVisibleMetrics[m] ? 'flex' : 'none';
     }
   });
 
@@ -3758,7 +3758,7 @@ function renderWellnessAnalytics() {
         maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
         plugins: {
-          legend: { display: true, position: 'top', labels: { color: '#cbd5e1', boxWidth: 12 } }
+          legend: { display: false }
         },
         scales: {
           y: {
@@ -3916,90 +3916,252 @@ function renderPerfAnalytics() {
   setKpi('perf-kpi-vbt', cVbt > 0 ? (sumVbt / cVbt).toFixed(2) + ' m/s' : '--');
   setKpi('perf-kpi-cmj', cCmj > 0 ? (sumCmj / cCmj).toFixed(1) + ' cm' : '--');
 
-  // 2. Costruzione Grafico Temporale Performance
-  const dateMap = {};
-  fSessions.forEach(s => {
-    if (!s.date || s.date.length < 10) return;
-    if (!dateMap[s.date]) dateMap[s.date] = { srpe: [], fat: [], vbt: [], cmj: [] };
-    if (s.rpe !== null) dateMap[s.date].srpe.push(s.rpe);
-    if (s.fat !== null) dateMap[s.date].fat.push(s.fat);
+  // Mostra/nascondi card KPI in base alle metriche attive (Dinamico auto-adattivo)
+  const pMetrics = ['srpe', 'fatica', 'vbt', 'cmj'];
+  pMetrics.forEach(m => {
+    const card = document.getElementById(`perf-card-${m}`);
+    if (card) {
+      card.style.display = perfVisibleMetrics[m] ? 'flex' : 'none';
+    }
   });
-
-  fVbt.forEach(v => {
-    if (!v.date || v.date.length < 10) return;
-    if (!dateMap[v.date]) dateMap[v.date] = { srpe: [], fat: [], vbt: [], cmj: [] };
-    const vel = parseFloat(v.vel);
-    if (!isNaN(vel) && vel > 0) dateMap[v.date].vbt.push(vel);
-  });
-
-  fCmj.forEach(c => {
-    if (!c.date || c.date.length < 10) return;
-    if (!dateMap[c.date]) dateMap[c.date] = { srpe: [], fat: [], vbt: [], cmj: [] };
-    const h = parseFloat(c.height);
-    if (!isNaN(h) && h > 0) dateMap[c.date].cmj.push(h);
-  });
-
-  const sortedDates = Object.keys(dateMap).sort();
-  const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(2) : null;
-
-  const labels = sortedDates.map(d => {
-    const parts = d.split('-');
-    return `${parts[2]}/${parts[1]}`;
-  });
-
-  const datasets = [];
-  if (perfVisibleMetrics.srpe) {
-    datasets.push({
-      label: 'sRPE Sforzo (0-10) 🎯',
-      data: sortedDates.map(d => avg(dateMap[d].srpe)),
-      borderColor: '#f59e0b',
-      backgroundColor: 'rgba(245, 158, 11, 0.1)',
-      yAxisID: 'y',
-      tension: 0.35,
-      borderWidth: 3,
-      pointRadius: 4
-    });
-  }
-  if (perfVisibleMetrics.fatica) {
-    datasets.push({
-      label: 'Fatica Seduta (0-10) ⚡',
-      data: sortedDates.map(d => avg(dateMap[d].fat)),
-      borderColor: '#10b981',
-      backgroundColor: 'transparent',
-      yAxisID: 'y',
-      tension: 0.35,
-      borderWidth: 2,
-      pointRadius: 3
-    });
-  }
-  if (perfVisibleMetrics.vbt) {
-    datasets.push({
-      label: 'VBT Squat (m/s) 🏎️',
-      data: sortedDates.map(d => avg(dateMap[d].vbt)),
-      borderColor: '#38bdf8',
-      backgroundColor: 'transparent',
-      yAxisID: 'y1',
-      tension: 0.35,
-      borderWidth: 2,
-      pointRadius: 3
-    });
-  }
-  if (perfVisibleMetrics.cmj) {
-    datasets.push({
-      label: 'CMJ Salto (cm) 🚀',
-      data: sortedDates.map(d => avg(dateMap[d].cmj)),
-      borderColor: '#ec4899',
-      backgroundColor: 'transparent',
-      yAxisID: 'y2',
-      tension: 0.35,
-      borderWidth: 2,
-      pointRadius: 3
-    });
-  }
 
   const ctxPerf = document.getElementById('perfTrendChart');
-  if (ctxPerf) {
-    if (perfChartInstance) perfChartInstance.destroy();
+  if (!ctxPerf) return;
+  if (perfChartInstance) perfChartInstance.destroy();
+
+  const isVbtOnly = Boolean(perfVisibleMetrics.vbt && !perfVisibleMetrics.srpe && !perfVisibleMetrics.fatica && !perfVisibleMetrics.cmj);
+
+  if (isVbtOnly) {
+    // ── MODALITÀ PROFILO CARICO - VELOCITÀ (VBT SQUAT) ──────────────────
+    if (titleEl) titleEl.textContent = `📊 Profilo Carico-Velocità (VBT Squat): ${targetName}`;
+    if (subEl) subEl.textContent = `${fVbt.length} test VBT rilevati · Relazione Carico (kg) ➔ Velocità (m/s)`;
+
+    const validVbt = fVbt.filter(v => typeof v.kg === 'number' && !isNaN(v.kg) && v.kg > 0 && typeof v.vel === 'number' && !isNaN(v.vel) && v.vel > 0);
+    validVbt.sort((a, b) => a.kg - b.kg);
+
+    const allKgs = validVbt.map(v => v.kg);
+    const minKg = allKgs.length ? Math.min(...allKgs) : 30;
+    const maxKg = allKgs.length ? Math.max(...allKgs) : 90;
+
+    let vbtDatasets = [];
+
+    if (perfCurrentAthlete > 0) {
+      // Singola Atleta: Curva Carico-Velocità dell'atleta
+      vbtDatasets.push({
+        type: 'line',
+        label: `${targetName} (Squat)`,
+        data: validVbt.map(v => ({ x: v.kg, y: v.vel, ath: v.athName, session: v.session, date: v.date })),
+        borderColor: '#38bdf8',
+        backgroundColor: 'rgba(56, 189, 248, 0.15)',
+        borderWidth: 3,
+        tension: 0.25,
+        pointRadius: 6,
+        pointHoverRadius: 9,
+        pointBackgroundColor: '#38bdf8',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 1.5,
+        fill: true
+      });
+    } else {
+      // Tutta la Squadra: Punti individuali + Curva Media di Squadra
+      const kgGroups = {};
+      validVbt.forEach(v => {
+        const roundKg = Math.round(v.kg * 2) / 2;
+        if (!kgGroups[roundKg]) kgGroups[roundKg] = [];
+        kgGroups[roundKg].push(v.vel);
+      });
+      const sortedKgs = Object.keys(kgGroups).map(Number).sort((a, b) => a - b);
+      const teamMeanCurve = sortedKgs.map(k => ({
+        x: k,
+        y: +(kgGroups[k].reduce((a, b) => a + b, 0) / kgGroups[k].length).toFixed(2),
+        ath: 'Media Squadra',
+        count: kgGroups[k].length
+      }));
+
+      // Dataset Scatter per singole atlete
+      vbtDatasets.push({
+        type: 'scatter',
+        label: 'Test Atlete',
+        data: validVbt.map(v => ({ x: v.kg, y: v.vel, ath: v.athName, session: v.session, date: v.date })),
+        borderColor: '#38bdf8',
+        backgroundColor: 'rgba(56, 189, 248, 0.85)',
+        pointRadius: 5.5,
+        pointHoverRadius: 8.5,
+        pointBorderColor: '#0b1329',
+        pointBorderWidth: 1
+      });
+
+      // Dataset Linea Media Squadra
+      if (teamMeanCurve.length > 1) {
+        vbtDatasets.push({
+          type: 'line',
+          label: 'Media Squadra',
+          data: teamMeanCurve,
+          borderColor: '#f59e0b',
+          backgroundColor: 'transparent',
+          borderWidth: 2.5,
+          borderDash: [5, 4],
+          tension: 0.3,
+          pointRadius: 4,
+          pointBackgroundColor: '#f59e0b',
+          fill: false
+        });
+      }
+    }
+
+    perfChartInstance = new Chart(ctxPerf, {
+      type: 'scatter',
+      data: { datasets: vbtDatasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#0b1329',
+            borderColor: '#38bdf8',
+            borderWidth: 1,
+            titleColor: '#38bdf8',
+            bodyColor: '#f1f5f9',
+            callbacks: {
+              title: function(items) {
+                const raw = items[0]?.raw;
+                return raw?.ath ? `${raw.ath}` : 'VBT Test';
+              },
+              label: function(item) {
+                const raw = item.raw;
+                if (!raw) return '';
+                if (raw.count) return `Media: ${raw.y} m/s su ${raw.x} kg (${raw.count} atlete)`;
+                const sess = raw.session ? ` · ${raw.session}` : (raw.date ? ` · ${raw.date}` : '');
+                return `Carico: ${raw.x} kg ➔ Velocità: ${raw.y} m/s${sess}`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            min: Math.max(0, Math.floor(minKg / 10) * 10 - 10),
+            max: Math.ceil(maxKg / 10) * 10 + 10,
+            grid: { color: 'rgba(255, 255, 255, 0.06)' },
+            ticks: {
+              color: '#cbd5e1',
+              font: { weight: 'bold' },
+              callback: val => val + ' kg',
+              stepSize: 10
+            },
+            title: {
+              display: true,
+              text: 'Carico (kg) ➔ Ascisse',
+              color: '#38bdf8',
+              font: { weight: 'bold', size: 11 }
+            }
+          },
+          y: {
+            min: 0.3,
+            max: 1.2,
+            grid: { color: 'rgba(255, 255, 255, 0.06)' },
+            ticks: {
+              color: '#38bdf8',
+              stepSize: 0.1,
+              callback: val => val.toFixed(2) + ' m/s'
+            },
+            title: {
+              display: true,
+              text: 'Velocità (m/s) ➔ Ordinate',
+              color: '#38bdf8',
+              font: { weight: 'bold', size: 11 }
+            }
+          }
+        }
+      }
+    });
+
+  } else {
+    // ── MODALITÀ TEMPORALE MULTI-METRICA (sRPE, FATICA, CMJ, VBT) ───────────
+    if (titleEl) titleEl.textContent = `📊 Performance Sala Pesi: ${targetName}`;
+    if (subEl) subEl.textContent = `${fSessions.length} sedute sRPE · ${fVbt.length} test VBT · ${fCmj.length} salti CMJ`;
+
+    const dateMap = {};
+    fSessions.forEach(s => {
+      if (!s.date || s.date.length < 10) return;
+      if (!dateMap[s.date]) dateMap[s.date] = { srpe: [], fat: [], vbt: [], cmj: [] };
+      if (s.rpe !== null) dateMap[s.date].srpe.push(s.rpe);
+      if (s.fat !== null) dateMap[s.date].fat.push(s.fat);
+    });
+
+    fVbt.forEach(v => {
+      if (!v.date || v.date.length < 10) return;
+      if (!dateMap[v.date]) dateMap[v.date] = { srpe: [], fat: [], vbt: [], cmj: [] };
+      const vel = parseFloat(v.vel);
+      if (!isNaN(vel) && vel > 0) dateMap[v.date].vbt.push(vel);
+    });
+
+    fCmj.forEach(c => {
+      if (!c.date || c.date.length < 10) return;
+      if (!dateMap[c.date]) dateMap[c.date] = { srpe: [], fat: [], vbt: [], cmj: [] };
+      const h = parseFloat(c.height);
+      if (!isNaN(h) && h > 0) dateMap[c.date].cmj.push(h);
+    });
+
+    const sortedDates = Object.keys(dateMap).sort();
+    const avg = arr => (arr && arr.length) ? +(arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(2) : null;
+
+    const labels = sortedDates.map(d => {
+      const parts = d.split('-');
+      return `${parts[2]}/${parts[1]}`;
+    });
+
+    const datasets = [];
+    if (perfVisibleMetrics.srpe) {
+      datasets.push({
+        label: 'sRPE Sforzo (0-10) 🎯',
+        data: sortedDates.map(d => avg(dateMap[d].srpe)),
+        borderColor: '#f59e0b',
+        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+        yAxisID: 'y',
+        tension: 0.35,
+        borderWidth: 3,
+        pointRadius: 4
+      });
+    }
+    if (perfVisibleMetrics.fatica) {
+      datasets.push({
+        label: 'Fatica Seduta (0-10) ⚡',
+        data: sortedDates.map(d => avg(dateMap[d].fat)),
+        borderColor: '#10b981',
+        backgroundColor: 'transparent',
+        yAxisID: 'y',
+        tension: 0.35,
+        borderWidth: 2,
+        pointRadius: 3
+      });
+    }
+    if (perfVisibleMetrics.vbt) {
+      datasets.push({
+        label: 'VBT Squat (m/s) 🏎️',
+        data: sortedDates.map(d => avg(dateMap[d].vbt)),
+        borderColor: '#38bdf8',
+        backgroundColor: 'transparent',
+        yAxisID: 'y1',
+        tension: 0.35,
+        borderWidth: 2,
+        pointRadius: 3
+      });
+    }
+    if (perfVisibleMetrics.cmj) {
+      datasets.push({
+        label: 'CMJ Salto (cm) 🚀',
+        data: sortedDates.map(d => avg(dateMap[d].cmj)),
+        borderColor: '#ec4899',
+        backgroundColor: 'transparent',
+        yAxisID: 'y2',
+        tension: 0.35,
+        borderWidth: 2,
+        pointRadius: 3
+      });
+    }
+
     perfChartInstance = new Chart(ctxPerf, {
       type: 'line',
       data: { labels, datasets },
@@ -4008,7 +4170,7 @@ function renderPerfAnalytics() {
         maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
         plugins: {
-          legend: { display: true, position: 'top', labels: { color: '#cbd5e1', boxWidth: 12 } }
+          legend: { display: false }
         },
         scales: {
           y: {
