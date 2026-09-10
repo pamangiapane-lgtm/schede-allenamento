@@ -1101,8 +1101,8 @@
             <span>📲 Invia Reminder</span>
             <span id="badge-reminder-missing" style="background:var(--mv-amber);color:#071226;padding:1px 6px;border-radius:10px;font-size:0.68rem;font-weight:800;">--</span>
           </button>
-          <button class="btn-filt" onclick="shareWellnessReportWhatsApp()" style="background:rgba(37,211,102,0.15);border:1px solid #25d366;color:#86efac;font-weight:700;display:inline-flex;align-items:center;gap:5px;padding:6px 10px;cursor:pointer;" title="Condividi Report Squadra su WhatsApp">
-            <span>📊 Report WA</span>
+          <button class="btn-filt" onclick="shareWellnessReportWhatsApp()" style="background:rgba(37,211,102,0.15);border:1px solid #25d366;color:#86efac;font-weight:700;display:inline-flex;align-items:center;gap:5px;padding:6px 10px;cursor:pointer;" title="Genera infografica HD per invio manuale a WhatsApp Staff">
+            <span>📸 Report Grafico Staff</span>
           </button>
         </div>
       </div>
@@ -2817,80 +2817,496 @@
       } catch (e) {}
     }
 
-        function shareWellnessReportWhatsApp() {
-      const today = new Date();
-      const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-      const dateFormatted = today.toLocaleDateString('it-IT', options);
-      const capDate = dateFormatted.charAt(0).toUpperCase() + dateFormatted.slice(1);
+    /* ==========================================
+       GENERATORE INFOGRAFICA REPORT WELLNESS HD & CONDIVISIONE MANUALE WHATSAPP
+       ========================================== */
+    let currentReportImageBlob = null;
+    let currentReportImageFile = null;
 
-      let countFilled = 0;
-      let totalReadiness = 0;
-      let readinessCount = 0;
-      const alerts = [];
-      const rosterLines = [];
+    async function generateWellnessInfographicBlob() {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const canvas = document.createElement('canvas');
+          const W = 1080;
+          const H = 1920;
+          canvas.width = W;
+          canvas.height = H;
+          const ctx = canvas.getContext('2d');
 
-      ROSTER.forEach(a => {
-        const w = liveWellnessData[a.id];
-        if (w && w.isToday) {
-          countFilled++;
-          if (w.readiness !== null) {
-            totalReadiness += w.readiness;
-            readinessCount++;
+          // Sfondo principale
+          ctx.fillStyle = '#060a14';
+          ctx.fillRect(0, 0, W, H);
+
+          // Header
+          ctx.fillStyle = '#0b1329';
+          ctx.fillRect(0, 0, W, 190);
+          ctx.fillStyle = '#f59e0b';
+          ctx.fillRect(0, 186, W, 4);
+
+          // Logo Marsala Volley
+          let xOffset = 50;
+          try {
+            const logoImg = new Image();
+            logoImg.crossOrigin = 'anonymous';
+            await new Promise((res) => {
+              logoImg.onload = res;
+              logoImg.onerror = res;
+              const exLogo = document.querySelector('.brand-logo');
+              logoImg.src = exLogo ? exLogo.src : '../logo.jpg';
+            });
+            if (logoImg.naturalWidth > 0) {
+              ctx.drawImage(logoImg, 45, 30, 130, 130);
+              xOffset = 195;
+            }
+          } catch(e) {}
+
+          // Titolo Header
+          ctx.fillStyle = '#f59e0b';
+          ctx.font = 'bold 46px system-ui, -apple-system, sans-serif';
+          ctx.fillText('MARSALA VOLLEY', xOffset, 85);
+
+          const now = new Date();
+          const daysIt = ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"];
+          const monthsIt = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+          const dateStr = `${daysIt[now.getDay()]} ${now.getDate()} ${monthsIt[now.getMonth()]} ${now.getFullYear()}`;
+
+          ctx.fillStyle = '#cbd5e1';
+          ctx.font = '24px system-ui, -apple-system, sans-serif';
+          ctx.fillText(`DAILY WELLNESS & READINESS REPORT · ${dateStr}`, xOffset, 140);
+
+          // Raccolta dati da ROSTER e liveWellnessData
+          let countFilled = 0;
+          let totalReadiness = 0;
+          let readinessCount = 0;
+          const focusList = [];
+
+          ROSTER.forEach(a => {
+            const w = (typeof liveWellnessData !== 'undefined' && liveWellnessData[a.id]) ? liveWellnessData[a.id] : null;
+            if (w && w.isToday) {
+              countFilled++;
+              const rd = w.readiness;
+              if (rd !== null && !isNaN(rd)) {
+                totalReadiness += rd;
+                readinessCount++;
+              }
+
+              const outItems = [];
+              let isRed = false;
+
+              if (w.dolori >= 5) {
+                outItems.push(`Dolori: ${w.dolori}/10 (Critico)`);
+                isRed = true;
+              } else if (w.dolori === 4) {
+                outItems.push(`Dolori: 4/10`);
+              }
+
+              if (rd !== null && !isNaN(rd)) {
+                if (rd <= 5) {
+                  outItems.push(`Readiness: ${rd}/10 (Bassa)`);
+                  isRed = true;
+                } else if (rd === 6) {
+                  outItems.push(`Readiness: 6/10`);
+                }
+              }
+
+              if (w.sonno !== null && !isNaN(w.sonno)) {
+                if (w.sonno <= 5) {
+                  outItems.push(`Sonno: ${w.sonno}/10 (Scarso)`);
+                  isRed = true;
+                } else if (w.sonno === 6) {
+                  outItems.push(`Sonno: 6/10`);
+                }
+              }
+
+              if (w.fatica !== null && !isNaN(w.fatica)) {
+                if (w.fatica <= 5) {
+                  outItems.push(`Energia: ${w.fatica}/10 (Fatica Alta)`);
+                  isRed = true;
+                } else if (w.fatica === 6) {
+                  outItems.push(`Energia: 6/10`);
+                }
+              }
+
+              if (w.stress !== null && !isNaN(w.stress)) {
+                if (w.stress >= 5) {
+                  outItems.push(`Stress: ${w.stress}/10 (Alto)`);
+                  isRed = true;
+                } else if (w.stress === 4) {
+                  outItems.push(`Stress: 4/10`);
+                }
+              }
+
+              const yellowMetrics = [];
+              if (w.dolori === 3 || w.dolori === 4) yellowMetrics.push(`Dolori ${w.dolori}`);
+              if (rd !== null && (rd === 6 || rd === 7)) yellowMetrics.push(`Readiness ${rd}`);
+              if (w.sonno !== null && (w.sonno === 6 || w.sonno === 7)) yellowMetrics.push(`Sonno ${w.sonno}`);
+              if (w.fatica !== null && (w.fatica === 6 || w.fatica === 7)) yellowMetrics.push(`Energia ${w.fatica}`);
+              if (w.stress === 4) yellowMetrics.push(`Stress 4`);
+
+              const has2ndYellow = (w.dolori === 4) || (rd === 6) || (w.sonno === 6) || (w.fatica === 6) || (w.stress === 4);
+              const has4Yellows = yellowMetrics.length >= 4;
+              const hasNote = Boolean(w.note && w.note.trim().length > 0);
+
+              if (hasNote) {
+                outItems.push(`Nota: "${w.note.trim()}"`);
+              }
+
+              let badgeType = null;
+              let badgeLbl = '';
+              if (isRed) {
+                badgeType = 'red';
+                badgeLbl = '[CRITICO]';
+              } else if (has2ndYellow || has4Yellows) {
+                badgeType = 'yellow';
+                badgeLbl = '[ATTENZIONE]';
+                if (has4Yellows && !has2ndYellow) {
+                  outItems.unshift(`Fatica Sistemica (${yellowMetrics.length} Valori Gialli)`);
+                }
+              } else if (hasNote) {
+                badgeType = 'green';
+                badgeLbl = '[OTTIMALE]';
+              }
+
+              if (badgeType && outItems.length > 0) {
+                focusList.push({
+                  ath: a,
+                  w: w,
+                  badgeType: badgeType,
+                  badgeLbl: badgeLbl,
+                  details: outItems.join('   •   ')
+                });
+              }
+            }
+          });
+
+          focusList.sort((x, y) => {
+            const scoreX = x.badgeType === 'red' ? 0 : (x.badgeType === 'yellow' ? 1 : 2);
+            const scoreY = y.badgeType === 'red' ? 0 : (y.badgeType === 'yellow' ? 1 : 2);
+            if (scoreX !== scoreY) return scoreX - scoreY;
+            return (y.w.dolori || 0) - (x.w.dolori || 0);
+          });
+
+          const avgPct = readinessCount > 0 ? Math.round((totalReadiness / readinessCount) * 10) : 0;
+
+          function drawRoundedRect(c, x, y, w, h, radius, fill, stroke, lineWidth) {
+            c.beginPath();
+            if (c.roundRect) {
+              c.roundRect(x, y, w, h, radius);
+            } else {
+              c.rect(x, y, w, h);
+            }
+            if (fill) {
+              c.fillStyle = fill;
+              c.fill();
+            }
+            if (stroke) {
+              c.strokeStyle = stroke;
+              c.lineWidth = lineWidth || 1;
+              c.stroke();
+            }
           }
-          const traffic = getAthleteTrafficStatus(w);
-          const hasNote = (w.note && w.note.trim().length > 0);
-          if (traffic.type === 'red' || traffic.type === 'yellow' || hasNote) {
-            alerts.push({ ath: a, w: w, traffic: traffic });
+
+          // KPI CARDS
+          const cardW = 310;
+          const cardH = 130;
+          const yKpi = 220;
+
+          const colKpi1 = avgPct >= 75 ? '#10b981' : (avgPct >= 60 ? '#f59e0b' : '#ef4444');
+          drawRoundedRect(ctx, 40, yKpi, cardW, cardH, 16, '#0f172a', '#1e293b', 2);
+          ctx.fillStyle = '#94a3b8';
+          ctx.font = 'bold 22px system-ui, sans-serif';
+          ctx.fillText('READINESS SQUADRA', 60, yKpi + 45);
+          ctx.fillStyle = colKpi1;
+          ctx.font = 'bold 52px system-ui, sans-serif';
+          ctx.fillText(`${avgPct}%`, 60, yKpi + 105);
+
+          drawRoundedRect(ctx, 40 + cardW + 25, yKpi, cardW, cardH, 16, '#0f172a', '#1e293b', 2);
+          ctx.fillStyle = '#94a3b8';
+          ctx.font = 'bold 22px system-ui, sans-serif';
+          ctx.fillText('COMPILAZIONE OGGI', 40 + cardW + 45, yKpi + 45);
+          ctx.fillStyle = '#38bdf8';
+          ctx.font = 'bold 52px system-ui, sans-serif';
+          ctx.fillText(`${countFilled} / ${ROSTER.length}`, 40 + cardW + 45, yKpi + 105);
+
+          const hasRedAlert = focusList.some(x => x.badgeType === 'red');
+          const hasYellowAlert = focusList.some(x => x.badgeType === 'yellow');
+          const colAlert = hasRedAlert ? '#ef4444' : (hasYellowAlert ? '#f59e0b' : '#10b981');
+          drawRoundedRect(ctx, 40 + cardW * 2 + 50, yKpi, cardW, cardH, 16, '#0f172a', '#1e293b', 2);
+          ctx.fillStyle = '#94a3b8';
+          ctx.font = 'bold 22px system-ui, sans-serif';
+          ctx.fillText('ALERT CLINICI', 40 + cardW * 2 + 70, yKpi + 45);
+          ctx.fillStyle = colAlert;
+          ctx.font = 'bold 52px system-ui, sans-serif';
+          ctx.fillText(`${focusList.length}`, 40 + cardW * 2 + 70, yKpi + 105);
+
+          // FOCUS CLINICO & SEGNALAZIONI
+          const yAlert = 385;
+          const secTitleC = hasRedAlert ? '#fca5a5' : (hasYellowAlert ? '#fde68a' : '#6ee7b7');
+          ctx.fillStyle = secTitleC;
+          ctx.font = 'bold 28px system-ui, sans-serif';
+          ctx.fillText('FOCUS CLINICO & SEGNALAZIONI', 40, yAlert + 24);
+
+          const yAlertBox = yAlert + 40;
+          let boxH = 70;
+          if (focusList.length > 0) {
+            const numItems = Math.min(5, focusList.length);
+            boxH = 20 + numItems * 62;
+            const boxBorder = hasRedAlert ? '#ef4444' : (hasYellowAlert ? '#f59e0b' : '#10b981');
+            const boxBg = hasRedAlert ? '#1b1016' : (hasYellowAlert ? '#16131c' : '#06201a');
+            drawRoundedRect(ctx, 40, yAlertBox, W - 80, boxH, 14, boxBg, boxBorder, 2);
+
+            let curY = yAlertBox + 18;
+            focusList.slice(0, numItems).forEach(item => {
+              const ath = item.ath;
+              const btype = item.badgeType;
+              let tagC = '#10b981';
+              let subC = '#6ee7b7';
+              if (btype === 'red') {
+                tagC = '#ef4444';
+                subC = '#fca5a5';
+              } else if (btype === 'yellow') {
+                tagC = '#f59e0b';
+                subC = '#fde68a';
+              }
+
+              ctx.beginPath();
+              ctx.arc(66, curY + 12, 6, 0, Math.PI * 2);
+              ctx.fillStyle = tagC;
+              ctx.fill();
+
+              ctx.fillStyle = tagC;
+              ctx.font = 'bold 24px system-ui, sans-serif';
+              ctx.fillText(`#${ath.id} ${ath.name} (${ath.role})  ${item.badgeLbl}`, 85, curY + 18);
+
+              ctx.fillStyle = subC;
+              ctx.font = '22px system-ui, sans-serif';
+              ctx.fillText(item.details, 85, curY + 46);
+
+              curY += 62;
+            });
+          } else {
+            drawRoundedRect(ctx, 40, yAlertBox, W - 80, boxH, 14, '#06201a', '#10b981', 2);
+            ctx.fillStyle = '#6ee7b7';
+            ctx.font = 'bold 23px system-ui, sans-serif';
+            ctx.fillText('✓ Tutte le atlete sono in fascia VERDE. Nessun valore fuori soglia registrato.', 60, yAlertBox + 42);
           }
-          const tagEmoji = traffic.type === 'green' ? '🟢' : (traffic.type === 'yellow' ? '🟡' : '🔴');
-          const surname = a.name.split(' ').pop();
-          const roleShort = a.role.slice(0, 1);
-          rosterLines.push(`${tagEmoji} #${a.id} ${surname} (${roleShort}) | R:${w.readiness ?? '-'} S:${w.sonno ?? '-'} E:${w.fatica ?? '-'} D:${w.dolori ?? '-'} St:${w.stress ?? '-'}`);
-        } else {
-          const surname = a.name.split(' ').pop();
-          const roleShort = a.role.slice(0, 1);
-          rosterLines.push(`⚪ #${a.id} ${surname} (${roleShort}) | _Non compilato_`);
+
+          // TABELLA ROSTER (13 ATLETE)
+          const yTable = yAlertBox + boxH + 35;
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 30px system-ui, sans-serif';
+          ctx.fillText('STATUS INDIVIDUALE ROSTER (13 ATLETE)', 40, yTable + 24);
+
+          const yTh = yTable + 45;
+          drawRoundedRect(ctx, 40, yTh, W - 80, 45, 8, '#1e293b', null);
+          ctx.fillStyle = '#94a3b8';
+          ctx.font = 'bold 23px system-ui, sans-serif';
+          ctx.fillText('ATLETA', 60, yTh + 30);
+          ctx.fillText('RUOLO', 390, yTh + 30);
+          ctx.fillText('SONNO', 550, yTh + 30);
+          ctx.fillText('ENERGIA', 670, yTh + 30);
+          ctx.fillText('DOLORI', 790, yTh + 30);
+          ctx.fillStyle = '#f59e0b';
+          ctx.fillText('READINESS', 910, yTh + 30);
+
+          let yRow = yTh + 52;
+          ROSTER.forEach((a, idx) => {
+            const w = (typeof liveWellnessData !== 'undefined' && liveWellnessData[a.id]) ? liveWellnessData[a.id] : null;
+            const bgRow = (idx % 2 === 0) ? '#0c1427' : '#070c18';
+            drawRoundedRect(ctx, 40, yRow, W - 80, 56, 6, bgRow, null);
+
+            if (w && w.isToday) {
+              const rd = w.readiness;
+              const so = w.sonno;
+              const en = w.fatica;
+              const doVal = w.dolori || 0;
+              const st = w.stress;
+
+              const isAthRed = (rd !== null && rd <= 5) || (so !== null && so <= 5) || (en !== null && en <= 5) || (doVal >= 5) || (st !== null && st >= 5);
+              const hasAth2ndYellow = (doVal === 4) || (rd === 6) || (so === 6) || (en === 6) || (st === 4);
+              let cY = 0;
+              if (doVal === 3 || doVal === 4) cY++;
+              if (rd !== null && (rd === 6 || rd === 7)) cY++;
+              if (so !== null && (so === 6 || so === 7)) cY++;
+              if (en !== null && (en === 6 || en === 7)) cY++;
+              if (st === 4) cY++;
+              const hasAth4Yellows = cY >= 4;
+
+              const dotC = isAthRed ? '#ef4444' : ((hasAth2ndYellow || hasAth4Yellows) ? '#f59e0b' : '#10b981');
+
+              ctx.beginPath();
+              ctx.arc(63, yRow + 28, 8, 0, Math.PI * 2);
+              ctx.fillStyle = dotC;
+              ctx.fill();
+
+              ctx.fillStyle = '#ffffff';
+              ctx.font = 'bold 24px system-ui, sans-serif';
+              ctx.fillText(`#${a.id} ${a.name}`, 85, yRow + 36);
+
+              ctx.fillStyle = '#94a3b8';
+              ctx.font = '23px system-ui, sans-serif';
+              ctx.fillText(a.role, 390, yRow + 36);
+
+              const cSo = (so !== null && so >= 8) ? '#10b981' : ((so !== null && so >= 6) ? '#f59e0b' : '#ef4444');
+              const cEn = (en !== null && en >= 8) ? '#10b981' : ((en !== null && en >= 6) ? '#f59e0b' : '#ef4444');
+              const cDo = (doVal <= 2) ? '#10b981' : ((doVal <= 4) ? '#f59e0b' : '#ef4444');
+              const cRd = (rd !== null && rd >= 8) ? '#10b981' : ((rd !== null && rd >= 6) ? '#f59e0b' : '#ef4444');
+
+              ctx.font = 'bold 24px system-ui, sans-serif';
+              ctx.fillStyle = cSo;
+              ctx.fillText(so !== null ? `${so}/10` : '-/10', 565, yRow + 36);
+
+              ctx.fillStyle = cEn;
+              ctx.fillText(en !== null ? `${en}/10` : '-/10', 685, yRow + 36);
+
+              ctx.fillStyle = cDo;
+              ctx.fillText(`${doVal}/10`, 805, yRow + 36);
+
+              ctx.fillStyle = cRd;
+              ctx.fillText(rd !== null ? `${rd}/10` : '-/10', 925, yRow + 36);
+            } else {
+              ctx.beginPath();
+              ctx.arc(63, yRow + 28, 8, 0, Math.PI * 2);
+              ctx.fillStyle = '#64748b';
+              ctx.fill();
+
+              ctx.fillStyle = '#64748b';
+              ctx.font = '24px system-ui, sans-serif';
+              ctx.fillText(`#${a.id} ${a.name}`, 85, yRow + 36);
+              ctx.fillText(a.role, 390, yRow + 36);
+
+              ctx.font = 'italic 22px system-ui, sans-serif';
+              ctx.fillText('— Non compilato stamattina —', 565, yRow + 36);
+            }
+
+            yRow += 62;
+          });
+
+          // Footer
+          ctx.strokeStyle = '#1e293b';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(40, H - 70);
+          ctx.lineTo(W - 40, H - 70);
+          ctx.stroke();
+
+          ctx.fillStyle = '#64748b';
+          ctx.font = 'italic 22px system-ui, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('Marsala Volley S&C Command Center · Serie A2 Femminile', W / 2, H - 40);
+          ctx.textAlign = 'left';
+
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const dataUrl = canvas.toDataURL('image/png');
+              resolve({ blob, dataUrl });
+            } else {
+              reject(new Error('Canvas blob generation failed'));
+            }
+          }, 'image/png');
+        } catch (err) {
+          reject(err);
         }
       });
+    }
 
-      const avgPct = readinessCount > 0 ? Math.round((totalReadiness / readinessCount) * 10) : '--';
+    async function shareWellnessReportWhatsApp() {
+      const modal = document.getElementById('wellness-image-report-modal');
+      const loader = document.getElementById('report-img-loading');
+      const previewImg = document.getElementById('report-img-preview');
+      if (modal) modal.classList.add('active');
+      if (loader) {
+        loader.style.display = 'flex';
+        loader.innerHTML = '<span>⏳ Generazione infografica in corso...</span>';
+      }
+      if (previewImg) previewImg.style.display = 'none';
 
-      let msg = '🏐 *MARSALA VOLLEY — DAILY REPORT* 🏐\n';
-      msg += '📅 *' + capDate + '*\n\n';
+      try {
+        const { blob, dataUrl } = await generateWellnessInfographicBlob();
+        currentReportImageBlob = blob;
+        const now = new Date();
+        const dStr = now.toISOString().slice(0, 10);
+        const fileName = `Report_Wellness_Marsala_${dStr}.png`;
+        currentReportImageFile = new File([blob], fileName, { type: 'image/png' });
 
-      msg += '📊 *QUADRO GENERALE SQUADRA:*\n';
-      msg += '• Readiness Media: *' + avgPct + '%* ' + (avgPct !== '--' && avgPct >= 75 ? '🟢' : (avgPct !== '--' && avgPct >= 60 ? '🟡' : '🔴')) + '\n';
-      msg += '• Compilazione: *' + countFilled + ' / ' + ROSTER.length + ' Atlete*\n';
-      msg += '• Atlete da Monitorare: *' + alerts.length + '*\n\n';
+        if (previewImg) {
+          previewImg.src = dataUrl;
+          previewImg.style.display = 'block';
+        }
+        if (loader) loader.style.display = 'none';
+        showCoachToast('📸 Infografica generata con successo! Scegli se condividere o copiare.');
+      } catch (e) {
+        console.error('Errore generazione infografica:', e);
+        if (loader) loader.innerHTML = '<span style="color:#ef4444;">❌ Errore nella generazione grafica del report.</span>';
+        showCoachToast('❌ Errore durante la creazione del report grafico');
+      }
+    }
 
-      if (alerts.length > 0) {
-        msg += '🚨 *SEGNALAZIONI & FASTIDI:*\n';
-        alerts.forEach(item => {
-          const em = item.traffic.type === 'red' ? '🔴' : '🟡';
-          msg += em + ' *#' + item.ath.id + ' ' + item.ath.name + '* (' + item.ath.role + ')\n';
-          if (item.w.dolori !== null && item.w.dolori >= 4) msg += '   • Dolori: *' + item.w.dolori + '/10*\n';
-          if (item.w.fatica !== null && item.w.fatica <= 6) msg += '   • Energia: *' + item.w.fatica + '/10*\n';
-          if (item.w.sonno !== null && item.w.sonno <= 6) msg += '   • Sonno: *' + item.w.sonno + '/10*\n';
-          if (item.w.readiness !== null && item.w.readiness <= 6) msg += '   • Readiness: *' + item.w.readiness + '/10*\n';
-          if (item.w.stress !== null && item.w.stress >= 4) msg += '   • Stress: *' + item.w.stress + '/10*\n';
-          if (item.w.note) msg += '   💬 _"' + item.w.note + '"_\n';
-        });
-        msg += '\n';
-      } else {
-        msg += '✅ *Nessuna segnalazione critica o dolore segnalato stamattina.*\n\n';
+    async function shareReportImageNative() {
+      if (!currentReportImageBlob && !currentReportImageFile) {
+        showCoachToast('⚠️ Immagine non ancora generata.');
+        return;
+      }
+      try {
+        if (navigator.canShare && navigator.canShare({ files: [currentReportImageFile] })) {
+          await navigator.share({
+            files: [currentReportImageFile],
+            title: 'Report Wellness Marsala Volley'
+          });
+          showCoachToast('✅ Immagine condivisa!');
+          return;
+        }
+      } catch (err) {
+        if (err.name === 'AbortError') return;
       }
 
-      msg += '👥 *DETTAGLIO ROSTER:*\n';
-      msg += rosterLines.join('\n') + '\n\n';
+      await copyReportImageToClipboard();
+      showCoachToast('📋 Condivisione file non supportata dal dispositivo. Immagine copiata negli appunti!');
+      window.open('https://web.whatsapp.com/', '_blank');
+    }
 
-      msg += '🔗 *Command Center:* https://pamangiapane-lgtm.github.io/schede-allenamento/coach/';
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(msg).catch(() => {});
+    async function copyReportImageToClipboard() {
+      if (!currentReportImageBlob) {
+        showCoachToast('⚠️ Immagine non ancora generata.');
+        return;
       }
-      showCoachToast('📋 Report copiato negli appunti! Seleziona il gruppo Staff su WhatsApp.');
-      const waUrl = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(msg);
-      window.open(waUrl, '_blank');
+      try {
+        if (navigator.clipboard && navigator.clipboard.write) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': currentReportImageBlob })
+          ]);
+          showCoachToast('📋 Immagine copiata negli appunti! Incollala direttamente (Ctrl+V) su WhatsApp.');
+          return;
+        }
+      } catch (err) {
+        console.warn('Clipboard write failed:', err);
+      }
+      downloadReportImage();
+      showCoachToast('⬇️ Copia diretta non supportata dal browser: immagine scaricata, allegala alla chat WhatsApp!');
+    }
+
+    function downloadReportImage() {
+      if (!currentReportImageBlob) {
+        showCoachToast('⚠️ Immagine non ancora generata.');
+        return;
+      }
+      const now = new Date();
+      const dStr = now.toISOString().slice(0, 10);
+      const fileName = `Report_Wellness_Marsala_${dStr}.png`;
+      const url = URL.createObjectURL(currentReportImageBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 3000);
+      showCoachToast(`⬇️ Immagine salvata come ${fileName}`);
+    }
+
+    function closeWellnessImageReportModal() {
+      const modal = document.getElementById('wellness-image-report-modal');
+      if (modal) modal.classList.remove('active');
     }
 
     /* ==========================================
@@ -6305,6 +6721,46 @@ Marsala Volley S&C Command Center`;
       <!-- List of missing athletes -->
       <div id="reminder-modal-list" style="padding:14px 16px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;max-height:60vh;">
         <!-- Filled dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Invio Report Grafico Staff -->
+  <div id="wellness-image-report-modal" class="reminder-modal-overlay" onclick="if(event.target===this) closeWellnessImageReportModal()">
+    <div class="reminder-modal-sheet" style="max-width:540px;max-height:92vh;display:flex;flex-direction:column;" onclick="event.stopPropagation()">
+      <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;background:#091222;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:1.2rem;">📸</span>
+          <div>
+            <div style="font-size:0.95rem;font-weight:800;color:#fff;">Report Grafico Wellness Staff</div>
+            <div style="font-size:0.7rem;color:var(--mv-muted);">Infografica HD pronta per l'invio manuale su WhatsApp</div>
+          </div>
+        </div>
+        <button onclick="closeWellnessImageReportModal()" style="background:transparent;border:none;color:#94a3b8;font-size:1.3rem;cursor:pointer;padding:4px 8px;line-height:1;">✕</button>
+      </div>
+      <div style="padding:12px 16px;overflow-y:auto;text-align:center;background:#040711;flex:1;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div id="report-img-loading" style="color:var(--mv-muted);font-size:0.85rem;display:flex;align-items:center;gap:8px;">
+          <span>⏳ Generazione infografica in corso...</span>
+        </div>
+        <img id="report-img-preview" style="display:none;width:100%;max-width:380px;height:auto;border-radius:8px;border:1px solid rgba(255,255,255,0.1);box-shadow:0 8px 30px rgba(0,0,0,0.6);" alt="Report Wellness Oggi" />
+      </div>
+      <div style="padding:12px 16px;background:#091222;border-top:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button id="btn-share-report-img" onclick="shareReportImageNative()" style="flex:1;min-width:160px;background:rgba(37,211,102,0.2);border:1px solid #25d366;color:#86efac;font-weight:800;padding:9px 12px;border-radius:8px;font-size:0.82rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;">
+            <span>📲 Condividi su WhatsApp</span>
+          </button>
+          <button onclick="copyReportImageToClipboard()" style="flex:1;min-width:140px;background:rgba(245,158,11,0.15);border:1px solid var(--mv-amber);color:var(--mv-gold-text);font-weight:800;padding:9px 12px;border-radius:8px;font-size:0.82rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;">
+            <span>📋 Copia Immagine</span>
+          </button>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:space-between;align-items:center;">
+          <button onclick="downloadReportImage()" style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:#cbd5e1;font-weight:600;padding:6px 12px;border-radius:6px;font-size:0.75rem;cursor:pointer;">
+            ⬇️ Scarica PNG
+          </button>
+          <button onclick="window.open('https://web.whatsapp.com/', '_blank')" style="background:transparent;border:none;color:#94a3b8;font-size:0.75rem;text-decoration:underline;cursor:pointer;">
+            Apri WhatsApp Web ↗
+          </button>
+        </div>
       </div>
     </div>
   </div>
