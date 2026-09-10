@@ -1146,13 +1146,14 @@
                 <tr>
                   <th>Atleta</th>
                   <th>Esercizio</th>
+                  <th>Carico</th>
                   <th>Velocità Media</th>
                   <th>Seduta</th>
                   <th>Data & Ora</th>
                 </tr>
               </thead>
               <tbody id="tbl-vbt-body">
-                <tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento dati VBT...</td></tr>
+                <tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Caricamento dati VBT...</td></tr>
               </tbody>
             </table>
           </div>
@@ -2064,7 +2065,7 @@
         });
 
         const customLoadsMap = {};
-        const seenVBT = new Set();
+        const latestVBTMap = new Map();
         const seenCMJ = new Set();
 
         rows.forEach(r => {
@@ -2108,50 +2109,57 @@
               if (vel >= 5 && vel <= 150 && !valStr.includes('.')) vel = vel / 100;
             }
             if (vel !== null && vel >= 0.25 && vel <= 2.5) {
-              const base = TRUE_BASELINES[aid] || {};
-              const sq1RM = live1RMData[aid]?.squat || base.squat || 0;
-              const bw = live1RMData[aid]?.bw || BASELINE_WEIGHTS[aid] || 65;
-              
-              // Calcolo carico Back Squat (target 75% o specificato)
-              let loadKg = 0;
-              const kgMatch = String(r.Kg_Usati || r.kg_usati || '').replace(',', '.').match(/\d+(?:\.\d+)?/);
-              if (kgMatch && parseFloat(kgMatch[0]) >= 20) {
-                loadKg = parseFloat(kgMatch[0]);
-              } else if (sq1RM > 0) {
-                loadKg = Math.max(0, Math.round(((0.75 * (sq1RM + bw)) - bw) * 2) / 2);
-              }
-
-              // Unificazione doppi log per atleta e seduta
+              // Unificazione sessione e determinazione target % (W3 S1 = 75%, W3 S2 = 80%, W3 S3 = 70%)
               let cleanSessKey = 'W3_1';
               let sessionLabel = 'W3 · Seduta 1';
+              let targetPct = 75;
+
               const nUp = nSeduta.toUpperCase();
-              if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || rDate === '2026-09-09') {
+              if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || rDate === '2026-09-09' || ex.includes('3b')) {
                 cleanSessKey = 'W3_2';
                 sessionLabel = 'W3 · Seduta 2';
-              } else if (nUp.includes('VEN') || nUp.includes('S3') || nUp.endsWith('_3') || rDate === '2026-09-11') {
+                targetPct = 80;
+              } else if (nUp.includes('VEN') || nUp.includes('S3') || nUp.endsWith('_3') || rDate === '2026-09-11' || ex.includes('3c')) {
                 cleanSessKey = 'W3_3';
                 sessionLabel = 'W3 · Seduta 3';
+                targetPct = 70;
               } else if (nUp.includes('W2')) {
                 cleanSessKey = nSeduta;
                 sessionLabel = nSeduta;
+                targetPct = 75;
               }
 
-              const vbtKey = `${aid}_${rDate || cleanSessKey}_${loadKg}_${vel.toFixed(2)}`;
-              if (!seenVBT.has(vbtKey)) {
-                seenVBT.add(vbtKey);
-                const rec = {
-                  aid: aid,
-                  athName: athName,
-                  role: athRole,
-                  exercise: exRaw || 'Squat (Parallelo)',
-                  vel: parseFloat(vel.toFixed(2)),
-                  kg: loadKg,
-                  session: sessionLabel,
-                  date: rDate || (cleanSessKey === 'W3_2' ? '2026-09-09' : '2026-09-07'),
-                  ts: ts
-                };
-                liveVBTData.push(rec);
-                rawVBTRecords.push(rec);
+              const base = TRUE_BASELINES[aid] || {};
+              const sq1RM = (live1RMData[aid] && live1RMData[aid].squat) ? live1RMData[aid].squat : (base.squat || 0);
+              const bw = (live1RMData[aid] && live1RMData[aid].bw) ? live1RMData[aid].bw : (BASELINE_WEIGHTS[aid] || 65);
+              
+              // Calcolo carico Back Squat: priorità all'ultimo carico manuale segnato dall'atleta, altrimenti formula ufficiale: (pct * (1RM + BW) - BW)
+              let loadKg = 0;
+              const kgMatch = String(r.Kg_Usati || r.kg_usati || '').replace(',', '.').match(/\d+(?:\.\d+)?/);
+              if (kgMatch && parseFloat(kgMatch[0]) >= 20 && Math.abs(parseFloat(kgMatch[0]) - vel) > 0.05) {
+                loadKg = parseFloat(kgMatch[0]);
+              } else if (sq1RM > 0) {
+                loadKg = Math.max(0, Math.round(((targetPct / 100) * (sq1RM + bw) - bw) * 2) / 2);
+              }
+
+              const athSessKey = `${aid}_${cleanSessKey}`;
+              const rec = {
+                aid: aid,
+                athName: athName,
+                role: athRole,
+                exercise: exRaw || 'Squat (Parallelo)',
+                vel: parseFloat(vel.toFixed(2)),
+                kg: loadKg,
+                pct: targetPct,
+                session: sessionLabel,
+                date: rDate || (cleanSessKey === 'W3_2' ? '2026-09-09' : '2026-09-07'),
+                ts: ts
+              };
+
+              // Se l'atleta ha registrato più serie o ha cambiato carico, prendi l'ultimo segnato
+              const prev = latestVBTMap.get(athSessKey);
+              if (!prev || (ts && (!prev.ts || ts >= prev.ts))) {
+                latestVBTMap.set(athSessKey, rec);
               }
             }
             return; // Esci per non inquinare altre categorie
@@ -2362,6 +2370,10 @@
             }
           }
         });
+
+        // Estrai rilevazioni VBT deduplicate (ultimo record registrato per sessione)
+        liveVBTData = Array.from(latestVBTMap.values());
+        rawVBTRecords = [...liveVBTData];
 
         // Estrai carichi accessori deduplicati (più recenti per primi)
         liveCustomLoads = Object.values(customLoadsMap);
@@ -3242,7 +3254,7 @@
       if (badgeTot) badgeTot.textContent = `${liveVBTData.length} rilevazioni`;
 
       if (liveVBTData.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessuna rilevazione VBT registrata finora.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessuna rilevazione VBT registrata finora.</td></tr>`;
         return;
       }
 
@@ -3275,6 +3287,10 @@
           <tr>
             <td><strong>${v.athName}</strong> <span style="font-size:0.7rem;color:var(--mv-muted)">(${v.role})</span></td>
             <td><span style="font-size:0.8rem;color:#cbd5e1">${v.exercise}</span></td>
+            <td>
+              <strong style="color:#fde68a;font-size:0.85rem;">${v.kg ? v.kg + ' kg' : '—'}</strong>
+              <span style="font-size:0.7rem;color:var(--mv-muted);margin-left:4px;">(${v.pct || (v.session && v.session.includes('2') ? 80 : 75)}%)</span>
+            </td>
             <td>
               <span style="display:inline-block;padding:3px 10px;border-radius:6px;font-weight:800;background:#090f1d;border:1px solid ${badgeColor};color:${badgeColor};font-size:0.88rem;">
                 ${v.vel} m/s
@@ -4924,12 +4940,12 @@ function renderPerfAnalytics() {
 
     const allKgs = validVbt.map(v => v.kg);
     const minKg = allKgs.length ? Math.min(...allKgs) : 30;
-    const maxKg = allKgs.length ? Math.max(...allKgs) : 90;
+    const maxKg = allKgs.length ? Math.max(...allKgs) : 115;
 
-    const ATH_PALETTE = ['#38bdf8', '#f59e0b', '#ec4899', '#10b981', '#a855f7', '#06b6d4'];
+    const ATH_PALETTE = ['#38bdf8', '#f59e0b', '#ec4899', '#10b981', '#a855f7', '#06b6d4', '#f97316', '#84cc16', '#e11d48', '#14b8a6', '#6366f1', '#eab308', '#d946ef'];
     let vbtDatasets = [];
 
-    if (!isPerfSquadra() && perfSelectedAthletes.length <= 4) {
+    if (!isPerfSquadra()) {
       perfSelectedAthletes.forEach((aid, idx) => {
         const ath = ROSTER.find(x => x.id === aid);
         const aName = ath ? `#${ath.id} ${ath.name.split(' ')[1] || ath.name}` : `Atleta #${aid}`;
@@ -4941,9 +4957,18 @@ function renderPerfAnalytics() {
             x: v.kg,
             y: v.vel,
             ath: aName,
+            pct: v.pct,
             session: v.session,
             date: v.date
           }));
+
+          if (perfSelectedAthletes.length === 1 && sortedVbt.length >= 2) {
+            const dKg = (sortedVbt[sortedVbt.length - 1].kg - sortedVbt[0].kg).toFixed(1);
+            const dV = (sortedVbt[sortedVbt.length - 1].vel - sortedVbt[0].vel).toFixed(2);
+            if (subEl) {
+              subEl.textContent = `${sortedVbt.length} rilevazioni · Profilo F-V: ${sortedVbt[0].kg}kg (${sortedVbt[0].pct || 75}%) @ ${sortedVbt[0].vel} m/s ➔ ${sortedVbt[sortedVbt.length - 1].kg}kg (${sortedVbt[sortedVbt.length - 1].pct || 80}%) @ ${sortedVbt[sortedVbt.length - 1].vel} m/s (Δ: +${dKg}kg, ${dV > 0 ? '+' : ''}${dV} m/s)`;
+            }
+          }
 
           vbtDatasets.push({
             type: 'line',
@@ -4952,7 +4977,7 @@ function renderPerfAnalytics() {
             borderColor: col,
             backgroundColor: perfSelectedAthletes.length === 1 ? 'rgba(56, 189, 248, 0.12)' : 'transparent',
             borderWidth: 2.5,
-            tension: 0.2,
+            tension: 0,
             pointRadius: 6,
             pointHoverRadius: 9,
             pointBackgroundColor: col,
@@ -4980,7 +5005,7 @@ function renderPerfAnalytics() {
       vbtDatasets.push({
         type: 'scatter',
         label: 'Test Atlete',
-        data: validVbt.map(v => ({ x: v.kg, y: v.vel, ath: v.athName, session: v.session, date: v.date })),
+        data: validVbt.map(v => ({ x: v.kg, y: v.vel, ath: v.athName, pct: v.pct, session: v.session, date: v.date })),
         borderColor: '#38bdf8',
         backgroundColor: 'rgba(56, 189, 248, 0.85)',
         pointRadius: 5,
@@ -4998,7 +5023,7 @@ function renderPerfAnalytics() {
           backgroundColor: 'transparent',
           borderWidth: 2.5,
           borderDash: [5, 4],
-          tension: 0.3,
+          tension: 0,
           pointRadius: 4,
           pointBackgroundColor: '#f59e0b',
           fill: false
@@ -5031,7 +5056,8 @@ function renderPerfAnalytics() {
                 if (!raw) return '';
                 if (raw.count) return `Media: ${raw.y} m/s su ${raw.x} kg (${raw.count} atlete)`;
                 const sess = raw.session ? ` · ${raw.session}` : (raw.date ? ` · ${raw.date}` : '');
-                return `Carico: ${raw.x} kg ➔ Velocità: ${raw.y} m/s${sess}`;
+                const pctStr = raw.pct ? ` (${raw.pct}%)` : '';
+                return `Carico: ${raw.x} kg${pctStr} ➔ Velocità: ${raw.y} m/s${sess}`;
               }
             }
           }
