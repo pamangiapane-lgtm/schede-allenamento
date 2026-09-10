@@ -402,10 +402,9 @@ const ROSTER = [
       "Ligamentous laxity",
       "Right scapular dyskinesis",
       "Left knee valgus",
-      "Right wrist cyst"
+      "Right wrist cyst: RISOLTA / RESOLVED (nessuna limitazione di carico)"
     ],
     "focus_areas": [
-      "Right wrist protection (neutral grips)",
       "Left ankle stability & dynamic anti-valgus",
       "Hamstrings eccentric stiffness",
       "Scapulo-thoracic control"
@@ -419,7 +418,7 @@ const ROSTER = [
     },
     "offseason_sessions": 0,
     "turno": "🔴 SHIFT 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\"",
-    "rischio_clinico": "🟡/🔴 MEDIUM-HIGH (Ligamentous Laxity + Right Scapular Dyskinesis + Left Knee Valgus + Right Wrist Cyst)",
+    "rischio_clinico": "🟡 MEDIUM (Ligamentous Laxity + Right Scapular Dyskinesis + Left Knee Valgus — Cisti Polso Risolta)",
     "bw": 70.0
   }
 ];
@@ -748,7 +747,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer Walk un manubrio (Suitcase carry)",
+              "Esercizio": "4B. Farmer March un manubrio (Suitcase carry)",
               "Set x Reps": "2 x 20m /lato @ 10-15 kg",
               "Tempo": "Camminata",
               "Note Tecniche": "Anti-flessione laterale"
@@ -1039,11 +1038,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "12 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -1295,11 +1294,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "14 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -1551,11 +1550,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "14 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -1807,11 +1806,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Single Dumbbell Suitcase Carry",
+              "Esercizio": "4A. Single Dumbbell Farmer March (Suitcase Carry)",
               "Set x Reps": "2 x 20m /side",
               "Carico (kg/RPE)": "15 kg",
-              "Tempo": "Walking",
-              "Note Tecniche": "Unilateral load, anti-lateral flexion and strong grip"
+              "Tempo": "Marching",
+              "Note Tecniche": "High-knee marching with unilateral dumbbell, strict anti-lateral trunk flexion and solid grip"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -2063,11 +2062,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "10 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -2319,11 +2318,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "12 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -2575,11 +2574,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "14 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -2831,11 +2830,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "15 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -3087,11 +3086,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "12 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -3423,35 +3422,35 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Accessories",
-              "Esercizio": "4. Flor chest press",
+              "Esercizio": "4. Dumbbell chest press",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"14\" - \"12\" - \"10\"",
               "Tempo": "2010",
-              "Note Tecniche": "Floor press with dumbbells, neutral/semi-neutral grip to protect right wrist cyst."
+              "Note Tecniche": "Right wrist cyst resolved/healed. Dumbbell chest press with standard grip, full pressing power without restriction."
             },
             {
-              "blocco": "# Babdominals + Transfer",
-              "Esercizio": "1. Clean to split pos",
-              "Set x Reps": "3 x 2+2",
-              "Carico (kg/RPE)": "30 - 35 kg",
-              "Tempo": "10X0",
-              "Note Tecniche": "Power clean with rapid split catch, testing dynamic balance."
+              "blocco": "# Core & Recovery",
+              "Esercizio": "1. Single DB Farmer march (Suitcase carry)",
+              "Set x Reps": "2 x 20m /side",
+              "Carico (kg/RPE)": "10 - 15 kg",
+              "Tempo": "Marching",
+              "Note Tecniche": "High-knee marching carrying 1 dumbbell. Anti-lateral trunk flexion, proud chest, strong grip and core bracing."
             },
             {
-              "blocco": "# Babdominals + Transfer",
-              "Esercizio": "2. Flor ball throws",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "X",
-              "Note Tecniche": "Explosive floor slam, maximal hip-to-arm coordination."
-            },
-            {
-              "blocco": "# Babdominals + Transfer",
-              "Esercizio": "3. Abdominals - self exercises",
-              "Set x Reps": "2 x 8+8 / 20\"",
+              "blocco": "# Core & Recovery",
+              "Esercizio": "2. Foam roller myofascial release — lower back",
+              "Set x Reps": "2 x 45\"-60\"",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "2020",
-              "Note Tecniche": "Bodyweight core exercises focusing on pelvic tilt and lumbo-pelvic control."
+              "Tempo": "Slow & deep",
+              "Note Tecniche": "Targeted trigger point release for lumbar erectors and QL, gentle rolling and decompression before weekend."
+            },
+            {
+              "blocco": "# Core & Recovery",
+              "Esercizio": "🛑 STRICT FRIDAY JUMP BAN",
+              "Set x Reps": "-",
+              "Carico (kg/RPE)": "-",
+              "Tempo": "-",
+              "Note Tecniche": "ZERO JUMPS. Transfer block removed for pre-match recovery. Fresh elastic legs for Saturday friendly."
             }
           ]
         },
@@ -4026,11 +4025,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "10 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -4282,11 +4281,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "12 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -4538,11 +4537,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "14 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -4885,7 +4884,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer Walk un manubrio (Suitcase carry)",
+              "Esercizio": "4B. Farmer March un manubrio (Suitcase carry)",
               "Set x Reps": "2 x 20m /lato @ 10-15 kg",
               "Tempo": "Camminata",
               "Note Tecniche": "Anti-flessione laterale"
@@ -5176,11 +5175,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "12 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -5432,11 +5431,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "14 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -5688,11 +5687,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "14 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -5944,11 +5943,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Single Dumbbell Suitcase Carry",
+              "Esercizio": "4A. Single Dumbbell Farmer March (Suitcase Carry)",
               "Set x Reps": "2 x 20m /side",
               "Carico (kg/RPE)": "15 kg",
-              "Tempo": "Walking",
-              "Note Tecniche": "Unilateral load, anti-lateral flexion and strong grip"
+              "Tempo": "Marching",
+              "Note Tecniche": "High-knee marching with unilateral dumbbell, strict anti-lateral trunk flexion and solid grip"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -6200,11 +6199,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "10 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -6456,11 +6455,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "12 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -6712,11 +6711,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "14 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -6968,11 +6967,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "15 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -7224,11 +7223,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "12 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -7560,35 +7559,35 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Accessories",
-              "Esercizio": "4. Flor chest press",
+              "Esercizio": "4. Dumbbell chest press",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"14\" - \"12\" - \"10\"",
               "Tempo": "2010",
-              "Note Tecniche": "Floor press with dumbbells, neutral/semi-neutral grip to protect right wrist cyst."
+              "Note Tecniche": "Right wrist cyst resolved/healed. Dumbbell chest press with standard grip, full pressing power without restriction."
             },
             {
-              "blocco": "# Babdominals + Transfer",
-              "Esercizio": "1. Clean to split pos",
-              "Set x Reps": "3 x 2+2",
-              "Carico (kg/RPE)": "30 - 35 kg",
-              "Tempo": "10X0",
-              "Note Tecniche": "Power clean with rapid split catch, testing dynamic balance."
+              "blocco": "# Core & Recovery",
+              "Esercizio": "1. Single DB Farmer march (Suitcase carry)",
+              "Set x Reps": "2 x 20m /side",
+              "Carico (kg/RPE)": "10 - 15 kg",
+              "Tempo": "Marching",
+              "Note Tecniche": "High-knee marching carrying 1 dumbbell. Anti-lateral trunk flexion, proud chest, strong grip and core bracing."
             },
             {
-              "blocco": "# Babdominals + Transfer",
-              "Esercizio": "2. Flor ball throws",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "X",
-              "Note Tecniche": "Explosive floor slam, maximal hip-to-arm coordination."
-            },
-            {
-              "blocco": "# Babdominals + Transfer",
-              "Esercizio": "3. Abdominals - self exercises",
-              "Set x Reps": "2 x 8+8 / 20\"",
+              "blocco": "# Core & Recovery",
+              "Esercizio": "2. Foam roller myofascial release — lower back",
+              "Set x Reps": "2 x 45\"-60\"",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "2020",
-              "Note Tecniche": "Bodyweight core exercises focusing on pelvic tilt and lumbo-pelvic control."
+              "Tempo": "Slow & deep",
+              "Note Tecniche": "Targeted trigger point release for lumbar erectors and QL, gentle rolling and decompression before weekend."
+            },
+            {
+              "blocco": "# Core & Recovery",
+              "Esercizio": "🛑 STRICT FRIDAY JUMP BAN",
+              "Set x Reps": "-",
+              "Carico (kg/RPE)": "-",
+              "Tempo": "-",
+              "Note Tecniche": "ZERO JUMPS. Transfer block removed for pre-match recovery. Fresh elastic legs for Saturday friendly."
             }
           ]
         },
@@ -8163,11 +8162,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "10 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -8419,11 +8418,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "12 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
@@ -8675,11 +8674,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer Walk con un manubrio (Suitcase Carry)",
+              "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
               "Carico (kg/RPE)": "14 kg",
-              "Tempo": "Camminata",
-              "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
+              "Tempo": "Marcia",
+              "Note Tecniche": "Marcia a ginocchia alte con carico monolaterale, anti-flessione laterale del tronco e presa forte"
             },
             {
               "Blocco": "# Core+Trans.",
