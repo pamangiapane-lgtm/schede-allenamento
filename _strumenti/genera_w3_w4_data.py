@@ -126,7 +126,7 @@ def parse_w4_item(it_str):
 
 def parse_w4_bullets(w4_text):
     sedute = {}
-    sed4_splits = re.split(r'####\s+SEDUTA\s+(\d)', w4_text, flags=re.IGNORECASE)
+    sed4_splits = re.split(r'####\s+(?:SEDUTA|SESSION)\s+(\d)', w4_text, flags=re.IGNORECASE)
     for i in range(1, len(sed4_splits), 2):
         s_num = int(sed4_splits[i])
         s_chunk = sed4_splits[i+1]
@@ -301,11 +301,11 @@ def parse_athlete_individual(ath_meta):
     ban = ban_m.group(1).strip() if ban_m else ""
 
     # Settimana 3
-    w3_m = re.search(r'###\s+SETTIMANA\s+3.*?(?=###\s+SETTIMANA\s+4|\Z)', text, re.DOTALL | re.IGNORECASE)
+    w3_m = re.search(r'###\s+(?:SETTIMANA|WEEK)\s+3.*?(?=###\s+(?:SETTIMANA|WEEK)\s+4|\Z)', text, re.DOTALL | re.IGNORECASE)
     w3_text = w3_m.group(0).strip() if w3_m else ""
 
     w3_sedute = {}
-    sed_splits = re.split(r'####\s+SEDUTA\s+(\d)', w3_text, flags=re.IGNORECASE)
+    sed_splits = re.split(r'####\s+(?:SEDUTA|SESSION)\s+(\d)', w3_text, flags=re.IGNORECASE)
     for i in range(1, len(sed_splits), 2):
         s_num = int(sed_splits[i])
         s_chunk = sed_splits[i+1]
@@ -314,7 +314,7 @@ def parse_athlete_individual(ath_meta):
         w3_sedute[s_num] = table_rows
 
     # Settimana 4
-    w4_m = re.search(r'###\s+SETTIMANA\s+4.*?(?=###\s+SETTIMANA\s+5|\Z)', text, re.DOTALL | re.IGNORECASE)
+    w4_m = re.search(r'###\s+(?:SETTIMANA|WEEK)\s+4.*?(?=###\s+(?:SETTIMANA|WEEK)\s+5|\Z)', text, re.DOTALL | re.IGNORECASE)
     w4_text = w4_m.group(0).strip() if w4_m else ""
     w4_sedute = parse_w4_bullets(w4_text)
 

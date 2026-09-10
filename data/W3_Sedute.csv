@@ -1,4 +1,4 @@
 Numero_Seduta,Nome_Seduta,Settimana,Giorno,Fase,Luogo,Durata_min,Note
-W3-LunP,Seduta 1,W3,Lunedì,Mattina,Palestra,55,Squat (Parallelo) VBT Enode (0.60-0.65 m/s) + Floor Press DB + Lat Machine neutra + Cluster Pogo
-W3-MerV,Seduta 2,W3,Mercoledì,Mattina,Palestra,52,Clean / Powerbag + Half Squat Dinamico 20X0 + Landmine Press + Single DB Row + Cluster Hurdles
-W3-VenR,Seduta 3,W3,Venerdì,Mattina,Palestra,40,RDL bilanciere 2x4 @ buffer 3 (RPE 6) + Pulley basso · STRICT FRIDAY JUMP BAN
+W3-LunP,Seduta 1 — Spinta Orizzontale & Trazione Verticale,W3,Lunedì,Mattina,Palestra,55,Box Squat 3010 (Enode 0.60-0.65 m/s) + Floor Press DB + Lat Machine neutra
+W3-MerV,Seduta 2 — Spinta Verticale & Trazione Orizzontale,W3,Mercoledì,Mattina,Palestra,52,Clean/Powerbag + Half Squat 20X0 + Landmine/Push Press + Single DB Row
+W3-VenR,Seduta 3 — Cerniera Posteriore & Richiamo Pre-Gara,W3,Venerdì,Mattina,Palestra,40,RDL bilanciere 2x4 @ buffer 3 (RPE 6-7) + Pulley basso · STRICT FRIDAY JUMP BAN
