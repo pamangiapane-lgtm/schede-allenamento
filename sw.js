@@ -1,10 +1,10 @@
 // Service Worker App Marsala Volley (v244-w3s2-restore)
-const CACHE_NAME = 'marsala-pwa-v247-farmer-march';
+const CACHE_NAME = 'marsala-pwa-v248-tennisball-powerclean';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260910v247',
+  './data.js?v=20260910v248',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',

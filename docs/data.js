@@ -3374,7 +3374,15 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Main Exercises",
-              "Esercizio": "1. Split squat",
+              "Esercizio": "1. Power clean",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "RPE 6 (30 - 35 kg)",
+              "Tempo": "10X0",
+              "Note Tecniche": "Sub-maximal technical power clean @ RPE 6 (speed of extension, fast elbows, catch in quarter squat) without accumulating neural fatigue."
+            },
+            {
+              "blocco": "# Main Exercises",
+              "Esercizio": "2. Split squat",
               "Set x Reps": "3 x 4+4",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "2010",
@@ -3382,7 +3390,7 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Main Exercises",
-              "Esercizio": "2. Pull Over",
+              "Esercizio": "3. Pull Over",
               "Set x Reps": "3 x 4, 3, 4",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
               "Tempo": "2010",
@@ -3390,7 +3398,7 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Main Exercises",
-              "Esercizio": "3. One hand DB row",
+              "Esercizio": "4. One hand DB row",
               "Set x Reps": "3 x 4, 3, 4 /side",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
               "Tempo": "1030",
@@ -3438,11 +3446,11 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Core & Recovery",
-              "Esercizio": "2. Foam roller myofascial release — lower back",
+              "Esercizio": "2. Tennis ball myofascial release — lower back",
               "Set x Reps": "2 x 45\"-60\"",
               "Carico (kg/RPE)": "BW",
               "Tempo": "Slow & deep",
-              "Note Tecniche": "Targeted trigger point release for lumbar erectors and QL, gentle rolling and decompression before weekend."
+              "Note Tecniche": "Targeted trigger point release using a tennis ball for lumbar erectors and QL, gentle deep pressure for localized spinal decompression before weekend."
             },
             {
               "blocco": "# Core & Recovery",
@@ -7511,7 +7519,15 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Main Exercises",
-              "Esercizio": "1. Split squat",
+              "Esercizio": "1. Power clean",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "RPE 6 (30 - 35 kg)",
+              "Tempo": "10X0",
+              "Note Tecniche": "Sub-maximal technical power clean @ RPE 6 (speed of extension, fast elbows, catch in quarter squat) without accumulating neural fatigue."
+            },
+            {
+              "blocco": "# Main Exercises",
+              "Esercizio": "2. Split squat",
               "Set x Reps": "3 x 4+4",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "2010",
@@ -7519,7 +7535,7 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Main Exercises",
-              "Esercizio": "2. Pull Over",
+              "Esercizio": "3. Pull Over",
               "Set x Reps": "3 x 4, 3, 4",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
               "Tempo": "2010",
@@ -7527,7 +7543,7 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Main Exercises",
-              "Esercizio": "3. One hand DB row",
+              "Esercizio": "4. One hand DB row",
               "Set x Reps": "3 x 4, 3, 4 /side",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
               "Tempo": "1030",
@@ -7575,11 +7591,11 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Core & Recovery",
-              "Esercizio": "2. Foam roller myofascial release — lower back",
+              "Esercizio": "2. Tennis ball myofascial release — lower back",
               "Set x Reps": "2 x 45\"-60\"",
               "Carico (kg/RPE)": "BW",
               "Tempo": "Slow & deep",
-              "Note Tecniche": "Targeted trigger point release for lumbar erectors and QL, gentle rolling and decompression before weekend."
+              "Note Tecniche": "Targeted trigger point release using a tennis ball for lumbar erectors and QL, gentle deep pressure for localized spinal decompression before weekend."
             },
             {
               "blocco": "# Core & Recovery",
