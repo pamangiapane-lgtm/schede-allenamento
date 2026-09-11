@@ -790,8 +790,7 @@ const WEEKS_DATA = {
         "dettagli": {
           "titolo": "Venerdì Pomeriggio — 45 min",
           "contenuto": [
-            "Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI\n*🛑 STRICT FRIDAY JUMP BAN: Nessun impatto pliometrico né salti verticali pre-amichevole.*\n1. **Attivazione Dinamica & Reset Miofasciale (10 min):**\n   - Mobilità globale anche, colonna toracica e catena posteriore; monster walk con elastico.\n2. **Agilità a Terra, Frequenza Rapida & Primi Passi (15 min):**\n   - Scaletta (*speed ladder*) a frequenza massimale (In-Out, Icky Shuffle) a piedi radenti il parquet.\n   - Primi passi esplosivi sui 3-4 metri con frenata elastica progressiva (NO salti).\n3. **SYNAPSE Avanzato & Decision-Making ad Alta Velocità (13 min):**\n   - Circuiti situazionali con comandi *Go / No-Go* (stimolo contraddittorio colore-voce): massima eccitabilità corticale.\n   - Footwork difensivo reattivo e reattività occhio-mano/occhio-piede senza fase di volo.\n4. **Decompressione & Priming Finale (7 min):**\n   - Lavoro isometrico decompressivo, respirazione diaframmatica. Squadra freschissima per il sabato."
-          ]
+            "Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI\n          ]
         }
       }
     ]
@@ -4832,8 +4831,7 @@ const WEEKS_DATA = {
           "dettagli": {
             "titolo": "Venerdì Pomeriggio — 45 min",
             "contenuto": [
-              "Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI\n*🛑 STRICT FRIDAY JUMP BAN: Nessun impatto pliometrico né salti verticali pre-amichevole.*\n1. **Attivazione Dinamica & Reset Miofasciale (10 min):**\n   - Mobilità globale anche, colonna toracica e catena posteriore; monster walk con elastico.\n2. **Agilità a Terra, Frequenza Rapida & Primi Passi (15 min):**\n   - Scaletta (*speed ladder*) a frequenza massimale (In-Out, Icky Shuffle) a piedi radenti il parquet.\n   - Primi passi esplosivi sui 3-4 metri con frenata elastica progressiva (NO salti).\n3. **SYNAPSE Avanzato & Decision-Making ad Alta Velocità (13 min):**\n   - Circuiti situazionali con comandi *Go / No-Go* (stimolo contraddittorio colore-voce): massima eccitabilità corticale.\n   - Footwork difensivo reattivo e reattività occhio-mano/occhio-piede senza fase di volo.\n4. **Decompressione & Priming Finale (7 min):**\n   - Lavoro isometrico decompressivo, respirazione diaframmatica. Squadra freschissima per il sabato."
-            ]
+              "Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI\n            ]
           }
         }
       ]
