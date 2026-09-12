@@ -2974,7 +2974,7 @@
               }
 
               if (badgeType) {
-                mCtx.font = 'italic 19px system-ui, sans-serif';
+                mCtx.font = 'italic 20px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
                 const noteLines = hasNote ? wrapText(mCtx, `"${w.note.trim()}"`, 870) : [];
                 focusList.push({
                   ath: a,
@@ -3002,9 +3002,9 @@
           let alertContentH = 0;
           if (focusList.length > 0) {
             focusList.forEach(item => {
-              let hItem = 30; // riga titolo atleta + badge + summary
+              let hItem = 34; // riga titolo atleta + badge + summary
               if (item.noteLines && item.noteLines.length > 0) {
-                hItem += 6 + (item.noteLines.length * 25); // righe nota
+                hItem += 8 + (item.noteLines.length * 27); // righe nota a 20px
               }
               hItem += 16; // margine tra atleti
               alertContentH += hItem;
@@ -3015,30 +3015,30 @@
           }
 
           // Pre-calcolo altezze tabella roster (con note per atleta)
-          mCtx.font = 'italic 18px system-ui, sans-serif';
+          mCtx.font = 'italic 20px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
           let rosterRowsTotalH = 0;
           const athleteNoteData = {};
           ROSTER.forEach(a => {
             const w = (typeof liveWellnessData !== 'undefined' && liveWellnessData[a.id]) ? liveWellnessData[a.id] : null;
-            let rowH = 60; // Altezza base generosa per riga
+            let rowH = 62; // Altezza base generosa per riga
             if (w && w.isToday && w.note && w.note.trim()) {
               const nLines = wrapText(mCtx, `"${w.note.trim()}"`, 870);
-              const noteBoxH = 34 + (nLines.length * 24);
+              const noteBoxH = 38 + (nLines.length * 27);
               athleteNoteData[a.id] = { lines: nLines, boxH: noteBoxH };
               rowH += noteBoxH + 10;
             }
             rosterRowsTotalH += rowH + 6;
           });
 
-          // Calcolo layout verticale proporzionato per riempire 1920px
+          // Calcolo layout verticale proporzionato per riempire l'immagine
           const yKpi = 220;
           const cardH = 130;
-          const yAlert = yKpi + cardH + 32;
+          const yAlert = yKpi + cardH + 34;
           const yAlertBox = yAlert + 38;
           const boxH = Math.max(70, alertContentH);
-          const yTable = yAlertBox + boxH + 34;
+          const yTable = yAlertBox + boxH + 36;
           const yTh = yTable + 42;
-          const tableHeaderH = 46;
+          const tableHeaderH = 50;
           const tableBottom = yTh + tableHeaderH + rosterRowsTotalH;
           const H = Math.ceil(tableBottom + 96);
 
@@ -3085,8 +3085,8 @@
           const monthsIt = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
           const dateStr = `${daysIt[now.getDay()]} ${now.getDate()} ${monthsIt[now.getMonth()]} ${now.getFullYear()}`;
 
-          ctx.fillStyle = '#8a99ad';
-          ctx.font = '21px system-ui, -apple-system, sans-serif';
+          ctx.fillStyle = '#cbd5e1';
+          ctx.font = '22px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
           ctx.fillText(`DAILY WELLNESS & READINESS REPORT · ${dateStr}`, xOffset, 134);
 
           // KPI CARDS (Matte / Desaturate)
@@ -3095,35 +3095,35 @@
           const colKpi1 = avgPct >= 75 ? '#3fb970' : (avgPct >= 60 ? '#cca045' : '#d45d5d');
 
           drawRoundedRect(ctx, 40, yKpi, cardW, cardH, 14, '#131c2b', '#202b3d', 1.5);
-          ctx.fillStyle = '#7e8f9f';
-          ctx.font = 'bold 21px system-ui, sans-serif';
+          ctx.fillStyle = '#cbd5e1';
+          ctx.font = 'bold 22px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
           ctx.fillText('READINESS SQUADRA', 60, yKpi + 42);
           ctx.fillStyle = colKpi1;
-          ctx.font = 'bold 50px system-ui, sans-serif';
-          ctx.fillText(`${avgPct}%`, 60, yKpi + 102);
+          ctx.font = 'bold 52px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+          ctx.fillText(`${avgPct}%`, 60, yKpi + 104);
 
           drawRoundedRect(ctx, 40 + cardW + 25, yKpi, cardW, cardH, 14, '#131c2b', '#202b3d', 1.5);
-          ctx.fillStyle = '#7e8f9f';
-          ctx.font = 'bold 21px system-ui, sans-serif';
+          ctx.fillStyle = '#cbd5e1';
+          ctx.font = 'bold 22px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
           ctx.fillText('COMPILAZIONE OGGI', 40 + cardW + 45, yKpi + 42);
           ctx.fillStyle = '#5694bf';
-          ctx.font = 'bold 50px system-ui, sans-serif';
-          ctx.fillText(`${countFilled} / ${ROSTER.length}`, 40 + cardW + 45, yKpi + 102);
+          ctx.font = 'bold 52px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+          ctx.fillText(`${countFilled} / ${ROSTER.length}`, 40 + cardW + 45, yKpi + 104);
 
           const hasRedAlert = focusList.some(x => x.badgeType === 'red');
           const hasYellowAlert = focusList.some(x => x.badgeType === 'yellow');
           const colAlert = hasRedAlert ? '#d45d5d' : (hasYellowAlert ? '#cca045' : '#3fb970');
           drawRoundedRect(ctx, 40 + cardW * 2 + 50, yKpi, cardW, cardH, 14, '#131c2b', '#202b3d', 1.5);
-          ctx.fillStyle = '#7e8f9f';
-          ctx.font = 'bold 21px system-ui, sans-serif';
+          ctx.fillStyle = '#cbd5e1';
+          ctx.font = 'bold 22px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
           ctx.fillText('ALERT & NOTE', 40 + cardW * 2 + 70, yKpi + 42);
           ctx.fillStyle = colAlert;
-          ctx.font = 'bold 50px system-ui, sans-serif';
-          ctx.fillText(`${focusList.length}`, 40 + cardW * 2 + 70, yKpi + 102);
+          ctx.font = 'bold 52px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+          ctx.fillText(`${focusList.length}`, 40 + cardW * 2 + 70, yKpi + 104);
 
           // SEZIONE 1: FOCUS CLINICO & SEGNALAZIONI
-          ctx.fillStyle = '#c99a3e';
-          ctx.font = 'bold 27px system-ui, sans-serif';
+          ctx.fillStyle = '#e5b758';
+          ctx.font = 'bold 28px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
           ctx.fillText('FOCUS CLINICO & SEGNALAZIONI', 40, yAlert + 22);
 
           if (focusList.length > 0) {
@@ -3148,41 +3148,47 @@
 
               // Pallino status
               ctx.beginPath();
-              ctx.arc(66, curY + 11, 5, 0, Math.PI * 2);
+              ctx.arc(66, curY + 12, 6, 0, Math.PI * 2);
               ctx.fillStyle = dotC;
               ctx.fill();
 
-              // Riga 1: Nome Atleta (Ruolo) + Badge + Valori critici sintetici
-              ctx.fillStyle = '#e2e8f0';
-              ctx.font = 'bold 22px system-ui, sans-serif';
-              ctx.fillText(`#${ath.id} ${ath.name}`, 84, curY + 18);
+              // Riga 1: Accento Atleta (Numero oro + Nome bianco puro) + Ruolo + Badge + Summary
+              ctx.font = 'bold 22px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+              ctx.textAlign = 'left';
+              ctx.fillStyle = '#e5b758';
+              const athNumStr = `#${ath.id}`;
+              ctx.fillText(athNumStr, 84, curY + 20);
+              const athNumW = ctx.measureText(athNumStr + ' ').width;
 
-              const nameW = ctx.measureText(`#${ath.id} ${ath.name}`).width;
-              ctx.fillStyle = '#7e8f9f';
-              ctx.font = '19px system-ui, sans-serif';
-              ctx.fillText(`(${ath.role})`, 84 + nameW + 10, curY + 18);
+              ctx.fillStyle = '#ffffff';
+              ctx.fillText(ath.name, 84 + athNumW, curY + 20);
+              const athNameW = ctx.measureText(ath.name).width;
+
+              ctx.fillStyle = '#94a3b8';
+              ctx.font = '19px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+              ctx.fillText(`(${ath.role})`, 84 + athNumW + athNameW + 10, curY + 20);
 
               const roleW = ctx.measureText(`(${ath.role})`).width;
               ctx.fillStyle = badgeC;
-              ctx.font = 'bold 18px system-ui, sans-serif';
-              ctx.fillText(item.badgeLbl, 84 + nameW + roleW + 22, curY + 18);
+              ctx.font = 'bold 19px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+              ctx.fillText(item.badgeLbl, 84 + athNumW + athNameW + roleW + 22, curY + 20);
 
               const badgeW = ctx.measureText(item.badgeLbl).width;
               if (item.alertSummary) {
-                ctx.fillStyle = '#94a3b8';
-                ctx.font = '19px system-ui, sans-serif';
-                ctx.fillText(`·  ${item.alertSummary}`, 84 + nameW + roleW + badgeW + 34, curY + 18);
+                ctx.fillStyle = '#cbd5e1';
+                ctx.font = '20px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+                ctx.fillText(`·  ${item.alertSummary}`, 84 + athNumW + athNameW + roleW + badgeW + 34, curY + 20);
               }
-              curY += 28;
+              curY += 32;
 
               // Riga 2+: Nota Atleta
               if (item.noteLines && item.noteLines.length > 0) {
-                ctx.fillStyle = '#d5c7a3';
-                ctx.font = 'italic 19px system-ui, sans-serif';
+                ctx.fillStyle = '#f1e5c8';
+                ctx.font = 'italic 20px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
                 item.noteLines.forEach((line, lIdx) => {
                   const prefix = lIdx === 0 ? '💬  ' : '    ';
-                  ctx.fillText(`${prefix}${line}`, 84, curY + 18);
-                  curY += 25;
+                  ctx.fillText(`${prefix}${line}`, 84, curY + 20);
+                  curY += 27;
                 });
               }
 
@@ -3191,8 +3197,8 @@
                 ctx.strokeStyle = '#1e293b';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
-                ctx.moveTo(70, curY + 7);
-                ctx.lineTo(W - 70, curY + 7);
+                ctx.moveTo(70, curY + 8);
+                ctx.lineTo(W - 70, curY + 8);
                 ctx.stroke();
                 curY += 16;
               }
@@ -3200,42 +3206,42 @@
           } else {
             drawRoundedRect(ctx, 40, yAlertBox, W - 80, boxH, 12, '#121824', '#202b3d', 1.5);
             ctx.fillStyle = '#52b788';
-            ctx.font = 'bold 22px system-ui, sans-serif';
+            ctx.font = 'bold 22px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
             ctx.fillText('✓ Tutte le atlete sono in fascia ottimale. Nessuna criticità o nota clinica.', 60, yAlertBox + 42);
           }
 
           // SEZIONE 2: TABELLA ROSTER (13 ATLETE)
-          ctx.fillStyle = '#cbd5e1';
-          ctx.font = 'bold 28px system-ui, sans-serif';
+          ctx.fillStyle = '#f8fafc';
+          ctx.font = 'bold 28px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
           ctx.fillText('STATUS INDIVIDUALE ROSTER (13 ATLETE)', 40, yTable + 24);
 
           // Intestazione Tabella Roster
           drawRoundedRect(ctx, 40, yTh, W - 80, tableHeaderH, 8, '#151f2e', null);
-          ctx.font = 'bold 18px system-ui, sans-serif';
-          ctx.fillStyle = '#7e8f9f';
+          ctx.font = 'bold 19px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+          ctx.fillStyle = '#cbd5e1';
           ctx.textAlign = 'left';
-          ctx.fillText('ATLETA', 76, yTh + 29);
-          ctx.fillText('RUOLO', 310, yTh + 29);
+          ctx.fillText('ATLETA', 76, yTh + 31);
+          ctx.fillText('RUOLO', 328, yTh + 31);
 
           ctx.textAlign = 'center';
-          ctx.fillText('SONNO', 470, yTh + 29);
-          ctx.fillText('ENERGIA', 560, yTh + 29);
-          ctx.fillStyle = '#b8934a'; // Oro opacizzato
-          ctx.fillText('STRESS', 650, yTh + 29);
-          ctx.fillStyle = '#7e8f9f';
-          ctx.fillText('DOLORI', 740, yTh + 29);
-          ctx.fillStyle = '#b8934a'; // Oro opacizzato
-          ctx.fillText('READINESS', 840, yTh + 29);
-          ctx.fillStyle = '#7e8f9f';
-          ctx.fillText('STATO', 955, yTh + 29);
+          ctx.fillText('SONNO', 480, yTh + 31);
+          ctx.fillText('ENERGIA', 570, yTh + 31);
+          ctx.fillStyle = '#e5b758'; // Oro morbido
+          ctx.fillText('STRESS', 660, yTh + 31);
+          ctx.fillStyle = '#cbd5e1';
+          ctx.fillText('DOLORI', 750, yTh + 31);
+          ctx.fillStyle = '#e5b758'; // Oro morbido
+          ctx.fillText('READINESS', 845, yTh + 31);
+          ctx.fillStyle = '#cbd5e1';
+          ctx.fillText('STATO', 955, yTh + 31);
           ctx.textAlign = 'left';
 
-          let curRowY = yTh + 54;
+          let curRowY = yTh + 56;
           ROSTER.forEach((a, idx) => {
             const w = (typeof liveWellnessData !== 'undefined' && liveWellnessData[a.id]) ? liveWellnessData[a.id] : null;
             const bgRow = (idx % 2 === 0) ? '#101725' : '#0c121e';
             const noteInfo = athleteNoteData[a.id];
-            const baseRowH = 58;
+            const baseRowH = 62;
             const totalAthleteBlockH = baseRowH + (noteInfo ? noteInfo.boxH + 8 : 0);
 
             // Sfondo contenitore riga/blocco atleta
@@ -3263,20 +3269,25 @@
 
               // Indicatore
               ctx.beginPath();
-              ctx.arc(58, curRowY + 29, 7, 0, Math.PI * 2);
+              ctx.arc(58, curRowY + 31, 7.5, 0, Math.PI * 2);
               ctx.fillStyle = dotC;
               ctx.fill();
 
-              // Nome Atleta
-              ctx.fillStyle = '#e2e8f0';
-              ctx.font = 'bold 19px system-ui, sans-serif';
+              // Accento su Numero e Nome Atleta (Numero oro + Nome bianco puro brillante)
+              ctx.font = 'bold 21px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
               ctx.textAlign = 'left';
-              ctx.fillText(`#${a.id} ${a.name}`, 76, curRowY + 37);
+              ctx.fillStyle = '#e5b758';
+              const numStr = `#${a.id}`;
+              ctx.fillText(numStr, 76, curRowY + 39);
+              const numW = ctx.measureText(numStr + ' ').width;
+
+              ctx.fillStyle = '#ffffff';
+              ctx.fillText(a.name, 76 + numW, curRowY + 39);
 
               // Ruolo
-              ctx.fillStyle = '#7e8f9f';
-              ctx.font = '16px system-ui, sans-serif';
-              ctx.fillText(a.role, 310, curRowY + 36);
+              ctx.fillStyle = '#94a3b8';
+              ctx.font = '17px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+              ctx.fillText(a.role, 328, curRowY + 38);
 
               // Valori numerici semaforizzati opachi / soft
               const cSo = (so !== null && so >= 8) ? '#3fb970' : ((so !== null && so >= 6) ? '#cca045' : '#d45d5d');
@@ -3285,23 +3296,23 @@
               const cDo = (doVal <= 2) ? '#3fb970' : ((doVal <= 4) ? '#cca045' : '#d45d5d');
               const cRd = (rd !== null && rd >= 8) ? '#3fb970' : ((rd !== null && rd >= 6) ? '#cca045' : '#d45d5d');
 
-              ctx.font = 'bold 21px system-ui, sans-serif';
+              ctx.font = 'bold 22px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
               ctx.textAlign = 'center';
 
               ctx.fillStyle = cSo;
-              ctx.fillText(so !== null ? `${so}/10` : '—', 470, curRowY + 37);
+              ctx.fillText(so !== null ? `${so}/10` : '—', 480, curRowY + 39);
 
               ctx.fillStyle = cEn;
-              ctx.fillText(en !== null ? `${en}/10` : '—', 560, curRowY + 37);
+              ctx.fillText(en !== null ? `${en}/10` : '—', 570, curRowY + 39);
 
               ctx.fillStyle = cSt;
-              ctx.fillText(st !== null && !isNaN(st) ? `${st}/10` : '—', 650, curRowY + 37);
+              ctx.fillText(st !== null && !isNaN(st) ? `${st}/10` : '—', 660, curRowY + 39);
 
               ctx.fillStyle = cDo;
-              ctx.fillText(`${doVal}/10`, 740, curRowY + 37);
+              ctx.fillText(`${doVal}/10`, 750, curRowY + 39);
 
               ctx.fillStyle = cRd;
-              ctx.fillText(rd !== null ? `${rd}/10` : '—', 840, curRowY + 37);
+              ctx.fillText(rd !== null ? `${rd}/10` : '—', 845, curRowY + 39);
 
               // Badge Pill Stato
               let pillBg = '#0f261e';
@@ -3325,10 +3336,10 @@
                 pillLbl = 'NOTA';
               }
 
-              drawRoundedRect(ctx, 908, curRowY + 14, 94, 28, 14, pillBg, pillBorder, 1);
+              drawRoundedRect(ctx, 907, curRowY + 16, 96, 30, 15, pillBg, pillBorder, 1);
               ctx.fillStyle = pillText;
-              ctx.font = 'bold 15px system-ui, sans-serif';
-              ctx.fillText(pillLbl, 955, curRowY + 33);
+              ctx.font = 'bold 16px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+              ctx.fillText(pillLbl, 955, curRowY + 37);
               ctx.textAlign = 'left';
 
               // Sottoriquadro NOTA nella lista giocatrici (se presente)
@@ -3336,41 +3347,46 @@
                 const yNoteBox = curRowY + baseRowH;
                 drawRoundedRect(ctx, 60, yNoteBox, W - 120, noteInfo.boxH, 8, '#151b27', '#4a371c', 1.5);
 
-                ctx.fillStyle = '#c99a3e';
-                ctx.font = 'bold 17px system-ui, sans-serif';
-                ctx.fillText('💬 NOTA ATLETA:', 76, yNoteBox + 22);
+                ctx.fillStyle = '#e5b758';
+                ctx.font = 'bold 18px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+                ctx.fillText('💬 NOTA ATLETA:', 76, yNoteBox + 24);
 
-                ctx.fillStyle = '#d5c7a3';
-                ctx.font = 'italic 18px system-ui, sans-serif';
-                let curNTextY = yNoteBox + 46;
+                ctx.fillStyle = '#f1e5c8';
+                ctx.font = 'italic 20px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+                let curNTextY = yNoteBox + 50;
                 noteInfo.lines.forEach((l) => {
                   ctx.fillText(l, 76, curNTextY);
-                  curNTextY += 24;
+                  curNTextY += 27;
                 });
               }
             } else {
               // Atleta non compilato
               ctx.beginPath();
-              ctx.arc(58, curRowY + 29, 7, 0, Math.PI * 2);
+              ctx.arc(58, curRowY + 31, 7.5, 0, Math.PI * 2);
               ctx.fillStyle = '#526071';
               ctx.fill();
 
-              ctx.fillStyle = '#526071';
-              ctx.font = '19px system-ui, sans-serif';
+              ctx.font = 'bold 21px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
               ctx.textAlign = 'left';
-              ctx.fillText(`#${a.id} ${a.name}`, 76, curRowY + 37);
+              ctx.fillStyle = '#94a3b8';
+              const numStr = `#${a.id}`;
+              ctx.fillText(numStr, 76, curRowY + 39);
+              const numW = ctx.measureText(numStr + ' ').width;
 
-              ctx.font = '16px system-ui, sans-serif';
-              ctx.fillText(a.role, 310, curRowY + 36);
+              ctx.fillStyle = '#cbd5e1';
+              ctx.fillText(a.name, 76 + numW, curRowY + 39);
 
-              ctx.font = 'italic 19px system-ui, sans-serif';
-              ctx.fillText('— Non compilato stamattina —', 470, curRowY + 37);
+              ctx.font = '17px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+              ctx.fillText(a.role, 328, curRowY + 38);
 
-              drawRoundedRect(ctx, 908, curRowY + 14, 94, 28, 14, '#121824', '#232d3d', 1);
+              ctx.font = 'italic 19px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+              ctx.fillText('— Non compilato stamattina —', 480, curRowY + 39);
+
+              drawRoundedRect(ctx, 907, curRowY + 16, 96, 30, 15, '#121824', '#232d3d', 1);
               ctx.fillStyle = '#6e7d90';
-              ctx.font = 'bold 15px system-ui, sans-serif';
+              ctx.font = 'bold 16px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
               ctx.textAlign = 'center';
-              ctx.fillText('ASSENTE', 955, curRowY + 33);
+              ctx.fillText('ASSENTE', 955, curRowY + 37);
               ctx.textAlign = 'left';
             }
 
@@ -3385,8 +3401,8 @@
           ctx.lineTo(W - 40, H - 55);
           ctx.stroke();
 
-          ctx.fillStyle = '#64748b';
-          ctx.font = 'italic 20px system-ui, sans-serif';
+          ctx.fillStyle = '#94a3b8';
+          ctx.font = 'italic 21px system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
           ctx.textAlign = 'center';
           ctx.fillText('Marsala Volley S&C Command Center · Serie A2 Femminile', W / 2, H - 24);
           ctx.textAlign = 'left';
