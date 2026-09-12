@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v241-ultra-fast)
-const CACHE_NAME = 'coach-mv-v246-vbt-autoload';
+// Service Worker Coach Command Center (v247-fix-data-syntax)
+const CACHE_NAME = 'coach-mv-v247-fix-data-syntax';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

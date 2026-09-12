@@ -790,7 +790,8 @@ const WEEKS_DATA = {
         "dettagli": {
           "titolo": "Venerdì Pomeriggio — 45 min",
           "contenuto": [
-            "Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI\n          ]
+            "Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI"
+          ]
         }
       }
     ]
@@ -4831,7 +4832,8 @@ const WEEKS_DATA = {
           "dettagli": {
             "titolo": "Venerdì Pomeriggio — 45 min",
             "contenuto": [
-              "Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI\n            ]
+              "Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI"
+            ]
           }
         }
       ]

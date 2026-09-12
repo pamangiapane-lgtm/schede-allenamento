@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v244-w3s2-restore)
-const CACHE_NAME = 'marsala-app-v251-pullover-10-20kg';
+// Service Worker App Marsala Volley (v252-fix-data-syntax)
+const CACHE_NAME = 'marsala-app-v252-fix-data-syntax';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260911v251',
+  './data.js?v=20260912v252',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',

@@ -931,7 +931,7 @@
   <!-- Top Coach Header -->
   <header class="coach-header">
     <div class="brand-wrap">
-      <img src="../logo.jpg" class="brand-logo" alt="Marsala Volley">
+      <img src="./logo.jpg" class="brand-logo" alt="Marsala Volley">
       <div>
         <h1 class="brand-title">Coach MV</h1>
         <div class="brand-sub">S&C Command Center · Serie A2</div>
@@ -1993,7 +1993,7 @@
 
   </main>
 
-  <script src="./data.js?v=20260910v242"></script>
+  <script src="./data.js?v=20260912v252"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./supabase-client.js?v=2.0"></script>
   <script>
@@ -2859,7 +2859,7 @@
               logoImg.onload = res;
               logoImg.onerror = res;
               const exLogo = document.querySelector('.brand-logo');
-              logoImg.src = exLogo ? exLogo.src : '../logo.jpg';
+              logoImg.src = exLogo ? exLogo.src : './logo.jpg';
             });
             if (logoImg.naturalWidth > 0) {
               ctx.drawImage(logoImg, 45, 30, 130, 130);

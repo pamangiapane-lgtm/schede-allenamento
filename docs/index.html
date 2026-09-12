@@ -1462,7 +1462,7 @@
 
   </main>
 
-  <script src="data.js?v=20260910v248"></script>
+  <script src="data.js?v=20260912v252"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js?v=2.0"></script>
   <script>
@@ -3875,8 +3875,8 @@ function renderSessions() {
       `;
     }
 
-    // Friday jump ban alert
-    const fridayBanHtml = isFriday ? `
+    // Friday jump ban alert (suppressed in W3 per coach directive)
+    const fridayBanHtml = (isFriday && currentWeek !== 'W3') ? `
       <div style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
         <span style="font-size:1.8rem;">🛡️</span>
         <div>

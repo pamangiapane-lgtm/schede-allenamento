@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Marsala Volley — Reindirizzamento...</title>
+  <meta name="theme-color" content="#071226">
+  <style>
+    body { background: #070c18; color: #f8fafc; font-family: sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding: 20px; text-align: center; }
+    .card { background: #0f192d; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 32px 20px; max-width: 420px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    h1 { font-size: 1.3rem; color: #fff; margin-bottom: 8px; }
+    p { font-size: 0.88rem; color: #94a3b8; margin-bottom: 24px; line-height: 1.5; }
+    .btn { display: block; width: 100%; box-sizing: border-box; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 0.9rem; text-decoration: none; margin-bottom: 10px; cursor: pointer; }
+    .btn-primary { background: #e8a020; color: #071226; }
+    .btn-secondary { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; }
+  </style>
+  <script>
+    (function() {
+      var p = window.location.pathname || '';
+      var s = window.location.search || '';
+      var h = window.location.hash || '';
+      var target = '/schede-allenamento/';
+      if (p.indexOf('coach') !== -1) target = '/schede-allenamento/coach/';
+      setTimeout(function() { window.location.replace(target + s + h); }, 300);
+    })();
+  </script>
+</head>
+<body>
+  <div class="card">
+    <div style="font-size:2rem;margin-bottom:12px;">🏐</div>
+    <h1>Marsala Volley</h1>
+    <p>Reindirizzamento all'applicazione ufficiale in corso...</p>
+    <a href="/schede-allenamento/" class="btn btn-primary" id="link-atlete">📲 Apri App Atlete</a>
+    <a href="/schede-allenamento/coach/" class="btn btn-secondary" id="link-coach">📊 Apri Coach Command Center</a>
+  </div>
+  <script>
+    var s = window.location.search || '';
+    document.getElementById('link-atlete').href = '/schede-allenamento/' + s;
+    document.getElementById('link-coach').href = '/schede-allenamento/coach/' + s;
+  </script>
+</body>
+</html>
