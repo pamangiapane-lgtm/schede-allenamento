@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v247-fix-data-syntax)
-const CACHE_NAME = 'coach-mv-v247-fix-data-syntax';
+// Service Worker Coach Command Center (v253-stress-notes-wrap)
+const CACHE_NAME = 'coach-mv-v253-stress-notes-wrap';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
