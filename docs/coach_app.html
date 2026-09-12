@@ -1236,7 +1236,13 @@
             <h3 class="card-title" style="margin-bottom:0;">📋 Storico Valutazione Sedute Pesi (sRPE & Fatica)</h3>
             <span style="font-size:0.75rem;color:var(--mv-amber);font-weight:700;" id="badge-sessions-total">0 registrazioni</span>
           </div>
-          <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:12px;">Sforzo percepito della seduta (sRPE 0-10 Borg CR-10), livello di fatica e note di chiusura registrate dalle atlete.</p>
+          <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:10px;">Sforzo percepito della seduta (sRPE 0-10 Borg CR-10), livello di fatica e note di chiusura registrate dalle atlete.</p>
+          <div class="scroll-pills" id="srpe-session-filters" style="margin-bottom:12px;">
+            <button class="btn-filt active" onclick="filterSessionRatingsTable('all', this)" id="btn-srpe-all">Tutte le Sedute</button>
+            <button class="btn-filt" onclick="filterSessionRatingsTable('Seduta 3', this)" id="btn-srpe-s3">⚡ W3 · Seduta 3 (Ven)</button>
+            <button class="btn-filt" onclick="filterSessionRatingsTable('Seduta 2', this)" id="btn-srpe-s2">🏋️ W3 · Seduta 2 (Mer)</button>
+            <button class="btn-filt" onclick="filterSessionRatingsTable('Seduta 1', this)" id="btn-srpe-s1">🔥 W3 · Seduta 1 (Lun)</button>
+          </div>
           <div class="coach-tbl-wrap" style="max-height:420px;overflow-y:auto;">
             <table class="coach-tbl">
               <thead>
@@ -3702,6 +3708,36 @@
       return { type: 'green', label: 'Ottimale', text: '100% Carico OK' };
     }
 
+    function updateKpiSessionsHeader(doneTodayCount) {
+      const kpiSess = document.getElementById('kpi-sessions-count');
+      const kpiSessSub = document.getElementById('kpi-sessions-status');
+      if (!kpiSess || !kpiSessSub) return;
+
+      if (doneTodayCount > 0) {
+        kpiSess.textContent = `${doneTodayCount} / ${ROSTER.length}`;
+        kpiSess.style.color = doneTodayCount === ROSTER.length ? 'var(--mv-emerald)' : 'var(--mv-amber)';
+        kpiSessSub.textContent = doneTodayCount === ROSTER.length ? 'Tutte registrate oggi! ✓' : `${doneTodayCount} registrate oggi`;
+      } else {
+        // Se oggi non ci sono registrazioni (es. giorno di riposo/sabato), mostra lo stato dell'ultima seduta (W3 S3)
+        const s3AthSet = new Set();
+        liveSessionRatings.forEach(s => {
+          if (s.session && (s.session.includes('Seduta 3') || s.session.includes('VenR') || (s.date === '2026-09-11' && s.rpe !== null))) {
+            s3AthSet.add(s.aid);
+          }
+        });
+        const s3Count = s3AthSet.size;
+        if (s3Count > 0) {
+          kpiSess.textContent = `${s3Count} / ${ROSTER.length}`;
+          kpiSess.style.color = s3Count === ROSTER.length ? 'var(--mv-emerald)' : 'var(--mv-amber)';
+          kpiSessSub.textContent = s3Count === ROSTER.length ? 'W3 S3: 13/13 Registrate ✓' : `W3 S3: ${s3Count}/${ROSTER.length} registrate`;
+        } else {
+          kpiSess.textContent = `0 / ${ROSTER.length}`;
+          kpiSess.style.color = 'var(--mv-amber)';
+          kpiSessSub.textContent = 'In attesa di fine seduta';
+        }
+      }
+    }
+
     function renderReadinessRoster() {
       let countFilled = 0;
       let alertList = [];
@@ -3776,14 +3812,7 @@
       ATHLETES.forEach(a => {
         if (liveTodaySessions[a.id] && liveTodaySessions[a.id].isToday) countSessionsToday++;
       });
-      const kpiSess = document.getElementById('kpi-sessions-count');
-      if (kpiSess) kpiSess.textContent = `${countSessionsToday} / ${ATHLETES.length}`;
-      const kpiSessSub = document.getElementById('kpi-sessions-status');
-      if (kpiSessSub) {
-        kpiSessSub.textContent = countSessionsToday === ROSTER.length 
-          ? 'Tutte registrate!' 
-          : (countSessionsToday > 0 ? `${countSessionsToday} registrate oggi` : 'In attesa di fine seduta');
-      }
+      updateKpiSessionsHeader(countSessionsToday);
 
       const avgPct = readinessCount > 0 ? Math.round((totalReadiness / readinessCount) * 10) : '--';
       document.getElementById('kpi-team-readiness').textContent = avgPct !== '--' ? `${avgPct}%` : '--';
@@ -3925,14 +3954,7 @@
       });
 
       // Aggiorna KPI Header
-      const kpiSess = document.getElementById('kpi-sessions-count');
-      if (kpiSess) kpiSess.textContent = `${doneToday.length} / ${ROSTER.length}`;
-      const kpiSessSub = document.getElementById('kpi-sessions-status');
-      if (kpiSessSub) {
-        kpiSessSub.textContent = doneToday.length === ROSTER.length 
-          ? 'Tutte registrate!' 
-          : (doneToday.length > 0 ? `${doneToday.length} atlete completate` : 'In attesa di fine seduta');
-      }
+      updateKpiSessionsHeader(doneToday.length);
 
       // Badge nel pannello
       const badgeToday = document.getElementById('badge-today-sessions-count');
@@ -4052,22 +4074,53 @@
       }).join('');
     }
 
+    let currentSessionFilter = 'all';
+
+    function filterSessionRatingsTable(filterVal, btn) {
+      currentSessionFilter = filterVal;
+      const pills = document.getElementById('srpe-session-filters');
+      if (pills && btn) {
+        pills.querySelectorAll('.btn-filt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      renderSessionRatingsTable();
+    }
+
     function renderSessionRatingsTable() {
       const tbody = document.getElementById('tbl-sessions-body');
       const badgeTot = document.getElementById('badge-sessions-total');
       if (!tbody) return;
 
-      if (badgeTot) badgeTot.textContent = `${liveSessionRatings.length} registrazioni`;
+      // Aggiorna conteggi nei pulsanti filtro
+      const s3Count = liveSessionRatings.filter(s => s.session && s.session.includes('Seduta 3')).length;
+      const s2Count = liveSessionRatings.filter(s => s.session && s.session.includes('Seduta 2')).length;
+      const s1Count = liveSessionRatings.filter(s => s.session && s.session.includes('Seduta 1')).length;
 
-      if (liveSessionRatings.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessuna valutazione seduta registrata nel database.</td></tr>`;
+      const btnAll = document.getElementById('btn-srpe-all');
+      const btnS3 = document.getElementById('btn-srpe-s3');
+      const btnS2 = document.getElementById('btn-srpe-s2');
+      const btnS1 = document.getElementById('btn-srpe-s1');
+      if (btnAll) btnAll.textContent = `Tutte (${liveSessionRatings.length})`;
+      if (btnS3) btnS3.textContent = `⚡ W3 · Seduta 3 (${s3Count}/13)`;
+      if (btnS2) btnS2.textContent = `🏋️ W3 · Seduta 2 (${s2Count}/13)`;
+      if (btnS1) btnS1.textContent = `🔥 W3 · Seduta 1 (${s1Count}/13)`;
+
+      let filteredList = liveSessionRatings;
+      if (currentSessionFilter !== 'all') {
+        filteredList = liveSessionRatings.filter(s => s.session && s.session.includes(currentSessionFilter));
+      }
+
+      if (badgeTot) badgeTot.textContent = `${filteredList.length} registrazioni${currentSessionFilter !== 'all' ? ` (${currentSessionFilter})` : ''}`;
+
+      if (filteredList.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:16px;color:var(--mv-muted)">Nessuna valutazione trovata per il filtro selezionato.</td></tr>`;
         return;
       }
 
       const now = new Date();
       const todayIso = now.toISOString().slice(0, 10);
       const localIso = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-      tbody.innerHTML = liveSessionRatings.slice(0, 100).map(s => {
+      tbody.innerHTML = filteredList.slice(0, 100).map(s => {
         const rpeCol = getRPEColor(s.rpe);
         const fatCol = getFatigueColor(s.fat);
         const dateDisplay = formatDateTimeIT(s.date, s.ts);
