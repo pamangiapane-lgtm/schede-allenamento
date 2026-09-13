@@ -5031,22 +5031,100 @@ function openAthleteDossier(aid) {
     }).join('');
   }
 
-  // Storico Recente
+  // Baseline Storica & Z-Scores Hooper (Pillar 5)
+  const zBox = document.getElementById('dossier-zscore-stats');
+  if (zBox) {
+    const stats = computeAthleteHooperStats(aid);
+    const zReady = (w && w.readiness !== null && stats.readiness.count >= 3)
+      ? ((w.readiness - stats.readiness.mean) / stats.readiness.std) : null;
+    const zFatica = (w && w.fatica !== null && stats.fatica.count >= 3)
+      ? ((w.fatica - stats.fatica.mean) / stats.fatica.std) : null;
+    const zDolori = (w && w.dolori !== null && stats.dolori.count >= 3)
+      ? ((w.dolori - stats.dolori.mean) / stats.dolori.std) : null;
+    const zSonno = (w && w.sonno !== null && stats.sonno.count >= 3)
+      ? ((w.sonno - stats.sonno.mean) / stats.sonno.std) : null;
+
+    zBox.innerHTML = `
+      <div style="font-size:0.68rem;font-weight:800;color:var(--mv-cyan);text-transform:uppercase;margin-bottom:6px;display:flex;justify-content:space-between;">
+        <span>📊 Baseline Personale Hooper (${stats.readiness.count} rilevazioni storiche)</span>
+        <span>${w && w.isToday ? '⚡ Scostamento Z-Score Oggi' : ''}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));gap:6px;">
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 8px;">
+          <div style="color:var(--mv-muted);font-size:0.62rem;">Readiness (Media ± σ)</div>
+          <div style="font-weight:800;color:#fff;font-size:0.85rem;">${stats.readiness.mean.toFixed(1)} ± ${stats.readiness.std.toFixed(1)}</div>
+          ${zReady !== null ? `<div style="font-size:0.7rem;font-weight:800;color:${zReady <= -1.4 ? '#fca5a5' : '#6ee7b7'};margin-top:2px;">Z: ${zReady > 0 ? '+' : ''}${zReady.toFixed(1)}σ ${zReady <= -1.4 ? '⚠️' : '✅'}</div>` : ''}
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 8px;">
+          <div style="color:var(--mv-muted);font-size:0.62rem;">Energia (Media ± σ)</div>
+          <div style="font-weight:800;color:#fff;font-size:0.85rem;">${stats.fatica.mean.toFixed(1)} ± ${stats.fatica.std.toFixed(1)}</div>
+          ${zFatica !== null ? `<div style="font-size:0.7rem;font-weight:800;color:${zFatica <= -1.4 ? '#fca5a5' : '#6ee7b7'};margin-top:2px;">Z: ${zFatica > 0 ? '+' : ''}${zFatica.toFixed(1)}σ ${zFatica <= -1.4 ? '⚠️' : '✅'}</div>` : ''}
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 8px;">
+          <div style="color:var(--mv-muted);font-size:0.62rem;">Dolori (Media ± σ)</div>
+          <div style="font-weight:800;color:#fff;font-size:0.85rem;">${stats.dolori.mean.toFixed(1)} ± ${stats.dolori.std.toFixed(1)}</div>
+          ${zDolori !== null ? `<div style="font-size:0.7rem;font-weight:800;color:${zDolori >= 1.4 ? '#fca5a5' : '#6ee7b7'};margin-top:2px;">Z: ${zDolori > 0 ? '+' : ''}${zDolori.toFixed(1)}σ ${zDolori >= 1.4 ? '🔴' : '✅'}</div>` : ''}
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 8px;">
+          <div style="color:var(--mv-muted);font-size:0.62rem;">Sonno (Media ± σ)</div>
+          <div style="font-weight:800;color:#fff;font-size:0.85rem;">${stats.sonno.mean.toFixed(1)} ± ${stats.sonno.std.toFixed(1)}</div>
+          ${zSonno !== null ? `<div style="font-size:0.7rem;font-weight:800;color:${zSonno <= -1.4 ? '#fca5a5' : '#6ee7b7'};margin-top:2px;">Z: ${zSonno > 0 ? '+' : ''}${zSonno.toFixed(1)}σ ${zSonno <= -1.4 ? '⚠️' : '✅'}</div>` : ''}
+        </div>
+      </div>
+    `;
+  }
+
+  // Ultima Seduta Pesi & sRPE (Pillar 4/5)
+  const sessBox = document.getElementById('dossier-session-box');
+  if (sessBox) {
+    if (sess) {
+      sessBox.style.display = 'block';
+      sessBox.innerHTML = `
+        <div style="font-size:0.72rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px;">
+          🏋️ Ultima Seduta Sala Pesi (${sess.date || 'Recente'})
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 12px;font-size:0.8rem;flex-wrap:wrap;gap:6px;">
+          <div>
+            <span style="color:var(--mv-muted)">sRPE Foster:</span> <strong style="color:var(--mv-amber);">${sess.rpe || '—'}/10</strong>
+            <span style="color:var(--mv-muted);margin:0 6px;">·</span>
+            <span style="color:var(--mv-muted)">Durata:</span> <strong style="color:#fff;">${sess.durata ? sess.durata + ' min' : '—'}</strong>
+          </div>
+          <div>
+            <span style="color:var(--mv-muted)">Serie Totali:</span> <strong style="color:var(--mv-cyan);">${sess.totSets || '—'}</strong>
+          </div>
+        </div>
+      `;
+    } else {
+      sessBox.style.display = 'none';
+    }
+  }
+
+  // Storico Recente Completo (tutte le 5 metriche + Note)
   const historyList = document.getElementById('dossier-recent-history');
   if (historyList) {
-    const athRecords = rawWellnessRecords.filter(r => r.aid === aid).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 6);
+    const athRecords = rawWellnessRecords.filter(r => r.aid === aid).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 15);
     if (athRecords.length === 0) {
       historyList.innerHTML = `<div style="font-size:0.75rem;color:var(--mv-muted);text-align:center;padding:10px;">Nessuna registrazione recente in archivio.</div>`;
     } else {
-      historyList.innerHTML = athRecords.map(r => `
+      historyList.innerHTML = athRecords.map(r => {
+        const enStr = (r.fatica !== null && r.fatica !== undefined) ? `${r.fatica}/10` : '—';
+        const strStr = (r.stress !== null && r.stress !== undefined) ? `${r.stress}/10` : '—';
+        return `
         <div style="font-size:0.75rem;background:#091222;border:1px solid rgba(255,255,255,0.04);border-radius:6px;padding:6px 10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
           <div>
             <strong style="color:#fff;">${r.date}</strong>
-            <span style="color:var(--mv-muted);margin-left:6px;">Readiness: <strong style="color:var(--mv-amber)">${r.readiness !== null ? r.readiness : '—'}/10</strong> · Sonno: <strong style="color:#93c5fd">${r.sonno !== null ? r.sonno : '—'}/10</strong> · Dolori: <strong style="color:#fca5a5">${r.dolori !== null ? r.dolori : '—'}/10</strong></span>
+            <span style="color:var(--mv-muted);margin-left:6px;">
+              Ready: <strong style="color:var(--mv-amber)">${r.readiness !== null ? r.readiness : '—'}/10</strong> · 
+              Energia: <strong style="color:#6ee7b7">${enStr}</strong> · 
+              Sonno: <strong style="color:#93c5fd">${r.sonno !== null ? r.sonno : '—'}/10</strong> · 
+              Dolori: <strong style="color:#fca5a5">${r.dolori !== null ? r.dolori : '—'}/10</strong> · 
+              Stress: <strong style="color:#d8b4fe">${strStr}</strong>
+            </span>
           </div>
-          ${r.note ? `<span style="color:#fde68a;font-style:italic;font-size:0.72rem;">💬 "${r.note.slice(0, 35)}${r.note.length > 35 ? '...' : ''}"</span>` : ''}
+          ${r.note ? `<span style="color:#fde68a;font-style:italic;font-size:0.72rem;">💬 "${r.note}"</span>` : ''}
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
   }
 
@@ -7628,7 +7706,12 @@ Marsala Volley S&C Command Center`;
           <div id="dossier-today-notes-box" style="font-size:0.75rem;color:#cbd5e1;background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;line-height:1.4;">
             <!-- Note di oggi -->
           </div>
+          <!-- Baseline Storica & Z-Scores Hooper -->
+          <div id="dossier-zscore-stats" style="margin-top:8px;"></div>
         </div>
+
+        <!-- Ultima Seduta Pesi & sRPE -->
+        <div id="dossier-session-box" style="background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;display:none;"></div>
 
         <!-- Scheda Massimali 1RM & Ratio BW -->
         <div style="background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;">
