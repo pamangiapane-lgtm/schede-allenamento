@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v259-squat-vbt-045)
-const CACHE_NAME = 'marsala-app-v259-squat-vbt-045';
+// Service Worker App Marsala Volley (v260-nelly-sessions-reordered)
+const CACHE_NAME = 'marsala-app-v260-nelly-sessions-reordered';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260913v259',
+  './data.js?v=20260913v260',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',

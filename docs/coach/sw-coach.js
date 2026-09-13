@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v259-squat-vbt-045)
-const CACHE_NAME = 'coach-mv-v259-squat-vbt-045';
+// Service Worker Coach Command Center (v260-nelly-sessions-reordered)
+const CACHE_NAME = 'coach-mv-v260-nelly-sessions-reordered';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
