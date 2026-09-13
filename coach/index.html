@@ -7086,10 +7086,13 @@ function calculateMethodology(weekId, sedutaId, athleteId) {
       kg = parseFloat(mKgSingle[1]);
     }
 
-    // Fallback euristico se atleta è team e il carico è descrittivo (es. "Dinamico", "Medio", target in note)
-    if (kg === 0 && athleteId === 'team') {
-      const mPctInNote = notesStr.match(/(\d+(?:\.\d+)?)\s*%/i) || exName.match(/(\d+(?:\.\d+)?)\s*%/i);
+    // Fallback euristico se il carico è non valorizzato (es. blueprint team o esercizio descrittivo)
+    if (kg === 0) {
+      // Ignora percentuali che si riferiscono a "velocity loss" (es. -10% drop VBT)
+      const cleanNoteForPct = notesStr.replace(/[-–]?\s*\d+\s*%\s*(?:velocity|loss|drop|cutoff|cut-off)/gi, '');
+      const mPctInNote = cleanNoteForPct.match(/(\d+(?:\.\d+)?)\s*%/i) || exName.match(/(\d+(?:\.\d+)?)\s*%/i);
       const mKgInNote = notesStr.match(/target\s*(\d+(?:\.\d+)?)\s*k/i) || notesStr.match(/(\d+(?:\.\d+)?)\s*kg/i);
+      
       if (mPctInNote) {
         const pctVal = parseFloat(mPctInNote[1]);
         mainLiftsPcts.push(pctVal);
@@ -7097,25 +7100,60 @@ function calculateMethodology(weekId, sedutaId, athleteId) {
         if (/squat/i.test(exName)) {
           kg = Math.max(20, Math.round((pct * (ath1RM.squat + athBw)) - athBw));
           computedLoadLabel = `${pctVal}% (${kg} kg bilanciere)`;
+        } else if (/bench|floor/i.test(exName)) {
+          const each = Math.round((pct * ath1RM.bench) / 2);
+          kg = each * 2;
+          computedLoadLabel = `${pctVal}% (${each}+${each} kg)`;
         } else if (/clean/i.test(exName)) {
           kg = Math.round(pct * ath1RM.clean);
           computedLoadLabel = `${pctVal}% (${kg} kg)`;
         }
       } else if (mKgInNote) {
         kg = parseFloat(mKgInNote[1]);
-        computedLoadLabel = `${kg} kg (Target Team)`;
+        computedLoadLabel = `${kg} kg (Target)`;
+      } else if (/floor|bench/i.test(exName)) {
+        // Floor Press DB: 70% 1RM Bench -> 28 kg totali (14+14 kg manubri)
+        const each = Math.round((0.70 * ath1RM.bench) / 2);
+        kg = each * 2;
+        computedLoadLabel = `70% (${each}+${each} kg manubri)`;
+      } else if (/lat/i.test(exName)) {
+        // Lat Machine: 70% 1RM Lat
+        kg = Math.round(0.70 * ath1RM.lat);
+        computedLoadLabel = `70% (${kg} kg)`;
+      } else if (/row/i.test(exName)) {
+        // Seal Row / DB Row: 70% 1RM Row -> 30 kg (15+15 kg)
+        const each = Math.round((0.70 * ath1RM.row) / 2);
+        kg = each * 2;
+        computedLoadLabel = `70% (${each}+${each} kg manubri)`;
+      } else if (/split/i.test(exName)) {
+        // Split Squat bulgaro: ~30% BW manubri (es. 10+10 kg = 20 kg)
+        const each = Math.round((0.30 * athBw) / 2);
+        kg = each * 2;
+        computedLoadLabel = `DB (${each}+${each} kg)`;
+      } else if (/half squat/i.test(exName)) {
+        kg = Math.max(20, Math.round(0.75 * (ath1RM.squat + athBw) - athBw));
+        computedLoadLabel = `75% (${kg} kg)`;
+      } else if (/squat/i.test(exName)) {
+        // Squat W3 75% 1RM standard
+        const targetPct = (weekId === 'W4') ? 0.80 : 0.75;
+        kg = Math.max(20, Math.round(targetPct * (ath1RM.squat + athBw) - athBw));
+        computedLoadLabel = `${Math.round(targetPct*100)}% (${kg} kg bilanciere)`;
+        mainLiftsPcts.push(targetPct * 100);
       } else if (/clean|powerbag/i.test(exName)) {
         kg = 35; // Standard team powerbag
         computedLoadLabel = '35 kg (Powerbag Team)';
-      } else if (/half squat/i.test(exName)) {
-        kg = Math.max(20, Math.round(0.70 * (ath1RM.squat + athBw) - athBw));
-        computedLoadLabel = `70% (${kg} kg)`;
       } else if (/landmine/i.test(exName)) {
         kg = 15;
         computedLoadLabel = '15 kg (Landmine)';
       } else if (/rdl|stacco/i.test(exName)) {
         kg = Math.round(0.70 * ath1RM.rdl);
         computedLoadLabel = `70% (${kg} kg)`;
+      } else if (/deadbug/i.test(exName)) {
+        kg = 5; // Sovraccarico fitball/KB
+        computedLoadLabel = '5 kg (Fitball/KB)';
+      } else if (/medball/i.test(exName)) {
+        kg = 4; // Palla medica 4 kg
+        computedLoadLabel = '4 kg (Medball)';
       }
     }
 
@@ -7130,10 +7168,10 @@ function calculateMethodology(weekId, sedutaId, athleteId) {
     else if (tempoStr.includes('X') || tempoStr.includes('RFD')) repSec = 1.2;
     totalSecondsTUT += (sets * reps * repSec);
 
-    // Ripartizione per distretto corporeo
-    if (/squat|rdl|stacco|split|glute|lunge/i.test(exName)) {
+    // Ripartizione accurata per distretto corporeo
+    if (/squat|rdl|stacco|split|glute|lunge|hip|affondi|polpacci|calf/i.test(exName)) {
       lowerTonnage += exTonnage;
-    } else if (/press|bench|lat|row|clean|pulley|pullover/i.test(exName)) {
+    } else if (/press|bench|floor|lat|row|clean|pulley|pullover|military|push|trazioni|medball|chest pass/i.test(exName)) {
       upperTonnage += exTonnage;
     } else {
       accessTonnage += exTonnage;
@@ -7150,11 +7188,11 @@ function calculateMethodology(weekId, sedutaId, athleteId) {
     let vbtTarget = 'TUT Controllato';
     let zoneBadge = '<span class="met-zone-badge" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border:1px solid rgba(16,185,129,0.35);">Strutturale</span>';
 
-    if (/squat/i.test(exName) && loadStr.includes('80%')) {
+    if (/squat/i.test(exName) && (loadStr.includes('80%') || computedLoadLabel.includes('80%'))) {
       zone = 'max_strength';
       vbtTarget = '0.50 – 0.60 m/s';
       zoneBadge = '<span class="met-zone-badge" style="background:rgba(239,68,68,0.2);color:#fca5a5;border:1px solid rgba(239,68,68,0.35);">Forza Max</span>';
-    } else if (/squat/i.test(exName) || /rdl/i.test(exName)) {
+    } else if (/squat|rdl|split|floor|bench|lat|row/i.test(exName) && kg >= 20) {
       zone = 'strength_speed';
       vbtTarget = (weekId === 'W4') ? '0.65 – 0.75 m/s' : '0.60 – 0.65 m/s';
       zoneBadge = '<span class="met-zone-badge" style="background:rgba(245,158,11,0.2);color:#fde68a;border:1px solid rgba(245,158,11,0.35);">Strength-Speed</span>';
