@@ -2813,7 +2813,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (96.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "75% (44.0 kg) [\"6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -2903,7 +2903,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (107.0 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "80% (51.0 kg) [\"6-7\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -8697,7 +8697,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "70% (20.0 kg)",
+              "Carico (kg/RPE)": "70% (36.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },

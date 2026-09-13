@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v257-squat-pure-pct)
-const CACHE_NAME = 'coach-mv-v257-squat-pure-pct';
+// Service Worker Coach Command Center (v258-fix-dodi-1rm)
+const CACHE_NAME = 'coach-mv-v258-fix-dodi-1rm';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

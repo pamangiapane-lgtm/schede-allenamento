@@ -36,19 +36,19 @@
 
 ## 🏋️ 2. BENCHMARK MASSIMALI 1RM DI SQUADRA (BASE AGGIORNATA)
 
-* **#1 Veronica Allasia (Palleggiatrice - 63.5 kg):** Squat 75 kg | Bench 30 kg | Military 24 kg | Clean 40 kg | Row 20 kg | Lat 35 kg
-* **#2 Maria Marcuzzi (Centrale - 66.8 kg):** Squat 95 kg | Bench 40 kg | Military 20 kg | Clean 35 kg | Row 50 kg | Lat 45 kg
-* **#3 Victoria Sassolini (Schiacciatrice - 74.0 kg):** Squat 120 kg | Bench 60 kg | Military 44 kg | Clean 70 kg | Row 63 kg | Lat 56 kg
-* **#4 Anja Asonja (Schiacciatrice - 73.0 kg):** Squat 80 kg | Bench 50 kg | Military 28 kg | Clean 50 kg | Row 43 kg | Lat 45 kg
-* **#5 Chiara Lo Dico (Libero - 55.5 kg):** Squat 90 kg | Bench 40 kg | Military 25 kg | Clean 30 kg | Row 30 kg | Lat 45 kg
-* **#6 Gaia Biondi (Centrale - 69.0 kg):** Squat 80 kg | Bench 35 kg | Military 26 kg | Clean 50 kg | Row 45 kg | Lat 35 kg
-* **#7 Elisa Bole (Schiacciatrice - 78.0 kg):** Squat 110 kg | Bench 42 kg | Military 40 kg | Clean 62.5 kg | Row 55 kg | Lat 50 kg
-* **#8 Federica Nonnati (Schiacciatrice - 77.0 kg):** Squat 105 kg | Bench 50 kg | Military 32 kg | Clean 35 kg | Row 60 kg | Lat 50 kg
-* **#9 Sara Dodi (Schiacciatrice - 66.0 kg):** Squat 150 kg | Bench 45 kg | Military 30 kg | Clean 50 kg | Row 45 kg | Lat 36 kg
-* **#11 Luna Cicola (Libero - 60.0 kg):** Squat 105 kg | Bench 30 kg | Military 22 kg | Clean 50 kg | Row 30 kg | Lat 43 kg
-* **#12 Erin Grippo (Palleggiatrice - 63.5 kg):** Squat 122 kg | Bench 51 kg | Military 35 kg | Clean 42.5 kg | Row 60 kg | Lat 45 kg
-* **#13 Giulia Caserta (Centrale - 68.0 kg):** Squat 84 kg | Bench 35 kg | Military 25 kg | Clean 44 kg | Row 38 kg | Lat 48 kg
-* **#14 Nelly Adamczewska (Schiacciatrice - 70.0 kg):** Squat 120 kg | Bench 55 kg | Military 35 kg | Clean 55 kg | Row 50 kg | Lat 45 kg
+* **#1 Veronica Allasia (Palleggiatrice - 63.5 kg):** Squat 100 kg | Bench 40 kg | Military 30 kg | Clean 40 kg | Row 30 kg | Lat 50 kg
+* **#2 Maria Marcuzzi (Centrale - 67.6 kg):** Squat 106 kg | Bench 40 kg | Military 20 kg | Clean 35 kg | Row 40 kg | Lat 45 kg
+* **#3 Victoria Sassolini (Schiacciatrice - 73.4 kg):** Squat 125 kg | Bench 35 kg | Military 44 kg | Clean 60 kg | Row 40 kg | Lat 40 kg
+* **#4 Anja Asonja (Opposte - 71.4 kg):** Squat 96 kg | Bench 45 kg | Military 25 kg | Clean 50 kg | Row 43 kg | Lat 45 kg
+* **#5 Chiara Lo Dico (Libero - 55.2 kg):** Squat 90 kg | Bench 40 kg | Military 25 kg | Clean 30 kg | Row 30 kg | Lat 40 kg
+* **#6 Gaia Biondi (Centrale - 67.7 kg):** Squat 80 kg | Bench 35 kg | Military 26 kg | Clean 53 kg | Row 45 kg | Lat 35 kg
+* **#7 Elisa Bole (Schiacciatrice - 77.0 kg):** Squat 120 kg | Bench 42 kg | Military 40 kg | Clean 60 kg | Row 55 kg | Lat 50 kg
+* **#8 Federica Nonnati (Opposto - 79.2 kg):** Squat 105 kg | Bench 45 kg | Military 20 kg | Clean 55 kg | Row 60 kg | Lat 40 kg
+* **#9 Sara Dodi (Schiacciatrice - 64.7 kg):** Squat 80 kg | Bench 35 kg | Military 20 kg | Clean 55 kg | Row 30 kg | Lat 34.3 kg
+* **#11 Luna Cicola (Libero - 58.8 kg):** Squat 102 kg | Bench 30 kg | Military 22 kg | Clean 44 kg | Row 45 kg | Lat 43 kg
+* **#12 Erin Grippo (Palleggiatrice - 63.6 kg):** Squat 134 kg | Bench 51 kg | Military 35 kg | Clean 41 kg | Row 60 kg | Lat 45 kg
+* **#13 Giulia Caserta (Centrale - 78.0 kg):** Squat 102 kg | Bench 35 kg | Military 22 kg | Clean 52 kg | Row 48 kg | Lat 45 kg
+* **#14 Nelly Adamczewska (Outside Hitter - 70.3 kg):** Squat 120 kg | Bench 35 kg | Military 35 kg | Clean 40 kg | Row 50 kg | Lat 30 kg
 
 ---
 

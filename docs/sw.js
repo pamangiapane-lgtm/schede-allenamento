@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v257-squat-pure-pct)
-const CACHE_NAME = 'marsala-app-v257-squat-pure-pct';
+// Service Worker App Marsala Volley (v258-fix-dodi-1rm)
+const CACHE_NAME = 'marsala-app-v258-fix-dodi-1rm';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260913v257',
+  './data.js?v=20260913v258',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',

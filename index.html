@@ -2085,6 +2085,14 @@
           }
         }
       });
+      // Bonifica specifica Dodi (#9) refuso storico 150kg
+      if (aid === 9) {
+        const dodiSq = localStorage.getItem('mv_1rm_9_squat');
+        if (dodiSq && (parseFloat(dodiSq) === 150 || parseFloat(dodiSq) > 110)) {
+          localStorage.removeItem('mv_1rm_9_squat');
+          localStorage.removeItem('mv_synced_mv_1rm_9_squat');
+        }
+      }
 
       // Sanifica date spurie 1899/1900, VBT a 0 o irrealistici e carichi spuri
       try {
@@ -2624,6 +2632,11 @@
       const minThreshold = (rmKey.id === 'squat' || rmKey.id === 'rdl') ? 30 : ((rmKey.id === 'clean') ? 20 : 15);
 
       if (!isNaN(saved) && saved >= minThreshold && saved <= 300) {
+        if (currentAthlete.id === 9 && rmKey.id === 'squat' && (saved === 150 || saved > 110)) {
+          localStorage.removeItem(`mv_1rm_9_squat`);
+          localStorage.removeItem(`mv_synced_mv_1rm_9_squat`);
+          return (TRUE_BASELINES[9] && TRUE_BASELINES[9].squat) || 80;
+        }
         return saved;
       }
       // Se c'è un valore errato o non fisiologico salvato precedentemente (es. 0.74, 0.93)

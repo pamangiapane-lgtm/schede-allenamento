@@ -2838,7 +2838,10 @@
             };
 
             // Blinda con soglie fisiologiche reali: squat >= 30kg, clean/rdl >= 20kg, panca/military/row/lat >= 15kg
-            if (isSquat1RM && val >= 30) updateIfNewer('squat', val);
+            if (isSquat1RM && val >= 30) {
+              if (aid === 9 && (val === 150 || val > 110)) val = 80;
+              updateIfNewer('squat', val);
+            }
             if (isClean1RM && val >= 20) updateIfNewer('clean', val);
             if (isBench1RM && val >= 15) updateIfNewer('bench', val);
             if (isMilitary1RM && val >= 15) updateIfNewer('military', val);
@@ -4776,7 +4779,8 @@
         let bw = live.bw || BASELINE_WEIGHTS[a.id] || 65;
         if (bw < 40 || bw > 130) bw = BASELINE_WEIGHTS[a.id] || 65;
 
-        const sq = live.squat || base.squat || 0;
+        let sq = live.squat || base.squat || 0;
+        if (a.id === 9 && (sq === 150 || sq > 110)) sq = 80;
         const bp = live.bench || base.bench || 0;
         const mp = live.military || base.military || 0;
         const cl = live.clean || base.clean || 0;
