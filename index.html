@@ -3589,6 +3589,21 @@ function categorizeExerciseNorm(norm) {
 }
 
 
+const POGO_CHRONOJUMP_RECORDS = {
+  1: { max_height: '37.0 cm', rep: 3, tc: '0.276s' },
+  2: { max_height: '34.5 cm', rep: 13, tc: '0.211s' },
+  3: { max_height: '24.3 cm', rep: 3, tc: '0.194s' },
+  4: { max_height: '41.1 cm', rep: 9, tc: '0.248s' },
+  5: { max_height: '36.9 cm', rep: 6, tc: '0.193s' },
+  6: { max_height: '25.3 cm', rep: 8, tc: '0.220s' },
+  7: { max_height: '29.9 cm', rep: 6, tc: '0.200s' },
+  8: { max_height: '29.8 cm', rep: 3, tc: '0.203s' },
+  9: { max_height: '25.7 cm', rep: 9, tc: '0.149s' },
+  11: { max_height: '41.6 cm', rep: 6, tc: '0.238s' },
+  12: { max_height: '30.1 cm', rep: 9, tc: '0.171s' },
+  13: { max_height: '26.8 cm', rep: 1, tc: '<250ms' }
+};
+
 function isJumpExercise(name) {
   const low = (name || '').toLowerCase();
   return low.includes('cmj') || low.includes('jump') || low.includes('balz') ||
@@ -3740,9 +3755,14 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
       if (lowEx.includes('drop jump')) {
         const mBox = (prevExName + ' ' + (matched['Note Tecniche'] || '')).match(/(\d+)\s*cm/i);
         finalVal = mBox ? `Box ${mBox[1]} cm` : 'Box 40 cm';
-      } else if (lowEx.includes('pogo')) {
-        const mTc = (matched['Note Tecniche'] || '').match(/(?:tc|contatto)\s*<(\d+ms)/i);
-        finalVal = mTc ? `TC <${mTc[1]}` : 'Stiffness BW';
+            } else if (lowEx.includes('pogo')) {
+        const pogoRec = (typeof POGO_CHRONOJUMP_RECORDS !== 'undefined' && athlete) ? POGO_CHRONOJUMP_RECORDS[athlete.id] : null;
+        if (pogoRec) {
+          finalVal = `${pogoRec.max_height} (Rep #${pogoRec.rep})`;
+        } else {
+          const mTc = (matched['Note Tecniche'] || '').match(/(?:tc|contatto)\s*<(\d+ms)/i);
+          finalVal = mTc ? `TC <${mTc[1]}` : 'Stiffness BW';
+        }
       } else if (lowEx.includes('cmj') || lowEx.includes('profilazione')) {
         finalVal = 'Max RFD';
       } else {
@@ -3793,7 +3813,8 @@ function renderPreviousWeekRefBadge(athlete, currentWeek, sed, exName, isEN) {
 
   if (ref.isJump) {
     let jumpMetricLbl = isEN ? 'Jump:' : 'Salto:';
-    if (/cm\b/i.test(ref.val)) jumpMetricLbl = isEN ? 'Height:' : 'Altezza:';
+    if (/\(Rep\s*#/i.test(ref.val)) jumpMetricLbl = isEN ? 'Max:' : 'Max:';
+    else if (/cm\b/i.test(ref.val)) jumpMetricLbl = isEN ? 'Height:' : 'Altezza:';
     else if (/rsi/i.test(ref.val)) jumpMetricLbl = 'RSI:';
     else if (/box/i.test(ref.val)) jumpMetricLbl = 'Box:';
     else if (/tc/i.test(ref.val)) jumpMetricLbl = 'Target:';

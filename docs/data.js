@@ -545,7 +545,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4A. Split Squat bulgaro con manubri",
+              "Esercizio": "4A. Split Squat con manubri a terra",
               "Set x Reps": "3 x 5+5",
               "Tempo": "`2010`",
               "Note Tecniche": "Discesa controllata, ginocchio in asse"
@@ -4580,7 +4580,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4A. Split Squat bulgaro con manubri",
+              "Esercizio": "4A. Split Squat con manubri a terra",
               "Set x Reps": "3 x 5+5",
               "Tempo": "`2010`",
               "Note Tecniche": "Discesa controllata, ginocchio in asse"
@@ -5105,7 +5105,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3: Rep #3 con altezza max 37.0 cm (TC: 0.276s)."
             },
             {
               "Blocco": "# Main",
@@ -5135,7 +5135,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (8+8 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -5572,7 +5572,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3: Rep #13 con altezza max 34.5 cm (TC: 0.211s)."
             },
             {
               "Blocco": "# Main",
@@ -5602,7 +5602,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (10+10 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -6039,7 +6039,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3: Rep #3 con altezza max 24.3 cm (TC: 0.194s)."
             },
             {
               "Blocco": "# Main",
@@ -6069,7 +6069,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (10+10 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -6506,7 +6506,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3: Rep #9 con altezza max 41.1 cm (TC: 0.248s)."
             },
             {
               "Blocco": "# Main",
@@ -6536,7 +6536,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (8+8 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -6973,7 +6973,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3 reattivo (DJa): Rep #6 con altezza max 36.9 cm (TC: 0.193s)."
             },
             {
               "Blocco": "# Main",
@@ -7003,7 +7003,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (8+8 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -7440,7 +7440,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3 reattivo (DJa): Rep #8 con altezza max 25.3 cm (TC: 0.220s)."
             },
             {
               "Blocco": "# Main",
@@ -7470,7 +7470,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (10+10 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -7907,7 +7907,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3: Rep #6 con altezza max 29.9 cm (TC: 0.200s)."
             },
             {
               "Blocco": "# Main",
@@ -7937,7 +7937,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (12+12 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -8374,7 +8374,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3: Rep #3 con altezza max 29.8 cm (TC: 0.203s)."
             },
             {
               "Blocco": "# Main",
@@ -8404,7 +8404,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (10+10 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -8841,7 +8841,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3: Rep #9 con altezza max 25.7 cm (TC: 0.149s)."
             },
             {
               "Blocco": "# Main",
@@ -8871,7 +8871,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (8+8 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -9308,7 +9308,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3: Rep #6 con altezza max 41.6 cm (TC: 0.238s)."
             },
             {
               "Blocco": "# Main",
@@ -9338,7 +9338,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (corpo libero)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -9775,7 +9775,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3: Rep #9 con altezza max 30.1 cm (TC: 0.171s)."
             },
             {
               "Blocco": "# Main",
@@ -9805,7 +9805,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (10+10 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
@@ -10242,7 +10242,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x (4+4)",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea. 🎯 Test W3: Rep #1 con altezza max 26.8 cm (TC: <250ms)."
             },
             {
               "Blocco": "# Main",
@@ -10272,7 +10272,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Split Squat con Manubri a Terra",
               "Set x Reps": "3 x 5+5",
-              "Carico (kg/RPE)": "RPE 6 (10+10 kg)",
+              "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
               "Note Tecniche": "Esecuzione classica a terra (no bulgaro), ginocchio allineato col 2° dito, discesa fluida salva-bacino."
             },
