@@ -4470,7 +4470,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "55",
-        "Note": "Back Squat 82.5% (min 0.48 m/s) + Pogo Jump 3x(4+4) TC + Floor Press 85% + Lat neutra normale + Split Squat manubri + Split Pallof Press"
+        "Note": "Back Squat 82.5% (min 0.45 m/s) + Pogo Jump 3x(4+4) TC + Floor Press 85% + Lat neutra normale + Split Squat manubri + Split Pallof Press"
       },
       {
         "Numero_Seduta": "W4-MerV",
@@ -5113,7 +5113,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -5580,7 +5580,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -6047,7 +6047,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -6514,7 +6514,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -6981,7 +6981,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -7448,7 +7448,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -7915,7 +7915,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -8382,7 +8382,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -8849,7 +8849,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -9316,7 +9316,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -9783,7 +9783,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",
@@ -10250,7 +10250,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "82.5%",
               "Tempo": "`20X0`",
-              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
+              "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.45 m/s (stop immediato alla serie se cala sotto 0.45 m/s)."
             },
             {
               "Blocco": "# Main",

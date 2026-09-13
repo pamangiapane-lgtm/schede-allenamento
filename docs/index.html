@@ -3985,10 +3985,10 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
 
   let speedBadgeHtml = '';
   if (!isNelly && lowName.includes('squat') && !lowName.includes('split') && !lowName.includes('spanish')) {
-    const isS1Sed = String(sed ? sed.Numero_Seduta : '').includes('1') || String(sed ? sed.Numero_Seduta : '').toLowerCase().includes('lun') || (note && note.includes('0.48'));
+    const isS1Sed = String(sed ? sed.Numero_Seduta : '').includes('1') || String(sed ? sed.Numero_Seduta : '').toLowerCase().includes('lun') || (note && (note.includes('0.45') || note.includes('0.48')));
     const isS2Sed = String(sed ? sed.Numero_Seduta : '').includes('2') || String(sed ? sed.Numero_Seduta : '').toLowerCase().includes('mer') || (note && note.includes('0.85')) || lowName.includes('power');
     if (isS1Sed) {
-      speedBadgeHtml = '<span style="display:block;font-size:0.68rem;color:#fde68a;font-weight:700;margin-top:2px;">⚡ min 0.48 m/s</span>';
+      speedBadgeHtml = '<span style="display:block;font-size:0.68rem;color:#fde68a;font-weight:700;margin-top:2px;">⚡ min 0.45 m/s</span>';
     } else if (isS2Sed) {
       speedBadgeHtml = '<span style="display:block;font-size:0.68rem;color:#fde68a;font-weight:700;margin-top:2px;">⚡ max speed 0.85 m/s</span>';
     }
@@ -4058,7 +4058,7 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
 
   let logHtml = '';
   if (isSquatWithPct) {
-    const isS1 = String(sed.Numero_Seduta || '').includes('1') || String(sed.Numero_Seduta || '').toLowerCase().includes('lun') || (note && note.includes('0.48'));
+    const isS1 = String(sed.Numero_Seduta || '').includes('1') || String(sed.Numero_Seduta || '').toLowerCase().includes('lun') || (note && (note.includes('0.45') || note.includes('0.48')));
     const isS2 = String(sed.Numero_Seduta || '').includes('2') || String(sed.Numero_Seduta || '').toLowerCase().includes('mer') || (note && note.includes('0.85')) || lowName.includes('power');
     const savedVbt = localStorage.getItem(`mv_vbt_${athlete.id}_${curWeekKey}_${sed.Numero_Seduta}_${exName}`) ||
                      localStorage.getItem(`mv_vbt_${athlete.id}_${curWeekKey}_${sNum}_${exName}`) || '';
@@ -4067,14 +4067,14 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
     const targetPctStr = (rmData && rmData.pct) ? `${rmData.pct}%` : (isS2 ? '70%' : '82.5%');
 
     const vbtLabel = isS1
-      ? `⚡ ${isEN ? 'Min Velocity Cutoff:' : 'Velocità Minima:'} <strong style="color:#fde68a;">min 0.48 m/s</strong>`
+      ? `⚡ ${isEN ? 'Min Velocity Cutoff:' : 'Velocità Minima:'} <strong style="color:#fde68a;">min 0.45 m/s</strong>`
       : (isS2
           ? `⚡ ${isEN ? 'Target Speed:' : 'Velocità Target:'} <strong style="color:#fde68a;">max speed 0.85 m/s</strong>`
           : `⚡ ${isEN ? 'Mean Velocity (m/s):' : 'Velocità Media (m/s):'}`);
 
     const vbtPlaceholder = savedVbt
       ? `${isEN ? 'Saved:' : 'Salvato:'} ${savedVbt}`
-      : (isS1 ? 'min 0.48 m/s' : (isS2 ? 'max 0.85 m/s' : (isEN ? 'e.g. 0.65 m/s' : 'es. 0.65 m/s')));
+      : (isS1 ? 'min 0.45 m/s' : (isS2 ? 'max 0.85 m/s' : (isEN ? 'e.g. 0.65 m/s' : 'es. 0.65 m/s')));
 
     logHtml = `
       <div class="ex-load-log-box" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);">
