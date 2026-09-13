@@ -1462,6 +1462,7 @@
 
   </main>
 
+  <script src="prehab_db.js?v=1.0"></script>
   <script src="data.js?v=20260912v252"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase-client.js?v=2.0"></script>
@@ -3835,7 +3836,15 @@ function renderSessions() {
   const athIdStr = String(currentAthlete.id);
   const athInd = (weekObj.atleti && weekObj.atleti[athIdStr]) ? weekObj.atleti[athIdStr] : null;
   const teamProg = weekObj.programma_squadra || {};
-  const prehabLink = currentAthlete.Link_Prehab || currentAthlete.link_prehab || 'https://pro.theprehabguys.com';
+  const rawPrehab = currentAthlete.Link_Prehab || currentAthlete.link_prehab || '';
+  let prehabCode = '';
+  if (rawPrehab.includes('/')) {
+    prehabCode = rawPrehab.split('/').filter(Boolean).pop();
+  }
+  if (!prehabCode && typeof PREHAB_ATHLETE_MAP !== 'undefined' && PREHAB_ATHLETE_MAP[String(currentAthlete.id)]) {
+    prehabCode = PREHAB_ATHLETE_MAP[String(currentAthlete.id)].code;
+  }
+  const prehabLink = `prehab.html?code=${prehabCode || currentAthlete.id}&ath=${currentAthlete.id}`;
 
   let html = '';
 
@@ -3876,6 +3885,15 @@ function renderSessions() {
       const nellyActivationHtml = `
         <div class="method-group">
           <div class="method-title">${isEN ? '🔥 Activation' : '🔥 Attivazione'}</div>
+          <div style="background:linear-gradient(135deg,#0c1a3a,#1e3a8a);border:1px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+            <div>
+              <div style="font-weight:800;color:#fff;font-size:0.92rem">🛡️ ${isEN ? 'Individual Prehab Protocol' : 'Protocollo Prehab Individuale'}</div>
+              <div style="font-size:0.75rem;color:#bfdbfe">${isEN ? 'Personalized corrective exercises and HD video guide' : 'Esercizi correttivi personalizzati e video guida HD'}</div>
+            </div>
+            <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#f59e0b;color:#060a14;font-weight:800;font-size:0.82rem;padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:inline-flex;align-items:center;gap:4px;">
+              🛡️ ${isEN ? 'Open Prehab ↗' : 'Apri Scheda Prehab ↗'}
+            </a>
+          </div>
           
           <div class="exercise-card">
             <div class="ex-head-row">
@@ -3989,12 +4007,14 @@ function renderSessions() {
             <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.4;">${isEN ? 'Free and targeted joint mobility for hips, ankles, thoracic spine and shoulders before loading.' : 'Mobilità articolare libera e mirata per anche, caviglie, colonna toracica e spalle prima del carico.'}</div>
           </div>
 
-          <div style="background:linear-gradient(135deg,#1e3a8a,#2563eb);border:1px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+          <div style="background:linear-gradient(135deg,#0c1a3a,#1e3a8a);border:1px solid #3b82f6;border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;">
             <div>
               <div style="font-weight:800;color:#fff;font-size:0.92rem">🛡️ ${isEN ? 'Individual Prehab Protocol' : 'Protocollo Prehab Individuale'}</div>
-              <div style="font-size:0.75rem;color:#bfdbfe">${isEN ? 'Execute your 5 assigned corrective exercises' : 'Esegui i tuoi 5 esercizi correttivi assegnati'}</div>
+              <div style="font-size:0.75rem;color:#bfdbfe">${isEN ? 'Personalized corrective exercises and HD video guide' : 'Esercizi correttivi personalizzati e video guida HD'}</div>
             </div>
-            <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#fff;color:#1e3a8a;font-weight:800;font-size:0.82rem;padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.2);">${isEN ? 'Open Portal ↗' : 'Apri Portale ↗'}</a>
+            <a href="${prehabLink}" target="_blank" rel="noopener" style="background:#f59e0b;color:#060a14;font-weight:800;font-size:0.82rem;padding:8px 14px;border-radius:8px;text-decoration:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:inline-flex;align-items:center;gap:4px;">
+              🛡️ ${isEN ? 'Open Prehab ↗' : 'Apri Scheda Prehab ↗'}
+            </a>
           </div>
 
           ${attivazioneList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}

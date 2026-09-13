@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marsala Volley — Protocolli Prehab Nativi & Video Player</title>
+  <style>
+    :root {
+      --mv-bg-dark:       #060a14;
+      --mv-surface-card:  #090f1d;
+      --mv-surface-hover: #0f172a;
+      --mv-border:        #1e335a;
+      --mv-border-subtle: rgba(255, 255, 255, 0.08);
+      --mv-gold:          #f59e0b;
+      --mv-gold-glow:     rgba(245, 158, 11, 0.2);
+      --mv-gold-text:     #fde68a;
+      --mv-emerald:       #10b981;
+      --mv-emerald-bg:    rgba(16, 185, 129, 0.15);
+      --mv-amber:         #f59e0b;
+      --mv-amber-bg:      rgba(245, 158, 11, 0.15);
+      --mv-coral:         #ef4444;
+      --mv-coral-bg:      rgba(239, 68, 68, 0.18);
+      --mv-cyan:          #38bdf8;
+      --mv-cyan-bg:       rgba(56, 189, 248, 0.15);
+      --mv-text-primary:   #f8fafc;
+      --mv-text-secondary: #cbd5e1;
+      --mv-text-muted:     #64748b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--mv-bg-dark);
+      color: var(--mv-text-primary);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    /* HEADER */
+    .preview-header {
+      background: #0b132b;
+      border-bottom: 1px solid var(--mv-border);
+      padding: 12px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .brand-tag {
+      background: var(--mv-gold);
+      color: #000;
+      font-size: 0.68rem;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .controls-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    select.ath-select {
+      background: #111a33;
+      color: #fff;
+      border: 1px solid var(--mv-border);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      outline: none;
+    }
+    select.ath-select:focus {
+      border-color: var(--mv-cyan);
+    }
+
+    .nav-tabs {
+      display: flex;
+      background: #070d1d;
+      border: 1px solid var(--mv-border);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 4px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--mv-text-secondary);
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tab-btn.active {
+      background: #1e3a8a;
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .btn-action {
+      background: var(--mv-gold);
+      color: #060a14;
+      font-weight: 800;
+      font-size: 0.82rem;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.1s;
+    }
+    .btn-action:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    /* CONTAINER */
+    .main-container {
+      max-width: 980px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* BANNER QUADRO CLINICO */
+    .ath-badge-banner {
+      background: #0f1b38;
+      border-left: 4px solid var(--mv-cyan);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .ath-flag-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--mv-cyan);
+      letter-spacing: 0.05em;
+    }
+    .ath-flag-desc {
+      font-size: 0.95rem;
+      color: var(--mv-text-primary);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .volume-pill {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid var(--mv-gold);
+      color: var(--mv-gold-text);
+      font-weight: 800;
+      font-size: 0.82rem;
+      padding: 5px 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    /* CARD ESERCIZIO */
+    .exercise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .exercise-card {
+      background: var(--mv-surface-card);
+      border: 1px solid var(--mv-border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: border-color 0.15s;
+    }
+    .exercise-card:hover {
+      border-color: #2a4374;
+    }
+
+    .ex-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 1px solid var(--mv-border-subtle);
+      padding-bottom: 12px;
+    }
+    .ex-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ex-num-badge {
+      background: #1e3a8a;
+      color: #93c5fd;
+      font-size: 0.82rem;
+      font-weight: 900;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+    .ex-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .ex-target-badge {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--mv-cyan);
+      color: #7dd3fc;
+      font-family: monospace;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    /* CORPO CARD: FOTO + VIDEO + DESCRIZIONE */
+    .ex-body-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 760px) {
+      .ex-body-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* COLONNA VISIVA: FOTO E BOTTONE VIDEO */
+    .ex-visual-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ex-images-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: #040711;
+      padding: 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .ex-img-wrap {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: #000;
+    }
+    .ex-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .step-tag {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      font-size: 0.6rem;
+      font-weight: 800;
+      padding: 2px 4px;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-toggle-video {
+      background: #111a33;
+      border: 1px solid var(--mv-border);
+      color: #38bdf8;
+      font-weight: 800;
+      font-size: 0.82rem;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-toggle-video:hover {
+      background: #1e3a8a;
+      color: #fff;
+      border-color: #38bdf8;
+    }
+    .btn-toggle-video.active {
+      background: var(--mv-cyan);
+      color: #04101e;
+      border-color: var(--mv-cyan);
+    }
+
+    /* VIDEO PLAYER CONTAINER */
+    .video-drawer {
+      margin-top: 10px;
+      display: none;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #1e335a;
+      aspect-ratio: 16/9;
+    }
+    .video-drawer video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      outline: none;
+    }
+
+    /* COLONNA TESTO E DESCRIZIONE IN ITALIANO */
+    .ex-desc-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .desc-block {
+      background: #0c1427;
+      border-radius: 8px;
+      padding: 10px 14px;
+      border-left: 3px solid #38bdf8;
+    }
+    .desc-block.feel {
+      border-left-color: #10b981;
+    }
+    .desc-block.comp {
+      border-left-color: #f59e0b;
+    }
+    .desc-lbl {
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .desc-block.how .desc-lbl { color: #7dd3fc; }
+    .desc-block.feel .desc-lbl { color: #6ee7b7; }
+    .desc-block.comp .desc-lbl { color: #fde68a; }
+    .desc-txt {
+      font-size: 0.85rem;
+      color: var(--mv-text-secondary);
+      line-height: 1.45;
+    }
+
+    /* VIEW 2: A4 PRINT VIEW */
+    .print-preview-wrapper {
+      background: #e2e8f0;
+      padding: 30px 10px;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .a4-sheet {
+      background: #ffffff;
+      color: #0f172a;
+      width: 100%;
+      max-width: 840px;
+      padding: 36px 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      border-radius: 4px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .print-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .print-club-name {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+    .print-sub-title {
+      font-size: 0.85rem;
+      color: #475569;
+      font-weight: 600;
+    }
+    .print-ath-info {
+      text-align: right;
+    }
+    .print-ath-name {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .print-ath-meta {
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+
+    .print-anamnesi-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #f59e0b;
+      padding: 8px 14px;
+      margin-bottom: 18px;
+      font-size: 0.82rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .print-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .print-table th {
+      background: #0f172a;
+      color: #ffffff;
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      letter-spacing: 0.04em;
+    }
+    .print-table td {
+      border-bottom: 1px solid #e2e8f0;
+      padding: 10px;
+      vertical-align: middle;
+      font-size: 0.82rem;
+    }
+    .print-img-col {
+      width: 165px;
+    }
+    .print-imgs {
+      display: flex;
+      gap: 6px;
+    }
+    .print-imgs img {
+      width: 78px;
+      height: 58px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+    }
+    .print-ex-title {
+      font-weight: 800;
+      font-size: 0.88rem;
+      color: #0f172a;
+    }
+    .print-ex-desc {
+      font-size: 0.75rem;
+      color: #475569;
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+    .print-target-badge {
+      font-weight: 800;
+      font-family: monospace;
+      color: #0f172a;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    .print-check-boxes {
+      display: flex;
+      gap: 6px;
+    }
+    .print-chk-circle {
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid #64748b;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* VIEW 3: COACH EDITOR */
+    .editor-card {
+      background: var(--mv-surface-card);
+      border: 1px solid var(--mv-border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .editor-section-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .editor-intro {
+      font-size: 0.85rem;
+      color: var(--mv-text-secondary);
+      margin-bottom: 20px;
+    }
+    .editor-row {
+      background: #0c1427;
+      border: 1px solid var(--mv-border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 2fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .editor-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--mv-text-muted);
+      margin-bottom: 4px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      background: #060a14;
+      border: 1px solid var(--mv-border);
+      color: #fff;
+      font-size: 0.85rem;
+      padding: 8px 10px;
+      border-radius: 6px;
+      outline: none;
+    }
+    .form-group input:focus {
+      border-color: var(--mv-cyan);
+    }
+    .btn-del {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--mv-coral);
+      color: #fca5a5;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+    .editor-actions-bar {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .btn-secondary {
+      background: #111a33;
+      border: 1px solid var(--mv-border);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .btn-save-coach {
+      background: var(--mv-emerald);
+      color: #042f2e;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    }
+
+    /* TOAST */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #10b981;
+      color: #042f2e;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 1000;
+    }
+
+    /* MEDIA PRINT RULES */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+      }
+      .preview-header, .nav-tabs, .btn-action, #editor-view, #app-view {
+        display: none !important;
+      }
+      #print-view {
+        display: block !important;
+      }
+      .print-preview-wrapper {
+        background: transparent !important;
+        padding: 0 !important;
+      }
+      .a4-sheet {
+        box-shadow: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      tr {
+        page-break-inside: avoid !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="preview-header">
+    <div class="brand-title">
+      🏐 MARSALA VOLLEY
+      <span class="brand-tag">PREHAB CORE</span>
+    </div>
+
+    <div class="controls-group">
+      <select id="athleteSelect" class="ath-select" onchange="onAthleteChange()">
+        <!-- Populated via JS -->
+      </select>
+
+      <div class="nav-tabs">
+        <button id="tabApp" class="tab-btn active" onclick="switchTab('app')">📱 Scheda & Video Atleta</button>
+        <button id="tabPrint" class="tab-btn" onclick="switchTab('print')">📄 Scheda A4 / PDF</button>
+        <button id="tabEditor" class="tab-btn" onclick="switchTab('editor')">⚙️ Editor Coach</button>
+      </div>
+
+      <button class="btn-action" onclick="printPdf()">
+        🖨️ Stampa / Salva PDF
+      </button>
+    </div>
+  </header>
+
+  <div class="main-container">
+
+    <!-- 1. VISTA ATLETA: VIDEO PLAYER + DESCRIZIONI IN ITALIANO (NO SEGNALIBRO COMPLETATO) -->
+    <section id="app-view">
+      <div id="appAthBanner" class="ath-badge-banner">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div id="appExerciseList" class="exercise-list">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- 2. VISTA STAMPA A4 / PDF -->
+    <section id="print-view" class="print-preview-wrapper" style="display:none;">
+      <div class="a4-sheet">
+        <div class="print-hdr">
+          <div>
+            <div class="print-club-name">MARSALA VOLLEY — SERIE A2F</div>
+            <div class="print-sub-title">Protocollo Individuale di Prehab & Mobilizzazione Neuromuscolare</div>
+          </div>
+          <div class="print-ath-info">
+            <div id="printAthName" class="print-ath-name">Nome Atleta</div>
+            <div id="printAthMeta" class="print-ath-meta">Staff S&C · Stagione 2024/25</div>
+          </div>
+        </div>
+
+        <div class="print-anamnesi-box">
+          <div><strong>Quadro Clinico / Focus:</strong> <span id="printAthFlags">-</span></div>
+          <div><strong>Volume:</strong> <span id="printAthVolume">-</span></div>
+        </div>
+
+        <table class="print-table">
+          <thead>
+            <tr>
+              <th class="print-img-col">Guida Visiva</th>
+              <th>Esercizio & Istruzioni Tecniche</th>
+              <th style="text-align:center;">Target</th>
+              <th style="text-align:center; width:85px;">Serie Spunta</th>
+            </tr>
+          </thead>
+          <tbody id="printTableBody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+
+        <div style="margin-top:24px; padding-top:10px; border-top:1px dashed #cbd5e1; display:flex; justify-content:space-between; font-size:0.75rem; color:#64748b;">
+          <div>Marsala Volley Performance Lab · Archivio Esercizi Certificato</div>
+          <div>Eseguire nei 10 min precedenti la seduta pesi/campo</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. VISTA EDITOR COACH -->
+    <section id="editor-view" class="editor-card" style="display:none;">
+      <div class="editor-section-title">
+        ⚙️ Editor Scheda Prehab & Parametri Seduta
+      </div>
+      <p class="editor-intro">
+        Modifica direttamente serie, target, cues o esercizi per l'atleta selezionata. Quando salvi, le modifiche si riflettono istantaneamente sulla scheda dell'atleta e sul PDF stampabile.
+      </p>
+
+      <div style="background:#070d1d; border:1px solid var(--mv-border); border-radius:8px; padding:14px; margin-bottom:16px; display:flex; gap:16px; flex-wrap:wrap;">
+        <div class="form-group" style="flex:2; min-width:200px;">
+          <label>Quadro Clinico / Anamnesi</label>
+          <input type="text" id="editFlags" value="" oninput="updateLiveFlags(this.value)">
+        </div>
+        <div class="form-group" style="flex:1; min-width:140px;">
+          <label>Volume Globale (Split)</label>
+          <input type="text" id="editSplit" value="" oninput="updateLiveSplit(this.value)">
+        </div>
+      </div>
+
+      <div id="editorExercisesContainer">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div class="editor-actions-bar">
+        <button class="btn-secondary" onclick="addNewExerciseRow()">
+          ➕ Aggiungi Esercizio dalla Libreria
+        </button>
+        <button class="btn-save-coach" onclick="saveCoachChanges()">
+          💾 Salva Modifiche Scheda
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  <div id="toast">✅ Scheda salvata con successo!</div>
+
+  <script>
+    let roster = [
+  {
+    "num": 1,
+    "name": "Veronica Allasia",
+    "code": "KSCPPDAB",
+    "flags": "Instabilità caviglia DX, stress tibiale",
+    "title": "prehab allasia 1",
+    "exercises": [
+      {
+        "id": "8752454",
+        "day": "Day 1",
+        "split": "solo sx x3",
+        "name": "Single Leg Balance - Foam Pad",
+        "stats": {
+          "Hold": "30\"s"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/e35/e350ede3-f2ae-5f48-9a37-b0c3900b1567/SMALL/Single-Leg-Balance-Foam-Pad1.png",
+          "https://prod-images.theprehabguys.com/exercises/39e/39eb28c9-329c-5e86-bda2-db546f2d20f5/SMALL/Single-Leg-Balance-Foam-Pad2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=Y_afiShsG97q6RBbAhycE70SjtLTfA207E1GA3OfdbQ&expires=1789352072&token_path=%2F088f2d40-4852-48e4-805f-5e3e582914e9%2F/088f2d40-4852-48e4-805f-5e3e582914e9/play_720p.mp4",
+        "how_it": "Posizionati in appoggio monopodalico su un cuscino propriocettivo (foam pad). Mantieni ginocchio e anca leggermente flessi, bacino livellato e braccia rilassate o lungo i fianchi. Fissa un punto avanti per favorire l'equilibrio.",
+        "feel_it": "Attivazione intensa dei muscoli intrinseci del piede, stabilizzatori della caviglia (tibiale posteriore e peronieri) e medio gluteo.",
+        "comp_it": "Non iperestendere il ginocchio (non bloccarlo indietro). Non inclinare il busto lateralmente per compensare le oscillazioni."
+      },
+      {
+        "id": "8752455",
+        "day": "Day 1",
+        "split": "solo sx x3",
+        "name": "Side Plank - On Knees, Clam, Band",
+        "stats": {
+          "Reps": "8+8"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/1f9/1f955883-d566-554a-9791-84ded4ac0461/SMALL/Side-Plank-On-Knees-Clam-Band.jpg",
+          "https://prod-images.theprehabguys.com/exercises/9dc/9dc12c33-36e4-565d-8d95-261bd3811e1d/SMALL/Side-Plank-On-Knees-Clam-Band1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=myvzc_C_qvNZltNlHmfjInWEm04WYqsDU7MI-lxd_ZA&expires=1789352073&token_path=%2Fb9dd6d4d-034f-4857-b87e-07f80086580f%2F/b9dd6d4d-034f-4857-b87e-07f80086580f/play_720p.mp4",
+        "how_it": "Posizionati sul fianco in appoggio su gomito e ginocchia piegate a 90°, con un elastico attorno alle ginocchia. Solleva il bacino allineando spalle, anche e ginocchia; contemporaneamente apri il ginocchio superiore mantenendo i talloni a contatto.",
+        "feel_it": "Forte contrazione del medio gluteo della gamba superiore e lavoro isometrico di core e anca del lato a terra.",
+        "comp_it": "Non far ruotare il bacino all'indietro durante l'apertura. Mantieni il bacino alto senza farlo cedere verso il pavimento."
+      },
+      {
+        "id": "8752456",
+        "day": "Day 1",
+        "split": "solo sx x3",
+        "name": "Split Stance Lunge - RNT",
+        "stats": {
+          "Reps": "8+8"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/29e/29efcac3-d29b-5ce2-a964-f2fcd1dca372/SMALL/Split-Stance-Lunge-RNT1.png",
+          "https://prod-images.theprehabguys.com/exercises/d83/d8349582-0ad0-5f34-9fdb-801417754b69/SMALL/Split-Stance-Lunge-RNT2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=JzVBbB3bxuD0wm1qkrQytbqIaow6B-muoSZCRGKhZPE&expires=1789352074&token_path=%2Fcae1d904-27ab-4d92-912d-5f57780186af%2F/cae1d904-27ab-4d92-912d-5f57780186af/play_720p.mp4",
+        "how_it": "Posizionati in split stance (affondo statico) con un elastico che traziona il ginocchio anteriore verso l'interno (valgo). Scendi in affondo verticale opponendoti attivamente alla resistenza dell'elastico per mantenere il ginocchio perfettamente allineato al 2° dito del piede.",
+        "feel_it": "Attivazione mirata del medio gluteo per contrastare il valgismo dinamico, assieme a quadricipiti e grande gluteo.",
+        "comp_it": "Non cedere alla trazione dell'elastico (evita il collasso mediale del ginocchio). Mantieni il busto eretto senza oscillare."
+      },
+      {
+        "id": "8752457",
+        "day": "Day 1",
+        "split": "solo sx x3",
+        "name": "Shoulder Prep - Band",
+        "stats": {
+          "Reps": "6+6+6"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/ccd/ccd95c22-4eba-57f0-acaf-e26d6dfea40c/SMALL/Shoulder-Prep-Band.jpg",
+          "https://prod-images.theprehabguys.com/exercises/21e/21e8e052-4cc8-51eb-b22e-d0ef80078852/SMALL/Shoulder-Prep-Band1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=T8mWJNqZnWXnRSFdV_nEe3NPK4BtVAdZncg2Ugde3Nk&expires=1789352075&token_path=%2F3fcb1174-bc44-4608-a6de-2f3556219b9f%2F/3fcb1174-bc44-4608-a6de-2f3556219b9f/play_720p.mp4",
+        "how_it": "Con un elastico tra le mani, esegui movimenti combinati di extrarotazione delle spalle, retrazione scapolare a gomiti flessi e dislocazioni controllate a braccia tese.",
+        "feel_it": "Calore e attivazione profonda della cuffia dei rotatori (sottospinato e piccolo rotondo) e stabilizzatori scapolari (trapezio inferiore e romboidi).",
+        "comp_it": "Non inarcare la schiena (colonna lombare neutra). Non sollevare le spalle verso le orecchie."
+      }
+    ]
+  },
+  {
+    "num": 2,
+    "name": "Maria Marcuzzi",
+    "code": "IB56ARLW",
+    "flags": "Spalla DX debole, deficit podalico bilaterale",
+    "title": "Marcuzzi 1",
+    "exercises": [
+      {
+        "id": "8752430",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Single Leg Balance - Foam Pad",
+        "stats": {
+          "Hold": "30\"s"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/e35/e350ede3-f2ae-5f48-9a37-b0c3900b1567/SMALL/Single-Leg-Balance-Foam-Pad1.png",
+          "https://prod-images.theprehabguys.com/exercises/39e/39eb28c9-329c-5e86-bda2-db546f2d20f5/SMALL/Single-Leg-Balance-Foam-Pad2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=Y_afiShsG97q6RBbAhycE70SjtLTfA207E1GA3OfdbQ&expires=1789352072&token_path=%2F088f2d40-4852-48e4-805f-5e3e582914e9%2F/088f2d40-4852-48e4-805f-5e3e582914e9/play_720p.mp4",
+        "how_it": "Posizionati in appoggio monopodalico su un cuscino propriocettivo (foam pad). Mantieni ginocchio e anca leggermente flessi, bacino livellato e braccia rilassate o lungo i fianchi. Fissa un punto avanti per favorire l'equilibrio.",
+        "feel_it": "Attivazione intensa dei muscoli intrinseci del piede, stabilizzatori della caviglia (tibiale posteriore e peronieri) e medio gluteo.",
+        "comp_it": "Non iperestendere il ginocchio (non bloccarlo indietro). Non inclinare il busto lateralmente per compensare le oscillazioni."
+      },
+      {
+        "id": "8752431",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Single Leg Hip Thrust",
+        "stats": {
+          "Reps": "10+10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/99d/99df7b8c-1b4d-5cb0-81a2-185fd13f7fa7/SMALL/Single-Leg-Hip-Thrust1.png",
+          "https://prod-images.theprehabguys.com/exercises/ebf/ebffd6e0-253e-5d5e-97ac-64f8048673b6/SMALL/Single-Leg-Hip-Thrust2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=aVevmYKkG3_BzM3DfqCVFs5Qj97vU12-vuQbT50DV7k&expires=1789352075&token_path=%2F4523a0b6-f7d4-4425-8948-5966397088b5%2F/4523a0b6-f7d4-4425-8948-5966397088b5/play_720p.mp4",
+        "how_it": "Spalle in appoggio su una panca o box, un piede a terra a 90° e l'altra gamba raccolta a 90° in aria. Spingi attraverso il tallone a terra estendendo completamente l'anca fino ad allineare coscia, bacino e busto.",
+        "feel_it": "Massima contrazione del grande gluteo e della catena posteriore della gamba in appoggio.",
+        "comp_it": "Non inarcare la zona lombare a fine corsa: l'estensione deve avvenire dall'anca mantenendo l'addome attivo."
+      },
+      {
+        "id": "8752432",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Shoulder Prep - Band",
+        "stats": {
+          "Reps": "6+6+6"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/ccd/ccd95c22-4eba-57f0-acaf-e26d6dfea40c/SMALL/Shoulder-Prep-Band.jpg",
+          "https://prod-images.theprehabguys.com/exercises/21e/21e8e052-4cc8-51eb-b22e-d0ef80078852/SMALL/Shoulder-Prep-Band1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=T8mWJNqZnWXnRSFdV_nEe3NPK4BtVAdZncg2Ugde3Nk&expires=1789352075&token_path=%2F3fcb1174-bc44-4608-a6de-2f3556219b9f%2F/3fcb1174-bc44-4608-a6de-2f3556219b9f/play_720p.mp4",
+        "how_it": "Con un elastico tra le mani, esegui movimenti combinati di extrarotazione delle spalle, retrazione scapolare a gomiti flessi e dislocazioni controllate a braccia tese.",
+        "feel_it": "Calore e attivazione profonda della cuffia dei rotatori (sottospinato e piccolo rotondo) e stabilizzatori scapolari (trapezio inferiore e romboidi).",
+        "comp_it": "Non inarcare la schiena (colonna lombare neutra). Non sollevare le spalle verso le orecchie."
+      },
+      {
+        "id": "8752433",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Split Stance Pallof - Press",
+        "stats": {
+          "Reps": "8+8"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/04f/04f08d46-0bd7-4c46-a672-5f1cdc601ef6/SMALL/split-stance-pallof-press.gif",
+          "https://prod-images.theprehabguys.com/exercises/04f/04f08d46-0bd7-4c46-a672-5f1cdc601ef6/SMALL/split-stance-pallof-press.gif"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=l215pfNd2WGJ1CmPlo2-MDBRUeY5pboPAA4fnE8CCK4&expires=1789352076&token_path=%2F560b739f-50d8-4ec4-9734-4c1903d316bc%2F/560b739f-50d8-4ec4-9734-4c1903d316bc/play_720p.mp4",
+        "how_it": "In posizione di mezzo affondo (split stance), perpendicolare a un cavo o elastico ancorato lateralmente. Porta le mani al centro del petto ed estendi le braccia in avanti resistendo alla forza di rotazione.",
+        "feel_it": "Forte attivazione anti-rotazionale del core (obliqui, trasverso dell'addome) e stabilità pelvica.",
+        "comp_it": "Non farti ruotare le spalle o il bacino verso l'ancoraggio. Spalle basse e lontane dalle orecchie."
+      }
+    ]
+  },
+  {
+    "num": 3,
+    "name": "Victoria Sassolini",
+    "code": "7QBW7ZEY",
+    "flags": "Pregressa frattura tibia DX, rigidità anca SX, sovraccarico lombare",
+    "title": "sassolini 1",
+    "exercises": [
+      {
+        "id": "8752427",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Split Stance Pallof - Press",
+        "stats": {
+          "Reps": "8+8"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/04f/04f08d46-0bd7-4c46-a672-5f1cdc601ef6/SMALL/split-stance-pallof-press.gif",
+          "https://prod-images.theprehabguys.com/exercises/04f/04f08d46-0bd7-4c46-a672-5f1cdc601ef6/SMALL/split-stance-pallof-press.gif"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=l215pfNd2WGJ1CmPlo2-MDBRUeY5pboPAA4fnE8CCK4&expires=1789352076&token_path=%2F560b739f-50d8-4ec4-9734-4c1903d316bc%2F/560b739f-50d8-4ec4-9734-4c1903d316bc/play_720p.mp4",
+        "how_it": "In posizione di mezzo affondo (split stance), perpendicolare a un cavo o elastico ancorato lateralmente. Porta le mani al centro del petto ed estendi le braccia in avanti resistendo alla forza di rotazione.",
+        "feel_it": "Forte attivazione anti-rotazionale del core (obliqui, trasverso dell'addome) e stabilità pelvica.",
+        "comp_it": "Non farti ruotare le spalle o il bacino verso l'ancoraggio. Spalle basse e lontane dalle orecchie."
+      },
+      {
+        "id": "8752428",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Single Leg Bridge - Leg Bent",
+        "stats": {
+          "Reps": "8+8"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/c2e/c2e178e5-3232-581d-b03b-b8e5d5f2ce4f/SMALL/Single-Leg-Bridge-Leg-Bent.jpg",
+          "https://prod-images.theprehabguys.com/exercises/a72/a7250f3a-92fd-563c-bce6-6cd58c7a1f26/SMALL/Single-Leg-Bridge-Leg-Bent1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=lYINuZLMOTqQdf-JWqnMFfvZHYpp9n1c1ZzwXsVS56A&expires=1789352077&token_path=%2F0127c33c-f440-44d0-9bbe-d0226eef4a80%2F/0127c33c-f440-44d0-9bbe-d0226eef4a80/play_720p.mp4",
+        "how_it": "Sdraiata supina con un ginocchio flesso e piede a terra, l'altra gamba raccolta al petto. Spingi dal tallone sollevando il bacino da terra fino a completare l'estensione dell'anca.",
+        "feel_it": "Isolamento del grande gluteo e bicipite femorale, controllo stabilità del bacino.",
+        "comp_it": "Non spingere con la punta del piede. Non iperestendere la zona lombare a fine movimento."
+      },
+      {
+        "id": "8752429",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Side Plank - On Knees, Hip Abduction",
+        "stats": {
+          "Reps": "8+8"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/708/7083d7a9-ab5e-5e78-8776-547721e755c3/SMALL/Side-Plank-On-Knees-Hip-Abduction1.png",
+          "https://prod-images.theprehabguys.com/exercises/e9c/e9cca273-3e8d-5e87-99c0-f52df34ad257/SMALL/Side-Plank-On-Knees-Hip-Abduction2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=drS1qEUGvFFPqy28_u6nkOZLZypMR_VNUk-c4lsdIBw&expires=1789352078&token_path=%2Fccb43a4b-89d3-4747-9960-2478db1b44c6%2F/ccb43a4b-89d3-4747-9960-2478db1b44c6/play_720p.mp4",
+        "how_it": "In side plank su gomito e ginocchio a terra. Solleva il bacino e contemporaneamente solleva la gamba superiore tesa verso l'alto mantenendo il piede a martello.",
+        "feel_it": "Medio gluteo bilaterale (stabilizzatore a terra e dinamico in alto) e muscoli obliqui del tronco.",
+        "comp_it": "Non ruotare il bacino avanti o indietro. Non flettere la gamba in avanti durante il sollevamento."
+      }
+    ]
+  },
+  {
+    "num": 4,
+    "name": "Anja Asonja",
+    "code": "NWSHWMVO",
+    "flags": "Tendinopatia rotulea bilaterale, spalla DX rigida",
+    "title": "anja 1",
+    "exercises": [
+      {
+        "id": "9303767",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Thoracic Spine Mobilization - Overhead Reach",
+        "stats": {},
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/6c3/6c387e9d-ef58-5263-bbff-51b91f0a9fa1/SMALL/Thoracic-Spine-Mobilization-Overhead-Reach.jpg",
+          "https://prod-images.theprehabguys.com/exercises/fc6/fc699ecb-3c51-57d0-990e-35ab901d39e6/SMALL/Thoracic-Spine-Mobilization-Overhead-Reach1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=p48SvLWjfUJVwBP0mCYj1jY0XJDz1bClvUbmSHC9f_w&expires=1789352079&token_path=%2F377d2de7-0f39-4e18-995d-549cda42fa02%2F/377d2de7-0f39-4e18-995d-549cda42fa02/play_720p.mp4",
+        "how_it": "Seduta sui talloni con braccia distese in avanti su un rialzo o fitball. Mantieni il bacino fisso e lascia scendere delicatamente il petto verso il pavimento estendendo il tratto dorsale.",
+        "feel_it": "Allungamento del gran dorsale e mobilità in estensione della colonna toracica e cingolo scapolare.",
+        "comp_it": "Non inarcare la colonna lombare: il movimento deve avvenire nella parte alta e media della schiena."
+      },
+      {
+        "id": "9191151",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Thoracic Spine Mobilization - Swissball",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/00d/00d8592b-9880-55d6-afb7-d23c31c1ea24/SMALL/Thoracic-Spine-Mobilization-Swissball-1.png",
+          "https://prod-images.theprehabguys.com/exercises/22a/22a8bc3c-87eb-5aa5-ac6a-b3d890d387a1/SMALL/Thoracic-Spine-Mobilization-Swissball-2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=mCG6Po-bEQ1YvFp6oW14xdyeFyF12EYuJFAu9Ljzbq4&expires=1789352080&token_path=%2Fd6d87119-b8f5-43ec-80d5-94441e038e49%2F/d6d87119-b8f5-43ec-80d5-94441e038e49/play_720p.mp4",
+        "how_it": "In ginocchio davanti alla fitball, appoggia gli avambracci sopra la palla. Spingi la palla in avanti espirando e abbassando il torace verso terra, poi ritorna inspirando.",
+        "feel_it": "Apertura della cassa toracica, de-tensione interscapolare e mobilità di spalle e dorso.",
+        "comp_it": "Non forzare l'escursione in caso di fitte alle spalle. Mantieni il movimento fluido e controllato."
+      },
+      {
+        "id": "9303768",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Quadruped Thread The Needle To Open Book",
+        "stats": {
+          "Reps": "6+6"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/856/8567ed39-ce99-44e0-8c4d-854954f3bb9e/SMALL/quadruped-thread-the-needle-to-open-book.gif",
+          "https://prod-images.theprehabguys.com/exercises/856/8567ed39-ce99-44e0-8c4d-854954f3bb9e/SMALL/quadruped-thread-the-needle-to-open-book.gif"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=JTgvfOeOJ_ZO17dCmhLoSYNlwB3C0Q4dTVYUs16XqPE&expires=1789352081&token_path=%2Fd022a22b-a1ae-4046-8d88-c8fada2cbe63%2F/d022a22b-a1ae-4046-8d88-c8fada2cbe63/play_720p.mp4",
+        "how_it": "In quadrupedia a terra, infila un braccio sotto il busto ruotando il torace verso terra, poi apri lo stesso braccio verso l'alto ruotando il torace verso il soffitto e seguendo la mano con gli occhi.",
+        "feel_it": "Mobilità rotazionale della colonna dorsale e distensione della muscolatura periscapolare e pettorale.",
+        "comp_it": "Non traslare lateralmente il bacino: le anche devono rimanere bloccate e centrate rispetto alle ginocchia."
+      },
+      {
+        "id": "9303769",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Arm Bar - Half Rotation, Kettlebell",
+        "stats": {
+          "Reps": "5+5"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/44a/44a8a2e7-eabe-595b-a78b-4b700fc7f2df/SMALL/Arm-Bar-Half-Rotation-Kettlebell1.png",
+          "https://prod-images.theprehabguys.com/exercises/0d5/0d5cff03-e19d-5226-9320-96325a45e45b/SMALL/Arm-Bar-Half-Rotation-Kettlebell2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=cB5m2ZefWTZPgGLEeQHy3Cf1vf_UKa91jJjNTZFd7wU&expires=1789352082&token_path=%2F202587ba-d347-4a51-b6ad-2c5a800650ee%2F/202587ba-d347-4a51-b6ad-2c5a800650ee/play_720p.mp4",
+        "how_it": "Supina a terra con kettlebell tenuta a braccio teso verso il soffitto. Ruota lentamente su un fianco mantenendo il kettlebell perfettamente perpendicolare e lo sguardo fisso sul peso.",
+        "feel_it": "Stabilità profonda e propriocettiva della cuffia dei rotatori e del dentato anteriore.",
+        "comp_it": "Non piegare il gomito: il braccio deve rimanere dritto e solido come una colonna portante."
+      }
+    ]
+  },
+  {
+    "num": 5,
+    "name": "Chiara Lo Dico",
+    "code": "VDS44TD5",
+    "flags": "Osgood-Schlatter ginocchio DX, valgismo dinamico",
+    "title": "lo dico 1",
+    "exercises": [
+      {
+        "id": "8310905",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Calf Foam Rolling",
+        "stats": {
+          "Hold": "90s"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/980/980237d2-693f-5f91-9d11-e9a77c94eef0/SMALL/Calf-Foam-Rolling1-1.png",
+          "https://prod-images.theprehabguys.com/exercises/305/30525707-04fe-579e-ac2c-9bb68da56a03/SMALL/Calf-Foam-Rolling2-1.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=4QXUlX1deFDN9MCj9QcHtqQiJrrf-MDcTbHHHJN-v5Y&expires=1789352083&token_path=%2Ff52435da-ff73-480a-8d2f-a44c4bbe2d2f%2F/f52435da-ff73-480a-8d2f-a44c4bbe2d2f/play_720p.mp4",
+        "how_it": "Seduta a terra con il foam roller posizionato sotto il polpaccio. Solleva il bacino e rotola lentamente dalla caviglia a poco sotto il ginocchio, fermandoti sui punti contratti.",
+        "feel_it": "Rilascio miofasciale e riduzione della tensione sul tricipite surale e tendine d'Achille.",
+        "comp_it": "Non passare direttamente dietro l'articolazione del ginocchio (cavo popliteo)."
+      },
+      {
+        "id": "8310906",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Foot Plantar Surface Self Massage - Lacrosse Ball",
+        "stats": {
+          "Hold": "90s"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/11c/11cb0605-0bca-5def-98f1-d6e540e7a458/SMALL/Foot-Plantar-Surface-Self-Massage-Lacrosse-Ball1.png",
+          "https://prod-images.theprehabguys.com/exercises/8cf/8cfabff6-fe5a-5c60-8f4f-906f88314023/SMALL/Foot-Plantar-Surface-Self-Massage-Lacrosse-Ball2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=nThLt5WOgSdr3IcPrItXBDbKF6L7gT-hl4j-ixLqo9c&expires=1789352084&token_path=%2Fe9b0aa7f-dbf1-4f7e-8037-1be17f587d39%2F/e9b0aa7f-dbf1-4f7e-8037-1be17f587d39/play_720p.mp4",
+        "how_it": "In piedi o seduta, posiziona una pallina da lacrosse sotto la pianta del piede. Esegui pressioni circolari e longitudinali dal tallone all'avampiede applicando un carico tollerabile.",
+        "feel_it": "Rilassamento e distensione della fascia plantare e dei muscoli flessori brevi delle dita.",
+        "comp_it": "Non premere con forza eccessiva tale da provocare dolore acuto o contrazione di difesa."
+      },
+      {
+        "id": "8310907",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "90/90 Hip Lift Off - Internal Rotation, External Rotation",
+        "stats": {},
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/d61/d6178dc5-926b-56d6-a3bb-b5bf30589815/SMALL/9090-Hip-Lift-Off-1.png",
+          "https://prod-images.theprehabguys.com/exercises/7c7/7c7a8104-2cae-55c1-802a-44dd8e13ed50/SMALL/9090-Hip-Lift-Off2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=9Az9YfkezGWVtEEYHqkkX_cgIWG1aY9UD0xQPU7xZYY&expires=1789352085&token_path=%2Fd3ebb8c7-c830-45d0-8cd4-76b1cd537bdd%2F/d3ebb8c7-c830-45d0-8cd4-76b1cd537bdd/play_720p.mp4",
+        "how_it": "Seduta a terra con gambe in posizione 90/90 (un'anca in rotazione esterna a 90°, l'altra in rotazione interna a 90°). Mantenendo il tronco saldo ed eretto, solleva attivamente il piede o il ginocchio della gamba posteriore (lift off) senza inclinare la schiena.",
+        "feel_it": "Attivazione dei rotatori interni ed esterni dell'anca a fine corsa articolare (capsula dell'anca).",
+        "comp_it": "Non inclinare il busto per aiutarti nel sollevamento: isola l'articolazione coxo-femorale."
+      },
+      {
+        "id": "8310908",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Ankle Dorsiflexion Mobilization - Dynamic, Box",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/fb4/fb4b9a24-6489-5274-85cd-92528837b3c7/SMALL/Ankle-Dorsiflexion-Mobilization-Dynamic-Box1-2.jpg",
+          "https://prod-images.theprehabguys.com/exercises/92f/92f81478-fe9a-5fbc-8210-34acaf1cfda6/SMALL/Ankle-Dorsiflexion-Mobilization-Dynamic-Box1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=ErJ72bvLkaOtymEX_P0XbTKEzzBwaULDqw6AsZNIOtg&expires=1789352086&token_path=%2F09f5fd72-c573-46f8-96da-4f690f7105b9%2F/09f5fd72-c573-46f8-96da-4f690f7105b9/play_720p.mp4",
+        "how_it": "Piede appoggiato su un box o panca, l'altra gamba a terra. Porta il ginocchio in avanti oltre la linea delle dita mantenendo il tallone rigorosamente attaccato al piano d'appoggio.",
+        "feel_it": "Allungamento del soleo e incremento dell'escursione articolare in dorsiflessione tibio-tarsica.",
+        "comp_it": "Non permettere al tallone di staccarsi dal box. Evita che il ginocchio collassi verso l'interno."
+      },
+      {
+        "id": "8310909",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "90/90 Hip Lift Off - Internal Rotation, External Rotation",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/d61/d6178dc5-926b-56d6-a3bb-b5bf30589815/SMALL/9090-Hip-Lift-Off-1.png",
+          "https://prod-images.theprehabguys.com/exercises/7c7/7c7a8104-2cae-55c1-802a-44dd8e13ed50/SMALL/9090-Hip-Lift-Off2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=9Az9YfkezGWVtEEYHqkkX_cgIWG1aY9UD0xQPU7xZYY&expires=1789352085&token_path=%2Fd3ebb8c7-c830-45d0-8cd4-76b1cd537bdd%2F/d3ebb8c7-c830-45d0-8cd4-76b1cd537bdd/play_720p.mp4",
+        "how_it": "Seduta a terra con gambe in posizione 90/90 (un'anca in rotazione esterna a 90°, l'altra in rotazione interna a 90°). Mantenendo il tronco saldo ed eretto, solleva attivamente il piede o il ginocchio della gamba posteriore (lift off) senza inclinare la schiena.",
+        "feel_it": "Attivazione dei rotatori interni ed esterni dell'anca a fine corsa articolare (capsula dell'anca).",
+        "comp_it": "Non inclinare il busto per aiutarti nel sollevamento: isola l'articolazione coxo-femorale."
+      },
+      {
+        "id": "8310910",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Bent Over Single Arm Lat Pull Down - Band",
+        "stats": {
+          "Reps": "8"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/9c3/9c31f147-1735-44b6-ae41-068c3b09d0b6/SMALL/Bent-Over-Single-Arm-Lat-Pull-Down-Band1.png",
+          "https://prod-images.theprehabguys.com/exercises/c64/c643c3c8-4630-4816-9975-2fd282c29359/SMALL/Bent-Over-Single-Arm-Lat-Pull-Down-Band2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=fimTciDnTel0glWd-OXRZPy-WsHzhv4azKQpfHAZqm8&expires=1789352087&token_path=%2Fb5ce7325-b23c-40a2-9f0b-b6d0f2819d39%2F/b5ce7325-b23c-40a2-9f0b-b6d0f2819d39/play_720p.mp4",
+        "how_it": "Busto flesso a 45°, un braccio afferra un elastico ancorato in alto. Tira il gomito verso l'anca deprimendo la scapola e stringendo il gran dorsale a fine corsa.",
+        "feel_it": "Attivazione selettiva del gran dorsale e dei muscoli depressori e adduttori della scapola.",
+        "comp_it": "Non ruotare il tronco verso il lato che tira. Non tirare tirando il polso, guida il movimento con il gomito."
+      }
+    ]
+  },
+  {
+    "num": 6,
+    "name": "Gaia Biondi",
+    "code": "C4RKEAQL",
+    "flags": "Dolore rotuleo attivo ginocchio DX, fascite plantare SX",
+    "title": "biondi 1",
+    "exercises": [
+      {
+        "id": "8310911",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Quadriceps Foam Rolling",
+        "stats": {
+          "Reps": "90\""
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/b3b/b3b85e87-ac9a-54a0-b5ee-17a9668ed484/SMALL/Quadriceps-Foam-Rolling1.png",
+          "https://prod-images.theprehabguys.com/exercises/a74/a743d304-7ca6-5b55-a9d6-46e66552d864/SMALL/Quadriceps-Foam-Rolling2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=tULHgqU-nco1wdqdeirypR1LClHNqnzL7PnxBTiIeuQ&expires=1789352088&token_path=%2F8257c085-e06c-4cdd-a8d1-580447839f27%2F/8257c085-e06c-4cdd-a8d1-580447839f27/play_720p.mp4",
+        "how_it": "Sdraiata prona con il rullo posizionato sotto la parte anteriore della coscia. Esegui passaggi lenti dal bacino a sopra la rotula, ruotando leggermente la gamba per massaggiare anche i vasti.",
+        "feel_it": "De-tensione miofasciale del retto femorale e quadricipite prima del lavoro di forza.",
+        "comp_it": "Non rullare direttamente sopra la rotula."
+      },
+      {
+        "id": "8310912",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Psoas Soft Tissue Mobilization  - Lacrosse Ball",
+        "stats": {
+          "Reps": "90\""
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/9e4/9e46aede-0acb-5c1a-a6f4-e3d031ce6be7/SMALL/Psoas-soft-tissue-mobilization-lacrosse-ball-02.jpg",
+          "https://prod-images.theprehabguys.com/exercises/dc6/dc6d045c-2c32-54a8-bd3d-3a4950bd5cb4/SMALL/Psoas-soft-tissue-mobilization-lacrosse-ball-01.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=HNSdSASQQtJ-16bKIBcXTof6yPoZfbZ8hl63e4wwPRk&expires=1789352089&token_path=%2F7292b175-31b0-4ef0-8c4b-49659aa0fda8%2F/7292b175-31b0-4ef0-8c4b-49659aa0fda8/play_720p.mp4",
+        "how_it": "Sdraiata prona a terra, posiziona la pallina da lacrosse tra l'ombelico e la spina iliaca antero-superiore. Rilassa la muscolatura addominale e respira profondamente permettendo alla pallina di affondare.",
+        "feel_it": "Rilascio profondo dell'ileopsoas e dei flessori dell'anca.",
+        "comp_it": "Non effettuare spinte brusche. Se avverti un battito arterioso pulsante pronunciato, sposta leggermente la pallina."
+      },
+      {
+        "id": "8310913",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Supine Hip External Rotation Stretch",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/be9/be917feb-256f-5395-b7c5-f7dd1aa35911/SMALL/Supine-Hip-External-Rotation-Stretch1.png",
+          "https://prod-images.theprehabguys.com/exercises/8ac/8ac773e1-6086-5bdf-a139-ca73d99151cb/SMALL/Supine-Hip-External-Rotation-Stretch2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=4yjUzwUIZe1QB9Zr-rEMsYSiSospZdafP1mcnHFEqS8&expires=1789352089&token_path=%2Fdb63e831-4d14-4816-801e-445caa47f620%2F/db63e831-4d14-4816-801e-445caa47f620/play_720p.mp4",
+        "how_it": "Supina a terra, appoggia la caviglia di una gamba sul ginocchio opposto formando un 4. Afferra la coscia a terra e tirala verso il petto fino ad avvertire tensione nel gluteo.",
+        "feel_it": "Allungamento profondo del piriforme e rotatori esterni dell'anca.",
+        "comp_it": "Non sollevare la testa o l'osso sacro dal pavimento durante la trazione."
+      },
+      {
+        "id": "8310914",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Supine Hip External Rotation - Band",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/d7b/d7bb857c-2573-5271-9006-5c554c558f56/SMALL/Supine-Hip-External-Rotation-Band-1.jpg",
+          "https://prod-images.theprehabguys.com/exercises/221/221d9a90-bfbf-5d8e-9e14-1eecab454653/SMALL/Supine-Hip-External-Rotation-Band-2.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=qqoR_2cLCm6Z3P-McfB_M_XNphm826a2j_52MIKiq0o&expires=1789352090&token_path=%2F3f81fc7a-5e06-4d47-92cb-1499baea92dc%2F/3f81fc7a-5e06-4d47-92cb-1499baea92dc/play_720p.mp4",
+        "how_it": "Supina a terra con elastico posizionato attorno ai piedi o ginocchia. Ruota esternamente le anche allontanando le ginocchia e mantenendo la tensione per 2 secondi a fine corsa.",
+        "feel_it": "Attivazione dei rotatori esterni e stabilizzatori dell'anca.",
+        "comp_it": "Non inarcare la zona lombare a terra durante l'apertura delle gambe."
+      },
+      {
+        "id": "8310915",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Single Leg Short Foot",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/04b/04b31f72-79ec-56b9-b28a-e4d0645514f4/SMALL/Single-Leg-Short-Foot.png",
+          "https://prod-images.theprehabguys.com/exercises/9dd/9ddd28a7-58c5-5a93-a1f7-32973a7fce24/SMALL/Single-Leg-Short-Foot.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=8YlzFuDzjs0QTkWMewLTKYvSSYQszTXzJrifcnUhEns&expires=1789352091&token_path=%2F6d91f0cc-863f-44f6-ace3-687e6897a1bd%2F/6d91f0cc-863f-44f6-ace3-687e6897a1bd/play_720p.mp4",
+        "how_it": "In appoggio monopodalico a piedi nudi. 'Accorcia' il piede avvicinando la base del primo metatarso al tallone, sollevando attivamente la volta plantare senza arricciare le dita.",
+        "feel_it": "Contrazione dei muscoli intrinseci del piede e attivazione del tibiale posteriore.",
+        "comp_it": "Non flettere le dita ad artiglio: devono rimanere distese e rilassate a contatto col suolo."
+      },
+      {
+        "id": "8310916",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Scapula Retraction - Band",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/bd1/bd1dd58b-0f5b-5490-b201-c6de3fd6bd26/SMALL/Scapula-Retraction-Band1.png",
+          "https://prod-images.theprehabguys.com/exercises/e90/e90e8b4f-543e-5fc3-a5f5-8d15a0927130/SMALL/Scapula-Retraction-Band2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=Xp5Kcu4k3NCp3cHUCRE0ZKNolAqjqJC6L4pC2v6AJSw&expires=1789352092&token_path=%2F6a9c525d-88ed-4d57-b641-c12391b8024b%2F/6a9c525d-88ed-4d57-b641-c12391b8024b/play_720p.mp4",
+        "how_it": "In piedi, impugna un elastico davanti al petto a braccia tese. Separa le mani adducendo le scapole verso la colonna vertebrale mantenendo le braccia dritte.",
+        "feel_it": "Attivazione dei romboidi, trapezio medio e posteriore delle spalle.",
+        "comp_it": "Non alzare le spalle verso il collo e non iperestendere la zona lombare."
+      }
+    ]
+  },
+  {
+    "num": 7,
+    "name": "Elisa Bole",
+    "code": "UG7YPMPE",
+    "flags": "Tendinopatia quadricipitale ginocchio SX, instabilità podalica",
+    "title": "bole 1",
+    "exercises": [
+      {
+        "id": "8752424",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Side Plank - On Knees, Clam, Band",
+        "stats": {
+          "Reps": "10+10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/1f9/1f955883-d566-554a-9791-84ded4ac0461/SMALL/Side-Plank-On-Knees-Clam-Band.jpg",
+          "https://prod-images.theprehabguys.com/exercises/9dc/9dc12c33-36e4-565d-8d95-261bd3811e1d/SMALL/Side-Plank-On-Knees-Clam-Band1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=myvzc_C_qvNZltNlHmfjInWEm04WYqsDU7MI-lxd_ZA&expires=1789352073&token_path=%2Fb9dd6d4d-034f-4857-b87e-07f80086580f%2F/b9dd6d4d-034f-4857-b87e-07f80086580f/play_720p.mp4",
+        "how_it": "Posizionati sul fianco in appoggio su gomito e ginocchia piegate a 90°, con un elastico attorno alle ginocchia. Solleva il bacino allineando spalle, anche e ginocchia; contemporaneamente apri il ginocchio superiore mantenendo i talloni a contatto.",
+        "feel_it": "Forte contrazione del medio gluteo della gamba superiore e lavoro isometrico di core e anca del lato a terra.",
+        "comp_it": "Non far ruotare il bacino all'indietro durante l'apertura. Mantieni il bacino alto senza farlo cedere verso il pavimento."
+      },
+      {
+        "id": "8752425",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Push Up Plus - Wall",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/cfc/cfcd9f23-680b-5cd9-96b7-67b28c0cedcb/SMALL/Push-Up-Plus-Wall1.png",
+          "https://prod-images.theprehabguys.com/exercises/f91/f91573c9-3752-5659-9e1f-66124fc82012/SMALL/Push-Up-Plus-Wall2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=0tZBYJbeGn6XWPc8Ap5j7yy_s5dnuzDMoyK_Wzr23PI&expires=1789352093&token_path=%2Ff807fbb7-5c03-4be5-9554-6a6a4d7ed375%2F/f807fbb7-5c03-4be5-9554-6a6a4d7ed375/play_720p.mp4",
+        "how_it": "Mani alla parete a larghezza spalle, braccia completamente tese. Senza piegare i gomiti, allontana il petto dalla parete spingendo le scapole in avanti (pro trazione scapolare), poi ritorna.",
+        "feel_it": "Isolamento e attivazione del dentato anteriore (serratus anterior), fondamentale per la stabilità della spalla.",
+        "comp_it": "Non flettere le braccia: il movimento deve avvenire unicamente attraverso lo scorrimento delle scapole."
+      },
+      {
+        "id": "8752426",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Single Leg Box Squat",
+        "stats": {
+          "Reps": "6+6"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/86f/86f4044c-1296-5612-b3f6-d6e9571c556f/SMALL/Single-Leg-Box-Squat1.png",
+          "https://prod-images.theprehabguys.com/exercises/7c3/7c34d89f-ae3a-5b42-9c91-38e31de44154/SMALL/Single-Leg-Box-Squat2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=UmLwjKltUvN6FcRMM1MKAqPt-oD6i78tRjJss7EpzOo&expires=1789352094&token_path=%2Ff57a60ec-2d6f-4f1d-8166-b9723ef291e2%2F/f57a60ec-2d6f-4f1d-8166-b9723ef291e2/play_720p.mp4",
+        "how_it": "In piedi su una gamba davanti a un box o panca, l'altra sollevata avanti. Scendi in modo controllato fino a sfiorare la panca con i glutei, poi risali spingendo forte dal tallone.",
+        "feel_it": "Forza eccentrica e concentrica di quadricipite, gluteo e stabilità del ginocchio.",
+        "comp_it": "Non far collassare il ginocchio verso l'interno (valgo). Non lasciarsi cadere di peso sul box."
+      }
+    ]
+  },
+  {
+    "num": 8,
+    "name": "Federica Nonnati",
+    "code": "IIPRMI4A",
+    "flags": "Spalla DX cronica dolore 4-5/10, retrazione retto femorale, sublussazione astragalo",
+    "title": "nonnati 1",
+    "exercises": [
+      {
+        "id": "8310938",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Quadriceps Foam Rolling",
+        "stats": {
+          "Reps": "90\""
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/b3b/b3b85e87-ac9a-54a0-b5ee-17a9668ed484/SMALL/Quadriceps-Foam-Rolling1.png",
+          "https://prod-images.theprehabguys.com/exercises/a74/a743d304-7ca6-5b55-a9d6-46e66552d864/SMALL/Quadriceps-Foam-Rolling2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=tULHgqU-nco1wdqdeirypR1LClHNqnzL7PnxBTiIeuQ&expires=1789352088&token_path=%2F8257c085-e06c-4cdd-a8d1-580447839f27%2F/8257c085-e06c-4cdd-a8d1-580447839f27/play_720p.mp4",
+        "how_it": "Sdraiata prona con il rullo posizionato sotto la parte anteriore della coscia. Esegui passaggi lenti dal bacino a sopra la rotula, ruotando leggermente la gamba per massaggiare anche i vasti.",
+        "feel_it": "De-tensione miofasciale del retto femorale e quadricipite prima del lavoro di forza.",
+        "comp_it": "Non rullare direttamente sopra la rotula."
+      },
+      {
+        "id": "8310939",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Foot Plantar Surface Self Massage - Lacrosse Ball",
+        "stats": {
+          "Reps": "90\""
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/11c/11cb0605-0bca-5def-98f1-d6e540e7a458/SMALL/Foot-Plantar-Surface-Self-Massage-Lacrosse-Ball1.png",
+          "https://prod-images.theprehabguys.com/exercises/8cf/8cfabff6-fe5a-5c60-8f4f-906f88314023/SMALL/Foot-Plantar-Surface-Self-Massage-Lacrosse-Ball2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=nThLt5WOgSdr3IcPrItXBDbKF6L7gT-hl4j-ixLqo9c&expires=1789352084&token_path=%2Fe9b0aa7f-dbf1-4f7e-8037-1be17f587d39%2F/e9b0aa7f-dbf1-4f7e-8037-1be17f587d39/play_720p.mp4",
+        "how_it": "In piedi o seduta, posiziona una pallina da lacrosse sotto la pianta del piede. Esegui pressioni circolari e longitudinali dal tallone all'avampiede applicando un carico tollerabile.",
+        "feel_it": "Rilassamento e distensione della fascia plantare e dei muscoli flessori brevi delle dita.",
+        "comp_it": "Non premere con forza eccessiva tale da provocare dolore acuto o contrazione di difesa."
+      },
+      {
+        "id": "8310940",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Half Kneeling Quadriceps Stretch - Dynamic, Strap",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/985/985f8dc3-1876-56d8-886f-8a2c770e389b/SMALL/posttypevimeo-videop22857-vimeo-thumbnail.jpg",
+          "https://prod-images.theprehabguys.com/exercises/985/985f8dc3-1876-56d8-886f-8a2c770e389b/SMALL/posttypevimeo-videop22857-vimeo-thumbnail.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=pEeMWiAHP5FxVCsmxqeRsFJuDWyfeVil1omCfHxztJo&expires=1789352095&token_path=%2Fe0978e2e-409d-4b89-b886-b3823495ca0f%2F/e0978e2e-409d-4b89-b886-b3823495ca0f/play_720p.mp4",
+        "how_it": "In ginocchio a terra in mezza flessione (un ginocchio avanti, uno a terra). Con una cinghia o con la mano, fletti la caviglia posteriore verso il gluteo mentre contrai il gluteo ed esegui una retroversione del bacino.",
+        "feel_it": "Allungamento del retto femorale e dei flessori dell'anca.",
+        "comp_it": "Non inarcare la schiena: mantieni il gluteo posteriore contratto e il bacino retroverso."
+      },
+      {
+        "id": "8310941",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Table Top Hip Internal Rotation Isometric - Wall",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/e23/e23011fb-4dac-5409-a476-24e8ff2b8448/SMALL/41.Table-Top-Hip-Internal-Rotation-Isometric-Wall.jpg",
+          "https://prod-images.theprehabguys.com/exercises/40b/40b5e596-89fa-5a29-b41b-8d9119a56cb1/SMALL/42.Table-Top-Hip-Internal-Rotation-Isometric-Wall.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=KdUQihJd1Ida6TiHWMmvn9y-bwv6pRSq1PN2RyLUL5Y&expires=1789352095&token_path=%2Fa149c1c2-f720-478d-b028-492c6f7d19d6%2F/a149c1c2-f720-478d-b028-492c6f7d19d6/play_720p.mp4",
+        "how_it": "Supina a terra con anche e ginocchia a 90° (posizione a tavolino), caviglie esterne contro una parete. Spingi isometricamente i piedi verso l'esterno ruotando internamente le anche contro il muro.",
+        "feel_it": "Attivazione dei rotatori interni dell'anca (tensore della fascia lata, piccolo gluteo).",
+        "comp_it": "Non muovere il bacino, mantieni la zona lombare a contatto con il suolo."
+      },
+      {
+        "id": "8310942",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Single Leg Short Foot",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/04b/04b31f72-79ec-56b9-b28a-e4d0645514f4/SMALL/Single-Leg-Short-Foot.png",
+          "https://prod-images.theprehabguys.com/exercises/9dd/9ddd28a7-58c5-5a93-a1f7-32973a7fce24/SMALL/Single-Leg-Short-Foot.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=8YlzFuDzjs0QTkWMewLTKYvSSYQszTXzJrifcnUhEns&expires=1789352091&token_path=%2F6d91f0cc-863f-44f6-ace3-687e6897a1bd%2F/6d91f0cc-863f-44f6-ace3-687e6897a1bd/play_720p.mp4",
+        "how_it": "In appoggio monopodalico a piedi nudi. 'Accorcia' il piede avvicinando la base del primo metatarso al tallone, sollevando attivamente la volta plantare senza arricciare le dita.",
+        "feel_it": "Contrazione dei muscoli intrinseci del piede e attivazione del tibiale posteriore.",
+        "comp_it": "Non flettere le dita ad artiglio: devono rimanere distese e rilassate a contatto col suolo."
+      },
+      {
+        "id": "8310943",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Wall Slide - Foam Roller",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/f55/f5577186-5fb9-5b73-8f2a-663c7cb66fc2/SMALL/Wall-Slide-Foam-Roller1.png",
+          "https://prod-images.theprehabguys.com/exercises/1b1/1b1415dd-aa00-557d-98fb-460ac53b7676/SMALL/Wall-Slide-Foam-Roller2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=KjTrcFUAmxtRJa9BFyKVLR4e8A2LU7CUWNZ40V_FZU0&expires=1789352096&token_path=%2F45c5a32a-a03c-450b-875e-bafb93e2015e%2F/45c5a32a-a03c-450b-875e-bafb93e2015e/play_720p.mp4",
+        "how_it": "In piedi davanti a una parete con un foam roller posizionato tra gli avambracci e il muro. Fai scivolare il rullo verso l'alto mantenendo una leggera pressione in avanti e allungando le braccia a fine corsa.",
+        "feel_it": "Attivazione del dentato anteriore e rotazione superiore fisiologica della scapola.",
+        "comp_it": "Non inarcare la schiena in alto. Non far cadere i gomiti all'esterno."
+      }
+    ]
+  },
+  {
+    "num": 9,
+    "name": "Sara Dodi",
+    "code": "TTGRYSZD",
+    "flags": "Ricostruzione LCA + menisco SX, menisco DX, cervicalgia severa",
+    "title": "dodi 1",
+    "exercises": [
+      {
+        "id": "9303848",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Quadruped Thread The Needle To Open Book",
+        "stats": {
+          "Reps": "4+4"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/856/8567ed39-ce99-44e0-8c4d-854954f3bb9e/SMALL/quadruped-thread-the-needle-to-open-book.gif",
+          "https://prod-images.theprehabguys.com/exercises/856/8567ed39-ce99-44e0-8c4d-854954f3bb9e/SMALL/quadruped-thread-the-needle-to-open-book.gif"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=JTgvfOeOJ_ZO17dCmhLoSYNlwB3C0Q4dTVYUs16XqPE&expires=1789352081&token_path=%2Fd022a22b-a1ae-4046-8d88-c8fada2cbe63%2F/d022a22b-a1ae-4046-8d88-c8fada2cbe63/play_720p.mp4",
+        "how_it": "In quadrupedia a terra, infila un braccio sotto il busto ruotando il torace verso terra, poi apri lo stesso braccio verso l'alto ruotando il torace verso il soffitto e seguendo la mano con gli occhi.",
+        "feel_it": "Mobilità rotazionale della colonna dorsale e distensione della muscolatura periscapolare e pettorale.",
+        "comp_it": "Non traslare lateralmente il bacino: le anche devono rimanere bloccate e centrate rispetto alle ginocchia."
+      },
+      {
+        "id": "9191060",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Isometric Lateral Raise - Band",
+        "stats": {
+          "Hold": "10 a 30\"s"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/c1e/c1e9685d-3573-59fe-a284-4644facf391b/SMALL/Isometric-Lateral-Raise-Band-1.png",
+          "https://prod-images.theprehabguys.com/exercises/42c/42c279b7-1d40-56a6-9c79-614cc7bcdc6f/SMALL/Isometric-Lateral-Raise-Band-2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=hiuU0Ej0yzkCwShhwBzsIPmAhPlgaMRWXcmu-_axTKY&expires=1789352097&token_path=%2F42bda629-31bc-48f0-9558-f9b8cdb0bd91%2F/42bda629-31bc-48f0-9558-f9b8cdb0bd91/play_720p.mp4",
+        "how_it": "In piedi sopra un elastico, solleva le braccia lateralmente a circa 75-80° (piano scapolare). Mantieni la tenuta isometrica per il tempo target respirando con regolarità.",
+        "feel_it": "Lavoro isometrico sul deltoide e cuffia dei rotatori senza attrito sub-acromiale.",
+        "comp_it": "Non sollevare le braccia oltre l'orizzontale. Non incassare il collo nelle spalle."
+      },
+      {
+        "id": "9303849",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Bicep Curl - Band",
+        "stats": {
+          "Hold": "30\"s"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/9c3/9c30e466-641f-54af-bf11-e2739dd8ca72/SMALL/Bicep-Curl-Band1.png",
+          "https://prod-images.theprehabguys.com/exercises/396/3967fafd-93da-58e6-a1da-f8264ed153dd/SMALL/Bicep-Curl-Band2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=gF0z_9Cl4OHs4PW_YZhptREdL0PGhsbsS0JMPb75ArY&expires=1789352098&token_path=%2Ff93e113d-0c7e-4880-b0fc-181be725e470%2F/f93e113d-0c7e-4880-b0fc-181be725e470/play_720p.mp4",
+        "how_it": "In piedi su un elastico, gomiti aderenti ai fianchi. Fletti gli avambracci e poi controlla la discesa in fase eccentrica lenta (3 secondi di ritorno).",
+        "feel_it": "Contrazione del bicipite brachiale e brachioradiale, controllo tendineo del gomito.",
+        "comp_it": "Non dondolare con la schiena. Non staccare i gomiti dal busto."
+      },
+      {
+        "id": "9191061",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Single Arm Tall Plank - Swissball",
+        "stats": {
+          "Reps": "5+5"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/a1e/a1ebb175-0738-5868-bb01-42499887a179/SMALL/Single-Arm-Tall-Plank-Swissball1.png",
+          "https://prod-images.theprehabguys.com/exercises/48b/48b21d71-9dca-5583-b91c-0304b50f24dc/SMALL/Single-Arm-Tall-Plank-Swissball2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=l5N0aTS7eq8ovg56Iad-A-IyyZrhLEHiG91oqNIhW08&expires=1789352099&token_path=%2F49ea9f3a-84fe-4e4b-b772-bd7d858b2ef7%2F/49ea9f3a-84fe-4e4b-b772-bd7d858b2ef7/play_720p.mp4",
+        "how_it": "Posizione di plank alto con le mani in appoggio su una fitball. Stacca una mano portandola al petto per qualche secondo, mantenendo il corpo perfettamente bloccato.",
+        "feel_it": "Stabilità estrema anti-rotazionale del core e propriocezione della spalla in appoggio.",
+        "comp_it": "Non far ruotare o basculare il bacino. Allarga i piedi se necessario per aumentare la base d'appoggio."
+      }
+    ]
+  },
+  {
+    "num": 11,
+    "name": "Luna Cicola",
+    "code": "CAGFYEG4",
+    "flags": "Deficit severo rotazione esterna anche, valgismo dinamico",
+    "title": "cicola 1",
+    "exercises": [
+      {
+        "id": "8310953",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Quadriceps Foam Rolling",
+        "stats": {
+          "Reps": "90\""
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/b3b/b3b85e87-ac9a-54a0-b5ee-17a9668ed484/SMALL/Quadriceps-Foam-Rolling1.png",
+          "https://prod-images.theprehabguys.com/exercises/a74/a743d304-7ca6-5b55-a9d6-46e66552d864/SMALL/Quadriceps-Foam-Rolling2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=tULHgqU-nco1wdqdeirypR1LClHNqnzL7PnxBTiIeuQ&expires=1789352088&token_path=%2F8257c085-e06c-4cdd-a8d1-580447839f27%2F/8257c085-e06c-4cdd-a8d1-580447839f27/play_720p.mp4",
+        "how_it": "Sdraiata prona con il rullo posizionato sotto la parte anteriore della coscia. Esegui passaggi lenti dal bacino a sopra la rotula, ruotando leggermente la gamba per massaggiare anche i vasti.",
+        "feel_it": "De-tensione miofasciale del retto femorale e quadricipite prima del lavoro di forza.",
+        "comp_it": "Non rullare direttamente sopra la rotula."
+      },
+      {
+        "id": "8310954",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Psoas Soft Tissue Mobilization  - Lacrosse Ball",
+        "stats": {
+          "Reps": "90\""
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/9e4/9e46aede-0acb-5c1a-a6f4-e3d031ce6be7/SMALL/Psoas-soft-tissue-mobilization-lacrosse-ball-02.jpg",
+          "https://prod-images.theprehabguys.com/exercises/dc6/dc6d045c-2c32-54a8-bd3d-3a4950bd5cb4/SMALL/Psoas-soft-tissue-mobilization-lacrosse-ball-01.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=HNSdSASQQtJ-16bKIBcXTof6yPoZfbZ8hl63e4wwPRk&expires=1789352089&token_path=%2F7292b175-31b0-4ef0-8c4b-49659aa0fda8%2F/7292b175-31b0-4ef0-8c4b-49659aa0fda8/play_720p.mp4",
+        "how_it": "Sdraiata prona a terra, posiziona la pallina da lacrosse tra l'ombelico e la spina iliaca antero-superiore. Rilassa la muscolatura addominale e respira profondamente permettendo alla pallina di affondare.",
+        "feel_it": "Rilascio profondo dell'ileopsoas e dei flessori dell'anca.",
+        "comp_it": "Non effettuare spinte brusche. Se avverti un battito arterioso pulsante pronunciato, sposta leggermente la pallina."
+      },
+      {
+        "id": "9191212",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Eccentric Elbow Extension - Band",
+        "stats": {
+          "Reps": "6+6"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/0d1/0d14a81f-7963-5e7a-b599-f9eb8e8fa3e6/SMALL/Eccentric-Elbow-Extension-Band1.png",
+          "https://prod-images.theprehabguys.com/exercises/87a/87a553b8-ab00-5a64-a2ea-808d92cc2a93/SMALL/Eccentric-Elbow-Extension-Band2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=JSpbgxQNPkUbykfKmnQrEifgcscvq3RC3eWlRVVD4Cs&expires=1789352099&token_path=%2F19aaefa8-a62d-49f2-bc07-6f8507e1f327%2F/19aaefa8-a62d-49f2-bc07-6f8507e1f327/play_720p.mp4",
+        "how_it": "Elastico ancorato in alto. Estendi il gomito aiutandoti con l'altra mano, poi resisti alla flessione tornando molto lentamente (3-4 secondi di fase eccentrica) con un solo braccio.",
+        "feel_it": "Rinforzo eccentrico del tricipite e protezione tendinea dell'olecrano.",
+        "comp_it": "Non far risalire il braccio di scatto. Movimento fluido e costante."
+      },
+      {
+        "id": "9191213",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Eccentric Elbow Flexion - Band",
+        "stats": {
+          "Reps": "6+6"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/9d6/9d6db47f-1d1b-5144-9552-df1914e51272/SMALL/Eccentric-Elbow-Flexion-Band1.png",
+          "https://prod-images.theprehabguys.com/exercises/c17/c178e889-9e85-5d2a-8aa9-5f9413c393b5/SMALL/Eccentric-Elbow-Flexion-Band2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=rLqm6yF4eVL6UC2Cs-7mx-R6yZQSTZ5tHkJp0RI_CPA&expires=1789352100&token_path=%2F6fe47e7a-61b5-4883-a22a-ffbf4a8a11b4%2F/6fe47e7a-61b5-4883-a22a-ffbf4a8a11b4/play_720p.mp4",
+        "how_it": "Fletti il gomito con l'aiuto dell'altra mano, poi resisti all'estensione controllando la discesa in 3-4 secondi contro la trazione dell'elastico.",
+        "feel_it": "Lavoro eccentrico del bicipite brachiale e tendine bicipitale.",
+        "comp_it": "Non perdere la tensione a inizio allungamento."
+      },
+      {
+        "id": "9191214",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Eccentric Elbow Supination - Elbow Straight, Dumbbell, Band",
+        "stats": {
+          "Reps": "6+6"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/20c/20cd6ecd-8955-5ffb-b4e8-83ef8eac97fd/SMALL/Eccentric-Elbow-Supination-Elbow-Straight-Dumbbell-Band.jpg",
+          "https://prod-images.theprehabguys.com/exercises/ea9/ea97f4c6-8dd8-5f2e-930b-c0823cb65e08/SMALL/Eccentric-Elbow-Supination-Elbow-Straight-Dumbbell-Band1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=V7kbZ4woqRkA8rCJhjhzSFmMGzmfutYoS9dYydjJBBw&expires=1789352101&token_path=%2F7ada87c0-478f-40a4-9de1-7cafb7d33917%2F/7ada87c0-478f-40a4-9de1-7cafb7d33917/play_720p.mp4",
+        "how_it": "Braccio disteso in avanti impugnando un manubrio da un'estremità. Lascia che il manubrio ruoti verso l'interno (pronazione) resistendo al movimento in eccentrica, poi riportalo su con l'altra mano.",
+        "feel_it": "Rinforzo specifico dei muscoli supinatori e prevenzione epicondilite ed epitrocleite.",
+        "comp_it": "Non flettere il polso o il gomito durante la decelerazione."
+      }
+    ]
+  },
+  {
+    "num": 12,
+    "name": "Erin Grippo",
+    "code": "CBQEN45V",
+    "flags": "Squat limitato a 90° per dorsiflessione caviglia, spalle anteposte",
+    "title": "grippo 1",
+    "exercises": [
+      {
+        "id": "8752356",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Single Leg Calf Raise - Captain Morgan",
+        "stats": {
+          "Reps": "10+10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/e40/e40a6135-f34b-4d02-8270-bfad5df8374c/SMALL/single-leg-calf-raise-captain-morgan.webp",
+          "https://prod-images.theprehabguys.com/exercises/e40/e40a6135-f34b-4d02-8270-bfad5df8374c/SMALL/single-leg-calf-raise-captain-morgan.webp"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=d-BYlsxfGL4ViwFdfWhITtyr8GwT5uvR5pOjJrb8QjE&expires=1789352102&token_path=%2F05cdbde5-b53e-4891-a08f-1039e62126c8%2F/05cdbde5-b53e-4891-a08f-1039e62126c8/play_720p.mp4",
+        "how_it": "In piedi su una gamba vicino a una parete con una fitball tra il ginocchio opposto piegato e il muro. Spingi energicamente il ginocchio contro la palla e contemporaneamente sollevati sulla punta del piede della gamba a terra.",
+        "feel_it": "Lavoro combinato di polpaccio (gastrocnemio/soleo) sulla gamba a terra e medio gluteo sulla gamba che preme la palla.",
+        "comp_it": "Non far cadere la palla. Non piegare il ginocchio della gamba a terra durante la salita sul tallone."
+      },
+      {
+        "id": "8752357",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Side Plank - On Knees, Clam, Band",
+        "stats": {
+          "Reps": "8+8"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/1f9/1f955883-d566-554a-9791-84ded4ac0461/SMALL/Side-Plank-On-Knees-Clam-Band.jpg",
+          "https://prod-images.theprehabguys.com/exercises/9dc/9dc12c33-36e4-565d-8d95-261bd3811e1d/SMALL/Side-Plank-On-Knees-Clam-Band1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=myvzc_C_qvNZltNlHmfjInWEm04WYqsDU7MI-lxd_ZA&expires=1789352073&token_path=%2Fb9dd6d4d-034f-4857-b87e-07f80086580f%2F/b9dd6d4d-034f-4857-b87e-07f80086580f/play_720p.mp4",
+        "how_it": "Posizionati sul fianco in appoggio su gomito e ginocchia piegate a 90°, con un elastico attorno alle ginocchia. Solleva il bacino allineando spalle, anche e ginocchia; contemporaneamente apri il ginocchio superiore mantenendo i talloni a contatto.",
+        "feel_it": "Forte contrazione del medio gluteo della gamba superiore e lavoro isometrico di core e anca del lato a terra.",
+        "comp_it": "Non far ruotare il bacino all'indietro durante l'apertura. Mantieni il bacino alto senza farlo cedere verso il pavimento."
+      },
+      {
+        "id": "8752358",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Bridge Hold",
+        "stats": {
+          "Hold": "30\"s"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/6e3/6e3dbbb6-d374-5a6e-8370-1a2796d379b3/SMALL/Bridge-Hold-1.png",
+          "https://prod-images.theprehabguys.com/exercises/e11/e114644b-369f-5635-af71-b068e159a74d/SMALL/Bridge-Hold-2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=ybOSPk4Asc5EyFd5-4cc7ZkAZjQ8zwapimqhBXfGrnY&expires=1789352103&token_path=%2Fdca70478-1a96-4a0f-923a-e903f8ff2296%2F/dca70478-1a96-4a0f-923a-e903f8ff2296/play_720p.mp4",
+        "how_it": "Sdraiata supina con ginocchia flesse e piedi a terra. Solleva il bacino contraendo glutei e addome fino ad allineare cosce e tronco, mantenendo la posizione isometrica.",
+        "feel_it": "Isolamento del grande gluteo, femorali e stabilizzazione lombo-pelvica.",
+        "comp_it": "Non inarcare la schiena spingendo con la zona lombare. Mantieni le costole abbassate."
+      }
+    ]
+  },
+  {
+    "num": 13,
+    "name": "Giulia Caserta",
+    "code": "WJBUL7HQ",
+    "flags": "Butt wink >110°, spalla SX anteposta",
+    "title": "caserta 1",
+    "exercises": [
+      {
+        "id": "8752353",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Sumo Deadlift- Dumbbell",
+        "stats": {
+          "Reps": "8",
+          "Hold": "lentos"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/832/832452f4-556a-5480-9d16-345b7632733b/SMALL/Sumo-Deadlift-Dumbbell1.png",
+          "https://prod-images.theprehabguys.com/exercises/e43/e4368e7c-385f-5e21-92db-01b43fa11bb2/SMALL/Sumo-Deadlift-Dumbbell2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=uLdxRI1FeEk1Um52cEy-ZFBvnW9vW064mslvGqbZ-Nw&expires=1789352104&token_path=%2F5b116330-f36d-453c-9565-6b557b4f56f3%2F/5b116330-f36d-453c-9565-6b557b4f56f3/play_720p.mp4",
+        "how_it": "Piedi più larghi delle spalle con punte extra-ruotate a 30-40°. Impugna un manubrio al centro e scendi flettendo anche e ginocchia con busto eretto, risalendo con spinta dai talloni a ritmo lento.",
+        "feel_it": "Adduttori, grande gluteo e quadricipiti con minimo stress sulla colonna lombare.",
+        "comp_it": "Non far collassare le ginocchia all'interno: spingi attivamente le ginocchia verso l'esterno in linea coi piedi."
+      },
+      {
+        "id": "9191300",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Carry - 90/90, Bottoms Up, Unilateral",
+        "stats": {
+          "Sets": "1+1"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/ffe/ffeb73c5-0924-517f-b3ab-35027a53cb2f/SMALL/Carry-9090-Bottoms-Up-Unilateral-1..png",
+          "https://prod-images.theprehabguys.com/exercises/ee3/ee39c026-7d82-5931-ae54-cca009934ca3/SMALL/Carry-9090-Bottoms-Up-Unilateral-2..png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=klDqz5Mjbwxpz_emNUawkeiMnckrXwP8DT8N0OB0XKI&expires=1789352104&token_path=%2Fec91c1db-ef97-4ef7-94f9-282f9df941b9%2F/ec91c1db-ef97-4ef7-94f9-282f9df941b9/play_720p.mp4",
+        "how_it": "In piedi, impugna un kettlebell capovolto (fondo verso l'alto) con gomito e spalla piegati a 90°. Cammina a passi lenti e controllati mantenendo il peso perfettamente stabile.",
+        "feel_it": "Propriocezione e stabilità della cuffia dei rotatori, forza della presa dell'avambraccio e core anti-flessione.",
+        "comp_it": "Non inclinare il busto di lato. Non permettere al kettlebell di oscillare."
+      },
+      {
+        "id": "9191301",
+        "day": "Day 1",
+        "split": "3x",
+        "name": "Single Leg Calf Raise - Captain Morgan",
+        "stats": {
+          "Reps": "8+8"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/e40/e40a6135-f34b-4d02-8270-bfad5df8374c/SMALL/single-leg-calf-raise-captain-morgan.webp",
+          "https://prod-images.theprehabguys.com/exercises/e40/e40a6135-f34b-4d02-8270-bfad5df8374c/SMALL/single-leg-calf-raise-captain-morgan.webp"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=d-BYlsxfGL4ViwFdfWhITtyr8GwT5uvR5pOjJrb8QjE&expires=1789352102&token_path=%2F05cdbde5-b53e-4891-a08f-1039e62126c8%2F/05cdbde5-b53e-4891-a08f-1039e62126c8/play_720p.mp4",
+        "how_it": "In piedi su una gamba vicino a una parete con una fitball tra il ginocchio opposto piegato e il muro. Spingi energicamente il ginocchio contro la palla e contemporaneamente sollevati sulla punta del piede della gamba a terra.",
+        "feel_it": "Lavoro combinato di polpaccio (gastrocnemio/soleo) sulla gamba a terra e medio gluteo sulla gamba che preme la palla.",
+        "comp_it": "Non far cadere la palla. Non piegare il ginocchio della gamba a terra durante la salita sul tallone."
+      }
+    ]
+  },
+  {
+    "num": 14,
+    "name": "Nelly Adamczewska",
+    "code": "SCRW653I",
+    "flags": "Lassità legamentosa, discinesia scapolare DX, valgismo SX",
+    "title": "Adamczewska 1",
+    "exercises": [
+      {
+        "id": "8311791",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Pec Minor Soft Tissue Mobilization",
+        "stats": {
+          "Reps": "90\""
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/8c3/8c3d2918-fdec-563d-81d4-441fb0df9e24/SMALL/Pec-Minor-Soft-Tissue-Mobilization.jpg",
+          "https://prod-images.theprehabguys.com/exercises/511/51109131-208b-5f82-a5c4-ac4d28b77990/SMALL/Pec-Minor-Soft-Tissue-Mobilization1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=sDXtLViqWr_ndeCekrIUTxUL53et_k9WVHaaiEkTEAI&expires=1789352105&token_path=%2Fb614bcd2-3784-4bb4-ad18-71d59bb93807%2F/b614bcd2-3784-4bb4-ad18-71d59bb93807/play_720p.mp4",
+        "how_it": "Posiziona una pallina da lacrosse sotto la clavicola, nella parte alta del petto verso la spalla (piccolo pettorale). Esegui pressioni circolari rilassando il braccio.",
+        "feel_it": "Decontrazione del piccolo pettorale per correggere l'anteposizione delle spalle e liberare il movimento scapolare.",
+        "comp_it": "Non premere direttamente sulle ossa o sulle articolazioni."
+      },
+      {
+        "id": "8311792",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Pec and Bicep Stretch",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/b8f/b8fa036b-d968-527b-b99d-30a2125d4e5b/SMALL/Pec-and-Bicep-Stretch1.png",
+          "https://prod-images.theprehabguys.com/exercises/3dc/3dc9db89-1dd9-5bf6-9dda-c2d94f6a0016/SMALL/Pec-and-Bicep-Stretch2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=moGErip2WU4YFGzwAI015vIKqg0fbSStQ-12WpUJREg&expires=1789352106&token_path=%2F3bfdb17f-1f00-4d6f-84da-371e670b9475%2F/3bfdb17f-1f00-4d6f-84da-371e670b9475/play_720p.mp4",
+        "how_it": "In piedi accanto a una parete o stipite. Appoggia mano e avambraccio a braccio disteso e ruota delicatamente il tronco dalla parte opposta.",
+        "feel_it": "Distensione e apertura del pettorale e del capo lungo del bicipite.",
+        "comp_it": "Non inarcare la colonna lombare per aumentare l'allungamento."
+      },
+      {
+        "id": "8311793",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Thoracic Spine Extension Mobilization - Foam Roller",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/0ea/0eaef18b-49c8-5002-b0f8-c8fa16e20b7b/SMALL/Thoracic-Spine-Extension-Mobilization-01.jpg",
+          "https://prod-images.theprehabguys.com/exercises/68a/68a14089-b834-5c50-905e-ed3c59a9631c/SMALL/Thoracic-Spine-Extension-Mobilization-02.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=ABaa_ZshKdgCFOsATXdKBd7gBM0_6OeYPKbqBCk5PhI&expires=1789352107&token_path=%2Fe0f57cd5-9de2-4b92-b1fe-09dc871aa248%2F/e0f57cd5-9de2-4b92-b1fe-09dc871aa248/play_720p.mp4",
+        "how_it": "Supina con il foam roller sotto la parte centrale della schiena (tratto dorsale). Mani dietro la nuca a sostegno del collo, estendi delicatamente la colonna sopra il rullo durante l'espirazione.",
+        "feel_it": "Apertura della gabbia toracica e incremento dell'estensione toracica per la postura a muro e in attacco.",
+        "comp_it": "Non posizionare mai il foam roller sotto il tratto lombare (bassa schiena)."
+      },
+      {
+        "id": "8311794",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Open Book",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/63c/63c2b063-0c4a-5c90-88cc-3e4f721dc1d5/SMALL/Open-Book.jpg",
+          "https://prod-images.theprehabguys.com/exercises/33f/33fd84d1-0521-5a49-899b-360b380c6ec6/SMALL/Open-Book-1.jpg"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=pkBfOrSqsrH78vVIKGnaOX1hxN9qCo0790t88lxm9L0&expires=1789352108&token_path=%2Fe5a991fc-e195-4528-99a8-dedccb48e734%2F/e5a991fc-e195-4528-99a8-dedccb48e734/play_720p.mp4",
+        "how_it": "Sul fianco con ginocchia e anche piegate a 90° una sopra l'altra. Braccia tese avanti, apri il braccio superiore descrivendo un arco fino al pavimento dietro di te ruotando il torace.",
+        "feel_it": "Mobilità rotazionale della colonna dorsale e allungamento della catena cinetica anteriore del torace.",
+        "comp_it": "Non far scivolare indietro il bacino o staccare le ginocchia l'una dall'altra."
+      },
+      {
+        "id": "8311795",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Single Leg Short Foot",
+        "stats": {
+          "Reps": "10"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/04b/04b31f72-79ec-56b9-b28a-e4d0645514f4/SMALL/Single-Leg-Short-Foot.png",
+          "https://prod-images.theprehabguys.com/exercises/9dd/9ddd28a7-58c5-5a93-a1f7-32973a7fce24/SMALL/Single-Leg-Short-Foot.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=8YlzFuDzjs0QTkWMewLTKYvSSYQszTXzJrifcnUhEns&expires=1789352091&token_path=%2F6d91f0cc-863f-44f6-ace3-687e6897a1bd%2F/6d91f0cc-863f-44f6-ace3-687e6897a1bd/play_720p.mp4",
+        "how_it": "In appoggio monopodalico a piedi nudi. 'Accorcia' il piede avvicinando la base del primo metatarso al tallone, sollevando attivamente la volta plantare senza arricciare le dita.",
+        "feel_it": "Contrazione dei muscoli intrinseci del piede e attivazione del tibiale posteriore.",
+        "comp_it": "Non flettere le dita ad artiglio: devono rimanere distese e rilassate a contatto col suolo."
+      },
+      {
+        "id": "8311796",
+        "day": "Day 1",
+        "split": "2x",
+        "name": "Isometric Sidelying Clam - Band",
+        "stats": {
+          "Hold": "30\"s"
+        },
+        "notes": "",
+        "images": [
+          "https://prod-images.theprehabguys.com/exercises/d4b/d4b4743a-aba4-5ca3-809e-59640f1b32e1/SMALL/Isometric-Side-Lying-Clam-Band-1.png",
+          "https://prod-images.theprehabguys.com/exercises/634/6341f059-b6c9-516c-a740-673c428f1666/SMALL/Isometric-Side-Lying-Clam-Band-2.png"
+        ],
+        "mp4": "https://videos.theprehabguys.com/bcdn_token=NwUU7Cl_0gBNXShZfLxyBosxBEeu4MoyXctKmN_n50w&expires=1789352109&token_path=%2F5edafe03-77d5-4161-8943-799bfaf410a4%2F/5edafe03-77d5-4161-8943-799bfaf410a4/play_720p.mp4",
+        "how_it": "Sdraiata sul fianco con ginocchia piegate a 90° ed elastico sopra le ginocchia. Apri il ginocchio superiore mantenendo i talloni uniti e tieni la posizione di massima apertura isometrica.",
+        "feel_it": "Forte contrazione e bruciore del medio gluteo e dei rotatori profondi dell'anca.",
+        "comp_it": "Non ruotare il bacino all'indietro per cercare un'apertura maggiore."
+      }
+    ]
+  }
+];
+    let currentAthIndex = 0;
+    let openVideos = {}; // [idx]: boolean
+
+    function init() {
+      const sel = document.getElementById('athleteSelect');
+      sel.innerHTML = roster.map((a, i) => `<option value="${i}">#${a.num} ${a.name} (${a.exercises.length} es.)</option>`).join('');
+      renderCurrentAthlete();
+    }
+
+    function onAthleteChange() {
+      currentAthIndex = parseInt(document.getElementById('athleteSelect').value);
+      openVideos = {};
+      renderCurrentAthlete();
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('app-view').style.display = 'none';
+      document.getElementById('print-view').style.display = 'none';
+      document.getElementById('editor-view').style.display = 'none';
+
+      if (tab === 'app') {
+        document.getElementById('tabApp').classList.add('active');
+        document.getElementById('app-view').style.display = 'block';
+      } else if (tab === 'print') {
+        document.getElementById('tabPrint').classList.add('active');
+        document.getElementById('print-view').style.display = 'flex';
+      } else if (tab === 'editor') {
+        document.getElementById('tabEditor').classList.add('active');
+        document.getElementById('editor-view').style.display = 'block';
+      }
+    }
+
+    function toggleVideo(idx) {
+      openVideos[idx] = !openVideos[idx];
+      const drawer = document.getElementById('videoDrawer_' + idx);
+      const btn = document.getElementById('btnVideo_' + idx);
+      const vid = document.getElementById('videoEl_' + idx);
+      
+      if (openVideos[idx]) {
+        drawer.style.display = 'block';
+        btn.classList.add('active');
+        btn.innerHTML = '⏹ Chiudi Video Spiegazione';
+        if (vid) vid.play();
+      } else {
+        drawer.style.display = 'none';
+        btn.classList.remove('active');
+        btn.innerHTML = '▶️ Guarda Video Spiegazione';
+        if (vid) vid.pause();
+      }
+    }
+
+    function renderCurrentAthlete() {
+      const ath = roster[currentAthIndex];
+      const volumeStr = (ath.exercises.length > 0 && ath.exercises[0].split) ? ath.exercises[0].split : "3 serie";
+
+      // 1. VISTA ATLETA
+      const banner = document.getElementById('appAthBanner');
+      banner.innerHTML = `
+        <div>
+          <div class="ath-flag-title">🛡️ FOCUS CLINICO & BIOMECCANICO</div>
+          <div class="ath-flag-desc">${ath.flags}</div>
+        </div>
+        <div class="volume-pill">Volume: ${volumeStr}</div>
+      `;
+
+      const listEl = document.getElementById('appExerciseList');
+      listEl.innerHTML = ath.exercises.map((ex, idx) => {
+        const statStr = Object.entries(ex.stats).map(([k, v]) => `${k}: ${v}`).join(' · ') || 'Controllo';
+        const img1 = ex.images[0] || 'https://via.placeholder.com/160x120?text=Step+1';
+        const img2 = ex.images[1] || ex.images[0] || 'https://via.placeholder.com/160x120?text=Step+2';
+        const isVidOpen = !!openVideos[idx];
+
+        return `
+          <div class="exercise-card">
+            <div class="ex-header-row">
+              <div class="ex-title-wrap">
+                <span class="ex-num-badge">${idx + 1}</span>
+                <div class="ex-title">${ex.name}</div>
+              </div>
+              <div class="ex-target-badge">${statStr}</div>
+            </div>
+
+            <div class="ex-body-grid">
+              <!-- Visual: Foto + Video -->
+              <div class="ex-visual-col">
+                <div class="ex-images-pair">
+                  <div class="ex-img-wrap">
+                    <span class="step-tag">STEP 1</span>
+                    <img src="${img1}" alt="${ex.name} Step 1" loading="lazy">
+                  </div>
+                  <div class="ex-img-wrap">
+                    <span class="step-tag">STEP 2</span>
+                    <img src="${img2}" alt="${ex.name} Step 2" loading="lazy">
+                  </div>
+                </div>
+
+                ${ex.mp4 ? `
+                  <button id="btnVideo_${idx}" class="btn-toggle-video ${isVidOpen ? 'active' : ''}" onclick="toggleVideo(${idx})">
+                    ${isVidOpen ? '⏹ Chiudi Video Spiegazione' : '▶️ Guarda Video Spiegazione'}
+                  </button>
+                  <div id="videoDrawer_${idx}" class="video-drawer" style="display:${isVidOpen ? 'block' : 'none'};">
+                    <video id="videoEl_${idx}" src="${ex.mp4}" controls playsinline></video>
+                  </div>
+                ` : `
+                  <div style="font-size:0.75rem; color:var(--mv-text-muted); text-align:center; padding:6px;">Video in caricamento</div>
+                `}
+              </div>
+
+              <!-- Descrizione Dettagliata in Italiano -->
+              <div class="ex-desc-col">
+                <div class="desc-block how">
+                  <div class="desc-lbl">🎯 Come si esegue</div>
+                  <div class="desc-txt">${ex.how_it}</div>
+                </div>
+
+                <div class="desc-block feel">
+                  <div class="desc-lbl">⚡ Sensazione Target</div>
+                  <div class="desc-txt">${ex.feel_it}</div>
+                </div>
+
+                <div class="desc-block comp">
+                  <div class="desc-lbl">⚠️ Errori & Compensi da Evitare</div>
+                  <div class="desc-txt">${ex.comp_it}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // 2. VISTA STAMPA A4 / PDF
+      document.getElementById('printAthName').innerText = `#${ath.num} ${ath.name}`;
+      document.getElementById('printAthFlags').innerText = ath.flags;
+      document.getElementById('printAthVolume').innerText = volumeStr;
+
+      const printBody = document.getElementById('printTableBody');
+      printBody.innerHTML = ath.exercises.map((ex, idx) => {
+        const statStr = Object.entries(ex.stats).map(([k, v]) => `${k}: ${v}`).join(' · ') || '-';
+        const img1 = ex.images[0] || '';
+        const img2 = ex.images[1] || img1;
+
+        let numSets = 3;
+        if (volumeStr.includes('2')) numSets = 2;
+        if (volumeStr.includes('4')) numSets = 4;
+        let checkCircles = '';
+        for (let s = 1; s <= numSets; s++) {
+          checkCircles += `<div style="text-align:center;"><div class="print-chk-circle"></div><div style="font-size:0.65rem;color:#64748b;margin-top:2px;">S${s}</div></div>`;
+        }
+
+        return `
+          <tr>
+            <td class="print-img-col">
+              <div class="print-imgs">
+                <img src="${img1}" alt="S1">
+                <img src="${img2}" alt="S2">
+              </div>
+            </td>
+            <td>
+              <div class="print-ex-title">${idx + 1}. ${ex.name}</div>
+              <div class="print-ex-desc"><strong>Esecuzione:</strong> ${ex.how_it}</div>
+              <div class="print-ex-desc" style="color:#b45309;"><strong>Focus:</strong> ${ex.feel_it}</div>
+            </td>
+            <td style="text-align:center;">
+              <span class="print-target-badge">${statStr}</span>
+            </td>
+            <td>
+              <div class="print-check-boxes" style="justify-content:center;">
+                ${checkCircles}
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // 3. VISTA EDITOR COACH
+      document.getElementById('editFlags').value = ath.flags;
+      document.getElementById('editSplit').value = volumeStr;
+
+      const editorContainer = document.getElementById('editorExercisesContainer');
+      editorContainer.innerHTML = ath.exercises.map((ex, idx) => {
+        const statVal = ex.stats.Reps || ex.stats.Hold || ex.stats.raw || '10';
+        const statType = ex.stats.Hold ? 'Hold' : 'Reps';
+
+        return `
+          <div class="editor-row" id="editRow_${idx}">
+            <div class="form-group">
+              <label>Nome Esercizio</label>
+              <input type="text" value="${ex.name}" onchange="modifyExField(${idx}, 'name', this.value)">
+            </div>
+            <div class="form-group">
+              <label>Parametro</label>
+              <select onchange="modifyExStatType(${idx}, this.value)">
+                <option value="Reps" ${statType === 'Reps' ? 'selected' : ''}>Ripetizioni</option>
+                <option value="Hold" ${statType === 'Hold' ? 'selected' : ''}>Tenuta (Sec)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Target</label>
+              <input type="text" value="${statVal}" onchange="modifyExStatVal(${idx}, this.value)">
+            </div>
+            <div class="form-group">
+              <label>Istruzioni Come si Esegue</label>
+              <input type="text" value="${ex.how_it}" onchange="modifyExField(${idx}, 'how_it', this.value)">
+            </div>
+            <div>
+              <button class="btn-del" onclick="deleteExRow(${idx})" title="Elimina">🗑️</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateLiveFlags(val) { roster[currentAthIndex].flags = val; }
+    function updateLiveSplit(val) { roster[currentAthIndex].exercises.forEach(e => e.split = val); }
+    function modifyExField(idx, field, val) { roster[currentAthIndex].exercises[idx][field] = val; }
+    function modifyExStatType(idx, type) {
+      const ex = roster[currentAthIndex].exercises[idx];
+      const curVal = ex.stats.Reps || ex.stats.Hold || '10';
+      ex.stats = { [type]: curVal };
+    }
+    function modifyExStatVal(idx, val) {
+      const ex = roster[currentAthIndex].exercises[idx];
+      const curKey = Object.keys(ex.stats)[0] || 'Reps';
+      ex.stats[curKey] = val;
+    }
+    function deleteExRow(idx) {
+      roster[currentAthIndex].exercises.splice(idx, 1);
+      renderCurrentAthlete();
+    }
+    function addNewExerciseRow() {
+      roster[currentAthIndex].exercises.push({
+        name: "Nuovo Esercizio Correttivo",
+        day: "Day 1",
+        split: roster[currentAthIndex].exercises[0]?.split || "3x",
+        stats: { "Reps": "10+10" },
+        how_it: "Esecuzione controllata e mirata alla stabilità.",
+        feel_it: "Attivazione muscolare mirata.",
+        comp_it: "Evita compensi posturali.",
+        images: ["https://via.placeholder.com/160x120?text=Step+1", "https://via.placeholder.com/160x120?text=Step+2"]
+      });
+      renderCurrentAthlete();
+    }
+
+    function saveCoachChanges() {
+      renderCurrentAthlete();
+      showToast("✅ Scheda salvata!");
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 2500);
+    }
+
+    function printPdf() {
+      const curTab = document.querySelector('.tab-btn.active').id;
+      switchTab('print');
+      setTimeout(() => {
+        window.print();
+        if (curTab === 'tabApp') switchTab('app');
+        else if (curTab === 'tabEditor') switchTab('editor');
+      }, 200);
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
