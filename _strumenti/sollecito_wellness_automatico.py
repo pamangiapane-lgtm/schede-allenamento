@@ -24,6 +24,8 @@ SISTEMA_ATTIVO = True
 GREEN_API_INSTANCE = (os.environ.get("GREEN_API_INSTANCE") or "710522726817").strip()
 GREEN_API_TOKEN    = (os.environ.get("GREEN_API_TOKEN") or "6bc94d387d5742a3ad17e1225270479a67d4debd7dfa4863ab").strip()
 
+SUPABASE_URL = (os.environ.get("SUPABASE_URL") or "https://trhaoucqnmhqiimrkada.supabase.co").rstrip("/")
+SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY") or "sb_publishable_SDPimUfUqYBFlO5mZ_JdGQ_8N4sWYwd"
 GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec'
 TOKEN   = os.environ.get('APP_TOKEN') or 'mv26-prd-3xF7wNqK'
 
@@ -70,24 +72,46 @@ def carica_rubrica():
     return {}
 
 def chi_ha_compilato_oggi():
+    today_str = datetime.now().strftime('%Y-%m-%d')
+    compilati = set()
+
+    # 1. Tentativo primario: Supabase REST (<150ms, Single Source of Truth)
+    try:
+        url = f"{SUPABASE_URL}/rest/v1/wellness_logs?date=eq.{today_str}&select=athlete_id"
+        headers = {
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": f"Bearer {SUPABASE_ANON_KEY}"
+        }
+        r = requests.get(url, headers=headers, timeout=10)
+        if r.ok:
+            for row in r.json():
+                aid = row.get('athlete_id')
+                if aid is not None:
+                    try:
+                        compilati.add(int(aid))
+                    except (ValueError, TypeError):
+                        pass
+            if compilati:
+                return compilati
+    except Exception as e:
+        print(f"[Supabase fallback] Errore lettura Wellness da Supabase: {e}")
+
+    # 2. Fallback su Google Apps Script se Supabase fallisce
     try:
         r = requests.get(GAS_URL, params={'token': TOKEN, 'azione': 'leggi', 'foglio': 'Wellness'}, timeout=20)
         dati = r.json().get('dati', []) if r.status_code == 200 else []
+        for row in dati:
+            aid = row.get('ID_Giocatrice')
+            rdate = str(row.get('Data') or '')[:10]
+            ts = str(row.get('Timestamp') or '')
+            if (rdate == today_str or ts.startswith(today_str)) and aid:
+                try:
+                    compilati.add(int(aid))
+                except:
+                    pass
     except Exception as e:
         print(f"[!] Errore lettura Wellness da Google Sheets: {e}")
-        return set()
 
-    today_str = datetime.now().strftime('%Y-%m-%d')
-    compilati = set()
-    for row in dati:
-        aid = row.get('ID_Giocatrice')
-        rdate = str(row.get('Data') or '')[:10]
-        ts = str(row.get('Timestamp') or '')
-        if (rdate == today_str or ts.startswith(today_str)) and aid:
-            try:
-                compilati.add(int(aid))
-            except:
-                pass
     return compilati
 
 def gia_sollecitata_oggi(aid):
