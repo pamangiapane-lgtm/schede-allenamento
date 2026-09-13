@@ -4176,6 +4176,8 @@ function getNellyBlockInfo(bName, isEN) {
   const low = (bName || '').toLowerCase();
   if (low.includes('prehab')) {
     return { icon: '🛡️', title: isEN ? 'Prehab Protocol' : 'Protocollo Prehab' };
+  } else if (low.includes('plyo') || low.includes('readiness')) {
+    return { icon: '⚡', title: isEN ? 'Plyometrics & Readiness' : 'Pliometria & Readiness' };
   } else if (low.includes('main')) {
     return { icon: '🏋️', title: isEN ? 'Main Exercises (Strength)' : 'Esercizi Principali (Forza)' };
   } else if (low.includes('accessor')) {

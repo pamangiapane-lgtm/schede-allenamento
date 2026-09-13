@@ -3786,7 +3786,26 @@ const WEEKS_DATA = {
         "w3_sedute": {
           "1": [
             {
+              "Blocco": "# Plyo",
+              "blocco": "# Plyo",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
+              "Carico (kg/RPE)": "Max",
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "3 salti massimali con 45\" rec. passivo. Verifica quota cm e readiness vs baseline W3 (drop <7%)."
+            },
+            {
+              "Blocco": "# Plyo",
+              "blocco": "# Plyo",
+              "Esercizio": "2A. Pogo Jump su Linea",
+              "Set x Reps": "3 x 4+4",
+              "Carico (kg/RPE)": "BW",
+              "Tempo": "`X`",
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+            },
+            {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
               "Carico (kg/RPE)": "30 - 35 kg",
@@ -3795,6 +3814,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2a. Twists with BB - sitting pos",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "30 - 40 kg (o BB leggero)",
@@ -3803,6 +3823,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2b. One leg deadlift DB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "12 - 14 kg",
@@ -3810,83 +3831,75 @@ const WEEKS_DATA = {
               "Note Tecniche": "In superset con 2a. Stacco monopodalico con manubrio controlaterale, stabilità monopodalica e arco plantare attivo."
             },
             {
-              "Blocco": "# Prehab",
-              "Esercizio": "3. Clean squat with stand on one leg",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "15 kg",
-              "Tempo": "3010",
-              "Note Tecniche": "Discesa in 3s, risalita e arrivo solido in equilibrio monopodalico senza valgo del ginocchio."
+              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
+              "Esercizio": "1. Box 90°",
+              "Set x Reps": "4 x 5, 4, 3, 3",
+              "Carico (kg/RPE)": "\"10\" - \"6\" - \"4-3\"",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Sfioro del box controllato a 90°, risalita potente (progressione carichi @ \"10\"-\"6\"-\"4-3\")."
             },
             {
               "Blocco": "# Main Exercises",
-              "Esercizio": "1. Box Squat",
-              "Set x Reps": "3 x 5, 4, 3",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "2010",
-              "Note Tecniche": "Sfioro del box controllato a 85°-90°, risalita potente (progressione carichi fino a RPE 4-5)."
-            },
-            {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 5, 4, 3",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "2010",
+              "Tempo": "`2010`",
               "Note Tecniche": "Panca orizzontale, massima apertura toracica ed estensione dorsale senza inarcare la zona lombare."
             },
             {
               "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "1. Harmstring Ball curl",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Leg curl su fitball a terra, bacino sempre sollevato e allineato, 3s di fase eccentrica."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
-              "Tempo": "1020",
+              "Tempo": "`1020`",
               "Note Tecniche": "Calf in piedi, 2s di blocco in massima contrazione con ginocchia tese."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "3. Lat pull down - front",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Trazione frontale fino al petto/sterno, 3s di fermo isometrico in basso."
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "1. Clean to 1/4 squat",
-              "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "30 kg",
-              "Tempo": "10X0",
-              "Note Tecniche": "Power clean con ricezione reattiva in 1/4 di squat, rapida frenata e riestensione."
-            },
-            {
-              "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "2. Flor ball throws",
+              "blocco": "# Babdominals + Transfer",
+              "Esercizio": "1. Flor ball throws",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
-              "Tempo": "X",
+              "Tempo": "`X`",
               "Note Tecniche": "Lancio esplosivo della palla medica a terra con massima intenzione di velocità."
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "3. Abdominals - self exercises",
+              "blocco": "# Babdominals + Transfer",
+              "Esercizio": "2. Abdominals - self exercises",
               "Set x Reps": "2 x 8+8 / 20\"",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "2020",
+              "Tempo": "`2020`",
               "Note Tecniche": "Deadbug o Plank dinamico per stabilità anteriore e tenuta del bacino."
             }
           ],
@@ -4130,7 +4143,26 @@ const WEEKS_DATA = {
         "w4_sedute": {
           "1": [
             {
+              "Blocco": "# Plyo",
+              "blocco": "# Plyo",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
+              "Carico (kg/RPE)": "Max",
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "3 salti massimali con 45\" rec. passivo. Verifica quota cm e readiness vs baseline W3 (drop <7%)."
+            },
+            {
+              "Blocco": "# Plyo",
+              "blocco": "# Plyo",
+              "Esercizio": "2A. Pogo Jump su Linea",
+              "Set x Reps": "3 x 4+4",
+              "Carico (kg/RPE)": "BW",
+              "Tempo": "`X`",
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+            },
+            {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
               "Carico (kg/RPE)": "30 - 35 kg",
@@ -4139,6 +4171,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2a. Twists with BB - sitting pos",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "30 - 40 kg (o BB leggero)",
@@ -4147,6 +4180,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2b. One leg deadlift DB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "12 - 14 kg",
@@ -4154,83 +4188,75 @@ const WEEKS_DATA = {
               "Note Tecniche": "In superset con 2a. Stacco monopodalico con manubrio controlaterale, stabilità monopodalica e arco plantare attivo."
             },
             {
-              "Blocco": "# Prehab",
-              "Esercizio": "3. Clean squat with stand on one leg",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "15 kg",
-              "Tempo": "3010",
-              "Note Tecniche": "Discesa in 3s, risalita e arrivo solido in equilibrio monopodalico senza valgo del ginocchio."
+              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
+              "Esercizio": "1. Box 90°",
+              "Set x Reps": "4 x 5, 4, 3, 3",
+              "Carico (kg/RPE)": "\"10\" - \"6\" - \"4-3\"",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Sfioro del box controllato a 90°, risalita potente (progressione carichi @ \"10\"-\"6\"-\"4-3\")."
             },
             {
               "Blocco": "# Main Exercises",
-              "Esercizio": "1. Box Squat",
-              "Set x Reps": "3 x 5, 4, 3",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "2010",
-              "Note Tecniche": "Sfioro del box controllato a 85°-90°, risalita potente (progressione carichi fino a RPE 4-5)."
-            },
-            {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 5, 4, 3",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "2010",
+              "Tempo": "`2010`",
               "Note Tecniche": "Panca orizzontale, massima apertura toracica ed estensione dorsale senza inarcare la zona lombare."
             },
             {
               "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "1. Harmstring Ball curl",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Leg curl su fitball a terra, bacino sempre sollevato e allineato, 3s di fase eccentrica."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
-              "Tempo": "1020",
+              "Tempo": "`1020`",
               "Note Tecniche": "Calf in piedi, 2s di blocco in massima contrazione con ginocchia tese."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "3. Lat pull down - front",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Trazione frontale fino al petto/sterno, 3s di fermo isometrico in basso."
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "1. Clean to 1/4 squat",
-              "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "30 kg",
-              "Tempo": "10X0",
-              "Note Tecniche": "Power clean con ricezione reattiva in 1/4 di squat, rapida frenata e riestensione."
-            },
-            {
-              "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "2. Flor ball throws",
+              "blocco": "# Babdominals + Transfer",
+              "Esercizio": "1. Flor ball throws",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
-              "Tempo": "X",
+              "Tempo": "`X`",
               "Note Tecniche": "Lancio esplosivo della palla medica a terra con massima intenzione di velocità."
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "3. Abdominals - self exercises",
+              "blocco": "# Babdominals + Transfer",
+              "Esercizio": "2. Abdominals - self exercises",
               "Set x Reps": "2 x 8+8 / 20\"",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "2020",
+              "Tempo": "`2020`",
               "Note Tecniche": "Deadbug o Plank dinamico per stabilità anteriore e tenuta del bacino."
             }
           ],
@@ -10471,7 +10497,26 @@ const WEEKS_DATA = {
         "w3_sedute": {
           "1": [
             {
+              "Blocco": "# Plyo",
+              "blocco": "# Plyo",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
+              "Carico (kg/RPE)": "Max",
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "3 salti massimali con 45\" rec. passivo. Verifica quota cm e readiness vs baseline W3 (drop <7%)."
+            },
+            {
+              "Blocco": "# Plyo",
+              "blocco": "# Plyo",
+              "Esercizio": "2A. Pogo Jump su Linea",
+              "Set x Reps": "3 x 4+4",
+              "Carico (kg/RPE)": "BW",
+              "Tempo": "`X`",
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+            },
+            {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
               "Carico (kg/RPE)": "30 - 35 kg",
@@ -10480,6 +10525,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2a. Twists with BB - sitting pos",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "30 - 40 kg (o BB leggero)",
@@ -10488,6 +10534,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2b. One leg deadlift DB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "12 - 14 kg",
@@ -10495,83 +10542,75 @@ const WEEKS_DATA = {
               "Note Tecniche": "In superset con 2a. Stacco monopodalico con manubrio controlaterale, stabilità monopodalica e arco plantare attivo."
             },
             {
-              "Blocco": "# Prehab",
-              "Esercizio": "3. Clean squat with stand on one leg",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "15 kg",
-              "Tempo": "3010",
-              "Note Tecniche": "Discesa in 3s, risalita e arrivo solido in equilibrio monopodalico senza valgo del ginocchio."
+              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
+              "Esercizio": "1. Box 90°",
+              "Set x Reps": "4 x 5, 4, 3, 3",
+              "Carico (kg/RPE)": "\"10\" - \"6\" - \"4-3\"",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Sfioro del box controllato a 90°, risalita potente (progressione carichi @ \"10\"-\"6\"-\"4-3\")."
             },
             {
               "Blocco": "# Main Exercises",
-              "Esercizio": "1. Box Squat",
-              "Set x Reps": "3 x 5, 4, 3",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "2010",
-              "Note Tecniche": "Sfioro del box controllato a 85°-90°, risalita potente (progressione carichi fino a RPE 4-5)."
-            },
-            {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 5, 4, 3",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "2010",
+              "Tempo": "`2010`",
               "Note Tecniche": "Panca orizzontale, massima apertura toracica ed estensione dorsale senza inarcare la zona lombare."
             },
             {
               "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "1. Harmstring Ball curl",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Leg curl su fitball a terra, bacino sempre sollevato e allineato, 3s di fase eccentrica."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
-              "Tempo": "1020",
+              "Tempo": "`1020`",
               "Note Tecniche": "Calf in piedi, 2s di blocco in massima contrazione con ginocchia tese."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "3. Lat pull down - front",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Trazione frontale fino al petto/sterno, 3s di fermo isometrico in basso."
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "1. Clean to 1/4 squat",
-              "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "30 kg",
-              "Tempo": "10X0",
-              "Note Tecniche": "Power clean con ricezione reattiva in 1/4 di squat, rapida frenata e riestensione."
-            },
-            {
-              "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "2. Flor ball throws",
+              "blocco": "# Babdominals + Transfer",
+              "Esercizio": "1. Flor ball throws",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
-              "Tempo": "X",
+              "Tempo": "`X`",
               "Note Tecniche": "Lancio esplosivo della palla medica a terra con massima intenzione di velocità."
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "3. Abdominals - self exercises",
+              "blocco": "# Babdominals + Transfer",
+              "Esercizio": "2. Abdominals - self exercises",
               "Set x Reps": "2 x 8+8 / 20\"",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "2020",
+              "Tempo": "`2020`",
               "Note Tecniche": "Deadbug o Plank dinamico per stabilità anteriore e tenuta del bacino."
             }
           ],
@@ -10815,7 +10854,26 @@ const WEEKS_DATA = {
         "w4_sedute": {
           "1": [
             {
+              "Blocco": "# Plyo",
+              "blocco": "# Plyo",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
+              "Carico (kg/RPE)": "Max",
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "3 salti massimali con 45\" rec. passivo. Verifica quota cm e readiness vs baseline W3 (drop <7%)."
+            },
+            {
+              "Blocco": "# Plyo",
+              "blocco": "# Plyo",
+              "Esercizio": "2A. Pogo Jump su Linea",
+              "Set x Reps": "3 x 4+4",
+              "Carico (kg/RPE)": "BW",
+              "Tempo": "`X`",
+              "Note Tecniche": "Time contact <170ms, stiffness caviglia e rimbalzo elastico reattivo su linea."
+            },
+            {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
               "Carico (kg/RPE)": "30 - 35 kg",
@@ -10824,6 +10882,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2a. Twists with BB - sitting pos",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "30 - 40 kg (o BB leggero)",
@@ -10832,6 +10891,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Prehab",
+              "blocco": "# Prehab",
               "Esercizio": "2b. One leg deadlift DB",
               "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "12 - 14 kg",
@@ -10839,83 +10899,75 @@ const WEEKS_DATA = {
               "Note Tecniche": "In superset con 2a. Stacco monopodalico con manubrio controlaterale, stabilità monopodalica e arco plantare attivo."
             },
             {
-              "Blocco": "# Prehab",
-              "Esercizio": "3. Clean squat with stand on one leg",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "15 kg",
-              "Tempo": "3010",
-              "Note Tecniche": "Discesa in 3s, risalita e arrivo solido in equilibrio monopodalico senza valgo del ginocchio."
+              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
+              "Esercizio": "1. Box 90°",
+              "Set x Reps": "4 x 5, 4, 3, 3",
+              "Carico (kg/RPE)": "\"10\" - \"6\" - \"4-3\"",
+              "Tempo": "`2010`",
+              "Note Tecniche": "Sfioro del box controllato a 90°, risalita potente (progressione carichi @ \"10\"-\"6\"-\"4-3\")."
             },
             {
               "Blocco": "# Main Exercises",
-              "Esercizio": "1. Box Squat",
-              "Set x Reps": "3 x 5, 4, 3",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "2010",
-              "Note Tecniche": "Sfioro del box controllato a 85°-90°, risalita potente (progressione carichi fino a RPE 4-5)."
-            },
-            {
-              "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 5, 4, 3",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "2010",
+              "Tempo": "`2010`",
               "Note Tecniche": "Panca orizzontale, massima apertura toracica ed estensione dorsale senza inarcare la zona lombare."
             },
             {
               "Blocco": "# Main Exercises",
+              "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
               "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "1. Harmstring Ball curl",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Leg curl su fitball a terra, bacino sempre sollevato e allineato, 3s di fase eccentrica."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
-              "Tempo": "1020",
+              "Tempo": "`1020`",
               "Note Tecniche": "Calf in piedi, 2s di blocco in massima contrazione con ginocchia tese."
             },
             {
               "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "3. Lat pull down - front",
               "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
-              "Tempo": "1030",
+              "Tempo": "`1030`",
               "Note Tecniche": "Trazione frontale fino al petto/sterno, 3s di fermo isometrico in basso."
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "1. Clean to 1/4 squat",
-              "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "30 kg",
-              "Tempo": "10X0",
-              "Note Tecniche": "Power clean con ricezione reattiva in 1/4 di squat, rapida frenata e riestensione."
-            },
-            {
-              "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "2. Flor ball throws",
+              "blocco": "# Babdominals + Transfer",
+              "Esercizio": "1. Flor ball throws",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
-              "Tempo": "X",
+              "Tempo": "`X`",
               "Note Tecniche": "Lancio esplosivo della palla medica a terra con massima intenzione di velocità."
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "3. Abdominals - self exercises",
+              "blocco": "# Babdominals + Transfer",
+              "Esercizio": "2. Abdominals - self exercises",
               "Set x Reps": "2 x 8+8 / 20\"",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "2020",
+              "Tempo": "`2020`",
               "Note Tecniche": "Deadbug o Plank dinamico per stabilità anteriore e tenuta del bacino."
             }
           ],
