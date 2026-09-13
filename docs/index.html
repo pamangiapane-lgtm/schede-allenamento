@@ -3589,6 +3589,13 @@ function categorizeExerciseNorm(norm) {
 }
 
 
+function isJumpExercise(name) {
+  const low = (name || '').toLowerCase();
+  return low.includes('cmj') || low.includes('jump') || low.includes('balz') ||
+         low.includes('pogo') || low.includes('salti') || low.includes('salto') ||
+         low.includes('profilazione');
+}
+
 function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
   if (!athlete || typeof WEEKS_DATA === 'undefined') return null;
   let prevWeekKey = null;
@@ -3630,10 +3637,12 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
       if (tNorm === cNorm) return c;
     }
     const roots = [
+      { key: 'drop jump', match: c => c.includes('drop jump') },
+      { key: 'cmj', match: c => c.includes('cmj') || c.includes('profilazione') },
+      { key: 'pogo', match: c => c.includes('pogo') },
       { key: 'split squat', match: c => c.includes('split squat') || c.includes('bulgarian') },
       { key: 'floor chest press', match: c => c.includes('floor') && (c.includes('press') || c.includes('chest')) },
       { key: 'lat machine', match: c => c.includes('lat machine') },
-      { key: 'pogo', match: c => c.includes('pogo') },
       { key: 'pallof', match: c => c.includes('pallof') },
       { key: 'clean', match: c => c.includes('clean') || c.includes('girat') },
       { key: 'power squat', match: c => c.includes('squat') && (c.includes('power') || c.includes('0.65') || c.includes('0.85') || c.includes('speed')) },
@@ -3642,8 +3651,6 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
       { key: 'deadbug', match: c => c.includes('deadbug') },
       { key: 'rotational medball', match: c => (c.includes('rotational') || c.includes('torsion')) && c.includes('medball') },
       { key: 'medball chest pass', match: c => c.includes('medball') && (c.includes('chest pass') || c.includes('slam') || c.includes('pass')) && !c.includes('rotational') },
-      { key: 'drop jump', match: c => c.includes('drop jump') },
-      { key: 'cmj', match: c => c.includes('cmj') || c.includes('profilazione') },
       { key: 'glute bridge', match: c => c.includes('glute bridge') || c.includes('hip thrust') },
       { key: 'pulley', match: c => c.includes('pulley') },
       { key: 'extrarotazion', match: c => c.includes('extrarotazion') || c.includes('rotatori') },
@@ -3677,11 +3684,12 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
   const prevExName = matched.Esercizio || matched.exName || '';
   const rawCarico = matched['Carico (kg/RPE)'] || matched.carico || '';
   const rawReps = matched['Set x Reps'] || matched.reps || '';
+  const isJump = isJumpExercise(exName) || isJumpExercise(prevExName);
 
   // 1. Reps: normalizza spaziatura
   let reps = rawReps.replace(/\s*x\s*/gi, 'x').trim();
 
-  // 2. RPE / RIR
+  // 2. RPE / RIR / Target
   let rpe = '';
   const rpeMatch = rawCarico.match(/\["([^"]+)"\]/) ||
                    rawCarico.match(/\("([^"]+)"\)/) ||
@@ -3693,36 +3701,66 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
     } else {
       rpe = 'RPE ' + rpeMatch[1];
     }
+  } else if (isJump) {
+    if (rawCarico.toLowerCase().includes('max') || (matched.Tempo && matched.Tempo.toLowerCase().includes('rfd'))) {
+      rpe = 'Max RFD';
+    } else if (matched.Tempo && matched.Tempo.includes('X')) {
+      rpe = 'Reattivo';
+    }
   }
 
-  // 3. Carico: usa eventuale log manuale dell'atleta o prescritto
-  let manualLoad = '';
+  // 3. Valore: carico (kg) o misura salto (cm/box/tc)
+  let manualVal = '';
   try {
-    manualLoad = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
-                 localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
-                 localStorage.getItem(`mv_load_${athlete.id}_${prevExName}`) ||
-                 localStorage.getItem(`mv_vbt_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
-                 localStorage.getItem(`mv_vbt_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
-                 localStorage.getItem(`mv_vbt_${athlete.id}_${prevExName}`) || '';
+    if (isJump) {
+      manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_CMJ_Test`) ||
+                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_CMJ_Test`) ||
+                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_CMJ_Test`) ||
+                  localStorage.getItem(`mv_load_${athlete.id}_CMJ_Test`) ||
+                  localStorage.getItem(`mv_load_${athlete.id}_CMJ Test Chronojump`) || '';
+    }
+    if (!manualVal) {
+      manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
+                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
+                  localStorage.getItem(`mv_load_${athlete.id}_${prevExName}`) ||
+                  localStorage.getItem(`mv_vbt_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
+                  localStorage.getItem(`mv_vbt_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
+                  localStorage.getItem(`mv_vbt_${athlete.id}_${prevExName}`) || '';
+    }
   } catch (e) {}
 
-  let finalCarico = '';
+  let finalVal = '';
   let isManual = false;
-  if (manualLoad && manualLoad.trim()) {
-    finalCarico = manualLoad.trim();
+  if (manualVal && manualVal.trim()) {
+    finalVal = manualVal.trim();
     isManual = true;
   } else {
-    const kgInsideParens = rawCarico.match(/\(([^)]+kg)\)/i);
-    if (kgInsideParens) {
-      finalCarico = kgInsideParens[1].trim();
+    if (isJump) {
+      const lowEx = prevExName.toLowerCase();
+      if (lowEx.includes('drop jump')) {
+        const mBox = (prevExName + ' ' + (matched['Note Tecniche'] || '')).match(/(\d+)\s*cm/i);
+        finalVal = mBox ? `Box ${mBox[1]} cm` : 'Box 40 cm';
+      } else if (lowEx.includes('pogo')) {
+        const mTc = (matched['Note Tecniche'] || '').match(/(?:tc|contatto)\s*<(\d+ms)/i);
+        finalVal = mTc ? `TC <${mTc[1]}` : 'Stiffness BW';
+      } else if (lowEx.includes('cmj') || lowEx.includes('profilazione')) {
+        finalVal = 'Max RFD';
+      } else {
+        finalVal = rawCarico || 'BW';
+      }
     } else {
-      finalCarico = rawCarico.replace(/\["[^"]+"\]/g, '')
+      const kgInsideParens = rawCarico.match(/\(([^)]+kg)\)/i);
+      if (kgInsideParens) {
+        finalVal = kgInsideParens[1].trim();
+      } else {
+        finalVal = rawCarico.replace(/\["[^"]+"\]/g, '')
                              .replace(/\("[^"]+"\)/g, '')
                              .replace(/\(RIR\s*\d+\)/gi, '')
                              .replace(/\(cerca di[^)]+\)/gi, '')
                              .trim();
+      }
+      if (!finalVal) finalVal = rawCarico;
     }
-    if (!finalCarico) finalCarico = rawCarico;
   }
 
   // 4. Reps manuali se presenti
@@ -3737,8 +3775,9 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
 
   return {
     prevWeekKey,
-    carico: finalCarico,
+    val: finalVal,
     isManual,
+    isJump,
     rpe,
     reps,
     prevExName
@@ -3747,18 +3786,40 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
 
 function renderPreviousWeekRefBadge(athlete, currentWeek, sed, exName, isEN) {
   const ref = getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName);
-  if (!ref || (!ref.carico && !ref.reps && !ref.rpe)) return '';
+  if (!ref || (!ref.val && !ref.reps && !ref.rpe)) return '';
 
   const tagLabel = ref.prevWeekKey || 'W3';
+  const realBadge = ref.isManual ? `<span style="background:rgba(16,185,129,0.18);color:#6ee7b7;border-radius:3px;padding:0 4px;font-size:0.64rem;font-weight:700;margin-left:3px;">${isEN ? 'actual' : 'reale'}</span>` : '';
+
+  if (ref.isJump) {
+    let jumpMetricLbl = isEN ? 'Jump:' : 'Salto:';
+    if (/cm\b/i.test(ref.val)) jumpMetricLbl = isEN ? 'Height:' : 'Altezza:';
+    else if (/rsi/i.test(ref.val)) jumpMetricLbl = 'RSI:';
+    else if (/box/i.test(ref.val)) jumpMetricLbl = 'Box:';
+    else if (/tc/i.test(ref.val)) jumpMetricLbl = 'Target:';
+
+    const jumpsLbl = isEN ? 'Jumps:' : 'Salti:';
+    const targetLbl = 'Target:';
+
+    return `
+      <div class="ex-prev-ref" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.72rem;color:var(--mv-muted,#94a3b8);background:rgba(255,255,255,0.03);border:1px solid rgba(59,130,246,0.22);border-radius:6px;padding:2px 8px;margin:2px 0 6px 0;max-width:100%;">
+        <span style="background:rgba(59,130,246,0.18);color:#93c5fd;border-radius:3px;padding:0 4px;font-weight:800;font-size:0.65rem;letter-spacing:0.04em;">${tagLabel}</span>
+        <span>🦘 ${jumpMetricLbl} <strong style="color:#f8fafc;">${escapeHtml(ref.val)}</strong>${realBadge}</span>
+        ${ref.reps ? `<span style="opacity:0.35;">•</span><span>${jumpsLbl} <strong style="color:#cbd5e1;">${escapeHtml(ref.reps)}</strong></span>` : ''}
+        ${ref.rpe && ref.rpe !== ref.val ? `<span style="opacity:0.35;">•</span><span>${targetLbl} <strong style="color:#fbbf24;">${escapeHtml(ref.rpe)}</strong></span>` : ''}
+      </div>
+    `;
+  }
+
+  // Rendering standard per carichi
   const loadLbl = isEN ? 'Load:' : 'Carico:';
   const targetLbl = isEN ? 'Target:' : 'Previsto:';
   const repsLbl = 'Reps:';
-  const realBadge = ref.isManual ? `<span style="background:rgba(16,185,129,0.18);color:#6ee7b7;border-radius:3px;padding:0 4px;font-size:0.64rem;font-weight:700;margin-left:3px;">${isEN ? 'actual' : 'reale'}</span>` : '';
 
   return `
     <div class="ex-prev-ref" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.72rem;color:var(--mv-muted,#94a3b8);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:2px 8px;margin:2px 0 6px 0;max-width:100%;">
       <span style="background:rgba(59,130,246,0.15);color:#93c5fd;border-radius:3px;padding:0 4px;font-weight:800;font-size:0.65rem;letter-spacing:0.04em;">${tagLabel}</span>
-      ${ref.carico ? `<span>${loadLbl} <strong style="color:#f8fafc;">${escapeHtml(ref.carico)}</strong>${realBadge}</span>` : ''}
+      ${ref.val ? `<span>🏋️ ${loadLbl} <strong style="color:#f8fafc;">${escapeHtml(ref.val)}</strong>${realBadge}</span>` : ''}
       ${ref.rpe ? `<span style="opacity:0.35;">•</span><span>${targetLbl} <strong style="color:#fbbf24;">${escapeHtml(ref.rpe)}</strong></span>` : ''}
       ${ref.reps ? `<span style="opacity:0.35;">•</span><span>${repsLbl} <strong style="color:#cbd5e1;">${escapeHtml(ref.reps)}</strong></span>` : ''}
     </div>
@@ -3930,6 +3991,7 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
 }
 
 function renderCmjTestCard(sed, athlete, isEN) {
+  const prevCmjRefHtml = renderPreviousWeekRefBadge(athlete, (typeof currentWeek !== 'undefined' ? currentWeek : 'W4'), sed, '1A. Chronojump CMJ Readiness Test', isEN);
   const sNum = sed.Numero_Seduta;
   const savedCmj = localStorage.getItem(`mv_load_${athlete.id}_W3_${sNum}_CMJ_Test`) ||
                    localStorage.getItem(`mv_load_${athlete.id}_CMJ_Test`) ||
