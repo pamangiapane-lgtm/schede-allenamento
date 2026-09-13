@@ -356,8 +356,7 @@
       🏐 MARSALA VOLLEY <span>PREHAB</span>
     </div>
     <div class="top-actions">
-      <button class="btn-top" onclick="window.history.length > 1 ? window.history.back() : window.close()">← Chiudi</button>
-      <button class="btn-top print" onclick="window.print()">🖨️ Stampa PDF</button>
+      <button class="btn-top" onclick="safeReturn()">← Torna alla Scheda</button>
     </div>
   </header>
 
@@ -367,6 +366,23 @@
 
   <script src="prehab_db.js"></script>
   <script>
+    
+    function safeReturn() {
+      // Se aperto dentro la modale iframe dell'app
+      if (window.parent && window.parent !== window) {
+        try {
+          window.parent.postMessage('closePrehabModal', '*');
+          return;
+        } catch (e) {}
+      }
+      // Se navigato normalmente
+      if (document.referrer && (document.referrer.includes('index.html') || document.referrer.includes(window.location.host))) {
+        window.history.back();
+      } else {
+        window.location.href = 'index.html';
+      }
+    }
+    
     function getQueryParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(param);
