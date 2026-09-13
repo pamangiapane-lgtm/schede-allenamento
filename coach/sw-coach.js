@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v253-stress-notes-wrap)
-const CACHE_NAME = 'coach-mv-v253-stress-notes-wrap';
+// Service Worker Coach Command Center (v256-squat-1rm-aligned)
+const CACHE_NAME = 'coach-mv-v256-squat-1rm-aligned';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

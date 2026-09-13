@@ -59,7 +59,7 @@ const ROSTER = [
       "Lat Machine": 45,
       "Military Press": 20,
       "Row BB": 50,
-      "Squat / Step Up": 80,
+      "Squat / Step Up": 95,
       "Stacchi Rumeni": 40
     },
     "offseason_sessions": 13,
@@ -92,7 +92,7 @@ const ROSTER = [
       "Lat Machine": 56,
       "Military Press": 44,
       "Row BB": 60,
-      "Squat / Step Up": 110,
+      "Squat / Step Up": 120,
       "Stacchi Rumeni": 70
     },
     "offseason_sessions": 14,
@@ -157,7 +157,7 @@ const ROSTER = [
       "Lat Machine": 35,
       "Military Press": 25,
       "Row BB": 30,
-      "Squat / Step Up": 70,
+      "Squat / Step Up": 90,
       "Stacchi Rumeni": 50
     },
     "offseason_sessions": 5,
@@ -185,7 +185,7 @@ const ROSTER = [
     ],
     "folder": "06_Gaia_Biondi",
     "baseline_1rm": {
-      "Squat / Step Up": 75,
+      "Squat / Step Up": 80,
       "Bench Press": 35,
       "Row BB": 40,
       "Clean": 40
@@ -249,7 +249,7 @@ const ROSTER = [
     ],
     "folder": "08_Federica_Nonnati",
     "baseline_1rm": {
-      "Squat / Step Up": 70,
+      "Squat / Step Up": 105,
       "Bench Press": 35,
       "Row BB": 35,
       "Clean": 35
@@ -315,7 +315,7 @@ const ROSTER = [
     ],
     "folder": "11_Luna_Cicola",
     "baseline_1rm": {
-      "Squat / Step Up": 65,
+      "Squat / Step Up": 105,
       "Bench Press": 30,
       "Row BB": 30,
       "Clean": 30
@@ -349,7 +349,7 @@ const ROSTER = [
       "Clean": 40,
       "Military Press": 35,
       "Row BB": 57,
-      "Squat / Step Up": 117,
+      "Squat / Step Up": 122,
       "Stacchi Rumeni": 83
     },
     "offseason_sessions": 13,
@@ -411,7 +411,7 @@ const ROSTER = [
     ],
     "folder": "10_Nelly_Adamczewska",
     "baseline_1rm": {
-      "Squat / Step Up": 95,
+      "Squat / Step Up": 120,
       "Bench Press": 55,
       "Row BB": 55,
       "Clean": 60
@@ -4871,7 +4871,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (40.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (51.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -4961,7 +4961,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (67.5 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (33.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -5111,7 +5111,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Box Squat 90° (Salva-Anca/Tibia)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "82.5% (50.5 kg) [\"RIR 1-2\"]",
+              "Carico (kg/RPE)": "82.5% (51.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`20X0`",
               "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
             },
@@ -5338,7 +5338,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (54.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (66.5 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -5428,7 +5428,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (62.5 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (46.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -5578,7 +5578,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Back Squat (Parallelo)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "82.5% (53.5 kg) [\"RIR 1-2\"]",
+              "Carico (kg/RPE)": "82.5% (66.5 kg) [\"RIR 1-2\"]",
               "Tempo": "`20X0`",
               "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
             },
@@ -5668,7 +5668,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Power Squat (max 0.85 m/s)",
               "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "70% (34.5 kg)",
+              "Carico (kg/RPE)": "70% (46.5 kg)",
               "Tempo": "`10X0`",
               "Note Tecniche": "Discesa secca 1\", inversione e risalita a massima velocità d'uscita (Enode target 0.85 m/s). Stop se scende <0.75 m/s."
             },
@@ -5805,7 +5805,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (71.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (86.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -5895,7 +5895,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (85.5 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (62.0 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -6045,7 +6045,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Back Squat (Parallelo)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "82.5% (79.0 kg) [\"RIR 1-2\"]",
+              "Carico (kg/RPE)": "82.5% (86.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`20X0`",
               "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
             },
@@ -6135,7 +6135,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Power Squat (max 0.85 m/s)",
               "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "70% (57.0 kg)",
+              "Carico (kg/RPE)": "70% (62.0 kg)",
               "Tempo": "`10X0`",
               "Note Tecniche": "Discesa secca 1\", inversione e risalita a massima velocità d'uscita (Enode target 0.85 m/s). Stop se scende <0.75 m/s."
             },
@@ -6272,7 +6272,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Parallel Squat",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (42.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (53.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Femur parallel to floor (~90° knee angle). Controlled 1-2s descent, strict stop at parallel, maximal upward acceleration (Max Intent, VBT 0.60-0.65 m/s). Tripod foot pressure"
             },
@@ -6362,7 +6362,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Parallel Squat (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (60.0 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (34.0 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Femur-tibia parallel (~90°). Controlled 2s descent, strict stop at parallel, maximal acceleration (Enode target max 0.65 m/s). Stop rule VL 10%"
             },
@@ -6512,7 +6512,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Back Squat (Parallelo)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "82.5% (60.0 kg) [\"RIR 1-2\"]",
+              "Carico (kg/RPE)": "82.5% (53.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`20X0`",
               "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
             },
@@ -6602,7 +6602,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Power Squat (max 0.85 m/s)",
               "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "70% (38.0 kg)",
+              "Carico (kg/RPE)": "70% (34.0 kg)",
               "Tempo": "`10X0`",
               "Note Tecniche": "Discesa secca 1\", inversione e risalita a massima velocità d'uscita (Enode target 0.85 m/s). Stop se scende <0.75 m/s."
             },
@@ -6739,7 +6739,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (53.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (64.5 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -6829,7 +6829,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (61.0 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (46.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -6979,7 +6979,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Box Squat Parallelo (Protezione Ginocchio DX)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "82.5% (39.5 kg) [\"RIR 1-2\"]",
+              "Carico (kg/RPE)": "82.5% (64.5 kg) [\"RIR 1-2\"]",
               "Tempo": "`20X0`",
               "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
             },
@@ -7069,7 +7069,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Power Squat (max 0.85 m/s)",
               "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "70% (24.5 kg)",
+              "Carico (kg/RPE)": "70% (46.5 kg)",
               "Tempo": "`10X0`",
               "Note Tecniche": "Discesa secca 1\", inversione e risalita a massima velocità d'uscita (Enode target 0.85 m/s). Stop se scende <0.75 m/s."
             },
@@ -7206,7 +7206,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (43.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (54.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -7296,7 +7296,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (50.5 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (35.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -7446,7 +7446,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Back Squat Parallelo (o Box 90°)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "82.5% (58.0 kg) [\"RIR 1-2\"]",
+              "Carico (kg/RPE)": "82.5% (54.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`20X0`",
               "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
             },
@@ -7536,7 +7536,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Power Squat (max 0.85 m/s)",
               "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "70% (39.0 kg)",
+              "Carico (kg/RPE)": "70% (35.5 kg)",
               "Tempo": "`10X0`",
               "Note Tecniche": "Discesa secca 1\", inversione e risalita a massima velocità d'uscita (Enode target 0.85 m/s). Stop se scende <0.75 m/s."
             },
@@ -7673,7 +7673,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (63.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (77.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -7763,7 +7763,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (64.5 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (53.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -7913,7 +7913,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Back Squat (Parallelo)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "82.5% (70.5 kg) [\"RIR 1-2\"]",
+              "Carico (kg/RPE)": "82.5% (77.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`20X0`",
               "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
             },
@@ -8003,7 +8003,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Power Squat (max 0.85 m/s)",
               "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "70% (49.5 kg)",
+              "Carico (kg/RPE)": "70% (53.5 kg)",
               "Tempo": "`10X0`",
               "Note Tecniche": "Discesa secca 1\", inversione e risalita a massima velocità d'uscita (Enode target 0.85 m/s). Stop se scende <0.75 m/s."
             },
@@ -8140,7 +8140,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (59.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (73.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -8230,7 +8230,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (68.0 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (50.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -8470,7 +8470,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Power Squat (max 0.85 m/s)",
               "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "70% (50.0 kg)",
+              "Carico (kg/RPE)": "70% (50.5 kg)",
               "Tempo": "`10X0`",
               "Note Tecniche": "Discesa secca 1\", inversione e risalita a massima velocità d'uscita (Enode target 0.85 m/s). Stop se scende <0.75 m/s."
             },
@@ -8607,7 +8607,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (96.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (25.0 kg (Miniband)) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -8697,7 +8697,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (107.0 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (20.0 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -8847,7 +8847,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat Parallelo con Miniband (No Bilanciere Pesante)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "82.5% (25 kg (Miniband)) [\"RIR 1-2\"]",
+              "Carico (kg/RPE)": "82.5% (25.0 kg (Miniband)) [\"RIR 1-2\"]",
               "Tempo": "`20X0`",
               "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
             },
@@ -8937,7 +8937,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Power Squat (max 0.85 m/s)",
               "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "70% (20 kg)",
+              "Carico (kg/RPE)": "70% (20.0 kg)",
               "Tempo": "`10X0`",
               "Note Tecniche": "Discesa secca 1\", inversione e risalita a massima velocità d'uscita (Enode target 0.85 m/s). Stop se scende <0.75 m/s."
             },
@@ -9074,7 +9074,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (64.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (76.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -9164,7 +9164,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (72.0 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (55.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -9314,7 +9314,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Box Squat Parallelo (Stiffness Difesa)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "82.5% (43.0 kg) [\"RIR 1-2\"]",
+              "Carico (kg/RPE)": "82.5% (76.0 kg) [\"RIR 1-2\"]",
               "Tempo": "`20X0`",
               "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
             },
@@ -9404,7 +9404,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Power Squat (max 0.85 m/s)",
               "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "70% (27.5 kg)",
+              "Carico (kg/RPE)": "70% (55.5 kg)",
               "Tempo": "`10X0`",
               "Note Tecniche": "Discesa secca 1\", inversione e risalita a massima velocità d'uscita (Enode target 0.85 m/s). Stop se scende <0.75 m/s."
             },
@@ -9541,7 +9541,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (75.5 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (89.5 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -9631,7 +9631,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (94.5 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (66.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },
@@ -9781,7 +9781,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Box Squat 90° (No Squat Profondo)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "82.5% (85.5 kg) [\"RIR 1-2\"]",
+              "Carico (kg/RPE)": "82.5% (89.5 kg) [\"RIR 1-2\"]",
               "Tempo": "`20X0`",
               "Note Tecniche": "Discesa controllata 2\", risalita a massima intenzione esplosiva. Velocità minima 0.48 m/s (stop immediato alla serie se cala sotto 0.48 m/s)."
             },
@@ -9871,7 +9871,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Power Squat (max 0.85 m/s)",
               "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "70% (63.0 kg)",
+              "Carico (kg/RPE)": "70% (66.5 kg)",
               "Tempo": "`10X0`",
               "Note Tecniche": "Discesa secca 1\", inversione e risalita a massima velocità d'uscita (Enode target 0.85 m/s). Stop se scende <0.75 m/s."
             },
@@ -10008,7 +10008,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "75% (46.0 kg) [\"6\"]",
+              "Carico (kg/RPE)": "82.5% (57.5 kg) [\"RIR 1-2\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa naturale 1-2\", stop secco al parallelo, salita max accelerazione (Max Intent, VBT 0.60-0.65 m/s). Pressione tripode plantare"
             },
@@ -10098,7 +10098,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
               "Set x Reps": "4 x 3",
-              "Carico (kg/RPE)": "80% (59.0 kg) [\"6-7\"]",
+              "Carico (kg/RPE)": "70% (38.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
             },

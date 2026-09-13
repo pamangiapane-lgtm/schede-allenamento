@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v253-stress-notes-wrap)
-const CACHE_NAME = 'marsala-app-v255-prehab-clean';
+// Service Worker App Marsala Volley (v256-squat-1rm-aligned)
+const CACHE_NAME = 'marsala-app-v256-squat-1rm-aligned';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260912v253',
+  './data.js?v=20260913v256',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',
