@@ -301,6 +301,47 @@
     .ath-info-name { font-weight: 800; font-size: 0.92rem; color: #fff; }
     .ath-info-role { font-size: 0.72rem; color: var(--mv-muted); }
 
+    /* Prescriptive S&C Engine (Pillar 5) */
+    .prescr-ath-chip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 7px 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .prescr-ath-chip:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-1px);
+    }
+    .prescr-badge-zscore {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .prescr-badge-zscore.z-alert {
+      background: rgba(239,68,68,0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(239,68,68,0.5);
+    }
+    .prescr-badge-zscore.z-warn {
+      background: rgba(245,158,11,0.2);
+      color: #fde68a;
+      border: 1px solid rgba(245,158,11,0.5);
+    }
+    .prescr-badge-zscore.z-ok {
+      background: rgba(16,185,129,0.15);
+      color: #6ee7b7;
+      border: 1px solid rgba(16,185,129,0.3);
+    }
+
     /* Traffic Light Tag */
     .traffic-tag {
       font-size: 0.72rem;
@@ -1002,6 +1043,79 @@
         <div class="alert-list" id="alert-banner-list">
           <div style="font-size:0.8rem;color:#cbd5e1">Verifica segnalazioni in corso...</div>
         </div>
+      </div>
+
+      <!-- MODULO PRESCRIZIONE S&C & HOOPER Z-SCORE (PILLAR 5: DECISION INTELLIGENCE) -->
+      <div class="card-box" id="prescriptive-sc-box" style="margin-bottom:14px;padding:14px 16px;background:linear-gradient(145deg, #0c1830 0%, #081020 100%);border:1px solid #1f365d;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.4);">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:1.15rem;">🎯</span>
+              <h3 class="card-title" style="margin:0;font-size:1.02rem;color:#f8fafc;letter-spacing:0.3px;">Prescrizione S&C & Hooper Z-Score</h3>
+              <span style="font-size:0.68rem;font-weight:700;padding:2px 7px;background:rgba(232,160,32,0.18);color:#fde68a;border:1px solid rgba(232,160,32,0.4);border-radius:6px;text-transform:uppercase;">Pillar 5 Prescriptive</span>
+            </div>
+            <div style="font-size:0.72rem;color:var(--mv-muted);margin-top:2px;">Analisi scostamento individuale (Z-Score longitudinali) & direttive pesi/campo</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button id="btn-copy-prescriptive-staff" onclick="copyPrescriptiveStaffSummary()" class="btn-filt" style="background:#1e3a8a;border-color:#3b82f6;color:#bfdbfe;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:6px 12px;border-radius:6px;" title="Copia riassunto formattato per WhatsApp Staff">
+              <span>📋</span> <span>Copia Sintesi Staff</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3-COLONNE PRESCRIZIONE S&C -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:10px;" id="prescriptive-sc-grid">
+          <!-- 🔴 ADATTAMENTO CLINICO -->
+          <div style="background:#130b12;border:1px solid rgba(239,68,68,0.35);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-weight:800;font-size:0.82rem;color:#fca5a5;display:flex;align-items:center;gap:5px;">
+                <span>🔴</span> ADATTAMENTO / SCARICO
+              </span>
+              <span class="traffic-tag red" id="prescr-count-red" style="font-size:0.68rem;">0 atlete</span>
+            </div>
+            <div style="font-size:0.7rem;color:#94a3b8;line-height:1.35;margin-bottom:8px;background:rgba(0,0,0,0.25);padding:6px 8px;border-radius:6px;">
+              🛡️ <strong>Protocollo:</strong> Isometrie tendinee Cook/Purdam, divieto impatti/drop jump, scarico volumetrico -40%, valutazione fisio.
+            </div>
+            <div id="prescr-list-red" style="display:flex;flex-direction:column;gap:5px;flex:1;">
+              <div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;">Nessuna atleta in fascia rossa</div>
+            </div>
+          </div>
+
+          <!-- 🟡 RPE MODULATO -->
+          <div style="background:#16120b;border:1px solid rgba(245,158,11,0.35);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-weight:800;font-size:0.82rem;color:#fde68a;display:flex;align-items:center;gap:5px;">
+                <span>🟡</span> RPE MODULATO (-10%)
+              </span>
+              <span class="traffic-tag yellow" id="prescr-count-yellow" style="font-size:0.68rem;">0 atlete</span>
+            </div>
+            <div style="font-size:0.7rem;color:#94a3b8;line-height:1.35;margin-bottom:8px;background:rgba(0,0,0,0.25);padding:6px 8px;border-radius:6px;">
+              ⚡ <strong>Protocollo:</strong> -10% carichi 1RM o -1 serie sui fondamentali. Velocity loss cutoff 10% (Badillo VBT). Taglio 20% salti ripetuti.
+            </div>
+            <div id="prescr-list-yellow" style="display:flex;flex-direction:column;gap:5px;flex:1;">
+              <div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;">Nessuna atleta in moderazione</div>
+            </div>
+          </div>
+
+          <!-- 🟢 CARICO PIENO -->
+          <div style="background:#091512;border:1px solid rgba(16,185,129,0.35);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-weight:800;font-size:0.82rem;color:#6ee7b7;display:flex;align-items:center;gap:5px;">
+                <span>🟢</span> CARICO PIENO 100%
+              </span>
+              <span class="traffic-tag green" id="prescr-count-green" style="font-size:0.68rem;">0 atlete</span>
+            </div>
+            <div style="font-size:0.7rem;color:#94a3b8;line-height:1.35;margin-bottom:8px;background:rgba(0,0,0,0.25);padding:6px 8px;border-radius:6px;">
+              🚀 <strong>Protocollo:</strong> 100% carico programmato da tabella 1RM. Pliometria reattiva completa, piena spinta neuromuscolare.
+            </div>
+            <div id="prescr-list-green" style="display:flex;flex-direction:column;gap:5px;flex:1;">
+              <div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;">Calcolo in corso...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Z-SCORE OUTLIER HIGHLIGHT BANNER -->
+        <div id="prescr-zscore-callouts" style="margin-top:10px;display:none;background:#090f1d;border:1px dashed #3b82f6;border-radius:8px;padding:8px 12px;font-size:0.75rem;"></div>
       </div>
 
       <!-- MODULO GRAFICO WELLNESS DEDICATO (QUESTIONARIO SQUADRA) -->
@@ -4126,6 +4240,344 @@
           </div>
         `;
       }).join('');
+    }
+      // Calcolo e Render Prescrizione S&C Hooper Z-Score (Pillar 5)
+      try { renderPrescriptiveSCEngine(); } catch (e) { console.error('[renderPrescriptiveSCEngine]', e); }
+
+    // ── MOTORE PRESCRITTIVO S&C & HOOPER Z-SCORE (PILLAR 5: DECISION INTELLIGENCE) ──
+    window._lastPrescriptiveSummary = null;
+
+    function computeAthleteHooperStats(aid) {
+      const records = (typeof rawWellnessRecords !== 'undefined' ? rawWellnessRecords : []).filter(r => r.aid === aid);
+      const now = new Date();
+      const todayStr = now.toISOString().slice(0, 10);
+      const localTodayStr = now.toLocaleDateString('sv-SE');
+
+      const prior = records.filter(r => r.date < todayStr && r.date < localTodayStr);
+      const sample = prior.length >= 3 ? prior : records;
+
+      const getVals = (metric) => sample.map(r => r[metric]).filter(v => v !== null && v !== undefined && !isNaN(v) && v !== '');
+
+      const calcMeanStd = (vals, defaultMean) => {
+        if (!vals || vals.length === 0) return { mean: defaultMean, std: 1.0, count: 0 };
+        const mean = vals.reduce((a, b) => a + Number(b), 0) / vals.length;
+        if (vals.length < 3) return { mean, std: 1.0, count: vals.length };
+        const variance = vals.reduce((acc, v) => acc + Math.pow(Number(v) - mean, 2), 0) / (vals.length - 1);
+        const std = Math.sqrt(variance);
+        return { mean, std: Math.max(std, 0.75), count: vals.length };
+      };
+
+      return {
+        readiness: calcMeanStd(getVals('readiness'), 7.0),
+        fatica: calcMeanStd(getVals('fatica'), 7.0), // 10 = max vitalità
+        dolori: calcMeanStd(getVals('dolori'), 2.0),
+        sonno: calcMeanStd(getVals('sonno'), 7.0)
+      };
+    }
+
+    function evaluateAthletePrescriptiveSC(ath, w, stats) {
+      if (!w || !w.isToday) {
+        return {
+          status: 'missing',
+          ath,
+          zScores: {},
+          reasons: ['In attesa del questionario mattutino'],
+          directive: 'Attendere check-in prima di impostare carichi.'
+        };
+      }
+
+      const zScores = {};
+      if (w.readiness !== null && stats.readiness.count >= 3) {
+        zScores.readiness = (w.readiness - stats.readiness.mean) / stats.readiness.std;
+      }
+      if (w.fatica !== null && stats.fatica.count >= 3) {
+        zScores.fatica = (w.fatica - stats.fatica.mean) / stats.fatica.std;
+      }
+      if (w.dolori !== null && stats.dolori.count >= 3) {
+        zScores.dolori = (w.dolori - stats.dolori.mean) / stats.dolori.std;
+      }
+      if (w.sonno !== null && stats.sonno.count >= 3) {
+        zScores.sonno = (w.sonno - stats.sonno.mean) / stats.sonno.std;
+      }
+
+      const clinicalKeywords = ['ginocchio', 'tendin', 'rotuleo', 'spalla', 'fitta', 'infiamma', 'caviglia', 'bloccata', 'schiena', 'contratt', 'tallone', 'fascite'];
+      const noteStr = (w.note || '').toLowerCase();
+      const hasClinicalNote = clinicalKeywords.some(kw => noteStr.includes(kw));
+
+      const redReasons = [];
+      const yellowReasons = [];
+
+      // Criteri Rossi: Dolore acuto elevato (≥7) O dolore con spike significativo O readiness critica (≤4) O nota clinica
+      if (w.dolori !== null && w.dolori >= 7) redReasons.push(`Dolori acuti VAS ${w.dolori}/10`);
+      if (w.dolori !== null && w.dolori >= 5 && zScores.dolori !== undefined && zScores.dolori >= 2.0) {
+        redReasons.push(`Spike dolore acuto (+${zScores.dolori.toFixed(1)}σ)`);
+      }
+      if (w.readiness !== null && w.readiness <= 4) redReasons.push(`Readiness critica ${w.readiness}/10`);
+      if (hasClinicalNote) redReasons.push(`Sintomo clinico: "${w.note}"`);
+
+      if (redReasons.length > 0) {
+        return {
+          status: 'red',
+          ath,
+          w,
+          zScores,
+          reasons: redReasons,
+          directive: 'Scarico volumetrico -40%, isometrie Cook/Purdam, divieto drop jump/impatti. Valutazione fisio.'
+        };
+      }
+
+      // Criteri Gialli: RPE Modulato
+      if (w.readiness !== null && w.readiness <= 6) yellowReasons.push(`Readiness ${w.readiness}/10`);
+      if (zScores.readiness !== undefined && zScores.readiness <= -1.4) yellowReasons.push(`Drop readiness (${zScores.readiness.toFixed(1)}σ)`);
+      if (w.fatica !== null && w.fatica <= 5) yellowReasons.push(`Bassa energia (${w.fatica}/10)`);
+      if (zScores.fatica !== undefined && zScores.fatica <= -1.4) yellowReasons.push(`Fatica sistemica (${zScores.fatica.toFixed(1)}σ)`);
+      if (w.dolori !== null && w.dolori >= 4) yellowReasons.push(`Fastidio muscolare (${w.dolori}/10)`);
+      if (zScores.dolori !== undefined && zScores.dolori >= 1.4) yellowReasons.push(`Indolenzimento anomalo (+${zScores.dolori.toFixed(1)}σ)`);
+      if (w.sonno !== null && w.sonno <= 5) yellowReasons.push(`Deficit sonno (${w.sonno}/10)`);
+      if (w.note && w.note.trim().length > 0) yellowReasons.push(`Nota: "${w.note}"`);
+
+      if (yellowReasons.length > 0) {
+        return {
+          status: 'yellow',
+          ath,
+          w,
+          zScores,
+          reasons: yellowReasons,
+          directive: '-10% carichi target 1RM o -1 serie pesanti. Velocity loss cutoff 10% (Badillo). Taglio 20% salti.'
+        };
+      }
+
+      // Criteri Verdi: 100% Carico Pieno
+      return {
+        status: 'green',
+        ath,
+        w,
+        zScores,
+        reasons: ['Tutti i marker ottimali'],
+        directive: '100% carichi da tabella 1RM, pliometria reattiva completa, piena spinta neurale.'
+      };
+    }
+
+    function renderPrescriptiveSCEngine() {
+      const box = document.getElementById('prescriptive-sc-box');
+      if (!box) return;
+
+      const ATHLETES = ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff'));
+
+      const evaluated = ATHLETES.map(a => {
+        const w = liveWellnessData[a.id];
+        const stats = computeAthleteHooperStats(a.id);
+        return evaluateAthletePrescriptiveSC(a, w, stats);
+      });
+
+      const redList = evaluated.filter(e => e.status === 'red');
+      const yellowList = evaluated.filter(e => e.status === 'yellow');
+      const greenList = evaluated.filter(e => e.status === 'green');
+      const missingList = evaluated.filter(e => e.status === 'missing');
+
+      // Update counters
+      const countRedEl = document.getElementById('prescr-count-red');
+      const countYelEl = document.getElementById('prescr-count-yellow');
+      const countGrnEl = document.getElementById('prescr-count-green');
+      if (countRedEl) countRedEl.textContent = `${redList.length} atlete`;
+      if (countYelEl) countYelEl.textContent = `${yellowList.length} atlete`;
+      if (countGrnEl) countGrnEl.textContent = `${greenList.length} atlete`;
+
+      // Helper per render chip atleta
+      const renderChips = (list, isGreen = false) => {
+        if (list.length === 0) {
+          return `<div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;padding:4px 0;">${isGreen ? 'Nessuna atleta a pieno carico' : 'Nessuna atleta in questa fascia'}</div>`;
+        }
+        return list.map(item => {
+          const a = item.ath;
+          const w = item.w;
+          const z = item.zScores || {};
+
+          let badgeHtml = '';
+          if (z.dolori !== undefined && z.dolori >= 1.4) {
+            badgeHtml += `<span class="prescr-badge-zscore z-alert" title="Scostamento Dolore rispetto a baseline">Dolori +${z.dolori.toFixed(1)}σ</span> `;
+          }
+          if (z.readiness !== undefined && z.readiness <= -1.4) {
+            badgeHtml += `<span class="prescr-badge-zscore z-warn" title="Scostamento Readiness rispetto a baseline">Ready ${z.readiness.toFixed(1)}σ</span> `;
+          }
+          if (z.fatica !== undefined && z.fatica <= -1.4) {
+            badgeHtml += `<span class="prescr-badge-zscore z-warn" title="Scostamento Energia rispetto a baseline">Energia ${z.fatica.toFixed(1)}σ</span> `;
+          }
+
+          const reasonTooltip = item.reasons.join(' · ');
+
+          return `
+            <div class="prescr-ath-chip" onclick="openAthleteDossier(${a.id})" title="Clicca per aprire Dossier: ${reasonTooltip}">
+              <div style="display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;">
+                <span style="font-size:0.75rem;font-weight:800;color:var(--mv-amber);">#${a.id}</span>
+                <span style="font-size:0.78rem;font-weight:700;color:#fff;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">${a.name}</span>
+                <span style="font-size:0.68rem;color:var(--mv-muted);">(${a.role})</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
+                ${badgeHtml}
+                ${w && w.readiness !== null ? `<span style="font-size:0.72rem;font-weight:800;color:#94a3b8;">${w.readiness}/10</span>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      };
+
+      const elListRed = document.getElementById('prescr-list-red');
+      const elListYel = document.getElementById('prescr-list-yellow');
+      const elListGrn = document.getElementById('prescr-list-green');
+      if (elListRed) elListRed.innerHTML = renderChips(redList, false);
+      if (elListYel) elListYel.innerHTML = renderChips(yellowList, false);
+      if (elListGrn) elListGrn.innerHTML = renderChips(greenList, true);
+
+      // Z-Score Callouts banner
+      const calloutEl = document.getElementById('prescr-zscore-callouts');
+      if (calloutEl) {
+        const significantOutliers = [];
+        evaluated.forEach(e => {
+          if (!e.w) return;
+          const z = e.zScores || {};
+          if (z.dolori !== undefined && z.dolori >= 1.5) {
+            significantOutliers.push(`<strong>#${e.ath.id} ${e.ath.name}</strong>: picco dolori acuto (+${z.dolori.toFixed(1)}σ vs storico)`);
+          }
+          if (z.readiness !== undefined && z.readiness <= -1.5) {
+            significantOutliers.push(`<strong>#${e.ath.id} ${e.ath.name}</strong>: calo readiness significativo (${z.readiness.toFixed(1)}σ vs storico)`);
+          }
+        });
+
+        if (significantOutliers.length > 0) {
+          calloutEl.style.display = 'block';
+          calloutEl.innerHTML = `
+            <div style="display:flex;align-items:center;gap:6px;color:#93c5fd;font-weight:700;margin-bottom:4px;">
+              <span>📈</span> <span>Alert Scostamento Individuale Hooper (Deviazione Standard &gt; 1.5σ):</span>
+            </div>
+            <div style="color:#cbd5e1;line-height:1.4;">${significantOutliers.join(' · ')}</div>
+          `;
+        } else {
+          calloutEl.style.display = 'none';
+        }
+      }
+
+      // Prepara sommario per copia WhatsApp
+      let totalReadiness = 0;
+      let readinessCount = 0;
+      const notesList = [];
+
+      ATHLETES.forEach(a => {
+        const w = liveWellnessData[a.id];
+        if (w && w.isToday) {
+          if (w.readiness !== null) {
+            totalReadiness += w.readiness;
+            readinessCount++;
+          }
+          if (w.note && w.note.trim().length > 0) {
+            notesList.push({ id: a.id, name: a.name, note: w.note.trim() });
+          }
+        }
+      });
+
+      const avgReadiness = readinessCount > 0 ? Math.round((totalReadiness / readinessCount) * 10) : 0;
+
+      window._lastPrescriptiveSummary = {
+        date: new Date().toISOString().slice(0, 10),
+        totalCount: ATHLETES.length,
+        completedCount: ATHLETES.length - missingList.length,
+        avgReadiness,
+        red: redList,
+        yellow: yellowList,
+        green: greenList,
+        missing: missingList.map(m => m.ath),
+        notes: notesList
+      };
+    }
+
+    function copyPrescriptiveStaffSummary() {
+      if (!window._lastPrescriptiveSummary) {
+        alert('Nessun dato di prescrizione disponibile da copiare.');
+        return;
+      }
+      const s = window._lastPrescriptiveSummary;
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      const capitalizedDate = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+
+      const lines = [
+        `🏐 *MARSALA VOLLEY A2 — REPORT S&C & WELLNESS*`,
+        `📅 *${capitalizedDate}*`,
+        `👥 *Presenze:* ${s.completedCount}/${s.totalCount} compilate | Readiness: *${s.avgReadiness}%* ${s.avgReadiness >= 75 ? '🟢' : (s.avgReadiness >= 60 ? '🟡' : '🔴')}
+`
+      ];
+
+      if (s.red.length > 0) {
+        lines.push(`🚨 *ADATTAMENTO CLINICO / SCARICO (🔴 ${s.red.length} atlete):*`);
+        s.red.forEach(item => {
+          lines.push(`• *#${item.ath.id} ${item.ath.name}* (${item.ath.role}):`);
+          lines.push(`  - Motivo: ${item.reasons.join(', ')}`);
+          lines.push(`  - Direttiva S&C: ${item.directive}`);
+        });
+        lines.push('');
+      } else {
+        lines.push(`🚨 *ADATTAMENTO CLINICO (🔴 0 atlete):* Nessuna atleta a rischio elevato.
+`);
+      }
+
+      if (s.yellow.length > 0) {
+        lines.push(`⚠️ *RPE MODULATO -10% (🟡 ${s.yellow.length} atlete):*`);
+        s.yellow.forEach(item => {
+          lines.push(`• *#${item.ath.id} ${item.ath.name}* (${item.ath.role}): ${item.reasons.join(' · ')}`);
+          lines.push(`  ↳ Direttiva: ${item.directive}`);
+        });
+        lines.push('');
+      } else {
+        lines.push(`⚠️ *RPE MODULATO (🟡 0 atlete):* Tutte le atlete in carico pieno.
+`);
+      }
+
+      lines.push(`✅ *CARICO PIENO 100% (🟢 ${s.green.length} atlete):*`);
+      if (s.green.length > 0) {
+        const greenNames = s.green.map(item => `#${item.ath.id} ${item.ath.name.split(' ').pop()}`).join(', ');
+        lines.push(`• ${greenNames} -> Carico 100% 1RM, pliometria piena.
+`);
+      }
+
+      if (s.notes.length > 0) {
+        lines.push(`💬 *NOTE CLINICHE / ATLETE:*`);
+        s.notes.forEach(n => {
+          lines.push(`• *#${n.id} ${n.name}:* "${n.note}"`);
+        });
+        lines.push('');
+      }
+
+      if (s.missing.length > 0) {
+        const missingNames = s.missing.map(a => `#${a.id} ${a.name}`).join(', ');
+        lines.push(`⏳ *Non ancora compilato (${s.missing.length}):* ${missingNames}
+`);
+      }
+
+      lines.push(`_Report Prescrittivo generato da Coach Cockpit MV_`);
+
+      const fullText = lines.join('\n');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullText).then(() => {
+          const btn = document.getElementById('btn-copy-prescriptive-staff');
+          if (btn) {
+            const orig = btn.innerHTML;
+            btn.innerHTML = `<span>✓</span> <span>Copiato!</span>`;
+            btn.style.background = 'var(--mv-emerald)';
+            btn.style.borderColor = '#10b981';
+            btn.style.color = '#071226';
+            setTimeout(() => {
+              btn.innerHTML = orig;
+              btn.style.background = '#1e3a8a';
+              btn.style.borderColor = '#3b82f6';
+              btn.style.color = '#bfdbfe';
+            }, 2500);
+          }
+        }).catch(() => {
+          prompt('Copia manualmente il report:', fullText);
+        });
+      } else {
+        prompt('Copia manualmente il report:', fullText);
+      }
     }
 
     function renderSedutePanel() {
