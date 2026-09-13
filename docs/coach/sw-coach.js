@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v261-nelly-s1-box90-cmj)
-const CACHE_NAME = 'coach-mv-v261-nelly-s1-box90-cmj';
+// Service Worker Coach Command Center (v262-medball-kneeling-pos)
+const CACHE_NAME = 'coach-mv-v262-medball-kneeling-pos';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

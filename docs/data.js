@@ -4642,10 +4642,10 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Medball Chest Pass esplosivo contro muro",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 3-4 kg, massima intenzione balistica d'uscita"
+              "Note Tecniche": "In ginocchio (tall kneeling position), palla 4-5 kg, massima intenzione balistica di spinta contro muro."
             }
           ]
         },
@@ -5198,11 +5198,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [
@@ -5665,11 +5665,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [
@@ -6132,11 +6132,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [
@@ -6599,11 +6599,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "Kneeling position (tall kneeling), tight core and glutes engaged, maximal ballistic chest pass intent against wall (4-5 kg ball)."
             }
           ],
           "2": [
@@ -7066,11 +7066,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [
@@ -7533,11 +7533,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [
@@ -8000,11 +8000,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [
@@ -8467,11 +8467,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [
@@ -8934,11 +8934,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [
@@ -9401,11 +9401,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [
@@ -9868,11 +9868,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [
@@ -10335,11 +10335,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Wall Medball Chest Pass",
+              "Esercizio": "5B. Wall Medball Chest Pass (kneeling position)",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "4-5 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 4-5 kg, massima intenzione balistica di spinta a braccia tese contro muro."
+              "Note Tecniche": "In ginocchio (tall kneeling position), core compatto e glutei serrati, massima intenzione balistica di spinta a braccia tese contro muro (palla 4-5 kg)."
             }
           ],
           "2": [

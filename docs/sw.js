@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v261-nelly-s1-box90-cmj)
-const CACHE_NAME = 'marsala-app-v261-nelly-s1-box90-cmj';
+// Service Worker App Marsala Volley (v262-medball-kneeling-pos)
+const CACHE_NAME = 'marsala-app-v262-medball-kneeling-pos';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260913v261',
+  './data.js?v=20260913v262',
   './supabase-client.js?v=2.0',
   './logo.jpg',
   './icon-192.png',
