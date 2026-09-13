@@ -1,5 +1,5 @@
 // Service Worker App Marsala Volley (v253-stress-notes-wrap)
-const CACHE_NAME = 'marsala-app-v253-stress-notes-wrap';
+const CACHE_NAME = 'marsala-app-v255-prehab-clean';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -9,7 +9,9 @@ const ASSETS_TO_CACHE = [
   './logo.jpg',
   './icon-192.png',
   './icon-512.png',
-  './manifest.json'
+  './manifest.json',
+  './prehab.html',
+  './prehab_db.js'
 ];
 
 self.addEventListener('install', event => {
