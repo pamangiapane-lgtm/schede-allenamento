@@ -2114,41 +2114,68 @@
     
     <!-- TAB 5: GESTIONE PREHAB & VIDEO -->
     <div class="c-panel" id="panel-prehab">
+      
+      <!-- 1. TABELLA MASTER: REGISTRO CLIENTI / ATLETE & SEDUTE ASSOCIATE -->
       <div class="method-card" style="margin-bottom:18px;">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
           <div>
             <div class="method-card-title" style="display:flex;align-items:center;gap:8px;">
-              <span>🛡️</span> <span>Gestione Protocolli Prehab & Fisioterapia</span>
+              <span>🛡️</span> <span>Registro Clienti / Atlete & Sedute Prehab Associate</span>
             </div>
             <div style="font-size:0.8rem;color:var(--mv-muted);margin-top:4px;">
-              Gestisci le sedute correttive individuali. A ogni atleta è associato un link/codice permanente che non cambia mai.
+              Lista completa delle 13 atlete della squadra. Ogni ragazza ha una seduta prehab assegnata e un link permanente che non cambia mai.
             </div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-            <select id="coachPrehabAthSelect" class="btn-filt" style="background:#090f1d;color:#fff;font-size:0.82rem;padding:6px 12px;font-weight:700;" onchange="onCoachPrehabAthleteChange()">
-              <!-- Popolato via JS -->
-            </select>
+        </div>
+
+        <!-- Master Table -->
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.82rem;text-align:left;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--mv-border);background:#060a14;">
+                <th style="padding:10px 12px;color:var(--mv-muted);text-transform:uppercase;font-size:0.7rem;font-weight:800;">Atleta</th>
+                <th style="padding:10px 12px;color:var(--mv-muted);text-transform:uppercase;font-size:0.7rem;font-weight:800;">Focus Clinico / Anamnesi</th>
+                <th style="padding:10px 12px;color:var(--mv-muted);text-transform:uppercase;font-size:0.7rem;font-weight:800;">Seduta Assegnata</th>
+                <th style="padding:10px 12px;color:var(--mv-muted);text-transform:uppercase;font-size:0.7rem;font-weight:800;text-align:center;">Link Fisso</th>
+                <th style="padding:10px 12px;color:var(--mv-muted);text-transform:uppercase;font-size:0.7rem;font-weight:800;text-align:right;">Azioni</th>
+              </tr>
+            </thead>
+            <tbody id="coachPrehabMasterTableBody">
+              <!-- Popolato via JS con tutte le 13 atlete -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 2. EDITOR DETTAGLIATO DELLA SEDUTA SELEZIONATA -->
+      <div class="method-card" id="coachPrehabEditorCard" style="margin-bottom:18px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--mv-border);padding-bottom:12px;margin-bottom:14px;">
+          <div>
+            <div style="font-size:1rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;">
+              <span>⚙️</span> <span id="coachEditorTitle">Modifica Seduta Atleta</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--mv-muted);margin-top:2px;">
+              Modifica esercizi, serie, reps o cues. Quando salvi, il link dell'atleta si aggiorna automaticamente.
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
             <button class="btn-filt" style="background:#1e3a8a;color:#fff;" onclick="openSelectedPrehabLive()">
               🔗 Apri Scheda Live ↗
             </button>
-            <button class="btn-filt" style="background:var(--mv-amber);color:#060a14;font-weight:800;" onclick="printSelectedPrehab()">
-              🖨️ Stampa A4 / PDF
+            <button class="btn-filt" style="background:var(--mv-emerald);color:#042f2e;font-weight:800;padding:6px 16px;" onclick="saveCoachPrehabProgram()">
+              💾 Salva Modifiche
             </button>
           </div>
         </div>
 
         <!-- Box Metadati Atleta -->
-        <div id="coachPrehabMetaBox" style="background:#060a14;border:1px solid var(--mv-border);border-radius:8px;padding:12px 14px;margin-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <div id="coachPrehabMetaBox" style="background:#060a14;border:1px solid var(--mv-border);border-radius:8px;padding:12px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
           <!-- Popolato via JS -->
         </div>
-      </div>
 
-      <!-- Editor Lista Esercizi della Seduta -->
-      <div class="method-card">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-          <div style="font-size:0.95rem;font-weight:800;color:#fff;">
-            Esercizi Assegnati alla Seduta
-          </div>
+        <!-- Lista Esercizi della Seduta -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:0.88rem;font-weight:800;color:#fff;">Esercizi Inclusi nella Seduta</div>
           <button class="btn-filt" style="background:var(--mv-surface2);color:#fff;" onclick="addCoachPrehabExercise()">
             ➕ Aggiungi Esercizio
           </button>
@@ -2157,15 +2184,8 @@
         <div id="coachPrehabExercisesList" style="display:flex;flex-direction:column;gap:12px;">
           <!-- Popolato via JS -->
         </div>
-
-        <div style="margin-top:18px;display:flex;justify-content:flex-end;gap:10px;">
-          <button class="btn-filt" style="background:var(--mv-emerald);color:#042f2e;font-weight:800;padding:8px 20px;font-size:0.88rem;" onclick="saveCoachPrehabProgram()">
-            💾 Salva Modifiche Seduta
-          </button>
-        </div>
       </div>
     </div>
-
     <footer class="app-footer">
       <div>Marsala Volley · Preparazione Fisica Serie A2</div>
       <div style="color:var(--mv-amber);margin-top:2px;">Coach Command Center v2026.4</div>
