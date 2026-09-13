@@ -2848,6 +2848,7 @@
       if (!val) return;
 
       const isCmj = exName.toLowerCase().includes('cmj') || inputId.toLowerCase().includes('cmj');
+      const isJump = (typeof isJumpExercise === 'function' ? isJumpExercise(exName) : false) || inputId.toLowerCase().includes('jump') || inputId.toLowerCase().includes('pogo') || isCmj;
       let cleanVal = val;
       let metricType = 'CARICO';
 
@@ -2862,6 +2863,22 @@
         }
         localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ_Test`, cleanVal);
         localStorage.setItem(`mv_load_${currentAthlete.id}_CMJ Test Chronojump`, cleanVal);
+        if (typeof currentWeek !== 'undefined') {
+          localStorage.setItem(`mv_load_${currentAthlete.id}_${currentWeek}_${nSeduta}_CMJ_Test`, cleanVal);
+        }
+      } else if (isJump) {
+        metricType = 'SALTO';
+        let rawNum = cleanVal.replace(',', '.').replace(/cm/i, '').trim();
+        const numM = rawNum.match(/\d+(?:\.\d+)?/);
+        if (numM) {
+          cleanVal = `${parseFloat(numM[0])} cm`;
+        } else if (!cleanVal.toLowerCase().includes('cm')) {
+          cleanVal = `${cleanVal} cm`;
+        }
+        localStorage.setItem(`mv_load_${currentAthlete.id}_${exName}`, cleanVal);
+        if (typeof currentWeek !== 'undefined') {
+          localStorage.setItem(`mv_load_${currentAthlete.id}_${currentWeek}_${nSeduta}_${exName}`, cleanVal);
+        }
       } else {
         // Se scrive 10-10 o 12.5-12.5 lo trasformiamo in 10+10 kg o 12.5+12.5 kg
         if (/^\d+(?:\.\d+)?\s*-\s*\d+(?:\.\d+)?$/.test(cleanVal)) {
@@ -2907,11 +2924,11 @@
       }
 
       if (window.MV_SUPABASE) {
-        if (isCmj) {
+        if (isCmj || isJump) {
           window.MV_SUPABASE.saveTrainingSet({
             athlete_id: currentAthlete.id,
             session_code: nSeduta || 'W-Seduta',
-            exercise_name: 'CMJ Test Chronojump',
+            exercise_name: isCmj ? 'CMJ Test Chronojump' : exName,
             cmj_height: parseFloat(cleanVal)
           });
         } else {
@@ -3601,7 +3618,8 @@ const POGO_CHRONOJUMP_RECORDS = {
   9: { max_height: '25.7 cm', rep: 9, tc: '0.149s' },
   11: { max_height: '41.6 cm', rep: 6, tc: '0.238s' },
   12: { max_height: '30.1 cm', rep: 9, tc: '0.171s' },
-  13: { max_height: '26.8 cm', rep: 1, tc: '<250ms' }
+  13: { max_height: '26.8 cm', rep: 1, tc: '<250ms' },
+  14: { max_height: '28.6 cm', rep: 2, tc: 'Stiffness' }
 };
 
 function isJumpExercise(name) {
@@ -3656,8 +3674,8 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
       { key: 'cmj', match: c => c.includes('cmj') || c.includes('profilazione') },
       { key: 'pogo', match: c => c.includes('pogo') },
       { key: 'split squat', match: c => c.includes('split squat') || c.includes('bulgarian') },
-      { key: 'floor chest press', match: c => c.includes('floor') && (c.includes('press') || c.includes('chest')) },
-      { key: 'lat machine', match: c => c.includes('lat machine') },
+      { key: 'floor chest press', match: c => (c.includes('floor') || c.includes('chest') || c.includes('bench')) && c.includes('press') },
+      { key: 'lat machine', match: c => c.includes('lat machine') || c.includes('lat pull') || c.includes('pulldown') },
       { key: 'pallof', match: c => c.includes('pallof') },
       { key: 'clean', match: c => c.includes('clean') || c.includes('girat') },
       { key: 'power squat', match: c => c.includes('squat') && (c.includes('power') || c.includes('0.65') || c.includes('0.85') || c.includes('speed')) },
@@ -3667,14 +3685,14 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
       { key: 'rotational medball', match: c => (c.includes('rotational') || c.includes('torsion')) && c.includes('medball') },
       { key: 'medball chest pass', match: c => c.includes('medball') && (c.includes('chest pass') || c.includes('slam') || c.includes('pass')) && !c.includes('rotational') },
       { key: 'glute bridge', match: c => c.includes('glute bridge') || c.includes('hip thrust') },
-      { key: 'pulley', match: c => c.includes('pulley') },
-      { key: 'extrarotazion', match: c => c.includes('extrarotazion') || c.includes('rotatori') },
+      { key: 'pulley', match: c => c.includes('pulley') || (c.includes('cable') && c.includes('row')) },
+      { key: 'extrarotazion', match: c => c.includes('extrarotazion') || c.includes('rotatori') || c.includes('external rotator') },
       { key: 'pullover', match: c => c.includes('pullover') },
       { key: 'farmer', match: c => c.includes('farmer') || c.includes('suitcase') },
       { key: 'hang', match: c => c.includes('hang') || c.includes('sbarra') },
       { key: 'row', match: c => (/\brow\b/i.test(c) || c.includes('rematore') || c.includes('seal row')) && !c.includes('throw') },
       { key: 'wrist roller', match: c => c.includes('wrist roller') || c.includes('roller per il palleggio') },
-      { key: 'heel raise', match: c => c.includes('heel raise') || c.includes('calf raise') },
+      { key: 'heel raise', match: c => c.includes('heel raise') || c.includes('calf raise') || c.includes('polpacci') },
       { key: 'soleus', match: c => c.includes('soleus') || c.includes('seated calf') },
       { key: 'copenhagen', match: c => c.includes('copenhagen') },
       { key: 'y-raise', match: c => c.includes('y-raise') },
@@ -3725,22 +3743,26 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
   }
 
   // 3. Valore: carico (kg) o misura salto (cm/box/tc)
+  const lowTarget = exName.toLowerCase();
+  const lowPrev = prevExName.toLowerCase();
+  const isCmj = lowTarget.includes('cmj') || lowTarget.includes('profilazione') || lowPrev.includes('cmj');
+  const isPogo = lowTarget.includes('pogo') || lowPrev.includes('pogo');
+
   let manualVal = '';
   try {
-    if (isJump) {
+    if (isCmj) {
       manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_CMJ_Test`) ||
                   localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_CMJ_Test`) ||
-                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_CMJ_Test`) ||
-                  localStorage.getItem(`mv_load_${athlete.id}_CMJ_Test`) ||
-                  localStorage.getItem(`mv_load_${athlete.id}_CMJ Test Chronojump`) || '';
-    }
-    if (!manualVal) {
+                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_CMJ_Test`) || '';
+    } else if (isPogo) {
       manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
                   localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
-                  localStorage.getItem(`mv_load_${athlete.id}_${prevExName}`) ||
+                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_Pogo`) || '';
+    } else {
+      manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
+                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
                   localStorage.getItem(`mv_vbt_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
-                  localStorage.getItem(`mv_vbt_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
-                  localStorage.getItem(`mv_vbt_${athlete.id}_${prevExName}`) || '';
+                  localStorage.getItem(`mv_vbt_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) || '';
     }
   } catch (e) {}
 
@@ -3751,11 +3773,10 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
     isManual = true;
   } else {
     if (isJump) {
-      const lowEx = prevExName.toLowerCase();
-      if (lowEx.includes('drop jump')) {
+      if (lowTarget.includes('drop jump') || lowPrev.includes('drop jump')) {
         const mBox = (prevExName + ' ' + (matched['Note Tecniche'] || '')).match(/(\d+)\s*cm/i);
         finalVal = mBox ? `Box ${mBox[1]} cm` : 'Box 40 cm';
-            } else if (lowEx.includes('pogo')) {
+      } else if (isPogo) {
         const pogoRec = (typeof POGO_CHRONOJUMP_RECORDS !== 'undefined' && athlete) ? POGO_CHRONOJUMP_RECORDS[athlete.id] : null;
         if (pogoRec) {
           finalVal = `${pogoRec.max_height} (Rep #${pogoRec.rep})`;
@@ -3763,7 +3784,7 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
           const mTc = (matched['Note Tecniche'] || '').match(/(?:tc|contatto)\s*<(\d+ms)/i);
           finalVal = mTc ? `TC <${mTc[1]}` : 'Stiffness BW';
         }
-      } else if (lowEx.includes('cmj') || lowEx.includes('profilazione')) {
+      } else if (isCmj) {
         finalVal = 'Max RFD';
       } else {
         finalVal = rawCarico || 'BW';
@@ -3813,7 +3834,7 @@ function renderPreviousWeekRefBadge(athlete, currentWeek, sed, exName, isEN) {
 
   if (ref.isJump) {
     let jumpMetricLbl = isEN ? 'Jump:' : 'Salto:';
-    if (/\(Rep\s*#/i.test(ref.val)) jumpMetricLbl = isEN ? 'Max:' : 'Max:';
+    if (/\(Rep\s*#/i.test(ref.val) || /pogo/i.test(exName) || /pogo/i.test(ref.prevExName || '')) jumpMetricLbl = isEN ? 'Best Height:' : 'Best Salto:';
     else if (/cm\b/i.test(ref.val)) jumpMetricLbl = isEN ? 'Height:' : 'Altezza:';
     else if (/rsi/i.test(ref.val)) jumpMetricLbl = 'RSI:';
     else if (/box/i.test(ref.val)) jumpMetricLbl = 'Box:';
@@ -3893,13 +3914,30 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
     valStyle += "font-size:0.90rem;white-space:nowrap;";
   }
 
-  const placeholderText = savedLoad
-    ? (isEN ? `Last: ${savedLoad}` : `Ultimo: ${savedLoad}`)
-    : (rmData
-      ? (rmData.isDumbbell ? (isEN ? `e.g. ${rmData.eachKg}+${rmData.eachKg} kg` : `es. ${rmData.eachKg}+${rmData.eachKg} kg`) : (isEN ? `e.g. ${rmData.targetKg} kg` : `es. ${rmData.targetKg} kg`))
-      : (carico ? (isEN ? `Prescribed: ${carico}` : `Prescritto: ${carico}`) : (isEN ? 'e.g. kg' : 'es. kg')));
-
   const lowName = exName.toLowerCase();
+  const isJump = isJumpExercise(exName);
+
+  let placeholderText = '';
+  if (savedLoad) {
+    placeholderText = isEN ? `Last: ${savedLoad}` : `Ultimo: ${savedLoad}`;
+  } else if (isJump) {
+    if (lowName.includes('pogo')) {
+      const pogoRec = (typeof POGO_CHRONOJUMP_RECORDS !== 'undefined' && athlete) ? POGO_CHRONOJUMP_RECORDS[athlete.id] : null;
+      placeholderText = pogoRec ? (isEN ? `Last W3 Best: ${pogoRec.max_height}` : `Migliore W3: ${pogoRec.max_height}`) : (isEN ? 'e.g. 30.0 cm' : 'es. 30.0 cm');
+    } else if (lowName.includes('drop jump')) {
+      placeholderText = isEN ? 'e.g. 35.0 cm' : 'es. 35.0 cm';
+    } else {
+      placeholderText = isEN ? 'e.g. 30.0 cm' : 'es. 30.0 cm';
+    }
+  } else if (rmData) {
+    placeholderText = rmData.isDumbbell
+      ? (isEN ? `e.g. ${rmData.eachKg}+${rmData.eachKg} kg` : `es. ${rmData.eachKg}+${rmData.eachKg} kg`)
+      : (isEN ? `e.g. ${rmData.targetKg} kg` : `es. ${rmData.targetKg} kg`);
+  } else if (carico) {
+    placeholderText = isEN ? `Prescribed: ${carico}` : `Prescritto: ${carico}`;
+  } else {
+    placeholderText = isEN ? 'e.g. kg' : 'es. kg';
+  }
 
   let calcTargetBoxHtml = '';
   // Utente: "alcuni esercizi hanno sotto la dicitura 'carico calcolato' non la voglio vedere se replicano prettamente il carico già presente nella sezione intensità dell'esercizio di riferimento"
@@ -3980,9 +4018,16 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
       </div>
     `;
   } else if (!isPureMobility) {
+    let logLabel = isEN ? 'Load Used:' : 'Carico Usato:';
+    if (lowName.includes('pogo')) {
+      logLabel = isEN ? 'Recorded Pogo Height (cm):' : 'Altezza Pogo registrata (cm):';
+    } else if (isJump) {
+      logLabel = isEN ? 'Recorded Jump Height (cm):' : 'Altezza Salto registrata (cm):';
+    }
+
     logHtml = `
       <div class="ex-load-log-box">
-        <span class="ex-load-log-lbl">📝 ${isEN ? 'Load Used:' : 'Carico Usato:'}</span>
+        <span class="ex-load-log-lbl">📝 ${logLabel}</span>
         <div class="ex-load-input-wrap">
           <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}', this.value)">
           <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">${savedLoad ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
@@ -3992,12 +4037,15 @@ function renderStandardExerciseCard(norm, sed, athlete, week) {
     `;
   }
 
+  const prevRefBadgeHtml = renderPreviousWeekRefBadge(athlete, (typeof currentWeek !== 'undefined' ? currentWeek : week || 'W4'), sed, exName, isEN);
+
   return `
     <div class="exercise-card">
       <div class="ex-head-row">
         <div class="ex-name">${escapeHtml(exName)}</div>
         ${recupero ? `<div class="ex-rest-badge">⏱ ${isEN ? 'Rest' : 'Rec.'} ${escapeHtml(recupero)}</div>` : ''}
       </div>
+      ${prevRefBadgeHtml}
       <div class="ex-grid">
         <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">${escapeHtml(serie)}</div></div>
         <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">${escapeHtml(reps)}</div></div>
@@ -4027,6 +4075,7 @@ function renderCmjTestCard(sed, athlete, isEN) {
         <div class="ex-name">Chronojump Countermovement Jump (CMJ) Test</div>
         <div class="ex-rest-badge">⏱ ${isEN ? 'Rest 45s between jumps' : 'Rec. 45s tra i salti'}</div>
       </div>
+      ${prevCmjRefHtml}
       <div class="ex-grid">
         <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">1</div></div>
         <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;white-space:nowrap;">${isEN ? '3 jumps' : '3 salti'}</div></div>
