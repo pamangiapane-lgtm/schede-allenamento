@@ -13,6 +13,8 @@ _strumenti/*
 !_strumenti/run_keepalive.bat
 !_strumenti/collega_whatsapp_web.py
 !_strumenti/genera_w3_w4_data.py
+!_strumenti/supabase_milestone15_multitenancy_gdpr.sql
+!_strumenti/supabase_milestone17_boutique_policies.sql
 backup_locale/
 Season_Off/
 .claude/*
