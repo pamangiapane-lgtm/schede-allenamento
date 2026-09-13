@@ -3588,6 +3588,183 @@ function categorizeExerciseNorm(norm) {
   return 'Accessori';
 }
 
+
+function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
+  if (!athlete || typeof WEEKS_DATA === 'undefined') return null;
+  let prevWeekKey = null;
+  if (currentWeek === 'W4') prevWeekKey = 'W3';
+  else if (currentWeek === 'W5') prevWeekKey = 'W4';
+  if (!prevWeekKey || !WEEKS_DATA[prevWeekKey]) return null;
+
+  const prevWeekObj = WEEKS_DATA[prevWeekKey];
+  const athIdStr = String(athlete.id);
+  const prevAth = prevWeekObj.atleti && prevWeekObj.atleti[athIdStr];
+  if (!prevAth) return null;
+
+  const prevSedObj = (prevWeekKey === 'W3') ? prevAth.w3_sedute : (prevAth.w4_sedute || prevAth.sedute);
+  if (!prevSedObj) return null;
+
+  let sNum = 1;
+  const nSedRaw = String(sed ? sed.Numero_Seduta : '').toLowerCase().replace(/w[1-9]_?/g, '');
+  if (nSedRaw.includes('3') || nSedRaw.includes('ven')) sNum = 3;
+  else if (nSedRaw.includes('2') || nSedRaw.includes('mer')) sNum = 2;
+
+  const sameSed = prevSedObj[sNum] || prevSedObj[String(sNum)] || [];
+  const allSed = [
+    ...(prevSedObj['1'] || prevSedObj[1] || []),
+    ...(prevSedObj['2'] || prevSedObj[2] || []),
+    ...(prevSedObj['3'] || prevSedObj[3] || [])
+  ];
+
+  function normalizeKey(name) {
+    return (name || '').toLowerCase()
+      .replace(/^\d+[a-z]?\.\s*/i, '')
+      .replace(/[()]/g, '')
+      .trim();
+  }
+
+  function findMatch(targetName, candidates) {
+    const tNorm = normalizeKey(targetName);
+    for (const c of candidates) {
+      const cNorm = normalizeKey(c.Esercizio || c.exName);
+      if (tNorm === cNorm) return c;
+    }
+    const roots = [
+      { key: 'split squat', match: c => c.includes('split squat') || c.includes('bulgarian') },
+      { key: 'floor chest press', match: c => c.includes('floor') && (c.includes('press') || c.includes('chest')) },
+      { key: 'lat machine', match: c => c.includes('lat machine') },
+      { key: 'pogo', match: c => c.includes('pogo') },
+      { key: 'pallof', match: c => c.includes('pallof') },
+      { key: 'clean', match: c => c.includes('clean') || c.includes('girat') },
+      { key: 'power squat', match: c => c.includes('squat') && (c.includes('power') || c.includes('0.65') || c.includes('0.85') || c.includes('speed')) },
+      { key: 'squat', match: c => c.includes('squat') && !c.includes('split') && !c.includes('bulgarian') && !c.includes('spanish') },
+      { key: 'push press', match: c => c.includes('push press') || c.includes('landmine press') || c.includes('military') },
+      { key: 'deadbug', match: c => c.includes('deadbug') },
+      { key: 'rotational medball', match: c => (c.includes('rotational') || c.includes('torsion')) && c.includes('medball') },
+      { key: 'medball chest pass', match: c => c.includes('medball') && (c.includes('chest pass') || c.includes('slam') || c.includes('pass')) && !c.includes('rotational') },
+      { key: 'drop jump', match: c => c.includes('drop jump') },
+      { key: 'cmj', match: c => c.includes('cmj') || c.includes('profilazione') },
+      { key: 'glute bridge', match: c => c.includes('glute bridge') || c.includes('hip thrust') },
+      { key: 'pulley', match: c => c.includes('pulley') },
+      { key: 'extrarotazion', match: c => c.includes('extrarotazion') || c.includes('rotatori') },
+      { key: 'pullover', match: c => c.includes('pullover') },
+      { key: 'farmer', match: c => c.includes('farmer') || c.includes('suitcase') },
+      { key: 'hang', match: c => c.includes('hang') || c.includes('sbarra') },
+      { key: 'row', match: c => (/\brow\b/i.test(c) || c.includes('rematore') || c.includes('seal row')) && !c.includes('throw') },
+      { key: 'wrist roller', match: c => c.includes('wrist roller') || c.includes('roller per il palleggio') },
+      { key: 'heel raise', match: c => c.includes('heel raise') || c.includes('calf raise') },
+      { key: 'soleus', match: c => c.includes('soleus') || c.includes('seated calf') },
+      { key: 'copenhagen', match: c => c.includes('copenhagen') },
+      { key: 'y-raise', match: c => c.includes('y-raise') },
+      { key: 'tibialis', match: c => c.includes('tibialis') },
+      { key: 'trap-3', match: c => c.includes('trap-3') || c.includes('trap 3') },
+      { key: 'spanish', match: c => c.includes('spanish') }
+    ];
+    for (const r of roots) {
+      if (r.match(tNorm)) {
+        for (const c of candidates) {
+          const cNorm = normalizeKey(c.Esercizio || c.exName);
+          if (r.match(cNorm)) return c;
+        }
+      }
+    }
+    return null;
+  }
+
+  const matched = findMatch(exName, sameSed) || findMatch(exName, allSed);
+  if (!matched) return null;
+
+  const prevExName = matched.Esercizio || matched.exName || '';
+  const rawCarico = matched['Carico (kg/RPE)'] || matched.carico || '';
+  const rawReps = matched['Set x Reps'] || matched.reps || '';
+
+  // 1. Reps: normalizza spaziatura
+  let reps = rawReps.replace(/\s*x\s*/gi, 'x').trim();
+
+  // 2. RPE / RIR
+  let rpe = '';
+  const rpeMatch = rawCarico.match(/\["([^"]+)"\]/) ||
+                   rawCarico.match(/\("([^"]+)"\)/) ||
+                   rawCarico.match(/RPE\s*([0-9.]+)/i) ||
+                   rawCarico.match(/RIR\s*([0-9.]+)/i);
+  if (rpeMatch) {
+    if (rpeMatch[0].toLowerCase().includes('rir')) {
+      rpe = 'RIR ' + rpeMatch[1];
+    } else {
+      rpe = 'RPE ' + rpeMatch[1];
+    }
+  }
+
+  // 3. Carico: usa eventuale log manuale dell'atleta o prescritto
+  let manualLoad = '';
+  try {
+    manualLoad = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
+                 localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
+                 localStorage.getItem(`mv_load_${athlete.id}_${prevExName}`) ||
+                 localStorage.getItem(`mv_vbt_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
+                 localStorage.getItem(`mv_vbt_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
+                 localStorage.getItem(`mv_vbt_${athlete.id}_${prevExName}`) || '';
+  } catch (e) {}
+
+  let finalCarico = '';
+  let isManual = false;
+  if (manualLoad && manualLoad.trim()) {
+    finalCarico = manualLoad.trim();
+    isManual = true;
+  } else {
+    const kgInsideParens = rawCarico.match(/\(([^)]+kg)\)/i);
+    if (kgInsideParens) {
+      finalCarico = kgInsideParens[1].trim();
+    } else {
+      finalCarico = rawCarico.replace(/\["[^"]+"\]/g, '')
+                             .replace(/\("[^"]+"\)/g, '')
+                             .replace(/\(RIR\s*\d+\)/gi, '')
+                             .replace(/\(cerca di[^)]+\)/gi, '')
+                             .trim();
+    }
+    if (!finalCarico) finalCarico = rawCarico;
+  }
+
+  // 4. Reps manuali se presenti
+  try {
+    const manualReps = localStorage.getItem(`mv_reps_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
+                       localStorage.getItem(`mv_reps_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
+                       localStorage.getItem(`mv_reps_${athlete.id}_${prevExName}`);
+    if (manualReps && manualReps.trim()) {
+      reps = manualReps.trim();
+    }
+  } catch (e) {}
+
+  return {
+    prevWeekKey,
+    carico: finalCarico,
+    isManual,
+    rpe,
+    reps,
+    prevExName
+  };
+}
+
+function renderPreviousWeekRefBadge(athlete, currentWeek, sed, exName, isEN) {
+  const ref = getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName);
+  if (!ref || (!ref.carico && !ref.reps && !ref.rpe)) return '';
+
+  const tagLabel = ref.prevWeekKey || 'W3';
+  const loadLbl = isEN ? 'Load:' : 'Carico:';
+  const targetLbl = isEN ? 'Target:' : 'Previsto:';
+  const repsLbl = 'Reps:';
+  const realBadge = ref.isManual ? `<span style="background:rgba(16,185,129,0.18);color:#6ee7b7;border-radius:3px;padding:0 4px;font-size:0.64rem;font-weight:700;margin-left:3px;">${isEN ? 'actual' : 'reale'}</span>` : '';
+
+  return `
+    <div class="ex-prev-ref" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.72rem;color:var(--mv-muted,#94a3b8);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:2px 8px;margin:2px 0 6px 0;max-width:100%;">
+      <span style="background:rgba(59,130,246,0.15);color:#93c5fd;border-radius:3px;padding:0 4px;font-weight:800;font-size:0.65rem;letter-spacing:0.04em;">${tagLabel}</span>
+      ${ref.carico ? `<span>${loadLbl} <strong style="color:#f8fafc;">${escapeHtml(ref.carico)}</strong>${realBadge}</span>` : ''}
+      ${ref.rpe ? `<span style="opacity:0.35;">•</span><span>${targetLbl} <strong style="color:#fbbf24;">${escapeHtml(ref.rpe)}</strong></span>` : ''}
+      ${ref.reps ? `<span style="opacity:0.35;">•</span><span>${repsLbl} <strong style="color:#cbd5e1;">${escapeHtml(ref.reps)}</strong></span>` : ''}
+    </div>
+  `;
+}
+
 function renderStandardExerciseCard(norm, sed, athlete, week) {
   const isEN = (athlete && (athlete.id === 4 || athlete.id === 14));
   const { exName, serie, reps, carico, tempo, recupero, note } = norm;
@@ -4083,16 +4260,8 @@ function renderSessions() {
       `;
     }
 
-    // Friday jump ban alert (suppressed in W3 per coach directive)
-    const fridayBanHtml = (isFriday && currentWeek !== 'W3') ? `
-      <div style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
-        <span style="font-size:1.8rem;">🛡️</span>
-        <div>
-          <div style="font-weight:800;color:#fca5a5;font-size:0.92rem;">${isEN ? 'STRICT FRIDAY JUMP BAN: ZERO JUMPS' : 'STRICT FRIDAY JUMP BAN: ZERO SALTI'}</div>
-          <div style="font-size:0.75rem;color:#fecaca;margin-top:2px;">${isEN ? 'Less than 30 hours to Saturday match/scrimmage: zero plyometric impacts. Sub-maximal Romanian Deadlift (RDL) at buffer 3 (RIR 3) to ensure maximal elasticity and freshness.' : 'A meno di 30 ore dalla gara/amichevole di sabato: zero impatti pliometrici. Cerniera posteriore RDL sub-massimale a buffer 3 per garantire massima elasticità e freschezza.'}</div>
-        </div>
-      </div>
-    ` : '';
+    // Friday jump ban alert: rimosso su direttiva coach
+    const fridayBanHtml = '';
 
     const cardId = `card-${sed.Numero_Seduta}`;
     const isCardOpen = openCardIds.has(cardId) || (savedOpenSed && (savedOpenSed === String(sed.Numero_Seduta) || savedOpenSed === String(sNum)));

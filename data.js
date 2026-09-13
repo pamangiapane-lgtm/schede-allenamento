@@ -4490,7 +4490,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "35",
-        "Note": "Passive Hang + Glute Bridge 70-80kg (RIR 4) + Pulley 65% + Extrarotazioni · STRICT FRIDAY JUMP BAN"
+        "Note": "Passive Hang + Glute Bridge 70-80kg (RIR 4) + Pulley 65% + Extrarotazioni"
       }
     ],
     "programma_squadra": {
@@ -8877,11 +8877,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Spanish Squat Isometrico (Scarico Femoro-Rotuleo)",
-              "Set x Reps": "3 x 45\"",
-              "Carico (kg/RPE)": "+5 kg",
-              "Tempo": "Isometrico",
-              "Note Tecniche": "Protezione innesto LCA sinistro e stimolo tendine rotuleo."
+              "Esercizio": "4B. Prone Incline Trap-3 Raise su Panca 30°",
+              "Set x Reps": "3 x 8",
+              "Carico (kg/RPE)": "3+3 kg",
+              "Tempo": "`2012`",
+              "Note Tecniche": "Rinforzo trapezio inferiore e stabilizzazione scapolare per rincorsa d'attacco."
             },
             {
               "Blocco": "# Core+Trans.",
