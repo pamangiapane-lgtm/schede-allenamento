@@ -193,8 +193,8 @@ const PREHAB_DEFAULT_PROGRAMS = {
     "title": "anja 1",
     "athNum": 4,
     "athName": "Anja Asonja",
-    "flags": "Tendinopatia rotulea bilaterale, spalla DX rigida",
-    "volume": "2x",
+    "flags": "Bilateral patellar tendinopathy, stiff right shoulder",
+    "volume": "2 sets",
     "exercises": [
       {
         "name": "Thoracic Spine Mobilization - Overhead Reach",
@@ -206,9 +206,9 @@ const PREHAB_DEFAULT_PROGRAMS = {
           "https://prod-images.theprehabguys.com/exercises/fc6/fc699ecb-3c51-57d0-990e-35ab901d39e6/SMALL/Thoracic-Spine-Mobilization-Overhead-Reach1.jpg"
         ],
         "mp4": "https://videos.theprehabguys.com/bcdn_token=p48SvLWjfUJVwBP0mCYj1jY0XJDz1bClvUbmSHC9f_w&expires=1789352079&token_path=%2F377d2de7-0f39-4e18-995d-549cda42fa02%2F/377d2de7-0f39-4e18-995d-549cda42fa02/play_720p.mp4",
-        "how": "Seduta sui talloni con braccia distese in avanti su un rialzo o fitball. Mantieni il bacino fisso e lascia scendere delicatamente il petto verso il pavimento estendendo il tratto dorsale.",
-        "feel": "Allungamento del gran dorsale e mobilità in estensione della colonna toracica e cingolo scapolare.",
-        "comp": "Non inarcare la colonna lombare: il movimento deve avvenire nella parte alta e media della schiena."
+        "how": "Sit back on your heels with your arms extended forward on a box or Swiss ball. Keep your pelvis fixed and gently allow your chest to sink toward the floor, extending through your mid and upper back (thoracic spine).",
+        "feel": "Stretch along the latissimus dorsi and extension mobility through the thoracic spine and shoulder girdle.",
+        "comp": "Do not arch your lower back (lumbar spine): the extension must come strictly from your upper and mid back."
       },
       {
         "name": "Thoracic Spine Mobilization - Swissball",
@@ -220,9 +220,9 @@ const PREHAB_DEFAULT_PROGRAMS = {
           "https://prod-images.theprehabguys.com/exercises/22a/22a8bc3c-87eb-5aa5-ac6a-b3d890d387a1/SMALL/Thoracic-Spine-Mobilization-Swissball-2.png"
         ],
         "mp4": "https://videos.theprehabguys.com/bcdn_token=mCG6Po-bEQ1YvFp6oW14xdyeFyF12EYuJFAu9Ljzbq4&expires=1789352080&token_path=%2Fd6d87119-b8f5-43ec-80d5-94441e038e49%2F/d6d87119-b8f5-43ec-80d5-94441e038e49/play_720p.mp4",
-        "how": "In ginocchio davanti alla fitball, appoggia gli avambracci sopra la palla. Spingi la palla in avanti espirando e abbassando il torace verso terra, poi ritorna inspirando.",
-        "feel": "Apertura della cassa toracica, de-tensione interscapolare e mobilità di spalle e dorso.",
-        "comp": "Non forzare l'escursione in caso di fitte alle spalle. Mantieni il movimento fluido e controllato."
+        "how": "Kneel in front of the Swiss ball and rest your forearms on top of the ball. Roll the ball forward while exhaling, allowing your chest to drop toward the floor, then return smoothly while inhaling.",
+        "feel": "Opening of the rib cage, relief between the shoulder blades, and enhanced mobility in the shoulders and upper back.",
+        "comp": "Do not force through pinching shoulder pain. Keep the movement smooth, fluid, and controlled."
       },
       {
         "name": "Quadruped Thread The Needle To Open Book",
@@ -234,9 +234,9 @@ const PREHAB_DEFAULT_PROGRAMS = {
           "https://prod-images.theprehabguys.com/exercises/856/8567ed39-ce99-44e0-8c4d-854954f3bb9e/SMALL/quadruped-thread-the-needle-to-open-book.gif"
         ],
         "mp4": "https://videos.theprehabguys.com/bcdn_token=JTgvfOeOJ_ZO17dCmhLoSYNlwB3C0Q4dTVYUs16XqPE&expires=1789352081&token_path=%2Fd022a22b-a1ae-4046-8d88-c8fada2cbe63%2F/d022a22b-a1ae-4046-8d88-c8fada2cbe63/play_720p.mp4",
-        "how": "In quadrupedia a terra, infila un braccio sotto il busto ruotando il torace verso terra, poi apri lo stesso braccio verso l'alto ruotando il torace verso il soffitto e seguendo la mano con gli occhi.",
-        "feel": "Mobilità rotazionale della colonna dorsale e distensione della muscolatura periscapolare e pettorale.",
-        "comp": "Non traslare lateralmente il bacino: le anche devono rimanere bloccate e centrate rispetto alle ginocchia."
+        "how": "On hands and knees in a quadruped position, thread one arm underneath your torso, rotating your chest toward the floor. Then reverse the motion, opening that same arm up toward the ceiling, rotating your chest and following your hand with your eyes.",
+        "feel": "Rotational mobility in the thoracic spine and a stretch through the periscapular and pectoral muscles.",
+        "comp": "Do not shift your hips side to side: your pelvis and hips must stay square and centered over your knees."
       },
       {
         "name": "Arm Bar - Half Rotation, Kettlebell",
@@ -248,9 +248,9 @@ const PREHAB_DEFAULT_PROGRAMS = {
           "https://prod-images.theprehabguys.com/exercises/0d5/0d5cff03-e19d-5226-9320-96325a45e45b/SMALL/Arm-Bar-Half-Rotation-Kettlebell2.png"
         ],
         "mp4": "https://videos.theprehabguys.com/bcdn_token=cB5m2ZefWTZPgGLEeQHy3Cf1vf_UKa91jJjNTZFd7wU&expires=1789352082&token_path=%2F202587ba-d347-4a51-b6ad-2c5a800650ee%2F/202587ba-d347-4a51-b6ad-2c5a800650ee/play_720p.mp4",
-        "how": "Supina a terra con kettlebell tenuta a braccio teso verso il soffitto. Ruota lentamente su un fianco mantenendo il kettlebell perfettamente perpendicolare e lo sguardo fisso sul peso.",
-        "feel": "Stabilità profonda e propriocettiva della cuffia dei rotatori e del dentato anteriore.",
-        "comp": "Non piegare il gomito: il braccio deve rimanere dritto e solido come una colonna portante."
+        "how": "Lie on your back holding a kettlebell with your arm locked straight toward the ceiling. Slowly roll onto your side while keeping the kettlebell perfectly vertical and your eyes fixed on the weight at all times.",
+        "feel": "Deep rotator cuff and serratus anterior activation and dynamic shoulder stability.",
+        "comp": "Do not bend your elbow: keep your arm locked straight and solid like a load-bearing pillar throughout."
       }
     ]
   },

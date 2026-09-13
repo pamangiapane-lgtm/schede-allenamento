@@ -356,112 +356,112 @@
     "phases": {
       "F1": {
         "phase_num": "1",
-        "title": "FASE INIZIALE — Rilascio, Ripristino del ROM e Attivazione di base",
-        "objective": "Allungare l'ileopsoas (focus sinistro), mobilizzare l'anca e la lombare, attivare il tibiale posteriore (focus destro) ed educare la postura cervicale.",
+        "title": "INITIAL PHASE — Release, ROM Recovery, and Baseline Activation",
+        "objective": "Lengthen the iliopsoas (left focus), mobilize hip and lumbar spine, activate posterior tibialis (right focus), and train cervical posture.",
         "exercises": [
           {
-            "exercise": "SMR Combo (Flessori Anca Sx + Pettorale Dx)",
-            "target": "Rilasciare lo psoas-iliaco sinistro ed il gran pettorale destro.",
-            "params": "1x2 min per zona [RPE: N/A, Tempo: Lento]",
-            "notes": "Pallina da tennis contro il muro per il petto e foam roller sull'inguine sx."
+            "exercise": "SMR Combo (Left Hip Flexors + Right Pectoral)",
+            "target": "Release left iliopsoas and right pectoralis major.",
+            "params": "1x2 min per zone [RPE: N/A, Tempo: Slow]",
+            "notes": "Tennis or lacrosse ball against wall for chest and foam roller on left groin."
           },
           {
-            "exercise": "Half-Kneeling Psoas Stretch (Bilaterale) & Cat-Cow",
-            "target": "Allungare la catena anteriore e sbloccare la lombare rigida.",
+            "exercise": "Half-Kneeling Psoas Stretch (Bilateral) & Cat-Cow",
+            "target": "Lengthen anterior chain and unlock stiff lumbar spine.",
             "params": "W1: 3x8, W2: 3x10 [RPE: 7, Tempo: 3-1-1-0]",
-            "notes": "Stretch flessori con retroversione attiva abbinato a cat-cow lento sul bacino."
+            "notes": "Hip flexors stretch with active posterior pelvic tilt combined with slow cat-cow."
           },
           {
-            "exercise": "Mobilità Anche in Rotazione Interna (90/90 Bilaterale)",
-            "target": "Sbloccare la rotazione interna su entrambi i lati per il piede.",
+            "exercise": "Hip Internal Rotation Mobility (90/90 Bilateral)",
+            "target": "Unlock internal rotation on both sides to support foot mechanics.",
             "params": "W1: 3x8, W2: 3x10 [RPE: 7, Tempo: 3-1-1-0]",
-            "notes": "Posizione 90/90 a terra. Lavorare sulla rotazione interna di entrambe le anche."
+            "notes": "90/90 position on floor. Work on internal rotation of both hips."
           },
           {
-            "exercise": "Short Foot & Inversione Caviglia con elastico (Dx in primis)",
-            "target": "Attivare l'arco plantare destro ed evitare l'eversione.",
+            "exercise": "Short Foot & Banded Ankle Inversion (Right focus)",
+            "target": "Activate right foot arch and prevent eversion.",
             "params": "W1: 3x12, W2: 3x15 [RPE: 7, Tempo: 3-2-1-0]",
-            "notes": "Short Foot a terra combinato con inversione elastica a destra."
+            "notes": "Short Foot on floor combined with banded ankle inversion on the right."
           },
           {
             "exercise": "Deep Neck Flexors Activation (Chin Tuck) & Doorway Stretch",
-            "target": "Correggere la protrusione cervicale ed allungare il pettorale dx.",
+            "target": "Correct forward head posture and lengthen right pectoral.",
             "params": "W1: 3x8, W2: 3x10 [RPE: 7, Tempo: 3-1-1-0]",
-            "notes": "Attivazione flessori del collo a terra (mento alla gola) + stretch pettorale dx."
+            "notes": "Supine deep neck flexors activation (chin tuck to throat) + right doorway pectoral stretch."
           }
         ]
       },
       "F2": {
         "phase_num": "2",
-        "title": "FASE INTERMEDIA — Rinforzo segmentale e Stabilità statica/dinamica",
-        "objective": "Rinforzare la catena posteriore, stabilizzare l'appoggio monopodalica bilaterale e rieducare lo schema di squat senza shift.",
+        "title": "INTERMEDIATE PHASE — Segmental Strengthening and Static/Dynamic Stability",
+        "objective": "Strengthen posterior chain, stabilize bilateral single-leg stance, and re-educate squat mechanics without lateral shift.",
         "exercises": [
           {
-            "exercise": "One Leg Stance Bilaterale su piano stabile (focus Dx)",
-            "target": "Sviluppare il controllo monopodalico attivo impedendo l'eversione.",
+            "exercise": "Bilateral One Leg Stance on stable surface (Right focus)",
+            "target": "Develop active single-leg control preventing foot eversion.",
             "params": "W3: 3x30\", W4: 3x45\", W5: 3x60\" [RPE: 8, Tempo: Iso]",
-            "notes": "Ginocchio di supporto leggermente flesso, asse anca-ginocchio-piede in linea."
+            "notes": "Support knee slightly soft, hip-knee-foot axis aligned."
           },
           {
-            "exercise": "Clamshell con elastico (Dx)",
-            "target": "Rinforzo del gluteo medio destro per correggere il valgismo.",
+            "exercise": "Banded Clamshell (Right side)",
+            "target": "Strengthen right gluteus medius to correct dynamic valgus.",
             "params": "W3: 3x10, W4: 3x12, W5: 4x10 [RPE: 8, Tempo: 3-1-1-0]",
-            "notes": "Decubito laterale. Sollevare il ginocchio dx senza ruotare il bacino."
+            "notes": "Side-lying position. Raise right knee without rolling pelvis backward."
           },
           {
-            "exercise": "Squat a 90° allo specchio con elastico",
-            "target": "Rieducare lo squat correggendo lo shift ed extrarotazione sx.",
+            "exercise": "90° Squat facing mirror with band",
+            "target": "Re-educate squat pattern correcting lateral shift and left external rotation.",
             "params": "W3: 3x8, W4: 3x10, W5: 4x8 [RPE: 8, Tempo: 3-1-1-0]",
-            "notes": "Non forzare simmetria assoluta al piede sx (extrarotazione confortevole). Ginocchia in fuori."
+            "notes": "Do not force absolute symmetry on left foot (keep comfortable slight turn-out). Knees out."
           },
           {
-            "exercise": "Bridge per i glutei in estensione d'anca",
-            "target": "Attivazione della catena posteriore migliorando l'estensione.",
+            "exercise": "Glute Bridge in Hip Extension",
+            "target": "Posterior chain activation while improving full hip extension.",
             "params": "W3: 3x10, W4: 3x12, W5: 4x10 [RPE: 8, Tempo: 3-1-1-0]",
-            "notes": "Supine, sollevare bacino spingendo sui talloni, mantenendo lombare neutra."
+            "notes": "Supine, drive through heels to raise pelvis while maintaining neutral lumbar spine."
           },
           {
-            "exercise": "Scapular Wall Slides Bilaterali",
-            "target": "Rieducazione cingolo scapolare (depressione sx, abduzione dx).",
+            "exercise": "Bilateral Scapular Wall Slides",
+            "target": "Scapular girdle re-education (left depression, right abduction).",
             "params": "W3: 3x8, W4: 3x10, W5: 4x8 [RPE: 8, Tempo: 3-1-1-0]",
-            "notes": "Al muro, deprimere la scapola sx a fine corsa ed elevare la spalla dx."
+            "notes": "Against wall, depress left scapula at end-range and elevate right shoulder."
           }
         ]
       },
       "F3": {
         "phase_num": "3",
-        "title": "FASE AVANZATA — Controllo motorio complesso e Integrazione funzionale",
-        "objective": "Ottimizzare il controllo eccentrico degli arti inferiori, stabilizzare il ginocchio destro in Step Over dinamico ed integrare gli schemi nel salto.",
+        "title": "ADVANCED PHASE — Complex Motor Control and Functional Integration",
+        "objective": "Optimize lower limb eccentric control, stabilize right knee in dynamic Step Over, and integrate patterns into jumping.",
         "exercises": [
           {
-            "exercise": "Single Leg Stance su Foam / Medusa (Dx)",
-            "target": "Stabilizzazione monopodalica reattiva a destra.",
+            "exercise": "Single Leg Stance on Foam Pad / Balance Disc (Right side)",
+            "target": "Reactive single-leg stabilization on the right.",
             "params": "W6: 3x30\", W7: 3x45\", W8: 3x60\" [RPE: 8-9, Tempo: Iso]",
-            "notes": "Mantenere l'appoggio stabile controllando le oscillazioni."
+            "notes": "Maintain stable ground contact controlling postural sway."
           },
           {
-            "exercise": "Step Down laterale su box (Dx)",
-            "target": "Rinforzo eccentrico gluteo/quadricipite e controllo del valgismo.",
+            "exercise": "Lateral Step Down from box (Right side)",
+            "target": "Eccentric glute/quadriceps strengthening and dynamic valgus control.",
             "params": "W6: 3x6, W7: 3x8, W8: 4x6 [RPE: 8-9, Tempo: 3-1-1-0]",
-            "notes": "Su box da 15 cm. Discesa controllata col ginocchio dx allineato."
+            "notes": "On a 15 cm box. Controlled descent with right knee aligned over second toe."
           },
           {
-            "exercise": "Squat completo con Overhead Reach",
-            "target": "Integrazione dell'accosciata profonda con estensione.",
+            "exercise": "Full Squat with Overhead Reach",
+            "target": "Integrate deep squat mechanics with thoracic extension.",
             "params": "W6: 3x6, W7: 3x8, W8: 4x6 [RPE: 8-9, Tempo: 3-1-1-0]",
-            "notes": "Discesa profonda con bastone sopra la testa (focus estensione toracica)."
+            "notes": "Deep squat with dowel overhead (focus on thoracic extension)."
           },
           {
-            "exercise": "Landing Control Monopodalico (lato Dx e Sx)",
-            "target": "Ammortizzazione e prevenzione infortuni.",
+            "exercise": "Single-Leg Landing Control (Right and Left sides)",
+            "target": "Impact shock absorption and injury prevention.",
             "params": "W6: 3x6, W7: 3x8, W8: 4x6 [RPE: 8-9, Tempo: 2-0-1-0 (Decel)]",
-            "notes": "Salto da box da 20 cm, atterraggio monopodalico stabile per 2\". Focus su allineamento."
+            "notes": "Step off a 20 cm box, stick single-leg landing for 2\". Focus on knee-hip alignment."
           },
           {
-            "exercise": "Affondi laterali dinamici con controllo",
-            "target": "Spostamento dinamico sul piano laterale.",
-            "params": "W6-W8: 3x15 metri [RPE: 8, Tempo: Dinamico]",
-            "notes": "Affondi laterali alternati mantenendo il ginocchio ed il piede stabili."
+            "exercise": "Dynamic Lateral Lunges with Control",
+            "target": "Dynamic deceleration and strength in the frontal plane.",
+            "params": "W6-W8: 3x15 meters [RPE: 8, Tempo: Dynamic]",
+            "notes": "Alternating lateral lunges maintaining knee and foot stability."
           }
         ]
       }
@@ -1034,123 +1034,6 @@
       }
     }
   },
-  "14": {
-    "id": 14,
-    "name": "NELLY ADAMCZEWSKA",
-    "phases": {
-      "F1": {
-        "phase_num": "1",
-        "title": "FASE INIZIALE — Rilascio, Ripristino del ROM e Attivazione di base",
-        "objective": "Allungare le catene rigide, sbloccare la scapola destra e il tronco, attivare la stabilità profonda e la muscolatura intrinseca del piede sinistro.",
-        "exercises": [
-          {
-            "exercise": "SMR Combo (Pettorale Dx + Allungamento Cervicale Sx)",
-            "target": "Allentare la tensione del pettorale destro e decomprimere il trapezio sinistro.",
-            "params": "1x2 min per zona [RPE: N/A, Tempo: Lento]",
-            "notes": "Pallina contro il muro per il petto dx, stretching passivo controlaterale per il collo sx."
-          },
-          {
-            "exercise": "Cat-Cow Selettivo (Lombare) & IAP",
-            "target": "Attivare la stabilità lombare profonda e riequilibrare il bacino.",
-            "params": "W1: 3x8, W2: 3x10 [RPE: 7, Tempo: 3-1-1-0]",
-            "notes": "Cat-Cow lento sul bacino associato a respirazione diaframmatica con pressione intra-addominale."
-          },
-          {
-            "exercise": "Rotazione Tronco a Sx in quadrupedia",
-            "target": "Recuperare la rotazione sinistra del rachide toracico/lombare.",
-            "params": "W1: 3x8, W2: 3x10 [RPE: 7, Tempo: 3-1-1-0]",
-            "notes": "In quadrupedia, mano dietro la nuca a sx, ruotare il gomito verso l'alto senza flettere le braccia."
-          },
-          {
-            "exercise": "Retrazione Scapolare a terra (Dx) + Short Foot (Sx)",
-            "target": "Attivare i fissatori della scapola destra e rinforzare l'arco plantare sx.",
-            "params": "W1: 3x12, W2: 3x15 [RPE: 7, Tempo: 3-2-1-0]",
-            "notes": "Proni, fronte a terra, sollevare la mano destra stringendo la scapola; a terra, eseguire Foot Doming per il piede sx."
-          },
-          {
-            "exercise": "Clamshell con elastico leggero (Bilaterale)",
-            "target": "Attivare il gluteo medio bilaterale per controllare il valgismo dinamico.",
-            "params": "W1: 3x10, W2: 3x12 [RPE: 7, Tempo: 3-1-1-0]",
-            "notes": "Decubito laterale, ginocchia a 90°. Aprire il ginocchio superiore senza ruotare il bacino."
-          }
-        ]
-      },
-      "F2": {
-        "phase_num": "2",
-        "title": "FASE INTERMEDIA — Rinforzo segmentale e Stabilità statica/dinamica",
-        "objective": "Rinforzare la catena laterale sinistra per il controllo pelvico, stabilizzare la scapola destra e rinforzare i rotatori del tronco.",
-        "exercises": [
-          {
-            "exercise": "Scapular Wall Slides (Dx)",
-            "target": "Riequilibrare l'ante-proiezione e il timing della scapola destra.",
-            "params": "W3: 3x8, W4: 3x10, W5: 4x8 [RPE: 8, Tempo: 3-1-1-0]",
-            "notes": "Al muro, far scivolare il braccio destro controllando la depressione scapolare."
-          },
-          {
-            "exercise": "Inversione Caviglia con elastico (Sx)",
-            "target": "Rinforzo selettivo del tibiale posteriore sinistro per la stabilità podalica.",
-            "params": "W3: 3x12, W4: 3x15, W5: 4x12 [RPE: 8, Tempo: 3-1-1-0]",
-            "notes": "Tirare l'elastico all'interno controllando l'eccentrica. Mantenere l'anca stabile."
-          },
-          {
-            "exercise": "Side Plank (focus lato Sx)",
-            "target": "Rinforzo obliqui e stabilità pelvica per equilibrare il triangolo della taglia.",
-            "params": "W3: 3x30\", W4: 3x45\", W5: 3x60\" [RPE: 8, Tempo: Iso]",
-            "notes": "Poggiati sul gomito sinistro, mantenere la linea corporea orizzontale."
-          },
-          {
-            "exercise": "Step Down facilitato (Bilaterale)",
-            "target": "Controllo eccentrico dell'allineamento anca-ginocchio (valgismo).",
-            "params": "W3: 3x8, W4: 3x10, W5: 4x8 [RPE: 8, Tempo: 3-1-1-0]",
-            "notes": "Su gradino da 10 cm, scendere sfiorando il tallone a terra. Ginocchia perfettamente allineate."
-          },
-          {
-            "exercise": "Rotazione del tronco con elastico (a Sx)",
-            "target": "Rinforzo della catena spirale e dei rotatori del tronco a sinistra.",
-            "params": "W3: 3x10, W4: 3x12, W5: 3x15 [RPE: 8, Tempo: 3-1-1-0]",
-            "notes": "Elastico fissato lateralmente, ruotare il tronco verso sinistra controllando la fase eccentrica."
-          }
-        ]
-      },
-      "F3": {
-        "phase_num": "3",
-        "title": "FASE AVANZATA — Controllo motorio complesso e Integrazione funzionale",
-        "objective": "Consolidare la stabilità scapolare destra in contrazione complessa, l'allineamento pelvico dinamico e gli atterraggi sport-specifici.",
-        "exercises": [
-          {
-            "exercise": "Single Leg Stance su Foam / Medusa (Sx)",
-            "target": "Propriocezione reattiva del piede e del ginocchio sinistro.",
-            "params": "W6: 3x30\", W7: 3x45\", W8: 3x60\" [RPE: 8-9, Tempo: Iso]",
-            "notes": "Mantenere l'appoggio monopodalico su cuscino instabile mantenendo il ginocchio sx allineato."
-          },
-          {
-            "exercise": "Lateral Step Down su box (Bilaterale)",
-            "target": "Forza eccentrica e allineamento dell'asse di atterraggio.",
-            "params": "W6: 3x6, W7: 3x8, W8: 4x6 [RPE: 8-9, Tempo: 3-1-1-0]",
-            "notes": "Su box da 15-20 cm, mantenere il bacino orizzontale e il ginocchio allineato in discesa."
-          },
-          {
-            "exercise": "Squat completo con Overhead Reach",
-            "target": "Estensione dorsale integrata ad accosciata profonda (ROM > 80°).",
-            "params": "W6: 3x6, W7: 3x8, W8: 4x6 [RPE: 8-9, Tempo: 3-1-1-0]",
-            "notes": "Discesa profonda con bastone sopra la testa, limitando il butt wink fino a 70°."
-          },
-          {
-            "exercise": "Landing Control Monopodalico (Bilaterale)",
-            "target": "Prevenzione infortuni sport-specifica nella pallavolo (atterraggi).",
-            "params": "W6: 3x6, W7: 3x8, W8: 4x6 [RPE: 8-9, Tempo: 2-0-1-0 (Decel)]",
-            "notes": "Salto da box di 20 cm, atterrare stabili ammortizzando in mezza accosciata per 2\"."
-          },
-          {
-            "exercise": "Andature coordinative con torsioni controllate",
-            "target": "Trasferimento dinamico e controllo rotazionale del tronco.",
-            "params": "W6-W8: 3x15 metri [RPE: 8, Tempo: Dinamico]",
-            "notes": "Focus sulla stabilità del bacino e allineamento scapolare durante il passo con torsione."
-          }
-        ]
-      }
-    }
-  },
   "11": {
     "id": 11,
     "name": "LUNA CICOLA",
@@ -1497,6 +1380,123 @@
             "target": "Trasferimento dinamico reattivo della stabilità podalica.",
             "params": "W6-W8: 3x15 metri [RPE: 8, Tempo: Dinamico]",
             "notes": "Skip veloci ed arresto monopodalico su piede sx in controllo."
+          }
+        ]
+      }
+    }
+  },
+  "14": {
+    "id": 14,
+    "name": "NELLY ADAMCZEWSKA",
+    "phases": {
+      "F1": {
+        "phase_num": "1",
+        "title": "FASE INIZIALE — Rilascio, Ripristino del ROM e Attivazione di base",
+        "objective": "Allungare le catene rigide, sbloccare la scapola destra e il tronco, attivare la stabilità profonda e la muscolatura intrinseca del piede sinistro.",
+        "exercises": [
+          {
+            "exercise": "SMR Combo (Pettorale Dx + Allungamento Cervicale Sx)",
+            "target": "Allentare la tensione del pettorale destro e decomprimere il trapezio sinistro.",
+            "params": "1x2 min per zona [RPE: N/A, Tempo: Lento]",
+            "notes": "Pallina contro il muro per il petto dx, stretching passivo controlaterale per il collo sx."
+          },
+          {
+            "exercise": "Cat-Cow Selettivo (Lombare) & IAP",
+            "target": "Attivare la stabilità lombare profonda e riequilibrare il bacino.",
+            "params": "W1: 3x8, W2: 3x10 [RPE: 7, Tempo: 3-1-1-0]",
+            "notes": "Cat-Cow lento sul bacino associato a respirazione diaframmatica con pressione intra-addominale."
+          },
+          {
+            "exercise": "Rotazione Tronco a Sx in quadrupedia",
+            "target": "Recuperare la rotazione sinistra del rachide toracico/lombare.",
+            "params": "W1: 3x8, W2: 3x10 [RPE: 7, Tempo: 3-1-1-0]",
+            "notes": "In quadrupedia, mano dietro la nuca a sx, ruotare il gomito verso l'alto senza flettere le braccia."
+          },
+          {
+            "exercise": "Retrazione Scapolare a terra (Dx) + Short Foot (Sx)",
+            "target": "Attivare i fissatori della scapola destra e rinforzare l'arco plantare sx.",
+            "params": "W1: 3x12, W2: 3x15 [RPE: 7, Tempo: 3-2-1-0]",
+            "notes": "Proni, fronte a terra, sollevare la mano destra stringendo la scapola; a terra, eseguire Foot Doming per il piede sx."
+          },
+          {
+            "exercise": "Clamshell con elastico leggero (Bilaterale)",
+            "target": "Attivare il gluteo medio bilaterale per controllare il valgismo dinamico.",
+            "params": "W1: 3x10, W2: 3x12 [RPE: 7, Tempo: 3-1-1-0]",
+            "notes": "Decubito laterale, ginocchia a 90°. Aprire il ginocchio superiore senza ruotare il bacino."
+          }
+        ]
+      },
+      "F2": {
+        "phase_num": "2",
+        "title": "FASE INTERMEDIA — Rinforzo segmentale e Stabilità statica/dinamica",
+        "objective": "Rinforzare la catena laterale sinistra per il controllo pelvico, stabilizzare la scapola destra e rinforzare i rotatori del tronco.",
+        "exercises": [
+          {
+            "exercise": "Scapular Wall Slides (Dx)",
+            "target": "Riequilibrare l'ante-proiezione e il timing della scapola destra.",
+            "params": "W3: 3x8, W4: 3x10, W5: 4x8 [RPE: 8, Tempo: 3-1-1-0]",
+            "notes": "Al muro, far scivolare il braccio destro controllando la depressione scapolare."
+          },
+          {
+            "exercise": "Inversione Caviglia con elastico (Sx)",
+            "target": "Rinforzo selettivo del tibiale posteriore sinistro per la stabilità podalica.",
+            "params": "W3: 3x12, W4: 3x15, W5: 4x12 [RPE: 8, Tempo: 3-1-1-0]",
+            "notes": "Tirare l'elastico all'interno controllando l'eccentrica. Mantenere l'anca stabile."
+          },
+          {
+            "exercise": "Side Plank (focus lato Sx)",
+            "target": "Rinforzo obliqui e stabilità pelvica per equilibrare il triangolo della taglia.",
+            "params": "W3: 3x30\", W4: 3x45\", W5: 3x60\" [RPE: 8, Tempo: Iso]",
+            "notes": "Poggiati sul gomito sinistro, mantenere la linea corporea orizzontale."
+          },
+          {
+            "exercise": "Step Down facilitato (Bilaterale)",
+            "target": "Controllo eccentrico dell'allineamento anca-ginocchio (valgismo).",
+            "params": "W3: 3x8, W4: 3x10, W5: 4x8 [RPE: 8, Tempo: 3-1-1-0]",
+            "notes": "Su gradino da 10 cm, scendere sfiorando il tallone a terra. Ginocchia perfettamente allineate."
+          },
+          {
+            "exercise": "Rotazione del tronco con elastico (a Sx)",
+            "target": "Rinforzo della catena spirale e dei rotatori del tronco a sinistra.",
+            "params": "W3: 3x10, W4: 3x12, W5: 3x15 [RPE: 8, Tempo: 3-1-1-0]",
+            "notes": "Elastico fissato lateralmente, ruotare il tronco verso sinistra controllando la fase eccentrica."
+          }
+        ]
+      },
+      "F3": {
+        "phase_num": "3",
+        "title": "FASE AVANZATA — Controllo motorio complesso e Integrazione funzionale",
+        "objective": "Consolidare la stabilità scapolare destra in contrazione complessa, l'allineamento pelvico dinamico e gli atterraggi sport-specifici.",
+        "exercises": [
+          {
+            "exercise": "Single Leg Stance su Foam / Medusa (Sx)",
+            "target": "Propriocezione reattiva del piede e del ginocchio sinistro.",
+            "params": "W6: 3x30\", W7: 3x45\", W8: 3x60\" [RPE: 8-9, Tempo: Iso]",
+            "notes": "Mantenere l'appoggio monopodalico su cuscino instabile mantenendo il ginocchio sx allineato."
+          },
+          {
+            "exercise": "Lateral Step Down su box (Bilaterale)",
+            "target": "Forza eccentrica e allineamento dell'asse di atterraggio.",
+            "params": "W6: 3x6, W7: 3x8, W8: 4x6 [RPE: 8-9, Tempo: 3-1-1-0]",
+            "notes": "Su box da 15-20 cm, mantenere il bacino orizzontale e il ginocchio allineato in discesa."
+          },
+          {
+            "exercise": "Squat completo con Overhead Reach",
+            "target": "Estensione dorsale integrata ad accosciata profonda (ROM > 80°).",
+            "params": "W6: 3x6, W7: 3x8, W8: 4x6 [RPE: 8-9, Tempo: 3-1-1-0]",
+            "notes": "Discesa profonda con bastone sopra la testa, limitando il butt wink fino a 70°."
+          },
+          {
+            "exercise": "Landing Control Monopodalico (Bilaterale)",
+            "target": "Prevenzione infortuni sport-specifica nella pallavolo (atterraggi).",
+            "params": "W6: 3x6, W7: 3x8, W8: 4x6 [RPE: 8-9, Tempo: 2-0-1-0 (Decel)]",
+            "notes": "Salto da box di 20 cm, atterrare stabili ammortizzando in mezza accosciata per 2\"."
+          },
+          {
+            "exercise": "Andature coordinative con torsioni controllate",
+            "target": "Trasferimento dinamico e controllo rotazionale del tronco.",
+            "params": "W6-W8: 3x15 metri [RPE: 8, Tempo: Dinamico]",
+            "notes": "Focus sulla stabilità del bacino e allineamento scapolare durante il passo con torsione."
           }
         ]
       }

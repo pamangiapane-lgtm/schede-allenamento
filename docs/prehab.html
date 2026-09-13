@@ -356,7 +356,7 @@
       🏐 MARSALA VOLLEY <span>PREHAB</span>
     </div>
     <div class="top-actions">
-      <button class="btn-top" onclick="safeReturn()">← Torna alla Scheda</button>
+      <button id="btnReturn" class="btn-top" onclick="safeReturn()">← Torna alla Scheda</button>
     </div>
   </header>
 
@@ -434,22 +434,68 @@
         return;
       }
 
+      const isEN = (program.athNum === 4 || program.athNum === 14 || (program.athName && (program.athName.includes('Anja') || program.athName.includes('Nelly'))));
+      window.currentIsEN = isEN;
+
+      const btnReturn = document.getElementById('btnReturn');
+      if (btnReturn) {
+        btnReturn.textContent = isEN ? '← Back to Workout' : '← Torna alla Scheda';
+      }
+
       document.title = `#${program.athNum} ${program.athName} — Prehab Marsala Volley`;
+
+      // Anja auto-translation dictionary safeguard (always English for Anja)
+      const anjaEnLookup = {
+        "Thoracic Spine Mobilization - Overhead Reach": {
+          how: "Sit back on your heels with your arms extended forward on a box or Swiss ball. Keep your pelvis fixed and gently allow your chest to sink toward the floor, extending through your mid and upper back (thoracic spine).",
+          feel: "Stretch along the latissimus dorsi and extension mobility through the thoracic spine and shoulder girdle.",
+          comp: "Do not arch your lower back (lumbar spine): the extension must come strictly from your upper and mid back."
+        },
+        "Thoracic Spine Mobilization - Swissball": {
+          how: "Kneel in front of the Swiss ball and rest your forearms on top of the ball. Roll the ball forward while exhaling, allowing your chest to drop toward the floor, then return smoothly while inhaling.",
+          feel: "Opening of the rib cage, relief between the shoulder blades, and enhanced mobility in the shoulders and upper back.",
+          comp: "Do not force through pinching shoulder pain. Keep the movement smooth, fluid, and controlled."
+        },
+        "Quadruped Thread The Needle To Open Book": {
+          how: "On hands and knees in a quadruped position, thread one arm underneath your torso, rotating your chest toward the floor. Then reverse the motion, opening that same arm up toward the ceiling, rotating your chest and following your hand with your eyes.",
+          feel: "Rotational mobility in the thoracic spine and a stretch through the periscapular and pectoral muscles.",
+          comp: "Do not shift your hips side to side: your pelvis and hips must stay square and centered over your knees."
+        },
+        "Arm Bar - Half Rotation, Kettlebell": {
+          how: "Lie on your back holding a kettlebell with your arm locked straight toward the ceiling. Slowly roll onto your side while keeping the kettlebell perfectly vertical and your eyes fixed on the weight at all times.",
+          feel: "Deep rotator cuff and serratus anterior activation and dynamic shoulder stability.",
+          comp: "Do not bend your elbow: keep your arm locked straight and solid like a load-bearing pillar throughout."
+        }
+      };
+
+      const flagsText = (isEN && program.athNum === 4) ? "Bilateral patellar tendinopathy, stiff right shoulder" : program.flags;
+      const volText = program.volume ? (isEN ? program.volume.replace(/serie/gi, 'sets').replace(/3x/gi, '3 sets').replace(/2x/gi, '2 sets') : program.volume) : (isEN ? '3 sets' : '3 serie');
 
       let html = `
         <section class="banner-anamnesi">
           <div>
             <div class="banner-ath-name">#${program.athNum} ${program.athName}</div>
-            <div class="banner-flags">🛡️ <strong>Focus:</strong> ${program.flags}</div>
+            <div class="banner-flags">🛡️ <strong>${isEN ? 'Focus:' : 'Focus:'}</strong> ${flagsText}</div>
           </div>
-          <div class="volume-pill">${program.volume || '3 serie'}</div>
+          <div class="volume-pill">${volText}</div>
         </section>
 
         <section class="exercises-list">
       `;
 
       html += program.exercises.map((ex, idx) => {
-        const statLabel = ex.statType === 'Hold' ? 'Tenuta' : 'Reps';
+        let howText = ex.how || '';
+        let feelText = ex.feel || '';
+        let compText = ex.comp || '';
+
+        // If English athlete (Anja/Nelly) apply clean English translation
+        if (isEN && anjaEnLookup[ex.name]) {
+          howText = anjaEnLookup[ex.name].how;
+          feelText = anjaEnLookup[ex.name].feel;
+          compText = anjaEnLookup[ex.name].comp;
+        }
+
+        const statLabel = ex.statType === 'Hold' ? (isEN ? 'Hold' : 'Tenuta') : 'Reps';
         const img1 = ex.images && ex.images[0] ? ex.images[0] : '';
         const img2 = ex.images && ex.images[1] ? ex.images[1] : img1;
 
@@ -478,7 +524,7 @@
 
                 ${ex.mp4 ? `
                   <button id="btnVid_${idx}" class="btn-video" onclick="toggleVideo(${idx})">
-                    ▶️ Guarda Video
+                    ${isEN ? '▶️ Watch Video' : '▶️ Guarda Video'}
                   </button>
                   <div id="vidDrawer_${idx}" class="video-container">
                     <video id="vidEl_${idx}" src="${ex.mp4}" controls playsinline></video>
@@ -488,16 +534,16 @@
 
               <div class="info-col">
                 <div class="desc-box how">
-                  <div class="desc-box-title">🎯 Come si esegue</div>
-                  <div class="desc-box-p">${ex.how || 'Esecuzione controllata.'}</div>
+                  <div class="desc-box-title">🎯 ${isEN ? 'How to Perform' : 'Come si esegue'}</div>
+                  <div class="desc-box-p">${howText || (isEN ? 'Controlled execution.' : 'Esecuzione controllata.')}</div>
                 </div>
                 <div class="desc-box feel">
-                  <div class="desc-box-title">⚡ Sensazione Target</div>
-                  <div class="desc-box-p">${ex.feel || 'Attivazione muscolare mirata.'}</div>
+                  <div class="desc-box-title">⚡ ${isEN ? 'Target Feeling' : 'Sensazione Target'}</div>
+                  <div class="desc-box-p">${feelText || (isEN ? 'Targeted muscle activation.' : 'Attivazione muscolare mirata.')}</div>
                 </div>
                 <div class="desc-box comp">
-                  <div class="desc-box-title">⚠️ Errori da Evitare</div>
-                  <div class="desc-box-p">${ex.comp || 'Evita compensi posturali.'}</div>
+                  <div class="desc-box-title">⚠️ ${isEN ? 'Compensation to Avoid' : 'Errori da Evitare'}</div>
+                  <div class="desc-box-p">${compText || (isEN ? 'Avoid postural compensations.' : 'Evita compensi posturali.')}</div>
                 </div>
               </div>
             </div>
