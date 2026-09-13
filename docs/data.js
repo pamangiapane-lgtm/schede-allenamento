@@ -3844,7 +3844,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 5, 4, 3",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
               "Tempo": "`2010`",
               "Note Tecniche": "Panca orizzontale, massima apertura toracica ed estensione dorsale senza inarcare la zona lombare."
             },
@@ -3853,7 +3853,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
               "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
@@ -4201,7 +4201,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 5, 4, 3",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
               "Tempo": "`2010`",
               "Note Tecniche": "Panca orizzontale, massima apertura toracica ed estensione dorsale senza inarcare la zona lombare."
             },
@@ -4210,7 +4210,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
               "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
@@ -10555,7 +10555,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 5, 4, 3",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
               "Tempo": "`2010`",
               "Note Tecniche": "Panca orizzontale, massima apertura toracica ed estensione dorsale senza inarcare la zona lombare."
             },
@@ -10564,7 +10564,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
               "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
@@ -10912,7 +10912,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
               "Set x Reps": "3 x 5, 4, 3",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
               "Tempo": "`2010`",
               "Note Tecniche": "Panca orizzontale, massima apertura toracica ed estensione dorsale senza inarcare la zona lombare."
             },
@@ -10921,7 +10921,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
               "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
