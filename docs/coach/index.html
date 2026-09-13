@@ -1116,6 +1116,8 @@
 
         <!-- Z-SCORE OUTLIER HIGHLIGHT BANNER -->
         <div id="prescr-zscore-callouts" style="margin-top:10px;display:none;background:#090f1d;border:1px dashed #3b82f6;border-radius:8px;padding:8px 12px;font-size:0.75rem;"></div>
+        <!-- IN ATTESA DI CHECK-IN BANNER -->
+        <div id="prescr-missing-banner" style="margin-top:6px;font-size:0.72rem;display:none;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:6px;padding:5px 10px;"></div>
       </div>
 
       <!-- MODULO GRAFICO WELLNESS DEDICATO (QUESTIONARIO SQUADRA) -->
@@ -2180,6 +2182,7 @@
       if (clockEl) clockEl.textContent = `Ultimo agg: ${new Date().toLocaleTimeString('it-IT')}`;
 
       try { renderReadinessRoster(); } catch (e) { console.error('[renderReadinessRoster]', e); }
+      try { renderPrescriptiveSCEngine(); } catch (e) { console.error('[renderPrescriptiveSCEngine]', e); }
       try { renderSedutePanel(); } catch (e) { console.error('[renderSedutePanel]', e); }
       try { render1RMTable(); } catch (e) { console.error('[render1RMTable]', e); }
       try { renderVBTTable(); } catch (e) { console.error('[renderVBTTable]', e); }
@@ -4454,6 +4457,18 @@
           `;
         } else {
           calloutEl.style.display = 'none';
+        }
+      }
+
+      // Banner Atlete in Attesa di Check-in
+      const missingBannerEl = document.getElementById('prescr-missing-banner');
+      if (missingBannerEl) {
+        if (missingList.length > 0) {
+          missingBannerEl.style.display = 'block';
+          const missingNames = missingList.map(m => `#${m.ath.id} ${m.ath.name.split(' ').pop()}`).join(', ');
+          missingBannerEl.innerHTML = `<span style="color:#fbbf24;font-weight:700;">⏳ In attesa del questionario odierno (${missingList.length} atlete):</span> <span style="color:#cbd5e1;margin-left:4px;">${missingNames}</span>`;
+        } else {
+          missingBannerEl.style.display = 'none';
         }
       }
 
