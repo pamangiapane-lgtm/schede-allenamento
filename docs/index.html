@@ -2833,6 +2833,7 @@
     const lastSavedCustomLoads = {};
 
     function onCustomExerciseLoadInput(exName, inputId, nSeduta, val) {
+      checkSilentSessionStart(nSeduta);
       const v = (val || '').trim();
       if (!v || !currentAthlete) return;
       localStorage.setItem(`mv_load_${currentAthlete.id}_${exName}`, v);
@@ -2840,6 +2841,7 @@
     }
 
     async function saveCustomExerciseLoad(exName, inputId, nSeduta) {
+      checkSilentSessionStart(nSeduta);
       const input = document.getElementById(inputId);
       if (!input || !currentAthlete) return;
       const val = input.value.trim();
@@ -2957,12 +2959,14 @@
     const lastSavedVbtLoads = {};
 
     function onCustomExerciseVbtInput(exName, inputId, nSeduta, val) {
+      checkSilentSessionStart(nSeduta);
       const v = (val || '').trim();
       if (!v || !currentAthlete) return;
       localStorage.setItem(`mv_vbt_${currentAthlete.id}_${exName}`, v);
     }
 
     async function saveCustomExerciseVbt(exName, inputId, nSeduta, autoLoadKg) {
+      checkSilentSessionStart(nSeduta);
       const input = document.getElementById(inputId);
       if (!input || !currentAthlete) return;
       const val = input.value.trim();
@@ -3859,6 +3863,8 @@ function renderSessions() {
 
   html += sessionsList.map((sed, sIdx) => {
     const sNum = sIdx + 1;
+    checkSilentSessionStart(sed.Numero_Seduta);
+    checkSilentSessionStart(sNum);
     const isFriday = (sNum === 3 || (sed.Giorno && sed.Giorno.toLowerCase().includes('ven')));
 
     // Collect and normalize exercises
@@ -4301,8 +4307,104 @@ function renderSessions() {
       `;
     }
 
-    let sessionRatings = {};
+        let sessionRatings = {};
     const debounceSessionTimers = {};
+
+    // ==========================================
+    // SISTEMA SILENZIOSO RILEVAZIONE DURATA & sRPE
+    // (100% invisibile a schermo per le atlete)
+    // ==========================================
+
+    function normalizeSessionNum(nSeduta) {
+      const str = String(nSeduta || '').toLowerCase();
+      if (str.includes('3') || str.includes('ven')) return '3';
+      if (str.includes('2') || str.includes('mer')) return '2';
+      return '1';
+    }
+
+    function checkSilentSessionStart(nSeduta) {
+      if (!currentAthlete || !currentAthlete.id) return;
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const sNum = normalizeSessionNum(nSeduta);
+      const startKey = `mv_silent_start_${currentAthlete.id}_${currentWeek}_S${sNum}_${todayStr}`;
+      if (!localStorage.getItem(startKey)) {
+        localStorage.setItem(startKey, String(Date.now()));
+      }
+    }
+
+    function calculateEffectiveSessionDuration(nSeduta) {
+      if (!currentAthlete || !currentAthlete.id) {
+        return { effectiveDuration: 52, isImputed: true, rawDuration: null, startTs: null, endTs: Date.now() };
+      }
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const sNum = normalizeSessionNum(nSeduta);
+      const startKey = `mv_silent_start_${currentAthlete.id}_${currentWeek}_S${sNum}_${todayStr}`;
+      const startTs = parseInt(localStorage.getItem(startKey), 10);
+      const now = Date.now();
+      let rawDuration = null;
+      if (startTs && !isNaN(startTs) && now >= startTs) {
+        rawDuration = Math.round((now - startTs) / 60000);
+      }
+
+      // Durata teorica programmata da WEEKS_DATA come fallback di sicurezza
+      let fallbackDuration = 52;
+      try {
+        const wObj = (typeof WEEKS_DATA !== 'undefined') ? WEEKS_DATA[currentWeek] : null;
+        const sData = wObj?.sedute?.find(s => normalizeSessionNum(s.Numero_Seduta) === sNum);
+        if (sData && sData.Durata_min) {
+          fallbackDuration = parseInt(sData.Durata_min, 10) || (sNum === '3' ? 40 : 52);
+        }
+      } catch (e) {
+        fallbackDuration = (sNum === '3' ? 40 : 52);
+      }
+
+      // Registro durate condivise di squadra per la seduta odierna
+      const squadKey = `mv_squad_durations_${currentWeek}_S${sNum}_${todayStr}`;
+      let squadData = [];
+      try {
+        squadData = JSON.parse(localStorage.getItem(squadKey) || '[]');
+      } catch (e) { squadData = []; }
+
+      let effectiveDuration = fallbackDuration;
+      let isImputed = false;
+
+      // Range fisiologico attendibile per seduta pesi: 35 - 85 minuti
+      if (rawDuration !== null && rawDuration >= 35 && rawDuration <= 85) {
+        effectiveDuration = rawDuration;
+        // Salva nel registro del cluster di squadra per fare media per chi dimentica
+        const existingIdx = squadData.findIndex(item => item.athId === currentAthlete.id);
+        if (existingIdx >= 0) {
+          squadData[existingIdx] = { athId: currentAthlete.id, duration: rawDuration, ts: now };
+        } else {
+          squadData.push({ athId: currentAthlete.id, duration: rawDuration, ts: now });
+        }
+        try {
+          localStorage.setItem(squadKey, JSON.stringify(squadData));
+        } catch (e) {}
+      } else {
+        // Outlier (dimenticanza e compilazione tardiva, o test immediato <30 min)
+        isImputed = true;
+        const validSquadDurations = squadData.map(s => s.duration).filter(d => d >= 35 && d <= 85);
+        if (validSquadDurations.length > 0) {
+          // Mediana delle compagne che hanno compilato tempestivamente sul campo
+          validSquadDurations.sort((a, b) => a - b);
+          const mid = Math.floor(validSquadDurations.length / 2);
+          effectiveDuration = (validSquadDurations.length % 2 !== 0)
+            ? validSquadDurations[mid]
+            : Math.round((validSquadDurations[mid - 1] + validSquadDurations[mid]) / 2);
+        } else {
+          effectiveDuration = fallbackDuration;
+        }
+      }
+
+      return {
+        effectiveDuration,
+        isImputed,
+        rawDuration,
+        startTs: startTs || null,
+        endTs: now
+      };
+    }
 
     
     function updateSessionHeaderStatus(nSeduta, rpeVal) {
@@ -4338,15 +4440,25 @@ function renderSessions() {
         lbl.style.color = '#60a5fa';
       }
 
-      // Persistenza IMMEDIATA in localStorage
+      // Persistenza IMMEDIATA in localStorage con durata silenziosa calcolata
       const rpe = sessionRatings[nSeduta].rpe ?? null;
       const fat = sessionRatings[nSeduta].fat ?? null;
       const note = document.getElementById(`note-end-${nSeduta}`)?.value.trim() || '';
+
+      const durInfo = calculateEffectiveSessionDuration(nSeduta);
+      const rpeNum = (rpe !== null && rpe !== undefined) ? Number(rpe) : null;
+      const srpeLoad = (rpeNum !== null) ? Math.round(rpeNum * durInfo.effectiveDuration) : null;
 
       const payload = {
         rpe: rpe,
         fat: fat,
         note: note,
+        duration: durInfo.effectiveDuration,
+        srpe_load: srpeLoad,
+        duration_imputed: durInfo.isImputed,
+        raw_duration: durInfo.rawDuration,
+        timer_start: durInfo.startTs ? new Date(durInfo.startTs).toISOString() : null,
+        timer_end: new Date(durInfo.endTs).toISOString(),
         date: new Date().toISOString().slice(0, 10),
         ts: new Date().toISOString()
       };
@@ -4375,10 +4487,27 @@ function renderSessions() {
       const rpe = sessionRatings[nSeduta].rpe ?? null;
       const fat = sessionRatings[nSeduta].fat ?? null;
 
+      let prevPayload = null;
+      try {
+        const rawP = localStorage.getItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`);
+        if (rawP) prevPayload = JSON.parse(rawP);
+      } catch (e) {}
+
+      const durInfo = calculateEffectiveSessionDuration(nSeduta);
+      const effectiveDur = prevPayload?.duration || durInfo.effectiveDuration;
+      const rpeNum = (rpe !== null && rpe !== undefined) ? Number(rpe) : null;
+      const srpeLoad = (rpeNum !== null) ? Math.round(rpeNum * effectiveDur) : null;
+
       const payload = {
         rpe: rpe,
         fat: fat,
         note: val.trim(),
+        duration: effectiveDur,
+        srpe_load: srpeLoad,
+        duration_imputed: prevPayload?.duration_imputed ?? durInfo.isImputed,
+        raw_duration: prevPayload?.raw_duration ?? durInfo.rawDuration,
+        timer_start: prevPayload?.timer_start || (durInfo.startTs ? new Date(durInfo.startTs).toISOString() : null),
+        timer_end: new Date().toISOString(),
         date: new Date().toISOString().slice(0, 10),
         ts: new Date().toISOString()
       };
@@ -4410,6 +4539,8 @@ function renderSessions() {
         if (parsed.rpe === null && parsed.fat === null) return;
         const rpeDisplay = parsed.rpe !== null ? `${parsed.rpe}/10` : '—';
         const fatDisplay = parsed.fat !== null ? `${parsed.fat}/10` : '—';
+        const durNum = parsed.duration || 52;
+        const srpeVal = parsed.srpe_load || (parsed.rpe != null ? Math.round(parseFloat(parsed.rpe) * durNum) : null);
 
         if (window.MV_SUPABASE) {
           window.MV_SUPABASE.saveSessionRating({
@@ -4418,7 +4549,9 @@ function renderSessions() {
             date: parsed.date || new Date().toISOString().slice(0, 10),
             srpe: parsed.rpe != null ? parseFloat(parsed.rpe) : null,
             fatigue: parsed.fat != null ? parseFloat(parsed.fat) : null,
-            note: parsed.note || ''
+            note: parsed.note || '',
+            duration: durNum,
+            srpe_load: srpeVal
           });
         }
 
@@ -4433,7 +4566,9 @@ function renderSessions() {
             n_seduta: `${currentWeek}_${nSeduta}`,
             esercizio: 'Chiusura-Seduta',
             data: parsed.date || new Date().toISOString().slice(0, 10),
-            valore: `RPE ${rpeDisplay} · Fatica ${fatDisplay}`,
+            valore: `RPE ${rpeDisplay} · Fatica ${fatDisplay} · ${durNum}m (sRPE ${srpeVal || '—'})`,
+            durata: durNum,
+            srpe_load: srpeVal,
             note: parsed.note || ''
           })
         });
@@ -4466,10 +4601,21 @@ function renderSessions() {
         const rpe = sessionRatings[nSeduta].rpe ?? null;
         const fat = sessionRatings[nSeduta].fat ?? null;
         const note = document.getElementById(`note-end-${nSeduta}`)?.value.trim() || '';
+
+        const durInfo = calculateEffectiveSessionDuration(nSeduta);
+        const rpeNum = (rpe !== null && rpe !== undefined) ? Number(rpe) : null;
+        const srpeLoad = (rpeNum !== null) ? Math.round(rpeNum * durInfo.effectiveDuration) : null;
+
         const payload = {
           rpe: rpe,
           fat: fat,
           note: note,
+          duration: durInfo.effectiveDuration,
+          srpe_load: srpeLoad,
+          duration_imputed: durInfo.isImputed,
+          raw_duration: durInfo.rawDuration,
+          timer_start: durInfo.startTs ? new Date(durInfo.startTs).toISOString() : null,
+          timer_end: new Date(durInfo.endTs).toISOString(),
           date: new Date().toISOString().slice(0, 10),
           ts: new Date().toISOString()
         };
