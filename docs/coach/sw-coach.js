@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v256-squat-1rm-aligned)
-const CACHE_NAME = 'coach-mv-v256-squat-1rm-aligned';
+// Service Worker Coach Command Center (v257-squat-pure-pct)
+const CACHE_NAME = 'coach-mv-v257-squat-pure-pct';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
