@@ -2033,12 +2033,36 @@
 
   </main>
 
-  <script src="./data.js?v=20260912v253"></script>
+  <script src="./data.js?v=20260914v266"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./supabase-client.js?v=2.0"></script>
+  <script src="./supabase-client.js?v=2.1"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
+    const SB_REST_URL = 'https://trhaoucqnmhqiimrkada.supabase.co/rest/v1';
+    const SB_ANON_KEY = 'sb_publishable_SDPimUfUqYBFlO5mZ_JdGQ_8N4sWYwd';
+
+    async function directSupabaseFetch(table, query) {
+      try {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 6000);
+        const res = await fetch(`${SB_REST_URL}/${table}?${query}`, {
+          headers: {
+            'apikey': SB_ANON_KEY,
+            'Authorization': `Bearer ${SB_ANON_KEY}`,
+            'Range': '0-999'
+          },
+          signal: controller.signal
+        });
+        clearTimeout(timer);
+        if (res.ok) {
+          return await res.json();
+        }
+      } catch (e) {
+        console.warn(`[Direct Supabase Fetch Failed: ${table}]`, e);
+      }
+      return null;
+    }
 
     const BASELINE_WEIGHTS = {
       1: 63.5, 2: 67.6, 3: 73.4, 4: 71.4, 5: 55.2,
@@ -2081,7 +2105,7 @@
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=253', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=266', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -2142,6 +2166,28 @@
             } catch (err) {
               console.warn('[Coach Supabase Fetch Error]', err);
             }
+          }
+        }
+
+        // Direct REST fallback se client JS non disponibile o fallito
+        if (sbRows.length === 0) {
+          try {
+            const restData = await directSupabaseFetch('wellness_logs', 'select=*&order=date.desc&limit=150');
+            if (restData && restData.length > 0) {
+              sbRows = restData.map(d => ({
+                ID_Giocatrice: d.athlete_id,
+                Data: d.date,
+                Qualita_Sonno: d.sleep_quality,
+                Fatica: d.fatigue,
+                Readines: d.readiness,
+                Dolori: d.soreness,
+                Stress: d.stress,
+                Note: d.note,
+                Timestamp: d.created_at
+              }));
+            }
+          } catch(e) {
+            console.warn('[Coach REST Wellness Fallback Error]', e);
           }
         }
 
@@ -2393,95 +2439,126 @@
     async function fetchLiveProgressi() {
       try {
         let rows = [];
-        if (window.MV_SUPABASE) {
-          const sb = window.MV_SUPABASE.getSb();
-          if (sb) {
-            if (!window._sbRealtimeSubscribed) {
-              window._sbRealtimeSubscribed = true;
+        let tData = null;
+        let sData = null;
+        let aData = null;
+
+        const sb = (window.MV_SUPABASE && typeof window.MV_SUPABASE.getSb === 'function') ? window.MV_SUPABASE.getSb() : null;
+        if (sb) {
+          if (!window._sbRealtimeSubscribed) {
+            window._sbRealtimeSubscribed = true;
+            try {
               window.MV_SUPABASE.subscribeRealtime((type, payload) => {
                 console.log('[Realtime Push]', type, payload);
                 fetchLiveWellness().then(() => fetchLiveProgressi());
               });
-            }
+            } catch(e) {}
+          }
 
-            const [tRes, sRes, aRes] = await Promise.all([
-              sb.from('training_sets').select('*').order('date', { ascending: false }).limit(1000),
+          // Fetch parallelo resiliente con Promise.allSettled (così un errore isolato non blocca gli altri)
+          try {
+            const results = await Promise.allSettled([
               sb.from('session_ratings').select('*').order('date', { ascending: false }).limit(300),
+              sb.from('training_sets').select('*').order('date', { ascending: false }).limit(350),
               sb.from('athletes').select('*')
             ]);
 
-            if (tRes && !tRes.error && tRes.data) {
-              tRes.data.forEach(t => {
-                let valStr = '';
-                if (t.vbt_velocity != null) valStr = `${t.vbt_velocity} m/s`;
-                else if (t.cmj_height != null) valStr = `${t.cmj_height} cm`;
-                else if (t.load_kg != null) valStr = `${t.load_kg}`;
-
-                rows.push({
-                  ID_Giocatrice: t.athlete_id,
-                  N_Seduta: t.session_code,
-                  Esercizio: t.exercise_name,
-                  Valore: valStr,
-                  Kg_Usati: t.load_kg != null ? `${t.load_kg}` : '',
-                  Reps_Fatte: t.reps_done || '',
-                  Data: t.date,
-                  Note_Atleta: t.note || '',
-                  Timestamp: t.timestamp
-                });
-              });
+            if (results[0].status === 'fulfilled' && results[0].value && !results[0].value.error && results[0].value.data) {
+              sData = results[0].value.data;
             }
-
-            if (sRes && !sRes.error && sRes.data) {
-              sRes.data.forEach(s => {
-                rows.push({
-                  ID_Giocatrice: s.athlete_id,
-                  N_Seduta: s.session_code,
-                  Esercizio: 'Chiusura-Seduta',
-                  Valore: `RPE ${s.srpe != null ? s.srpe : '—'}/10 · Fatica ${s.fatigue != null ? s.fatigue : '—'}/10`,
-                  Data: s.date,
-                  Note_Atleta: s.note || '',
-                  Timestamp: s.created_at
-                });
-              });
+            if (results[1].status === 'fulfilled' && results[1].value && !results[1].value.error && results[1].value.data) {
+              tData = results[1].value.data;
             }
-
-            if (aRes && !aRes.error && aRes.data) {
-              aRes.data.forEach(a => {
-                if (a.baseline_weight) {
-                  rows.push({
-                    ID_Giocatrice: a.id,
-                    N_Seduta: 0,
-                    Esercizio: 'Peso-corporeo',
-                    Valore: `${a.baseline_weight}`,
-                    Data: new Date().toISOString().slice(0, 10),
-                    Timestamp: a.created_at
-                  });
-                }
-                const lifts = [
-                  ['squat', a.baseline_squat], ['bench', a.baseline_bench], ['clean', a.baseline_clean],
-                  ['row', a.baseline_row], ['lat', a.baseline_lat], ['military', a.baseline_military], ['rdl', a.baseline_rdl]
-                ];
-                lifts.forEach(([lName, lVal]) => {
-                  if (lVal > 0) {
-                    rows.push({
-                      ID_Giocatrice: a.id,
-                      N_Seduta: 0,
-                      Esercizio: `1RM-${lName}`,
-                      Valore: `${lVal} kg`,
-                      Data: new Date().toISOString().slice(0, 10),
-                      Timestamp: a.created_at
-                    });
-                  }
-                });
-              });
+            if (results[2].status === 'fulfilled' && results[2].value && !results[2].value.error && results[2].value.data) {
+              aData = results[2].value.data;
             }
+          } catch(sbErr) {
+            console.warn('[Coach Supabase Fetch Error, trying direct REST]', sbErr);
           }
         }
 
+        // Direct REST fallback istantaneo se uno dei dataset è nullo o vuoto
+        if (!sData || sData.length === 0) {
+          sData = await directSupabaseFetch('session_ratings', 'select=*&order=date.desc&limit=300');
+        }
+        if (!tData || tData.length === 0) {
+          tData = await directSupabaseFetch('training_sets', 'select=*&order=date.desc&limit=350');
+        }
+        if (!aData || aData.length === 0) {
+          aData = await directSupabaseFetch('athletes', 'select=*');
+        }
+
+        if (tData && tData.length > 0) {
+          tData.forEach(t => {
+            let valStr = '';
+            if (t.vbt_velocity != null) valStr = `${t.vbt_velocity} m/s`;
+            else if (t.cmj_height != null) valStr = `${t.cmj_height} cm`;
+            else if (t.load_kg != null) valStr = `${t.load_kg}`;
+
+            rows.push({
+              ID_Giocatrice: t.athlete_id,
+              N_Seduta: t.session_code,
+              Esercizio: t.exercise_name,
+              Valore: valStr,
+              Kg_Usati: t.load_kg != null ? `${t.load_kg}` : '',
+              Reps_Fatte: t.reps_done || '',
+              Data: t.date,
+              Note_Atleta: t.note || '',
+              Timestamp: t.timestamp
+            });
+          });
+        }
+
+        if (sData && sData.length > 0) {
+          sData.forEach(s => {
+            rows.push({
+              ID_Giocatrice: s.athlete_id,
+              N_Seduta: s.session_code,
+              Esercizio: 'Chiusura-Seduta',
+              Valore: `RPE ${s.srpe != null ? s.srpe : '—'}/10 · Fatica ${s.fatigue != null ? s.fatigue : '—'}/10`,
+              Data: s.date,
+              Note_Atleta: s.note || '',
+              Timestamp: s.created_at
+            });
+          });
+        }
+
+        if (aData && aData.length > 0) {
+          aData.forEach(a => {
+            if (a.baseline_weight) {
+              rows.push({
+                ID_Giocatrice: a.id,
+                N_Seduta: 0,
+                Esercizio: 'Peso-corporeo',
+                Valore: `${a.baseline_weight}`,
+                Data: new Date().toISOString().slice(0, 10),
+                Timestamp: a.created_at
+              });
+            }
+            const lifts = [
+              ['squat', a.baseline_squat], ['bench', a.baseline_bench], ['clean', a.baseline_clean],
+              ['row', a.baseline_row], ['lat', a.baseline_lat], ['military', a.baseline_military], ['rdl', a.baseline_rdl]
+            ];
+            lifts.forEach(([lName, lVal]) => {
+              if (lVal > 0) {
+                rows.push({
+                  ID_Giocatrice: a.id,
+                  N_Seduta: 0,
+                  Esercizio: `1RM-${lName}`,
+                  Valore: `${lVal} kg`,
+                  Data: new Date().toISOString().slice(0, 10),
+                  Timestamp: a.created_at
+                });
+              }
+            });
+          });
+        }
+
+        // Fallback estremo su Google Apps Script solo se non è arrivato nessun dato da Supabase
         if (rows.length === 0) {
           try {
             const controller = new AbortController();
-            const timer = setTimeout(() => controller.abort(), 3500);
+            const timer = setTimeout(() => controller.abort(), 10000);
             const res = await fetch(`${GAS_URL}?token=${TOKEN}&azione=leggi&foglio=Progressi`, { signal: controller.signal });
             clearTimeout(timer);
             if (res.ok) {
@@ -2867,10 +2944,19 @@
         // Mappa l'ultima seduta registrata per atleta
         liveSessionRatings.forEach(s => {
           if (!liveTodaySessions[s.aid]) {
-            const isToday = (s.date === todayIso || s.date === localIso);
+            const isToday = (
+              s.date === todayIso ||
+              s.date === localIso ||
+              (s.ts && (s.ts.startsWith(todayIso) || s.ts.startsWith(localIso)))
+            );
             liveTodaySessions[s.aid] = { ...s, isToday: isToday };
           }
         });
+
+        try {
+          localStorage.setItem('mv_cache_today_sessions', JSON.stringify(liveTodaySessions));
+          localStorage.setItem('mv_cache_session_ratings', JSON.stringify(liveSessionRatings.slice(0, 50)));
+        } catch(e) {}
       } catch (e) {}
     }
 

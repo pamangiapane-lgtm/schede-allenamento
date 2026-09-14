@@ -1,6 +1,5 @@
-// Service Worker Coach Command Center (v265-w4-srpe-fatigue-sync)
-const CACHE_NAME = 'coach-mv-v265-w4-srpe-fatigue-sync';
-
+// Service Worker Coach Command Center (v266-bulletproof-session-sync)
+const CACHE_NAME = 'coach-mv-v266-bulletproof-session-sync';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
@@ -18,7 +17,7 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   // Richieste HTML / navigazione: sempre Network-First per mostrare le modifiche subito
-  if (event.request.mode === 'navigate' || event.request.destination === 'document' || event.request.url.includes('index.html')) {
+  if (event.request.mode === 'navigate' || event.request.destination === 'document' || event.request.url.includes('index.html') || event.request.url.includes('coach')) {
     event.respondWith(
       fetch(event.request)
         .then(response => {
@@ -33,11 +32,16 @@ self.addEventListener('fetch', event => {
     return;
   }
 
+  // Non intercettare chiamate API dirette verso Supabase o Google Apps Script (sempre live via rete)
+  if (event.request.url.includes('supabase.co') || event.request.url.includes('script.google.com')) {
+    return;
+  }
+
   // Risorse statiche
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        if (response && response.status === 200 && response.type === 'basic') {
+        if (response && response.status === 200) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
         }
