@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v264-unlock-1rm-live-recalc)
-const CACHE_NAME = 'coach-mv-v264-unlock-1rm-live-recalc';
+// Service Worker Coach Command Center (v265-w4-srpe-fatigue-sync)
+const CACHE_NAME = 'coach-mv-v265-w4-srpe-fatigue-sync';
 
 
 self.addEventListener('install', event => {

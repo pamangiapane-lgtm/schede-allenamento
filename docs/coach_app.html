@@ -1120,6 +1120,39 @@
     <!-- VISTA: SEDUTE PESI & sRPE (POST-ALLENAMENTO) -->
     <div class="c-panel" id="panel-sedute">
       
+      <!-- BOX STATO SEDUTA DI OGGI (COMPILAZIONI sRPE & FATICA) -->
+      <div class="card-box" id="box-today-sessions-status" style="margin-bottom:14px;border:1px solid rgba(16,185,129,0.3);background:linear-gradient(180deg, rgba(16,185,129,0.06) 0%, rgba(6,10,20,0.8) 100%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:1.2rem;">📋</span>
+            <div>
+              <h3 class="card-title" style="margin-bottom:2px;">Sedute Registrate Oggi · <span id="today-date-label" style="color:#6ee7b7;">Oggi</span></h3>
+              <div style="font-size:0.72rem;color:var(--mv-muted);">Valutazioni sRPE &amp; Fatica registrate in tempo reale dalle ragazze al termine della seduta pesi</div>
+            </div>
+          </div>
+          <span class="traffic-tag green" id="badge-today-sessions-count" style="font-size:0.75rem;padding:4px 10px;">0 / 13 atlete</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:12px;" class="today-sessions-grid">
+          <div>
+            <div style="font-size:0.72rem;font-weight:800;color:#6ee7b7;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+              <span>✓ Completate (<span id="count-done-today">0</span>)</span>
+            </div>
+            <div id="list-done-today" style="display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto;padding-right:4px;">
+              <div style="color:var(--mv-muted);font-size:0.75rem;font-style:italic;">Caricamento...</div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:0.72rem;font-weight:800;color:var(--mv-amber);text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+              <span>⏳ Mancanti (<span id="count-missing-today">0</span>)</span>
+            </div>
+            <div id="list-missing-today" style="display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto;padding-right:4px;">
+              <div style="color:var(--mv-muted);font-size:0.75rem;font-style:italic;">Caricamento...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Matrice Massimali 1RM & Forza Relativa (1RM / BW) -->
       <div class="card-box" style="margin-bottom:14px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
@@ -1239,9 +1272,10 @@
           <p style="font-size:0.75rem;color:var(--mv-muted);margin-bottom:10px;">Sforzo percepito della seduta (sRPE 0-10 Borg CR-10), livello di fatica e note di chiusura registrate dalle atlete.</p>
           <div class="scroll-pills" id="srpe-session-filters" style="margin-bottom:12px;">
             <button class="btn-filt active" onclick="filterSessionRatingsTable('all', this)" id="btn-srpe-all">Tutte le Sedute</button>
-            <button class="btn-filt" onclick="filterSessionRatingsTable('Seduta 3', this)" id="btn-srpe-s3">⚡ W3 · Seduta 3 (Ven)</button>
-            <button class="btn-filt" onclick="filterSessionRatingsTable('Seduta 2', this)" id="btn-srpe-s2">🏋️ W3 · Seduta 2 (Mer)</button>
-            <button class="btn-filt" onclick="filterSessionRatingsTable('Seduta 1', this)" id="btn-srpe-s1">🔥 W3 · Seduta 1 (Lun)</button>
+            <button class="btn-filt" onclick="filterSessionRatingsTable('W4 · Seduta 1', this)" id="btn-srpe-w4s1" style="border-color:#10b981;color:#6ee7b7;font-weight:800;">🔥 Oggi: W4 S1 (Lun)</button>
+            <button class="btn-filt" onclick="filterSessionRatingsTable('W3 · Seduta 3', this)" id="btn-srpe-s3">⚡ W3 · S3 (Ven)</button>
+            <button class="btn-filt" onclick="filterSessionRatingsTable('W3 · Seduta 2', this)" id="btn-srpe-s2">🏋️ W3 · S2 (Mer)</button>
+            <button class="btn-filt" onclick="filterSessionRatingsTable('W3 · Seduta 1', this)" id="btn-srpe-s1">🔥 W3 · S1 (Lun)</button>
           </div>
           <div class="coach-tbl-wrap" style="max-height:420px;overflow-y:auto;">
             <table class="coach-tbl">
@@ -2376,7 +2410,7 @@
               sb.from('athletes').select('*')
             ]);
 
-            if (!tRes.error && tRes.data) {
+            if (tRes && !tRes.error && tRes.data) {
               tRes.data.forEach(t => {
                 let valStr = '';
                 if (t.vbt_velocity != null) valStr = `${t.vbt_velocity} m/s`;
@@ -2395,51 +2429,51 @@
                   Timestamp: t.timestamp
                 });
               });
+            }
 
-              if (sRes.data) {
-                sRes.data.forEach(s => {
-                  rows.push({
-                    ID_Giocatrice: s.athlete_id,
-                    N_Seduta: s.session_code,
-                    Esercizio: 'Chiusura-Seduta',
-                    Valore: `RPE ${s.srpe != null ? s.srpe : '—'}/10 · Fatica ${s.fatigue != null ? s.fatigue : '—'}/10`,
-                    Data: s.date,
-                    Note_Atleta: s.note || '',
-                    Timestamp: s.created_at
-                  });
+            if (sRes && !sRes.error && sRes.data) {
+              sRes.data.forEach(s => {
+                rows.push({
+                  ID_Giocatrice: s.athlete_id,
+                  N_Seduta: s.session_code,
+                  Esercizio: 'Chiusura-Seduta',
+                  Valore: `RPE ${s.srpe != null ? s.srpe : '—'}/10 · Fatica ${s.fatigue != null ? s.fatigue : '—'}/10`,
+                  Data: s.date,
+                  Note_Atleta: s.note || '',
+                  Timestamp: s.created_at
                 });
-              }
+              });
+            }
 
-              if (aRes.data) {
-                aRes.data.forEach(a => {
-                  if (a.baseline_weight) {
+            if (aRes && !aRes.error && aRes.data) {
+              aRes.data.forEach(a => {
+                if (a.baseline_weight) {
+                  rows.push({
+                    ID_Giocatrice: a.id,
+                    N_Seduta: 0,
+                    Esercizio: 'Peso-corporeo',
+                    Valore: `${a.baseline_weight}`,
+                    Data: new Date().toISOString().slice(0, 10),
+                    Timestamp: a.created_at
+                  });
+                }
+                const lifts = [
+                  ['squat', a.baseline_squat], ['bench', a.baseline_bench], ['clean', a.baseline_clean],
+                  ['row', a.baseline_row], ['lat', a.baseline_lat], ['military', a.baseline_military], ['rdl', a.baseline_rdl]
+                ];
+                lifts.forEach(([lName, lVal]) => {
+                  if (lVal > 0) {
                     rows.push({
                       ID_Giocatrice: a.id,
                       N_Seduta: 0,
-                      Esercizio: 'Peso-corporeo',
-                      Valore: `${a.baseline_weight}`,
+                      Esercizio: `1RM-${lName}`,
+                      Valore: `${lVal} kg`,
                       Data: new Date().toISOString().slice(0, 10),
                       Timestamp: a.created_at
                     });
                   }
-                  const lifts = [
-                    ['squat', a.baseline_squat], ['bench', a.baseline_bench], ['clean', a.baseline_clean],
-                    ['row', a.baseline_row], ['lat', a.baseline_lat], ['military', a.baseline_military], ['rdl', a.baseline_rdl]
-                  ];
-                  lifts.forEach(([lName, lVal]) => {
-                    if (lVal > 0) {
-                      rows.push({
-                        ID_Giocatrice: a.id,
-                        N_Seduta: 0,
-                        Esercizio: `1RM-${lName}`,
-                        Valore: `${lVal} kg`,
-                        Data: new Date().toISOString().slice(0, 10),
-                        Timestamp: a.created_at
-                      });
-                    }
-                  });
                 });
-              }
+              });
             }
           }
         }
@@ -2737,12 +2771,19 @@
 
             let sessionLabel = nSeduta;
             const nUp = String(nSeduta).toUpperCase();
-            if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || nSeduta === '2' || actualDate === '2026-09-09') {
-              sessionLabel = 'W3 · Seduta 2';
-            } else if (nUp.includes('VEN') || nUp.includes('S3') || nUp.endsWith('_3') || nSeduta === '3' || actualDate === '2026-09-11') {
-              sessionLabel = 'W3 · Seduta 3';
-            } else if (nUp.includes('LUN') || nUp.includes('S1') || nUp.endsWith('_1') || nSeduta === '1' || actualDate === '2026-09-07') {
-              sessionLabel = 'W3 · Seduta 1';
+            const dStr = String(actualDate || '').slice(0, 10);
+            const isW4 = nUp.includes('W4') || dStr >= '2026-09-14';
+            const isW3 = nUp.includes('W3') || (!isW4 && dStr >= '2026-09-07');
+            const wPrefix = isW4 ? 'W4' : (isW3 ? 'W3' : 'W2');
+
+            if (nUp.includes('VEN') || nUp.includes('S3') || nUp.endsWith('_3') || nSeduta === '3' || dStr === '2026-09-11' || dStr === '2026-09-18') {
+              sessionLabel = `${wPrefix} · Seduta 3 (Ven)`;
+            } else if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || nSeduta === '2' || dStr === '2026-09-09' || dStr === '2026-09-16') {
+              sessionLabel = `${wPrefix} · Seduta 2 (Mer)`;
+            } else if (nUp.includes('LUN') || nUp.includes('S1') || nUp.endsWith('_1') || nSeduta === '1' || dStr === '2026-09-07' || dStr === '2026-09-14') {
+              sessionLabel = `${wPrefix} · Seduta 1 (Lun)`;
+            } else {
+              sessionLabel = `${wPrefix} · ${nSeduta}`;
             }
 
             liveSessionRatings.push({
@@ -4294,18 +4335,21 @@
       if (!tbody) return;
 
       // Aggiorna conteggi nei pulsanti filtro
-      const s3Count = liveSessionRatings.filter(s => s.session && s.session.includes('Seduta 3')).length;
-      const s2Count = liveSessionRatings.filter(s => s.session && s.session.includes('Seduta 2')).length;
-      const s1Count = liveSessionRatings.filter(s => s.session && s.session.includes('Seduta 1')).length;
+      const w4s1Count = liveSessionRatings.filter(s => s.session && s.session.includes('W4 · Seduta 1')).length;
+      const s3Count = liveSessionRatings.filter(s => s.session && s.session.includes('W3 · Seduta 3')).length;
+      const s2Count = liveSessionRatings.filter(s => s.session && s.session.includes('W3 · Seduta 2')).length;
+      const s1Count = liveSessionRatings.filter(s => s.session && s.session.includes('W3 · Seduta 1')).length;
 
       const btnAll = document.getElementById('btn-srpe-all');
+      const btnW4S1 = document.getElementById('btn-srpe-w4s1');
       const btnS3 = document.getElementById('btn-srpe-s3');
       const btnS2 = document.getElementById('btn-srpe-s2');
       const btnS1 = document.getElementById('btn-srpe-s1');
       if (btnAll) btnAll.textContent = `Tutte (${liveSessionRatings.length})`;
-      if (btnS3) btnS3.textContent = `⚡ W3 · Seduta 3 (${s3Count}/13)`;
-      if (btnS2) btnS2.textContent = `🏋️ W3 · Seduta 2 (${s2Count}/13)`;
-      if (btnS1) btnS1.textContent = `🔥 W3 · Seduta 1 (${s1Count}/13)`;
+      if (btnW4S1) btnW4S1.textContent = `🔥 Oggi: W4 S1 (${w4s1Count}/13)`;
+      if (btnS3) btnS3.textContent = `⚡ W3 · S3 (${s3Count}/13)`;
+      if (btnS2) btnS2.textContent = `🏋️ W3 · S2 (${s2Count}/13)`;
+      if (btnS1) btnS1.textContent = `🔥 W3 · S1 (${s1Count}/13)`;
 
       let filteredList = liveSessionRatings;
       if (currentSessionFilter !== 'all') {

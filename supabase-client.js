@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Marsala Volley A2 - Supabase Client & Dual-Run Engine (v2.0)
  * Gestione sincronizzazione ultra-rapida (< 40ms) con Shadow Backend Google Sheets
  */
@@ -334,8 +334,11 @@ if (typeof window !== 'undefined') {
   window.MV_SUPABASE = {
     getSb,
     saveWellness: sbSaveWellness,
+    salvaWellness: sbSaveWellness,
     saveTrainingSet: sbSaveTrainingSet,
+    salvaTrainingSet: sbSaveTrainingSet,
     saveSessionRating: sbSaveSessionRating,
+    salvaSessionRating: sbSaveSessionRating,
     updateAthlete: sbUpdateAthlete,
     subscribeRealtime: sbSubscribeRealtime,
     flushOfflineQueue
