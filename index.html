@@ -1464,8 +1464,9 @@
   </main>
 
   <script src="prehab_db.js?v=1.0"></script>
-  <script src="data.js?v=20260912v252"></script>
+  <script src="data.js?v=20260914v264"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script src="supabase-client.js?v=2.0"></script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
@@ -2027,10 +2028,11 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=246').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=264').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
+
 
       const urlParams = new URLSearchParams(window.location.search);
       const urlId = urlParams.get('id');
