@@ -1,5 +1,6 @@
-// Service Worker Coach Command Center (v263-nelly-intensity-12-removed)
-const CACHE_NAME = 'coach-mv-v263-nelly-intensity-12-removed';
+// Service Worker Coach Command Center (v264-unlock-1rm-live-recalc)
+const CACHE_NAME = 'coach-mv-v264-unlock-1rm-live-recalc';
+
 
 self.addEventListener('install', event => {
   self.skipWaiting();

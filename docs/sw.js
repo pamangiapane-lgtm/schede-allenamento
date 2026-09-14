@@ -1,11 +1,12 @@
-// Service Worker App Marsala Volley (v263-nelly-intensity-12-removed)
-const CACHE_NAME = 'marsala-app-v263-nelly-intensity-12-removed';
+// Service Worker App Marsala Volley (v264-unlock-1rm-live-recalc)
+const CACHE_NAME = 'marsala-app-v264-unlock-1rm-live-recalc';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260913v263',
+  './data.js?v=20260914v264',
   './supabase-client.js?v=2.0',
+
   './logo.jpg',
   './icon-192.png',
   './icon-512.png',

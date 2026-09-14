@@ -2610,6 +2610,12 @@
       btn.classList.add('active');
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
       document.getElementById(`tab-${tab}`).classList.add('active');
+      if (tab === 'sedute') {
+        renderSessions();
+      } else if (tab === 'profilo') {
+        render1RMProfile();
+        renderRiepilogoCarichi();
+      }
     }
 
     function switchWeek(week, btn) {
@@ -2669,6 +2675,19 @@
           const el = document.getElementById(`pct-${rmId}-${p}`);
           if (el) el.textContent = kg !== '—' ? `${kg}k` : '—';
         });
+      }
+      if (parsed > 0 && currentAthlete && currentAthlete.id) {
+        localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, String(parsed));
+        renderSessions();
+      }
+    }
+
+    async function on1RMChangeAuto(rmId, val) {
+      const parsed = parseFloat(val) || 0;
+      if (parsed > 0 && currentAthlete && currentAthlete.id) {
+        localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, String(parsed));
+        renderSessions();
+        await save1RMToCloud(rmId, parsed);
       }
     }
 
@@ -2734,7 +2753,7 @@
                 ${bwFormulaNote}
               </div>
               <div class="rm-val-box">
-                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg" oninput="recalc1RMLive('${rm.id}', this.value)">
+                <input type="number" class="rm-input" id="input-1rm-${rm.id}" value="${val > 0 ? val : ''}" placeholder="kg" oninput="recalc1RMLive('${rm.id}', this.value)" onchange="on1RMChangeAuto('${rm.id}', this.value)" onblur="on1RMChangeAuto('${rm.id}', this.value)">
                 <span style="font-size:0.8rem;color:var(--mv-muted);font-weight:700">kg</span>
                 <button class="btn-save-log" style="padding:6px 12px;font-size:0.75rem;" onclick="save1RMClick('${rm.id}', this)">${isEN ? 'Save' : 'Salva'}</button>
                 <span id="toast-1rm-${rm.id}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.8rem;">✓</span>
@@ -3299,8 +3318,6 @@
         .replace(/'/g, '&#039;');
     }
 // Helper to extract 1RM baseline and calculate target loads with dumbbell details
-// Helper to extract 1RM baseline and calculate target loads with dumbbell details
-// Helper to extract 1RM baseline and calculate target loads with dumbbell details
 function getExercise1RMData(exName, rawCarico, athlete, week) {
   if (!athlete || !athlete.id) return null;
   if (athlete.id === 14) return null; // Nelly segue il suo programma a carichi/buffer dedicati
@@ -3325,15 +3342,13 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
     const isDumbbell = low.includes('manubr') || low.includes('db') || low.includes('chest supported') || low.includes('single-arm') || low.includes('seal');
     if (rmVal > 0) {
       const pct = mPct ? parseFloat(mPct[1].replace(',', '.')) : (low.includes('seal') ? ((week === 'W3') ? 60 : 65) : ((week === 'W3') ? 70 : 75));
-      let eachKg = 0;
       let totalKg = calcTargetLoad(rmKey, rmVal, pct);
-
+      let eachKg = 0;
       if (isDumbbell) {
         eachKg = Math.round(totalKg / 2);
         if (eachKg < 4) eachKg = 4;
         totalKg = eachKg * 2;
       }
-
       return {
         rmKey,
         rmVal,
@@ -3352,33 +3367,19 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
     const rmVal = getAthlete1RM(rmKey);
     const isDumbbell = low.includes('manubr') || low.includes('db') || low.includes('floor');
     if (rmVal > 0) {
-      // Utente: "abbassa floor chest press al 60%"
-      let pct = 60;
-      if (low.includes('floor')) {
-        pct = 60;
-      } else if (mPct) {
+      let pct;
+      if (mPct) {
         pct = parseFloat(mPct[1].replace(',', '.'));
       } else {
-        pct = (week === 'W3') ? 70 : 75;
+        pct = low.includes('floor') ? 60 : ((week === 'W3') ? 70 : 75);
       }
+      let totalKg = calcTargetLoad(rmKey, rmVal, pct);
       let eachKg = 0;
-      let totalKg = 0;
-
-      if (low.includes('floor')) {
-        totalKg = calcTargetLoad(rmKey, rmVal, pct);
-        eachKg = Math.round(totalKg / 2);
-        if (eachKg < 4) eachKg = 4;
-        totalKg = eachKg * 2;
-      } else if (mDbPair) {
-        eachKg = parseFloat(mDbPair[1]);
-        totalKg = eachKg * 2;
-      } else {
-        totalKg = calcTargetLoad(rmKey, rmVal, pct);
+      if (isDumbbell) {
         eachKg = Math.round(totalKg / 2);
         if (eachKg < 4) eachKg = 4;
         totalKg = eachKg * 2;
       }
-
       return {
         rmKey,
         rmVal,
@@ -3391,7 +3392,7 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
     }
   }
 
-  // 3. Squat / Box Squat / Half Squat
+  // 3. Squat / Box Squat / Half Squat / Power Squat
   if ((low.includes('squat') && !low.includes('split') && !low.includes('bulgarian') && !low.includes('spanish')) || low.includes('box squat')) {
     const rmKey = RM_KEYS.find(k => k.id === 'squat');
     const rmVal = getAthlete1RM(rmKey);
@@ -3406,12 +3407,7 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
       } else {
         pct = (week === 'W3') ? 75 : 82.5;
       }
-      // Se nel testo del carico NON c'è un kg esplicito (es. "82.5%"), non calcolare carichi kg: mostra solo la % pura
-      const mKgInCarico = cStr.match(/\((\d+(?:[.,]\d+)?)\s*kg/);
-      if (!mKgInCarico) {
-        return null;
-      }
-      const targetKg = parseFloat(mKgInCarico[1].replace(',', '.'));
+      const targetKg = calcTargetLoad(rmKey, rmVal, pct);
       return {
         rmKey,
         rmVal,
@@ -3443,11 +3439,10 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
 
   // 5. Power Clean / WL
   if (low.includes('clean') && !low.includes('split')) {
-    if (!mPct) return null; // mantieni testo/carico esplicito se non c'è %
     const rmKey = RM_KEYS.find(k => k.id === 'clean');
     const rmVal = getAthlete1RM(rmKey);
     if (rmVal > 0) {
-      const pct = parseFloat(mPct[1].replace(',', '.'));
+      const pct = mPct ? parseFloat(mPct[1].replace(',', '.')) : 70;
       const targetKg = calcTargetLoad(rmKey, rmVal, pct);
       return {
         rmKey,
@@ -3462,11 +3457,10 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
 
   // 6. Push Press / Military Press / Landmine Press
   if (low.includes('push press') || low.includes('military') || low.includes('landmine')) {
-    if (!mPct) return null; // se non c'è %, mantieni RPE o carico prescritto
     const rmKey = RM_KEYS.find(k => k.id === 'military');
     const rmVal = getAthlete1RM(rmKey);
     if (rmVal > 0) {
-      const pct = parseFloat(mPct[1].replace(',', '.'));
+      const pct = mPct ? parseFloat(mPct[1].replace(',', '.')) : 70;
       const targetKg = calcTargetLoad(rmKey, rmVal, pct);
       return {
         rmKey,
@@ -3481,11 +3475,10 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
 
   // 7. Romanian Deadlift (RDL) / Stacco Rumeno
   if (low.includes('rdl') || low.includes('stacco') || (low.includes('deadlift') && !low.includes('single-leg'))) {
-    if (!mPct) return null;
     const rmKey = RM_KEYS.find(k => k.id === 'rdl');
     const rmVal = rmKey ? getAthlete1RM(rmKey) : 0;
     if (rmVal > 0) {
-      const pct = parseFloat(mPct[1].replace(',', '.'));
+      const pct = mPct ? parseFloat(mPct[1].replace(',', '.')) : 70;
       const targetKg = calcTargetLoad(rmKey, rmVal, pct);
       return {
         rmKey,
