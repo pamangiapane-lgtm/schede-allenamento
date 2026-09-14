@@ -1385,9 +1385,13 @@
       <!-- Card Intestazione Sezione Campo -->
       <div class="campo-header-card">
         <div class="campo-header-top">
-          <div class="campo-title">
+          <div class="campo-title" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
             <span>🏐</span>
-            <span>Programma Campo S&C — Preseason W3</span>
+            <span>Programma Campo S&C</span>
+            <select id="campo-week-select" class="met-select" onchange="switchCampoWeek(this.value)" style="background:#0f172a;color:#f59e0b;font-weight:800;border:1px solid #f59e0b;border-radius:6px;padding:3px 8px;font-size:0.75rem;cursor:pointer;">
+              <option value="W4" selected>Settimana 4 (Attuale · Contrasto Dinamico & COD)</option>
+              <option value="W3">Settimana 3 (Archivio · Forza & Frenata 180°)</option>
+            </select>
             <span class="campo-badge">Parquet 45' · Zero Elettronica</span>
           </div>
           <div class="campo-actions">
@@ -1404,7 +1408,7 @@
         </div>
 
         <div style="font-size:0.75rem;color:var(--mv-muted);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
-          <span>Microciclo Settimana 3 (Picco Forza Pesante) · 3 Sedute Pomeridiane a Secco prima del Volley Tecnico.</span>
+          <span id="campo-subtitle-text">Microciclo Settimana 4 (Contrasto Dinamico & Decelerazione Rapida) · 3 Sedute Pomeridiane a Secco prima del Volley Tecnico.</span>
           <span style="color:#fde68a;font-size:0.72rem;background:rgba(245,158,11,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(245,158,11,0.25);">
             ✏️ Tocca qualsiasi testo per modificarlo
           </span>
@@ -1424,7 +1428,6 @@
 
       <!-- CONTENITORE SEDUTE (EDITABILE) -->
       <div id="campo-days-container" style="display:flex;flex-direction:column;gap:14px;margin-top:10px;">
-        
         <!-- ========================================== -->
         <!-- GIORNO 1: LUNEDÌ (CAMPO 1 - 45')          -->
         <!-- ========================================== -->
@@ -1436,11 +1439,11 @@
                   <span style="color:#f59e0b">🟡 Lunedì Pomeriggio</span>
                   <span style="font-size:0.8rem;color:#cbd5e1;font-weight:700">· CAMPO 1 (45')</span>
                 </div>
-                <div class="campo-day-meta">Decelerazione Eccentrica, Frenata 180° & Synapse Base · ZERO SALTI A SECCO</div>
+                <div class="campo-day-meta">Decelerazione Multi-Angolare & Synapse a Tempo di Reazione Ridotto · ZERO SALTI VERTICALI A SECCO</div>
               </div>
               <div style="display:flex;gap:6px;flex-wrap:wrap;">
                 <span class="campo-badge" style="border-color:#f59e0b;color:#fde68a;background:rgba(245,158,11,0.15)">Ratio 1:3 RSA</span>
-                <span class="campo-badge" style="border-color:#10b981;color:#6ee7b7;background:rgba(16,185,129,0.15)">No Jump</span>
+                <span class="campo-badge" style="border-color:#10b981;color:#6ee7b7;background:rgba(16,185,129,0.15)">No Jump Secco</span>
               </div>
             </div>
 
@@ -1454,52 +1457,49 @@
                   <span class="tag-synapse">ELAV COGNITIVO</span>
                 </div>
                 <div class="block-desc">
-                  • <strong>Mobilità Dinamica Articolare (4'):</strong> 90/90 hip mobility a terra, affondi con rotazione del tronco (2x6/lato), attivazione arco plantare (<em>short foot</em> scalzo).<br>
-                  • <strong>Attivazione Neurale Elastico (3'):</strong> Monster walk laterale + camminata a croce con miniband (2x10 passi).<br>
-                  • <strong>SYNAPSE 1 — Stimolo Cromatico (3'):</strong> Skip leggero sul posto ➔ arresto immediato su cono a sorpresa mostrato dal preparatore:<br>
-                  &nbsp;&nbsp;🔴 <em>Rosso:</em> Freeze 2" gamba DX (monopodalico)<br>
-                  &nbsp;&nbsp;🔵 <em>Blu:</em> Freeze 2" gamba SX (monopodalico)<br>
-                  &nbsp;&nbsp;🟡 <em>Giallo:</em> Freeze squadrato a 2 piedi (baricentro basso). 3 serie x 45" (rec. 20").
+                  • <strong>Mobilità Dinamica Articolare (4'):</strong> Sblocco anca 90/90 a terra, allungamento toracico/spalle, attivazione arco plantare (<em>short foot</em> a piedi scalzi).<br>
+                  • <strong>Attivazione Neurale Elastico (3'):</strong> Monster walk laterale e camminata elastica a croce con miniband (2x10 passi).<br>
+                  • <strong>SYNAPSE 1 — Stimolo & Arresto Eccentrico (3'):</strong> Corsa fluida in cerchio; su fischio / stimolo visivo a sorpresa: <strong>arresto immediato sul piede esterno</strong> con blocco lombo-pelvico e tenuta isometrica di 2" (3 serie x 45", rec. 20").
                 </div>
               </div>
 
               <!-- B2 -->
               <div class="campo-block b2" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">10'–25'</span> <span>B2: FORZA A TERRA & COD 180°</span></div>
+                  <div><span class="time-tag">10'–25'</span> <span>B2: FORZA ESPLOSIVA A TERRA & COD ANGOLARI</span></div>
                   <span style="color:#f87171;font-weight:800;font-size:0.7rem;">FORZA A TERRA</span>
                 </div>
                 <div class="block-desc">
-                  • <strong>Sprint Breve & Arresto a 2 Tempi (7'):</strong> Scatto massimale sui 5m con frenata secca su linea in 2 passi senza rotazione bacino né valgismo ginocchio: 4 serie x 2 frenate (rec. 30").<br>
-                  • <strong>COD 180° Volley (5-0-5 modificato) (8'):</strong> Allungo 4m ➔ arresto violento su riga ➔ inversione a 180° ➔ spinta esplosiva nei primi 3m di ritorno: 4 serie x 2/lato (rec. 45" camminando).<br>
-                  • <strong>Densità Metabolica Indiretta:</strong> Azioni massimali di 4-5" con 15-20" di recupero camminando (rapporto 1:3).
+                  • <strong>Slalom a Zig-Zag a 45° (7'):</strong> Slalom su 4 cinesini a terra: taglio netto d'esterno piede, abbassamento baricentro, spinta interna esplosiva verso il cinesino opposto (4 serie, rec. 45").<br>
+                  • <strong>Navetta 5-10-5 m (Pro Agility Shuttle) (8'):</strong> Sprint 5m ➔ tocco linea con frenata secca monopodalica ➔ sprint 10m opposto ➔ sprint finale 5m: 4 ripetizioni (rec. 60").<br>
+                  • <strong>Densità Metabolica Indiretta:</strong> Azioni massimali di 4-6" con 20" di recupero attivo (rapporto 1:3). Zero impatti verticali traumatici.
                 </div>
               </div>
 
               <!-- B3 -->
               <div class="campo-block b3" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">25'–38'</span> <span>B3: RUOLO A SECCO + MEDBALL</span></div>
+                  <div><span class="time-tag">25'–38'</span> <span>B3: RUOLO A SECCO + TRANSFER BALISTICO</span></div>
                   <span class="tag-role">SPECIFICO RUOLO</span>
                 </div>
                 <div class="block-desc">
-                  • <strong style="color:#d8b4fe">Centrali (Marcuzzi, Biondi):</strong> Spostamento laterale rapido a 2 passi lungo la rete + arresto squadrato su scelta visiva dx/sx (4 serie x 3).<br>
-                  • <strong style="color:#d8b4fe">Bande/Opposti (Asonja, Nonnati, Sassolini, Bole, Dodi, Adamczewska, Caserta):</strong> Rincorsa 3 passi con frenata in 2 tempi rasoterra NO STACCO (focus assorbimento penultimo-ultimo passo): 4 serie x 3 frenate.<br>
-                  • <strong style="color:#d8b4fe">Liberi/Palleggi (Lo Dico, Cicola, Allasia, Grippo):</strong> Navette 3x3m a triangolo rasoterra su comando visivo improvviso (4 serie x 15").<br>
-                  • <strong>Transfer Balistico:</strong> Chest pass esplosivo a 2 mani contro muro con palla medica 3 kg: 3 serie x 5 lanci massimali (rec. 30").
+                  • <strong style="color:#d8b4fe">Centrali (Marcuzzi, Biondi, Caserta):</strong> Spostamento laterale rapido a 2 passi lungo la rete + arresto squadrato e spinta delle mani a muro contro parete (4 serie x 3).<br>
+                  • <strong style="color:#d8b4fe">Bande / Opposti (Asonja, Nonnati, Sassolini, Bole, Dodi, Adamczewska):</strong> Ultimi 2 passi di rincorsa d'attacco in decelerazione a terra con <strong>ricezione al volo di palla medica 3 kg</strong> (dissipazione della forza frenante): 4 serie x 3 frenate.<br>
+                  • <strong style="color:#d8b4fe">Liberi / Palleggi (Lo Dico, Cicola, Allasia, Grippo):</strong> Reattività rasoterra: scivolamento e tocco a terra su stimolo visivo variabile destra/sinistra (4 serie x 15").<br>
+                  • <strong>Transfer Balistico Upper Body:</strong> <em>Chest pass</em> esplosivo contro muro a due mani con palla medica 3 kg (stance atletica, massima velocità d'uscita): 3 serie x 6 lanci massimali (rec. 30").
                 </div>
               </div>
 
               <!-- B4 -->
               <div class="campo-block b4" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">38'–45'</span> <span>B4: PREVENZIONE & CONSEGNA</span></div>
+                  <div><span class="time-tag">38'–45'</span> <span>B4: PREVENZIONE SPALLA & CONSEGNA COACH</span></div>
                   <span style="color:#6ee7b7;font-weight:800;font-size:0.7rem;">CONSEGNA COACH</span>
                 </div>
                 <div class="block-desc">
-                  • Extra-rotatori della spalla con elastico (2x10) + tenute isometriche core Hollow/Arch (2x20").<br>
-                  • De-tensione e respirazione diaframmatica guidata.<br>
-                  • Atlete consegnate pronte e attivate al Primo Allenatore.
+                  • <strong>Isometrie Cuffia Rotatori (4'):</strong> Tenute con elastico a parete in 3 posizioni (<code>T</code>, <code>Y</code>, <code>W</code>) — 2 serie da 15" per posizione.<br>
+                  • <strong>Decompressione Rachide (3'):</strong> Decompressione lombare e respirazione diaframmatica guidata a terra.<br>
+                  • <strong>Passaggio di Consegne:</strong> Atlete calde, attivate neurologicamente e consegnate al Primo Allenatore per il 6vs6.
                 </div>
               </div>
 
@@ -1507,7 +1507,7 @@
 
             <!-- Safety Net Banner Lunedì -->
             <div class="safety-banner" contenteditable="true">
-              🛡️ <strong>SAFETY NET AUTOREGOLAZIONE ECCENTRICA (Lunedì):</strong> Se al test Chronojump mattutino un'atleta segna drop &gt;7-8%, il Blocco 2 (COD 180°) passa automaticamente da 4 a 2 serie, convertendo i 7-8 minuti restanti in footwork rapido su scaletta a terra senza impatto frenante violento.
+              🛡️ <strong>SAFETY NET AUTOREGOLAZIONE ECCENTRICA (Lunedì):</strong> Se al test Chronojump mattutino un'atleta segna drop &gt;7-8%, il Blocco 2 (COD Angolari 5-10-5) passa da 4 a 2 serie, convertendo il tempo restante in footwork rapido su scaletta a terra senza impatto frenante violento.
             </div>
           </div>
         </div>
@@ -1521,14 +1521,14 @@
             <div class="campo-day-head">
               <div>
                 <div class="campo-day-title">
-                  <span style="color:#38bdf8">🔵 Mercoledì Pomeriggio</span>
+                  <span style="color:#38bdf8">🔴 Mercoledì Pomeriggio</span>
                   <span style="font-size:0.8rem;color:#cbd5e1;font-weight:700">· CAMPO 2 (45')</span>
                 </div>
-                <div class="campo-day-meta">Agilità Reattiva, Primi Passi & SYNAPSE Flow · ZERO SALTI & ZERO SOVRACCARICO</div>
+                <div class="campo-day-meta">Pliometria a Contrasto (Ostacoli 15-20 cm) & Reattività di Ruolo · Transfer Simil-Rally</div>
               </div>
               <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                <span class="campo-badge" style="border-color:#38bdf8;color:#93c5fd;background:rgba(56,189,248,0.15)">SYNAPSE Flow</span>
-                <span class="campo-badge" style="border-color:#10b981;color:#6ee7b7;background:rgba(16,185,129,0.15)">Agility Zero Jump</span>
+                <span class="campo-badge" style="border-color:#38bdf8;color:#93c5fd;background:rgba(56,189,248,0.15)">Ostacoli 15-20cm</span>
+                <span class="campo-badge" style="border-color:#10b981;color:#6ee7b7;background:rgba(16,185,129,0.15)">Simil-Rally</span>
               </div>
             </div>
 
@@ -1538,50 +1538,50 @@
               <!-- B1 -->
               <div class="campo-block b1" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">00'–10'</span> <span>B1: ATTIVAZIONE & FOOTWORK REATTIVO</span></div>
+                  <div><span class="time-tag">00'–10'</span> <span>B1: ATTIVAZIONE ELASTICA & SYNAPSE</span></div>
                   <span class="tag-synapse">ELAV COGNITIVO</span>
                 </div>
                 <div class="block-desc">
-                  • <strong>Mobilità Dinamica Articolare (4'):</strong> Sblocco anche 90/90, cat-cow toracico, caviglie con rotazioni attive e allungamento catena posteriore a terra.<br>
-                  • <strong>Speed Ladder — Micro-Footwork Radente (3'):</strong> Scaletta rapida (In-Out, Icky Shuffle, Ali Shuffle) a piedi radenti il parquet, tempo di contatto minimo e zero impatto verticale.<br>
-                  • <strong>SYNAPSE 1 — Visual Stop & Go (3'):</strong> Uscita dalla scaletta con stimolo visivo improvviso (mano aperta = freeze monopodalico 2", pugno chiuso = cambio direzione 90° e sprint 2m a baricentro basso). 4 ripetizioni a testa.
+                  • <strong>Attivazione Tendinea Dinamica (4'):</strong> Ankling dinamico a terra + Pogo Jumps monopodalici controllati (2 serie x 6/lato, Tc &lt;180ms).<br>
+                  • <strong>SYNAPSE 1 — Scaletta con Decisione Cromatica (6'):</strong> Scaletta rapida in-out con uscita d'accelerazione obbligata a destra o sinistra su colore chiamato in frazione di secondo (4 ripetizioni a testa).
                 </div>
               </div>
 
               <!-- B2 -->
               <div class="campo-block b2" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">10'–25'</span> <span>B2: AGILITÀ MULTIDIREZIONALE & INIBIZIONE</span></div>
-                  <span style="color:#38bdf8;font-weight:800;font-size:0.7rem;">AGILITY & PRIMI PASSI</span>
+                  <div><span class="time-tag">10'–25'</span> <span>B2: PLIOMETRIA SU OSTACOLINI & RINCORSE RUOLO</span></div>
+                  <span style="color:#38bdf8;font-weight:800;font-size:0.7rem;">PLIO CONTRASTO</span>
                 </div>
                 <div class="block-desc">
-                  • <strong>Primi Passi Esplosivi 0-3m (7'):</strong> Partenze brucianti da postura difensiva fondamentale su segnale visivo periferico con arresto squadrato controllato a 2 tempi (4 serie x 3 partenze, rec. 30"). Zero frenate violente traumatiche.<br>
-                  • <strong>SYNAPSE 2 — Agility Mirror con Inibizione Go/No-Go (8'):</strong> A coppie frontali a 3m. L'atleta leader guida gli spostamenti rapidi; la compagna risponde in modalità specchio inverso (se la leader avanza, lei arretra; se va a destra, lei va a destra). 4 serie x 20" a testa. Zero salti, massima reattività corticale e piedi rapidissimi.
+                  • <strong>Ostacolini Bassi (15-20 cm) in Cluster (7'):</strong> 4 ostacoli continui a rimbalzo elastico reattivo: 4 serie x 4 balzi (rec. 60", Tc &lt;200ms).<br>
+                  • <strong style="color:#d8b4fe">Bande/Opposti:</strong> 4 serie x 3 rincorse complete d'attacco con stacco massimale e arrivo bilanciato a 2 piedi.<br>
+                  • <strong style="color:#d8b4fe">Centrali:</strong> 4 serie x 3 salti a muro con spostamento laterale rapido a 2 passi lungo la rete.<br>
+                  • <strong style="color:#d8b4fe">Liberi:</strong> Sostituzione balzi con navette difensive a specchio ad alta densità (4 serie x 15").
                 </div>
               </div>
 
               <!-- B3 -->
               <div class="campo-block b3" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">25'–38'</span> <span>B3: SYNAPSE VOLLEY & DECISION-MAKING A TERRA</span></div>
+                  <div><span class="time-tag">25'–38'</span> <span>B3: LANCI ROTAZIONALI & SIMIL-RALLY INTERMITTENTE</span></div>
                   <span class="tag-role">VOLLEY DUAL-TASK</span>
                 </div>
                 <div class="block-desc">
-                  • <strong>Reattività Visuo-Motoria & Visione Periferica (7'):</strong> A coppie a 3m. Scivolamento difensivo laterale continuo mentre la compagna lancia palline da tennis o palloni leggeri fuori asse: presa al volo a una mano e rilascio immediato (4 serie x 30" per atleta). Stimolo oculo-manuale puro.<br>
-                  • <strong>SYNAPSE 3 — Transizione Muro-Difesa a Terra (6'):</strong> Footwork rapido: tocco rete a due mani (senza saltare), rapida apertura a terra a 45° verso la zona di difesa su stimolo visivo a sorpresa (4 serie x 4 ripetizioni).
+                  • <strong>Lanci Rotazionali Medball (3 kg) (6'):</strong> Rotazione esplosiva del bacino prima delle braccia contro muro: 3 serie x 4+4 lanci esplosivi (rec. 30").<br>
+                  • <strong>Simil-Rally Metabolico a Secco (7'):</strong> Circuito a stazioni: scivolamento laterale difensivo + tocco palla a terra + sprint breve. 6 ripetizioni x (5" lavoro esplosivo / 15" recupero attivo, rapporto 1:3).
                 </div>
               </div>
 
               <!-- B4 -->
               <div class="campo-block b4" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">38'–45'</span> <span>B4: DECOMPRESSIONE & RESET NEURALE</span></div>
+                  <div><span class="time-tag">38'–45'</span> <span>B4: PREVENZIONE TENDINEA & CONSEGNA</span></div>
                   <span style="color:#6ee7b7;font-weight:800;font-size:0.7rem;">CONSEGNA COACH</span>
                 </div>
                 <div class="block-desc">
-                  • <strong>Respirazione Guidata (3'):</strong> Box Breathing 4-4-4-4 a terra per abbassare il cortisolo e ripristinare il tono parasimpatico.<br>
-                  • <strong>Decompressione Rachide & Anche (4'):</strong> Couch stretch morbido e child's pose a terra.<br>
-                  • <strong>Consegna al Coach:</strong> Atlete reattivissime, piedi veloci e freschi, zero fatica tendinea post-pesi.
+                  • <strong>Scarico Tendineo Soleare:</strong> Allungamento soleo e gemelli al muro + tenuta isometrica caviglia a 90°.<br>
+                  • <strong>Consegna al Coach:</strong> Atlete elastiche, attivate per il 6vs6 a tutto campo e l'attacco-muro.
                 </div>
               </div>
 
@@ -1589,7 +1589,7 @@
 
             <!-- Safety Net Banner Mercoledì -->
             <div class="safety-banner" contenteditable="true">
-              🛡️ <strong>SAFETY NET JUMP BUDGET (Mercoledì):</strong> Se nella seduta tecnica pomeridiana il coach programma una dose massiccia di salti (6v6 o tie-break simulato), la pliometria del Blocco 2 scala automaticamente del 50% (8–12 salti massimali anziché 16–24).
+              🛡️ <strong>SAFETY NET JUMP BUDGET (Mercoledì):</strong> Se nella seduta tecnica pomeridiana il coach programma una dose massiccia di salti (&gt;80 salti tecnici nel 6vs6 o tie-break simulato), la pliometria del Blocco 2 scala automaticamente del 50% (8–12 salti massimali anziché 16–24).
             </div>
           </div>
         </div>
@@ -1606,7 +1606,7 @@
                   <span style="color:#38bdf8">🔵 Venerdì Pomeriggio</span>
                   <span style="font-size:0.8rem;color:#cbd5e1;font-weight:700">· CAMPO 3 (45')</span>
                 </div>
-                <div class="campo-day-meta">Priming Neurale, Synapse Avanzato (Go/No-Go) & ZERO SALTI · Consegna Freschissime</div>
+                <div class="campo-day-meta">Priming Neurale Pre-Match & ZERO SALTI ASSOLUTI · Consegna Freschissime per Amichevole</div>
               </div>
               <div style="display:flex;gap:6px;flex-wrap:wrap;">
                 <span class="campo-badge" style="border-color:#ef4444;color:#fca5a5;background:rgba(239,68,68,0.2)">🛑 Friday Jump Ban</span>
@@ -1620,56 +1620,56 @@
               <!-- B1 -->
               <div class="campo-block b1" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">00'–10'</span> <span>B1: ATTIVAZIONE & RESET FASCIALE</span></div>
+                  <div><span class="time-tag">00'–10'</span> <span>B1: MOBILITÀ ATTIVA & SBLOCCO MIOFASCIALE</span></div>
                   <span class="tag-synapse">RESET NERVOSO</span>
                 </div>
                 <div class="block-desc">
                   • <strong>Mobilità Globale senza Carichi (5'):</strong> Flessori anca in allungamento dinamico, aperture toraciche, monster walk elastica (2x10 passi).<br>
-                  • <strong>Esercizio Sensoriale a Terra (5'):</strong> Propriocezione del piede a occhi chiusi e trasferimenti di carico lenti (2x30").
+                  • <strong>Sblocco Miofasciale (5'):</strong> Foam rolling leggero polpacci e tensore fascia lata, respirazione diaframmatica a terra.
                 </div>
               </div>
 
               <!-- B2 -->
               <div class="campo-block b2" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">10'–25'</span> <span>B2: AGILITÀ A TERRA & FREQUENZA</span></div>
+                  <div><span class="time-tag">10'–25'</span> <span>B2: FREQUENZA PODALICA & ACCELERAZIONI BREVI</span></div>
                   <span style="color:#f87171;font-weight:800;font-size:0.7rem;">ZERO SALTI</span>
                 </div>
                 <div class="block-desc">
-                  • <strong>Scaletta a Frequenza Pura (7'):</strong> Pattern In-Out laterale e Icky Shuffle ad altissima frequenza di piedi senza staccarsi dal suolo: 4 serie x 8 metri (rec. 45").<br>
-                  • <strong>Primi Passi Esplosivi 3–4 Metri (8'):</strong> Scatto fulmineo da posizione difensiva (primi 3 passi) con decelerazione elastica progressiva camminata: 4 serie x 2 partenze (rec. 45"). <em>Nessun salto né atterraggio d'impatto</em>.
+                  • <strong>Scaletta a Frequenza Pura (7'):</strong> 2 piedi dentro ogni spazio ad altissima frequenza senza stacco verticale (In-Out, Icky Shuffle): 3 serie x 6m (rec. 45").<br>
+                  • <strong>Scatti Brevi 3 Metri con Decelerazione Progressiva (8'):</strong> Partenze brucianti da postura difensiva fondamentale con frenata progressiva camminata: 3 serie x 2 partenze (rec. 45"). <em>Nessun salto né atterraggio d'impatto</em>.
                 </div>
               </div>
 
               <!-- B3 -->
               <div class="campo-block b3" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">25'–38'</span> <span>B3: SYNAPSE AVANZATO (GO / NO-GO)</span></div>
-                  <span class="tag-synapse">DECISION-MAKING</span>
+                  <div><span class="time-tag">25'–38'</span> <span>B3: SYNAPSE COGNITIVO AVANZATO (GO/NO-GO)</span></div>
+                  <span class="tag-role">SYNAPSE PRO</span>
                 </div>
                 <div class="block-desc">
-                  • <strong>Comandi Go / No-Go (ELAV):</strong> L'atleta parte in accelerazione su comando visivo (cartellino verde/rosso o pallone); se lo stimolo commuta a metà scatto in "No-Go", deve frenare all'istante con blocco pelvico: 4 serie x 3 stimoli.<br>
-                  • <strong>Coordinazione Oculomotoria a Terra:</strong> Reattività rapida su palline da tennis o bersagli a terra da postura difensiva bassa (4 serie x 20").
+                  • <strong>Reattività Visuo-Motoria Go/No-Go (7'):</strong> Stimolo cromatico con comandi invertiti (es. cono verde = stop, cono rosso = scatto 2m). 3 serie x 45" a coppie.<br>
+                  • <strong>Transizione Rasoterra Difesa (6'):</strong> Footwork di posizionamento a terra senza saltare: tocco linea laterale e arretramento in diagonale su chiamata vocale (3 serie x 4 ripetizioni).
                 </div>
               </div>
 
               <!-- B4 -->
               <div class="campo-block b4" contenteditable="true">
                 <div class="block-head">
-                  <div><span class="time-tag">38'–45'</span> <span>B4: DECOMPRESSIONE & CALMA</span></div>
-                  <span style="color:#6ee7b7;font-weight:800;font-size:0.7rem;">PRE-GARA 100%</span>
+                  <div><span class="time-tag">38'–45'</span> <span>B4: DECOMPRESSIONE & RESET PRE-MATCH</span></div>
+                  <span style="color:#6ee7b7;font-weight:800;font-size:0.7rem;">CONSEGNA COACH</span>
                 </div>
                 <div class="block-desc">
-                  • Allungamento catena posteriore, decompressione lombare a terra, respirazione diaframmatica guidata.<br>
-                  • Squadra consegnata al 100% di freschezza muscolare per la rifinitura tecnica e l'amichevole del sabato.
+                  • <strong>Respirazione Guidata (3'):</strong> Box breathing 4-4-4-4 a terra per rilassare il sistema nervoso autonomo.<br>
+                  • <strong>Consegna al Coach:</strong> Gambe leggere, reattività al massimo, zero fatica muscolare in vista dell'<strong>Amichevole Piena del Sabato</strong>.
                 </div>
               </div>
 
             </div>
 
-            <!-- Safety Net Banner Venerdì -->
-            <div class="safety-banner ban-jump" contenteditable="true">
-              🛑 <strong>STRICT FRIDAY JUMP BAN (Venerdì):</strong> Divieto assoluto di salti, balzi o impatti pliometrici a secco prima dell'allenamento con palla. Zero test CMJ nel pre-gara per preservare tendini rotulei e freschezza neuromuscolare.
+            <!-- Safety Banner Venerdì -->
+            <div class="safety-banner" style="border-color:#ef4444;background:rgba(239,68,68,0.08);color:#fca5a5;" contenteditable="true">
+              🛑 <strong>STRICT FRIDAY JUMP BAN:</strong> A meno di 24 ore dall'Amichevole Piena del sabato (4-5 set ufficiali), è categoricamente vietato qualsiasi salto verticale o balzo pliometrico a secco. Si tutelano i ponti acto-miosinici e la stiffness tendinea.
             </div>
           </div>
         </div>
@@ -3845,9 +3845,14 @@
       }
     }
 
-    /* ==========================================
-       LOGICA SEZIONE CAMPO S&C (W3)
+        /* ==========================================
+       LOGICA SEZIONE CAMPO S&C (W3 / W4 SQUILLANTE)
        ========================================== */
+    const CAMPO_SUBTITLES = {
+      'W4': 'Microciclo Settimana 4 (Contrasto Dinamico & Decelerazione Rapida) · 3 Sedute Pomeridiane a Secco prima del Volley Tecnico.',
+      'W3': 'Microciclo Settimana 3 (Picco Forza Pesante) · 3 Sedute Pomeridiane a Secco prima del Volley Tecnico.'
+    };
+
     function switchCampoDay(day, btn) {
       document.querySelectorAll('.btn-c-day').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
@@ -3869,16 +3874,39 @@
       }
     }
 
-    function saveCampoEdits() {
+    function switchCampoWeek(week) {
+      localStorage.setItem('coach_mv_campo_week', week);
+      const subEl = document.getElementById('campo-subtitle-text');
+      if (subEl && CAMPO_SUBTITLES[week]) {
+        subEl.innerText = CAMPO_SUBTITLES[week];
+      }
+      const sel = document.getElementById('campo-week-select');
+      if (sel) sel.value = week;
+
       const container = document.getElementById('campo-days-container');
       if (!container) return;
-      localStorage.setItem('coach_mv_campo_edits_w3', container.innerHTML);
-      showCampoToast('✅ Modifiche salvate nella memoria del browser!');
+
+      const savedEdits = localStorage.getItem(`coach_mv_campo_edits_${week.toLowerCase()}`);
+      if (savedEdits) {
+        container.innerHTML = savedEdits;
+        showCampoToast(`📅 Caricata Settimana ${week} (con modifiche salvate)!`);
+      } else {
+        location.reload();
+      }
+    }
+
+    function saveCampoEdits() {
+      const week = (document.getElementById('campo-week-select')?.value || 'W4').toLowerCase();
+      const container = document.getElementById('campo-days-container');
+      if (!container) return;
+      localStorage.setItem(`coach_mv_campo_edits_${week}`, container.innerHTML);
+      showCampoToast(`✅ Modifiche ${week.toUpperCase()} salvate nella memoria del browser!`);
     }
 
     function resetCampoEdits() {
-      if (confirm('Vuoi ripristinare il programma Campo originario di W3?')) {
-        localStorage.removeItem('coach_mv_campo_edits_w3');
+      const week = (document.getElementById('campo-week-select')?.value || 'W4').toLowerCase();
+      if (confirm(`Vuoi ripristinare il programma Campo originario di ${week.toUpperCase()}?`)) {
+        localStorage.removeItem(`coach_mv_campo_edits_${week}`);
         location.reload();
       }
     }
@@ -3892,7 +3920,8 @@
     }
 
     function copyCampoSummary() {
-      let text = '🏐 *MARSALA VOLLEY A2 — SEDUTA CAMPO S&C (W3)*\n';
+      const week = document.getElementById('campo-week-select')?.value || 'W4';
+      let text = `🏐 *MARSALA VOLLEY A2 — SEDUTA CAMPO S&C (${week})*\n`;
       const activeDays = document.querySelectorAll('.campo-day-section.active');
       activeDays.forEach(sec => {
         const title = sec.querySelector('.campo-day-title')?.innerText.replace(/\s+/g, ' ').trim() || '';
@@ -3923,7 +3952,16 @@
     }
 
     function initCampoSection() {
-      const saved = localStorage.getItem('coach_mv_campo_edits_w3');
+      const activeWeek = localStorage.getItem('coach_mv_campo_week') || 'W4';
+      const sel = document.getElementById('campo-week-select');
+      if (sel) sel.value = activeWeek;
+
+      const subEl = document.getElementById('campo-subtitle-text');
+      if (subEl && CAMPO_SUBTITLES[activeWeek]) {
+        subEl.innerText = CAMPO_SUBTITLES[activeWeek];
+      }
+
+      const saved = localStorage.getItem(`coach_mv_campo_edits_${activeWeek.toLowerCase()}`);
       if (saved) {
         const container = document.getElementById('campo-days-container');
         if (container) container.innerHTML = saved;

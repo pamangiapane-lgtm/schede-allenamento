@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v267-bulletproof-session-sync)
-const CACHE_NAME = 'coach-mv-v267-bulletproof-session-sync';
+// Service Worker Coach Command Center (v268-coach-campo-w4)
+const CACHE_NAME = 'coach-mv-v268-coach-campo-w4';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marsala Volley — Report Tecnico W4 S1</title>
+  <style>
+    :root {
+      --mv-bg-dark: #060a14;
+      --mv-surface-card: #090f1d;
+      --mv-surface-hover: #0f172a;
+      --mv-border: #1e335a;
+      --mv-border-subtle: rgba(255, 255, 255, 0.08);
+      --mv-gold: #f59e0b;
+      --mv-gold-glow: rgba(245, 158, 11, 0.2);
+      --mv-gold-text: #fde68a;
+      --mv-emerald: #10b981;
+      --mv-emerald-bg: rgba(16, 185, 129, 0.15);
+      --mv-amber: #f59e0b;
+      --mv-coral: #ef4444;
+      --mv-cyan: #38bdf8;
+      --mv-cyan-bg: rgba(56, 189, 248, 0.15);
+      --mv-purple: #a855f7;
+      --mv-purple-bg: rgba(168, 85, 247, 0.15);
+      --mv-text-primary: #f8fafc;
+      --mv-text-secondary: #cbd5e1;
+      --mv-text-muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--mv-bg-dark);
+      color: var(--mv-text-primary);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: 16px;
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      border: 1px solid var(--mv-border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .header h1 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--mv-gold);
+      letter-spacing: -0.02em;
+    }
+    .header p {
+      font-size: 0.8rem;
+      color: var(--mv-text-secondary);
+      margin-top: 2px;
+    }
+    .btn-copy {
+      background: var(--mv-gold);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.8rem;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .btn-copy:hover { opacity: 0.9; }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .kpi-card {
+      background: var(--mv-surface-card);
+      border: 1px solid var(--mv-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .kpi-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--mv-text-muted);
+      margin-bottom: 4px;
+    }
+    .kpi-val {
+      font-family: monospace, system-ui;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--mv-text-primary);
+    }
+    .kpi-delta {
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+    .delta-pos { color: var(--mv-emerald); }
+    .delta-neu { color: var(--mv-cyan); }
+    .table-container {
+      background: var(--mv-surface-card);
+      border: 1px solid var(--mv-border);
+      border-radius: 10px;
+      overflow-x: auto;
+      margin-bottom: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      text-align: left;
+    }
+    thead th {
+      background: #0d1527;
+      color: var(--mv-gold-text);
+      font-weight: 700;
+      padding: 10px 12px;
+      border-bottom: 2px solid var(--mv-border);
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--mv-border-subtle);
+      color: var(--mv-text-secondary);
+    }
+    tbody tr:hover {
+      background: var(--mv-surface-hover);
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    .ath-name {
+      font-weight: 700;
+      color: var(--mv-text-primary);
+      white-space: nowrap;
+    }
+    .role-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      text-align: center;
+      min-width: 24px;
+    }
+    .role-p { background: rgba(56, 189, 248, 0.2); color: #38bdf8; }
+    .role-c { background: rgba(168, 85, 247, 0.2); color: #c084fc; }
+    .role-s { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .role-o { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+    .role-l { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .val-strong {
+      font-weight: 800;
+      color: var(--mv-text-primary);
+      font-family: monospace, system-ui;
+    }
+    .badge-gain {
+      background: var(--mv-emerald-bg);
+      color: var(--mv-emerald);
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-left: 4px;
+    }
+    .notes-box {
+      background: var(--mv-surface-card);
+      border: 1px solid var(--mv-border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .notes-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--mv-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .takeaway-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+      color: var(--mv-text-secondary);
+    }
+    .takeaway-item strong {
+      color: var(--mv-text-primary);
+    }
+    .takeaway-num {
+      background: var(--mv-gold-glow);
+      color: var(--mv-gold);
+      border: 1px solid var(--mv-gold);
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    @media print {
+      body { background: #fff; color: #000; padding: 0; }
+      .header, .table-container, .notes-box, .kpi-card { border: 1px solid #ccc; background: #fff; }
+      .btn-copy { display: none; }
+      thead th { background: #f0f0f0; color: #000; }
+      tbody td { color: #222; }
+      .ath-name { color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>MARSALA VOLLEY — REPORT PREPARAZIONE FISICA</h1>
+        <p>Confronto W3 S2/S1 vs W4 S1 (14/09/2026) • 13 Atlete Certificate</p>
+      </div>
+      <button class="btn-copy" id="btn-copy-action">
+        <span>📋</span> Copia Testo WhatsApp
+      </button>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">CMJ Medio di Squadra</div>
+        <div class="kpi-val">34.4 <span style="font-size:0.8rem">cm</span> <span class="kpi-delta delta-pos">+1.2 cm</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Reattività Pogo (Best RSI)</div>
+        <div class="kpi-val">1.68 <span class="kpi-delta delta-pos">+12.8%</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">sRPE Seduta Pesi</div>
+        <div class="kpi-val">5.69 <span class="kpi-delta delta-neu">-0.39</span></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Fatica Muscolare</div>
+        <div class="kpi-val">5.23 <span class="kpi-delta delta-neu">-0.27</span></div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Atleta</th>
+            <th>Ruolo</th>
+            <th>Squat (W3S2 ➔ W4S1)</th>
+            <th>CMJ (W3S1 ➔ W4S1)</th>
+            <th>Pogo RSI</th>
+            <th>Note Tecniche</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>#1</strong></td>
+            <td class="ath-name">Allasia</td>
+            <td><span class="role-badge role-p">P</span></td>
+            <td>67.5k @0.58 ➔ <span class="val-strong">71.5k @0.68</span></td>
+            <td>31.7 ➔ <span class="val-strong">32.9</span> <span class="badge-gain">+1.2</span></td>
+            <td>1.49 ➔ <span class="val-strong">1.55</span></td>
+            <td>+4kg e +0.10 m/s più rapida. Reattiva.</td>
+          </tr>
+          <tr>
+            <td><strong>#2</strong></td>
+            <td class="ath-name">Marcuzzi</td>
+            <td><span class="role-badge role-c">C</span></td>
+            <td>62.5k @0.70 ➔ <span class="val-strong">75.5k</span> *(82.5%)*</td>
+            <td>33.5 ➔ <span class="val-strong">37.3</span> <span class="badge-gain">+3.8</span></td>
+            <td>1.26 ➔ <span class="val-strong">1.64</span></td>
+            <td><strong>+13kg squat.</strong> Rimbalzo (+11% CMJ, +30% RSI).</td>
+          </tr>
+          <tr>
+            <td><strong>#3</strong></td>
+            <td class="ath-name">Sassolini</td>
+            <td><span class="role-badge role-s">S</span></td>
+            <td>85.5k @0.67 ➔ <span class="val-strong">90.5k @0.48</span></td>
+            <td>33.9 ➔ <span class="val-strong">34.3</span> <span class="badge-gain">+0.5</span></td>
+            <td>1.64 ➔ <span class="val-strong">1.81</span></td>
+            <td>Massimale testato (+5kg). Tc a terra ridotto.</td>
+          </tr>
+          <tr>
+            <td><strong>#4</strong></td>
+            <td class="ath-name">Asonja</td>
+            <td><span class="role-badge role-o">O</span></td>
+            <td>52.0k @0.64 ➔ <span class="val-strong">66.5k @0.66</span></td>
+            <td>29.5 ➔ <span class="val-strong">30.3</span> <span class="badge-gain">+0.8</span></td>
+            <td>1.49 ➔ <span class="val-strong">1.49</span></td>
+            <td>+14.5kg assorbiti mantenendo 0.66 m/s.</td>
+          </tr>
+          <tr>
+            <td><strong>#5</strong></td>
+            <td class="ath-name">Lo Dico</td>
+            <td><span class="role-badge role-l">L</span></td>
+            <td>61.0k @0.71 ➔ <span class="val-strong">64.5k</span> *(82.5%)*</td>
+            <td><span class="val-strong">28.4 cm</span></td>
+            <td>1.35 ➔ <span class="val-strong">1.49</span></td>
+            <td>Carico prescritto completato (+3.5kg).</td>
+          </tr>
+          <tr>
+            <td><strong>#6</strong></td>
+            <td class="ath-name">Biondi</td>
+            <td><span class="role-badge role-c">C</span></td>
+            <td>Baseline ➔ <span class="val-strong">54.0k @0.49</span></td>
+            <td><span class="val-strong">26.2 cm</span></td>
+            <td>1.35 ➔ <span class="val-strong">1.52</span></td>
+            <td>Target 82% 1RM. Reattività in netto rialzo (+13%).</td>
+          </tr>
+          <tr>
+            <td><strong>#7</strong></td>
+            <td class="ath-name">Bole</td>
+            <td><span class="role-badge role-s">S</span></td>
+            <td>64.5k @0.62 ➔ <span class="val-strong">85.5k @0.70</span></td>
+            <td>38.3 ➔ <span class="val-strong">38.1</span> <em>(=)</em></td>
+            <td>1.49 ➔ <span class="val-strong">1.61</span></td>
+            <td><strong>Top sessione:</strong> +21kg con accelerazione (+0.08 m/s).</td>
+          </tr>
+          <tr>
+            <td><strong>#8</strong></td>
+            <td class="ath-name">Nonnati</td>
+            <td><span class="role-badge role-o">O</span></td>
+            <td>68.0k @0.62 ➔ <span class="val-strong">97.5k @0.54</span></td>
+            <td>31.2 ➔ <span class="val-strong">32.6</span> <span class="badge-gain">+1.4</span></td>
+            <td>1.49 ➔ <span class="val-strong">1.49</span></td>
+            <td>Sovraccarico pesante assorbito (+29.5kg).</td>
+          </tr>
+          <tr>
+            <td><strong>#9</strong></td>
+            <td class="ath-name">Dodi</td>
+            <td><span class="role-badge role-s">S</span></td>
+            <td>107.0k @0.61 ➔ <span class="val-strong">110.0k</span></td>
+            <td>34.7 ➔ <span class="val-strong">37.6</span> <span class="badge-gain">+2.9</span></td>
+            <td>1.84 ➔ <span class="val-strong">1.99</span></td>
+            <td><strong>Top RSI (1.99).</strong> Squat 110kg e CMJ a 37.6 cm.</td>
+          </tr>
+          <tr>
+            <td><strong>#11</strong></td>
+            <td class="ath-name">Cicola</td>
+            <td><span class="role-badge role-l">L</span></td>
+            <td>72.0k @0.71 ➔ <span class="val-strong">74.0k @0.52</span></td>
+            <td>35.4 ➔ <span class="val-strong">35.3</span> <em>(=)</em></td>
+            <td>1.60 ➔ <span class="val-strong">1.96</span></td>
+            <td>Box squat solido; stiffness d'élite (RSI 1.96).</td>
+          </tr>
+          <tr>
+            <td><strong>#12</strong></td>
+            <td class="ath-name">Grippo</td>
+            <td><span class="role-badge role-p">P</span></td>
+            <td>94.5k @0.56 ➔ <span class="val-strong">99.5k @0.50</span></td>
+            <td>36.1 ➔ <span class="val-strong">37.6</span> <span class="badge-gain">+1.5</span></td>
+            <td>1.64 ➔ <span class="val-strong">1.96</span></td>
+            <td>+5kg gestiti al cutoff; super reattiva (RSI 1.96).</td>
+          </tr>
+          <tr>
+            <td><strong>#13</strong></td>
+            <td class="ath-name">Caserta</td>
+            <td><span class="role-badge role-c">C</span></td>
+            <td>50.0k @0.87 ➔ <span class="val-strong">70.5k</span> *(82.5%)*</td>
+            <td>26.2 ➔ <span class="val-strong">27.6</span> <span class="badge-gain">+1.4</span></td>
+            <td>1.40 ➔ <span class="val-strong">1.58</span></td>
+            <td><strong>+20.5kg squat.</strong> Guadagno in CMJ e reattività.</td>
+          </tr>
+          <tr>
+            <td><strong>#14</strong></td>
+            <td class="ath-name">Adamczewska</td>
+            <td><span class="role-badge role-s">S</span></td>
+            <td>Baseline ➔ <span class="val-strong">70.0k (Box 90°)</span></td>
+            <td>28.6 ➔ <span class="val-strong">37.2</span> <span class="badge-gain">+8.6</span></td>
+            <td>1.40 ➔ <span class="val-strong">1.52</span></td>
+            <td><strong>Salto a 37.2 cm (+30%).</strong> Box squat 70kg fluido.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notes-box">
+      <div class="notes-title">⚡ Sintesi Operativa per il Campo</div>
+      <div class="takeaway-item">
+        <div class="takeaway-num">1</div>
+        <div><strong>Adattamento ai Grandi Carichi:</strong> Tutte e 13 le atlete hanno lavorato sullo Squat pesante (spiccano Dodi a 110k, Grippo a 99.5k, Nonnati a 97.5k, Sassolini a 90.5k, Bole a 85.5k, Marcuzzi a 75.5k, Caserta a 70.5k, Nelly a 70k). La squadra salta mediamente più in alto rispetto a W3, confermando l'avvenuta supercompensazione.</div>
+      </div>
+      <div class="takeaway-item">
+        <div class="takeaway-num">2</div>
+        <div><strong>Nelly & Marcuzzi in Piena Crescita:</strong> Nelly vola a <strong>37.2 cm (+8.6 cm)</strong> chiudendo il box squat a 70kg; Marcuzzi guadagna <strong>+3.8 cm</strong> di elevazione e +30% di reattività sui piedi con +13kg sullo squat.</div>
+      </div>
+      <div class="takeaway-item">
+        <div class="takeaway-num">3</div>
+        <div><strong>Disponibilità 6vs6:</strong> Reattività tendinea e tempi di contatto ridotti per tutta la squadra (Dodi 1.99, Cicola 1.96, Grippo 1.96, Sassolini 1.81). Piena disponibilità per salti ad alta intensità nel lavoro con palla.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('btn-copy-action').addEventListener('click', function() {
+      const txt = `MARSALA VOLLEY — REPORT PREPARAZIONE FISICA (W4 S1 vs W3 S2/S1)
+Data: 14/09/2026 • 13 Atlete Certificate
+
+MEDIE SQUADRA:
+• CMJ: da 33.2 a 34.4 cm (+1.2 cm netto)
+• Pogo Best RSI: da 1.49 a 1.68 (+12.8%)
+• sRPE Pesi: 5.69 (vs 6.08 W3) | Fatica: 5.23 (vs 5.50 W3)
+
+QUADRO INDIVIDUALE:
+#1 Allasia: Squat 71.5k @0.68 (+4k, +0.10m/s) | CMJ 32.9cm (+1.2) | RSI 1.55
+#2 Marcuzzi: Squat 75.5k (+13k) | CMJ 37.3cm (+3.8) | RSI 1.64 (+30%)
+#3 Sassolini: Squat 90.5k @0.48 (+5k) | CMJ 34.3cm (+0.5) | RSI 1.81
+#4 Asonja: Squat 66.5k @0.66 (+14.5k) | CMJ 30.3cm (+0.8) | RSI 1.49
+#5 Lo Dico: Squat 64.5k (+3.5k) | CMJ 28.4cm | RSI 1.49 (+10%)
+#6 Biondi: Squat 54.0k @0.49 | CMJ 26.2cm | RSI 1.52 (+13%)
+#7 Bole: Squat 85.5k @0.70 (+21k, +0.08m/s) | CMJ 38.1cm (=) | RSI 1.61
+#8 Nonnati: Squat 97.5k @0.54 (+29.5k) | CMJ 32.6cm (+1.4) | RSI 1.49
+#9 Dodi: Squat 110.0k (+3k) | CMJ 37.6cm (+2.9) | RSI 1.99 (Top RSI)
+#11 Cicola: Squat 74.0k @0.52 (+2k) | CMJ 35.3cm (=) | RSI 1.96
+#12 Grippo: Squat 99.5k @0.50 (+5k) | CMJ 37.6cm (+1.5) | RSI 1.96
+#13 Caserta: Squat 70.5k (+20.5k) | CMJ 27.6cm (+1.4) | RSI 1.58 (+13%)
+#14 Adamczewska: Squat 70.0k (Box) | CMJ 37.2cm (+8.6) | RSI 1.52
+
+TAKEAWAYS PER IL CAMPO:
+1. Grande tolleranza ai carichi: nessun calo elastico post-squat pesante.
+2. Nelly (37.2cm) e Marcuzzi (37.3cm) in forte progressione.
+3. Ottima reattività piedi/caviglie su tutta la squadra: semaforo verde per salti 6vs6.`;
+
+      navigator.clipboard.writeText(txt).then(function() {
+        alert('Report copiato negli appunti! Pronto per WhatsApp.');
+      }).catch(function() {
+        alert('Seleziona e copia manualmente.');
+      });
+    });
+  </script>
+</body>
+</html>
