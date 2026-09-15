@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-v278-w4-session-badges-fixed';
+const CACHE_NAME = 'coach-v279-fix-w4-future-session-ratings';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

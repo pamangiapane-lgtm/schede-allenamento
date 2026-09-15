@@ -4899,42 +4899,44 @@ function renderSessions() {
       else if (sStr.includes('2') || sStr.includes('mer')) numVal = 2;
       else if (sStr.includes('1') || sStr.includes('lun')) numVal = 1;
 
-      // 1. Cerca prima nei dati confermati ufficiali se presenti
-      if (week === 'W4' && numVal === 1 && typeof W4_S1_CONFIRMED_DATA !== 'undefined' && W4_S1_CONFIRMED_DATA[String(aid)]) {
-        const conf = W4_S1_CONFIRMED_DATA[String(aid)];
-        if (conf && conf.rpe !== null) {
-          return {
-            rpe: conf.rpe,
-            fat: conf.fat,
-            note: conf.note || '',
-            date: '2026-09-14'
-          };
+      // 1. Dati confermati ufficiali certificati
+      if (week === 'W4') {
+        if (numVal === 1 && typeof W4_S1_CONFIRMED_DATA !== 'undefined' && W4_S1_CONFIRMED_DATA[String(aid)]) {
+          const conf = W4_S1_CONFIRMED_DATA[String(aid)];
+          if (conf && conf.rpe !== null) {
+            return {
+              rpe: conf.rpe,
+              fat: conf.fat,
+              note: conf.note || '',
+              date: '2026-09-14'
+            };
+          }
         }
       }
-      if (week === 'W3' && numVal === 3 && typeof W3_S3_CONFIRMED_DATA !== 'undefined' && W3_S3_CONFIRMED_DATA[String(aid)]) {
-        const conf = W3_S3_CONFIRMED_DATA[String(aid)];
-        if (conf && conf.rpe !== null) {
-          return {
-            rpe: conf.rpe,
-            fat: conf.fat,
-            note: conf.note || '',
-            date: '2026-09-11'
-          };
+      if (week === 'W3') {
+        if (numVal === 3 && typeof W3_S3_CONFIRMED_DATA !== 'undefined' && W3_S3_CONFIRMED_DATA[String(aid)]) {
+          const conf = W3_S3_CONFIRMED_DATA[String(aid)];
+          if (conf && conf.rpe !== null) {
+            return {
+              rpe: conf.rpe,
+              fat: conf.fat,
+              note: conf.note || '',
+              date: '2026-09-11'
+            };
+          }
         }
       }
 
+      // 2. Chiavi rigorosamente con prefisso week (es. mv_session_rating_1_W4_1)
       const codeSuffix = numVal === 3 ? 'VenR' : (numVal === 2 ? 'MerV' : 'LunP');
-      const keysToTry = [
+      const strictKeys = [
         `mv_session_rating_${aid}_${week}_${sNum}`,
         `mv_session_rating_${aid}_${week}_${numVal}`,
         `mv_session_rating_${aid}_${week}_${week}-${codeSuffix}`,
-        `mv_session_rating_${aid}_${week}_${week}_${week}-${codeSuffix}`,
-        `mv_session_rating_${aid}_${sNum}`,
-        `mv_session_rating_${aid}_${numVal}`,
-        `mv_session_rating_${aid}_${week}-${codeSuffix}`
+        `mv_session_rating_${aid}_${week}_${week}_${week}-${codeSuffix}`
       ];
 
-      for (const k of keysToTry) {
+      for (const k of strictKeys) {
         const raw = localStorage.getItem(k);
         if (raw) {
           try {
@@ -4945,6 +4947,36 @@ function renderSessions() {
           } catch(e) {}
         }
       }
+
+      // 3. Fallback chiavi legacy senza week: SOLO se la data salvata appartiene esattamente a quel microciclo
+      const legacyKeys = [
+        `mv_session_rating_${aid}_${sNum}`,
+        `mv_session_rating_${aid}_${numVal}`
+      ];
+
+      for (const k of legacyKeys) {
+        const raw = localStorage.getItem(k);
+        if (raw) {
+          try {
+            const obj = JSON.parse(raw);
+            if (obj && (obj.rpe !== null || obj.fat !== null)) {
+              const d = obj.date || '';
+              if (week === 'W4') {
+                if (numVal === 1 && d >= '2026-09-14' && d < '2026-09-16') return obj;
+                if (numVal === 2 && d >= '2026-09-16' && d < '2026-09-18') return obj;
+                if (numVal === 3 && d >= '2026-09-18') return obj;
+              } else if (week === 'W3') {
+                if (d >= '2026-09-07' && d <= '2026-09-13') {
+                  if (numVal === 1 && d < '2026-09-09') return obj;
+                  if (numVal === 2 && d >= '2026-09-09' && d < '2026-09-11') return obj;
+                  if (numVal === 3 && d >= '2026-09-11') return obj;
+                }
+              }
+            }
+          } catch(e) {}
+        }
+      }
+
       return null;
     }
 

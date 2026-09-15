@@ -1,5 +1,5 @@
 // Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'v278-w4-session-badges-fixed';
+const CACHE_NAME = 'v279-fix-w4-future-session-ratings';
 
 const ASSETS_TO_CACHE = [
   './',
