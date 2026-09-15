@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v264-unlock-1rm-live-recalc)
-const CACHE_NAME = 'marsala-app-v264-unlock-1rm-live-recalc';
+// Service Worker App Marsala Volley (v269-unlock-1rm-all-athletes)
+const CACHE_NAME = 'marsala-app-v269-unlock-1rm-all-athletes';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260914v264',
+  './data.js?v=20260915v268',
   './supabase-client.js?v=2.0',
 
   './logo.jpg',

@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v268-coach-campo-w4)
-const CACHE_NAME = 'coach-mv-v268-coach-campo-w4';
+// Service Worker Coach Command Center (v269-unlock-1rm-all-athletes)
+const CACHE_NAME = 'coach-mv-v269-unlock-1rm-all-athletes';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

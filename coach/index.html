@@ -2951,7 +2951,6 @@
 
             // Blinda con soglie fisiologiche reali: squat >= 30kg, clean/rdl >= 20kg, panca/military/row/lat >= 15kg
             if (isSquat1RM && val >= 30) {
-              if (aid === 9 && (val === 150 || val > 110)) val = 80;
               updateIfNewer('squat', val);
             }
             if (isClean1RM && val >= 20) updateIfNewer('clean', val);

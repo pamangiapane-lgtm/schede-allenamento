@@ -487,6 +487,24 @@
     ],
     "2": [
       {
+        "Blocco": "# Plyo",
+        "blocco": "# Plyo",
+        "Esercizio": "1A. Chronojump CMJ Readiness Test",
+        "Set x Reps": "1 x 3 jumps",
+        "Carico (kg/RPE)": "Max",
+        "Tempo": "`Max RFD`",
+        "Note Tecniche": "3 maximal jumps with 45\" rest. Verify height and readiness vs baseline (drop <7%)."
+      },
+      {
+        "Blocco": "# Plyo",
+        "blocco": "# Plyo",
+        "Esercizio": "2A. Drop Jump da Box (25-30cm)",
+        "Set x Reps": "2 x 4",
+        "Carico (kg/RPE)": "BW",
+        "Tempo": "`Max RFD`",
+        "Note Tecniche": "Drop from 25-30cm box: reactive floor contact (<200ms) and maximal vertical bounce. Ankle stiffness focus (same as team)."
+      },
+      {
         "Blocco": "# Prehab",
         "Esercizio": "1. Stiff leg deadlift",
         "Set x Reps": "2 x 5",
@@ -512,19 +530,19 @@
       },
       {
         "Blocco": "# Prehab",
-        "Esercizio": "3. Clean squat with stand on one leg",
-        "Set x Reps": "2 x 5+5",
-        "Carico (kg/RPE)": "15 kg",
+        "Esercizio": "3. KB squat",
+        "Set x Reps": "2 x 6",
+        "Carico (kg/RPE)": "12 - 16 kg",
         "Tempo": "3010",
-        "Note Tecniche": "Discesa in 3s, risalita e arrivo solido in equilibrio monopodalico senza valgo del ginocchio."
+        "Note Tecniche": "Kettlebell goblet squat: 3s controlled eccentric, deep hip mobility, upright torso, active foot arch."
       },
       {
         "Blocco": "# Main Exercises",
         "Esercizio": "1. Box Squat",
-        "Set x Reps": "3 x 5, 4, 3",
-        "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+        "Set x Reps": "4 x 5, 4, 3, 3 (5@70° - 4@75° - 3@80° - 3@80°)",
+        "Carico (kg/RPE)": "50 - 70 kg",
         "Tempo": "2010",
-        "Note Tecniche": "Sfioro del box controllato a 85°-90°, risalita potente (progressione carichi fino a RPE 4-5)."
+        "Note Tecniche": "Box height progression: 5 reps @ 70°, 4 reps @ 75°, 3 reps @ 80°, 3 reps @ 80°. Load progressive from 50 to 70 kg. Controlled touch, powerful ascent."
       },
       {
         "Blocco": "# Main Exercises",

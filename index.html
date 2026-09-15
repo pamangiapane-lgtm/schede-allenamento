@@ -2087,14 +2087,7 @@
           }
         }
       });
-      // Bonifica specifica Dodi (#9) refuso storico 150kg
-      if (aid === 9) {
-        const dodiSq = localStorage.getItem('mv_1rm_9_squat');
-        if (dodiSq && (parseFloat(dodiSq) === 150 || parseFloat(dodiSq) > 110)) {
-          localStorage.removeItem('mv_1rm_9_squat');
-          localStorage.removeItem('mv_synced_mv_1rm_9_squat');
-        }
-      }
+
 
       // Sanifica date spurie 1899/1900, VBT a 0 o irrealistici e carichi spuri
       try {
@@ -2166,9 +2159,10 @@
           const sb = window.MV_SUPABASE.getSb();
           if (sb) {
             try {
-              const [tRes, sRes] = await Promise.all([
+              const [tRes, sRes, aRes] = await Promise.all([
                 sb.from('training_sets').select('*').eq('athlete_id', currentAthlete.id).order('date', { ascending: true }),
-                sb.from('session_ratings').select('*').eq('athlete_id', currentAthlete.id).order('date', { ascending: true })
+                sb.from('session_ratings').select('*').eq('athlete_id', currentAthlete.id).order('date', { ascending: true }),
+                sb.from('athletes').select('*').eq('id', currentAthlete.id).maybeSingle()
               ]);
               if (tRes && tRes.data) {
                 tRes.data.forEach(t => {
@@ -2200,6 +2194,33 @@
                     Timestamp: s.created_at || s.date
                   });
                 });
+              }
+              if (aRes && aRes.data) {
+                const aData = aRes.data;
+                const liftCols = { squat: 'baseline_squat', bench: 'baseline_bench', clean: 'baseline_clean', military: 'baseline_military', row: 'baseline_row', lat: 'baseline_lat', rdl: 'baseline_rdl' };
+                Object.keys(liftCols).forEach(l => {
+                  const bVal = parseFloat(aData[liftCols[l]]);
+                  if (!isNaN(bVal) && bVal > 0) {
+                    rows.push({
+                      ID_Giocatrice: currentAthlete.id,
+                      N_Seduta: '0',
+                      Esercizio: `1RM-${l}`,
+                      Valore: `${bVal} kg`,
+                      Data: aData.updated_at ? aData.updated_at.slice(0, 10) : '2026-09-01',
+                      Timestamp: aData.updated_at || '2026-09-01T00:00:00Z'
+                    });
+                  }
+                });
+                if (aData.weight_kg != null && aData.weight_kg > 0) {
+                  rows.push({
+                    ID_Giocatrice: currentAthlete.id,
+                    N_Seduta: '0',
+                    Esercizio: 'peso-corporeo',
+                    Valore: `${aData.weight_kg} kg`,
+                    Data: aData.updated_at ? aData.updated_at.slice(0, 10) : '2026-09-01',
+                    Timestamp: aData.updated_at || '2026-09-01T00:00:00Z'
+                  });
+                }
               }
             } catch (errSb) {
               console.warn('[Sync Supabase error]', errSb);
@@ -2640,11 +2661,6 @@
       const minThreshold = (rmKey.id === 'squat' || rmKey.id === 'rdl') ? 30 : ((rmKey.id === 'clean') ? 20 : 15);
 
       if (!isNaN(saved) && saved >= minThreshold && saved <= 300) {
-        if (currentAthlete.id === 9 && rmKey.id === 'squat' && (saved === 150 || saved > 110)) {
-          localStorage.removeItem(`mv_1rm_9_squat`);
-          localStorage.removeItem(`mv_synced_mv_1rm_9_squat`);
-          return (TRUE_BASELINES[9] && TRUE_BASELINES[9].squat) || 80;
-        }
         return saved;
       }
       // Se c'è un valore errato o non fisiologico salvato precedentemente (es. 0.74, 0.93)

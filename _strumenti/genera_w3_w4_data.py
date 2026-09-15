@@ -334,7 +334,18 @@ def parse_athlete_individual(ath_meta):
     # Settimana 4
     w4_m = re.search(r'###\s+(?:SETTIMANA|WEEK)\s+4.*?(?=###\s+(?:SETTIMANA|WEEK)\s+5|\Z)', text, re.DOTALL | re.IGNORECASE)
     w4_text = w4_m.group(0).strip() if w4_m else ""
-    w4_sedute = parse_w4_bullets(w4_text)
+    w4_sedute = {}
+    sed4_splits = re.split(r'####\s+(?:SEDUTA|SESSION)\s+(\d)', w4_text, flags=re.IGNORECASE)
+    for i in range(1, len(sed4_splits), 2):
+        s_num = int(sed4_splits[i])
+        s_chunk = sed4_splits[i+1]
+        t_lines = [l.strip() for l in s_chunk.split('\n') if l.strip().startswith('|')]
+        table_rows = parse_markdown_table(t_lines)
+        if table_rows:
+            w4_sedute[s_num] = table_rows
+        else:
+            bullets_res = parse_w4_bullets(s_chunk)
+            w4_sedute[s_num] = bullets_res.get(s_num, [])
 
     return {
         "id": ath_meta["id"],
