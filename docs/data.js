@@ -6599,6 +6599,15 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "blocco": "# Accessories",
+              "Esercizio": "1. Harmstring Ball curl",
+              "Set x Reps": "3 x 6",
+              "Carico (kg/RPE)": "BW",
+              "Tempo": "`1030`",
+              "Note Tecniche": "Leg curl su fitball a terra, bacino sempre sollevato e allineato, 3s di fase eccentrica."
+            },
+            {
+              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
@@ -6617,11 +6626,11 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Babdominals + Transfer",
               "blocco": "# Babdominals + Transfer",
-              "Esercizio": "Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
+              "Esercizio": "1. Flor ball throws",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Rotazione esplosiva dell'anca e del tronco verso il muro, rilascio violento con intenzione massimale."
+              "Note Tecniche": "Lancio esplosivo della palla medica a terra con massima intenzione di velocità."
             },
             {
               "Blocco": "# Babdominals + Transfer",
@@ -6684,6 +6693,14 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Accessories",
+              "Esercizio": "1. Harmstring Ball curl",
+              "Set x Reps": "2 x 6",
+              "Carico (kg/RPE)": "BW",
+              "Tempo": "1030",
+              "Note Tecniche": "Fitball leg curl on floor with 3s eccentric return."
+            },
+            {
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\"",
@@ -6708,19 +6725,19 @@ const WEEKS_DATA = {
             },
             {
               "blocco": "# Babdominals + Transfer",
-              "Esercizio": "Power Clean con Bilanciere",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "35.0 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Tripla estensione potente e reattiva, ricezione solida al petto."
+              "Esercizio": "1. Clean to split pos",
+              "Set x Reps": "3 x 2+2",
+              "Carico (kg/RPE)": "30 - 35 kg",
+              "Tempo": "10X0",
+              "Note Tecniche": "Power clean with rapid split catch, testing dynamic balance."
             },
             {
               "blocco": "# Babdominals + Transfer",
-              "Esercizio": "Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
+              "Esercizio": "2. Flor ball throws",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Rotazione esplosiva dell'anca e del tronco verso il muro, rilascio violento con intenzione massimale."
+              "Tempo": "X",
+              "Note Tecniche": "Explosive floor slam, maximal hip-to-arm coordination."
             },
             {
               "blocco": "# Babdominals + Transfer",
@@ -13748,6 +13765,15 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "blocco": "# Accessories",
+              "Esercizio": "1. Harmstring Ball curl",
+              "Set x Reps": "3 x 6",
+              "Carico (kg/RPE)": "BW",
+              "Tempo": "`1030`",
+              "Note Tecniche": "Leg curl su fitball a terra, bacino sempre sollevato e allineato, 3s di fase eccentrica."
+            },
+            {
+              "Blocco": "# Accessories",
+              "blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
@@ -13766,11 +13792,11 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Babdominals + Transfer",
               "blocco": "# Babdominals + Transfer",
-              "Esercizio": "Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
+              "Esercizio": "1. Flor ball throws",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
               "Tempo": "`X`",
-              "Note Tecniche": "Rotazione esplosiva dell'anca e del tronco verso il muro, rilascio violento con intenzione massimale."
+              "Note Tecniche": "Lancio esplosivo della palla medica a terra con massima intenzione di velocità."
             },
             {
               "Blocco": "# Babdominals + Transfer",
@@ -13949,6 +13975,14 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
+              "Esercizio": "1. Harmstring Ball curl",
+              "Set x Reps": "2 x 6",
+              "Carico (kg/RPE)": "BW",
+              "Tempo": "1030",
+              "Note Tecniche": "Leg curl su fitball a terra con ritorno eccentrico lento in 3s."
+            },
+            {
+              "Blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\"",
@@ -13973,19 +14007,19 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "Power Clean con Bilanciere",
-              "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "35.0 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Tripla estensione potente e reattiva, ricezione solida al petto."
+              "Esercizio": "1. Clean to split pos",
+              "Set x Reps": "3 x 2+2",
+              "Carico (kg/RPE)": "30 - 35 kg",
+              "Tempo": "10X0",
+              "Note Tecniche": "Power clean con ricezione rapida in posizione di split (affondo dinamico), alternando gli arti."
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
+              "Esercizio": "2. Flor ball throws",
+              "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Rotazione esplosiva dell'anca e del tronco verso il muro, rilascio violento con intenzione massimale."
+              "Tempo": "X",
+              "Note Tecniche": "Floor slam esplosivo a terra, massima coordinazione tra flessori d'anca e muscoli del dorso."
             },
             {
               "Blocco": "# Babdominals + Transfer",

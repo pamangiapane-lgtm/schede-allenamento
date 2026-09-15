@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-v283-nelly-exercises-updated';
+const CACHE_NAME = 'coach-v284-nelly-w4s2-only';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
