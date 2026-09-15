@@ -2211,12 +2211,13 @@
                     });
                   }
                 });
-                if (aData.weight_kg != null && aData.weight_kg > 0) {
+                const bWeight = aData.baseline_weight || aData.weight_kg;
+                if (bWeight != null && bWeight > 0) {
                   rows.push({
                     ID_Giocatrice: currentAthlete.id,
                     N_Seduta: '0',
                     Esercizio: 'peso-corporeo',
-                    Valore: `${aData.weight_kg} kg`,
+                    Valore: `${bWeight} kg`,
                     Data: aData.updated_at ? aData.updated_at.slice(0, 10) : '2026-09-01',
                     Timestamp: aData.updated_at || '2026-09-01T00:00:00Z'
                   });
