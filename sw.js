@@ -1,5 +1,5 @@
 // Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'v281-landmine-rpe8';
+const CACHE_NAME = 'v282-accessories-rpe8';
 
 const ASSETS_TO_CACHE = [
   './',

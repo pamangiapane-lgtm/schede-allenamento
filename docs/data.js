@@ -868,7 +868,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (6+6 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -950,7 +950,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -958,7 +958,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -1100,7 +1100,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (6+6 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -1174,7 +1174,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (8 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -1182,7 +1182,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -1190,7 +1190,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -1198,7 +1198,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -1343,7 +1343,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (15+15 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -1425,7 +1425,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -1433,7 +1433,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -1575,7 +1575,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (16+16 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -1649,7 +1649,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (19 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -1657,7 +1657,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -1665,7 +1665,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -1673,7 +1673,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -1818,7 +1818,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (19+19 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -1900,7 +1900,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -1908,7 +1908,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -2050,7 +2050,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -2124,7 +2124,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (24 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -2132,7 +2132,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -2140,7 +2140,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -2148,7 +2148,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -2375,7 +2375,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL with Dumbbell (Ipsilateral)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "IPSILATERAL load (dumbbell in SAME hand as supporting leg). Pure hip hinge, level pelvis without rotation, slight knee unlock. Focus on posterior chain and ankle-hip stability"
             },
@@ -2383,7 +2383,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Resistance Band Face Pull",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Band anchored at eye level. Pull to face with external rotation (thumbs back, elbows high). Rotator cuff and rear delt reinforcement"
             },
@@ -2599,7 +2599,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row on Bench",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (16 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "High velocity dorsal pull, elbow skimming ribcage"
             },
@@ -2607,7 +2607,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL with Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "CONTRALATERAL load (KB opposite to stance leg). Knee soft, active foot tripod"
             },
@@ -2615,7 +2615,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. High Cable Face Pull with External Rotation",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Thumbs back, rope to eyes, rotator cuff reinforcement"
             },
@@ -2623,7 +2623,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Dynamic Pallof Press with Lateral Step",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Dynamic anti-rotation, upright torso"
             },
@@ -2768,7 +2768,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (9+9 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -2850,7 +2850,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -2858,7 +2858,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -3000,7 +3000,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (10+10 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -3074,7 +3074,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -3082,7 +3082,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -3090,7 +3090,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -3098,7 +3098,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -3243,7 +3243,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (14+14 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -3325,7 +3325,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -3333,7 +3333,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -3475,7 +3475,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (15+15 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -3549,7 +3549,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (17 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -3557,7 +3557,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -3565,7 +3565,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -3573,7 +3573,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -3718,7 +3718,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (16+16 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -3800,7 +3800,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -3808,7 +3808,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -3950,7 +3950,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (18+18 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -4024,7 +4024,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (21 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -4032,7 +4032,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -4040,7 +4040,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -4048,7 +4048,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -4193,7 +4193,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (18+18 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -4275,7 +4275,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -4283,7 +4283,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -4425,7 +4425,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -4499,7 +4499,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (22 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -4507,7 +4507,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -4515,7 +4515,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -4523,7 +4523,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -4668,7 +4668,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (9+9 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -4750,7 +4750,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -4758,7 +4758,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -4900,7 +4900,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (10+10 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -4974,7 +4974,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -4982,7 +4982,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -4990,7 +4990,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -4998,7 +4998,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -5167,7 +5167,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
-              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
@@ -5262,7 +5262,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 4, 3, 4 /side",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "1030",
               "Note Tecniche": "Single-arm row with 3s isometric scapular squeeze at top."
             },
@@ -5524,7 +5524,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
-              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
@@ -5645,7 +5645,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "1030",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
@@ -5743,7 +5743,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 4, 3, 4 /lato",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "1030",
               "Note Tecniche": "Trazione monolaterale con 3s di tenuta scapolare in alto, gomito che sfiora il costato."
             },
@@ -5870,7 +5870,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (9+9 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -5952,7 +5952,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -5960,7 +5960,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -6102,7 +6102,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (10+10 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -6176,7 +6176,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -6184,7 +6184,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -6192,7 +6192,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -6200,7 +6200,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -6345,7 +6345,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (18+18 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -6427,7 +6427,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -6435,7 +6435,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -6577,7 +6577,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -6651,7 +6651,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (22 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -6659,7 +6659,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -6667,7 +6667,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -6675,7 +6675,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -6820,7 +6820,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (11+11 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -6902,7 +6902,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -6910,7 +6910,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -7052,7 +7052,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (12+12 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -7126,7 +7126,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (14 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -7134,7 +7134,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -7142,7 +7142,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -7150,7 +7150,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -7677,7 +7677,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (6+6 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -7759,7 +7759,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -7767,7 +7767,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -7909,7 +7909,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (6+6 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -7983,7 +7983,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (8 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -7991,7 +7991,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -7999,7 +7999,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -8007,7 +8007,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -8152,7 +8152,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (15+15 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -8234,7 +8234,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -8242,7 +8242,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -8384,7 +8384,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (16+16 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -8458,7 +8458,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (19 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -8466,7 +8466,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -8474,7 +8474,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -8482,7 +8482,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -8627,7 +8627,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (19+19 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -8709,7 +8709,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -8717,7 +8717,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -8859,7 +8859,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -8933,7 +8933,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (24 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -8941,7 +8941,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -8949,7 +8949,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -8957,7 +8957,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -9184,7 +9184,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL with Dumbbell (Ipsilateral)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "IPSILATERAL load (dumbbell in SAME hand as supporting leg). Pure hip hinge, level pelvis without rotation, slight knee unlock. Focus on posterior chain and ankle-hip stability"
             },
@@ -9192,7 +9192,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Resistance Band Face Pull",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Band anchored at eye level. Pull to face with external rotation (thumbs back, elbows high). Rotator cuff and rear delt reinforcement"
             },
@@ -9408,7 +9408,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row on Bench",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (16 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "High velocity dorsal pull, elbow skimming ribcage"
             },
@@ -9416,7 +9416,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL with Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "CONTRALATERAL load (KB opposite to stance leg). Knee soft, active foot tripod"
             },
@@ -9424,7 +9424,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. High Cable Face Pull with External Rotation",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Thumbs back, rope to eyes, rotator cuff reinforcement"
             },
@@ -9432,7 +9432,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Dynamic Pallof Press with Lateral Step",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Dynamic anti-rotation, upright torso"
             },
@@ -9577,7 +9577,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (9+9 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -9659,7 +9659,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -9667,7 +9667,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -9809,7 +9809,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (10+10 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -9883,7 +9883,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -9891,7 +9891,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -9899,7 +9899,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -9907,7 +9907,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -10052,7 +10052,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (14+14 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -10134,7 +10134,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -10142,7 +10142,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -10284,7 +10284,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (15+15 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -10358,7 +10358,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (17 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -10366,7 +10366,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -10374,7 +10374,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -10382,7 +10382,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -10527,7 +10527,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (16+16 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -10609,7 +10609,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -10617,7 +10617,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -10759,7 +10759,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (18+18 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -10833,7 +10833,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (21 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -10841,7 +10841,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -10849,7 +10849,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -10857,7 +10857,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -11002,7 +11002,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (18+18 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -11084,7 +11084,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -11092,7 +11092,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -11234,7 +11234,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -11308,7 +11308,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (22 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -11316,7 +11316,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -11324,7 +11324,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -11332,7 +11332,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -11477,7 +11477,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (9+9 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -11559,7 +11559,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -11567,7 +11567,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -11709,7 +11709,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (10+10 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -11783,7 +11783,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -11791,7 +11791,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -11799,7 +11799,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -11807,7 +11807,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -11976,7 +11976,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
-              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
@@ -12071,7 +12071,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 4, 3, 4 /side",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "1030",
               "Note Tecniche": "Single-arm row with 3s isometric scapular squeeze at top."
             },
@@ -12333,7 +12333,7 @@ const WEEKS_DATA = {
               "blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
-              "Carico (kg/RPE)": "\"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1030`",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
@@ -12454,7 +12454,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 5, 4, 3 /lato",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"5-6\"",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "1030",
               "Note Tecniche": "Rematore monopodalico/su panca, 3s di tenuta isometrica in chiusura scapolare con gomito stretto."
             },
@@ -12552,7 +12552,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
               "Set x Reps": "3 x 4, 3, 4 /lato",
-              "Carico (kg/RPE)": "\"12\" - \"8\" - \"6\"",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "1030",
               "Note Tecniche": "Trazione monolaterale con 3s di tenuta scapolare in alto, gomito che sfiora il costato."
             },
@@ -12679,7 +12679,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (9+9 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -12761,7 +12761,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -12769,7 +12769,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -12911,7 +12911,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (10+10 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -12985,7 +12985,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (11 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -12993,7 +12993,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -13001,7 +13001,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -13009,7 +13009,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -13154,7 +13154,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (18+18 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -13236,7 +13236,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -13244,7 +13244,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -13386,7 +13386,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (20+20 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -13460,7 +13460,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (22 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -13468,7 +13468,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -13476,7 +13476,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -13484,7 +13484,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
@@ -13629,7 +13629,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60% (11+11 kg) [\"8\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Busto in appoggio prono su panca 30°, presa neutra, 1\" retrazione scapolare al picco, discesa controllata 2\""
             },
@@ -13711,7 +13711,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "RPE 6",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico IPSILATERALE (manubrio nella STESSA mano della gamba in appoggio). Cerniera d'anca pura, bacino allineato senza torsione, ginocchio sbloccato 15-20°. Focus catena posteriore e stabilità caviglia-anca"
             },
@@ -13719,7 +13719,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull con Elastico",
               "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "Elastico",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Elastico ancorato ad altezza occhi. Trazione al viso con extrarotazione (pollici indietro, gomiti alti). Rinforzo cuffia rotatori e deltoide post."
             },
@@ -13861,7 +13861,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "65% (12+12 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
               "Note Tecniche": "SOLO MANUBRI (DB, no bilanciere). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica controllata 2\""
             },
@@ -13935,7 +13935,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (14 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1011`",
               "Note Tecniche": "Tirata dorsale ad alta velocità, gomito a sfiorare il costato"
             },
@@ -13943,7 +13943,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
-              "Carico (kg/RPE)": "12 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2010`",
               "Note Tecniche": "Carico CONTROLATERALE (KB opposta a gamba d'appoggio). Cerniera d'anca pura, bacino squadrato, ginocchio 15-20°"
             },
@@ -13951,7 +13951,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Face Pull al cavo con extrarotazione",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "15 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2012`",
               "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore"
             },
@@ -13959,7 +13959,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "5A. Pallof Press dinamico con step laterale",
               "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "10 kg",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione dinamica, busto perpendicolare"
             },
