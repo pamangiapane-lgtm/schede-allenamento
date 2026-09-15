@@ -4286,6 +4286,10 @@ const ATHLETE_VBT_LIMITS = {
         placeholderText = rmData.isDumbbell
           ? (isEN ? `e.g. ${rmData.eachKg}+${rmData.eachKg} kg` : `es. ${rmData.eachKg}+${rmData.eachKg} kg`)
           : (isEN ? `e.g. ${rmData.targetKg} kg` : `es. ${rmData.targetKg} kg`);
+      } else if (lowName.includes('landmine')) {
+        placeholderText = isEN ? 'e.g. +15 kg' : 'es. +15 kg';
+      } else if (carico && carico.toLowerCase().includes('rpe')) {
+        placeholderText = isEN ? 'e.g. kg used' : 'es. kg usati';
       } else if (carico) {
         placeholderText = isEN ? `Prescribed: ${carico}` : `Prescritto: ${carico}`;
       } else {

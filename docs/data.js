@@ -1166,7 +1166,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+18.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -1641,7 +1641,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+15.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -2116,7 +2116,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+33.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -2591,7 +2591,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+21.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Explosive press at 45° scapular plane, knee down ipsilateral"
             },
@@ -3066,7 +3066,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+19.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -3541,7 +3541,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+19.5 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -4016,7 +4016,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+30.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -4491,7 +4491,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+24.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -4966,7 +4966,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+15.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -6168,7 +6168,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+16.5 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -6643,7 +6643,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+26.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -7118,7 +7118,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+19.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -7975,7 +7975,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+18.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -8450,7 +8450,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+15.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -8925,7 +8925,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+33.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -9400,7 +9400,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+21.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Explosive press at 45° scapular plane, knee down ipsilateral"
             },
@@ -9875,7 +9875,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+19.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -10350,7 +10350,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+19.5 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -10825,7 +10825,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+30.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -11300,7 +11300,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+24.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -11775,7 +11775,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+15.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -12977,7 +12977,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+16.5 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -13452,7 +13452,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+26.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
@@ -13927,7 +13927,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3C. Half-Kneeling Landmine Press",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "75% (+19.0 kg) [\"5\"]",
+              "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`10X0`",
               "Note Tecniche": "Spinta esplosiva sul piano scapolare a 45°, ginocchio omolaterale a terra"
             },
