@@ -2758,12 +2758,19 @@
       document.getElementById('input-bw').value = bw;
     }
 
-    function recalcBWLive(val) {
+        function recalcBWLive(val) {
       const parsed = parseFloat(val) || 0;
       if (parsed > 0) {
         localStorage.setItem(`mv_bw_${currentAthlete.id}`, parsed);
+        const todayStr = new Date().toISOString().slice(0, 10);
+        try {
+          const hist = JSON.parse(localStorage.getItem(`mv_bw_history_${currentAthlete.id}`) || '[]');
+          hist.push({ date: todayStr, bw: parsed, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) });
+          localStorage.setItem(`mv_bw_history_${currentAthlete.id}`, JSON.stringify(hist.slice(-20)));
+        } catch(e) {}
         render1RMProfile();
         renderSessions();
+        renderRiepilogoCarichi();
       }
     }
 
@@ -2784,6 +2791,12 @@
       }
 
       localStorage.setItem(`mv_bw_${currentAthlete.id}`, String(numVal));
+      const todayStr = new Date().toISOString().slice(0, 10);
+      try {
+        const hist = JSON.parse(localStorage.getItem(`mv_bw_history_${currentAthlete.id}`) || '[]');
+        hist.push({ date: todayStr, bw: numVal, time: new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' }) });
+        localStorage.setItem(`mv_bw_history_${currentAthlete.id}`, JSON.stringify(hist.slice(-20)));
+      } catch(e) {}
       const toast = document.getElementById('toast-bw');
       if (toast) {
         toast.style.display = 'inline';
@@ -2814,87 +2827,7 @@
 
       render1RMProfile();
       renderSessions();
-    }
-
-    function switchNav(tab, btn) {
-      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      document.getElementById(`tab-${tab}`).classList.add('active');
-      if (tab === 'sedute') {
-        renderSessions();
-      } else if (tab === 'profilo') {
-        render1RMProfile();
-        renderRiepilogoCarichi();
-      }
-    }
-
-    function switchWeek(week, btn) {
-      currentWeek = week;
-      sessionRatings = {};
-      document.querySelectorAll('.week-pill').forEach(p => {
-        p.classList.remove('active');
-        if (btn) {
-          btn.classList.add('active');
-        } else if (p.getAttribute('data-week') === week || p.textContent.includes(week) || p.textContent.toLowerCase().includes(week.toLowerCase().replace('w', 'week '))) {
-          p.classList.add('active');
-        }
-      });
-      renderSessions();
-    }
-
-    function getAthlete1RM(rmKey) {
-      const savedRaw = localStorage.getItem(`mv_1rm_${currentAthlete.id}_${rmKey.id}`);
-      const saved = parseFloat(savedRaw);
-      const minThreshold = (rmKey.id === 'squat' || rmKey.id === 'rdl') ? 30 : ((rmKey.id === 'clean') ? 20 : 15);
-
-      if (!isNaN(saved) && saved >= minThreshold && saved <= 300) {
-        return saved;
-      }
-      // Se c'è un valore errato o non fisiologico salvato precedentemente (es. 0.74, 0.93)
-      if (!isNaN(saved) && (saved < minThreshold || saved > 300)) {
-        localStorage.removeItem(`mv_1rm_${currentAthlete.id}_${rmKey.id}`);
-      }
-
-      const base = TRUE_BASELINES[currentAthlete.id] || {};
-      return base[rmKey.id] || 0;
-    }
-
-    function calcTargetLoad(rmKey, rmVal, pct) {
-      if (rmVal <= 0) return null;
-      if (rmKey.hasBW) {
-        const bw = getAthleteBW();
-        const load = (pct / 100) * (rmVal + bw) - bw;
-        return Math.max(0, Math.round(load * 2) / 2);
-      } else {
-        const load = (pct / 100) * rmVal;
-        return Math.round(load * 2) / 2;
-      }
-    }
-
-    function recalc1RMLive(rmId, val) {
-      const parsed = parseFloat(val) || 0;
-      const rmObj = RM_KEYS.find(k => k.id === rmId);
-      if (rmObj) {
-        [50, 60, 70, 75, 80, 85, 90].forEach(p => {
-          const kg = parsed > 0 ? calcTargetLoad(rmObj, parsed, p) : '—';
-          const el = document.getElementById(`pct-${rmId}-${p}`);
-          if (el) el.textContent = kg !== '—' ? `${kg}k` : '—';
-        });
-      }
-      if (parsed > 0 && currentAthlete && currentAthlete.id) {
-        localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, String(parsed));
-        renderSessions();
-      }
-    }
-
-    async function on1RMChangeAuto(rmId, val) {
-      const parsed = parseFloat(val) || 0;
-      if (parsed > 0 && currentAthlete && currentAthlete.id) {
-        localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, String(parsed));
-        renderSessions();
-        await save1RMToCloud(rmId, parsed);
-      }
+      renderRiepilogoCarichi();
     }
 
     async function save1RMToCloud(rmId, val) {
@@ -2998,30 +2931,63 @@
     }
 
     // GESTIONE RIEPILOGO CARICHI (PER TUTTA LA SQUADRA TRANNE NELLY)
+        // GESTIONE RIEPILOGO CARICHI & PESO CORPOREO
     function renderRiepilogoCarichi() {
       const box = document.getElementById('box-riepilogo-carichi');
-      const isNelly = (currentAthlete && (currentAthlete.id === 14 || currentAthlete.name.toLowerCase().includes('nelly')));
-      if (isNelly) {
-        if (box) box.style.display = 'none';
-        return;
-      }
+      if (!currentAthlete) return;
       if (box) box.style.display = 'block';
 
+      const isEN = (currentAthlete.id === 4 || currentAthlete.id === 14);
       const container = document.getElementById('riepilogo-carichi-container');
+      if (!container) return;
+
       const savedKeys = [];
       const prefix = `mv_load_${currentAthlete.id}_`;
 
+      // 1. INSERIMENTO PESO CORPOREO (BW) AL PRIMO POSTO CON STORICO MODIFICHE
+      const currentBw = getAthleteBW();
+      let bwSubText = isEN ? 'Official Baseline / Live Entry' : 'Baseline Ufficiale / Modifica Live';
+      try {
+        const hist = JSON.parse(localStorage.getItem(`mv_bw_history_${currentAthlete.id}`) || '[]');
+        if (hist && hist.length > 0) {
+          const lastH = hist[hist.length - 1];
+          if (lastH && lastH.date) {
+            bwSubText = isEN ? `Last update: ${lastH.date} ${lastH.time || ''}` : `Ultima modifica: ${lastH.date} ${lastH.time || ''}`;
+          }
+        }
+      } catch(e) {}
+
+      savedKeys.push({
+        isBW: true,
+        exercise: isEN ? '⚖️ Body Weight (BW)' : '⚖️ Peso Corporeo (BW)',
+        subText: bwSubText,
+        load: `${currentBw} kg`
+      });
+
+      // 2. RECUPERO CARICHI ESERCIZI DA LOCALSTORAGE
+      const seenExercises = new Set();
       for (let i = 0; i < localStorage.length; i++) {
         const k = localStorage.key(i);
-        if (k.startsWith(prefix)) {
-          const exName = k.replace(prefix, '');
+        if (k && k.startsWith(prefix)) {
+          let rawExName = k.replace(prefix, '');
+          const cleanExName = rawExName.replace(/^W[1-9]_\d+_/i, '').trim();
+          if (seenExercises.has(cleanExName)) continue;
+          seenExercises.add(cleanExName);
+
           const val = localStorage.getItem(k);
-          savedKeys.push({ exercise: exName, load: val });
+          if (val && val.trim()) {
+            savedKeys.push({
+              isBW: false,
+              exercise: cleanExName,
+              subText: '',
+              load: val.trim()
+            });
+          }
         }
       }
 
-      // Se non ci sono carichi salvati, mostriamo gli esercizi chiave di default
-      const isDodi = (currentAthlete && (currentAthlete.id === 9 || currentAthlete.name.toLowerCase().includes('dodi')));
+      // 3. Esercizi di default se non ancora registrati
+      const isDodi = (currentAthlete.id === 9 || currentAthlete.name.toLowerCase().includes('dodi'));
       const defaultList = isDodi ? [
         'Lunge p. one arm press KB',
         'Deadbug Pullover',
@@ -3037,32 +3003,50 @@
       ];
 
       defaultList.forEach(defEx => {
-        if (!savedKeys.find(item => item.exercise === defEx)) {
+        if (!seenExercises.has(defEx)) {
           const stored = localStorage.getItem(`${prefix}${defEx}`) || '—';
-          savedKeys.push({ exercise: defEx, load: stored });
+          savedKeys.push({
+            isBW: false,
+            exercise: defEx,
+            subText: '',
+            load: stored
+          });
         }
       });
-
-      if (savedKeys.length === 0) {
-        container.innerHTML = `<div style="text-align:center;color:var(--mv-muted);padding:14px;font-size:0.8rem">Nessun carico registrato finora. Compila i carichi durante le sedute per vederli qui.</div>`;
-        return;
-      }
 
       container.innerHTML = `
         <table class="loads-summary-table">
           <thead>
             <tr>
-              <th style="width:55%">Esercizio</th>
-              <th style="width:45%;text-align:right">Ultimo Carico</th>
+              <th style="width:55%">${isEN ? 'Metric / Exercise' : 'Metrica / Esercizio'}</th>
+              <th style="width:45%;text-align:right">${isEN ? 'Last Value / Load' : 'Ultimo Valore / Carico'}</th>
             </tr>
           </thead>
           <tbody>
-            ${savedKeys.map(item => `
-              <tr>
-                <td><strong>${item.exercise}</strong></td>
-                <td style="text-align:right"><span class="load-badge">${item.load !== '—' ? item.load : 'Non registrato'}</span></td>
-              </tr>
-            `).join('')}
+            ${savedKeys.map(item => {
+              if (item.isBW) {
+                return `
+                  <tr style="background:rgba(59,130,246,0.08);border-left:3px solid #3b82f6;">
+                    <td>
+                      <strong style="color:#93c5fd;">${item.exercise}</strong>
+                      <div style="font-size:0.68rem;color:var(--mv-muted);margin-top:2px;">${item.subText}</div>
+                    </td>
+                    <td style="text-align:right">
+                      <span class="load-badge" style="background:rgba(59,130,246,0.22);color:#93c5fd;border:1px solid rgba(59,130,246,0.45);font-weight:800;font-size:0.85rem;">${item.load}</span>
+                    </td>
+                  </tr>
+                `;
+              }
+              const isRecorded = (item.load !== '—' && item.load !== 'Non registrato');
+              return `
+                <tr>
+                  <td><strong>${item.exercise}</strong></td>
+                  <td style="text-align:right">
+                    <span class="load-badge ${isRecorded ? '' : 'load-badge-empty'}">${isRecorded ? item.load : (isEN ? 'Not recorded' : 'Non registrato')}</span>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
           </tbody>
         </table>
       `;

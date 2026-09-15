@@ -1,5 +1,5 @@
 // Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'v279-fix-w4-future-session-ratings';
+const CACHE_NAME = 'v280-bw-in-loads-summary';
 
 const ASSETS_TO_CACHE = [
   './',

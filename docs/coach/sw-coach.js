@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-v279-fix-w4-future-session-ratings';
+const CACHE_NAME = 'coach-v280-bw-in-loads-summary';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
