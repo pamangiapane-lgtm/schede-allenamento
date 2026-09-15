@@ -1,5 +1,5 @@
-// Service Worker Coach Command Center (v269-unlock-1rm-all-athletes)
-const CACHE_NAME = 'coach-mv-v269-unlock-1rm-all-athletes';
+// Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
+const CACHE_NAME = 'coach-mv-v270-update-baseline-weights-14sept';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

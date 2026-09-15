@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v269-unlock-1rm-all-athletes)
-const CACHE_NAME = 'marsala-app-v269-unlock-1rm-all-athletes';
+// Service Worker App Marsala Volley (v270-update-baseline-weights-14sept)
+const CACHE_NAME = 'marsala-app-v270-update-baseline-weights-14sept';
 
 const ASSETS_TO_CACHE = [
   './',
