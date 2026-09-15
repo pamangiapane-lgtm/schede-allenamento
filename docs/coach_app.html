@@ -1249,6 +1249,82 @@
         </div>
       </div>
 
+      
+      <!-- MODULO GRAFICO CURVA FORZA-VELOCITA (F-V) & VBT LOAD-VELOCITY (SQUAT) -->
+      <div class="card-box" id="box-fv-vbt-chart" style="margin-bottom:14px;padding:14px 16px;border:1px solid rgba(56,189,248,0.3);background:linear-gradient(180deg, rgba(56,189,248,0.04) 0%, rgba(6,10,20,0.9) 100%);">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:1.3rem;">⚡</span>
+            <div>
+              <h3 class="card-title" style="margin-bottom:2px;font-size:0.95rem;" id="fv-chart-title">📈 Curva Forza-Velocità (F-V) &amp; Profilo VBT Squat</h3>
+              <span style="font-size:0.72rem;color:var(--mv-muted);" id="fv-chart-subtitle">Regressione lineare dinamica su 1RM Reale + Rilevamenti storici W3-W4 (Formula Squat con BW)</span>
+            </div>
+          </div>
+          <span class="traffic-tag cyan" id="badge-fv-status" style="font-size:0.75rem;padding:4px 10px;background:rgba(56,189,248,0.15);color:#38bdf8;border:1px solid rgba(56,189,248,0.3);border-radius:6px;font-weight:800;">Motore F-V Dinamico</span>
+        </div>
+
+        <!-- Barra Selettore Atlete F-V -->
+        <div class="scroll-pills" id="fv-athlete-selector" style="margin-bottom:12px;gap:6px;">
+          <!-- Popolato da initFVUI() -->
+        </div>
+
+        <!-- Micro-griglia KPI Biomeccanici F-V -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:8px;margin-bottom:12px;" id="fv-kpi-grid">
+          <div class="kpi-card" style="padding:8px 10px;text-align:center;background:#060a14;border:1px solid rgba(56,189,248,0.2);border-radius:8px;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;color:#38bdf8;">V₀ Teorica (Carico 0)</div>
+            <div class="kpi-val" id="fv-kpi-v0" style="color:#38bdf8;font-size:1.15rem;font-weight:800;margin:2px 0;">-- m/s</div>
+            <div class="kpi-sub" style="font-size:0.6rem;color:var(--mv-muted);">Velocità max a corpo libero</div>
+          </div>
+          <div class="kpi-card" style="padding:8px 10px;text-align:center;background:#060a14;border:1px solid rgba(16,185,129,0.2);border-radius:8px;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;color:#6ee7b7;">1RM Squat Reale</div>
+            <div class="kpi-val" id="fv-kpi-1rm" style="color:#6ee7b7;font-size:1.15rem;font-weight:800;margin:2px 0;">-- kg</div>
+            <div class="kpi-sub" style="font-size:0.6rem;color:var(--mv-muted);">Velocità MVT: 0.30 m/s</div>
+          </div>
+          <div class="kpi-card" style="padding:8px 10px;text-align:center;background:#060a14;border:1px solid rgba(245,158,11,0.2);border-radius:8px;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;color:#fde68a;">Pendenza Curva (m)</div>
+            <div class="kpi-val" id="fv-kpi-slope" style="color:var(--mv-amber);font-size:1.15rem;font-weight:800;margin:2px 0;">--</div>
+            <div class="kpi-sub" style="font-size:0.6rem;color:var(--mv-muted);">Decadimento m/s per kg</div>
+          </div>
+          <div class="kpi-card" style="padding:8px 10px;text-align:center;background:#060a14;border:1px solid rgba(236,72,153,0.2);border-radius:8px;">
+            <div class="kpi-lbl" style="font-size:0.62rem;font-weight:700;color:#fbcfe8;">Target S2 W4 (72.5%)</div>
+            <div class="kpi-val" id="fv-kpi-target" style="color:#f472b6;font-size:1.15rem;font-weight:800;margin:2px 0;">-- kg</div>
+            <div class="kpi-sub" id="fv-kpi-target-vbt" style="font-size:0.6rem;color:var(--mv-muted);">Target: -- m/s</div>
+          </div>
+        </div>
+
+        <!-- Canvas Grafico F-V -->
+        <div style="position:relative;height:340px;width:100%;margin-bottom:14px;">
+          <canvas id="fvVbtChart"></canvas>
+        </div>
+
+        <!-- Tabella Dettaglio Zone di Carico F-V -->
+        <div style="margin-top:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <div style="font-size:0.75rem;font-weight:800;color:#cbd5e1;text-transform:uppercase;letter-spacing:0.5px;">
+              📊 Profilazione Spettro Forza-Velocità (% 1RM con BW)
+            </div>
+            <span id="fv-table-ath-tag" style="font-size:0.7rem;color:var(--mv-amber);font-weight:700;">--</span>
+          </div>
+          <div class="coach-tbl-wrap" style="max-height:260px;overflow-y:auto;">
+            <table class="coach-tbl" style="font-size:0.78rem;">
+              <thead>
+                <tr style="background:#060a14;">
+                  <th>% 1RM</th>
+                  <th>Carico Bil. (kg)</th>
+                  <th>Carico Tot. Sist. (kg)</th>
+                  <th>Velocità Stimata</th>
+                  <th>Rilievo Reale</th>
+                  <th>Zona Biomeccanica</th>
+                </tr>
+              </thead>
+              <tbody id="tbl-fv-breakdown-body">
+                <tr><td colspan="6" style="text-align:center;padding:12px;color:var(--mv-muted);">Seleziona un'atleta per visualizzare la curva.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <!-- NAVIGATORE SOTTO-TABELLE SALA PESI -->
       <div class="card-box" style="margin-bottom:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
         <div style="font-size:0.75rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;letter-spacing:0.5px;">
@@ -2033,7 +2109,7 @@
 
   </main>
 
-  <script src="./data.js?v=20260914v267"></script>
+  <script src="./data.js?v=20260914v266"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./supabase-client.js?v=2.1"></script>
   <script>
@@ -2105,7 +2181,7 @@
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=267', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=266', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
     }
@@ -2131,6 +2207,7 @@
       try { renderCustomLoadsTable(); } catch (e) { console.error('[renderCustomLoadsTable]', e); }
       try { renderWellnessAnalytics(); } catch (e) { console.error('[renderWellnessAnalytics]', e); }
       try { renderPerfAnalytics(); } catch (e) { console.error('[renderPerfAnalytics]', e); }
+      try { renderFVChart(); } catch (e) { console.error('[renderFVChart]', e); }
       try { renderMethodologyAnalysis(); } catch (e) { console.error('[renderMethodologyAnalysis]', e); }
     }
 
@@ -2613,7 +2690,7 @@
           const athName = athObj.name;
           const athRole = athObj.role;
           const numMatch = String(r.Valore || r.valore || r.rm_stimato || r.Kg_Usati || '').match(/\d+(?:[.,]\d+)?/);
-          let val = numMatch ? parseFloat(numMatch[0].replace(',', '.')) : 0;
+          const val = numMatch ? parseFloat(numMatch[0].replace(',', '.')) : 0;
           const valStr = String(r.Valore || r.valore || r.Kg_Usati || '').trim();
           const rDate = String(r.Data || r.Timestamp || '').slice(0, 10);
           const ts = String(r.Timestamp || '');
@@ -2638,13 +2715,27 @@
               if (vel >= 5 && vel <= 150 && !valStr.includes('.')) vel = vel / 100;
             }
             if (vel !== null && vel >= 0.25 && vel <= 2.5) {
-              // Unificazione sessione e determinazione target % (W3 S1 = 75%, W3 S2 = 80%, W3 S3 = 70%)
+              // Unificazione sessione e determinazione target % (W3 S1 = 75%, W3 S2 = 80%, W3 S3 = 70%, W4 S1 = 82.5%, W4 S2 = 72.5%)
               let cleanSessKey = 'W3_1';
               let sessionLabel = 'W3 · Seduta 1';
               let targetPct = 75;
 
               const nUp = nSeduta.toUpperCase();
-              if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || rDate === '2026-09-09' || ex.includes('3b')) {
+              if (nUp.includes('W4') || rDate >= '2026-09-14') {
+                if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || rDate === '2026-09-16') {
+                  cleanSessKey = 'W4_2';
+                  sessionLabel = 'W4 · Seduta 2';
+                  targetPct = 72.5;
+                } else if (nUp.includes('VEN') || nUp.includes('S3') || nUp.endsWith('_3') || rDate === '2026-09-18') {
+                  cleanSessKey = 'W4_3';
+                  sessionLabel = 'W4 · Seduta 3';
+                  targetPct = 70;
+                } else {
+                  cleanSessKey = 'W4_1';
+                  sessionLabel = 'W4 · Seduta 1';
+                  targetPct = 82.5;
+                }
+              } else if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || rDate === '2026-09-09' || ex.includes('3b')) {
                 cleanSessKey = 'W3_2';
                 sessionLabel = 'W3 · Seduta 2';
                 targetPct = 80;
@@ -2688,7 +2779,7 @@
                 kg: loadKg,
                 pct: targetPct,
                 session: sessionLabel,
-                date: rDate || (cleanSessKey === 'W3_2' ? '2026-09-09' : '2026-09-07'),
+                date: rDate || (cleanSessKey === 'W4_1' ? '2026-09-14' : (cleanSessKey === 'W3_2' ? '2026-09-09' : '2026-09-07')),
                 ts: ts
               };
 
@@ -2719,7 +2810,18 @@
             let cleanSessKey = 'W3_1';
             let sessionLabel = 'W3 · Seduta 1';
             const nUp = nSeduta.toUpperCase();
-            if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || rDate === '2026-09-09') {
+            if (nUp.includes('W4') || rDate >= '2026-09-14') {
+              if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || rDate === '2026-09-16') {
+                cleanSessKey = 'W4_2';
+                sessionLabel = 'W4 · Seduta 2';
+              } else if (nUp.includes('VEN') || nUp.includes('S3') || nUp.endsWith('_3') || rDate === '2026-09-18') {
+                cleanSessKey = 'W4_3';
+                sessionLabel = 'W4 · Seduta 3';
+              } else {
+                cleanSessKey = 'W4_1';
+                sessionLabel = 'W4 · Seduta 1';
+              }
+            } else if (nUp.includes('MER') || nUp.includes('S2') || nUp.endsWith('_2') || rDate === '2026-09-09') {
               cleanSessKey = 'W3_2';
               sessionLabel = 'W3 · Seduta 2';
             } else if (nUp.includes('VEN') || nUp.includes('S3') || nUp.endsWith('_3') || rDate === '2026-09-11') {
@@ -2739,7 +2841,7 @@
                 role: athRole,
                 height: cleanHeight,
                 session: sessionLabel,
-                date: rDate || (cleanSessKey === 'W3_2' ? '2026-09-09' : '2026-09-07'),
+                date: rDate || (cleanSessKey === 'W4_1' ? '2026-09-14' : (cleanSessKey === 'W3_2' ? '2026-09-09' : '2026-09-07')),
                 ts: ts
               });
             }
@@ -2956,9 +3058,7 @@
           localStorage.setItem('mv_cache_today_sessions', JSON.stringify(liveTodaySessions));
           localStorage.setItem('mv_cache_session_ratings', JSON.stringify(liveSessionRatings.slice(0, 50)));
         } catch(e) {}
-      } catch (e) {
-        console.error('[fetchLiveProgressi Error]', e);
-      }
+      } catch (e) {}
     }
 
     /* ==========================================
@@ -3837,6 +3937,7 @@
         if (microcycleChartInstance) microcycleChartInstance.resize();
       } else if (tab === 'sedute') {
         if (perfChartInstance) perfChartInstance.resize();
+      if (fvVbtChartInstance) fvVbtChartInstance.resize();
         if (vbtScatterChartInstance) vbtScatterChartInstance.resize();
       } else if (tab === 'metodologia') {
         if (typeof methodologyChartInstance !== 'undefined' && methodologyChartInstance) methodologyChartInstance.resize();
@@ -3950,8 +4051,18 @@
       }
     }
 
+    function getAutoCampoWeek() {
+      const today = new Date().toISOString().slice(0, 10);
+      if (today >= '2026-09-28') return 'W6';
+      if (today >= '2026-09-21') return 'W5';
+      if (today >= '2026-09-14') return 'W4';
+      if (today >= '2026-09-07') return 'W3';
+      if (today >= '2026-08-31') return 'W2';
+      return 'W1';
+    }
+
     function initCampoSection() {
-      const activeWeek = localStorage.getItem('coach_mv_campo_week') || 'W4';
+      const activeWeek = localStorage.getItem('coach_mv_campo_week') || getAutoCampoWeek();
       const sel = document.getElementById('campo-week-select');
       if (sel) sel.value = activeWeek;
 
@@ -6552,6 +6663,464 @@ function renderPerfAnalytics() {
       }
     });
   }
+}
+
+
+/* ==========================================================================
+   MODULO GRAFICO CURVA FORZA-VELOCITA (F-V) & VBT LOAD-VELOCITY (SQUAT)
+   ========================================================================== */
+let fvVbtChartInstance = null;
+let fvSelectedAthlete = 'team';
+
+const W3_S1_CONFIRMED_DATA = {
+  "1": { vbt: "0.68 m/s" },
+  "2": { vbt: "0.89 m/s" },
+  "3": { vbt: "0.87 m/s" },
+  "4": { vbt: "0.64 m/s" },
+  "5": { vbt: "0.80 m/s" },
+  "6": { vbt: "0.74 m/s" },
+  "7": { vbt: "0.71 m/s" },
+  "8": { vbt: "0.72 m/s" },
+  "9": { vbt: "0.70 m/s" },
+  "11": { vbt: "0.68 m/s" },
+  "12": { vbt: "0.76 m/s" },
+  "13": { vbt: "0.73 m/s" },
+  "14": { vbt: "0.75 m/s" }
+};
+
+const W3_S2_CONFIRMED_DATA = {
+  "1": { vbt: "0.58 m/s" },
+  "2": { vbt: "0.62 m/s" },
+  "3": { vbt: "0.55 m/s" },
+  "4": { vbt: "0.58 m/s" },
+  "5": { vbt: "0.65 m/s" },
+  "6": { vbt: "0.52 m/s" },
+  "7": { vbt: "0.68 m/s" },
+  "8": { vbt: "0.54 m/s" },
+  "9": { vbt: "0.62 m/s" },
+  "11": { vbt: "0.55 m/s" },
+  "12": { vbt: "0.58 m/s" },
+  "13": { vbt: "0.56 m/s" },
+  "14": { vbt: "0.60 m/s" }
+};
+
+const W4_S1_CONFIRMED_DATA = {
+  "1": { vbt: "0.68 m/s", load: 71.5 },
+  "2": { vbt: "0.55 m/s", load: 75.5 },
+  "3": { vbt: "0.48 m/s", load: 90.5 },
+  "4": { vbt: "0.66 m/s", load: 66.5 },
+  "5": { vbt: "0.62 m/s", load: 64.5 },
+  "6": { vbt: "0.49 m/s", load: 54.0 },
+  "7": { vbt: "0.70 m/s", load: 85.5 },
+  "8": { vbt: "0.54 m/s", load: 97.5 },
+  "9": { vbt: "0.70 m/s", load: 54.5 },
+  "11": { vbt: "0.52 m/s", load: 74.0 },
+  "12": { vbt: "0.50 m/s", load: 99.5 },
+  "13": { vbt: "0.52 m/s", load: 70.5 },
+  "14": { vbt: "0.65 m/s", load: 70.0 }
+};
+
+function calcBWSquatLoad(rmVal, bw, pct) {
+  const load = (pct / 100) * (rmVal + bw) - bw;
+  return Math.max(0, Math.round(load * 2) / 2);
+}
+
+function initFVUI() {
+  const sel = document.getElementById('fv-athlete-selector');
+  if (!sel) return;
+
+  const rosterList = (typeof ROSTER !== 'undefined' && Array.isArray(ROSTER)) ? ROSTER : [
+    { id: 1, name: "Veronica Allasia", number: 1, role: "Palleggiatrice" },
+    { id: 2, name: "Chiara Angeloni", number: 2, role: "Schiacciatrice" },
+    { id: 3, name: "Giulia Meniconi", number: 3, role: "Opposto" },
+    { id: 4, name: "Sara Tasca", number: 4, role: "Centrale" },
+    { id: 5, name: "Valeria Morciano", number: 5, role: "Schiacciatrice" },
+    { id: 6, name: "Gaia Biondi", number: 6, role: "Palleggiatrice" },
+    { id: 7, name: "Sofia Guaschino", number: 7, role: "Centrale" },
+    { id: 8, name: "Alice Tosi", number: 8, role: "Schiacciatrice" },
+    { id: 9, name: "Matilde Nonnati", number: 9, role: "Libero" },
+    { id: 11, name: "Cecilia Oggioni", number: 11, role: "Libero" },
+    { id: 12, name: "Yanisleidis Hurtado", number: 12, role: "Opposto" },
+    { id: 13, name: "Martina D'Este", number: 13, role: "Centrale" },
+    { id: 14, name: "Nelly", number: 14, role: "Schiacciatrice" }
+  ];
+
+  let html = `<button class="btn-filt ${fvSelectedAthlete === 'team' ? 'active' : ''}" onclick="selectFVAthlete('team', this)">👥 Squadra</button>`;
+  rosterList.forEach(a => {
+    const isAct = String(fvSelectedAthlete) === String(a.id);
+    html += `<button class="btn-filt ${isAct ? 'active' : ''}" onclick="selectFVAthlete(${a.id}, this)">#${a.number || a.id} ${(a.name || '').split(' ')[0]}</button>`;
+  });
+  sel.innerHTML = html;
+}
+
+function selectFVAthlete(aid, btn) {
+  fvSelectedAthlete = (aid === 'team') ? 'team' : parseInt(aid);
+  if (btn) {
+    const pills = document.querySelectorAll('#fv-athlete-selector .btn-filt');
+    pills.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  renderFVChart();
+}
+
+function computeFVProfile(athleteId) {
+  if (athleteId === 'team') {
+    let totalBw = 0, totalRm = 0, count = 0;
+    const aids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14];
+    aids.forEach(aid => {
+      totalBw += ((typeof BASELINE_WEIGHTS !== 'undefined' && BASELINE_WEIGHTS[aid]) || 65);
+      totalRm += ((typeof TRUE_BASELINES !== 'undefined' && TRUE_BASELINES[aid] && TRUE_BASELINES[aid].squat) || 100);
+      count++;
+    });
+    const avgBw = +(totalBw / count).toFixed(1);
+    const avgRm = Math.round(totalRm / count);
+
+    let vS1Sum = 0, vS2Sum = 0, vW4S1Sum = 0;
+    aids.forEach(aid => {
+      vS1Sum += parseFloat(W3_S1_CONFIRMED_DATA[String(aid)] ? W3_S1_CONFIRMED_DATA[String(aid)].vbt : 0.74);
+      vS2Sum += parseFloat(W3_S2_CONFIRMED_DATA[String(aid)] ? W3_S2_CONFIRMED_DATA[String(aid)].vbt : 0.59);
+      vW4S1Sum += parseFloat(W4_S1_CONFIRMED_DATA[String(aid)] ? W4_S1_CONFIRMED_DATA[String(aid)].vbt : 0.59);
+    });
+    const avgVS1 = +(vS1Sum / count).toFixed(2);
+    const avgVS2 = +(vS2Sum / count).toFixed(2);
+    const avgVW4S1 = +(vW4S1Sum / count).toFixed(2);
+
+    const l1 = calcBWSquatLoad(avgRm, avgBw, 75);
+    const l2 = calcBWSquatLoad(avgRm, avgBw, 80);
+    const l3 = calcBWSquatLoad(avgRm, avgBw, 82.5);
+
+    const realPoints = [
+      { load: l1, lSys: +(l1 + avgBw).toFixed(1), v: avgVS1, session: 'W3 S1 (75%)', note: 'Set 75% confermato' },
+      { load: l2, lSys: +(l2 + avgBw).toFixed(1), v: avgVS2, session: 'W3 S2 (80%)', note: 'Set 80% confermato' },
+      { load: l3, lSys: +(l3 + avgBw).toFixed(1), v: avgVW4S1, session: 'W4 S1 (82.5%)', note: 'Set 82.5% live' },
+      { load: avgRm, lSys: +(avgRm + avgBw).toFixed(1), v: 0.30, session: '1RM Medio (100%)', note: 'MVT Standard 0.30 m/s' }
+    ];
+
+    let n = realPoints.length, sumL = 0, sumV = 0, sumLV = 0, sumL2 = 0;
+    for (let pt of realPoints) {
+      sumL += pt.lSys; sumV += pt.v; sumLV += pt.lSys * pt.v; sumL2 += pt.lSys * pt.lSys;
+    }
+    const denom = (n * sumL2 - sumL * sumL);
+    let m = -(n * sumLV - sumL * sumV) / denom;
+    let q = (sumV + m * sumL) / n;
+    const v0 = Math.max(0.95, Math.min(1.50, q - m * avgBw));
+
+    const pcts = [50, 60, 70, 72.5, 75, 80, 82.5, 85, 90, 100];
+    const curve = pcts.map(pct => {
+      const load = calcBWSquatLoad(avgRm, avgBw, pct);
+      const lSys = +(load + avgBw).toFixed(1);
+      let vEst = q - m * lSys;
+      vEst = Math.max(0.28, Math.min(1.25, vEst));
+      return { pct, load, vEst: +vEst.toFixed(2), lSys };
+    });
+
+    const targetLoad = calcBWSquatLoad(avgRm, avgBw, 72.5);
+    const targetV = +(q - m * (targetLoad + avgBw)).toFixed(2);
+
+    return {
+      athleteId: 'team',
+      name: 'Media Squadra A2',
+      role: 'Tutta la Squadra',
+      bw: avgBw,
+      rmVal: avgRm,
+      v0: +v0.toFixed(2),
+      m: +m.toFixed(4),
+      q: +q.toFixed(2),
+      realPoints,
+      curve,
+      targetLoad,
+      targetV
+    };
+  }
+
+  const aid = parseInt(athleteId);
+  const rosterList = (typeof ROSTER !== 'undefined' && Array.isArray(ROSTER)) ? ROSTER : [];
+  const ath = rosterList.find(a => a.id === aid);
+  const athName = ath ? `#${ath.number || ath.id} ${ath.name}` : `Atleta #${aid}`;
+  const athRole = ath ? ath.role : '';
+  const bw = (typeof BASELINE_WEIGHTS !== 'undefined' && BASELINE_WEIGHTS[aid]) ? BASELINE_WEIGHTS[aid] : 65.0;
+  const rmVal = (typeof TRUE_BASELINES !== 'undefined' && TRUE_BASELINES[aid] && TRUE_BASELINES[aid].squat) ? TRUE_BASELINES[aid].squat : 100;
+
+  const realPoints = [];
+
+  const p1 = W3_S1_CONFIRMED_DATA[String(aid)];
+  if (p1 && p1.vbt) {
+    const v1 = parseFloat(p1.vbt);
+    const l1 = calcBWSquatLoad(rmVal, bw, 75);
+    realPoints.push({ load: l1, lSys: +(l1 + bw).toFixed(1), v: v1, session: 'W3 S1 (75%)', note: 'Rilevato Enode W3 S1' });
+  }
+
+  const p2 = W3_S2_CONFIRMED_DATA[String(aid)];
+  if (p2 && p2.vbt) {
+    const v2 = parseFloat(p2.vbt);
+    const l2 = calcBWSquatLoad(rmVal, bw, 80);
+    realPoints.push({ load: l2, lSys: +(l2 + bw).toFixed(1), v: v2, session: 'W3 S2 (80%)', note: 'Rilevato Enode W3 S2' });
+  }
+
+  const p3 = W4_S1_CONFIRMED_DATA[String(aid)];
+  if (p3 && p3.vbt) {
+    const v3 = parseFloat(p3.vbt);
+    const l3 = p3.load || calcBWSquatLoad(rmVal, bw, 82.5);
+    realPoints.push({ load: l3, lSys: +(l3 + bw).toFixed(1), v: v3, session: 'W4 S1 (82.5%)', note: 'Rilevato Enode W4 S1' });
+  }
+
+  const regressionPoints = [...realPoints, { load: rmVal, lSys: +(rmVal + bw).toFixed(1), v: 0.30, session: '1RM Reale (100%)', note: 'MVT Standard 0.30 m/s' }];
+
+  let n = regressionPoints.length, sumL = 0, sumV = 0, sumLV = 0, sumL2 = 0;
+  for (let pt of regressionPoints) {
+    sumL += pt.lSys; sumV += pt.v; sumLV += pt.lSys * pt.v; sumL2 += pt.lSys * pt.lSys;
+  }
+
+  let m = 0.0065, q = 1.35;
+  if (n >= 2) {
+    const denom = (n * sumL2 - sumL * sumL);
+    if (Math.abs(denom) > 1e-5) {
+      m = -(n * sumLV - sumL * sumV) / denom;
+      q = (sumV + m * sumL) / n;
+    }
+  }
+
+  const v0 = Math.max(0.95, Math.min(1.50, q - m * bw));
+  const pcts = [50, 60, 70, 72.5, 75, 80, 82.5, 85, 90, 100];
+  const curve = pcts.map(pct => {
+    const load = calcBWSquatLoad(rmVal, bw, pct);
+    const lSys = +(load + bw).toFixed(1);
+    let vEst = q - m * lSys;
+    vEst = Math.max(0.28, Math.min(1.25, vEst));
+    return { pct, load, vEst: +vEst.toFixed(2), lSys };
+  });
+
+  const targetLoad = calcBWSquatLoad(rmVal, bw, 72.5);
+  const targetV = +(q - m * (targetLoad + bw)).toFixed(2);
+
+  return {
+    athleteId: aid,
+    name: athName,
+    role: athRole,
+    bw,
+    rmVal,
+    v0: +v0.toFixed(2),
+    m: +m.toFixed(4),
+    q: +q.toFixed(2),
+    realPoints: regressionPoints,
+    curve,
+    targetLoad,
+    targetV
+  };
+}
+
+function renderFVChart() {
+  initFVUI();
+  const canvas = document.getElementById('fvVbtChart');
+  if (!canvas) return;
+
+  const prof = computeFVProfile(fvSelectedAthlete);
+
+  // Aggiorna KPI Box
+  const v0El = document.getElementById('fv-kpi-v0');
+  const rmEl = document.getElementById('fv-kpi-1rm');
+  const slopeEl = document.getElementById('fv-kpi-slope');
+  const targetEl = document.getElementById('fv-kpi-target');
+  const targetVbtEl = document.getElementById('fv-kpi-target-vbt');
+  const athTagEl = document.getElementById('fv-table-ath-tag');
+  const titleEl = document.getElementById('fv-chart-title');
+  const subEl = document.getElementById('fv-chart-subtitle');
+
+  if (v0El) v0El.textContent = `${prof.v0.toFixed(2)} m/s`;
+  if (rmEl) rmEl.textContent = `${prof.rmVal} kg`;
+  if (slopeEl) slopeEl.textContent = `${prof.m.toFixed(4)}`;
+  if (targetEl) targetEl.textContent = `${prof.targetLoad} kg`;
+  if (targetVbtEl) {
+    const minCut = +(prof.targetV - 0.05).toFixed(2);
+    const maxCut = +(prof.targetV + 0.05).toFixed(2);
+    targetVbtEl.textContent = `Attesa: ${prof.targetV.toFixed(2)} m/s [${minCut.toFixed(2)} - ${maxCut.toFixed(2)}]`;
+  }
+  if (athTagEl) athTagEl.textContent = `${prof.name} (BW: ${prof.bw} kg · 1RM: ${prof.rmVal} kg)`;
+  if (titleEl) titleEl.textContent = `📈 Curva F-V Squat · ${prof.name}`;
+  if (subEl) subEl.textContent = `Profilo VBT individuale: V₀ = ${prof.v0.toFixed(2)} m/s · 1RM = ${prof.rmVal} kg @ 0.30 m/s · Pendenza = ${prof.m.toFixed(4)}`;
+
+  // Tabella Breakdown Spettro F-V
+  const tblBody = document.getElementById('tbl-fv-breakdown-body');
+  if (tblBody) {
+    let rowsHtml = '';
+    prof.curve.forEach(pt => {
+      const isTarget = (pt.pct === 72.5);
+      const matchedReal = prof.realPoints.find(rp => Math.abs(rp.load - pt.load) <= 1.0);
+      let realTag = '<span style="color:var(--mv-muted)">—</span>';
+      if (matchedReal) {
+        realTag = `<strong style="color:#10b981;background:rgba(16,185,129,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(16,185,129,0.3);">${matchedReal.v.toFixed(2)} m/s</strong> <span style="font-size:0.65rem;color:var(--mv-muted);">(${matchedReal.session})</span>`;
+      }
+
+      let zoneBadge = '';
+      if (pt.vEst >= 0.75) {
+        zoneBadge = '<span style="color:#38bdf8;background:rgba(56,189,248,0.12);padding:2px 6px;border-radius:4px;font-weight:700;">🏎️ Speed-Strength (&gt;0.75)</span>';
+      } else if (pt.vEst >= 0.50) {
+        zoneBadge = '<span style="color:#f59e0b;background:rgba(245,158,11,0.12);padding:2px 6px;border-radius:4px;font-weight:700;">⚡ Strength-Speed (0.50-0.75)</span>';
+      } else {
+        zoneBadge = '<span style="color:#ef4444;background:rgba(239,68,68,0.12);padding:2px 6px;border-radius:4px;font-weight:700;">🛑 Max Strength (&lt;0.50)</span>';
+      }
+
+      const rowBg = isTarget ? 'background:rgba(245,158,11,0.08);border-left:3px solid var(--mv-amber);' : '';
+      const pctLabel = isTarget ? `<strong>${pt.pct}% 🔥 (S2 W4)</strong>` : `${pt.pct}%`;
+
+      rowsHtml += `
+        <tr style="${rowBg}">
+          <td style="font-weight:700;">${pctLabel}</td>
+          <td style="color:#fff;font-weight:800;">${pt.load} kg</td>
+          <td style="color:var(--mv-muted);">${pt.lSys} kg</td>
+          <td style="color:#38bdf8;font-weight:800;">${pt.vEst.toFixed(2)} m/s</td>
+          <td>${realTag}</td>
+          <td>${zoneBadge}</td>
+        </tr>
+      `;
+    });
+    tblBody.innerHTML = rowsHtml;
+  }
+
+  // Costruzione Grafico Chart.js
+  if (fvVbtChartInstance) {
+    try { fvVbtChartInstance.destroy(); } catch (e) {}
+    fvVbtChartInstance = null;
+  }
+
+  const curveData = prof.curve.map(pt => ({ x: pt.load, y: pt.vEst, pct: pt.pct, lSys: pt.lSys }));
+  const realScatterData = prof.realPoints.map(pt => ({ x: pt.load, y: pt.v, session: pt.session, note: pt.note, lSys: pt.lSys }));
+  const targetData = [{
+    x: prof.targetLoad,
+    y: prof.targetV,
+    session: 'Target S2 W4 (72.5%)',
+    minCut: +(prof.targetV - 0.05).toFixed(2),
+    maxCut: +(prof.targetV + 0.05).toFixed(2),
+    lSys: +(prof.targetLoad + prof.bw).toFixed(1)
+  }];
+
+  const ctx = canvas.getContext('2d');
+  fvVbtChartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      datasets: [
+        {
+          label: 'Curva F-V Stimata',
+          data: curveData,
+          borderColor: '#38bdf8',
+          backgroundColor: 'rgba(56,189,248,0.08)',
+          borderWidth: 2.5,
+          fill: true,
+          tension: 0.25,
+          pointRadius: 4,
+          pointBackgroundColor: '#38bdf8',
+          pointBorderColor: '#071226',
+          pointBorderWidth: 1.5,
+          order: 3
+        },
+        {
+          label: 'Rilevamenti Reali (W3-W4 & 1RM)',
+          data: realScatterData,
+          type: 'scatter',
+          backgroundColor: '#10b981',
+          borderColor: '#ffffff',
+          borderWidth: 2,
+          pointRadius: 7,
+          pointHoverRadius: 9,
+          pointStyle: 'circle',
+          order: 1
+        },
+        {
+          label: 'Target S2 W4 (72.5% BW)',
+          data: targetData,
+          type: 'scatter',
+          backgroundColor: '#f59e0b',
+          borderColor: '#ffffff',
+          borderWidth: 2,
+          pointRadius: 9,
+          pointHoverRadius: 11,
+          pointStyle: 'rectRot',
+          order: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: { padding: { left: 4, right: 12, top: 10, bottom: 4 } },
+      interaction: { mode: 'nearest', intersect: true },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            color: '#cbd5e1',
+            font: { size: 11, weight: '700' },
+            boxWidth: 14,
+            padding: 10
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(7, 18, 38, 0.95)',
+          titleColor: '#38bdf8',
+          bodyColor: '#f8fafc',
+          borderColor: '#1f365d',
+          borderWidth: 1,
+          padding: 10,
+          callbacks: {
+            title: function(items) {
+              const item = items[0];
+              const raw = item.raw;
+              if (raw && raw.session) return raw.session;
+              if (raw && raw.pct) return 'Intensità: ' + raw.pct + '% 1RM';
+              return 'Carico: ' + item.parsed.x + ' kg';
+            },
+            label: function(item) {
+              const raw = item.raw;
+              const lines = [];
+              lines.push('🏋️ Carico Bilanciere: ' + item.parsed.x + ' kg');
+              if (raw && raw.lSys) lines.push('⚖️ Sistema (Bil+BW): ' + raw.lSys + ' kg');
+              lines.push('🏎️ Velocità Concentrica: ' + item.parsed.y.toFixed(2) + ' m/s');
+              if (raw && raw.minCut && raw.maxCut) {
+                lines.push('🎯 Range Paletti: ' + raw.minCut + ' - ' + raw.maxCut + ' m/s');
+              }
+              if (raw && raw.note) lines.push('ℹ️ ' + raw.note);
+              return lines;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          type: 'linear',
+          title: {
+            display: true,
+            text: 'Carico sul Bilanciere (kg · Formula con BW)',
+            color: '#94a3b8',
+            font: { size: 11, weight: '700' }
+          },
+          grid: { color: 'rgba(255,255,255,0.06)' },
+          ticks: {
+            color: '#94a3b8',
+            font: { size: 10, weight: '600' },
+            stepSize: 10
+          }
+        },
+        y: {
+          type: 'linear',
+          min: 0.20,
+          max: 1.35,
+          title: {
+            display: true,
+            text: 'Velocità Media Concentrica (m/s)',
+            color: '#94a3b8',
+            font: { size: 11, weight: '700' }
+          },
+          grid: { color: 'rgba(255,255,255,0.06)' },
+          ticks: {
+            color: '#94a3b8',
+            font: { size: 10, weight: '600' },
+            stepSize: 0.10
+          }
+        }
+      }
+    }
+  });
 }
 
 /* ==========================================================================

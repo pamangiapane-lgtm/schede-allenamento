@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'marsala-app-v270-update-baseline-weights-14sept';
+// Service Worker App Marsala Volley (v274-main-gambe-redesign)
+const CACHE_NAME = 'v278-w4-session-badges-fixed';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260915v268',
+  './data.js?v=20260915v274-main-gambe-redesign',
   './supabase-client.js?v=2.0',
 
   './logo.jpg',

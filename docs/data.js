@@ -1160,7 +1160,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.75–0.80 m/s. 🛑 Cutoff Min: 0.68 m/s (stop serie). 🚀 Cutoff Max: 0.85 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: zero shift pelvico a SX. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -1635,7 +1635,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.72–0.76 m/s. 🛑 Cutoff Min: 0.65 m/s (stop serie). 🚀 Cutoff Max: 0.82 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: Short Foot attivo, arco alto. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -2110,7 +2110,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.70–0.74 m/s. 🛑 Cutoff Min: 0.63 m/s (stop serie). 🚀 Cutoff Max: 0.80 m/s (se superato alza +5.0 kg, no salti col bilanciere). Focus: fermo secco 1\" a 90°. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -2585,7 +2585,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 2",
               "Carico (kg/RPE)": "65% (26.5 kg) [\"4\"]",
               "Tempo": "`10X0`",
-              "Note Tecniche": "Jump-specific half squat (~110-120°). Enode VBT >0.75 m/s"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.75–0.80 m/s. 🛑 Cutoff Min: 0.68 m/s (stop serie). 🚀 Cutoff Max: 0.85 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: massima accelerazione post-isometria. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -3060,7 +3060,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.75–0.80 m/s. 🛑 Cutoff Min: 0.68 m/s (stop serie). 🚀 Cutoff Max: 0.85 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: ginocchia larghe anti-valgo. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -3535,7 +3535,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.70–0.74 m/s. 🛑 Cutoff Min: 0.63 m/s (stop serie). 🚀 Cutoff Max: 0.80 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: controllo senza compensi lombari. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -4010,7 +4010,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.80–0.85 m/s. 🛑 Cutoff Min: 0.72 m/s (stop serie). 🚀 Cutoff Max: 0.90 m/s (se superato alza +5.0 kg, no salti col bilanciere). Focus: massima esplosività, no stacco piedi. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -4485,7 +4485,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.72–0.76 m/s. 🛑 Cutoff Min: 0.65 m/s (stop serie). 🚀 Cutoff Max: 0.82 m/s (se superato alza +5.0 kg, no salti col bilanciere). Focus: stance moderata salva-adduttore. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -4960,7 +4960,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5% (40.0 kg) [\"5\"]",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.78–0.82 m/s. 🛑 Cutoff Min: 0.70 m/s (stop serie). 🚀 Cutoff Max: 0.88 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: accelerazione pura, no salto con bilanciere. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -6162,7 +6162,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.75–0.80 m/s. 🛑 Cutoff Min: 0.68 m/s (stop serie). 🚀 Cutoff Max: 0.85 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: box 90°, core compatto, re-entry veloce. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -6637,7 +6637,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.72–0.76 m/s. 🛑 Cutoff Min: 0.65 m/s (stop serie). 🚀 Cutoff Max: 0.82 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: sfioro box 90° senza scaricare. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -7112,7 +7112,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.70–0.75 m/s. 🛑 Cutoff Min: 0.63 m/s (stop serie). 🚀 Cutoff Max: 0.82 m/s (se superato alza +5.0 kg, no salti col bilanciere). Focus: talloni incollati, estensione potente. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -7969,7 +7969,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.75–0.80 m/s. 🛑 Cutoff Min: 0.68 m/s (stop serie). 🚀 Cutoff Max: 0.85 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: zero shift pelvico a SX. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -8444,7 +8444,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.72–0.76 m/s. 🛑 Cutoff Min: 0.65 m/s (stop serie). 🚀 Cutoff Max: 0.82 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: Short Foot attivo, arco alto. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -8919,7 +8919,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.70–0.74 m/s. 🛑 Cutoff Min: 0.63 m/s (stop serie). 🚀 Cutoff Max: 0.80 m/s (se superato alza +5.0 kg, no salti col bilanciere). Focus: fermo secco 1\" a 90°. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -9869,7 +9869,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.75–0.80 m/s. 🛑 Cutoff Min: 0.68 m/s (stop serie). 🚀 Cutoff Max: 0.85 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: ginocchia larghe anti-valgo. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -10344,7 +10344,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.70–0.74 m/s. 🛑 Cutoff Min: 0.63 m/s (stop serie). 🚀 Cutoff Max: 0.80 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: controllo senza compensi lombari. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -10819,7 +10819,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.80–0.85 m/s. 🛑 Cutoff Min: 0.72 m/s (stop serie). 🚀 Cutoff Max: 0.90 m/s (se superato alza +5.0 kg, no salti col bilanciere). Focus: massima esplosività, no stacco piedi. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -11294,7 +11294,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.72–0.76 m/s. 🛑 Cutoff Min: 0.65 m/s (stop serie). 🚀 Cutoff Max: 0.82 m/s (se superato alza +5.0 kg, no salti col bilanciere). Focus: stance moderata salva-adduttore. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -11769,7 +11769,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5% (40.0 kg) [\"5\"]",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.78–0.82 m/s. 🛑 Cutoff Min: 0.70 m/s (stop serie). 🚀 Cutoff Max: 0.88 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: accelerazione pura, no salto con bilanciere. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -12971,7 +12971,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.75–0.80 m/s. 🛑 Cutoff Min: 0.68 m/s (stop serie). 🚀 Cutoff Max: 0.85 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: box 90°, core compatto, re-entry veloce. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -13446,7 +13446,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.72–0.76 m/s. 🛑 Cutoff Min: 0.65 m/s (stop serie). 🚀 Cutoff Max: 0.82 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: sfioro box 90° senza scaricare. Carico formula BW"
             },
             {
               "Blocco": "# Main",
@@ -13921,7 +13921,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3",
               "Carico (kg/RPE)": "72.5%",
               "Tempo": "`2110`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa controllata 2\", fermo isometrico di 1\" in buca al parallelo (forza concentrica pura senza rimbalzo), risalita a max intenzione. Target Enode VBT >0.70-0.75 m/s. Stop rule VL 10%. Carico formula BW"
+              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.70–0.75 m/s. 🛑 Cutoff Min: 0.63 m/s (stop serie). 🚀 Cutoff Max: 0.82 m/s (se superato alza +5.0 kg, no salti col bilanciere). Focus: talloni incollati, estensione potente. Carico formula BW"
             },
             {
               "Blocco": "# Main",

@@ -1327,8 +1327,8 @@
       <!-- TAB 2: SEDUTE DI ALLENAMENTO -->
       <div class="tab-panel" id="tab-sedute">
         <div class="week-switcher">
-          <button class="week-pill active" data-week="W3" onclick="switchWeek('W3', this)">Week 3</button>
-          <button class="week-pill" data-week="W4" onclick="switchWeek('W4', this)">Week 4</button>
+          <button class="week-pill" data-week="W3" onclick="switchWeek('W3', this)">Week 3</button>
+          <button class="week-pill active" data-week="W4" onclick="switchWeek('W4', this)">Week 4</button>
         </div>
         <div id="sessions-container"></div>
       </div>
@@ -2013,6 +2013,192 @@
       }
     }
 
+    
+    // DATI CONFERMATI W4 S1 (14/09/2026) PER TUTTE LE 13 ATLETE
+    const W4_S1_CONFIRMED_DATA = {
+      "1": {
+        rpe: 7.0, fat: 7.0, note: null,
+        vbt: "0.68 m/s", cmj: "32.9 cm",
+        loads: {
+          "3B. Floor Chest Press con Manubri": "12.5 kg",
+          "3C. Lat Machine Presa Neutra Normale": "30 kg",
+          "4A. Split Squat con Manubri a Terra": "10 kg",
+          "3A. Box Squat 90° (Salva-Anca/Tibia) (VBT)": "71.5 kg",
+          "5B. Wall Medball Chest Pass (kneeling position)": "4 kg",
+          "4B. Wrist Roller per il Palleggio": "2 kg"
+        }
+      },
+      "2": {
+        rpe: 5.0, fat: 6.0, note: null,
+        vbt: null, cmj: "37.3 cm",
+        loads: {
+          "3A. Back Squat (Parallelo) (VBT)": "75.5 kg"
+        }
+      },
+      "3": {
+        rpe: 4.0, fat: 3.0, note: null,
+        vbt: "0.48 m/s", cmj: "34.3 cm",
+        loads: {
+          "4A. Split Squat con Manubri a Terra": "12.5 kg",
+          "3A. Back Squat (Parallelo) (VBT)": "90.5 kg",
+          "3B. Floor Chest Press con Manubri": "15 kg",
+          "3C. Lat Machine Presa Neutra Normale": "35 kg",
+          "4B. Prone Incline Trap-3 Raise su Panca 30°": "4 kg"
+        }
+      },
+      "4": {
+        rpe: 6.0, fat: 5.0, note: null,
+        vbt: "0.66 m/s", cmj: "30.3 cm",
+        loads: {
+          "3C. Lat Machine Presa Neutra Normale": "38 kg",
+          "4A. Split Squat con Manubri a Terra": "9 kg",
+          "5B. Wall Medball Chest Pass (kneeling position)": "4 kg",
+          "3B. Floor Chest Press con Manubri": "15 kg",
+          "3A. Back Squat (Parallelo) (VBT)": "66.5 kg"
+        }
+      },
+      "5": {
+        rpe: 7.0, fat: 5.0, note: null,
+        vbt: null, cmj: "28.4 cm",
+        loads: {
+          "4A. Split Squat con Manubri a Terra": "8 kg",
+          "3C. Lat Machine Presa Neutra Normale": "32 kg",
+          "5B. Wall Medball Chest Pass (kneeling position)": "4 kg",
+          "3B. Floor Chest Press con Manubri": "12.5 kg",
+          "3A. Back Squat (Parallelo) (VBT)": "64.5 kg"
+        }
+      },
+      "6": {
+        rpe: 6.0, fat: 6.0, note: null,
+        vbt: "0.49 m/s", cmj: "26.2 cm",
+        loads: {
+          "4A. Split Squat con Manubri a Terra": "8 kg",
+          "3C. Lat Machine Presa Neutra Normale": "28 kg",
+          "3B. Floor Chest Press con Manubri": "12.5 kg",
+          "3A. Back Squat Parallelo (o Box 90°) (VBT)": "54 kg"
+        }
+      },
+      "7": {
+        rpe: 4.0, fat: 4.0, note: null,
+        vbt: "0.70 m/s", cmj: "38.1 cm",
+        loads: {
+          "3A. Back Squat (Parallelo) (VBT)": "85.5 kg",
+          "3C. Lat Machine Presa Neutra Normale": "40 kg",
+          "4A. Split Squat con Manubri a Terra": "12.5 kg",
+          "3B. Floor Chest Press con Manubri": "12.5 kg",
+          "5B. Wall Medball Chest Pass (kneeling position)": "4 kg",
+          "4B. Prone Incline Trap-3 Raise su Panca 30°": "5 kg"
+        }
+      },
+      "8": {
+        rpe: 5.0, fat: 4.0, note: null,
+        vbt: "0.54 m/s", cmj: "32.6 cm",
+        loads: {
+          "4A. Split Squat con Manubri a Terra": "9 kg",
+          "4B. Prone Incline Trap-3 Raise su Panca 30°": "3 kg",
+          "3C. Lat Machine Presa Neutra Normale": "40 kg",
+          "3B. Floor Chest Press con Manubri": "15 kg",
+          "3A. Back Squat (Parallelo) (VBT)": "97.5 kg"
+        }
+      },
+      "9": {
+        rpe: 6.0, fat: 6.0, note: null,
+        vbt: "0.70 m/s", cmj: "37.6 cm",
+        loads: {
+          "4B. Prone Incline Trap-3 Raise su Panca 30°": "3 kg",
+          "3C. Lat Machine Presa Neutra Normale": "30 kg",
+          "3B. Floor Chest Press con Manubri": "15 kg",
+          "3A. Squat Parallelo con Miniband (No Bilanciere Pesante) (VBT)": "54.5 kg",
+          "5B. Wall Medball Chest Pass (kneeling position)": "4 kg"
+        }
+      },
+      "11": {
+        rpe: 7.0, fat: 7.0, note: null,
+        vbt: "0.52 m/s", cmj: "35.3 cm",
+        loads: {
+          "4A. Split Squat con Manubri a Terra": "8 kg",
+          "3A. Box Squat Parallelo (Stiffness Difesa) (VBT)": "74 kg",
+          "5B. Wall Medball Chest Pass (kneeling position)": "4 kg"
+        }
+      },
+      "12": {
+        rpe: 6.0, fat: 4.0, note: null,
+        vbt: "0.50 m/s", cmj: "37.6 cm",
+        loads: {
+          "3A. Box Squat 90° (No Squat Profondo) (VBT)": "99.5 kg",
+          "4A. Split Squat con Manubri a Terra": "12 kg",
+          "3B. Floor Chest Press con Manubri": "15 kg",
+          "5B. Wall Medball Chest Pass (kneeling position)": "5 kg",
+          "4B. Wrist Roller per il Palleggio": "4 kg"
+        }
+      },
+      "13": {
+        rpe: 4.0, fat: 4.0, note: null,
+        vbt: "0.52 m/s", cmj: "27.6 cm",
+        loads: {
+          "3C. Lat Machine Presa Neutra Normale": "36 kg",
+          "4A. Split Squat con Manubri a Terra": "10 kg",
+          "3A. Back Squat (Parallelo) (VBT)": "70.5 kg"
+        }
+      },
+      "14": {
+        rpe: 7.0, fat: 7.0, note: null,
+        vbt: "0.65 m/s", cmj: "37.2 cm",
+        loads: {
+          "1. Box 90°": "70 kg",
+          "1. Flor ball throws": "4 kg",
+          "2b. One leg deadlift DB": "10 kg",
+          "1. Stiff leg deadlift": "30 kg",
+          "2a. Twists with BB - sitting pos": "30 kg",
+          "3. One hand DB row": "20 kg",
+          "2. Pull Over": "10 kg",
+          "3. Lat pull down - front": "28 kg"
+        }
+      }
+    };
+
+    function applyConfirmedW4S1Data(athId) {
+      if (!athId) return;
+      const conf = W4_S1_CONFIRMED_DATA[String(athId)];
+      if (!conf) return;
+
+      // 1. Session 1 rating W4
+      const keyRatingW4 = `mv_session_rating_${athId}_W4_1`;
+      const keyRatingW4Code = `mv_session_rating_${athId}_W4_W4-LunP`;
+      const keyRatingCode = `mv_session_rating_${athId}_W4-LunP`;
+      const keyRatingLegacy = `mv_session_rating_${athId}_1`;
+      if (conf.rpe !== null) {
+        const payload = JSON.stringify({
+          rpe: conf.rpe,
+          fat: conf.fat,
+          note: conf.note || 'Registrata W4 S1 (14/09/2026)',
+          date: '2026-09-14',
+          ts: '2026-09-14T10:00:00.000Z'
+        });
+        localStorage.setItem(keyRatingW4, payload);
+        localStorage.setItem(keyRatingW4Code, payload);
+        localStorage.setItem(keyRatingCode, payload);
+        if (currentWeek === 'W4') {
+          localStorage.setItem(keyRatingLegacy, payload);
+        }
+      }
+
+      // 2. Carichi specifici
+      if (conf.loads) {
+        Object.entries(conf.loads).forEach(([ex, val]) => {
+          localStorage.setItem(`mv_load_${athId}_${ex}`, val);
+          localStorage.setItem(`mv_load_${athId}_W4_1_${ex}`, val);
+          localStorage.setItem(`mv_load_${athId}_W4_W4-LunP_${ex}`, val);
+        });
+      }
+
+      // 3. VBT Squat
+      if (conf.vbt) {
+        localStorage.setItem(`mv_vbt_${athId}_W4_1_squat`, conf.vbt);
+        localStorage.setItem(`mv_vbt_${athId}_W4_1`, conf.vbt);
+      }
+    }
+
     const ORDERED_CATEGORIES = [
       { id: 'Attivazione', icon: '🔥', label: 'Attivazione & Prehab' },
       { id: 'Pliometria',  icon: '🦘', label: 'Pliometria (Salti)' },
@@ -2022,7 +2208,7 @@
     ];
 
     let currentAthlete = null;
-    let currentWeek = 'W3';
+    let currentWeek = 'W4';
     let isEN = false;
     let wellnessRatings = { sonno: null, fatica: null, dolori: null, stress: null, readiness: null };
 
@@ -2522,6 +2708,7 @@
       applyConfirmedW3S1Data(currentAthlete.id);
       applyConfirmedW3S2Data(currentAthlete.id);
       applyConfirmedW3S3Data(currentAthlete.id);
+      applyConfirmedW4S1Data(currentAthlete.id);
       renderHero();
       renderBodyWeight();
       render1RMProfile();
@@ -3901,249 +4088,367 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
   };
 }
 
-function renderPreviousWeekRefBadge(athlete, currentWeek, sed, exName, isEN) {
-  const ref = getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName);
-  if (!ref || (!ref.val && !ref.reps && !ref.rpe && !ref.vbt)) return '';
+const ATHLETE_VBT_LIMITS = {
+      1:  { min: 0.68, max: 0.85, step: '+2.5 kg' },
+      2:  { min: 0.65, max: 0.82, step: '+2.5 kg' },
+      3:  { min: 0.63, max: 0.80, step: '+5.0 kg' },
+      4:  { min: 0.68, max: 0.85, step: '+2.5 kg' },
+      5:  { min: 0.68, max: 0.85, step: '+2.5 kg' },
+      6:  { min: 0.63, max: 0.80, step: '+2.5 kg' },
+      7:  { min: 0.72, max: 0.90, step: '+5.0 kg' },
+      8:  { min: 0.65, max: 0.82, step: '+5.0 kg' },
+      9:  { min: 0.70, max: 0.88, step: '+2.5 kg' },
+      11: { min: 0.65, max: 0.82, step: '+2.5 kg' },
+      12: { min: 0.63, max: 0.82, step: '+5.0 kg' },
+      13: { min: 0.65, max: 0.82, step: '+2.5 kg' },
+      14: { min: 0.68, max: 0.85, step: '+2.5 kg' }
+    };
 
-  const tagLabel = ref.prevWeekKey || 'W3';
-  const realBadge = ref.isManual ? `<span style="background:rgba(16,185,129,0.18);color:#6ee7b7;border-radius:3px;padding:0 4px;font-size:0.64rem;font-weight:700;margin-left:3px;">${isEN ? 'actual' : 'reale'}</span>` : '';
+    function estimateBestVBT(athlete, loadKg, isIso) {
+      if (!athlete || !athlete.id || loadKg <= 0) return null;
+      const aid = athlete.id;
+      const bw = (typeof getAthleteBW === 'function') ? getAthleteBW() : ((typeof BASELINE_WEIGHTS !== 'undefined' && BASELINE_WEIGHTS[aid]) ? BASELINE_WEIGHTS[aid] : 65.0);
+      const rmVal = (typeof getAthlete1RM === 'function') ? getAthlete1RM({ id: 'squat', hasBW: true }) : ((typeof TRUE_BASELINES !== 'undefined' && TRUE_BASELINES[aid]) ? TRUE_BASELINES[aid].squat : 100);
+      if (rmVal <= 0) return null;
 
-  if (ref.isJump) {
-    let jumpMetricLbl = isEN ? 'Jump:' : 'Salto:';
-    if (/\(Rep\s*#/i.test(ref.val) || /pogo/i.test(exName) || /pogo/i.test(ref.prevExName || '')) jumpMetricLbl = isEN ? 'Best Height:' : 'Best Salto:';
-    else if (/cm\b/i.test(ref.val)) jumpMetricLbl = isEN ? 'Height:' : 'Altezza:';
-    else if (/rsi/i.test(ref.val)) jumpMetricLbl = 'RSI:';
-    else if (/box/i.test(ref.val)) jumpMetricLbl = 'Box:';
-    else if (/tc/i.test(ref.val)) jumpMetricLbl = 'Target:';
+      const targetLoad = parseFloat(loadKg);
+      let exactReal = null;
 
-    const jumpsLbl = isEN ? 'Jumps:' : 'Salti:';
-    const targetLbl = 'Target:';
+      // 1. Cerca log esatti registrati in localStorage
+      try {
+        const allKeys = Object.keys(localStorage);
+        for (const k of allKeys) {
+          if (k.startsWith(`mv_vbt_${aid}_`)) {
+            const vNum = parseFloat(localStorage.getItem(k));
+            const matchLoadKey = k.replace('mv_vbt_', 'mv_load_');
+            const lNum = parseFloat(localStorage.getItem(matchLoadKey));
+            if (!isNaN(vNum) && !isNaN(lNum) && Math.abs(lNum - targetLoad) <= 0.75) {
+              if (!exactReal || vNum > parseFloat(exactReal.vbt)) {
+                exactReal = { vbt: vNum.toFixed(2), type: 'real', session: 'Log' };
+              }
+            }
+          }
+        }
+      } catch (e) {}
 
-    return `
-      <div class="ex-prev-ref" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.72rem;color:var(--mv-muted,#94a3b8);background:rgba(255,255,255,0.03);border:1px solid rgba(59,130,246,0.22);border-radius:6px;padding:2px 8px;margin:2px 0 6px 0;max-width:100%;">
-        <span style="background:rgba(59,130,246,0.18);color:#93c5fd;border-radius:3px;padding:0 4px;font-weight:800;font-size:0.65rem;letter-spacing:0.04em;">${tagLabel}</span>
-        <span>🦘 ${jumpMetricLbl} <strong style="color:#f8fafc;">${escapeHtml(ref.val)}</strong>${realBadge}</span>
-        ${ref.reps ? `<span style="opacity:0.35;">•</span><span>${jumpsLbl} <strong style="color:#cbd5e1;">${escapeHtml(ref.reps)}</strong></span>` : ''}
-        ${ref.rpe && ref.rpe !== ref.val ? `<span style="opacity:0.35;">•</span><span>${targetLbl} <strong style="color:#fbbf24;">${escapeHtml(ref.rpe)}</strong></span>` : ''}
-      </div>
-    `;
-  }
+      // 2. Dati confermati W3S1, W3S2
+      const p1 = (typeof W3_S1_CONFIRMED_DATA !== 'undefined' && W3_S1_CONFIRMED_DATA[String(aid)]) ? W3_S1_CONFIRMED_DATA[String(aid)] : null;
+      const p2 = (typeof W3_S2_CONFIRMED_DATA !== 'undefined' && W3_S2_CONFIRMED_DATA[String(aid)]) ? W3_S2_CONFIRMED_DATA[String(aid)] : null;
 
-  // Rendering standard per carichi
-  const loadLbl = isEN ? 'Load:' : 'Carico:';
-  const targetLbl = isEN ? 'Target:' : 'Previsto:';
-  const speedLbl = isEN ? 'Speed:' : 'Velocità:';
-  const repsLbl = 'Reps:';
+      const points = [{ L: rmVal + bw, V: 0.30 }];
 
-  return `
-    <div class="ex-prev-ref" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.72rem;color:var(--mv-muted,#94a3b8);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:2px 8px;margin:2px 0 6px 0;max-width:100%;">
-      <span style="background:rgba(59,130,246,0.15);color:#93c5fd;border-radius:3px;padding:0 4px;font-weight:800;font-size:0.65rem;letter-spacing:0.04em;">${tagLabel}</span>
-      ${ref.val ? `<span>🏋️ ${loadLbl} <strong style="color:#f8fafc;">${escapeHtml(ref.val)}</strong>${realBadge}</span>` : ''}
-      ${ref.vbt ? `<span style="opacity:0.35;">•</span><span>⚡ ${speedLbl} <strong style="color:#fde68a;">${escapeHtml(ref.vbt)}</strong></span>` : ''}
-      ${ref.reps ? `<span style="opacity:0.35;">•</span><span>${repsLbl} <strong style="color:#cbd5e1;">${escapeHtml(ref.reps)}</strong></span>` : ''}
-      ${ref.rpe && !ref.vbt ? `<span style="opacity:0.35;">•</span><span>${targetLbl} <strong style="color:#fbbf24;">${escapeHtml(ref.rpe)}</strong></span>` : ''}
-    </div>
-  `;
-}
+      if (p1 && p1.vbt) {
+        const v1 = parseFloat(p1.vbt);
+        const l1 = (typeof calcTargetLoad === 'function') ? calcTargetLoad({ hasBW: true }, rmVal, 75) : ((0.75 * (rmVal + bw)) - bw);
+        if (!isNaN(v1) && l1 > 0) {
+          points.push({ L: l1 + bw, V: v1 });
+          if (Math.abs(l1 - targetLoad) <= 0.75) {
+            exactReal = { vbt: v1.toFixed(2), type: 'real', session: 'W3 S1' };
+          }
+        }
+      }
+      if (p2 && p2.vbt) {
+        const v2 = parseFloat(p2.vbt);
+        const l2 = (typeof calcTargetLoad === 'function') ? calcTargetLoad({ hasBW: true }, rmVal, 80) : ((0.80 * (rmVal + bw)) - bw);
+        if (!isNaN(v2) && l2 > 0) {
+          points.push({ L: l2 + bw, V: v2 });
+          if (Math.abs(l2 - targetLoad) <= 0.75) {
+            exactReal = { vbt: v2.toFixed(2), type: 'real', session: 'W3 S2' };
+          }
+        }
+      }
 
-function renderStandardExerciseCard(norm, sed, athlete, week) {
-  const isEN = (athlete && (athlete.id === 4 || athlete.id === 14));
-  const { exName, serie, reps, carico, tempo, recupero, note } = norm;
-  const safeExId = exName.replace(/[^a-zA-Z0-9]/g, '_');
-  let sNum = 1;
-  const nSedRaw = String(sed ? sed.Numero_Seduta : '').toLowerCase().replace(/w[1-9]_?/g, '');
-  if (nSedRaw.includes('3') || nSedRaw.includes('ven')) sNum = 3;
-  else if (nSedRaw.includes('2') || nSedRaw.includes('mer')) sNum = 2;
+      if (exactReal) return exactReal;
 
-  const curWeekKey = (typeof currentWeek !== 'undefined' ? currentWeek : (week || 'W4'));
-  const savedLoad = localStorage.getItem(`mv_load_${athlete.id}_${curWeekKey}_${sed.Numero_Seduta}_${exName}`) ||
-                    localStorage.getItem(`mv_load_${athlete.id}_${curWeekKey}_${sNum}_${exName}`) || '';
+      // 3. Stima da regressione lineare F-V
+      let n = points.length;
+      let sumL = 0, sumV = 0, sumLV = 0, sumL2 = 0;
+      for (let pt of points) {
+        sumL += pt.L;
+        sumV += pt.V;
+        sumLV += pt.L * pt.V;
+        sumL2 += pt.L * pt.L;
+      }
+      let m = 0.0065;
+      let q = 1.35;
+      if (n >= 2) {
+        const denom = (n * sumL2 - sumL * sumL);
+        if (Math.abs(denom) > 1e-5) {
+          m = -(n * sumLV - sumL * sumV) / denom;
+          q = (sumV + m * sumL) / n;
+        }
+      }
 
-  // Check 1RM calculation
-  const rmData = getExercise1RMData(exName, carico, athlete, week);
+      const targetLsys = targetLoad + bw;
+      let vEst = q - m * targetLsys;
+      if (isIso) {
+        vEst -= 0.06;
+      }
+      vEst = Math.max(0.48, Math.min(1.05, vEst));
 
-  let intensitaLbl = isEN ? 'Intensity' : 'Intensità';
-  let intensitaVal = '';
-
-  if (rmData) {
-    intensitaLbl = `INT. ${rmData.pct}%`;
-    if (rmData.isDumbbell) {
-      intensitaVal = `${rmData.eachKg}+${rmData.eachKg} kg`;
-    } else {
-      intensitaVal = `${rmData.targetKg} kg`;
+      return {
+        vbt: vEst.toFixed(2),
+        type: 'estimated',
+        session: 'F-V'
+      };
     }
-  } else {
-    const mPct = (carico || '').match(/^(\d+(?:[.,]\d+)?)%\s*\(([^)]+)\)/);
-    if (mPct) {
-      intensitaLbl = `INT. ${mPct[1]}%`;
-      intensitaVal = escapeHtml(mPct[2]);
-    } else {
-      intensitaVal = escapeHtml(carico || 'BW');
-    }
-  }
 
-  let valStyle = "color:var(--mv-amber);font-weight:800;";
-  if (intensitaVal.length > 12) {
-    valStyle += "font-size:0.75rem;white-space:normal;";
-  } else if (intensitaVal.length > 8) {
-    valStyle += "font-size:0.80rem;white-space:nowrap;";
-  } else {
-    valStyle += "font-size:0.90rem;white-space:nowrap;";
-  }
+    function renderPreviousWeekRefBadge(athlete, currentWeek, sed, exName, isEN) {
+      const ref = getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName);
+      if (!ref || (!ref.val && !ref.reps && !ref.rpe && !ref.vbt)) return '';
 
-  const lowName = exName.toLowerCase();
-  const isJump = isJumpExercise(exName);
-  const isNelly = (athlete && athlete.id === 14);
+      const tagLabel = ref.prevWeekKey || 'W3';
+      const realBadge = ref.isManual ? `<span style="background:rgba(16,185,129,0.18);color:#6ee7b7;border-radius:3px;padding:0 4px;font-size:0.64rem;font-weight:700;margin-left:3px;">${isEN ? 'actual' : 'reale'}</span>` : '';
 
-  let speedBadgeHtml = '';
-  if (!isNelly && lowName.includes('squat') && !lowName.includes('split') && !lowName.includes('spanish')) {
-    const isS1Sed = String(sed ? sed.Numero_Seduta : '').includes('1') || String(sed ? sed.Numero_Seduta : '').toLowerCase().includes('lun') || (note && (note.includes('0.45') || note.includes('0.48')));
-    const isS2Sed = String(sed ? sed.Numero_Seduta : '').includes('2') || String(sed ? sed.Numero_Seduta : '').toLowerCase().includes('mer') || (note && note.includes('0.85')) || lowName.includes('power');
-    if (isS1Sed) {
-      speedBadgeHtml = '<span style="display:block;font-size:0.68rem;color:#fde68a;font-weight:700;margin-top:2px;">⚡ min 0.45 m/s</span>';
-    } else if (isS2Sed) {
-      speedBadgeHtml = '<span style="display:block;font-size:0.68rem;color:#fde68a;font-weight:700;margin-top:2px;">⚡ max speed 0.85 m/s</span>';
-    }
-  }
+      if (ref.isJump) {
+        let jumpMetricLbl = isEN ? 'Jump:' : 'Salto:';
+        if (/\(Rep\s*#/i.test(ref.val) || /pogo/i.test(exName) || /pogo/i.test(ref.prevExName || '')) jumpMetricLbl = isEN ? 'Best Height:' : 'Best Salto:';
+        else if (/cm\b/i.test(ref.val)) jumpMetricLbl = isEN ? 'Height:' : 'Altezza:';
+        else if (/rsi/i.test(ref.val)) jumpMetricLbl = 'RSI:';
+        else if (/box/i.test(ref.val)) jumpMetricLbl = 'Box:';
+        else if (/tc/i.test(ref.val)) jumpMetricLbl = 'Target:';
 
-  let placeholderText = '';
-  if (savedLoad) {
-    placeholderText = isEN ? `Saved: ${savedLoad}` : `Salvato: ${savedLoad}`;
-  } else if (isJump) {
-    if (lowName.includes('pogo')) {
-      placeholderText = isEN ? 'e.g. 30.0 cm' : 'es. 30.0 cm';
-    } else if (lowName.includes('drop jump')) {
-      placeholderText = isEN ? 'e.g. 35.0 cm' : 'es. 35.0 cm';
-    } else {
-      placeholderText = isEN ? 'e.g. 30.0 cm' : 'es. 30.0 cm';
-    }
-  } else if (rmData) {
-    placeholderText = rmData.isDumbbell
-      ? (isEN ? `e.g. ${rmData.eachKg}+${rmData.eachKg} kg` : `es. ${rmData.eachKg}+${rmData.eachKg} kg`)
-      : (isEN ? `e.g. ${rmData.targetKg} kg` : `es. ${rmData.targetKg} kg`);
-  } else if (carico) {
-    placeholderText = isEN ? `Prescribed: ${carico}` : `Prescritto: ${carico}`;
-  } else {
-    placeholderText = isEN ? 'e.g. kg' : 'es. kg';
-  }
+        const jumpsLbl = isEN ? 'Jumps:' : 'Salti:';
+        const targetLbl = 'Target:';
 
-  let calcTargetBoxHtml = '';
-  // Utente: "alcuni esercizi hanno sotto la dicitura 'carico calcolato' non la voglio vedere se replicano prettamente il carico già presente nella sezione intensità dell'esercizio di riferimento"
-  const isLoadAlreadyInIntensity = (
-    intensitaVal.includes('kg') ||
-    (rmData && (rmData.targetKg > 0 || rmData.eachKg > 0)) ||
-    (carico && /\d+\s*kg/i.test(carico))
-  );
-  if (rmData && rmData.targetText && !lowName.includes('squat') && !isLoadAlreadyInIntensity) {
-    calcTargetBoxHtml = `
-      <div style="font-size:0.75rem; color:var(--mv-amber); background:rgba(245,158,11,0.08); border-left:3px solid var(--mv-amber); padding:6px 10px; border-radius:4px; margin-top:8px;">
-        🎯 <strong>${isEN ? 'Target Load:' : 'Carico Calcolato:'}</strong> ${escapeHtml(rmData.targetText)}
-      </div>
-    `;
-  }
+        return `
+          <div class="ex-prev-ref" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.72rem;color:var(--mv-muted,#94a3b8);background:rgba(255,255,255,0.03);border:1px solid rgba(59,130,246,0.22);border-radius:6px;padding:2px 8px;margin:2px 0 6px 0;max-width:100%;">
+            <span style="background:rgba(59,130,246,0.18);color:#93c5fd;border-radius:3px;padding:0 4px;font-weight:800;font-size:0.65rem;letter-spacing:0.04em;">${tagLabel}</span>
+            <span>🦘 ${jumpMetricLbl} <strong style="color:#f8fafc;">${escapeHtml(ref.val)}</strong>${realBadge}</span>
+            ${ref.reps ? `<span style="opacity:0.35;">•</span><span>${jumpsLbl} <strong style="color:#cbd5e1;">${escapeHtml(ref.reps)}</strong></span>` : ''}
+            ${ref.rpe && ref.rpe !== ref.val ? `<span style="opacity:0.35;">•</span><span>${targetLbl} <strong style="color:#fbbf24;">${escapeHtml(ref.rpe)}</strong></span>` : ''}
+          </div>
+        `;
+      }
 
-  let notesHtml = '';
-  if (note && note.length > 0) {
-    const uid = `${sed ? sed.Numero_Seduta : 's'}_${safeExId}`;
-    notesHtml = `
-      <button class="ex-notes-toggle" type="button" onclick="toggleNotes(this, 'n-${uid}')">
-        <span>ℹ️ ${isEN ? 'Coach technical notes' : 'Note tecniche coach'}</span> <span class="notes-chevron">▾</span>
-      </button>
-      <div class="ex-notes-body" id="n-${uid}">
-        <div>${escapeHtml(note)}</div>
-      </div>
-    `;
-  }
+      // Rendering standard per carichi
+      const loadLbl = isEN ? 'Load:' : 'Carico:';
+      const targetLbl = isEN ? 'Target:' : 'Previsto:';
+      const speedLbl = isEN ? 'Speed:' : 'Velocità:';
+      const repsLbl = 'Reps:';
 
-  const isPureMobility = (
-    lowName.includes('respirazione') ||
-    lowName.includes('mobilità') ||
-    lowName.includes('mobility') ||
-    lowName.includes('breathing') ||
-    lowName.includes('stretching') ||
-    lowName.includes('foam roller') ||
-    lowName.includes('cars') ||
-    lowName.includes('wall slide')
-  );
-
-  const isSquatWithPct = (!isNelly && lowName.includes('squat') && !lowName.includes('split') && !lowName.includes('spanish') && (carico.includes('%') || (rmData && rmData.pct)));
-
-  let logHtml = '';
-  if (isSquatWithPct) {
-    const isS1 = String(sed.Numero_Seduta || '').includes('1') || String(sed.Numero_Seduta || '').toLowerCase().includes('lun') || (note && (note.includes('0.45') || note.includes('0.48')));
-    const isS2 = String(sed.Numero_Seduta || '').includes('2') || String(sed.Numero_Seduta || '').toLowerCase().includes('mer') || (note && note.includes('0.85')) || lowName.includes('power');
-    const savedVbt = localStorage.getItem(`mv_vbt_${athlete.id}_${curWeekKey}_${sed.Numero_Seduta}_${exName}`) ||
-                     localStorage.getItem(`mv_vbt_${athlete.id}_${curWeekKey}_${sNum}_${exName}`) || '';
-    // Estrapolazione automatica intelligente del carico bilanciere dalla prescrizione %
-    const autoLoadKg = (rmData && rmData.targetKg) ? rmData.targetKg : null;
-    const targetPctStr = (rmData && rmData.pct) ? `${rmData.pct}%` : (isS2 ? '70%' : '82.5%');
-
-    const vbtLabel = isS1
-      ? `⚡ ${isEN ? 'Min Velocity Cutoff:' : 'Velocità Minima:'} <strong style="color:#fde68a;">min 0.45 m/s</strong>`
-      : (isS2
-          ? `⚡ ${isEN ? 'Target Speed:' : 'Velocità Target:'} <strong style="color:#fde68a;">max speed 0.85 m/s</strong>`
-          : `⚡ ${isEN ? 'Mean Velocity (m/s):' : 'Velocità Media (m/s):'}`);
-
-    const vbtPlaceholder = savedVbt
-      ? `${isEN ? 'Saved:' : 'Salvato:'} ${savedVbt}`
-      : (isS1 ? 'min 0.45 m/s' : (isS2 ? 'max 0.85 m/s' : (isEN ? 'e.g. 0.65 m/s' : 'es. 0.65 m/s')));
-
-    logHtml = `
-      <div class="ex-load-log-box" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);">
-        <div style="display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:4px;flex-wrap:wrap;gap:4px;">
-          <span class="ex-load-log-lbl" style="color:var(--mv-amber);">${vbtLabel}</span>
-          ${autoLoadKg ? `<span style="font-size:0.72rem;color:#fde68a;font-weight:700;">🏋️ ${isEN ? 'Prescribed load:' : 'Carico prescritto:'} <strong>${autoLoadKg} kg</strong> (${targetPctStr})</span>` : ''}
+      return `
+        <div class="ex-prev-ref" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.72rem;color:var(--mv-muted,#94a3b8);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:2px 8px;margin:2px 0 6px 0;max-width:100%;">
+          <span style="background:rgba(59,130,246,0.15);color:#93c5fd;border-radius:3px;padding:0 4px;font-weight:800;font-size:0.65rem;letter-spacing:0.04em;">${tagLabel}</span>
+          ${ref.val ? `<span>🏋️ ${loadLbl} <strong style="color:#f8fafc;">${escapeHtml(ref.val)}</strong>${realBadge}</span>` : ''}
+          ${ref.vbt ? `<span style="opacity:0.35;">•</span><span>⚡ ${speedLbl} <strong style="color:#fde68a;">${escapeHtml(ref.vbt)}</strong></span>` : ''}
+          ${ref.reps ? `<span style="opacity:0.35;">•</span><span>${repsLbl} <strong style="color:#cbd5e1;">${escapeHtml(ref.reps)}</strong></span>` : ''}
+          ${ref.rpe && !ref.vbt ? `<span style="opacity:0.35;">•</span><span>${targetLbl} <strong style="color:#fbbf24;">${escapeHtml(ref.rpe)}</strong></span>` : ''}
         </div>
-        <div class="ex-load-input-wrap">
-          <input type="text" class="ex-load-input" id="ex-vbt-${safeExId}" placeholder="${vbtPlaceholder}" value="${savedVbt}" oninput="onCustomExerciseVbtInput('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', this.value)">
-          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', ${autoLoadKg || 'null'})">${savedVbt ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
-          <span id="toast-ex-vbt-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
-        </div>
-      </div>
-    `;
-  } else if (!isPureMobility) {
-    let logLabel = isEN ? 'Load Used:' : 'Carico Usato:';
-    if (lowName.includes('pogo')) {
-      logLabel = isEN ? 'Recorded Pogo Height (cm):' : 'Altezza Pogo registrata (cm):';
-    } else if (isJump) {
-      logLabel = isEN ? 'Recorded Jump Height (cm):' : 'Altezza Salto registrata (cm):';
+      `;
     }
 
-    logHtml = `
-      <div class="ex-load-log-box">
-        <span class="ex-load-log-lbl">📝 ${logLabel}</span>
-        <div class="ex-load-input-wrap">
-          <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}', this.value)">
-          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">${savedLoad ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
-          <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+    function renderStandardExerciseCard(norm, sed, athlete, week) {
+      const isEN = (athlete && (athlete.id === 4 || athlete.id === 14));
+      const { exName, serie, reps, carico, tempo, recupero, note } = norm;
+      const safeExId = exName.replace(/[^a-zA-Z0-9]/g, '_');
+      let sNum = 1;
+      const nSedRaw = String(sed ? sed.Numero_Seduta : '').toLowerCase().replace(/w[1-9]_?/g, '');
+      if (nSedRaw.includes('3') || nSedRaw.includes('ven')) sNum = 3;
+      else if (nSedRaw.includes('2') || nSedRaw.includes('mer')) sNum = 2;
+
+      const curWeekKey = (typeof currentWeek !== 'undefined' ? currentWeek : (week || 'W4'));
+      const savedLoad = localStorage.getItem(`mv_load_${athlete.id}_${curWeekKey}_${sed.Numero_Seduta}_${exName}`) ||
+                        localStorage.getItem(`mv_load_${athlete.id}_${curWeekKey}_${sNum}_${exName}`) || '';
+
+      // Check 1RM calculation
+      const rmData = getExercise1RMData(exName, carico, athlete, week);
+
+      let intensitaLbl = isEN ? 'Intensity' : 'Intensità';
+      let intensitaVal = '';
+
+      if (rmData) {
+        intensitaLbl = `INT. ${rmData.pct}%`;
+        if (rmData.isDumbbell) {
+          intensitaVal = `${rmData.eachKg}+${rmData.eachKg} kg`;
+        } else {
+          intensitaVal = `${rmData.targetKg} kg`;
+        }
+      } else {
+        const mPct = (carico || '').match(/^(\d+(?:[.,]\d+)?)%\s*\(([^)]+)\)/);
+        if (mPct) {
+          intensitaLbl = `INT. ${mPct[1]}%`;
+          intensitaVal = escapeHtml(mPct[2]);
+        } else {
+          intensitaVal = escapeHtml(carico || 'BW');
+        }
+      }
+
+      let valStyle = "color:var(--mv-amber);font-weight:800;";
+      if (intensitaVal.length > 12) {
+        valStyle += "font-size:0.75rem;white-space:normal;";
+      } else if (intensitaVal.length > 8) {
+        valStyle += "font-size:0.80rem;white-space:nowrap;";
+      } else {
+        valStyle += "font-size:0.90rem;white-space:nowrap;";
+      }
+
+      const lowName = exName.toLowerCase();
+      const isJump = isJumpExercise(exName);
+      const isNelly = (athlete && athlete.id === 14);
+
+      let placeholderText = '';
+      if (savedLoad) {
+        placeholderText = isEN ? `Saved: ${savedLoad}` : `Salvato: ${savedLoad}`;
+      } else if (isJump) {
+        if (lowName.includes('pogo')) {
+          placeholderText = isEN ? 'e.g. 30.0 cm' : 'es. 30.0 cm';
+        } else if (lowName.includes('drop jump')) {
+          placeholderText = isEN ? 'e.g. 35.0 cm' : 'es. 35.0 cm';
+        } else {
+          placeholderText = isEN ? 'e.g. 30.0 cm' : 'es. 30.0 cm';
+        }
+      } else if (rmData) {
+        placeholderText = rmData.isDumbbell
+          ? (isEN ? `e.g. ${rmData.eachKg}+${rmData.eachKg} kg` : `es. ${rmData.eachKg}+${rmData.eachKg} kg`)
+          : (isEN ? `e.g. ${rmData.targetKg} kg` : `es. ${rmData.targetKg} kg`);
+      } else if (carico) {
+        placeholderText = isEN ? `Prescribed: ${carico}` : `Prescritto: ${carico}`;
+      } else {
+        placeholderText = isEN ? 'e.g. kg' : 'es. kg';
+      }
+
+      let calcTargetBoxHtml = '';
+      const isLoadAlreadyInIntensity = (
+        intensitaVal.includes('kg') ||
+        (rmData && (rmData.targetKg > 0 || rmData.eachKg > 0)) ||
+        (carico && /\d+\s*kg/i.test(carico))
+      );
+      if (rmData && rmData.targetText && !lowName.includes('squat') && !isLoadAlreadyInIntensity) {
+        calcTargetBoxHtml = `
+          <div style="font-size:0.75rem; color:var(--mv-amber); background:rgba(245,158,11,0.08); border-left:3px solid var(--mv-amber); padding:6px 10px; border-radius:4px; margin-top:8px;">
+            🎯 <strong>${isEN ? 'Target Load:' : 'Carico Calcolato:'}</strong> ${escapeHtml(rmData.targetText)}
+          </div>
+        `;
+      }
+
+      let notesHtml = '';
+      if (note && note.length > 0) {
+        const uid = `${sed ? sed.Numero_Seduta : 's'}_${safeExId}`;
+        notesHtml = `
+          <button class="ex-notes-toggle" type="button" onclick="toggleNotes(this, 'n-${uid}')">
+            <span>ℹ️ ${isEN ? 'Coach technical notes' : 'Note tecniche coach'}</span> <span class="notes-chevron">▾</span>
+          </button>
+          <div class="ex-notes-body" id="n-${uid}">
+            <div>${escapeHtml(note)}</div>
+          </div>
+        `;
+      }
+
+      const isPureMobility = (
+        lowName.includes('respirazione') ||
+        lowName.includes('mobilità') ||
+        lowName.includes('mobility') ||
+        lowName.includes('breathing') ||
+        lowName.includes('stretching') ||
+        lowName.includes('foam roller') ||
+        lowName.includes('cars') ||
+        lowName.includes('wall slide')
+      );
+
+      const isSquatWithPct = (!isNelly && lowName.includes('squat') && !lowName.includes('split') && !lowName.includes('spanish') && (carico.includes('%') || (rmData && rmData.pct)));
+
+      let logHtml = '';
+      let prevRefBadgeHtml = '';
+
+      if (isSquatWithPct) {
+        const isS1 = String(sed.Numero_Seduta || '').includes('1') || String(sed.Numero_Seduta || '').toLowerCase().includes('lun') || (note && (note.includes('0.45') || note.includes('0.48')));
+        const isS2 = String(sed.Numero_Seduta || '').includes('2') || String(sed.Numero_Seduta || '').toLowerCase().includes('mer') || (note && note.includes('0.85')) || lowName.includes('power');
+        const savedVbt = localStorage.getItem(`mv_vbt_${athlete.id}_${curWeekKey}_${sed.Numero_Seduta}_${exName}`) ||
+                         localStorage.getItem(`mv_vbt_${athlete.id}_${curWeekKey}_${sNum}_${exName}`) || '';
+        const autoLoadKg = (rmData && rmData.targetKg) ? rmData.targetKg : null;
+
+        // Dynamic Best VBT calculation for banner
+        if (autoLoadKg > 0) {
+          const isIso = (tempo && tempo.includes('1') && tempo !== '10X0') || (note && note.includes('iso'));
+          const bestData = estimateBestVBT(athlete, autoLoadKg, isIso);
+          if (bestData) {
+            const isReal = (bestData.type === 'real');
+            const badgeText = isReal
+              ? `🏆 ${isEN ? 'Best VBT for' : 'Best VBT per'} <strong>${autoLoadKg} kg</strong>: <strong style="color:#fde68a;">${bestData.vbt} m/s</strong> <span style="background:rgba(16,185,129,0.18);color:#6ee7b7;border-radius:3px;padding:0 4px;font-size:0.64rem;font-weight:700;">${isEN ? 'actual' : 'reale'} (${bestData.session})</span>`
+              : `⚡ ${isEN ? 'Best estimated VBT for' : 'Best VBT stimata per'} <strong>${autoLoadKg} kg</strong>: <strong style="color:#fde68a;">~${bestData.vbt} m/s</strong> <span style="background:rgba(59,130,246,0.18);color:#93c5fd;border-radius:3px;padding:0 4px;font-size:0.64rem;font-weight:700;">${isEN ? 'F-V profile' : 'profilo F-V'}</span>`;
+            
+            prevRefBadgeHtml = `
+              <div class="ex-prev-ref" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.72rem;color:var(--mv-muted,#94a3b8);background:rgba(255,255,255,0.03);border:1px solid rgba(245,158,11,0.22);border-radius:6px;padding:2px 8px;margin:2px 0 6px 0;max-width:100%;">
+                <span>${badgeText}</span>
+              </div>
+            `;
+          }
+        }
+
+        // VBT limits (Min Cutoff & Max Cutoff)
+        const lim = (ATHLETE_VBT_LIMITS && ATHLETE_VBT_LIMITS[athlete.id]) 
+          ? ATHLETE_VBT_LIMITS[athlete.id] 
+          : { min: 0.65, max: 0.85, step: '+2.5 kg' };
+
+        const minVbt = isS1 ? '0.48' : lim.min.toFixed(2);
+        const maxVbt = isS1 ? '0.70' : lim.max.toFixed(2);
+        const stepTxt = lim.step;
+
+        const vbtPlaceholder = savedVbt
+          ? `${isEN ? 'Saved:' : 'Salvato:'} ${savedVbt}`
+          : (isS1 ? 'min 0.48 m/s' : (isEN ? `e.g. ${lim.min.toFixed(2)} m/s` : `es. ${lim.min.toFixed(2)} m/s`));
+
+        logHtml = `
+          <div class="ex-load-log-box" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);">
+            <div style="display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:6px;flex-wrap:wrap;gap:6px;font-size:0.75rem;">
+              <div style="display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <span style="color:#ef4444;font-weight:700;">🛑 ${isEN ? 'Min Cutoff:' : 'Min Cutoff:'} <strong>${minVbt} m/s</strong></span>
+                <span style="opacity:0.35;color:var(--mv-muted)">•</span>
+                <span style="color:#38bdf8;font-weight:700;">🚀 ${isEN ? 'Max Cutoff:' : 'Max Cutoff:'} <strong>${maxVbt} m/s</strong> <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:normal">(${isEN ? `raise ${stepTxt}` : `alza ${stepTxt}`})</span></span>
+              </div>
+            </div>
+            <div class="ex-load-input-wrap">
+              <input type="text" class="ex-load-input" id="ex-vbt-${safeExId}" placeholder="${vbtPlaceholder}" value="${savedVbt}" oninput="onCustomExerciseVbtInput('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', this.value)">
+              <button type="button" class="btn-save-mini" onclick="saveCustomExerciseVbt('${escapeHtml(exName)}', 'ex-vbt-${safeExId}', '${sed.Numero_Seduta}', ${autoLoadKg || 'null'})">${savedVbt ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
+              <span id="toast-ex-vbt-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+            </div>
+          </div>
+        `;
+      } else if (!isPureMobility) {
+        prevRefBadgeHtml = renderPreviousWeekRefBadge(athlete, (typeof currentWeek !== 'undefined' ? currentWeek : week || 'W4'), sed, exName, isEN);
+        let logLabel = isEN ? 'Load Used:' : 'Carico Usato:';
+        if (lowName.includes('pogo')) {
+          logLabel = isEN ? 'Recorded Pogo Height (cm):' : 'Altezza Pogo registrata (cm):';
+        } else if (isJump) {
+          logLabel = isEN ? 'Recorded Jump Height (cm):' : 'Altezza Salto registrata (cm):';
+        }
+
+        logHtml = `
+          <div class="ex-load-log-box">
+            <span class="ex-load-log-lbl">📝 ${logLabel}</span>
+            <div class="ex-load-input-wrap">
+              <input type="text" class="ex-load-input" id="ex-log-${safeExId}" placeholder="${placeholderText}" value="${savedLoad}" oninput="onCustomExerciseLoadInput('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}', this.value)">
+              <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('${escapeHtml(exName)}', 'ex-log-${safeExId}', '${sed.Numero_Seduta}')">${savedLoad ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
+              <span id="toast-ex-log-${safeExId}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+            </div>
+          </div>
+        `;
+      } else {
+        prevRefBadgeHtml = renderPreviousWeekRefBadge(athlete, (typeof currentWeek !== 'undefined' ? currentWeek : week || 'W4'), sed, exName, isEN);
+      }
+
+      return `
+        <div class="exercise-card">
+          <div class="ex-head-row">
+            <div class="ex-name">${escapeHtml(exName)}</div>
+            ${recupero ? `<div class="ex-rest-badge">⏱ ${isEN ? 'Rest' : 'Rec.'} ${escapeHtml(recupero)}</div>` : ''}
+          </div>
+          ${prevRefBadgeHtml}
+          <div class="ex-grid">
+            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">${escapeHtml(serie)}</div></div>
+            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">${escapeHtml(reps)}</div></div>
+            <div class="ex-grid-item"><div class="lbl">${intensitaLbl}</div><div class="val" style="${valStyle}">${intensitaVal}</div></div>
+            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${escapeHtml(tempo)}</div></div>
+          </div>
+          ${calcTargetBoxHtml}
+          ${logHtml}
+          ${notesHtml}
         </div>
-      </div>
-    `;
-  }
+      `;
+    }
 
-  const prevRefBadgeHtml = renderPreviousWeekRefBadge(athlete, (typeof currentWeek !== 'undefined' ? currentWeek : week || 'W4'), sed, exName, isEN);
-
-  return `
-    <div class="exercise-card">
-      <div class="ex-head-row">
-        <div class="ex-name">${escapeHtml(exName)}</div>
-        ${recupero ? `<div class="ex-rest-badge">⏱ ${isEN ? 'Rest' : 'Rec.'} ${escapeHtml(recupero)}</div>` : ''}
-      </div>
-      ${prevRefBadgeHtml}
-      <div class="ex-grid">
-        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">${escapeHtml(serie)}</div></div>
-        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;">${escapeHtml(reps)}</div></div>
-        <div class="ex-grid-item"><div class="lbl">${intensitaLbl}</div><div class="val" style="${valStyle}">${intensitaVal}${speedBadgeHtml}</div></div>
-        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">${escapeHtml(tempo)}</div></div>
-      </div>
-      ${calcTargetBoxHtml}
-      ${logHtml}
-      ${notesHtml}
-    </div>
-  `;
-}
-
-function renderCmjTestCard(sed, athlete, isEN) {
+    function renderCmjTestCard(sed, athlete, isEN) {
   const prevCmjRefHtml = renderPreviousWeekRefBadge(athlete, (typeof currentWeek !== 'undefined' ? currentWeek : 'W4'), sed, '1A. Chronojump CMJ Readiness Test', isEN);
   const curWCmj = (typeof currentWeek !== 'undefined' ? currentWeek : 'W4');
   const sNum = sed.Numero_Seduta;
@@ -4507,7 +4812,7 @@ function renderSessions() {
     }
     const sessionMeta = isEN ? `📍 ${sed.Luogo === 'Palestra' || !sed.Luogo ? 'Weight Room' : sed.Luogo} · ⏱ ~${sed.Durata_min || 55} min` : `📍 ${sed.Luogo || 'Palestra'} · ⏱ ~${sed.Durata_min || 55} min`;
     const rpeFatBadgeText = (initialFat !== null && initialFat !== undefined)
-      ? `✓ RPE ${initialRpe}/10 · Fatica ${initialFat}/10`
+      ? (isEN ? `✓ RPE ${initialRpe}/10 · Fatigue ${initialFat}/10` : `✓ RPE ${initialRpe}/10 · Fatica ${initialFat}/10`)
       : `✓ RPE ${initialRpe}/10`;
 
     return `
@@ -4594,15 +4899,28 @@ function renderSessions() {
       else if (sStr.includes('2') || sStr.includes('mer')) numVal = 2;
       else if (sStr.includes('1') || sStr.includes('lun')) numVal = 1;
 
-      // 0. Controllo temporale anti-prematurità: sedute non ancora disputate
-      const today = new Date().toISOString().slice(0, 10);
-      if (week === 'W3') {
-        if (numVal === 2 && today < '2026-09-09') return null;
-        if (numVal === 3 && today < '2026-09-11') return null;
-      } else if (week === 'W4') {
-        if (numVal === 1 && today < '2026-09-14') return null;
-        if (numVal === 2 && today < '2026-09-16') return null;
-        if (numVal === 3 && today < '2026-09-18') return null;
+      // 1. Cerca prima nei dati confermati ufficiali se presenti
+      if (week === 'W4' && numVal === 1 && typeof W4_S1_CONFIRMED_DATA !== 'undefined' && W4_S1_CONFIRMED_DATA[String(aid)]) {
+        const conf = W4_S1_CONFIRMED_DATA[String(aid)];
+        if (conf && conf.rpe !== null) {
+          return {
+            rpe: conf.rpe,
+            fat: conf.fat,
+            note: conf.note || '',
+            date: '2026-09-14'
+          };
+        }
+      }
+      if (week === 'W3' && numVal === 3 && typeof W3_S3_CONFIRMED_DATA !== 'undefined' && W3_S3_CONFIRMED_DATA[String(aid)]) {
+        const conf = W3_S3_CONFIRMED_DATA[String(aid)];
+        if (conf && conf.rpe !== null) {
+          return {
+            rpe: conf.rpe,
+            fat: conf.fat,
+            note: conf.note || '',
+            date: '2026-09-11'
+          };
+        }
       }
 
       const codeSuffix = numVal === 3 ? 'VenR' : (numVal === 2 ? 'MerV' : 'LunP');
@@ -4622,18 +4940,7 @@ function renderSessions() {
           try {
             const obj = JSON.parse(raw);
             if (obj && (obj.rpe !== null || obj.fat !== null)) {
-              const d = obj.date || '';
-              if (week === 'W3') {
-                if (d >= '2026-09-07' && d <= '2026-09-13') {
-                  if (numVal === 1) return obj;
-                  if (numVal === 2 && d >= '2026-09-09') return obj;
-                  if (numVal === 3 && d >= '2026-09-11') return obj;
-                }
-              } else if (week === 'W4') {
-                if (d >= '2026-09-14') return obj;
-              } else {
-                return obj;
-              }
+              return obj;
             }
           } catch(e) {}
         }

@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-mv-v270-update-baseline-weights-14sept';
+const CACHE_NAME = 'coach-v278-w4-session-badges-fixed';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
