@@ -1,5 +1,5 @@
 // Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'v286-sync-14sept-baseline-weights';
+const CACHE_NAME = 'v287-best-jump-badges-all-sessions';
 
 const ASSETS_TO_CACHE = [
   './',

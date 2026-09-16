@@ -3921,6 +3921,21 @@ function categorizeExerciseNorm(norm) {
   return 'Accessori';
 }
 
+const ATHLETE_BASELINE_JUMPS = {
+  1:  { cmj: 31.7, dja: 35.9, pogo: 37.0 },
+  2:  { cmj: 33.5, dja: 34.9, pogo: 34.5 },
+  3:  { cmj: 33.9, dja: 41.2, pogo: 24.3 },
+  4:  { cmj: 29.5, dja: 33.2, pogo: 41.1 },
+  5:  { cmj: 28.4, dja: 36.9, pogo: 36.9 },
+  6:  { cmj: null, dja: 25.3, pogo: 25.3 },
+  7:  { cmj: 38.3, dja: 32.3, pogo: 29.9 },
+  8:  { cmj: 31.2, dja: 36.7, pogo: 29.8 },
+  9:  { cmj: 34.7, dja: 42.5, pogo: 25.7 },
+  11: { cmj: 35.4, dja: 38.8, pogo: 41.6 },
+  12: { cmj: 36.1, dja: 38.7, pogo: 30.1 },
+  13: { cmj: 26.2, dja: 26.9, pogo: 26.8 },
+  14: { cmj: 28.6, dja: 32.7, pogo: 28.6 }
+};
 
 const POGO_CHRONOJUMP_RECORDS = {
   1: { max_height: '37.0 cm', rep: 3, tc: '0.276s' },
@@ -3943,6 +3958,114 @@ function isJumpExercise(name) {
   return low.includes('cmj') || low.includes('jump') || low.includes('balz') ||
          low.includes('pogo') || low.includes('salti') || low.includes('salto') ||
          low.includes('profilazione');
+}
+
+function getBestJumpRecord(athlete, exName, isEN) {
+  if (!athlete || !athlete.id) return null;
+  const aid = athlete.id;
+  const lowName = (exName || '').toLowerCase();
+  
+  const isCmj = lowName.includes('cmj') || (lowName.includes('profilazione') && !lowName.includes('rsi'));
+  const isDropJump = lowName.includes('drop jump') || lowName.includes('dja') || lowName.includes('rsi');
+  const isPogo = lowName.includes('pogo');
+  const isGeneralJump = !isCmj && !isDropJump && !isPogo && (lowName.includes('jump') || lowName.includes('balz') || lowName.includes('salto'));
+
+  if (!isCmj && !isDropJump && !isPogo && !isGeneralJump) return null;
+
+  let candidates = [];
+  
+  function parseCm(val) {
+    if (!val) return null;
+    const m = String(val).match(/(\d+(?:[.,]\d+)?)\s*(?:cm)?/i);
+    if (!m) return null;
+    const num = parseFloat(m[1].replace(',', '.'));
+    if (isNaN(num) || num < 15 || num > 65) return null;
+    return num;
+  }
+
+  // 1. Confirmed Session W4 S1
+  if (typeof W4_S1_CONFIRMED_DATA !== 'undefined' && W4_S1_CONFIRMED_DATA[String(aid)]) {
+    const c4 = W4_S1_CONFIRMED_DATA[String(aid)];
+    if (isCmj && c4.cmj) {
+      const h = parseCm(c4.cmj);
+      if (h) candidates.push({ height: h, session: 'W4 S1 (14/09)', raw: `${h} cm` });
+    }
+  }
+
+  // 2. Confirmed Session W3 S1
+  if (typeof W3_S1_CONFIRMED_DATA !== 'undefined' && W3_S1_CONFIRMED_DATA[String(aid)]) {
+    const c3 = W3_S1_CONFIRMED_DATA[String(aid)];
+    if (isCmj && c3.cmj) {
+      const h = parseCm(c3.cmj);
+      if (h) candidates.push({ height: h, session: 'W3 S1 (07/09)', raw: `${h} cm` });
+    }
+  }
+
+  // 3. LocalStorage
+  if (typeof localStorage !== 'undefined') {
+    try {
+      const prefix = `mv_load_${aid}_`;
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (!k || !k.startsWith(prefix)) continue;
+        const keySuffix = k.replace(prefix, '').toLowerCase();
+        
+        let matchesThisJump = false;
+        if (isCmj && keySuffix.includes('cmj')) matchesThisJump = true;
+        else if (isDropJump && (keySuffix.includes('drop jump') || keySuffix.includes('dja') || keySuffix.includes('rsi'))) matchesThisJump = true;
+        else if (isPogo && keySuffix.includes('pogo')) matchesThisJump = true;
+        else if (isGeneralJump && keySuffix.includes(lowName.replace(/^w\d+_\d+_/, ''))) matchesThisJump = true;
+
+        if (matchesThisJump) {
+          const rawVal = localStorage.getItem(k);
+          const h = parseCm(rawVal);
+          if (h) {
+            let sName = 'Log';
+            const mWeek = k.match(/W([1-9])_([1-3]|W\d-[A-Za-z]+)/i);
+            if (mWeek) {
+              sName = `W${mWeek[1]} S${mWeek[2].replace(/W\d-/i, '')}`;
+            }
+            candidates.push({ height: h, session: sName, raw: `${h} cm` });
+          }
+        }
+      }
+    } catch(e) {}
+  }
+
+  // 4. Baseline / Historical Records
+  if (isPogo && typeof POGO_CHRONOJUMP_RECORDS !== 'undefined' && POGO_CHRONOJUMP_RECORDS[aid]) {
+    const prec = POGO_CHRONOJUMP_RECORDS[aid];
+    const h = parseCm(prec.max_height);
+    if (h) candidates.push({ height: h, session: isEN ? 'Baseline Pogo' : 'Test Baseline Pogo', raw: `${prec.max_height} (Rep #${prec.rep})` });
+  }
+
+  if (typeof ATHLETE_BASELINE_JUMPS !== 'undefined' && ATHLETE_BASELINE_JUMPS[aid]) {
+    const b = ATHLETE_BASELINE_JUMPS[aid];
+    if (isCmj && b.cmj) {
+      candidates.push({ height: b.cmj, session: isEN ? 'Baseline Test' : 'Test Iniziale', raw: `${b.cmj} cm` });
+    }
+    if (isDropJump && b.dja) {
+      candidates.push({ height: b.dja, session: isEN ? 'Baseline DJA' : 'Test Drop Jump', raw: `${b.dja} cm` });
+    }
+  }
+
+  if (candidates.length === 0) return null;
+
+  candidates.sort((a, b) => b.height - a.height);
+  const best = candidates[0];
+
+  let jumpLabel = isEN ? 'Best Jump' : 'Best Salto';
+  if (isCmj) jumpLabel = 'Best CMJ';
+  else if (isDropJump) jumpLabel = 'Best Drop Jump';
+  else if (isPogo) jumpLabel = isEN ? 'Best Pogo Jump' : 'Best Pogo';
+
+  return {
+    label: jumpLabel,
+    height: best.height,
+    session: best.session,
+    raw: best.raw,
+    formattedHtml: `🏆 ${jumpLabel} ${isEN ? 'recorded' : 'registrato'}: <strong>${best.raw || best.height + ' cm'}</strong> <span style="background:rgba(16,185,129,0.18);color:#6ee7b7;border-radius:3px;padding:0 4px;font-size:0.64rem;font-weight:700;">${isEN ? 'actual' : 'reale'} (${best.session})</span>`
+  };
 }
 
 function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
@@ -4290,15 +4413,26 @@ const ATHLETE_VBT_LIMITS = {
       const realBadge = ref.isManual ? `<span style="background:rgba(16,185,129,0.18);color:#6ee7b7;border-radius:3px;padding:0 4px;font-size:0.64rem;font-weight:700;margin-left:3px;">${isEN ? 'actual' : 'reale'}</span>` : '';
 
       if (ref.isJump) {
+        const bestJump = getBestJumpRecord(athlete, exName, isEN);
+        const jumpsLbl = isEN ? 'Jumps:' : 'Salti:';
+        const targetLbl = 'Target:';
+
+        if (bestJump) {
+          return `
+            <div class="ex-prev-ref" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.72rem;color:var(--mv-muted,#94a3b8);background:rgba(255,255,255,0.03);border:1px solid rgba(16,185,129,0.28);border-radius:6px;padding:2px 8px;margin:2px 0 6px 0;max-width:100%;">
+              <span>${bestJump.formattedHtml}</span>
+              ${ref.reps ? `<span style="opacity:0.35;">•</span><span>${jumpsLbl} <strong style="color:#cbd5e1;">${escapeHtml(ref.reps)}</strong></span>` : ''}
+              ${ref.rpe && ref.rpe !== ref.val && !bestJump.raw.includes(ref.rpe) ? `<span style="opacity:0.35;">•</span><span>${targetLbl} <strong style="color:#fbbf24;">${escapeHtml(ref.rpe)}</strong></span>` : ''}
+            </div>
+          `;
+        }
+
         let jumpMetricLbl = isEN ? 'Jump:' : 'Salto:';
         if (/\(Rep\s*#/i.test(ref.val) || /pogo/i.test(exName) || /pogo/i.test(ref.prevExName || '')) jumpMetricLbl = isEN ? 'Best Height:' : 'Best Salto:';
         else if (/cm\b/i.test(ref.val)) jumpMetricLbl = isEN ? 'Height:' : 'Altezza:';
         else if (/rsi/i.test(ref.val)) jumpMetricLbl = 'RSI:';
         else if (/box/i.test(ref.val)) jumpMetricLbl = 'Box:';
         else if (/tc/i.test(ref.val)) jumpMetricLbl = 'Target:';
-
-        const jumpsLbl = isEN ? 'Jumps:' : 'Salti:';
-        const targetLbl = 'Target:';
 
         return `
           <div class="ex-prev-ref" style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.72rem;color:var(--mv-muted,#94a3b8);background:rgba(255,255,255,0.03);border:1px solid rgba(59,130,246,0.22);border-radius:6px;padding:2px 8px;margin:2px 0 6px 0;max-width:100%;">

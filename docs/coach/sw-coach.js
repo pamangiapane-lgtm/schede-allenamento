@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-v286-sync-14sept-baseline-weights';
+const CACHE_NAME = 'coach-v287-best-jump-badges-all-sessions';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
