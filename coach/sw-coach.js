@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-v292-chronojump-w4s2-sync';
+const CACHE_NAME = 'coach-v293-clean-baselines-verified';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

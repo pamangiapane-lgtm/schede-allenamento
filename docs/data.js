@@ -154,6 +154,7 @@ const ROSTER = [
     "folder": "05_Chiara_Lo_Dico",
     "baseline_1rm": {
       "Bench Press": 40,
+      "Clean": 30,
       "Lat Machine": 40,
       "Military Press": 25,
       "Row BB": 30,
