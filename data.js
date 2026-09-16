@@ -7413,10 +7413,10 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1D. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -7709,11 +7709,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -7941,11 +7941,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -8184,11 +8184,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -8416,11 +8416,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -8659,11 +8659,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -8891,11 +8891,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -9134,11 +9134,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Chronojump RSI/RFD Profiling",
-              "Set x Reps": "2 x 3 jumps",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 jumps",
               "Carico (kg/RPE)": "BW",
-              "Tempo": "Max RFD",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Tempo": "`Max RFD`",
+              "Note Tecniche": "Upon entering the weight room: 3 maximal countermovement jumps on Chronojump mat with 45s passive rest. Measure peak height (cm) and neuromuscular readiness."
             },
             {
               "Blocco": "# Plyo",
@@ -9366,11 +9366,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Chronojump RSI/RFD Profiling",
-              "Set x Reps": "2 x 3 jumps",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 jumps",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "Upon entering the weight room: 3 maximal countermovement jumps on Chronojump mat with 45s passive rest. Measure peak height (cm) and neuromuscular readiness."
             },
             {
               "Blocco": "# Plyo",
@@ -9609,11 +9609,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -9841,11 +9841,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -10084,11 +10084,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -10316,11 +10316,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -10559,11 +10559,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -10791,11 +10791,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -11034,11 +11034,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -11266,11 +11266,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -11509,11 +11509,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -11741,11 +11741,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -11992,11 +11992,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -12224,11 +12224,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -12467,11 +12467,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -12699,11 +12699,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -12942,11 +12942,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",
@@ -13174,11 +13174,11 @@ const WEEKS_DATA = {
           "2": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1A. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25-30 cm"
+              "Note Tecniche": "All'ingresso in sala pesi: 3 salti massimali su pedana Chronojump con 45s di recupero passivo. Misura altezza di picco (cm) e prontezza neuromuscolare."
             },
             {
               "Blocco": "# Plyo",

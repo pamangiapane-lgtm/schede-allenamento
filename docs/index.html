@@ -4676,45 +4676,49 @@ const ATHLETE_VBT_LIMITS = {
     }
 
     function renderCmjTestCard(sed, athlete, isEN) {
-  const prevCmjRefHtml = renderPreviousWeekRefBadge(athlete, (typeof currentWeek !== 'undefined' ? currentWeek : 'W4'), sed, '1A. Chronojump CMJ Readiness Test', isEN);
-  const curWCmj = (typeof currentWeek !== 'undefined' ? currentWeek : 'W4');
-  const sNum = sed.Numero_Seduta;
-  const savedCmj = localStorage.getItem(`mv_load_${athlete.id}_${curWCmj}_${sNum}_CMJ_Test`) ||
-                   localStorage.getItem(`mv_load_${athlete.id}_${curWCmj}_${sed.Numero_Seduta}_CMJ_Test`) || '';
-  const cmjNoteText = isEN
-    ? "Upon entering the weight room after activation: hands strictly on hips on Chronojump mat, controlled descent and maximal vertical explosion. Perform <strong>3 jumps with 45s passive rest</strong> between attempts. Measure peak height (cm) and neuromuscular readiness."
-    : "All'ingresso in sala pesi dopo l'attivazione: mani rigorosamente ai fianchi su pedana Chronojump, discesa controllata ed esplosione verticale massimale. Esegui <strong>3 salti con 45s di riposo passivo</strong> tra ogni tentativo. Misura altezza di picco (cm) e prontezza neuromuscolare d'ingresso.";
+      const prevCmjRefHtml = renderPreviousWeekRefBadge(athlete, (typeof currentWeek !== 'undefined' ? currentWeek : 'W4'), sed, '1A. Chronojump CMJ Readiness Test', isEN);
+      const curWCmj = (typeof currentWeek !== 'undefined' ? currentWeek : 'W4');
+      let sNum = 1;
+      const nSedRaw = String(sed ? sed.Numero_Seduta : '').toLowerCase().replace(/w[1-9]_?/g, '');
+      if (nSedRaw.includes('3') || nSedRaw.includes('ven')) sNum = 3;
+      else if (nSedRaw.includes('2') || nSedRaw.includes('mer')) sNum = 2;
 
-  return `
-    <div class="exercise-card">
-      <div class="ex-head-row">
-        <div class="ex-name">Chronojump Countermovement Jump (CMJ) Test</div>
-        <div class="ex-rest-badge">⏱ ${isEN ? 'Rest 45s between jumps' : 'Rec. 45s tra i salti'}</div>
-      </div>
-      ${prevCmjRefHtml}
-      <div class="ex-grid">
-        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">1</div></div>
-        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;white-space:nowrap;">${isEN ? '3 jumps' : '3 salti'}</div></div>
-        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;font-size:0.85rem;white-space:nowrap;">Max RFD</div></div>
-        <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">X</div></div>
-      </div>
-      <button class="ex-notes-toggle" type="button" onclick="toggleNotes(this, 'n-cmj-${sNum}')">
-        <span>ℹ️ ${isEN ? 'Coach technical notes' : 'Note tecniche coach'}</span> <span class="notes-chevron">▾</span>
-      </button>
-      <div class="ex-notes-body" id="n-cmj-${sNum}">
-        <div>${cmjNoteText}</div>
-      </div>
-      <div class="ex-load-log-box" style="margin-top:10px;">
-        <span class="ex-load-log-lbl">📝 ${isEN ? 'Recorded CMJ Height:' : 'Altezza CMJ registrata:'}</span>
-        <div class="ex-load-input-wrap">
-          <input type="text" class="ex-load-input" id="ex-log-cmj-test" placeholder="${savedCmj ? `${isEN ? 'Saved:' : 'Salvato:'} ${savedCmj}` : (isEN ? 'e.g. 38.5 cm' : 'es. 38.5 cm')}" value="${savedCmj}" oninput="onCustomExerciseLoadInput('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}', this.value)">
-          <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test', '${sNum}')">${savedCmj ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
-          <span id="toast-ex-log-cmj-test" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+      const savedCmj = localStorage.getItem(`mv_load_${athlete.id}_${curWCmj}_${sNum}_CMJ_Test`) ||
+                       localStorage.getItem(`mv_load_${athlete.id}_${curWCmj}_${sed.Numero_Seduta}_CMJ_Test`) || '';
+      const cmjNoteText = isEN
+        ? "Upon entering the weight room after activation: hands strictly on hips on Chronojump mat, controlled descent and maximal vertical explosion. Perform <strong>3 jumps with 45s passive rest</strong> between attempts. Measure peak height (cm) and neuromuscular readiness."
+        : "All'ingresso in sala pesi dopo l'attivazione: mani rigorosamente ai fianchi su pedana Chronojump, discesa controllata ed esplosione verticale massimale. Esegui <strong>3 salti con 45s di riposo passivo</strong> tra ogni tentativo. Misura altezza di picco (cm) e prontezza neuromuscolare d'ingresso.";
+
+      return `
+        <div class="exercise-card">
+          <div class="ex-head-row">
+            <div class="ex-name">Chronojump Countermovement Jump (CMJ) Test</div>
+            <div class="ex-rest-badge">⏱ ${isEN ? 'Rest 45s between jumps' : 'Rec. 45s tra i salti'}</div>
+          </div>
+          ${prevCmjRefHtml}
+          <div class="ex-grid">
+            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Sets' : 'Serie'}</div><div class="val" style="color:#fff;">1</div></div>
+            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Reps' : 'Reps'}</div><div class="val" style="color:#fff;white-space:nowrap;">${isEN ? '3 jumps' : '3 salti'}</div></div>
+            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Intensity' : 'Intensità'}</div><div class="val" style="color:var(--mv-amber);font-weight:800;font-size:0.85rem;white-space:nowrap;">Max RFD</div></div>
+            <div class="ex-grid-item"><div class="lbl">${isEN ? 'Tempo' : 'Tempo'}</div><div class="val" style="color:#6ee7b7;font-family:monospace;font-weight:800;">X</div></div>
+          </div>
+          <button class="ex-notes-toggle" type="button" onclick="toggleNotes(this, 'n-cmj-${sNum}')">
+            <span>ℹ️ ${isEN ? 'Coach technical notes' : 'Note tecniche coach'}</span> <span class="notes-chevron">▾</span>
+          </button>
+          <div class="ex-notes-body" id="n-cmj-${sNum}">
+            <div>${cmjNoteText}</div>
+          </div>
+          <div class="ex-load-log-box" style="margin-top:10px;">
+            <span class="ex-load-log-lbl">📝 ${isEN ? 'Recorded CMJ Height:' : 'Altezza CMJ registrata:'}</span>
+            <div class="ex-load-input-wrap">
+              <input type="text" class="ex-load-input" id="ex-log-cmj-test-${sNum}" placeholder="${savedCmj ? `${isEN ? 'Saved:' : 'Salvato:'} ${savedCmj}` : (isEN ? 'e.g. 38.5 cm' : 'es. 38.5 cm')}" value="${savedCmj}" oninput="onCustomExerciseLoadInput('CMJ Test Chronojump', 'ex-log-cmj-test-${sNum}', '${sNum}', this.value)">
+              <button type="button" class="btn-save-mini" onclick="saveCustomExerciseLoad('CMJ Test Chronojump', 'ex-log-cmj-test-${sNum}', '${sNum}')">${savedCmj ? (isEN ? '✓ Saved' : '✓ Salvato') : (isEN ? 'Save' : 'Salva')}</button>
+              <span id="toast-ex-log-cmj-test-${sNum}" style="display:none;color:var(--mv-emerald);font-weight:800;font-size:0.75rem;">✓</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  `;
-}
+      `;
+    }
 
 function getNellyBlockInfo(bName, isEN) {
   const low = (bName || '').toLowerCase();
@@ -4896,8 +4900,8 @@ function renderSessions() {
         if (cat === 'Attivazione') {
           attivazioneList.push(norm);
         } else if (cat === 'Pliometria') {
-          // In Seduta 1, CMJ test is handled by renderCmjTestCard
-          if (sNum === 1 && (lowExName.includes('cmj') || lowExName.includes('chronojump') || lowExName.includes('profilazione'))) {
+          // In Seduta 1 e Seduta 2 (W4), CMJ test è gestito da renderCmjTestCard
+          if ((sNum === 1 || (sNum === 2 && currentWeek === 'W4')) && (lowExName.includes('cmj') || lowExName.includes('chronojump') || lowExName.includes('profilazione'))) {
             return;
           }
           pliometriaList.push(norm);
@@ -4957,12 +4961,12 @@ function renderSessions() {
 
       // 2. Pliometria Group (Salti)
       let pliometriaHtml = '';
-      const hasCmjInS1 = (sNum === 1);
-      if (hasCmjInS1 || pliometriaList.length > 0) {
+      const hasCmj = (sNum === 1 || (sNum === 2 && currentWeek === 'W4'));
+      if (hasCmj || pliometriaList.length > 0) {
         pliometriaHtml = `
           <div class="method-group">
             <div class="method-title">${isEN ? '🦘 Plyometrics (Jumps)' : '🦘 Pliometria (Salti)'}</div>
-            ${hasCmjInS1 ? renderCmjTestCard(sed, currentAthlete, isEN) : ''}
+            ${hasCmj ? renderCmjTestCard(sed, currentAthlete, isEN) : ''}
             ${pliometriaList.map(norm => renderStandardExerciseCard(norm, sed, currentAthlete, currentWeek)).join('')}
           </div>
         `;
