@@ -2015,6 +2015,140 @@
 
     
     // DATI CONFERMATI W4 S1 (14/09/2026) PER TUTTE LE 13 ATLETE
+    // DATI CONFERMATI W4 S2 (16/09/2026) - CHRONOJUMP DROP JUMP SESSION
+    const W4_S2_CONFIRMED_DATA = {
+      "1": {
+            "dja": "38.3 cm",
+            "dja_avg": "37.0 cm",
+            "tc_min": "229 ms",
+            "tc_avg": "244 ms",
+            "rsi_max": "1.60",
+            "rsi_avg": "1.52",
+            "stiffness": "15580 N/m",
+            "power": "2088 W"
+      },
+      "2": {
+            "dja": "38.7 cm",
+            "dja_avg": "35.3 cm",
+            "tc_min": "226 ms",
+            "tc_avg": "280 ms",
+            "rsi_max": "1.63",
+            "rsi_avg": "1.27",
+            "stiffness": "15014 N/m",
+            "power": "1999 W"
+      },
+      "3": {
+            "dja": "43.3 cm",
+            "dja_avg": "41.2 cm",
+            "tc_min": "187 ms",
+            "tc_avg": "213 ms",
+            "rsi_max": "2.19",
+            "rsi_avg": "1.94",
+            "stiffness": "25773 N/m",
+            "power": "3143 W"
+      },
+      "4": {
+            "dja": "34.5 cm",
+            "dja_avg": "30.3 cm",
+            "tc_min": "249 ms",
+            "tc_avg": "276 ms",
+            "rsi_max": "1.39",
+            "rsi_avg": "1.11",
+            "stiffness": "15298 N/m",
+            "power": "2113 W"
+      },
+      "5": {
+            "dja": "32.9 cm",
+            "dja_avg": "32.3 cm",
+            "tc_min": "181 ms",
+            "tc_avg": "201 ms",
+            "rsi_max": "1.74",
+            "rsi_avg": "1.61",
+            "stiffness": "21006 N/m",
+            "power": "2147 W"
+      },
+      "6": {
+            "dja": "29.8 cm",
+            "dja_avg": "26.0 cm",
+            "tc_min": "226 ms",
+            "tc_avg": "253 ms",
+            "rsi_max": "1.18",
+            "rsi_avg": "1.04",
+            "stiffness": "18075 N/m",
+            "power": "1986 W"
+      },
+      "7": {
+            "dja": "33.2 cm",
+            "dja_avg": "29.9 cm",
+            "tc_min": "185 ms",
+            "tc_avg": "201 ms",
+            "rsi_max": "1.76",
+            "rsi_avg": "1.50",
+            "stiffness": "28705 N/m",
+            "power": "2974 W"
+      },
+      "8": {
+            "dja": "36.7 cm",
+            "dja_avg": "35.5 cm",
+            "tc_min": "207 ms",
+            "tc_avg": "217 ms",
+            "rsi_max": "1.76",
+            "rsi_avg": "1.64",
+            "stiffness": "22568 N/m",
+            "power": "2778 W"
+      },
+      "9": {
+            "dja": "46.1 cm",
+            "dja_avg": "43.0 cm",
+            "tc_min": "191 ms",
+            "tc_avg": "211 ms",
+            "rsi_max": "2.23",
+            "rsi_avg": "2.04",
+            "stiffness": "22301 N/m",
+            "power": "3082 W"
+      },
+      "11": {
+            "dja": "35.1 cm",
+            "dja_avg": "33.3 cm",
+            "tc_min": "178 ms",
+            "tc_avg": "193 ms",
+            "rsi_max": "1.89",
+            "rsi_avg": "1.73",
+            "stiffness": "22269 N/m",
+            "power": "2316 W"
+      },
+      "12": {
+            "dja": "41.4 cm",
+            "dja_avg": "39.4 cm",
+            "tc_min": "205 ms",
+            "tc_avg": "218 ms",
+            "rsi_max": "1.96",
+            "rsi_avg": "1.81",
+            "stiffness": "18776 N/m",
+            "power": "2424 W"
+      },
+      "13": {
+            "dja": "32.5 cm",
+            "dja_avg": "30.8 cm",
+            "tc_min": "205 ms",
+            "tc_avg": "236 ms",
+            "rsi_max": "1.43",
+            "rsi_avg": "1.32",
+            "stiffness": "22289 N/m",
+            "power": "2422 W"
+      },
+      "14": {
+            "dja": "32.1 cm",
+            "dja_avg": "27.9 cm",
+            "tc_min": "262 ms",
+            "tc_avg": "280 ms",
+            "rsi_max": "1.22",
+            "rsi_avg": "1.00",
+            "stiffness": "13718 N/m",
+            "power": "1889 W"
+      }
+};
+
     const W4_S1_CONFIRMED_DATA = {
       "1": {
         rpe: 7.0, fat: 7.0, note: null,
@@ -3922,18 +4056,18 @@ function categorizeExerciseNorm(norm) {
 }
 
 const ATHLETE_BASELINE_JUMPS = {
-  1:  { cmj: 31.7, dja: 35.9, pogo: 37.0 },
-  2:  { cmj: 33.5, dja: 34.9, pogo: 34.5 },
-  3:  { cmj: 33.9, dja: 41.2, pogo: 24.3 },
-  4:  { cmj: 29.5, dja: 33.2, pogo: 41.1 },
+  1:  { cmj: 31.7, dja: 38.3, pogo: 37.0 },
+  2:  { cmj: 33.5, dja: 38.7, pogo: 34.5 },
+  3:  { cmj: 33.9, dja: 43.3, pogo: 24.3 },
+  4:  { cmj: 29.5, dja: 34.5, pogo: 41.1 },
   5:  { cmj: 28.4, dja: 36.9, pogo: 36.9 },
-  6:  { cmj: null, dja: 25.3, pogo: 25.3 },
-  7:  { cmj: 38.3, dja: 32.3, pogo: 29.9 },
+  6:  { cmj: null, dja: 29.8, pogo: 25.3 },
+  7:  { cmj: 38.3, dja: 33.2, pogo: 29.9 },
   8:  { cmj: 31.2, dja: 36.7, pogo: 29.8 },
-  9:  { cmj: 34.7, dja: 42.5, pogo: 25.7 },
+  9:  { cmj: 34.7, dja: 46.1, pogo: 25.7 },
   11: { cmj: 35.4, dja: 38.8, pogo: 41.6 },
-  12: { cmj: 36.1, dja: 38.7, pogo: 30.1 },
-  13: { cmj: 26.2, dja: 26.9, pogo: 26.8 },
+  12: { cmj: 36.1, dja: 41.4, pogo: 30.1 },
+  13: { cmj: 26.2, dja: 32.5, pogo: 26.8 },
   14: { cmj: 28.6, dja: 32.7, pogo: 28.6 }
 };
 
@@ -3981,6 +4115,15 @@ function getBestJumpRecord(athlete, exName, isEN) {
     const num = parseFloat(m[1].replace(',', '.'));
     if (isNaN(num) || num < 15 || num > 65) return null;
     return num;
+  }
+
+  // 0. Confirmed Session W4 S2 (16/09/2026 - Drop Jump)
+  if (typeof W4_S2_CONFIRMED_DATA !== 'undefined' && W4_S2_CONFIRMED_DATA[String(aid)]) {
+    const c4s2 = W4_S2_CONFIRMED_DATA[String(aid)];
+    if (isDropJump && c4s2.dja) {
+      const h = parseCm(c4s2.dja);
+      if (h) candidates.push({ height: h, session: 'W4 S2 (16/09)', raw: `${h} cm (RSI: ${c4s2.rsi_max})` });
+    }
   }
 
   // 1. Confirmed Session W4 S1
