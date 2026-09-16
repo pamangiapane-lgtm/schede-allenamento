@@ -32,7 +32,7 @@ const ROSTER = [
     "offseason_sessions": 4,
     "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\"",
     "rischio_clinico": "🔴 ALTO (Instabilità Caviglie + Stress Tibiale Cronico + Deficit Tibiale Posteriore SX + Anca DX Bloccata in IR)",
-    "bw": 63.5
+    "bw": 62.7
   },
   {
     "id": 2,
@@ -65,7 +65,7 @@ const ROSTER = [
     "offseason_sessions": 13,
     "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\" (Postazione Rack 1)",
     "rischio_clinico": "🟡 MEDIO (Arco Plantare Lasso + Spalla SX Ipomobile + Butt Wink a 100° + Retrazione Flessori Anca DX)",
-    "bw": 72
+    "bw": 67.7
   },
   {
     "id": 3,
@@ -98,7 +98,7 @@ const ROSTER = [
     "offseason_sessions": 14,
     "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Asonja e Bole)",
     "rischio_clinico": "🔴 ALTO (Esiti Frattura Tibia DX con Mezzi di Sintesi + Ipomobilità Anca DX + Shift Pelvico a DX + Asimmetria Tricipite Surale)",
-    "bw": 67
+    "bw": 72.6
   },
   {
     "id": 4,
@@ -130,7 +130,7 @@ const ROSTER = [
     "offseason_sessions": 15,
     "turno": "",
     "rischio_clinico": "",
-    "bw": 77
+    "bw": 71.4
   },
   {
     "id": 5,
@@ -163,7 +163,7 @@ const ROSTER = [
     "offseason_sessions": 5,
     "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\"",
     "rischio_clinico": "🟡 MEDIO (Esiti Osgood-Schlatter Ginocchio DX + Caviglia DX Rigida + Regole Specifiche Ruolo Libero)",
-    "bw": 62
+    "bw": 56
   },
   {
     "id": 6,
@@ -193,7 +193,7 @@ const ROSTER = [
     "offseason_sessions": 0,
     "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\" (Postazione Rack 1 con Marcuzzi)",
     "rischio_clinico": "🔴 ALTO (Dolore Rotuleo DX Attivo + Fascite Plantare SX + Retrazione Severa Quadricipite DX + Rotazione Bacino)",
-    "bw": 70
+    "bw": 67.9
   },
   {
     "id": 7,
@@ -226,7 +226,7 @@ const ROSTER = [
     "offseason_sessions": 11,
     "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 1 con Asonja e Sassolini)",
     "rischio_clinico": "🔴 ALTO (Tendinopatia Quadricipitale SX + Instabilità Podalica DX + Valgismo Dinamico Arto DX + Butt Wink a 80°)",
-    "bw": 71
+    "bw": 77
   },
   {
     "id": 8,
@@ -257,7 +257,7 @@ const ROSTER = [
     "offseason_sessions": 0,
     "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Dodi, Caserta e Adamczewska)",
     "rischio_clinico": "🔴 ALTO (Catena Anteriore Retratta + Shift Pelvico + Instabilità Podalica Bilaterale)",
-    "bw": 77
+    "bw": 79.2
   },
   {
     "id": 9,
@@ -292,7 +292,7 @@ const ROSTER = [
     "offseason_sessions": 17,
     "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Caserta e Adamczewska)",
     "rischio_clinico": "🔴 CRITICO / MASSIMO (Ginocchia Operate Bilaterali + Cervicalgia Irradiata + Shift Pelvico)",
-    "bw": 66
+    "bw": 66.3
   },
   {
     "id": 11,
@@ -323,7 +323,7 @@ const ROSTER = [
     "offseason_sessions": 0,
     "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactivity & Movement Quality\" (Postazione Libero / Campo Libero)",
     "rischio_clinico": "🟡 MEDIO (Deficit Severo Extrarotazione d'Anca + Valgismo Dinamico + Retropiede DX Evertito + Specificità Ruolo Libero)",
-    "bw": 60
+    "bw": 59.3
   },
   {
     "id": 12,
@@ -355,7 +355,7 @@ const ROSTER = [
     "offseason_sessions": 13,
     "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\"",
     "rischio_clinico": "🟡 MEDIO (Dorsiflessione Caviglie Bloccata + Butt Wink a 90° + Spinta Piede DX Mediale + Ipermobilità Lombare di Compenso)",
-    "bw": 63.5
+    "bw": 63.1
   },
   {
     "id": 13,
@@ -388,7 +388,7 @@ const ROSTER = [
     "offseason_sessions": 13,
     "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Nonnati, Dodi e Adamczewska)",
     "rischio_clinico": "🟡 MEDIO (Perdita Controllo Lombo-Pelvico oltre 110° + Shift Pelvico Asimmetrico + Deficit Retrazione Scapola DX + Anteposizione Spalla SX)",
-    "bw": 68
+    "bw": 78
   },
   {
     "id": 14,
@@ -419,7 +419,7 @@ const ROSTER = [
     "offseason_sessions": 0,
     "turno": "🔴 SHIFT 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\"",
     "rischio_clinico": "🟡/🔴 MEDIUM-HIGH (Ligamentous Laxity + Right Scapular Dyskinesis + Left Knee Valgus + Right Wrist Cyst)",
-    "bw": 70
+    "bw": 70.6
   }
 ];
 

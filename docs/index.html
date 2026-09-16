@@ -2261,6 +2261,22 @@
           localStorage.removeItem(`mv_bw_${aid}`);
         }
       }
+
+      // Allineamento Baseline Weight 14 Settembre (v285)
+      const bwVersionKey = `mv_bw_ver_14sept_v285_${aid}`;
+      if (!localStorage.getItem(bwVersionKey)) {
+        if (typeof BASELINE_WEIGHTS !== 'undefined' && BASELINE_WEIGHTS[aid]) {
+          localStorage.setItem(`mv_bw_${aid}`, String(BASELINE_WEIGHTS[aid]));
+          try {
+            const hist = JSON.parse(localStorage.getItem(`mv_bw_history_${aid}`) || '[]');
+            if (hist.length === 0 || !hist.some(h => h.date >= '2026-09-14')) {
+              hist.push({ date: '2026-09-14', bw: BASELINE_WEIGHTS[aid], time: 'Pesata Ufficiale' });
+              localStorage.setItem(`mv_bw_history_${aid}`, JSON.stringify(hist.slice(-20)));
+            }
+          } catch(e) {}
+        }
+        localStorage.setItem(bwVersionKey, '1');
+      }
       // Sanifica 1RMs (soglie fisiologiche minime e massime)
       const thresholds = { squat: 30, rdl: 20, clean: 20, bench: 15, military: 15, row: 15, lat: 15 };
       Object.keys(thresholds).forEach(lift => {
