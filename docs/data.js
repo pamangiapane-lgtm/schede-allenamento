@@ -7430,7 +7430,8 @@ const WEEKS_DATA = {
               "Esercizio": "3A. Clean to Split OPPURE Powerbag Clean",
               "Set x Reps": "3 x 3",
               "Tempo": "`X`",
-              "Note Tecniche": "Bilanciere standard per squadra (Powerbag per *Sassolini, Biondi, Adamczewska*)"
+              "Note Tecniche": "Bilanciere standard per squadra (Powerbag per *Sassolini, Biondi, Adamczewska*)",
+              "Carico (kg/RPE)": "75%"
             },
             {
               "Blocco": "# Main",
@@ -8434,7 +8435,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "26.0 kg",
+              "Carico (kg/RPE)": "26.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -8909,7 +8910,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Powerbag Clean to Chest",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "52.5 kg",
+              "Carico (kg/RPE)": "45.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -10334,7 +10335,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "37.5 kg",
+              "Carico (kg/RPE)": "40.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -10809,7 +10810,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "47.0 kg",
+              "Carico (kg/RPE)": "45.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -11284,7 +11285,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "26.0 kg",
+              "Carico (kg/RPE)": "41.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -11759,7 +11760,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "40.0 kg",
+              "Carico (kg/RPE)": "41.5 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva con bilanciere"
             },
@@ -12242,7 +12243,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "37.5 kg",
+              "Carico (kg/RPE)": "33.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -12717,7 +12718,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "32.0 kg",
+              "Carico (kg/RPE)": "31.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -13192,7 +13193,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "33.0 kg",
+              "Carico (kg/RPE)": "39.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -13903,7 +13904,7 @@ const WEEKS_DATA = {
               "Blocco": "# Babdominals + Transfer",
               "Esercizio": "Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "35.0 kg",
+              "Carico (kg/RPE)": "30.0 kg",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva, ricezione solida al petto."
             },
