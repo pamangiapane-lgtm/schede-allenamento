@@ -2740,13 +2740,49 @@
       }
     }
 
+        function switchNav(tab, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+
+      const target = document.getElementById(`tab-${tab}`);
+      if (target) target.classList.add('active');
+
+      if (btn) {
+        btn.classList.add('active');
+      } else {
+        const matchingBtn = document.getElementById(`tab-btn-${tab}`);
+        if (matchingBtn) matchingBtn.classList.add('active');
+      }
+
+      if (tab === 'profilo') {
+        render1RMProfile();
+        renderBodyWeight();
+        renderRiepilogoCarichi();
+      } else if (tab === 'sedute') {
+        renderSessions();
+      } else if (tab === 'wellness') {
+        renderWellnessSummary();
+      }
+    }
+
+    function switchWeek(week, btn) {
+      currentWeek = week;
+      document.querySelectorAll('.week-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) {
+        btn.classList.add('active');
+      } else {
+        const autoBtn = document.getElementById(`week-tab-btn-${week}`);
+        if (autoBtn) autoBtn.classList.add('active');
+      }
+      renderSessions();
+    }
+
     function getAthleteBW() {
       const savedBwRaw = localStorage.getItem(`mv_bw_${currentAthlete.id}`);
       const savedBw = parseFloat(savedBwRaw);
       if (!isNaN(savedBw) && savedBw >= 40 && savedBw <= 130) {
         return savedBw;
       }
-      // Rimuove qualsiasi valore errato salvato precedentemente (es. 1900)
       if (savedBw > 130 || savedBw < 40) {
         localStorage.removeItem(`mv_bw_${currentAthlete.id}`);
       }
@@ -2755,10 +2791,11 @@
 
     function renderBodyWeight() {
       const bw = getAthleteBW();
-      document.getElementById('input-bw').value = bw;
+      const input = document.getElementById('input-bw');
+      if (input) input.value = bw;
     }
 
-        function recalcBWLive(val) {
+    function recalcBWLive(val) {
       const parsed = parseFloat(val) || 0;
       if (parsed > 0) {
         localStorage.setItem(`mv_bw_${currentAthlete.id}`, parsed);
@@ -2830,6 +2867,60 @@
       renderRiepilogoCarichi();
     }
 
+    function getAthlete1RM(rmKey) {
+      if (!currentAthlete || !currentAthlete.id || !rmKey || !rmKey.id) return 0;
+      const savedRaw = localStorage.getItem(`mv_1rm_${currentAthlete.id}_${rmKey.id}`);
+      const saved = parseFloat(savedRaw);
+      const minThreshold = (rmKey.id === 'squat' || rmKey.id === 'rdl') ? 30 : ((rmKey.id === 'clean') ? 20 : 15);
+
+      if (!isNaN(saved) && saved >= minThreshold && saved <= 300) {
+        return saved;
+      }
+      if (!isNaN(saved) && (saved < minThreshold || saved > 300)) {
+        localStorage.removeItem(`mv_1rm_${currentAthlete.id}_${rmKey.id}`);
+      }
+
+      const base = TRUE_BASELINES[currentAthlete.id] || {};
+      return base[rmKey.id] || 0;
+    }
+
+    function calcTargetLoad(rmKey, rmVal, pct) {
+      if (rmVal <= 0) return null;
+      if (rmKey.hasBW) {
+        const bw = getAthleteBW();
+        const load = (pct / 100) * (rmVal + bw) - bw;
+        return Math.max(0, Math.round(load * 2) / 2);
+      } else {
+        const load = (pct / 100) * rmVal;
+        return Math.round(load * 2) / 2;
+      }
+    }
+
+    function recalc1RMLive(rmId, val) {
+      const parsed = parseFloat(val) || 0;
+      const rmObj = RM_KEYS.find(k => k.id === rmId);
+      if (rmObj) {
+        [50, 60, 70, 75, 80, 85, 90].forEach(p => {
+          const kg = parsed > 0 ? calcTargetLoad(rmObj, parsed, p) : '—';
+          const el = document.getElementById(`pct-${rmId}-${p}`);
+          if (el) el.textContent = kg !== '—' ? `${kg}k` : '—';
+        });
+      }
+      if (parsed > 0 && currentAthlete && currentAthlete.id) {
+        localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, String(parsed));
+        renderSessions();
+      }
+    }
+
+    async function on1RMChangeAuto(rmId, val) {
+      const parsed = parseFloat(val) || 0;
+      if (parsed > 0 && currentAthlete && currentAthlete.id) {
+        localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, String(parsed));
+        renderSessions();
+        await save1RMToCloud(rmId, parsed);
+      }
+    }
+
     async function save1RMToCloud(rmId, val) {
       if (!currentAthlete || !currentAthlete.id) return;
       const toast = document.getElementById(`toast-1rm-${rmId}`);
@@ -2868,7 +2959,9 @@
 
     function render1RMProfile() {
       const container = document.getElementById('rm-grid-container');
+      if (!container || !currentAthlete) return;
       const bw = getAthleteBW();
+      const isEN = (currentAthlete.id === 4 || currentAthlete.id === 14);
 
       container.innerHTML = RM_KEYS.map(rm => {
         const val = getAthlete1RM(rm);
@@ -2882,7 +2975,7 @@
           `;
         }).join('');
 
-        const bwFormulaNote = rm.hasBW ? `<div style="font-size:0.68rem;color:var(--mv-amber);margin-top:2px;">*Carico effettivo sul bilanciere (${bw}kg BW)</div>` : '';
+        const bwFormulaNote = rm.hasBW ? `<div style="font-size:0.68rem;color:var(--mv-amber);margin-top:2px;">*${isEN ? 'Barbell load' : 'Carico effettivo sul bilanciere'} (${bw}kg BW)</div>` : '';
 
         return `
           <div class="rm-card">
@@ -2920,18 +3013,14 @@
         }, 1500);
       }
 
-      // Salvataggio definitivo immediato in localStorage
       localStorage.setItem(`mv_1rm_${currentAthlete.id}_${rmId}`, String(numVal));
-
-      // Invio definitivo immediato a Google Sheets (indipendente dalla chiusura seduta)
       await save1RMToCloud(rmId, numVal);
 
       render1RMProfile();
       renderSessions();
     }
 
-    // GESTIONE RIEPILOGO CARICHI (PER TUTTA LA SQUADRA TRANNE NELLY)
-        // GESTIONE RIEPILOGO CARICHI & PESO CORPOREO
+    // GESTIONE RIEPILOGO CARICHI & PESO CORPOREO
     function renderRiepilogoCarichi() {
       const box = document.getElementById('box-riepilogo-carichi');
       if (!currentAthlete) return;
