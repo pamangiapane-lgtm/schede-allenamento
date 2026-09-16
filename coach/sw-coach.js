@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-v294-full-baselines-fixed';
+const CACHE_NAME = 'coach-v295-cmj-dja-full-sync';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
