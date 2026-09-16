@@ -186,10 +186,13 @@ const ROSTER = [
     ],
     "folder": "06_Gaia_Biondi",
     "baseline_1rm": {
-      "Squat / Step Up": 80,
       "Bench Press": 35,
+      "Clean": 53,
+      "Lat Machine": 35,
+      "Military Press": 26,
       "Row BB": 45,
-      "Clean": 53
+      "Squat / Step Up": 80,
+      "Stacchi Rumeni": 50
     },
     "offseason_sessions": 0,
     "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactive & Floor\" (Postazione Rack 1 con Marcuzzi)",
@@ -250,10 +253,13 @@ const ROSTER = [
     ],
     "folder": "08_Federica_Nonnati",
     "baseline_1rm": {
-      "Squat / Step Up": 105,
       "Bench Press": 45,
+      "Clean": 55,
+      "Lat Machine": 40,
+      "Military Press": 20,
       "Row BB": 60,
-      "Clean": 55
+      "Squat / Step Up": 105,
+      "Stacchi Rumeni": 60
     },
     "offseason_sessions": 0,
     "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Dodi, Caserta e Adamczewska)",
@@ -316,10 +322,13 @@ const ROSTER = [
     ],
     "folder": "11_Luna_Cicola",
     "baseline_1rm": {
-      "Squat / Step Up": 102,
       "Bench Press": 30,
+      "Clean": 44,
+      "Lat Machine": 43,
+      "Military Press": 22,
       "Row BB": 45,
-      "Clean": 44
+      "Squat / Step Up": 102,
+      "Stacchi Rumeni": 60
     },
     "offseason_sessions": 0,
     "turno": "🟢 TURNO 1 (08:30 – 09:25) — \"Speed, Reactivity & Movement Quality\" (Postazione Libero / Campo Libero)",
@@ -348,6 +357,7 @@ const ROSTER = [
     "baseline_1rm": {
       "Bench Press": 51,
       "Clean": 41,
+      "Lat Machine": 45,
       "Military Press": 35,
       "Row BB": 60,
       "Squat / Step Up": 134,
@@ -412,10 +422,13 @@ const ROSTER = [
     ],
     "folder": "10_Nelly_Adamczewska",
     "baseline_1rm": {
-      "Squat / Step Up": 120,
       "Bench Press": 35,
+      "Clean": 40,
+      "Lat Machine": 30,
+      "Military Press": 35,
       "Row BB": 50,
-      "Clean": 40
+      "Squat / Step Up": 120,
+      "Stacchi Rumeni": 70
     },
     "offseason_sessions": 0,
     "turno": "🔴 SHIFT 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\"",
