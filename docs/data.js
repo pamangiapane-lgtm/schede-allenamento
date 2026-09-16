@@ -7522,6 +7522,13 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
+              "Esercizio": "2A. Power Clean con Bilanciere (o Powerbag Clean)",
+              "Set x Reps": "3 x 3 @ 80%",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione esplosiva e ricezione solida (80% 1RM Clean)"
+            },
+            {
+              "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4 @ 80% (RIR 6)",
               "Tempo": "`2010`",
@@ -8040,7 +8047,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "32.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (39.5 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -8048,7 +8063,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (26.0 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -8515,7 +8530,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "28.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (50.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -8523,7 +8546,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (34.0 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -8990,7 +9013,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Powerbag Clean to Chest",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "48.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (63.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -8998,7 +9029,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (42.0 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -9465,7 +9496,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Barbell Romanian Deadlift (RDL)",
+              "Esercizio": "2A. Barbell Power Clean",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "40.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Powerful triple extension and crisp catch"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Barbell Romanian Deadlift (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (42.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -9473,7 +9512,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Seated Low Cable Pulley Row Narrow Parallel Grip",
+              "Esercizio": "2C. Seated Low Cable Pulley Row Narrow Parallel Grip",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (34.0 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -9940,7 +9979,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Powerbag Clean to Chest (o KB Clean)",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "24.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (47.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -9948,7 +9995,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (34.0 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -10415,7 +10462,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "42.5 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (42.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -10423,7 +10478,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (26.0 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -10890,7 +10945,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "48.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (58.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -10898,7 +10961,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (37.5 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -11365,7 +11428,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "44.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (55.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -11373,7 +11444,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (37.5 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -11840,7 +11911,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "44.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva con bilanciere"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (45.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -11848,7 +11927,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (22.5 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -12323,7 +12402,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Powerbag Clean to Chest (o KB Clean)",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "35.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (55.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -12331,7 +12418,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (32.0 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -12798,7 +12885,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "33.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (64.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -12806,7 +12901,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (34.0 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -13273,7 +13368,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "41.5 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva"
+            },
+            {
+              "Blocco": "# Main",
+              "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "75% (44.0 kg) [\"6\"]",
               "Tempo": "`2010`",
@@ -13281,7 +13384,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
+              "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "75% (36.0 kg) [\"6\"]",
               "Tempo": "`2011`",
@@ -14010,7 +14113,7 @@ const WEEKS_DATA = {
               "Blocco": "# Babdominals + Transfer",
               "Esercizio": "1. Clean to split pos",
               "Set x Reps": "3 x 2+2",
-              "Carico (kg/RPE)": "30 - 35 kg",
+              "Carico (kg/RPE)": "32.0 kg",
               "Tempo": "10X0",
               "Note Tecniche": "Power clean con ricezione rapida in posizione di split (affondo dinamico), alternando gli arti."
             },

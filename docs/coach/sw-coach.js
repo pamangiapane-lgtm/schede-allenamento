@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-v290-clean-75-all';
+const CACHE_NAME = 'coach-v291-clean-80-friday';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
