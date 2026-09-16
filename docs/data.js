@@ -2581,11 +2581,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3B. Dynamic Half Squat",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "65% (26.5 kg) [\"4\"]",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°), discesa 2\", fermo 1\" in buca, risalita a max intenzione. ⚡ Target: 0.75–0.80 m/s. 🛑 Cutoff Min: 0.68 m/s (stop serie). 🚀 Cutoff Max: 0.85 m/s (se superato alza +2.5 kg, no salti col bilanciere). Focus: massima accelerazione post-isometria. Carico formula BW"
+              "Esercizio": "3B. Power Squat Parallelo (1\" iso buca)",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "72.5%",
+              "Tempo": "`2110`",
+              "Note Tecniche": "Femur-tibia parallel (~90°), 2s descent, 1s strict pause in the hole, maximal intent explosion. ⚡ Target: 0.70–0.75 m/s. 🛑 Min Cutoff: 0.68 m/s. 🚀 Max Cutoff: 0.85 m/s (raise +2.5 kg). BW formula applied."
             },
             {
               "Blocco": "# Main",
@@ -9390,11 +9390,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3B. Dynamic Half Squat",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "65% (26.5 kg) [\"4\"]",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Jump-specific half squat (~110-120°). Enode VBT >0.75 m/s"
+              "Esercizio": "3B. Power Squat Parallelo (1\" iso buca)",
+              "Set x Reps": "4 x 3",
+              "Carico (kg/RPE)": "72.5%",
+              "Tempo": "`2110`",
+              "Note Tecniche": "Femur-tibia parallel (~90°), 2s descent, 1s strict pause in the hole, maximal intent explosion. ⚡ Target: 0.70–0.75 m/s. 🛑 Min Cutoff: 0.68 m/s. 🚀 Max Cutoff: 0.85 m/s (raise +2.5 kg). BW formula applied."
             },
             {
               "Blocco": "# Main",

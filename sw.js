@@ -1,5 +1,5 @@
 // Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'v288-cmj-test-w4s2';
+const CACHE_NAME = 'v289-anja-w4s2-aligned';
 
 const ASSETS_TO_CACHE = [
   './',
