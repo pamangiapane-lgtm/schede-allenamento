@@ -7090,14 +7090,6 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "1. Harmstring Ball curl",
-              "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "1030",
-              "Note Tecniche": "Leg curl su fitball a terra, bacino sempre sollevato e allineato, 3s di fase eccentrica."
-            },
-            {
-              "Blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
@@ -7114,19 +7106,19 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "1. Clean to 1/4 squat",
-              "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "30 kg",
-              "Tempo": "10X0",
-              "Note Tecniche": "Power clean con ricezione reattiva in 1/4 di squat, rapida frenata e riestensione."
+              "Esercizio": "Power Clean con Bilanciere",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "30.0 kg",
+              "Tempo": "`X`",
+              "Note Tecniche": "Tripla estensione potente e reattiva, ricezione solida al petto."
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "2. Flor ball throws",
-              "Set x Reps": "3 x 3",
+              "Esercizio": "Rotational Medball Throw contro muro",
+              "Set x Reps": "3 x 3+3",
               "Carico (kg/RPE)": "3 kg",
-              "Tempo": "X",
-              "Note Tecniche": "Lancio esplosivo della palla medica a terra con massima intenzione di velocità."
+              "Tempo": "`X`",
+              "Note Tecniche": "Rotazione esplosiva dell'anca e del tronco verso il muro, rilascio violento con intenzione massimale."
             },
             {
               "Blocco": "# Babdominals + Transfer",
@@ -7166,7 +7158,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main Exercises",
               "Esercizio": "1. Split squat",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
+              "Carico (kg/RPE)": "\"6\" - \"6\" - \"4\"",
               "Tempo": "2010",
               "Note Tecniche": "Affondo sul posto, busto compatto, arto perno con ginocchio perpendicolare al collo del piede."
             },
@@ -7188,27 +7180,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "1. Harmstring Ball curl",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "1030",
-              "Note Tecniche": "Leg curl su fitball a terra con ritorno eccentrico lento in 3s."
-            },
-            {
-              "Blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
               "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "\"12\" - \"10\"",
               "Tempo": "1020",
               "Note Tecniche": "Calf in piedi su gradino, salita dinamica e 2s di picco isometrico in alto."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "3. Lat pull down - front",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "\"12\" - \"10\"",
-              "Tempo": "1030",
-              "Note Tecniche": "Trazione frontale allo sterno, spalle basse e gomiti verso le tasche posteriori."
             },
             {
               "Blocco": "# Accessories",
@@ -7220,11 +7196,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Babdominals + Transfer",
-              "Esercizio": "1. Clean to split pos",
-              "Set x Reps": "3 x 2+2",
-              "Carico (kg/RPE)": "30 - 35 kg",
-              "Tempo": "10X0",
-              "Note Tecniche": "Power clean con ricezione rapida in posizione di split (affondo dinamico), alternando gli arti."
+              "Esercizio": "1. Power Clean",
+              "Set x Reps": "3 x 3",
+              "Carico (kg/RPE)": "40 kg",
+              "Tempo": "X",
+              "Note Tecniche": "Explosive power clean with chest catch and triple extension."
             },
             {
               "Blocco": "# Babdominals + Transfer",
@@ -14175,7 +14151,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main Exercises",
               "Esercizio": "1. Split squat",
               "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "\"10\" - \"8\" - \"6\"",
+              "Carico (kg/RPE)": "\"6\" - \"6\" - \"4\"",
               "Tempo": "2010",
               "Note Tecniche": "Affondo sul posto, busto compatto, arto perno con ginocchio perpendicolare al collo del piede."
             },
@@ -14241,3 +14217,7 @@ const WEEKS_DATA = {
     }
   }
 };
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { ROSTER, WEEKS_DATA };
+}
