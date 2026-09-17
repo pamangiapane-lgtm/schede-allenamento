@@ -1,5 +1,5 @@
 // Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'marsala-schede-v303-nelly-w4s3-updates';
+const CACHE_NAME = 'marsala-schede-v304-w3s3-loads-restored';
 
 const ASSETS_TO_CACHE = [
   './',

@@ -1014,7 +1014,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "60 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -1022,7 +1022,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (48.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -1030,7 +1030,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (24.5 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -1038,7 +1038,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -1054,7 +1054,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "12 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -1489,7 +1489,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "75 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -1497,7 +1497,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (60.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -1505,7 +1505,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (31.5 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -1513,7 +1513,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -1529,7 +1529,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "14 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -1964,7 +1964,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -1972,7 +1972,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (68.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -1980,7 +1980,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (39.0 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -1988,7 +1988,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -2004,7 +2004,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "14 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -2439,7 +2439,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Barbell Glute Bridge on Floor",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Moved to Main. Drive through heels, 2s maximal isometric hold at top"
             },
@@ -2447,7 +2447,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Barbell Romanian Deadlift (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (68.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Pure hip hinge pushing pelvis backward, bar brushing thighs, strict neutral spine"
             },
@@ -2455,7 +2455,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Seated Low Cable Pulley Row Narrow Parallel Grip",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (31.5 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Upright torso 90°, decompressive horizontal pull towards navel"
             },
@@ -2463,7 +2463,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Flat Bench Dumbbell Pullover",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Thoracic ribcage expansion and controlled lats stretch without lumbar hyperextension"
             },
@@ -2479,7 +2479,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Single Dumbbell Farmer March (Suitcase Carry)",
               "Set x Reps": "2 x 20m /side",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "15 kg",
               "Tempo": "Marching",
               "Note Tecniche": "High-knee marching, unilateral load, strict anti-lateral flexion and strong grip"
             }
@@ -2914,7 +2914,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "60 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -2922,7 +2922,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (44.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -2930,7 +2930,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (31.5 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -2938,7 +2938,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -2954,7 +2954,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -3389,7 +3389,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -3397,7 +3397,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (60.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -3405,7 +3405,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (24.5 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -3413,7 +3413,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -3429,7 +3429,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "12 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -3864,7 +3864,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "75 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -3872,7 +3872,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (60.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -3880,7 +3880,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (35.0 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -3888,7 +3888,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -3904,7 +3904,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "14 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -4339,7 +4339,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -4347,7 +4347,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (64.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -4355,7 +4355,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (35.0 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -4363,7 +4363,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -4379,7 +4379,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "15 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -4814,7 +4814,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -4822,7 +4822,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (48.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -4830,7 +4830,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (21.0 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -4838,7 +4838,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -4854,7 +4854,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "12 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -5297,7 +5297,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "60 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -5305,7 +5305,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (60.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -5313,7 +5313,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (30.0 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -5321,7 +5321,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -5337,7 +5337,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -5772,7 +5772,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "60 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -5780,7 +5780,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (68.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -5788,7 +5788,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (31.5 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -5796,7 +5796,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -5812,7 +5812,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "12 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -6247,7 +6247,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "75 kg (RIR 4)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -6255,7 +6255,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "80% (60.0 kg) [\"RIR 6\"]",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura spingendo indietro il bacino, bilanciere aderente alle cosce, fermo sotto la rotula"
             },
@@ -6263,7 +6263,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2C. Pulley Basso al Cavo Presa Parallela Stretta",
               "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "70% (33.5 kg) [\"6\"]",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto eretto 90°, trazione decompressiva orizzontale verso l'ombelico, retrazione scapolare 1\", schiena compatta"
             },
@@ -6271,7 +6271,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Dumbbell Pullover su panca piana",
               "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10-20 kg (\"8\")",
               "Tempo": "`2010`",
               "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale"
             },
@@ -6287,7 +6287,7 @@ const WEEKS_DATA = {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Farmer March con un manubrio (Suitcase Carry)",
               "Set x Reps": "2 x 20m /lato",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "14 kg",
               "Tempo": "Marcia",
               "Note Tecniche": "Carico monolaterale, anti-flessione laterale del tronco e presa forte"
             }
@@ -6767,7 +6767,7 @@ const WEEKS_DATA = {
               "blocco": "# Prehab",
               "Esercizio": "1. Stiff leg deadlift",
               "Set x Reps": "2 x 5",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "30 - 35 kg",
               "Tempo": "3010",
               "Note Tecniche": "Pure hip hinge with 3s eccentric, soft knees, zero lumbar compensation (progression up to 40 kg)."
             },
@@ -6871,7 +6871,7 @@ const WEEKS_DATA = {
               "blocco": "# Core & Recovery",
               "Esercizio": "1. Single DB Farmer march (Suitcase carry)",
               "Set x Reps": "2 x 20m /side",
-              "Carico (kg/RPE)": "RPE 7",
+              "Carico (kg/RPE)": "10 - 15 kg",
               "Tempo": "Marching",
               "Note Tecniche": "High-knee marching carrying 1 dumbbell. Anti-lateral trunk flexion, proud chest, strong grip and core bracing."
             },
