@@ -2494,7 +2494,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=v300-ui-hero-wellness-fix').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=v301-week-pill-toggle-fix').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
@@ -2517,10 +2517,10 @@
       const urlWeek = urlParams.get('week');
       if (urlWeek && ['W3', 'W4'].includes(urlWeek.toUpperCase())) {
         currentWeek = urlWeek.toUpperCase();
-        document.querySelectorAll('.week-pill').forEach(p => {
-          p.classList.toggle('active', p.textContent.includes(currentWeek));
-        });
       }
+      document.querySelectorAll('.week-pill').forEach(p => {
+        p.classList.toggle('active', p.getAttribute('data-week') === currentWeek || p.textContent.includes(currentWeek));
+      });
 
       if (currentAthlete && currentAthlete.id) {
         applyConfirmedW3S1Data(currentAthlete.id);
@@ -3120,13 +3120,10 @@
 
     function switchWeek(week, btn) {
       currentWeek = week;
-      document.querySelectorAll('.week-tab-btn').forEach(b => b.classList.remove('active'));
-      if (btn) {
-        btn.classList.add('active');
-      } else {
-        const autoBtn = document.getElementById(`week-tab-btn-${week}`);
-        if (autoBtn) autoBtn.classList.add('active');
-      }
+      document.querySelectorAll('.week-pill').forEach(b => {
+        const isTarget = (b.getAttribute('data-week') === week || b.textContent.includes(week));
+        b.classList.toggle('active', isTarget);
+      });
       renderSessions();
     }
 
