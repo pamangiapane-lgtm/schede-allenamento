@@ -96,20 +96,34 @@
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-md);
-      padding: 16px 14px;
+      padding: 14px 16px;
       cursor: pointer;
       text-align: left;
-      transition: all 0.15s;
+      transition: all 0.15s ease;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 80px;
+      align-items: center;
+      gap: 12px;
       text-decoration: none;
     }
     .athlete-card-btn:hover { background: var(--mv-surface2); border-color: var(--mv-amber); }
     .athlete-card-btn:active { transform: scale(0.98); }
-    .ac-name { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
-    .ac-role { font-size: 0.75rem; color: var(--mv-amber); font-weight: 700; }
+    .ac-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(245,158,11,0.15);
+      border: 1px solid rgba(245,158,11,0.35);
+      color: var(--mv-amber);
+      font-size: 0.95rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .ac-info { flex: 1; min-width: 0; }
+    .ac-name { font-size: 0.95rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
+    .ac-role { font-size: 0.74rem; color: var(--mv-amber); font-weight: 700; }
 
     /* Single Athlete View */
     .athlete-view { display: none; }
@@ -130,6 +144,7 @@
       font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
+      transition: all 0.15s ease;
     }
     .btn-change-ath:hover { color: #fff; border-color: var(--mv-amber); }
 
@@ -138,15 +153,75 @@
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
       border-radius: var(--radius-lg);
-      padding: 14px 18px;
+      padding: 14px 16px;
       margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       box-shadow: 0 4px 16px rgba(0,0,0,0.25);
     }
-    .ath-name { font-size: 1.35rem; font-weight: 800; color: #fff; margin-bottom: 2px; }
-    .ath-role { font-size: 0.82rem; color: var(--mv-amber); font-weight: 700; }
+    .ath-hero-main {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .ath-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(245,158,11,0.25), rgba(245,158,11,0.08));
+      border: 1.5px solid var(--mv-amber);
+      color: var(--mv-amber);
+      font-size: 1.15rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(245,158,11,0.2);
+    }
+    .ath-hero-text {
+      flex: 1;
+      min-width: 0;
+    }
+    .ath-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+    .ath-meta-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .ath-role-badge {
+      background: rgba(245,158,11,0.15);
+      border: 1px solid rgba(245,158,11,0.35);
+      color: var(--mv-gold-text);
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.3px;
+    }
+    .ath-club-badge {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--mv-muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .ath-bw-badge {
+      background: rgba(59,130,246,0.15);
+      border: 1px solid rgba(59,130,246,0.35);
+      color: #93c5fd;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
 
     /* STICKY NAVIGATION TABS WRAPPER (PERFEZIONATO) */
     .sticky-nav-wrapper {
@@ -1171,9 +1246,6 @@
         <div class="app-sub" id="app-header-sub">App Ufficiale 2026/27</div>
       </div>
     </div>
-    <div id="header-ath-pill" style="display:none;align-items:center;gap:6px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);border-radius:20px;padding:4px 10px;font-size:0.75rem;font-weight:800;color:var(--mv-gold-text);margin-left:auto;margin-right:8px;">
-      <span id="header-ath-pill-text">#01 Veronica Allasia · Palleggiatrice</span>
-    </div>
     <button class="btn-refresh" onclick="forceAppRefresh()">
       <span>🔄 Aggiorna</span>
     </button>
@@ -1192,22 +1264,24 @@
     <!-- 2. SINGLE ATHLETE VIEW -->
     <div class="athlete-view" id="athlete-view">
       
-      <div class="nav-top-bar" style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+      <div class="nav-top-bar">
         <button class="btn-change-ath" onclick="showRosterSelection()">← Cambia Atleta</button>
-        <div id="nav-ath-badge" class="nav-ath-badge" style="display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.35);border-radius:8px;padding:4px 10px;font-size:0.75rem;font-weight:800;color:#93c5fd;">
-          <span id="nav-ath-badge-num" style="color:var(--mv-amber);">#01</span>
-          <span id="nav-ath-badge-name" style="color:#fff;">Veronica Allasia</span>
-          <span style="opacity:0.4;">·</span>
-          <span id="nav-ath-badge-role" style="color:var(--mv-gold-text);">Palleggiatrice</span>
-        </div>
       </div>
 
       <!-- Athlete Hero Card -->
       <div class="athlete-hero">
-        <div>
-          <h2 class="ath-name" id="ath-name">Nome Atleta</h2>
-          <div class="ath-role" id="ath-role">Ruolo Atleta</div>
+        <div class="ath-hero-main">
+          <div class="ath-avatar" id="ath-avatar">#01</div>
+          <div class="ath-hero-text">
+            <h2 class="ath-name" id="ath-name">Nome Atleta</h2>
+            <div class="ath-meta-row">
+              <span class="ath-role-badge" id="ath-role">Ruolo Atleta</span>
+              <span class="ath-club-badge">Marsala Volley</span>
+              <span class="ath-bw-badge" id="ath-hero-bw" style="display:none;"></span>
+            </div>
+          </div>
         </div>
+      </div>
       </div>
 
       <!-- Banner Guida Installazione iPhone (se aperta da browser o WhatsApp anziché da Home) -->
@@ -2870,19 +2944,19 @@
         subEl.style.color = 'var(--mv-muted)';
         subEl.style.fontWeight = '400';
       }
-      const pillEl = document.getElementById('header-ath-pill');
-      if (pillEl) pillEl.style.display = 'none';
 
       document.title = 'Marsala Volley — Schede Allenamento';
 
       const grid = document.getElementById('roster-grid');
       grid.innerHTML = ROSTER.filter(a => a.id !== 99).map(a => `
         <div class="athlete-card-btn" onclick="selectAthlete(${a.id})">
-          <div class="ac-name">${a.number || a.num || ('#' + a.id)} ${a.name}</div>
-          <div class="ac-role">${a.role}</div>
+          <div class="ac-avatar">${a.number || a.num || ('#' + a.id)}</div>
+          <div class="ac-info">
+            <div class="ac-name">${a.name}</div>
+            <div class="ac-role">${a.role}</div>
+          </div>
         </div>
       `).join('');
-
     }
 
     function selectAthlete(athId) {
@@ -2957,37 +3031,24 @@
       const numText = currentAthlete.number || currentAthlete.num || (`#${currentAthlete.id}`);
       const roleText = isEN ? (currentAthlete.id === 4 ? 'Opposite' : (currentAthlete.id === 14 ? 'Outside Hitter' : currentAthlete.role)) : currentAthlete.role;
 
+      const avatarEl = document.getElementById('ath-avatar');
+      if (avatarEl) avatarEl.textContent = numText;
+
       const athNameEl = document.getElementById('ath-name');
       if (athNameEl) athNameEl.textContent = `${numText} ${currentAthlete.name}`;
 
       const athRoleEl = document.getElementById('ath-role');
-      if (athRoleEl) athRoleEl.textContent = `${roleText} · Marsala Volley`;
+      if (athRoleEl) athRoleEl.textContent = roleText;
 
-      // Top Fixed Header sub & pill
-      const subEl = document.getElementById('app-header-sub');
-      if (subEl) {
-        subEl.textContent = `${numText} ${currentAthlete.name} (${roleText})`;
-        subEl.style.color = 'var(--mv-amber)';
-        subEl.style.fontWeight = '700';
-      }
-
-      const pillEl = document.getElementById('header-ath-pill');
-      const pillText = document.getElementById('header-ath-pill-text');
-      if (pillEl && pillText) {
-        pillText.textContent = `${numText} ${currentAthlete.name} · ${roleText}`;
-        pillEl.style.display = 'inline-flex';
-      }
-
-      // Nav Top Bar Badge
-      const navBadge = document.getElementById('nav-ath-badge');
-      const navNum = document.getElementById('nav-ath-badge-num');
-      const navName = document.getElementById('nav-ath-badge-name');
-      const navRole = document.getElementById('nav-ath-badge-role');
-      if (navBadge) {
-        if (navNum) navNum.textContent = numText;
-        if (navName) navName.textContent = currentAthlete.name;
-        if (navRole) navRole.textContent = roleText;
-        navBadge.style.display = 'inline-flex';
+      const bwVal = getAthleteBW(currentAthlete.id);
+      const bwBadge = document.getElementById('ath-hero-bw');
+      if (bwBadge) {
+        if (bwVal && bwVal > 0) {
+          bwBadge.textContent = `BW ${bwVal.toFixed(1)} kg`;
+          bwBadge.style.display = 'inline-block';
+        } else {
+          bwBadge.style.display = 'none';
+        }
       }
 
       document.title = `${numText} ${currentAthlete.name} — Marsala Volley`;
