@@ -1282,7 +1282,6 @@
           </div>
         </div>
       </div>
-      </div>
 
       <!-- Banner Guida Installazione iPhone (se aperta da browser o WhatsApp anziché da Home) -->
       <div id="ios-install-banner" style="display:none;background:linear-gradient(135deg, #1e3a8a, #0c1f40);border:1px solid #3b82f6;border-radius:var(--radius-md);padding:14px 16px;margin-bottom:14px;">
@@ -2455,6 +2454,31 @@
       }
     }
 
+    function applyConfirmedW4S2Data(athId) {
+      if (!athId) return;
+      const conf = (typeof W4_S2_CONFIRMED_DATA !== 'undefined') ? W4_S2_CONFIRMED_DATA[String(athId)] : null;
+      if (!conf) return;
+
+      const keyRatingW4_2 = `mv_session_rating_${athId}_W4_2`;
+      const keyRatingW4_Mer = `mv_session_rating_${athId}_W4_W4-Mer`;
+      const keyRatingCode = `mv_session_rating_${athId}_W4-Mer`;
+      const keyRatingLegacy = `mv_session_rating_${athId}_2`;
+
+      const payload = JSON.stringify({
+        rpe: 7.5,
+        fat: 7,
+        note: 'Registrata W4 S2 (16/09/2026 - Drop Jump)',
+        date: '2026-09-16',
+        ts: '2026-09-16T18:00:00.000Z'
+      });
+      localStorage.setItem(keyRatingW4_2, payload);
+      localStorage.setItem(keyRatingW4_Mer, payload);
+      localStorage.setItem(keyRatingCode, payload);
+      if (currentWeek === 'W4') {
+        localStorage.setItem(keyRatingLegacy, payload);
+      }
+    }
+
     const ORDERED_CATEGORIES = [
       { id: 'Attivazione', icon: '🔥', label: 'Attivazione & Prehab' },
       { id: 'Pliometria',  icon: '🦘', label: 'Pliometria (Salti)' },
@@ -2470,7 +2494,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=v299-rpe7-friday-loads').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=v300-ui-hero-wellness-fix').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
@@ -2991,6 +3015,7 @@
       applyConfirmedW3S3Data(currentAthlete.id);
       applyConfirmedW4S1Data(currentAthlete.id);
       applyConfirmedW4S2Data(currentAthlete.id);
+      initWellnessRatingBars();
       renderHero();
       renderBodyWeight();
       render1RMProfile();
@@ -3035,7 +3060,7 @@
       if (avatarEl) avatarEl.textContent = numText;
 
       const athNameEl = document.getElementById('ath-name');
-      if (athNameEl) athNameEl.textContent = `${numText} ${currentAthlete.name}`;
+      if (athNameEl) athNameEl.textContent = currentAthlete.name;
 
       const athRoleEl = document.getElementById('ath-role');
       if (athRoleEl) athRoleEl.textContent = roleText;
@@ -6181,7 +6206,7 @@ function renderSessions() {
 
     function checkIosInstallState() {
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      const isStandalone = ('standalone' in window.navigator && window.navigator.standalone) || window.matchMedia('(display-mode: standalone)').matches;
+      const isStandalone = (window.navigator && 'standalone' in window.navigator && window.navigator.standalone) || (typeof window.matchMedia === 'function' && window.matchMedia('(display-mode: standalone)')?.matches);
       const dismissed = localStorage.getItem('mv_dismissed_ios_install') === 'true';
 
       const banner = document.getElementById('ios-install-banner');

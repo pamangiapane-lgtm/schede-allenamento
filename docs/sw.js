@@ -1,5 +1,5 @@
 // Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'v299-rpe7-friday-loads';
+const CACHE_NAME = 'marsala-schede-v300-ui-hero-wellness-fix';
 
 const ASSETS_TO_CACHE = [
   './',
