@@ -2896,6 +2896,7 @@
       applyConfirmedW3S2Data(currentAthlete.id);
       applyConfirmedW3S3Data(currentAthlete.id);
       applyConfirmedW4S1Data(currentAthlete.id);
+      applyConfirmedW4S2Data(currentAthlete.id);
       renderHero();
       renderBodyWeight();
       render1RMProfile();
@@ -5416,6 +5417,17 @@ function renderSessions() {
               fat: conf.fat,
               note: conf.note || '',
               date: '2026-09-14'
+            };
+          }
+        }
+        if (numVal === 2 && typeof W4_S2_CONFIRMED_DATA !== 'undefined' && W4_S2_CONFIRMED_DATA[String(aid)]) {
+          const conf = W4_S2_CONFIRMED_DATA[String(aid)];
+          if (conf && conf.rpe !== null) {
+            return {
+              rpe: conf.rpe,
+              fat: conf.fat,
+              note: conf.note || '',
+              date: '2026-09-16'
             };
           }
         }
