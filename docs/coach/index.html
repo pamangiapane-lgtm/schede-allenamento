@@ -2361,9 +2361,27 @@
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=266', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=298', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
+
+      // Auto-refresh periodico continuo ogni 15 secondi per TUTTI i pannelli
+      if (!window._coachAutoRefreshTimer) {
+        window._coachAutoRefreshTimer = setInterval(() => {
+          refreshAllCoachData();
+        }, 15000);
+      }
+
+      // Refresh istantaneo al cambio di visibilità / focus finestra
+      if (!window._coachVisibilityBound) {
+        window._coachVisibilityBound = true;
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden) refreshAllCoachData();
+        });
+        window.addEventListener('focus', () => {
+          refreshAllCoachData();
+        });
+      }
     }
 
     async function refreshAllCoachData() {
@@ -2700,6 +2718,7 @@
         let tData = null;
         let sData = null;
         let aData = null;
+        let jData = null;
 
         const sb = (window.MV_SUPABASE && typeof window.MV_SUPABASE.getSb === 'function') ? window.MV_SUPABASE.getSb() : null;
         if (sb) {
@@ -2708,17 +2727,18 @@
             try {
               window.MV_SUPABASE.subscribeRealtime((type, payload) => {
                 console.log('[Realtime Push]', type, payload);
-                fetchLiveWellness().then(() => fetchLiveProgressi());
+                refreshAllCoachData();
               });
             } catch(e) {}
           }
 
-          // Fetch parallelo resiliente con Promise.allSettled (così un errore isolato non blocca gli altri)
+          // Fetch parallelo resiliente con Promise.allSettled (session_ratings, training_sets, athletes, jump_tests)
           try {
             const results = await Promise.allSettled([
               sb.from('session_ratings').select('*').order('date', { ascending: false }).limit(300),
               sb.from('training_sets').select('*').order('date', { ascending: false }).limit(350),
-              sb.from('athletes').select('*')
+              sb.from('athletes').select('*'),
+              sb.from('jump_tests').select('*').order('test_date', { ascending: false }).limit(200)
             ]);
 
             if (results[0].status === 'fulfilled' && results[0].value && !results[0].value.error && results[0].value.data) {
@@ -2729,6 +2749,9 @@
             }
             if (results[2].status === 'fulfilled' && results[2].value && !results[2].value.error && results[2].value.data) {
               aData = results[2].value.data;
+            }
+            if (results[3].status === 'fulfilled' && results[3].value && !results[3].value.error && results[3].value.data) {
+              jData = results[3].value.data;
             }
           } catch(sbErr) {
             console.warn('[Coach Supabase Fetch Error, trying direct REST]', sbErr);
@@ -2744,6 +2767,29 @@
         }
         if (!aData || aData.length === 0) {
           aData = await directSupabaseFetch('athletes', 'select=*');
+        }
+        if (!jData || jData.length === 0) {
+          jData = await directSupabaseFetch('jump_tests', 'select=*&order=test_date.desc&limit=200');
+        }
+
+        if (jData && jData.length > 0) {
+          jData.forEach(j => {
+            const hVal = j.best_height_cm || j.avg_height_cm;
+            if (hVal != null && hVal > 0) {
+              const isDrop = String(j.jump_type || '').toUpperCase().includes('DJ');
+              rows.push({
+                ID_Giocatrice: j.athlete_id,
+                N_Seduta: isDrop ? 'Drop Jump' : 'CMJ Test',
+                Esercizio: isDrop ? 'Drop Jump (Chronojump)' : 'CMJ (Chronojump)',
+                Valore: `${hVal} cm`,
+                Kg_Usati: '',
+                Reps_Fatte: '',
+                Data: j.test_date,
+                Note_Atleta: j.max_rsi ? `RSI: ${j.max_rsi}${j.best_tc_s ? ` | Tc: ${j.best_tc_s}s` : ''}` : '',
+                Timestamp: j.created_at || j.test_date
+              });
+            }
+          });
         }
 
         if (tData && tData.length > 0) {
@@ -2976,8 +3022,6 @@
           // 2. TEST NEUROMUSCOLARE CMJ (Pedana Chronojump)
           const isCmj = ex.includes('cmj') || ex.includes('chronojump');
           if (isCmj) {
-            // Gaia Biondi (#6) non ha effettuato il test CMJ: scarta qualsiasi residuo spurio
-            if (aid === 6) return;
 
             let cleanHeight = valStr;
             const hMatch = cleanHeight.replace(',', '.').match(/\d+(?:\.\d+)?/);
@@ -4112,17 +4156,27 @@
       const targetPanel = document.getElementById(`panel-${tab}`);
       if (targetPanel) targetPanel.classList.add('active');
 
-      // Ridimensiona i grafici per render perfetto dopo il tab switch
+      // Re-render immediato e ridimensionamento grafici per render perfetto dopo il tab switch
       if (tab === 'readiness') {
+        try { renderReadinessRoster(); } catch (e) {}
+        try { renderPrescriptiveSCEngine(); } catch (e) {}
+        try { renderWellnessAnalytics(); } catch (e) {}
         if (wellnessChartInstance) wellnessChartInstance.resize();
         if (microcycleChartInstance) microcycleChartInstance.resize();
       } else if (tab === 'sedute') {
+        try { renderSedutePanel(); } catch (e) {}
+        try { render1RMTable(); } catch (e) {}
+        try { renderVBTTable(); } catch (e) {}
+        try { renderCMJTable(); } catch (e) {}
+        try { renderCustomLoadsTable(); } catch (e) {}
+        try { renderPerfAnalytics(); } catch (e) {}
+        try { renderFVChart(); } catch (e) {}
         if (perfChartInstance) perfChartInstance.resize();
-      if (fvVbtChartInstance) fvVbtChartInstance.resize();
+        if (fvVbtChartInstance) fvVbtChartInstance.resize();
         if (vbtScatterChartInstance) vbtScatterChartInstance.resize();
       } else if (tab === 'metodologia') {
+        try { renderMethodologyAnalysis(); } catch (e) {}
         if (typeof methodologyChartInstance !== 'undefined' && methodologyChartInstance) methodologyChartInstance.resize();
-        renderMethodologyAnalysis();
       }
     }
 

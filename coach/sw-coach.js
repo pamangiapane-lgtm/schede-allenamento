@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-v297-power-clean-bilanciere';
+const CACHE_NAME = 'coach-v298-coach-auto-sync-dynamic-srpe';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

@@ -2648,15 +2648,13 @@
               else if (rDate >= '2026-08-31' && rDate < '2026-09-07') recWeek = 'W2';
 
               if (recWeek && (rpe !== null || fat !== null)) {
-                // Filtro rigido: esclude valutazioni premature accidentali su sedute future
-                if (recWeek === 'W3') {
-                  if (sNum === 2 && rDate < '2026-09-09') return;
-                  if (sNum === 3 && rDate < '2026-09-11') return;
-                } else if (recWeek === 'W4') {
-                  if (sNum === 1 && rDate < '2026-09-14') return;
-                  if (sNum === 2 && rDate < '2026-09-16') return;
-                  if (sNum === 3 && rDate < '2026-09-18') return;
-                }
+                // Ignora solo record con date spurie o antecedenti l'inizio del camp
+                if (rDate && rDate < '2026-08-24') return;
+
+                if (!sessionRatings[sNum]) sessionRatings[sNum] = {};
+                if (rpe !== null && rpe !== undefined) sessionRatings[sNum].rpe = rpe;
+                if (fat !== null && fat !== undefined) sessionRatings[sNum].fat = fat;
+                if (r.Note_Atleta || r.note_atleta) sessionRatings[sNum].note = r.Note_Atleta || r.note_atleta;
 
                 const updatedPayload = {
                   rpe: rpe,
@@ -2906,6 +2904,31 @@
       syncOfflinePendingLoads();
       checkPushSubscriptionState();
       syncProgressiFromCloud();
+
+      // Realtime Push & Auto-Sync periodico per schede atlete
+      if (window.MV_SUPABASE && !window._sbAthleteRealtimeSubscribed) {
+        window._sbAthleteRealtimeSubscribed = true;
+        try {
+          window.MV_SUPABASE.subscribeRealtime((type, payload) => {
+            console.log('[Athlete Realtime Push]', type, payload);
+            syncProgressiFromCloud();
+          });
+        } catch(e) {}
+      }
+      if (!window._athleteAutoSyncTimer) {
+        window._athleteAutoSyncTimer = setInterval(() => {
+          syncProgressiFromCloud();
+        }, 30000);
+      }
+      if (!window._athleteVisibilityBound) {
+        window._athleteVisibilityBound = true;
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden) syncProgressiFromCloud();
+        });
+        window.addEventListener('focus', () => {
+          syncProgressiFromCloud();
+        });
+      }
     }
 
 
@@ -5375,6 +5398,14 @@ function renderSessions() {
       else if (sStr.includes('2') || sStr.includes('mer')) numVal = 2;
       else if (sStr.includes('1') || sStr.includes('lun')) numVal = 1;
 
+      // 0. Controllo immediato cache in memoria (sessionRatings)
+      if (typeof sessionRatings !== 'undefined') {
+        const memObj = sessionRatings[sNum] || sessionRatings[numVal] || sessionRatings[`${week}_${sNum}`] || sessionRatings[`${week}_${numVal}`];
+        if (memObj && ((memObj.rpe !== null && memObj.rpe !== undefined) || (memObj.fat !== null && memObj.fat !== undefined))) {
+          return memObj;
+        }
+      }
+
       // 1. Dati confermati ufficiali certificati
       if (week === 'W4') {
         if (numVal === 1 && typeof W4_S1_CONFIRMED_DATA !== 'undefined' && W4_S1_CONFIRMED_DATA[String(aid)]) {
@@ -5403,13 +5434,14 @@ function renderSessions() {
         }
       }
 
-      // 2. Chiavi rigorosamente con prefisso week (es. mv_session_rating_1_W4_1)
+      // 2. Chiavi dinamiche con prefisso week (es. mv_session_rating_1_W4_1, mv_session_rating_1_W4_W4-MerV)
       const codeSuffix = numVal === 3 ? 'VenR' : (numVal === 2 ? 'MerV' : 'LunP');
       const strictKeys = [
         `mv_session_rating_${aid}_${week}_${sNum}`,
         `mv_session_rating_${aid}_${week}_${numVal}`,
         `mv_session_rating_${aid}_${week}_${week}-${codeSuffix}`,
-        `mv_session_rating_${aid}_${week}_${week}_${week}-${codeSuffix}`
+        `mv_session_rating_${aid}_${week}_${week}_${week}-${codeSuffix}`,
+        `mv_session_rating_${aid}_${week}_W${week.replace('W','')}-${codeSuffix}`
       ];
 
       for (const k of strictKeys) {
@@ -5417,14 +5449,14 @@ function renderSessions() {
         if (raw) {
           try {
             const obj = JSON.parse(raw);
-            if (obj && (obj.rpe !== null || obj.fat !== null)) {
+            if (obj && ((obj.rpe !== null && obj.rpe !== undefined) || (obj.fat !== null && obj.fat !== undefined))) {
               return obj;
             }
           } catch(e) {}
         }
       }
 
-      // 3. Fallback chiavi legacy senza week: SOLO se la data salvata appartiene esattamente a quel microciclo
+      // 3. Fallback chiavi senza week
       const legacyKeys = [
         `mv_session_rating_${aid}_${sNum}`,
         `mv_session_rating_${aid}_${numVal}`
@@ -5435,23 +5467,41 @@ function renderSessions() {
         if (raw) {
           try {
             const obj = JSON.parse(raw);
-            if (obj && (obj.rpe !== null || obj.fat !== null)) {
+            if (obj && ((obj.rpe !== null && obj.rpe !== undefined) || (obj.fat !== null && obj.fat !== undefined))) {
               const d = obj.date || '';
+              if (!d) return obj;
               if (week === 'W4') {
-                if (numVal === 1 && d >= '2026-09-14' && d < '2026-09-16') return obj;
-                if (numVal === 2 && d >= '2026-09-16' && d < '2026-09-18') return obj;
-                if (numVal === 3 && d >= '2026-09-18') return obj;
+                if (d >= '2026-09-14') return obj;
               } else if (week === 'W3') {
-                if (d >= '2026-09-07' && d <= '2026-09-13') {
-                  if (numVal === 1 && d < '2026-09-09') return obj;
-                  if (numVal === 2 && d >= '2026-09-09' && d < '2026-09-11') return obj;
-                  if (numVal === 3 && d >= '2026-09-11') return obj;
-                }
+                if (d >= '2026-09-07' && d <= '2026-09-13') return obj;
+              } else {
+                return obj;
               }
             }
           } catch(e) {}
         }
       }
+
+      // 4. Scansione dinamica localStorage per chiavi atleta
+      try {
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith(`mv_session_rating_${aid}_`)) {
+            const keyLower = key.toLowerCase();
+            const matchesWeek = keyLower.includes(week.toLowerCase());
+            const matchesNum = keyLower.endsWith(`_${numVal}`) || keyLower.endsWith(`_${sNum}`) || keyLower.includes(codeSuffix.toLowerCase());
+            if (matchesWeek && matchesNum) {
+              const raw = localStorage.getItem(key);
+              if (raw) {
+                const obj = JSON.parse(raw);
+                if (obj && ((obj.rpe !== null && obj.rpe !== undefined) || (obj.fat !== null && obj.fat !== undefined))) {
+                  return obj;
+                }
+              }
+            }
+          }
+        }
+      } catch(e) {}
 
       return null;
     }
@@ -5609,15 +5659,27 @@ function renderSessions() {
     }
 
     
-    function updateSessionHeaderStatus(nSeduta, rpeVal) {
+    function updateSessionHeaderStatus(nSeduta, rpeVal, fatVal) {
       let sNum = 1;
       const nSedRaw = String(nSeduta).toLowerCase().replace(/w[1-9]_?/g, '');
       if (nSedRaw.includes('3') || nSedRaw.includes('ven')) sNum = 3;
       else if (nSedRaw.includes('2') || nSedRaw.includes('mer')) sNum = 2;
 
+      const isEN = Boolean(currentAthlete && (currentAthlete.id === 4 || currentAthlete.id === 14));
+
+      if (fatVal === undefined) {
+        fatVal = sessionRatings[nSeduta]?.fat ?? sessionRatings[sNum]?.fat ?? null;
+      }
+      if (rpeVal === undefined || rpeVal === null) {
+        rpeVal = sessionRatings[nSeduta]?.rpe ?? sessionRatings[sNum]?.rpe ?? null;
+      }
+
       const badgeEl = document.getElementById(`session-badge-status-${nSeduta}`) || document.getElementById(`session-badge-status-${sNum}`);
       if (badgeEl && rpeVal !== null && rpeVal !== undefined) {
-        badgeEl.textContent = `✓ RPE ${rpeVal}/10`;
+        const fatPart = (fatVal !== null && fatVal !== undefined)
+          ? (isEN ? ` · Fatigue ${fatVal}/10` : ` · Fatica ${fatVal}/10`)
+          : '';
+        badgeEl.textContent = `✓ RPE ${rpeVal}/10${fatPart}`;
         badgeEl.style.display = 'inline-flex';
       }
       const headBadge = document.getElementById(`session-head-badge-${nSeduta}`) || document.getElementById(`session-head-badge-${sNum}`);
@@ -5625,7 +5687,6 @@ function renderSessions() {
         headBadge.classList.add('session-badge-saved');
         const rawText = headBadge.textContent;
         const mainPart = rawText.split('·')[0].trim();
-        const isEN = (currentAthlete && (currentAthlete.id === 4 || currentAthlete.id === 14));
         headBadge.textContent = `${mainPart} · ${isEN ? '✓ Done' : '✓ Registrata'}`;
       }
     }
@@ -5674,7 +5735,7 @@ function renderSessions() {
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${sNum}`, JSON.stringify(payload));
       if (rpe !== null && rpe !== undefined) {
-        updateSessionHeaderStatus(nSeduta, rpe);
+        updateSessionHeaderStatus(nSeduta, rpe, fat);
       }
 
       // Auto-salvataggio su cloud (debounce 1.5s)
@@ -5723,7 +5784,7 @@ function renderSessions() {
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${sNum}`, JSON.stringify(payload));
       if (rpe !== null && rpe !== undefined) {
-        updateSessionHeaderStatus(nSeduta, rpe);
+        updateSessionHeaderStatus(nSeduta, rpe, fat);
       }
 
       clearTimeout(debounceSessionTimers[nSeduta]);
@@ -5847,7 +5908,7 @@ function renderSessions() {
         try {
           const parsed = JSON.parse(curSaved);
           if (parsed && parsed.rpe !== null && parsed.rpe !== undefined) {
-            updateSessionHeaderStatus(nSeduta, parsed.rpe);
+            updateSessionHeaderStatus(nSeduta, parsed.rpe, parsed.fat);
           }
         } catch(e) {}
       }
