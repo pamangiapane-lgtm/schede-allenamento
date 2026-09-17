@@ -876,7 +876,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -1014,7 +1014,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60 kg (RIR 4)",
+              "Carico (kg/RPE)": "60 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -1108,7 +1108,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -1351,7 +1351,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -1489,7 +1489,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "75 kg (RIR 4)",
+              "Carico (kg/RPE)": "75 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -1583,7 +1583,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -1826,7 +1826,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -1964,7 +1964,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70 kg (RIR 4)",
+              "Carico (kg/RPE)": "70 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -2058,7 +2058,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -2301,7 +2301,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Knee tracked over 2nd toe, explosive ascent, RIR 2"
+              "Note Tecniche": "Knee tracked over 2nd toe, explosive ascent, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -2439,7 +2439,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Barbell Glute Bridge on Floor",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "80 kg (RIR 4)",
+              "Carico (kg/RPE)": "80 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Moved to Main. Drive through heels, 2s maximal isometric hold at top"
             },
@@ -2533,7 +2533,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Controlled descent, explosive drive, RIR 2"
+              "Note Tecniche": "Controlled descent, explosive drive, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -2673,7 +2673,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 3",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
-              "Note Tecniche": "Pure hip hinge, bar brushing thighs, buffer 3 (RIR 3-4)"
+              "Note Tecniche": "Pure hip hinge, bar brushing thighs, buffer 3 (RPE 6-7)"
             },
             {
               "Blocco": "# Main",
@@ -2776,7 +2776,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -2914,7 +2914,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60 kg (RIR 4)",
+              "Carico (kg/RPE)": "60 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -3008,7 +3008,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -3251,7 +3251,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -3389,7 +3389,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70 kg (RIR 4)",
+              "Carico (kg/RPE)": "70 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -3483,7 +3483,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -3726,7 +3726,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -3864,7 +3864,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "75 kg (RIR 4)",
+              "Carico (kg/RPE)": "75 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -3958,7 +3958,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -4201,7 +4201,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -4339,7 +4339,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "80 kg (RIR 4)",
+              "Carico (kg/RPE)": "80 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -4433,7 +4433,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -4676,7 +4676,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -4814,7 +4814,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "70 kg (RIR 4)",
+              "Carico (kg/RPE)": "70 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -4908,7 +4908,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -5159,7 +5159,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -5297,7 +5297,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60 kg (RIR 4)",
+              "Carico (kg/RPE)": "60 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -5391,7 +5391,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -5634,7 +5634,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -5772,7 +5772,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "60 kg (RIR 4)",
+              "Carico (kg/RPE)": "60 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -5866,7 +5866,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -6109,7 +6109,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -6247,7 +6247,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Glute Bridge con bilanciere a terra",
               "Set x Reps": "3 x 6",
-              "Carico (kg/RPE)": "75 kg (RIR 4)",
+              "Carico (kg/RPE)": "75 kg (RPE 6)",
               "Tempo": "`2012`",
               "Note Tecniche": "Spostato in Main. Spinta talloni, 2\" contrazione isometrica massimale glutei in alto"
             },
@@ -6341,7 +6341,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -7701,7 +7701,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -7933,7 +7933,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -8192,7 +8192,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -8424,7 +8424,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -8683,7 +8683,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -8915,7 +8915,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -9174,7 +9174,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Knee tracked over 2nd toe, explosive ascent, RIR 2"
+              "Note Tecniche": "Knee tracked over 2nd toe, explosive ascent, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -9406,7 +9406,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Controlled descent, explosive drive, RIR 2"
+              "Note Tecniche": "Controlled descent, explosive drive, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -9554,7 +9554,7 @@ const WEEKS_DATA = {
               "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
-              "Note Tecniche": "Pure hip hinge, bar brushing thighs, buffer 3 (RIR 3-4)"
+              "Note Tecniche": "Pure hip hinge, bar brushing thighs, buffer 3 (RPE 6-7)"
             },
             {
               "Blocco": "# Main",
@@ -9665,7 +9665,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -9897,7 +9897,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -10156,7 +10156,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -10388,7 +10388,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -10647,7 +10647,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -10879,7 +10879,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -11138,7 +11138,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -11370,7 +11370,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -11629,7 +11629,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -11861,7 +11861,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "RPE 6",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -12128,7 +12128,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -12360,7 +12360,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -12619,7 +12619,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -12851,7 +12851,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -13110,7 +13110,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "8+8 kg (\"8\")",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RIR 2"
+              "Note Tecniche": "Ginocchio in asse col 2° dito, risalita decisa, RPE 8"
             },
             {
               "Blocco": "# Accessories",
@@ -13342,7 +13342,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 4+4",
               "Carico (kg/RPE)": "10+10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Discesa controllata, risalita esplosiva, RIR 2"
+              "Note Tecniche": "Discesa controllata, risalita esplosiva, RPE 8"
             },
             {
               "Blocco": "# Accessories",
