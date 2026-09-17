@@ -1,5 +1,5 @@
 // Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'marsala-schede-v301-week-pill-toggle-fix';
+const CACHE_NAME = 'marsala-schede-v302-w4s3-volume-sync';
 
 const ASSETS_TO_CACHE = [
   './',

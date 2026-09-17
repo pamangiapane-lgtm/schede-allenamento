@@ -8062,7 +8062,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -8078,7 +8078,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -8094,7 +8094,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
@@ -8553,7 +8553,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -8569,7 +8569,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -8585,7 +8585,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
@@ -9044,7 +9044,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -9060,7 +9060,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -9076,7 +9076,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
@@ -9535,7 +9535,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Bar Hang with Feet Support",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "Partial BW",
               "Tempo": "Decompressive",
               "Note Tecniche": "Total lumbar and spinal decompression"
@@ -9551,7 +9551,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Barbell Romanian Deadlift (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Pure hip hinge, bar brushing thighs, buffer 3 (RIR 3-4)"
@@ -9567,7 +9567,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Barbell Glute Bridge on Floor",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2s isometric hold at hip extension peak"
@@ -10026,7 +10026,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -10042,7 +10042,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -10058,7 +10058,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
@@ -10517,7 +10517,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -10533,7 +10533,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -10549,7 +10549,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
@@ -11008,7 +11008,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -11024,7 +11024,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -11040,7 +11040,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
@@ -11499,7 +11499,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -11515,7 +11515,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -11531,7 +11531,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
@@ -11990,7 +11990,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -12006,7 +12006,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -12022,7 +12022,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
@@ -12489,7 +12489,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -12505,7 +12505,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -12521,7 +12521,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
@@ -12980,7 +12980,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -12996,7 +12996,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -13012,7 +13012,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
@@ -13471,7 +13471,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
-              "Set x Reps": "2 x 20\"",
+              "Set x Reps": "3 x 30\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
@@ -13487,7 +13487,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Romanian Deadlift con Bilanciere (RDL)",
-              "Set x Reps": "2 x 3",
+              "Set x Reps": "3 x 4",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. Buffer 3 tassativo. No acido lattico femorale"
@@ -13503,7 +13503,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2012`",
               "Note Tecniche": "2\" fermo isometrico in estensione anca"
