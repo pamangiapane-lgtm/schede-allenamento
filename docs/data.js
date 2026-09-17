@@ -7578,6 +7578,14 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti"
+            },
+            {
+              "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March un manubrio (Suitcase carry)",
               "Set x Reps": "2 x 20m /lato @ RPE 7",
               "Tempo": "Marcia",
@@ -8101,7 +8109,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -8584,7 +8600,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -9067,7 +9091,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -9550,7 +9582,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Bilateral Dumbbell Farmer's Walk",
+              "Esercizio": "4A. Weighted Deadbug with KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "Hold KB 4-6 kg with vertical straight arms. Solid anti-extension (lower back glued to the floor, zero gap), alternating limbs extension."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Bilateral Dumbbell Farmer's Walk",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Walking",
@@ -10033,7 +10073,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -10516,7 +10564,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -10999,7 +11055,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -11482,7 +11546,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -11973,7 +12045,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -12456,7 +12536,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -12939,7 +13027,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -13422,7 +13518,15 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4A. Farmer March con manubri bilaterali",
+              "Esercizio": "4A. Deadbug con sovraccarico KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "KB 4-6 kg mantenuto a braccia tese verticali. Anti-estensione lombare solida (lombare incollata al suolo, zero spazio a terra), estensione alternata controllata degli arti."
+            },
+            {
+              "Blocco": "# Core+Trans.",
+              "Esercizio": "4B. Farmer March con manubri bilaterali",
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
@@ -14146,6 +14250,14 @@ const WEEKS_DATA = {
               "Carico (kg/RPE)": "BW",
               "Tempo": "2020",
               "Note Tecniche": "Esercizi addominali a corpo libero con focus sulla stabilità lombo-pelvica."
+            },
+            {
+              "Blocco": "# Babdominals + Transfer",
+              "Esercizio": "4. Weighted Deadbug with KB",
+              "Set x Reps": "2 x 6+6",
+              "Carico (kg/RPE)": "4-6 kg",
+              "Tempo": "`2020`",
+              "Note Tecniche": "4-6 kg KB held vertically. Lower back pressed tight to the floor, controlled alternating reach."
             }
           ]
         }
