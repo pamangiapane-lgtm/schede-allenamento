@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-v296-badge-prevload-clean80';
+const CACHE_NAME = 'coach-v297-power-clean-bilanciere';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

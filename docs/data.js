@@ -632,7 +632,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Clean to Split OPPURE Powerbag Clean",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Tempo": "`X`",
               "Note Tecniche": "Bilanciere standard per squadra (Powerbag per *Sassolini, Biondi, Adamczewska*)"
@@ -1880,7 +1880,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "49.0 kg",
               "Tempo": "`X`",
@@ -2112,7 +2112,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "52.5 kg",
               "Tempo": "`X`",
@@ -2830,7 +2830,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "21.0 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
@@ -3062,7 +3062,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "22.5 kg",
               "Tempo": "`X`",
@@ -5213,7 +5213,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "80% (35.0 kg)",
               "Tempo": "`X`",
@@ -5445,7 +5445,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "37.5 kg",
               "Tempo": "`X`",
@@ -7441,7 +7441,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Clean to Split OPPURE Powerbag Clean",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Tempo": "`X`",
               "Note Tecniche": "Bilanciere standard per squadra (Powerbag per *Sassolini, Biondi, Adamczewska*)",
@@ -7536,7 +7536,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Power Clean con Bilanciere (o Powerbag Clean)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3 @ 80%",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva e ricezione solida (80% 1RM Clean)"
@@ -8713,7 +8713,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "49.0 kg",
               "Tempo": "`X`",
@@ -8945,7 +8945,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "45.0 kg",
               "Tempo": "`X`",
@@ -9027,7 +9027,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Powerbag Clean to Chest",
+              "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "80% (48.0 kg)",
               "Tempo": "`X`",
@@ -9679,7 +9679,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "21.0 kg (cerca di arrivare a 35)",
               "Tempo": "`X`",
@@ -9911,7 +9911,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "22.5 kg",
               "Tempo": "`X`",
@@ -9993,7 +9993,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Powerbag Clean to Chest (o KB Clean)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "80% (24.0 kg)",
               "Tempo": "`X`",
@@ -12102,7 +12102,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "80% (35.0 kg)",
               "Tempo": "`X`",
@@ -12334,7 +12334,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
+              "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "80% (33.0 kg)",
               "Tempo": "`X`",
@@ -12416,7 +12416,7 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "2A. Powerbag Clean to Chest (o KB Clean)",
+              "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
               "Carico (kg/RPE)": "80% (35.0 kg)",
               "Tempo": "`X`",
