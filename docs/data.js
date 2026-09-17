@@ -2357,7 +2357,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Barbell Power Clean",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "35.0 kg",
+              "Carico (kg/RPE)": "80% (35.0 kg)",
               "Tempo": "X",
               "Note Tecniche": "Explosive triple extension of ankles-knees-hips, fast catch in power position"
             },
@@ -3307,7 +3307,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "35.0 kg",
+              "Carico (kg/RPE)": "80% (35.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -3782,7 +3782,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "44.0 kg",
+              "Carico (kg/RPE)": "80% (44.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -4964,7 +4964,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "40.0 kg",
+              "Carico (kg/RPE)": "80% (40.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva con bilanciere"
             },
@@ -5215,7 +5215,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "35.0 kg",
+              "Carico (kg/RPE)": "80% (35.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -5922,7 +5922,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "32.0 kg",
+              "Carico (kg/RPE)": "80% (32.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -6397,7 +6397,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "33.0 kg",
+              "Carico (kg/RPE)": "80% (33.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -8063,7 +8063,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "32.0 kg",
+              "Carico (kg/RPE)": "80% (32.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -8546,7 +8546,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "28.0 kg",
+              "Carico (kg/RPE)": "80% (28.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -9029,7 +9029,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Powerbag Clean to Chest",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "48.0 kg",
+              "Carico (kg/RPE)": "80% (48.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -9198,7 +9198,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Barbell Power Clean",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "35.0 kg",
+              "Carico (kg/RPE)": "80% (35.0 kg)",
               "Tempo": "X",
               "Note Tecniche": "Explosive triple extension of ankles-knees-hips, fast catch in power position"
             },
@@ -9512,7 +9512,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Barbell Power Clean",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "40.0 kg",
+              "Carico (kg/RPE)": "80% (40.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Powerful triple extension and crisp catch"
             },
@@ -9995,7 +9995,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Powerbag Clean to Chest (o KB Clean)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "24.0 kg",
+              "Carico (kg/RPE)": "80% (24.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -10164,7 +10164,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "35.0 kg",
+              "Carico (kg/RPE)": "80% (35.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -10396,7 +10396,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "40.0 kg",
+              "Carico (kg/RPE)": "80% (40.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -10478,7 +10478,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "42.5 kg",
+              "Carico (kg/RPE)": "80% (42.5 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -10647,7 +10647,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "44.0 kg",
+              "Carico (kg/RPE)": "80% (44.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -10961,7 +10961,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "48.0 kg",
+              "Carico (kg/RPE)": "80% (48.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -11362,7 +11362,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "41.5 kg",
+              "Carico (kg/RPE)": "80% (41.5 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -11444,7 +11444,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "44.0 kg",
+              "Carico (kg/RPE)": "80% (44.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -11845,7 +11845,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "41.5 kg",
+              "Carico (kg/RPE)": "80% (41.5 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva con bilanciere"
             },
@@ -11927,7 +11927,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "44.0 kg",
+              "Carico (kg/RPE)": "80% (44.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva con bilanciere"
             },
@@ -12104,7 +12104,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "35.0 kg",
+              "Carico (kg/RPE)": "80% (35.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione esplosiva caviglia-ginocchio-anca e arrivo solido"
             },
@@ -12336,7 +12336,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "3A. Powerbag Clean to Chest (o KB Clean)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "33.0 kg",
+              "Carico (kg/RPE)": "80% (33.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -12418,7 +12418,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Powerbag Clean to Chest (o KB Clean)",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "35.0 kg",
+              "Carico (kg/RPE)": "80% (35.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -12901,7 +12901,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "33.0 kg",
+              "Carico (kg/RPE)": "80% (33.0 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -13384,7 +13384,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Power Clean con Bilanciere",
               "Set x Reps": "3 x 3",
-              "Carico (kg/RPE)": "41.5 kg",
+              "Carico (kg/RPE)": "80% (41.5 kg)",
               "Tempo": "`X`",
               "Note Tecniche": "Tripla estensione potente e reattiva"
             },
@@ -14127,7 +14127,7 @@ const WEEKS_DATA = {
               "Blocco": "# Babdominals + Transfer",
               "Esercizio": "1. Clean to split pos",
               "Set x Reps": "3 x 2+2",
-              "Carico (kg/RPE)": "32.0 kg",
+              "Carico (kg/RPE)": "80% (32.0 kg)",
               "Tempo": "10X0",
               "Note Tecniche": "Power clean con ricezione rapida in posizione di split (affondo dinamico), alternando gli arti."
             },

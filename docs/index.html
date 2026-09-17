@@ -4300,19 +4300,23 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
       { key: 'pogo', match: c => c.includes('pogo') },
       { key: 'split squat', match: c => c.includes('split squat') || c.includes('bulgarian') },
       { key: 'floor chest press', match: c => (c.includes('floor') || c.includes('chest') || c.includes('bench')) && c.includes('press') },
-      { key: 'lat machine', match: c => c.includes('lat machine') || c.includes('lat pull') || c.includes('pulldown') },
+      { key: 'lat machine', match: c => (c.includes('lat') || c.includes('pulldown')) && !c.includes('laterali') && !c.includes('lateral') },
       { key: 'pallof', match: c => c.includes('pallof') },
+      { key: 'clean to split', match: c => c.includes('clean to split') },
       { key: 'clean', match: c => c.includes('clean') || c.includes('girat') },
       { key: 'power squat', match: c => c.includes('squat') && (c.includes('power') || c.includes('0.65') || c.includes('0.85') || c.includes('speed')) },
       { key: 'squat', match: c => c.includes('squat') && !c.includes('split') && !c.includes('bulgarian') && !c.includes('spanish') },
-      { key: 'push press', match: c => c.includes('push press') || c.includes('landmine press') || c.includes('military') },
+      { key: 'landmine', match: c => c.includes('landmine') },
+      { key: 'push press', match: c => c.includes('push press') || c.includes('military') },
       { key: 'deadbug', match: c => c.includes('deadbug') },
       { key: 'rotational medball', match: c => (c.includes('rotational') || c.includes('torsion')) && c.includes('medball') },
       { key: 'medball chest pass', match: c => c.includes('medball') && (c.includes('chest pass') || c.includes('slam') || c.includes('pass')) && !c.includes('rotational') },
       { key: 'glute bridge', match: c => c.includes('glute bridge') || c.includes('hip thrust') },
+      { key: 'single-leg rdl', match: c => (c.includes('single-leg') || c.includes('one leg') || c.includes('1-leg')) && (c.includes('rdl') || c.includes('deadlift')) },
+      { key: 'rdl', match: c => (c.includes('rdl') || c.includes('stacco rumeno') || c.includes('romanian deadlift')) && !c.includes('single-leg') && !c.includes('one leg') },
       { key: 'pulley', match: c => c.includes('pulley') || (c.includes('cable') && c.includes('row')) },
       { key: 'extrarotazion', match: c => c.includes('extrarotazion') || c.includes('rotatori') || c.includes('external rotator') },
-      { key: 'pullover', match: c => c.includes('pullover') },
+      { key: 'pullover', match: c => c.includes('pullover') || c.includes('pull over') },
       { key: 'farmer', match: c => c.includes('farmer') || c.includes('suitcase') },
       { key: 'hang', match: c => c.includes('hang') || c.includes('sbarra') },
       { key: 'row', match: c => (/\brow\b/i.test(c) || c.includes('rematore') || c.includes('seal row')) && !c.includes('throw') },
@@ -4367,30 +4371,83 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
     }
   }
 
-  // 3. Valore: carico (kg) o misura salto (cm/box/tc)
+  // 3. Controllo carico manuale / confermato della settimana scorsa
   const lowTarget = exName.toLowerCase();
   const lowPrev = prevExName.toLowerCase();
   const isCmj = lowTarget.includes('cmj') || lowTarget.includes('profilazione') || lowPrev.includes('cmj');
   const isPogo = lowTarget.includes('pogo') || lowPrev.includes('pogo');
 
   let manualVal = '';
-  try {
-    if (isCmj) {
-      manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_CMJ_Test`) ||
-                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_CMJ_Test`) ||
-                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_CMJ_Test`) || '';
-    } else if (isPogo) {
-      manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
-                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
-                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_Pogo`) || '';
-    } else {
-      manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
-                  localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) || '';
+  let isManual = false;
+
+  // 3a. Controllo prioritario nei dataset confermati W3
+  if (prevWeekKey === 'W3') {
+    const aid = String(athlete.id);
+    const confirmedTargets = [];
+    if (sNum === 1 && typeof W3_S1_CONFIRMED_DATA !== 'undefined' && W3_S1_CONFIRMED_DATA[aid] && W3_S1_CONFIRMED_DATA[aid].loads) confirmedTargets.push(W3_S1_CONFIRMED_DATA[aid].loads);
+    if (sNum === 2 && typeof W3_S2_CONFIRMED_DATA !== 'undefined' && W3_S2_CONFIRMED_DATA[aid] && W3_S2_CONFIRMED_DATA[aid].loads) confirmedTargets.push(W3_S2_CONFIRMED_DATA[aid].loads);
+    if (sNum === 3 && typeof W3_S3_CONFIRMED_DATA !== 'undefined' && W3_S3_CONFIRMED_DATA[aid] && W3_S3_CONFIRMED_DATA[aid].loads) confirmedTargets.push(W3_S3_CONFIRMED_DATA[aid].loads);
+    
+    // Fallback su tutte le sedute W3
+    if (typeof W3_S1_CONFIRMED_DATA !== 'undefined' && W3_S1_CONFIRMED_DATA[aid] && W3_S1_CONFIRMED_DATA[aid].loads) confirmedTargets.push(W3_S1_CONFIRMED_DATA[aid].loads);
+    if (typeof W3_S2_CONFIRMED_DATA !== 'undefined' && W3_S2_CONFIRMED_DATA[aid] && W3_S2_CONFIRMED_DATA[aid].loads) confirmedTargets.push(W3_S2_CONFIRMED_DATA[aid].loads);
+    if (typeof W3_S3_CONFIRMED_DATA !== 'undefined' && W3_S3_CONFIRMED_DATA[aid] && W3_S3_CONFIRMED_DATA[aid].loads) confirmedTargets.push(W3_S3_CONFIRMED_DATA[aid].loads);
+
+    const tNorm = normalizeKey(exName);
+    for (const loadsObj of confirmedTargets) {
+      if (manualVal) break;
+      for (const [k, val] of Object.entries(loadsObj)) {
+        const kNorm = normalizeKey(k);
+        if (tNorm === kNorm) { manualVal = val; isManual = true; break; }
+        if (tNorm.includes('pallof')) { if (kNorm.includes('pallof')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('landmine')) { if (kNorm.includes('landmine')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('farmer') || tNorm.includes('suitcase')) { if (kNorm.includes('farmer') || kNorm.includes('suitcase')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('lat ') || tNorm.includes('lat machine') || tNorm.includes('lat pull') || tNorm.includes('pulldown')) { if ((kNorm.includes('lat') || kNorm.includes('pulldown')) && !kNorm.includes('laterali') && !kNorm.includes('lateral')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('floor') || tNorm.includes('flor chest') || tNorm.includes('floor chest')) { if (kNorm.includes('floor') || kNorm.includes('flor chest') || kNorm.includes('floor chest') || kNorm.includes('dumbbell chest')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('clean to split')) { if (kNorm.includes('clean to split')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('clean')) { if (kNorm.includes('clean') && !kNorm.includes('split')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('single-leg rdl') || tNorm.includes('one leg deadlift') || tNorm.includes('1-leg rdl')) { if (kNorm.includes('single-leg rdl') || kNorm.includes('one leg deadlift') || kNorm.includes('1-leg rdl')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('rdl') || tNorm.includes('stacco rumeno') || tNorm.includes('romanian deadlift')) { if ((kNorm.includes('rdl') || kNorm.includes('stacco rumeno') || kNorm.includes('romanian deadlift')) && !kNorm.includes('single-leg') && !kNorm.includes('one leg')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('seal row') || tNorm.includes('db row') || tNorm.includes('dumbbell row') || tNorm.includes('hand db row') || tNorm.includes('single-arm dumbbell row')) { if (kNorm.includes('seal row') || kNorm.includes('db row') || kNorm.includes('dumbbell row') || kNorm.includes('hand db row')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('pulley')) { if (kNorm.includes('pulley')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('pullover') || tNorm.includes('pull over')) { if (kNorm.includes('pullover') || kNorm.includes('pull over')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('glute bridge')) { if (kNorm.includes('glute bridge')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('heel raise')) { if (kNorm.includes('heel raise')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('wrist roller')) { if (kNorm.includes('wrist roller')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('split squat')) { if (kNorm.includes('split squat')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('deadbug')) { if (kNorm.includes('deadbug')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('chest pass')) { if (kNorm.includes('chest pass')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('rotational')) { if (kNorm.includes('rotational')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('lateral') || tNorm.includes('laterali')) { if ((kNorm.includes('lateral') || kNorm.includes('laterali')) && !kNorm.includes('lat') && !kNorm.includes('lat machine')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('face pull')) { if (kNorm.includes('face pull')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('stiff leg')) { if (kNorm.includes('stiff leg')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('twists with bb')) { if (kNorm.includes('twists with bb')) { manualVal = val; isManual = true; break; } continue; }
+        if (tNorm.includes('y-raise')) { if (kNorm.includes('y-raise')) { manualVal = val; isManual = true; break; } continue; }
+      }
     }
-  } catch (e) {}
+  }
+
+  // 3b. Controllo localStorage
+  if (!manualVal) {
+    try {
+      if (isCmj) {
+        manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_CMJ_Test`) ||
+                    localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_CMJ_Test`) ||
+                    localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_CMJ_Test`) || '';
+      } else if (isPogo) {
+        manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
+                    localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
+                    localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_Pogo`) || '';
+      } else {
+        manualVal = localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sed.Numero_Seduta}_${prevExName}`) ||
+                    localStorage.getItem(`mv_load_${athlete.id}_${prevWeekKey}_${sNum}_${prevExName}`) ||
+                    localStorage.getItem(`mv_load_${athlete.id}_${prevExName}`) || '';
+      }
+      if (manualVal) isManual = true;
+    } catch (e) {}
+  }
 
   let finalVal = '';
-  let isManual = false;
   if (manualVal && manualVal.trim()) {
     finalVal = manualVal.trim();
     isManual = true;
@@ -4631,7 +4688,9 @@ const ATHLETE_VBT_LIMITS = {
       }
 
       // Rendering standard per carichi
-      const loadLbl = isEN ? 'Load:' : 'Carico:';
+      const loadLbl = ref.isManual 
+        ? (isEN ? 'Last week load used:' : 'Carico scorsa settimana:') 
+        : (isEN ? 'Last week prescribed:' : 'Previsto scorsa settimana:');
       const targetLbl = isEN ? 'Target:' : 'Previsto:';
       const speedLbl = isEN ? 'Speed:' : 'Velocità:';
       const repsLbl = 'Reps:';
