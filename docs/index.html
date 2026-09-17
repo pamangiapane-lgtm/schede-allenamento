@@ -1168,8 +1168,11 @@
       <img src="logo.jpg" class="site-logo" alt="Marsala Volley">
       <div>
         <h1 class="app-title">Marsala Volley</h1>
-        <div class="app-sub">App Ufficiale 2026/27</div>
+        <div class="app-sub" id="app-header-sub">App Ufficiale 2026/27</div>
       </div>
+    </div>
+    <div id="header-ath-pill" style="display:none;align-items:center;gap:6px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.4);border-radius:20px;padding:4px 10px;font-size:0.75rem;font-weight:800;color:var(--mv-gold-text);margin-left:auto;margin-right:8px;">
+      <span id="header-ath-pill-text">#01 Veronica Allasia · Palleggiatrice</span>
     </div>
     <button class="btn-refresh" onclick="forceAppRefresh()">
       <span>🔄 Aggiorna</span>
@@ -1189,8 +1192,14 @@
     <!-- 2. SINGLE ATHLETE VIEW -->
     <div class="athlete-view" id="athlete-view">
       
-      <div class="nav-top-bar">
+      <div class="nav-top-bar" style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
         <button class="btn-change-ath" onclick="showRosterSelection()">← Cambia Atleta</button>
+        <div id="nav-ath-badge" class="nav-ath-badge" style="display:inline-flex;align-items:center;gap:6px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.35);border-radius:8px;padding:4px 10px;font-size:0.75rem;font-weight:800;color:#93c5fd;">
+          <span id="nav-ath-badge-num" style="color:var(--mv-amber);">#01</span>
+          <span id="nav-ath-badge-name" style="color:#fff;">Veronica Allasia</span>
+          <span style="opacity:0.4;">·</span>
+          <span id="nav-ath-badge-role" style="color:var(--mv-gold-text);">Palleggiatrice</span>
+        </div>
       </div>
 
       <!-- Athlete Hero Card -->
@@ -2855,10 +2864,21 @@
       document.getElementById('athlete-view').classList.remove('active');
       document.getElementById('roster-view').classList.add('active');
 
+      const subEl = document.getElementById('app-header-sub');
+      if (subEl) {
+        subEl.textContent = 'App Ufficiale 2026/27';
+        subEl.style.color = 'var(--mv-muted)';
+        subEl.style.fontWeight = '400';
+      }
+      const pillEl = document.getElementById('header-ath-pill');
+      if (pillEl) pillEl.style.display = 'none';
+
+      document.title = 'Marsala Volley — Schede Allenamento';
+
       const grid = document.getElementById('roster-grid');
       grid.innerHTML = ROSTER.filter(a => a.id !== 99).map(a => `
         <div class="athlete-card-btn" onclick="selectAthlete(${a.id})">
-          <div class="ac-name">${a.name}</div>
+          <div class="ac-name">${a.number || a.num || ('#' + a.id)} ${a.name}</div>
           <div class="ac-role">${a.role}</div>
         </div>
       `).join('');
@@ -2934,9 +2954,43 @@
 
 
     function renderHero() {
-      document.getElementById('ath-name').textContent = currentAthlete.name;
+      const numText = currentAthlete.number || currentAthlete.num || (`#${currentAthlete.id}`);
       const roleText = isEN ? (currentAthlete.id === 4 ? 'Opposite' : (currentAthlete.id === 14 ? 'Outside Hitter' : currentAthlete.role)) : currentAthlete.role;
-      document.getElementById('ath-role').textContent = `${roleText} · Marsala Volley`;
+
+      const athNameEl = document.getElementById('ath-name');
+      if (athNameEl) athNameEl.textContent = `${numText} ${currentAthlete.name}`;
+
+      const athRoleEl = document.getElementById('ath-role');
+      if (athRoleEl) athRoleEl.textContent = `${roleText} · Marsala Volley`;
+
+      // Top Fixed Header sub & pill
+      const subEl = document.getElementById('app-header-sub');
+      if (subEl) {
+        subEl.textContent = `${numText} ${currentAthlete.name} (${roleText})`;
+        subEl.style.color = 'var(--mv-amber)';
+        subEl.style.fontWeight = '700';
+      }
+
+      const pillEl = document.getElementById('header-ath-pill');
+      const pillText = document.getElementById('header-ath-pill-text');
+      if (pillEl && pillText) {
+        pillText.textContent = `${numText} ${currentAthlete.name} · ${roleText}`;
+        pillEl.style.display = 'inline-flex';
+      }
+
+      // Nav Top Bar Badge
+      const navBadge = document.getElementById('nav-ath-badge');
+      const navNum = document.getElementById('nav-ath-badge-num');
+      const navName = document.getElementById('nav-ath-badge-name');
+      const navRole = document.getElementById('nav-ath-badge-role');
+      if (navBadge) {
+        if (navNum) navNum.textContent = numText;
+        if (navName) navName.textContent = currentAthlete.name;
+        if (navRole) navRole.textContent = roleText;
+        navBadge.style.display = 'inline-flex';
+      }
+
+      document.title = `${numText} ${currentAthlete.name} — Marsala Volley`;
 
       if (isEN) {
         document.getElementById('tab-btn-wellness').textContent = '🌅 Wellness';
