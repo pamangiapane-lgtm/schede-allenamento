@@ -71,71 +71,71 @@ const PREHAB_DEFAULT_PROGRAMS = {
     ]
   },
   "prog_maria_marcuzzi": {
-    "id": "prog_maria_marcuzzi",
-    "title": "Marcuzzi 1",
-    "athNum": 2,
-    "athName": "Maria Marcuzzi",
-    "flags": "Spalla DX debole, deficit podalico bilaterale",
-    "volume": "3x",
-    "exercises": [
-      {
-        "name": "Single Leg Balance - Foam Pad",
-        "statType": "Hold",
-        "statVal": "30\"s",
-        "notes": "",
-        "images": [
-          "https://prod-images.theprehabguys.com/exercises/e35/e350ede3-f2ae-5f48-9a37-b0c3900b1567/SMALL/Single-Leg-Balance-Foam-Pad1.png",
-          "https://prod-images.theprehabguys.com/exercises/39e/39eb28c9-329c-5e86-bda2-db546f2d20f5/SMALL/Single-Leg-Balance-Foam-Pad2.png"
-        ],
-        "mp4": "https://videos.theprehabguys.com/bcdn_token=Y_afiShsG97q6RBbAhycE70SjtLTfA207E1GA3OfdbQ&expires=1789352072&token_path=%2F088f2d40-4852-48e4-805f-5e3e582914e9%2F/088f2d40-4852-48e4-805f-5e3e582914e9/play_720p.mp4",
-        "how": "Posizionati in appoggio monopodalico su un cuscino propriocettivo (foam pad). Mantieni ginocchio e anca leggermente flessi, bacino livellato e braccia rilassate o lungo i fianchi. Fissa un punto avanti per favorire l'equilibrio.",
-        "feel": "Attivazione intensa dei muscoli intrinseci del piede, stabilizzatori della caviglia (tibiale posteriore e peronieri) e medio gluteo.",
-        "comp": "Non iperestendere il ginocchio (non bloccarlo indietro). Non inclinare il busto lateralmente per compensare le oscillazioni."
-      },
-      {
-        "name": "Single Leg Hip Thrust",
-        "statType": "Reps",
-        "statVal": "10+10",
-        "notes": "",
-        "images": [
-          "https://prod-images.theprehabguys.com/exercises/99d/99df7b8c-1b4d-5cb0-81a2-185fd13f7fa7/SMALL/Single-Leg-Hip-Thrust1.png",
-          "https://prod-images.theprehabguys.com/exercises/ebf/ebffd6e0-253e-5d5e-97ac-64f8048673b6/SMALL/Single-Leg-Hip-Thrust2.png"
-        ],
-        "mp4": "https://videos.theprehabguys.com/bcdn_token=aVevmYKkG3_BzM3DfqCVFs5Qj97vU12-vuQbT50DV7k&expires=1789352075&token_path=%2F4523a0b6-f7d4-4425-8948-5966397088b5%2F/4523a0b6-f7d4-4425-8948-5966397088b5/play_720p.mp4",
-        "how": "Spalle in appoggio su una panca o box, un piede a terra a 90° e l'altra gamba raccolta a 90° in aria. Spingi attraverso il tallone a terra estendendo completamente l'anca fino ad allineare coscia, bacino e busto.",
-        "feel": "Massima contrazione del grande gluteo e della catena posteriore della gamba in appoggio.",
-        "comp": "Non inarcare la zona lombare a fine corsa: l'estensione deve avvenire dall'anca mantenendo l'addome attivo."
-      },
-      {
-        "name": "Shoulder Prep - Band",
-        "statType": "Reps",
-        "statVal": "6+6+6",
-        "notes": "",
-        "images": [
-          "https://prod-images.theprehabguys.com/exercises/ccd/ccd95c22-4eba-57f0-acaf-e26d6dfea40c/SMALL/Shoulder-Prep-Band.jpg",
-          "https://prod-images.theprehabguys.com/exercises/21e/21e8e052-4cc8-51eb-b22e-d0ef80078852/SMALL/Shoulder-Prep-Band1.jpg"
-        ],
-        "mp4": "https://videos.theprehabguys.com/bcdn_token=T8mWJNqZnWXnRSFdV_nEe3NPK4BtVAdZncg2Ugde3Nk&expires=1789352075&token_path=%2F3fcb1174-bc44-4608-a6de-2f3556219b9f%2F/3fcb1174-bc44-4608-a6de-2f3556219b9f/play_720p.mp4",
-        "how": "Con un elastico tra le mani, esegui movimenti combinati di extrarotazione delle spalle, retrazione scapolare a gomiti flessi e dislocazioni controllate a braccia tese.",
-        "feel": "Calore e attivazione profonda della cuffia dei rotatori (sottospinato e piccolo rotondo) e stabilizzatori scapolari (trapezio inferiore e romboidi).",
-        "comp": "Non inarcare la schiena (colonna lombare neutra). Non sollevare le spalle verso le orecchie."
-      },
-      {
-        "name": "Split Stance Pallof - Press",
-        "statType": "Reps",
-        "statVal": "8+8",
-        "notes": "",
-        "images": [
-          "https://prod-images.theprehabguys.com/exercises/04f/04f08d46-0bd7-4c46-a672-5f1cdc601ef6/SMALL/split-stance-pallof-press.gif",
-          "https://prod-images.theprehabguys.com/exercises/04f/04f08d46-0bd7-4c46-a672-5f1cdc601ef6/SMALL/split-stance-pallof-press.gif"
-        ],
-        "mp4": "https://videos.theprehabguys.com/bcdn_token=l215pfNd2WGJ1CmPlo2-MDBRUeY5pboPAA4fnE8CCK4&expires=1789352076&token_path=%2F560b739f-50d8-4ec4-9734-4c1903d316bc%2F/560b739f-50d8-4ec4-9734-4c1903d316bc/play_720p.mp4",
-        "how": "In posizione di mezzo affondo (split stance), perpendicolare a un cavo o elastico ancorato lateralmente. Porta le mani al centro del petto ed estendi le braccia in avanti resistendo alla forza di rotazione.",
-        "feel": "Forte attivazione anti-rotazionale del core (obliqui, trasverso dell'addome) e stabilità pelvica.",
-        "comp": "Non farti ruotare le spalle o il bacino verso l'ancoraggio. Spalle basse e lontane dalle orecchie."
-      }
-    ]
-  },
+  "id": "prog_maria_marcuzzi",
+  "title": "Marcuzzi 1",
+  "athNum": 2,
+  "athName": "Maria Marcuzzi",
+  "flags": "Spalla DX debole, deficit podalico bilaterale",
+  "volume": "3x",
+  "exercises": [
+    {
+      "name": "Single Leg Hip Thrust",
+      "statType": "Reps",
+      "statVal": "10+10",
+      "notes": "",
+      "images": [
+        "https://prod-images.theprehabguys.com/exercises/99d/99df7b8c-1b4d-5cb0-81a2-185fd13f7fa7/SMALL/Single-Leg-Hip-Thrust1.png",
+        "https://prod-images.theprehabguys.com/exercises/ebf/ebffd6e0-253e-5d5e-97ac-64f8048673b6/SMALL/Single-Leg-Hip-Thrust2.png"
+      ],
+      "mp4": "https://videos.theprehabguys.com/bcdn_token=aVevmYKkG3_BzM3DfqCVFs5Qj97vU12-vuQbT50DV7k&expires=1789352075&token_path=%2F4523a0b6-f7d4-4425-8948-5966397088b5%2F/4523a0b6-f7d4-4425-8948-5966397088b5/play_720p.mp4",
+      "how": "Spalle in appoggio su una panca o box, un piede a terra a 90° e l'altra gamba raccolta a 90° in aria. Spingi attraverso il tallone a terra estendendo completamente l'anca fino ad allineare coscia, bacino e busto.",
+      "feel": "Massima contrazione del grande gluteo e della catena posteriore della gamba in appoggio.",
+      "comp": "Non inarcare la zona lombare a fine corsa: l'estensione deve avvenire dall'anca mantenendo l'addome attivo."
+    },
+    {
+      "name": "Shoulder Prep - Band",
+      "statType": "Reps",
+      "statVal": "6+6+6",
+      "notes": "",
+      "images": [
+        "https://prod-images.theprehabguys.com/exercises/ccd/ccd95c22-4eba-57f0-acaf-e26d6dfea40c/SMALL/Shoulder-Prep-Band.jpg",
+        "https://prod-images.theprehabguys.com/exercises/21e/21e8e052-4cc8-51eb-b22e-d0ef80078852/SMALL/Shoulder-Prep-Band1.jpg"
+      ],
+      "mp4": "https://videos.theprehabguys.com/bcdn_token=T8mWJNqZnWXnRSFdV_nEe3NPK4BtVAdZncg2Ugde3Nk&expires=1789352075&token_path=%2F3fcb1174-bc44-4608-a6de-2f3556219b9f%2F/3fcb1174-bc44-4608-a6de-2f3556219b9f/play_720p.mp4",
+      "how": "Con un elastico tra le mani, esegui movimenti combinati di extrarotazione delle spalle, retrazione scapolare a gomiti flessi e dislocazioni controllate a braccia tese.",
+      "feel": "Calore e attivazione profonda della cuffia dei rotatori (sottospinato e piccolo rotondo) e stabilizzatori scapolari (trapezio inferiore e romboidi).",
+      "comp": "Non inarcare la schiena (colonna lombare neutra). Non sollevare le spalle verso le orecchie."
+    },
+    {
+      "name": "Single Leg Heel Raise - Eversion Bias, Wall Supported",
+      "statType": "Reps",
+      "statVal": "8+8",
+      "notes": "",
+      "images": [
+        "https://prod-images.theprehabguys.com/exercises/b73/b739399c-5484-59b8-b94d-823b1a5d3128/SMALL/Single-Leg-Heel-Raise-Eversion-Bias-Wall-Supported-1.jpg",
+        "https://prod-images.theprehabguys.com/exercises/3f2/3f257278-d3ba-5cc8-af53-7e97f6c106c2/SMALL/Single-Leg-Heel-Raise-Eversion-Bias-Wall-Supported-2.jpg"
+      ],
+      "mp4": "https://iframe.mediadelivery.net/embed/141812/6b273297-34ae-48ae-b3e1-ae9e536c3a29",
+      "how": "In piedi accanto a una parete, mano interna in appoggio. Solleva la gamba interna e mantieni il carico sulla gamba esterna. Spingi verso l'alto sollevando il tallone, concentrando la spinta sull'alluce (eversione attiva) e contraendo il polpaccio in cima. Ritorna in basso lentamente.",
+      "feel": "Lavoro intenso del polpaccio e del tibiale posteriore con enfasi sull'arco mediale del piede.",
+      "comp": "Mantieni il ginocchio disteso senza piegarlo. Usa la parete solo per equilibrio e non per spingerti su."
+    },
+    {
+      "name": "Single Leg Reach - Frontal",
+      "statType": "Reps",
+      "statVal": "6+6",
+      "notes": "",
+      "images": [
+        "https://prod-images.theprehabguys.com/exercises/4b7/4b7de375-5d2a-542e-9c4a-a25c80e40e1d/SMALL/Single-Leg-Reach-Frontal-1.png",
+        "https://prod-images.theprehabguys.com/exercises/d71/d716c366-d51c-58b8-aa07-709c3ef1c4a1/SMALL/Single-Leg-Reach-Frontal-2.png"
+      ],
+      "mp4": "https://iframe.mediadelivery.net/embed/141812/c7cd81c5-39ed-4e11-b7be-69f10323f2d7",
+      "how": "In appoggio su una gamba, fletti leggermente il ginocchio d'appoggio ed estendi l'altra gamba lateralmente toccando terra con la punta del piede. Mantieni l'equilibrio monopodalico e richiama la gamba controllando il movimento.",
+      "feel": "Attivazione profonda del medio gluteo, stabilizzatori dell'anca e della caviglia della gamba in appoggio.",
+      "comp": "Mantieni il busto e le spalle orientati in avanti senza ruotare il tronco verso il lato di allungo."
+    }
+  ]
+},
   "prog_victoria_sassolini": {
     "id": "prog_victoria_sassolini",
     "title": "sassolini 1",

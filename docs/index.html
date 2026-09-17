@@ -2758,10 +2758,11 @@
                 // Ignora solo record con date spurie o antecedenti l'inizio del camp
                 if (rDate && rDate < '2026-08-24') return;
 
-                if (!sessionRatings[sNum]) sessionRatings[sNum] = {};
-                if (rpe !== null && rpe !== undefined) sessionRatings[sNum].rpe = rpe;
-                if (fat !== null && fat !== undefined) sessionRatings[sNum].fat = fat;
-                if (r.Note_Atleta || r.note_atleta) sessionRatings[sNum].note = r.Note_Atleta || r.note_atleta;
+                if (!sessionRatings[recWeek]) sessionRatings[recWeek] = {};
+                if (!sessionRatings[recWeek][sNum]) sessionRatings[recWeek][sNum] = {};
+                if (rpe !== null && rpe !== undefined) sessionRatings[recWeek][sNum].rpe = rpe;
+                if (fat !== null && fat !== undefined) sessionRatings[recWeek][sNum].fat = fat;
+                if (r.Note_Atleta || r.note_atleta) sessionRatings[recWeek][sNum].note = r.Note_Atleta || r.note_atleta;
 
                 const updatedPayload = {
                   rpe: rpe,
@@ -2775,7 +2776,7 @@
                   localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${recWeek}_${r.N_Seduta}`, JSON.stringify(updatedPayload));
                   localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${r.N_Seduta}`, JSON.stringify(updatedPayload));
                 }
-                localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${sNum}`, JSON.stringify(updatedPayload));
+                // Isolated per week
               }
             }
 
@@ -5545,7 +5546,8 @@ function renderSessions() {
 
       // 0. Controllo immediato cache in memoria (sessionRatings)
       if (typeof sessionRatings !== 'undefined') {
-        const memObj = sessionRatings[sNum] || sessionRatings[numVal] || sessionRatings[`${week}_${sNum}`] || sessionRatings[`${week}_${numVal}`];
+        const weekRatings = sessionRatings[week];
+        const memObj = weekRatings ? (weekRatings[sNum] || weekRatings[numVal] || weekRatings[`${week}_${sNum}`] || weekRatings[`${week}_${numVal}`]) : null;
         if (memObj && ((memObj.rpe !== null && memObj.rpe !== undefined) || (memObj.fat !== null && memObj.fat !== undefined))) {
           return memObj;
         }
@@ -5625,14 +5627,9 @@ function renderSessions() {
             const obj = JSON.parse(raw);
             if (obj && ((obj.rpe !== null && obj.rpe !== undefined) || (obj.fat !== null && obj.fat !== undefined))) {
               const d = obj.date || '';
-              if (!d) return obj;
-              if (week === 'W4') {
-                if (d >= '2026-09-14') return obj;
-              } else if (week === 'W3') {
-                if (d >= '2026-09-07' && d <= '2026-09-13') return obj;
-              } else {
-                return obj;
-              }
+              if (week === 'W4' && d >= '2026-09-14') return obj;
+              if (week === 'W3' && d >= '2026-09-07' && d <= '2026-09-13') return obj;
+              if (week === 'W2' && d >= '2026-08-31' && d < '2026-09-07') return obj;
             }
           } catch(e) {}
         }
@@ -5664,13 +5661,15 @@ function renderSessions() {
 
     function renderSessionEnd(nSeduta) {
       const savedObj = getSessionRating(currentAthlete.id, currentWeek, nSeduta);
-      const initialRpe = savedObj?.rpe ?? sessionRatings[nSeduta]?.rpe ?? null;
-      const initialFat = savedObj?.fat ?? sessionRatings[nSeduta]?.fat ?? null;
+      const curWeekRatings = (typeof sessionRatings !== 'undefined' && sessionRatings[currentWeek]) ? sessionRatings[currentWeek] : {};
+      const initialRpe = savedObj?.rpe ?? curWeekRatings[nSeduta]?.rpe ?? null;
+      const initialFat = savedObj?.fat ?? curWeekRatings[nSeduta]?.fat ?? null;
       const initialNote = savedObj?.note || '';
 
-      if (initialRpe !== null && !sessionRatings[nSeduta]) sessionRatings[nSeduta] = {};
-      if (initialRpe !== null) sessionRatings[nSeduta].rpe = initialRpe;
-      if (initialFat !== null) sessionRatings[nSeduta].fat = initialFat;
+      if (!sessionRatings[currentWeek]) sessionRatings[currentWeek] = {};
+      if (!sessionRatings[currentWeek][nSeduta]) sessionRatings[currentWeek][nSeduta] = {};
+      if (initialRpe !== null) sessionRatings[currentWeek][nSeduta].rpe = initialRpe;
+      if (initialFat !== null) sessionRatings[currentWeek][nSeduta].fat = initialFat;
 
       let rpeBtns = '';
       for (let i = 0; i <= 10; i++) {
@@ -5823,11 +5822,12 @@ function renderSessions() {
 
       const isEN = Boolean(currentAthlete && (currentAthlete.id === 4 || currentAthlete.id === 14));
 
+      const curWeekRatings = (typeof sessionRatings !== 'undefined' && sessionRatings[currentWeek]) ? sessionRatings[currentWeek] : {};
       if (fatVal === undefined) {
-        fatVal = sessionRatings[nSeduta]?.fat ?? sessionRatings[sNum]?.fat ?? null;
+        fatVal = curWeekRatings[nSeduta]?.fat ?? curWeekRatings[sNum]?.fat ?? null;
       }
       if (rpeVal === undefined || rpeVal === null) {
-        rpeVal = sessionRatings[nSeduta]?.rpe ?? sessionRatings[sNum]?.rpe ?? null;
+        rpeVal = curWeekRatings[nSeduta]?.rpe ?? curWeekRatings[sNum]?.rpe ?? null;
       }
 
       const badgeEl = document.getElementById(`session-badge-status-${nSeduta}`) || document.getElementById(`session-badge-status-${sNum}`);
@@ -5848,8 +5848,9 @@ function renderSessions() {
     }
 
     function setRating(type, nSeduta, val, btn) {
-      if (!sessionRatings[nSeduta]) sessionRatings[nSeduta] = {};
-      sessionRatings[nSeduta][type] = val;
+      if (!sessionRatings[currentWeek]) sessionRatings[currentWeek] = {};
+      if (!sessionRatings[currentWeek][nSeduta]) sessionRatings[currentWeek][nSeduta] = {};
+      sessionRatings[currentWeek][nSeduta][type] = val;
 
       btn.parentElement.querySelectorAll('.r-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -5860,8 +5861,8 @@ function renderSessions() {
       }
 
       // Persistenza IMMEDIATA in localStorage con durata silenziosa calcolata
-      const rpe = sessionRatings[nSeduta].rpe ?? null;
-      const fat = sessionRatings[nSeduta].fat ?? null;
+      const rpe = sessionRatings[currentWeek]?.[nSeduta]?.rpe ?? null;
+      const fat = sessionRatings[currentWeek]?.[nSeduta]?.fat ?? null;
       const note = document.getElementById(`note-end-${nSeduta}`)?.value.trim() || '';
 
       const durInfo = calculateEffectiveSessionDuration(nSeduta);
@@ -5888,8 +5889,7 @@ function renderSessions() {
 
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`, JSON.stringify(payload));
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${sNum}`, JSON.stringify(payload));
-      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
-      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${sNum}`, JSON.stringify(payload));
+      // Isolated per week
       if (rpe !== null && rpe !== undefined) {
         updateSessionHeaderStatus(nSeduta, rpe, fat);
       }
@@ -5903,8 +5903,8 @@ function renderSessions() {
 
     function onSessionNoteInput(nSeduta, val) {
       if (!sessionRatings[nSeduta]) sessionRatings[nSeduta] = {};
-      const rpe = sessionRatings[nSeduta].rpe ?? null;
-      const fat = sessionRatings[nSeduta].fat ?? null;
+      const rpe = sessionRatings[currentWeek]?.[nSeduta]?.rpe ?? null;
+      const fat = sessionRatings[currentWeek]?.[nSeduta]?.fat ?? null;
 
       let prevPayload = null;
       try {
@@ -5937,8 +5937,7 @@ function renderSessions() {
 
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`, JSON.stringify(payload));
       localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${sNum}`, JSON.stringify(payload));
-      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
-      localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${sNum}`, JSON.stringify(payload));
+      // Isolated per week
       if (rpe !== null && rpe !== undefined) {
         updateSessionHeaderStatus(nSeduta, rpe, fat);
       }
@@ -6017,8 +6016,8 @@ function renderSessions() {
       }
 
       if (sessionRatings[nSeduta]) {
-        const rpe = sessionRatings[nSeduta].rpe ?? null;
-        const fat = sessionRatings[nSeduta].fat ?? null;
+        const rpe = sessionRatings[currentWeek]?.[nSeduta]?.rpe ?? null;
+      const fat = sessionRatings[currentWeek]?.[nSeduta]?.fat ?? null;
         const note = document.getElementById(`note-end-${nSeduta}`)?.value.trim() || '';
 
         const durInfo = calculateEffectiveSessionDuration(nSeduta);
@@ -6045,8 +6044,7 @@ function renderSessions() {
 
         localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${nSeduta}`, JSON.stringify(payload));
         localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${currentWeek}_${sNum}`, JSON.stringify(payload));
-        localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${nSeduta}`, JSON.stringify(payload));
-        localStorage.setItem(`mv_session_rating_${currentAthlete.id}_${sNum}`, JSON.stringify(payload));
+        // Isolated per week
       }
 
       clearTimeout(debounceSessionTimers[nSeduta]);
