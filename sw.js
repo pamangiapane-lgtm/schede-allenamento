@@ -1,5 +1,5 @@
 // Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'marsala-schede-v305-rir-to-rpe-conversion';
+const CACHE_NAME = 'marsala-schede-v307-nelly-w4-volumes';
 
 const ASSETS_TO_CACHE = [
   './',

@@ -7165,7 +7165,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
-              "Set x Reps": "3 x 4, 3, 4",
+              "Set x Reps": "3 x 5, 4, 3",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "2010",
               "Note Tecniche": "Allungamento della gabbia toracica e del gran dorsale, mantenendo L4-S1 stabile sulla panca."
@@ -7173,7 +7173,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
-              "Set x Reps": "3 x 4, 3, 4 /lato",
+              "Set x Reps": "3 x 5 /lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "1030",
               "Note Tecniche": "Trazione monolaterale con 3s di tenuta scapolare in alto, gomito che sfiora il costato."
@@ -7181,8 +7181,8 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "\"12\" - \"10\"",
+              "Set x Reps": "3 x 5",
+              "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1020",
               "Note Tecniche": "Calf in piedi su gradino, salita dinamica e 2s di picco isometrico in alto."
             },
@@ -14158,7 +14158,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main Exercises",
               "Esercizio": "2. Pull Over",
-              "Set x Reps": "3 x 4, 3, 4",
+              "Set x Reps": "3 x 5, 4, 3",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "2010",
               "Note Tecniche": "Allungamento della gabbia toracica e del gran dorsale, mantenendo L4-S1 stabile sulla panca."
@@ -14166,7 +14166,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main Exercises",
               "Esercizio": "3. One hand DB row",
-              "Set x Reps": "3 x 4, 3, 4 /lato",
+              "Set x Reps": "3 x 5 /lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "1030",
               "Note Tecniche": "Trazione monolaterale con 3s di tenuta scapolare in alto, gomito che sfiora il costato."
@@ -14174,8 +14174,8 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Accessories",
               "Esercizio": "2. Calf Rises - standing pos",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "\"12\" - \"10\"",
+              "Set x Reps": "3 x 5",
+              "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
               "Tempo": "1020",
               "Note Tecniche": "Calf in piedi su gradino, salita dinamica e 2s di picco isometrico in alto."
             },
