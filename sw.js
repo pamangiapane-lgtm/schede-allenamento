@@ -1,10 +1,10 @@
 // Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'v298-coach-auto-sync-dynamic-srpe';
+const CACHE_NAME = 'v299-rpe7-friday-loads';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260915v274-main-gambe-redesign',
+  './data.js?v=20260917v299-rpe7-friday-loads',
   './supabase-client.js?v=2.0',
 
   './logo.jpg',
