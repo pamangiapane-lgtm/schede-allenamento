@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v322-cutoff-045-alzate-2-6kg)
-const CACHE_NAME = 'marsala-schede-v322-cutoff-045-alzate-2-6kg';
+// Service Worker App Marsala Volley (v323-studio-sync-cloud)
+const CACHE_NAME = 'marsala-schede-v323-studio-sync-cloud';
 
 const ASSETS_TO_CACHE = [
   './',

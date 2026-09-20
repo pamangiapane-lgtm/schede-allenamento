@@ -4700,6 +4700,7 @@
           sets: sets,
           reps: reps,
           pct: pct,
+          carico: loadStr,
           liftType: liftType,
           targetRole: 'ALL',
           tempo: tempo,
@@ -5079,13 +5080,20 @@
 
                   <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">% 1RM:</span>
-                    <input type="number" step="0.5" class="studio-input" value="${ex.pct || 0}" style="width:52px;padding:4px 3px;text-align:center;color:var(--mv-amber);font-weight:700;"
+                    <input type="number" step="0.5" class="studio-input" value="${ex.pct || 0}" style="width:50px;padding:4px 3px;text-align:center;color:var(--mv-amber);font-weight:700;"
                            oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'pct', this.value)"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'pct', this.value)" />
                     <span style="color:var(--mv-muted);font-size:0.68rem;">%</span>
                   </div>
 
-                  <div style="display:flex;align-items:center;gap:3px;flex:1 1 140px;min-width:0;">
+                  <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
+                    <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Carico:</span>
+                    <input type="text" class="studio-input" value="${ex.carico || (ex.pct ? ex.pct + '%' : '')}" placeholder="es. 2-6 kg" style="width:78px;padding:4px 4px;text-align:center;color:var(--mv-amber);font-weight:700;"
+                           oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'carico', this.value)"
+                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'carico', this.value)" />
+                  </div>
+
+                  <div style="display:flex;align-items:center;gap:3px;flex:1 1 130px;min-width:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;flex-shrink:0;">Formula:</span>
                     <select class="studio-input" style="padding:4px 5px;font-size:0.72rem;flex:1;min-width:0;max-width:100%;" onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'liftType', this.value)">
                       <option value="squat" ${ex.liftType === 'squat' ? 'selected' : ''}>Squat (BW Formula)</option>
@@ -5149,7 +5157,17 @@
       const b = studioCurrentState.blocks[bIdx];
       if (!b || !b.exercises[exIdx]) return;
       if (field === 'sets') b.exercises[exIdx].sets = parseInt(val, 10) || 1;
-      else if (field === 'pct') b.exercises[exIdx].pct = parseFloat(val) || 0;
+      else if (field === 'pct') {
+        b.exercises[exIdx].pct = parseFloat(val) || 0;
+        if (b.exercises[exIdx].pct > 0) b.exercises[exIdx].carico = `${b.exercises[exIdx].pct}%`;
+      }
+      else if (field === 'carico') {
+        b.exercises[exIdx].carico = val;
+        const pMatch = String(val).match(/([0-9]+(?:\.[0-9]+)?)\s*%/);
+        if (pMatch) {
+          b.exercises[exIdx].pct = parseFloat(pMatch[1]);
+        }
+      }
       else if (field === 'rest') b.exercises[exIdx].rest = parseInt(val, 10) || 75;
       else b.exercises[exIdx][field] = val;
 
@@ -5181,6 +5199,13 @@
 
           const pctInput = exCard.querySelector('input[oninput*="pct"]');
           if (pctInput) exObj.pct = parseFloat(pctInput.value) || 0;
+
+          const caricoInput = exCard.querySelector('input[oninput*="carico"]');
+          if (caricoInput) {
+            exObj.carico = caricoInput.value.trim();
+            const pMatch = exObj.carico.match(/([0-9]+(?:\.[0-9]+)?)\s*%/);
+            if (pMatch) exObj.pct = parseFloat(pMatch[1]);
+          }
 
           const formulaSelect = exCard.querySelector('select[onchange*="liftType"]');
           if (formulaSelect) exObj.liftType = formulaSelect.value;
@@ -5455,28 +5480,38 @@
       } catch (e) {}
 
       // Sincronizza verso Supabase se disponibile
-      if (window.MV_SUPABASE && typeof window.MV_SUPABASE.saveExercisePrescription === 'function') {
+      if (window.MV_SUPABASE) {
         try {
-          for (let bIdx = 0; bIdx < studioCurrentState.blocks.length; bIdx++) {
-            const block = studioCurrentState.blocks[bIdx];
-            for (let exIdx = 0; exIdx < block.exercises.length; exIdx++) {
-              const ex = block.exercises[exIdx];
-              await window.MV_SUPABASE.saveExercisePrescription({
-                id: `${weekId}_${sessId}_${athId}_E${bIdx + 1}_${exIdx + 1}`,
-                session_id: `${weekId}_${sessId}`,
-                athlete_id: athId !== 'team' ? parseInt(athId, 10) : null,
-                tenant_id: 'marsala_a2',
-                block_tag: block.name,
-                order_idx: (bIdx * 10) + (exIdx + 1),
-                exercise_name: ex.name,
-                lift_type: ex.liftType || 'generic',
-                sets: ex.sets || 3,
-                reps: String(ex.reps || '5'),
-                load_pct: ex.pct || 0,
-                tempo: ex.tempo || '2010',
-                rest_sec: ex.rest || 90,
-                notes: ex.notes || null
-              });
+          if (typeof window.MV_SUPABASE.saveSessionOverride === 'function') {
+            await window.MV_SUPABASE.saveSessionOverride({
+              session_id: `${weekId}_S${sNum}`,
+              athlete_id: athId !== 'team' ? parseInt(athId, 10) : null,
+              override_data: studioCurrentState,
+              updated_at: new Date().toISOString()
+            });
+          }
+          if (typeof window.MV_SUPABASE.saveExercisePrescription === 'function') {
+            for (let bIdx = 0; bIdx < studioCurrentState.blocks.length; bIdx++) {
+              const block = studioCurrentState.blocks[bIdx];
+              for (let exIdx = 0; exIdx < block.exercises.length; exIdx++) {
+                const ex = block.exercises[exIdx];
+                await window.MV_SUPABASE.saveExercisePrescription({
+                  id: `${weekId}_${sessId}_${athId}_E${bIdx + 1}_${exIdx + 1}`,
+                  session_id: `${weekId}_${sessId}`,
+                  athlete_id: athId !== 'team' ? parseInt(athId, 10) : null,
+                  tenant_id: 'marsala_a2',
+                  block_tag: block.name,
+                  order_idx: (bIdx * 10) + (exIdx + 1),
+                  exercise_name: ex.name,
+                  lift_type: ex.liftType || 'generic',
+                  sets: ex.sets || 3,
+                  reps: String(ex.reps || '5'),
+                  load_pct: ex.pct || 0,
+                  tempo: ex.tempo || '2010',
+                  rest_sec: ex.rest || 90,
+                  notes: ex.notes || null
+                });
+              }
             }
           }
         } catch (err) {

@@ -408,8 +408,12 @@ async function sbSaveSessionOverride(override) {
   const sb = getSb();
   if (!sb) return { fallback: true };
   try {
-    const { data, error } = await sb.from('session_overrides').insert(override).select();
-    if (error) throw error;
+    const { data, error } = await sb.from('session_overrides').upsert(override, { onConflict: 'session_id,athlete_id' }).select();
+    if (error) {
+      const { data: d2, error: e2 } = await sb.from('session_overrides').insert(override).select();
+      if (e2) throw e2;
+      return { success: true, data: d2 };
+    }
     return { success: true, data };
   } catch (err) {
     console.error('[Supabase] Errore save session override:', err);

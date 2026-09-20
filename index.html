@@ -2494,14 +2494,14 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=v310-w5-w6-active').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=v323-studio-sync-cloud').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
 
 
       const urlParams = new URLSearchParams(window.location.search);
-      const urlId = urlParams.get('id');
+      const urlId = urlParams.get('id') || urlParams.get('ath') || urlParams.get('athlete');
 
       if (urlId) {
         selectAthlete(parseInt(urlId));
@@ -2526,9 +2526,53 @@
         applyConfirmedW3S1Data(currentAthlete.id);
         applyConfirmedW3S2Data(currentAthlete.id);
         applyConfirmedW3S3Data(currentAthlete.id);
+        fetchAndApplyCloudOverrides(currentWeek, currentAthlete.id);
+      } else {
+        fetchAndApplyCloudOverrides(currentWeek, null);
       }
       initWellnessRatingBars();
       checkPushSubscriptionState();
+    }
+
+    async function fetchAndApplyCloudOverrides(week, athId) {
+      if (!window.MV_SUPABASE || typeof window.MV_SUPABASE.fetchSessionOverrides !== 'function') return;
+      const targetWeek = week || currentWeek || 'W5';
+      const sessions = ['S1', 'S2', 'S3'];
+      let hasNewOverrides = false;
+
+      for (const sId of sessions) {
+        const fullSessId = `${targetWeek}_${sId}`;
+        try {
+          const res = await window.MV_SUPABASE.fetchSessionOverrides(fullSessId, athId);
+          if (res && res.success && Array.isArray(res.data) && res.data.length > 0) {
+            res.data.forEach(item => {
+              if (item.override_data) {
+                const sNum = sId.replace(/[^0-9]/g, '') || '1';
+                const strData = typeof item.override_data === 'string' ? item.override_data : JSON.stringify(item.override_data);
+                if (item.athlete_id) {
+                  const key = `coach_override_${targetWeek}_S${sNum}_ath_${item.athlete_id}`;
+                  if (localStorage.getItem(key) !== strData) {
+                    localStorage.setItem(key, strData);
+                    hasNewOverrides = true;
+                  }
+                } else {
+                  const key = `coach_override_${targetWeek}_S${sNum}`;
+                  if (localStorage.getItem(key) !== strData) {
+                    localStorage.setItem(key, strData);
+                    hasNewOverrides = true;
+                  }
+                }
+              }
+            });
+          }
+        } catch (e) {
+          console.warn('[Fetch Cloud Overrides Warning]', e);
+        }
+      }
+
+      if (hasNewOverrides && typeof renderSessions === 'function') {
+        renderSessions();
+      }
     }
 
     function sanitizeAthleteLocalStorage(aid) {
@@ -3025,6 +3069,7 @@
       syncOfflinePendingLoads();
       checkPushSubscriptionState();
       syncProgressiFromCloud();
+      fetchAndApplyCloudOverrides(currentWeek, currentAthlete.id);
 
       // Realtime Push & Auto-Sync periodico per schede atlete
       if (window.MV_SUPABASE && !window._sbAthleteRealtimeSubscribed) {
@@ -3033,21 +3078,35 @@
           window.MV_SUPABASE.subscribeRealtime((type, payload) => {
             console.log('[Athlete Realtime Push]', type, payload);
             syncProgressiFromCloud();
+            if (currentAthlete && currentAthlete.id) {
+              fetchAndApplyCloudOverrides(currentWeek, currentAthlete.id);
+            }
           });
         } catch(e) {}
       }
       if (!window._athleteAutoSyncTimer) {
         window._athleteAutoSyncTimer = setInterval(() => {
           syncProgressiFromCloud();
+          if (currentAthlete && currentAthlete.id) {
+            fetchAndApplyCloudOverrides(currentWeek, currentAthlete.id);
+          }
         }, 30000);
       }
       if (!window._athleteVisibilityBound) {
         window._athleteVisibilityBound = true;
         document.addEventListener('visibilitychange', () => {
-          if (!document.hidden) syncProgressiFromCloud();
+          if (!document.hidden) {
+            syncProgressiFromCloud();
+            if (currentAthlete && currentAthlete.id) {
+              fetchAndApplyCloudOverrides(currentWeek, currentAthlete.id);
+            }
+          }
         });
         window.addEventListener('focus', () => {
           syncProgressiFromCloud();
+          if (currentAthlete && currentAthlete.id) {
+            fetchAndApplyCloudOverrides(currentWeek, currentAthlete.id);
+          }
         });
       }
     }
@@ -4134,9 +4193,9 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
 }
 
 function normalizeExercise(raw, week) {
-  const exName = (raw.Esercizio || raw.Nome || '').replace(/[*#]/g, '').trim();
-  let setReps = (raw['Set x Reps'] || raw.Set_Reps || '').replace(/[*#]/g, '').trim();
-  let carico = (raw['Carico (kg/RPE)'] || raw.Carico || '').replace(/[*#]/g, '').trim();
+  const exName = (raw.Esercizio || raw.Nome || raw.name || raw.exercise_name || '').replace(/[*#]/g, '').trim();
+  let setReps = (raw['Set x Reps'] || raw.Set_Reps || raw.setReps || raw.sets_reps || (raw.sets ? `${raw.sets}x${raw.reps || 5}` : '')).replace(/[*#]/g, '').trim();
+  let carico = (raw['Carico (kg/RPE)'] || raw.Carico || raw.carico || (raw.pct ? `${raw.pct}%` : '')).replace(/[*#]/g, '').trim();
   // Convert RIR into corresponding RPE (e.g. RIR 4 -> RPE 6, RIR 2 -> RPE 8)
   carico = carico.replace(/\b(?:RIR|rir)\s*(\d+)\b/gi, (match, rirNum) => {
     const rir = parseInt(rirNum, 10);
@@ -4150,9 +4209,9 @@ function normalizeExercise(raw, week) {
   });
   carico = carico.replace(/\[["']?([^"']+)["']?\]/g, '($1)');
   carico = carico.replace(/\(["']([^"']+)["']\)/g, '($1)');
-  let tempo = (raw.Tempo || '').replace(/[`*#]/g, '').trim();
-  let note = (raw['Note Tecniche'] || raw.Note || '').replace(/[*#]/g, '').trim();
-  let blocco = (raw.Blocco || raw.blocco || '').replace(/[*#]/g, '').trim();
+  let tempo = (raw.Tempo || raw.tempo || '').replace(/[`*#]/g, '').trim();
+  let note = (raw['Note Tecniche'] || raw.Note || raw.note || raw.notes || '').replace(/[*#]/g, '').trim();
+  let blocco = (raw.Blocco || raw.blocco || raw.block_tag || '').replace(/[*#]/g, '').trim();
 
   // Extract serie and reps
   let serie = '—';
@@ -4201,7 +4260,24 @@ function categorizeExerciseNorm(norm) {
   const low = norm.exName.toLowerCase();
   const lowBlock = (norm.blocco || '').toLowerCase();
 
-  // 1. Attivazione & Prehab
+  // 1. Priorità al Tag di Blocco esplicito da Coach Studio se presente
+  if (lowBlock.includes('attivazione') || lowBlock.includes('prehab') || lowBlock.includes('warmup')) {
+    if (!low.includes('cmj') && !low.includes('jump') && !low.includes('profilazione')) {
+      return 'Attivazione';
+    }
+  }
+  if (lowBlock.includes('plyo') || lowBlock.includes('salto') || lowBlock.includes('jump') || lowBlock.includes('pliometria')) {
+    return 'Pliometria';
+  }
+  if (lowBlock.includes('power') || lowBlock.includes('potenza') || lowBlock.includes('rfd')) {
+    return 'Potenza';
+  }
+  if (lowBlock.includes('main') || lowBlock.includes('forza') || lowBlock.includes('strength')) {
+    return 'Main';
+  }
+
+  // 2. Controllo Nome Esercizio
+  // 2a. Attivazione & Prehab
   if (
     low.includes('respirazione') || low.includes('breathing') ||
     low.includes('mobilità') || low.includes('mobility') ||
@@ -4216,26 +4292,25 @@ function categorizeExerciseNorm(norm) {
     }
   }
 
-  // 2. Pliometria (Salti, Balzi, Rimbalzi, Atterraggi, CMJ)
+  // 2b. Pliometria (Salti, Balzi, Rimbalzi, Atterraggi, CMJ)
   if (
     low.includes('pogo') || low.includes('drop jump') || low.includes('drop-jump') ||
     low.includes('drop-landing') || low.includes('box jump') || low.includes('hurdle') ||
     low.includes('jump squat') || low.includes('squat jump') || low.includes('balz') ||
     low.includes('atterragg') || low.includes('cmj') || low.includes('chronojump') ||
-    low.includes('profilazione') || lowBlock.includes('plyo') || low.includes('jump ban')
+    low.includes('profilazione') || low.includes('jump ban')
   ) {
     return 'Pliometria';
   }
 
-  // 3. Potenza (Girate e Palle Mediche)
+  // 2c. Potenza (Girate e Palle Mediche)
   const isGirata = (low.includes('clean') && !low.includes('clean squat')) || low.includes('snatch') || low.includes('strappo') || low.includes('girat');
   const isPallaMedica = low.includes('medball') || low.includes('palla medica') ||
                         (low.includes('mb') && (low.includes('throw') || low.includes('pass') || low.includes('slam'))) ||
                         low.includes('ball throw') || low.includes('flor ball');
   if (isGirata || isPallaMedica) return 'Potenza';
 
-  // 4. Main (Gambe, Spinta, Tirata)
-  // 4a. Gambe (Squat principale, RDL / Stacco)
+  // 2d. Main (Gambe, Spinta, Tirata)
   const isGambeMain = (
     (low.includes('squat') && !low.includes('split') && !low.includes('spanish') && !low.includes('wall squat') && !low.includes('clean squat')) ||
     low.includes('box squat') || low.includes('half squat') || low.includes('parallel squat') ||
@@ -4244,7 +4319,6 @@ function categorizeExerciseNorm(norm) {
     (low === 'stacco' || low.includes('stacco da terra') || low === 'deadlift')
   );
 
-  // 4b. Spinta (Panca, Floor Chest Press, Military, Push Press, Landmine, Dip)
   const isSpintaMain = (
     low.includes('floor chest press') || low.includes('flor chest press') ||
     low.includes('bench press') || low.includes('panca piana') || low.includes('panca') ||
@@ -4253,7 +4327,6 @@ function categorizeExerciseNorm(norm) {
     low.includes('distensioni') || (low.includes('dip') && !low.includes('rotator'))
   ) && !low.includes('pullover');
 
-  // 4c. Tirata (Lat Machine, Row BB, Seal Row, Pulley, Pull-up, Chin-up, Trazioni)
   const isLat = /\b(lat|pulldown|pull-down)\b/i.test(low) && !/\b(laterali?|lateral|ipsilaterale?|ipsilateral)\b/i.test(low);
   const isTirataMain = (
     low.includes('row bb') || low.includes('underhand row') ||
@@ -4266,7 +4339,7 @@ function categorizeExerciseNorm(norm) {
 
   if (isGambeMain || isSpintaMain || isTirataMain) return 'Main';
 
-  // 5. Accessori (Tutto il resto: Core, Spalle accessorie, Gambe accessorie, ecc.)
+  // 2e. Accessori (Tutto il resto: Core, Spalle accessorie, Gambe accessorie, ecc.)
   return 'Accessori';
 }
 
@@ -5365,8 +5438,8 @@ function renderSessions() {
                 let notes = ex.notes || '';
 
                 if (targetRoleKey && ROLE_EX_MAP[targetRoleKey]) {
-                  const isRoleAccessory = /wrist roller|flessori ed estensori|flessori e estensori|rotazioni polso|spanish squat|polpacci & caviglia|tibiale anteriore|prone y-raise|extrarotatori|serratus wall|landmine rotational|face pull|single-arm cable row|mobilità anca 90\/90|lateral band walk|ruolo-specifico|lavoro ruolo/i.test(exName);
-                  if (isRoleAccessory) {
+                  const isRolePlaceholder = /🎯|ruolo-specifico|lavoro ruolo|lavoro per ruolo|personalizzato per ruolo/i.test(exName);
+                  if (isRolePlaceholder) {
                     const sessKey = String(sNum);
                     const roleEx = ROLE_EX_MAP[targetRoleKey][sessKey] || ROLE_EX_MAP[targetRoleKey]['1'];
                     if (roleEx) {
@@ -6928,6 +7001,9 @@ function renderSessions() {
     });
 
     window.addEventListener('focus', () => {
+      if (typeof fetchAndApplyCloudOverrides === 'function') {
+        fetchAndApplyCloudOverrides(currentWeek, currentAthlete ? currentAthlete.id : null);
+      }
       if (typeof renderSessions === 'function') renderSessions();
     });
 

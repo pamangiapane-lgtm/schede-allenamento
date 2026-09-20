@@ -15087,7 +15087,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Prone Rear Delt DB Raises on 30° Bench",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Prone on 30° incline bench, slight elbow bend, scapular retraction and posterior deltoid activation."
             },
