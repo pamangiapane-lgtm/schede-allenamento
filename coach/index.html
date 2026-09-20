@@ -2346,8 +2346,8 @@
             <button class="btn-filt" onclick="previewSelectedAthleteCard()" style="background:#1e3a8a;border-color:#3b82f6;color:#bfdbfe;cursor:pointer;" title="Apri scheda atleta per verificare le modifiche in tempo reale">
               📱 Vedi Atleta ↗
             </button>
-            <button class="btn-filt" onclick="copyStudioSummaryWhatsApp()" style="background:#0f172a;border-color:var(--mv-border);color:#cbd5e1;cursor:pointer;">
-              📋 WhatsApp
+            <button class="btn-filt" onclick="exportStudioSessionImage()" style="background:#0284c7;border-color:#38bdf8;color:#fff;font-weight:700;cursor:pointer;" title="Genera e scarica immagine PNG ad alta risoluzione della scheda seduta">
+              📸 Scarica Scheda (PNG)
             </button>
             <button class="btn-filt" onclick="resetStudioToOfficialDataset()" style="background:#0f172a;border-color:var(--mv-border);color:#cbd5e1;cursor:pointer;" title="Ripristina valori originali del dataset">
               🔄 Ripristina
@@ -2398,10 +2398,6 @@
               <option value="14">#14 Nelly Adamczewska (Schiacciatrice)</option>
             </select>
           </div>
-
-          <button class="studio-btn-action" onclick="addStudioBlock()" style="background:rgba(232,160,32,0.15);border-color:var(--mv-amber);color:var(--mv-amber);cursor:pointer;flex-shrink:0;">
-            ➕ Aggiungi Blocco
-          </button>
 
           <span id="studio-sync-badge" style="font-size:0.7rem;padding:4px 8px;border-radius:4px;background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.3);font-weight:700;word-break:break-word;">
             🟢 Sincronizzato con App Atlete
@@ -2697,7 +2693,29 @@
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=v317-studio-ex-bar-fullwidth', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=v318-studio-image-export-addblock', { scope: './' })
+          .then(reg => {
+            reg.update();
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
+              if (newWorker) {
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    showCoachToast('🔄 Nuova versione caricata!');
+                  }
+                });
+              }
+            });
+          })
+          .catch(() => {});
+
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+          if (!refreshing) {
+            refreshing = true;
+            window.location.reload();
+          }
+        });
       }
       await refreshAllCoachData();
 
@@ -5097,7 +5115,13 @@
             }).join('')}
           </div>
         </div>
-      `).join('');
+      `).join('') + `
+        <div style="text-align:center;padding:14px 0 8px 0;width:100%;box-sizing:border-box;">
+          <button class="btn-filt" onclick="addStudioBlock()" style="background:rgba(232,160,32,0.15);border:1px dashed var(--mv-amber);color:var(--mv-amber);font-weight:800;padding:10px 22px;font-size:0.88rem;cursor:pointer;border-radius:8px;display:inline-flex;align-items:center;gap:8px;box-shadow:0 2px 10px rgba(0,0,0,0.25);">
+            ➕ Aggiungi Nuovo Blocco di Allenamento
+          </button>
+        </div>
+      `;
     }
 
     function updateStudioBlockName(bIdx, val) {
@@ -5118,17 +5142,24 @@
     }
 
     function addStudioBlock() {
-      const nextNum = studioCurrentState.blocks.length + 1;
+      const nextNum = (studioCurrentState.blocks || []).length + 1;
       studioCurrentState.blocks.push({
         id: `B${nextNum}`,
-        name: `BLOCCO ${nextNum} - NUOVO BLOCCO METODOLOGICO`,
+        name: `BLOCCO ${nextNum} - NUOVO BLOCCO ALLENAMENTO`,
         tag: 'Accessori',
         exercises: [
-          { name: 'Nuovo Esercizio', sets: 3, reps: '6', pct: 70, liftType: 'generic', targetRole: 'ALL', tempo: '2-0-1-0', rest: 75, notes: '' }
+          { name: 'Nuovo Esercizio', sets: 3, reps: '6', pct: 70, liftType: 'generic', targetRole: 'ALL', tempo: '2010', rest: 75, notes: '' }
         ]
       });
       renderStudioBlocks();
       updateStudioLivePreview();
+      setTimeout(() => {
+        const cards = document.querySelectorAll('.studio-block-card');
+        if (cards.length > 0) {
+          cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 80);
+      showCoachToast(`✅ Blocco ${nextNum} aggiunto con successo!`);
     }
 
     function deleteStudioBlock(bIdx) {
@@ -5407,41 +5438,232 @@
       showCoachToast(`💾 Seduta ${weekId} ${sessId} (${targetLabel}) salvata e applicata con successo!`);
     }
 
-    function copyStudioSummaryWhatsApp() {
+    async function exportStudioSessionImage() {
+      showCoachToast("📸 Generazione immagine scheda in corso...");
+      
       const s = studioCurrentState;
-      const targetLabel = s.athleteId === 'team' ? 'TUTTA LA SQUADRA' : `ATLETA #${s.athleteId}`;
-      let text = `🏐 *MARSALA VOLLEY S&C — ${s.weekId} ${s.sessionId}* (${targetLabel}) 🏐\n`;
-      text += `📅 Programma Ufficiale Sala Pesi · Serie A2 2026/27\n`;
-      text += `━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+      const isIndividual = s.athleteId && s.athleteId !== 'team';
+      const athIdNum = isIndividual ? parseInt(s.athleteId, 10) : 13;
+      const refBw = (typeof BASELINE_WEIGHTS !== 'undefined' && BASELINE_WEIGHTS[athIdNum]) ? BASELINE_WEIGHTS[athIdNum] : 65.0;
+      const refBaselines = (typeof TRUE_BASELINES !== 'undefined' && TRUE_BASELINES[athIdNum]) ? TRUE_BASELINES[athIdNum] : { squat: 100, bench: 40, clean: 40, rdl: 60 };
+      
+      let athName = 'TUTTA LA SQUADRA (MASTER)';
+      if (isIndividual && typeof ATHLETES !== 'undefined') {
+        const athObj = ATHLETES.find(a => a.id === athIdNum);
+        if (athObj) athName = `#${athObj.id} ${athObj.name.toUpperCase()} (${athObj.role.toUpperCase()})`;
+        else athName = `ATLETA #${athIdNum}`;
+      }
 
-      s.blocks.forEach(b => {
-        text += `📦 *${b.name}*\n`;
-        b.exercises.forEach(e => {
-          const pctStr = e.pct > 0 ? ` @ ${e.pct}% 1RM` : '';
-          text += `• *${e.name}*: ${e.sets}x${e.reps}${pctStr} ${e.notes ? `(${e.notes})` : ''}\n`;
-        });
-        text += `\n`;
+      // Calcola altezza canvas dinamica
+      let totalExercises = 0;
+      (s.blocks || []).forEach(b => {
+        totalExercises += (b.exercises || []).length;
       });
 
-      if (s.exceptions.length > 0) {
-        text += `🛡️ *ECCEZIONI INDIVIDUALI:*\n`;
-        s.exceptions.forEach(exc => {
-          text += `• *#${exc.athlete_id} ${exc.athlete_name}*: ${exc.condition_trigger} ➔ ${exc.substitute_exercise}\n`;
+      const width = 1080;
+      const blockCount = (s.blocks || []).length;
+      let estimatedHeight = 260 + (blockCount * 58);
+      (s.blocks || []).forEach(b => {
+        (b.exercises || []).forEach(ex => {
+          estimatedHeight += (ex.notes ? 78 : 62) + 8;
         });
-        text += `\n`;
-      }
+      });
+      estimatedHeight += 100; // Footer & margin
+      const height = Math.max(920, estimatedHeight);
 
-      text += `━━━━━━━━━━━━━━━━━━━━━━\nCoach Command Center · Marsala Volley`;
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
 
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(text).then(() => {
-          showCoachToast('📋 Scheda Seduta copiata per WhatsApp Staff!');
-        }).catch(() => {
-          showCoachToast('⚠️ Impossibile copiare negli appunti');
+      // 1. Sfondo scuro elegante (Marsala Dark Luxury)
+      const grad = ctx.createLinearGradient(0, 0, 0, height);
+      grad.addColorStop(0, '#060b17');
+      grad.addColorStop(0.5, '#0b1329');
+      grad.addColorStop(1, '#050914');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+
+      // Bordo dorato esterno
+      ctx.strokeStyle = 'rgba(232, 160, 32, 0.4)';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(18, 18, width - 36, height - 36);
+
+      // 2. Header
+      ctx.fillStyle = '#e8a020';
+      ctx.font = 'bold 20px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('MARSALA VOLLEY S&C · SERIE A2 FEMMINILE', 46, 62);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 36px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText(`SCHEDA ALLENAMENTO · ${s.weekId} · ${s.sessionId}`, 46, 108);
+
+      // Badge Destinatario
+      const badgeY = 126;
+      ctx.fillStyle = 'rgba(59, 130, 246, 0.15)';
+      ctx.strokeStyle = '#3b82f6';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(46, badgeY, width - 92, 52, 8);
+      else ctx.rect(46, badgeY, width - 92, 52);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#93c5fd';
+      ctx.font = 'bold 19px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('DESTINATARIO:', 64, badgeY + 33);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 21px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText(athName, 224, badgeY + 33);
+
+      // Info Data & Formula
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '15px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      const dateStr = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      ctx.fillText(`Data Emissione: ${dateStr}   |   Preparazione Atletica Ufficiale   |   Formula Carichi Squat BW Attiva`, 46, 210);
+
+      // Separatore
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(46, 224);
+      ctx.lineTo(width - 46, 224);
+      ctx.stroke();
+
+      // 3. Render Blocchi & Esercizi
+      let currentY = 246;
+
+      (s.blocks || []).forEach((block, bIdx) => {
+        // Blocco Intestazione
+        ctx.fillStyle = 'rgba(232, 160, 32, 0.12)';
+        ctx.strokeStyle = 'rgba(232, 160, 32, 0.45)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(46, currentY, width - 92, 38, 6);
+        else ctx.rect(46, currentY, width - 92, 38);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = 'bold 19px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+        ctx.fillText(`📦 BLOCCO ${bIdx + 1}: ${block.name.toUpperCase()}`, 60, currentY + 26);
+        currentY += 48;
+
+        // Esercizi del Blocco
+        (block.exercises || []).forEach((ex, exIdx) => {
+          let calculatedKgStr = '';
+          const pct = parseFloat(ex.pct) || 0;
+          if (pct > 0) {
+            if (ex.liftType === 'squat') {
+              const squatKg = Math.max(20, Math.round(((pct / 100) * (refBaselines.squat + refBw) - refBw) * 2) / 2);
+              calculatedKgStr = `➔ ${squatKg} kg (Squat BW)`;
+            } else if (ex.liftType === 'floor_press') {
+              const dbKg = Math.round(((pct / 100 * refBaselines.bench) / 2) * 2) / 2;
+              calculatedKgStr = `➔ ${dbKg}+${dbKg} kg (DB)`;
+            } else if (ex.liftType === 'rdl') {
+              const rdlKg = Math.round((pct / 100 * refBaselines.rdl) * 2) / 2;
+              calculatedKgStr = `➔ ${rdlKg} kg (RDL)`;
+            } else if (ex.liftType === 'clean') {
+              const cleanKg = Math.round((pct / 100 * refBaselines.clean) * 2) / 2;
+              calculatedKgStr = `➔ ${cleanKg} kg (Clean)`;
+            }
+          }
+
+          const exCardHeight = ex.notes ? 72 : 56;
+          ctx.fillStyle = exIdx % 2 === 0 ? 'rgba(255, 255, 255, 0.035)' : 'rgba(255, 255, 255, 0.015)';
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
+          ctx.beginPath();
+          if (ctx.roundRect) ctx.roundRect(46, currentY, width - 92, exCardHeight, 6);
+          else ctx.rect(46, currentY, width - 92, exCardHeight);
+          ctx.fill();
+          ctx.stroke();
+
+          // Nome Esercizio
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 19px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          ctx.fillText(`${exIdx + 1}. ${ex.name}`, 60, currentY + 26);
+
+          // Serie & Reps
+          ctx.fillStyle = '#38bdf8';
+          ctx.font = 'bold 17px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          const setsRepsText = `${ex.sets} set × ${ex.reps}`;
+          ctx.fillText(setsRepsText, 520, currentY + 26);
+
+          // Carico & %
+          ctx.fillStyle = pct > 0 ? '#10b981' : '#94a3b8';
+          ctx.font = 'bold 17px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          const loadText = pct > 0 ? `${pct}% ${calculatedKgStr}` : (ex.liftType === 'plyo' ? 'Pliometria' : 'Carico Libero');
+          ctx.fillText(loadText, 690, currentY + 26);
+
+          // Cues / Tempo / Rest
+          if (ex.notes) {
+            ctx.fillStyle = '#fde68a';
+            ctx.font = 'italic 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+            ctx.fillText(`💡 Note: ${ex.notes}   |   Tempo: ${ex.tempo || '2010'}   |   Rest: ${ex.rest || 90}s`, 60, currentY + 54);
+          } else {
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+            ctx.fillText(`Tempo: ${ex.tempo || '2010'}  |  Rest: ${ex.rest || 90}s`, 60, currentY + 48);
+          }
+
+          currentY += exCardHeight + 8;
         });
-      } else {
-        showCoachToast('📋 Copia non supportata');
-      }
+
+        currentY += 10;
+      });
+
+      // 4. Footer
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+      ctx.beginPath();
+      ctx.moveTo(46, currentY + 8);
+      ctx.lineTo(width - 46, currentY + 8);
+      ctx.stroke();
+
+      ctx.fillStyle = '#64748b';
+      ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText('Marsala Volley S&C Hub · Documento Tecnico Ufficiale · Generato da Coach Command Center', 46, currentY + 30);
+
+      // 5. Output / Download / Mobile Share
+      canvas.toBlob(async (blob) => {
+        if (!blob) {
+          showCoachToast("⚠️ Errore durante la creazione dell'immagine.");
+          return;
+        }
+
+        const cleanWeek = (s.weekId || 'W5').replace(/[^a-zA-Z0-9]/g, '');
+        const cleanSess = (s.sessionId || 'S1').replace(/[^a-zA-Z0-9]/g, '');
+        const cleanAth = s.athleteId === 'team' ? 'Squadra' : `Atleta${s.athleteId}`;
+        const fileName = `Scheda_Marsala_${cleanWeek}_${cleanSess}_${cleanAth}.png`;
+        const file = new File([blob], fileName, { type: 'image/png' });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: `Scheda Marsala Volley ${s.weekId} ${s.sessionId}`,
+              text: `Scheda di allenamento ${s.weekId} ${s.sessionId} (${athName})`
+            });
+            showCoachToast("✅ Scheda immagine condivisa con successo!");
+            return;
+          } catch (err) {
+            if (err.name !== 'AbortError') {
+              console.log('Share error fallback:', err);
+            }
+          }
+        }
+
+        // Download automatico fallback
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showCoachToast("📸 Scheda immagine scaricata sul dispositivo!");
+      }, 'image/png');
     }
 
     /* =============================================================================
