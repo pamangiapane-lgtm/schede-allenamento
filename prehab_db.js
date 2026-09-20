@@ -795,18 +795,18 @@ const PREHAB_DEFAULT_PROGRAMS = {
     "volume": "3x",
     "exercises": [
       {
-        "name": "Sumo Deadlift- Dumbbell",
-        "statType": "Hold",
-        "statVal": "8",
+        "name": "Step Up and Down",
+        "statType": "Reps",
+        "statVal": "8+8",
         "notes": "",
         "images": [
           "https://prod-images.theprehabguys.com/exercises/832/832452f4-556a-5480-9d16-345b7632733b/SMALL/Sumo-Deadlift-Dumbbell1.png",
           "https://prod-images.theprehabguys.com/exercises/e43/e4368e7c-385f-5e21-92db-01b43fa11bb2/SMALL/Sumo-Deadlift-Dumbbell2.png"
         ],
         "mp4": "https://videos.theprehabguys.com/bcdn_token=uLdxRI1FeEk1Um52cEy-ZFBvnW9vW064mslvGqbZ-Nw&expires=1789352104&token_path=%2F5b116330-f36d-453c-9565-6b557b4f56f3%2F/5b116330-f36d-453c-9565-6b557b4f56f3/play_720p.mp4",
-        "how": "Piedi più larghi delle spalle con punte extra-ruotate a 30-40°. Impugna un manubrio al centro e scendi flettendo anche e ginocchia con busto eretto, risalendo con spinta dai talloni a ritmo lento.",
-        "feel": "Adduttori, grande gluteo e quadricipiti con minimo stress sulla colonna lombare.",
-        "comp": "Non far collassare le ginocchia all'interno: spingi attivamente le ginocchia verso l'esterno in linea coi piedi."
+        "how": "In appoggio monopodalico su un box o gradino (20-30 cm). Spingi attraverso il tallone della gamba sul rialzo estendendo anca e ginocchio senza darti slancio con la gamba a terra. Ritorna in discesa eccentrica controllata (2-3s) sfiorando il pavimento con la punta del piede opposto.",
+        "feel": "Attivazione mirata del quadricipite, medio gluteo e stabilità lombo-pelvica della gamba in appoggio.",
+        "comp": "Non spingere con la gamba a terra per salire. Mantieni il ginocchio allineato al 2° dito del piede evitando il collasso in valgo e mantieni il bacino livellato."
       },
       {
         "name": "Carry - 90/90, Bottoms Up, Unilateral",
@@ -1427,6 +1427,17 @@ const PREHAB_LIBRARY = {
     "how": "Sdraiata supina con ginocchia flesse e piedi a terra. Solleva il bacino contraendo glutei e addome fino ad allineare cosce e tronco, mantenendo la posizione isometrica.",
     "feel": "Isolamento del grande gluteo, femorali e stabilizzazione lombo-pelvica.",
     "comp": "Non inarcare la schiena spingendo con la zona lombare. Mantieni le costole abbassate."
+  },
+  "Step Up and Down": {
+    "name": "Step Up and Down",
+    "images": [
+      "https://prod-images.theprehabguys.com/exercises/832/832452f4-556a-5480-9d16-345b7632733b/SMALL/Sumo-Deadlift-Dumbbell1.png",
+      "https://prod-images.theprehabguys.com/exercises/e43/e4368e7c-385f-5e21-92db-01b43fa11bb2/SMALL/Sumo-Deadlift-Dumbbell2.png"
+    ],
+    "mp4": "https://videos.theprehabguys.com/bcdn_token=uLdxRI1FeEk1Um52cEy-ZFBvnW9vW064mslvGqbZ-Nw&expires=1789352104&token_path=%2F5b116330-f36d-453c-9565-6b557b4f56f3%2F/5b116330-f36d-453c-9565-6b557b4f56f3/play_720p.mp4",
+    "how": "In appoggio monopodalico su un box o gradino (20-30 cm). Spingi attraverso il tallone della gamba sul rialzo estendendo anca e ginocchio senza darti slancio con la gamba a terra. Ritorna in discesa eccentrica controllata (2-3s) sfiorando il pavimento con la punta del piede opposto.",
+    "feel": "Attivazione mirata del quadricipite, medio gluteo e stabilità lombo-pelvica della gamba in appoggio.",
+    "comp": "Non spingere con la gamba a terra per salire. Mantieni il ginocchio allineato al 2° dito del piede evitando il collasso in valgo e mantieni il bacino livellato."
   },
   "Sumo Deadlift- Dumbbell": {
     "name": "Sumo Deadlift- Dumbbell",

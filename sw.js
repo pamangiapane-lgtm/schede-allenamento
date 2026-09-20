@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v312-w5s1-cmj3-pogo5-rear-delt)
-const CACHE_NAME = 'marsala-schede-v312-w5s1-cmj3-pogo5-rear-delt';
+// Service Worker App Marsala Volley (v313-caserta-step-up-prehab)
+const CACHE_NAME = 'marsala-schede-v313-caserta-step-up-prehab';
 
 const ASSETS_TO_CACHE = [
   './',
