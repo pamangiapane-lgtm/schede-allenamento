@@ -2312,6 +2312,9 @@
             <button class="btn-filt" onclick="copyStudioSummaryWhatsApp()" style="background:#1e3a8a;border-color:#3b82f6;color:#bfdbfe;cursor:pointer;">
               📋 Copia WhatsApp Staff
             </button>
+            <button class="btn-filt" onclick="resetStudioToOfficialDataset()" style="background:#0f172a;border-color:var(--mv-border);color:#cbd5e1;cursor:pointer;" title="Ricarica dal dataset ufficiale WEEKS_DATA">
+              🔄 Ripristina Ufficiale
+            </button>
             <button class="btn-filt" onclick="saveStudioProgramToSupabase()" style="background:var(--mv-emerald);border-color:var(--mv-emerald);color:#042f2e;font-weight:800;cursor:pointer;">
               💾 Salva &amp; Pubblica Seduta
             </button>
@@ -2323,20 +2326,20 @@
           <div style="display:flex;align-items:center;gap:6px;">
             <label style="font-size:0.75rem;font-weight:700;color:var(--mv-muted);">Microciclo:</label>
             <select id="studio-select-week" class="met-select" onchange="onStudioWeekChange()">
-              <option value="W4" selected>Settimana 4 (VBT &amp; Picco Forza)</option>
+              <option value="W5" selected>Settimana 5 (Picco Neurale RFD &amp; Overload)</option>
+              <option value="W6">Settimana 6 (Tapering Volume -50%)</option>
+              <option value="W4">Settimana 4 (VBT &amp; Picco Forza)</option>
               <option value="W3">Settimana 3 (Forza Pesante)</option>
               <option value="W2">Settimana 2 (Adattamento)</option>
               <option value="W1">Settimana 1 (Pre-Season)</option>
-              <option value="W5">Settimana 5 (In-Season Round 1)</option>
-              <option value="W6">Settimana 6 (In-Season Round 2)</option>
             </select>
           </div>
 
           <div style="display:flex;align-items:center;gap:6px;">
             <label style="font-size:0.75rem;font-weight:700;color:var(--mv-muted);">Seduta:</label>
             <select id="studio-select-session" class="met-select" onchange="onStudioSessionChange()">
-              <option value="S1" selected>Seduta 1 (Lunedì · Squat VBT)</option>
-              <option value="S2">Seduta 2 (Mercoledì · Potenza &amp; Clean)</option>
+              <option value="S1" selected>Seduta 1 (Lunedì · Squat 82.5% 4x3-3-2-2 Rec 90")</option>
+              <option value="S2">Seduta 2 (Mercoledì · Potenza &amp; Clean 4x2 @ 85%)</option>
               <option value="S3">Seduta 3 (Venerdì · RDL Buffer 3 · Strict No Jump)</option>
             </select>
           </div>
@@ -2403,10 +2406,17 @@
         <div id="studio-exceptions-list" style="display:flex;flex-direction:column;gap:8px;">
           <!-- Popolato dinamicamente -->
         </div>
-      </div>
-
-    
-    
+      <!-- HUB PREHAB & PREVENZIONE INDIVIDUALE (13 ATLETE) -->
+      <div class="card-box" style="margin-bottom:18px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+          <div>
+            <h3 class="card-title" style="margin:0;font-size:0.98rem;">🏥 Hub Prehab &amp; Protocolli di Prevenzione Personalizzati (13 Atlete)</h3>
+            <span style="font-size:0.72rem;color:var(--mv-muted);">Link permanenti e assegnazioni prehab connesse all'app atlete</span>
+          </div>
+          <span style="font-size:0.72rem;background:rgba(16,185,129,0.15);color:#6ee7b7;padding:3px 8px;border-radius:6px;font-weight:700;">
+            13 Atlete Sincronizzate
+          </span>
+        </div>
 
         <!-- Master Table -->
         <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
@@ -2549,7 +2559,7 @@
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('coach/sw-coach.js?v=v300-studio-schede-builder', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('coach/sw-coach.js?v=v315-studio-live-sync-prehab', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
 
@@ -4376,82 +4386,190 @@
        ============================================================================= */
 
     let studioCurrentState = {
-      weekId: 'W4',
+      weekId: 'W5',
       sessionId: 'S1',
-      blocks: [
-        {
-          id: 'B1',
-          name: 'BLOCCO 1 - ATTIVAZIONE / CORE / PREHAB',
-          tag: 'Attivazione',
-          exercises: [
-            { name: 'Core IAP (Deadbug con fitball)', sets: 3, reps: '8+8', pct: 0, liftType: 'generic', targetRole: 'ALL', tempo: '2-0-2-0', rest: 60, notes: 'Stabilità lombopelvica' },
-            { name: 'Short Foot / Arco Plantare + Band Mobilità Caviglia', sets: 3, reps: '10+10', pct: 0, liftType: 'generic', targetRole: 'ALL', tempo: 'Iso 3s', rest: 60, notes: 'Prehab podalico' }
-          ]
-        },
-        {
-          id: 'B2',
-          name: 'BLOCCO 2 - FORZA PRINCIPALE (VBT & SQUAT BW)',
-          tag: 'Forza Principale',
-          exercises: [
-            { name: 'Back Squat (Bilanciere)', sets: 4, reps: '4', pct: 82.5, liftType: 'squat', targetRole: 'ALL', tempo: '3-0-X-0', rest: 120, notes: 'VBT 0.55-0.70 m/s · Cut-off 10%' },
-            { name: 'Floor Press (Manubri)', sets: 3, reps: '5', pct: 75, liftType: 'floor_press', targetRole: 'ALL', tempo: '2-0-X-0', rest: 90, notes: 'Split manubri bilaterale' }
-          ]
-        },
-        {
-          id: 'B3',
-          name: 'BLOCCO 3 - POTENZA / RFD / TRASFERIMENTO',
-          tag: 'Potenza',
-          exercises: [
-            { name: 'Power Clean dal ginocchio', sets: 3, reps: '3', pct: 70, liftType: 'clean', targetRole: 'ALL', tempo: 'X', rest: 90, notes: 'Tripla estensione esplosiva' },
-            { name: 'Pogo Jumps Reattivi (Caviglia)', sets: 3, reps: '10', pct: 0, liftType: 'plyo', targetRole: 'ALL', tempo: 'SSC', rest: 60, notes: 'Stiffness tendine rotuleo' }
-          ]
-        },
-        {
-          id: 'B4',
-          name: 'BLOCCO 4 - ACCESSORI / CATENA POSTERIORE',
-          tag: 'Accessori',
-          exercises: [
-            { name: 'Stacchi Rumeni (RDL Bilanciere)', sets: 3, reps: '6', pct: 70, liftType: 'rdl', targetRole: 'ALL', tempo: '3-0-1-0', rest: 90, notes: 'Hinge anca controllato' },
-            { name: 'Lat Machine presa prona', sets: 3, reps: '6', pct: 70, liftType: 'generic', targetRole: 'ALL', tempo: '2-0-1-0', rest: 75, notes: 'Depressione scapolare' }
-          ]
-        }
-      ],
+      blocks: [],
       exceptions: [
-        { id: 1, athlete_id: 9, athlete_name: 'Nelly Ndwiga', condition_trigger: 'Rotazione Volume -20%', substitute_exercise: 'Safety Bar Squat / Step Up Box', notes: 'Gestione tendine rotuleo DX' },
+        { id: 1, athlete_id: 9, athlete_name: 'Nelly Adamczewska', condition_trigger: 'Rotazione Volume -20%', substitute_exercise: 'Safety Bar Squat / Step Up Box', notes: 'Gestione tendine rotuleo DX' },
         { id: 2, athlete_id: 6, athlete_name: 'Gaia Biondi', condition_trigger: 'Strict Friday Jump Ban', substitute_exercise: 'Isometria polpaccio e caviglia', notes: 'Esclusione salti ad alto impatto venerdì pre-gara' },
         { id: 3, athlete_id: 1, athlete_name: 'Veronica Allasia', condition_trigger: 'Supporto Monopodalico', substitute_exercise: 'Step Up Box 40cm manubri', notes: 'Instabilità caviglia DX + stress tibiale' }
       ]
     };
 
-    function initStudioUI() {
+    /**
+     * Carica dinamicamente i blocchi di allenamento dal database WEEKS_DATA
+     */
+    function loadStudioBlocksFromDataset(weekId, sessionId) {
+      const dataset = (typeof WEEKS_DATA !== 'undefined' ? WEEKS_DATA : (typeof DATA !== 'undefined' ? DATA : (window.WEEKS_DATA || {})));
+      const weekData = dataset[weekId];
+      if (!weekData) return [];
+
+      let rawExercises = [];
+      const sNum = String(sessionId || 'S1').replace(/[^0-9]/g, '') || '1';
+
+      // 1. Caso W5 / W6 con schede individuali atleti (w5_sedute / w6_sedute)
+      if (weekData.atleti) {
+        const firstAth = Object.values(weekData.atleti)[0];
+        if (firstAth) {
+          const seduteMap = firstAth.w5_sedute || firstAth.w6_sedute || firstAth.sedute || {};
+          rawExercises = seduteMap[sNum] || seduteMap[sessionId] || [];
+        }
+      }
+
+      // 2. Caso W3 / W4 con programma_squadra.gym_sessions
+      if ((!rawExercises || rawExercises.length === 0) && weekData.programma_squadra && weekData.programma_squadra.gym_sessions) {
+        const sess = weekData.programma_squadra.gym_sessions.find(s => s.id === sessionId || s.id === 'S' + sNum) || weekData.programma_squadra.gym_sessions[parseInt(sNum, 10) - 1];
+        if (sess && sess.esercizi) {
+          rawExercises = sess.esercizi;
+        }
+      }
+
+      if (!rawExercises || rawExercises.length === 0) return [];
+
+      const blockMap = {};
+      const blockOrder = [];
+
+      rawExercises.forEach(ex => {
+        let rawBlock = (ex.Blocco || ex.blocco || '# Main').replace(/^#\s*/, '').trim();
+        let blockTag = 'Accessori';
+        let blockTitle = 'BLOCCO 4 - ACCESSORI / CATENA POSTERIORE';
+
+        const bLower = rawBlock.toLowerCase();
+        if (bLower.includes('prehab') || bLower.includes('warmup') || bLower.includes('attivazione')) {
+          blockTag = 'Attivazione';
+          blockTitle = 'BLOCCO 1 - ATTIVAZIONE / PREHAB / MOBILITÀ';
+        } else if (bLower.includes('plyo') || bLower.includes('power') || bLower.includes('potenza') || bLower.includes('rfd')) {
+          blockTag = 'Potenza';
+          blockTitle = 'BLOCCO 2 - POTENZA / RFD / PLIOMETRIA';
+        } else if (bLower.includes('main') || bLower.includes('forza') || bLower.includes('strength')) {
+          blockTag = 'Forza Principale';
+          blockTitle = 'BLOCCO 3 - FORZA PRINCIPALE (VBT & SQUAT BW)';
+        } else if (bLower.includes('accessories') || bLower.includes('accessori')) {
+          blockTag = 'Accessori';
+          blockTitle = 'BLOCCO 4 - ACCESSORI / CATENA POSTERIORE';
+        } else if (bLower.includes('core') || bLower.includes('trans')) {
+          blockTag = 'Core';
+          blockTitle = 'BLOCCO 5 - CORE & TRASFERIMENTO BALISTICO';
+        } else {
+          blockTag = rawBlock;
+          blockTitle = 'BLOCCO - ' + rawBlock.toUpperCase();
+        }
+
+        if (!blockMap[blockTitle]) {
+          blockMap[blockTitle] = {
+            id: 'B' + (blockOrder.length + 1),
+            name: blockTitle,
+            tag: blockTag,
+            exercises: []
+          };
+          blockOrder.push(blockTitle);
+        }
+
+        const rawName = String(ex.Esercizio || ex.esercizio || ex.name || 'Esercizio');
+        const exName = rawName.replace(/^[0-9]+[A-Z]?\.\s*/, '').trim();
+        const setReps = String(ex['Set x Reps'] || ex.sets_reps || '3 x 5');
+
+        let sets = 3;
+        let reps = '5';
+        if (setReps.includes('x')) {
+          const parts = setReps.split('x');
+          sets = parseInt(parts[0].trim(), 10) || 3;
+          reps = parts.slice(1).join('x').trim();
+        } else if (setReps.toLowerCase().includes('salti')) {
+          sets = 1;
+          reps = setReps;
+        }
+
+        let pct = 0;
+        const loadStr = String(ex['Carico (kg/RPE)'] || ex.carico || ex['Note Tecniche'] || '');
+        const pctMatch = loadStr.match(/([0-9]+(?:\.[0-9]+)?)\s*%/);
+        if (pctMatch) {
+          pct = parseFloat(pctMatch[1]);
+        }
+
+        const nameLower = exName.toLowerCase();
+        let liftType = 'generic';
+        if (nameLower.includes('squat') && !nameLower.includes('split squat')) liftType = 'squat';
+        else if (nameLower.includes('floor') || nameLower.includes('bench') || nameLower.includes('panca')) liftType = 'floor_press';
+        else if (nameLower.includes('rdl') || nameLower.includes('stacco')) liftType = 'rdl';
+        else if (nameLower.includes('clean')) liftType = 'clean';
+        else if (nameLower.includes('hop') || nameLower.includes('pogo') || nameLower.includes('jump') || nameLower.includes('salto') || nameLower.includes('hurdle')) liftType = 'plyo';
+
+        const tempo = String(ex.Tempo || ex.tempo || '2010').replace(/[`']/g, '');
+        const notes = String(ex['Note Tecniche'] || ex.note || ex.notes || '');
+
+        let rest = liftType === 'squat' ? 90 : 75;
+        const restMatch = (notes + ' ' + (ex.Recupero || '')).match(/(?:recupero|rec|rest)?[:\s]*([0-9]{2,3})\s*(?:"|''|s|sec|minuto|minuti)?/i);
+        if (restMatch && parseInt(restMatch[1], 10) >= 30) {
+          rest = parseInt(restMatch[1], 10);
+        }
+
+        blockMap[blockTitle].exercises.push({
+          name: exName,
+          sets: sets,
+          reps: reps,
+          pct: pct,
+          liftType: liftType,
+          targetRole: 'ALL',
+          tempo: tempo,
+          rest: rest,
+          notes: notes
+        });
+      });
+
+      return blockOrder.map(k => blockMap[k]);
+    }
+
+    function initStudioUI(forceReset = false) {
       const weekSel = document.getElementById('studio-select-week');
       const sessSel = document.getElementById('studio-select-session');
-      if (weekSel) studioCurrentState.weekId = weekSel.value;
-      if (sessSel) studioCurrentState.sessionId = sessSel.value;
+      if (weekSel && weekSel.value) studioCurrentState.weekId = weekSel.value;
+      if (sessSel && sessSel.value) studioCurrentState.sessionId = sessSel.value;
 
-      // Carica eventuale cache salvata dal coach
+      // Carica eventuale cache salvata dal coach se non forzato il reset
       const cacheKey = `coach_studio_session_${studioCurrentState.weekId}_${studioCurrentState.sessionId}`;
-      const cached = localStorage.getItem(cacheKey);
+      const cached = !forceReset ? localStorage.getItem(cacheKey) : null;
       if (cached) {
         try {
           const parsed = JSON.parse(cached);
-          if (parsed && parsed.blocks) {
+          if (parsed && Array.isArray(parsed.blocks) && parsed.blocks.length > 0) {
             studioCurrentState.blocks = parsed.blocks;
             if (parsed.exceptions) studioCurrentState.exceptions = parsed.exceptions;
+          } else {
+            studioCurrentState.blocks = loadStudioBlocksFromDataset(studioCurrentState.weekId, studioCurrentState.sessionId);
           }
-        } catch (e) {}
+        } catch (e) {
+          studioCurrentState.blocks = loadStudioBlocksFromDataset(studioCurrentState.weekId, studioCurrentState.sessionId);
+        }
+      } else {
+        studioCurrentState.blocks = loadStudioBlocksFromDataset(studioCurrentState.weekId, studioCurrentState.sessionId);
       }
 
       renderStudioBlocks();
       updateStudioLivePreview();
       renderStudioExceptions();
+
+      // Aggiorna tabella Hub Prehab e pre-seleziona Caserta (#13) se non impostata
+      try {
+        renderCoachPrehabMasterTable();
+        selectCoachPrehabAthlete(coachSelectedPrehabAthleteId || 13);
+      } catch (e) {
+        console.warn('[Coach Prehab Init Warning]', e);
+      }
+    }
+
+    function resetStudioToOfficialDataset() {
+      const cacheKey = `coach_studio_session_${studioCurrentState.weekId}_${studioCurrentState.sessionId}`;
+      localStorage.removeItem(cacheKey);
+      initStudioUI(true);
+      showCoachToast(`🔄 Seduta ${studioCurrentState.weekId} ${studioCurrentState.sessionId} ripristinata dal dataset ufficiale!`);
     }
 
     function onStudioWeekChange() {
       const weekSel = document.getElementById('studio-select-week');
       if (weekSel) {
         studioCurrentState.weekId = weekSel.value;
-        initStudioUI();
+        initStudioUI(true);
       }
     }
 
@@ -4459,13 +4577,27 @@
       const sessSel = document.getElementById('studio-select-session');
       if (sessSel) {
         studioCurrentState.sessionId = sessSel.value;
-        initStudioUI();
+        initStudioUI(true);
       }
     }
 
     function renderStudioBlocks() {
       const container = document.getElementById('studio-blocks-container');
       if (!container) return;
+
+      if (!studioCurrentState.blocks || studioCurrentState.blocks.length === 0) {
+        container.innerHTML = `
+          <div style="background:#090f1d;border:1px dashed rgba(255,255,255,0.15);border-radius:8px;padding:24px;text-align:center;color:var(--mv-muted);">
+            Nessun blocco di allenamento presente per ${studioCurrentState.weekId} ${studioCurrentState.sessionId}.
+            <div style="margin-top:10px;">
+              <button class="btn-filt" onclick="resetStudioToOfficialDataset()" style="background:var(--mv-amber);color:#000;font-weight:800;cursor:pointer;">
+                🔄 Carica dal Dataset Ufficiale
+              </button>
+            </div>
+          </div>
+        `;
+        return;
+      }
 
       container.innerHTML = studioCurrentState.blocks.map((block, bIdx) => `
         <div class="studio-block-card">
@@ -4506,7 +4638,7 @@
 
                     <div style="display:flex;align-items:center;gap:3px;">
                       <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Reps:</span>
-                      <input type="text" class="studio-input" value="${ex.reps}" style="width:60px;text-align:center;"
+                      <input type="text" class="studio-input" value="${ex.reps}" style="width:75px;text-align:center;"
                              onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'reps', this.value)" />
                     </div>
 
@@ -4545,8 +4677,14 @@
                   </div>
                   <div style="width:130px;display:flex;align-items:center;gap:4px;">
                     <span style="color:var(--mv-muted);font-size:0.68rem;">Tempo:</span>
-                    <input type="text" class="studio-input" value="${ex.tempo || '3-0-X-0'}" style="width:75px;font-size:0.75rem;"
+                    <input type="text" class="studio-input" value="${ex.tempo || '2010'}" style="width:75px;font-size:0.75rem;"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'tempo', this.value)" />
+                  </div>
+                  <div style="width:120px;display:flex;align-items:center;gap:4px;">
+                    <span style="color:var(--mv-muted);font-size:0.68rem;">Rec:</span>
+                    <input type="number" class="studio-input" value="${ex.rest || 90}" style="width:55px;font-size:0.75rem;text-align:center;"
+                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'rest', this.value)" />
+                    <span style="color:var(--mv-muted);font-size:0.68rem;">sec</span>
                   </div>
                 </div>
               </div>
@@ -4567,6 +4705,7 @@
       if (!b || !b.exercises[exIdx]) return;
       if (field === 'sets') b.exercises[exIdx].sets = parseInt(val, 10) || 1;
       else if (field === 'pct') b.exercises[exIdx].pct = parseFloat(val) || 0;
+      else if (field === 'rest') b.exercises[exIdx].rest = parseInt(val, 10) || 75;
       else b.exercises[exIdx][field] = val;
 
       updateStudioLivePreview();
@@ -4638,9 +4777,9 @@
       const mathEngine = window.SportsScienceMath || (typeof SportsScienceMath !== 'undefined' ? SportsScienceMath : null);
 
       // Trova percentuali assegnate nella seduta corrente
-      let squatPct = 80;
-      let floorPct = 75;
-      let rdlPct = 70;
+      let squatPct = 82.5;
+      let floorPct = 60;
+      let rdlPct = 65;
       let cleanPct = 70;
 
       studioCurrentState.blocks.forEach(b => {
@@ -4656,7 +4795,7 @@
         });
       });
 
-      const athletes = (typeof ROSTER !== 'undefined' && Array.isArray(ROSTER)) ? ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff')) : [];
+      const athletes = (typeof ROSTER !== 'undefined' && Array.isArray(ROSTER)) ? ROSTER.filter(a => a.id !== 99 && !String(a.role || '').toLowerCase().includes('staff')) : [];
 
       tbody.innerHTML = athletes.map(a => {
         const aid = a.id;
@@ -4836,6 +4975,213 @@
       } else {
         showCoachToast('📋 Copia non supportata');
       }
+    }
+
+    /* =============================================================================
+       COACH PREHAB MASTER HUB & LIVE EDITOR CONTROLLER
+       ============================================================================= */
+
+    let coachSelectedPrehabAthleteId = 13; // Default #13 Giulia Caserta
+    let coachCurrentPrehabProgram = null;
+
+    function renderCoachPrehabMasterTable() {
+      const tbody = document.getElementById('coachPrehabMasterTableBody');
+      if (!tbody) return;
+
+      const athletes = (typeof ROSTER !== 'undefined' && Array.isArray(ROSTER))
+        ? ROSTER.filter(a => a.id !== 99 && !String(a.role || '').toLowerCase().includes('staff'))
+        : [];
+
+      tbody.innerHTML = athletes.map(a => {
+        const aid = a.id;
+        const prehab = (typeof getPrehabByAthlete === 'function') ? getPrehabByAthlete(aid) : null;
+        const code = prehab ? prehab.code : ((typeof PREHAB_ATHLETE_MAP !== 'undefined' && PREHAB_ATHLETE_MAP[aid]) ? PREHAB_ATHLETE_MAP[aid].code : '');
+        const progTitle = prehab ? prehab.title : (a.focus_areas ? a.focus_areas.slice(0, 2).join(' · ') : 'Protocollo Standard');
+        const flags = (prehab && prehab.flags) ? prehab.flags : (Array.isArray(a.clinical_flags) ? a.clinical_flags.join(', ') : (a.rischio_clinico || 'Nessun flag'));
+        const vol = prehab ? (prehab.volume || '2-3x') : '2x';
+        const exCount = (prehab && Array.isArray(prehab.exercises)) ? prehab.exercises.length : 0;
+        const isSelected = (aid === coachSelectedPrehabAthleteId);
+
+        const liveUrl = `../prehab.html?code=${code}`;
+
+        return `
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.06);background:${isSelected ? 'rgba(56,189,248,0.08)' : 'transparent'};">
+            <td style="padding:10px 12px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-weight:800;color:var(--mv-amber);font-size:0.85rem;">#${aid}</span>
+                <div>
+                  <strong style="color:#fff;font-size:0.88rem;">${a.name}</strong>
+                  <div style="font-size:0.7rem;color:var(--mv-muted);">${a.role}</div>
+                </div>
+              </div>
+            </td>
+            <td style="padding:10px 12px;max-width:240px;">
+              <div style="font-size:0.75rem;color:#cbd5e1;line-height:1.3;">${flags}</div>
+            </td>
+            <td style="padding:10px 12px;">
+              <div style="font-size:0.8rem;font-weight:700;color:#38bdf8;">${progTitle}</div>
+              <div style="font-size:0.7rem;color:var(--mv-muted);">${exCount} esercizi · Vol: <span style="color:var(--mv-amber);font-weight:700;">${vol}</span></div>
+            </td>
+            <td style="padding:10px 12px;text-align:center;">
+              <a href="${liveUrl}" target="_blank" style="display:inline-block;padding:3px 8px;border-radius:4px;background:rgba(56,189,248,0.15);border:1px solid rgba(56,189,248,0.3);color:#7dd3fc;text-decoration:none;font-weight:700;font-size:0.75rem;">
+                ${code} ↗
+              </a>
+            </td>
+            <td style="padding:10px 12px;text-align:right;">
+              <button class="btn-filt" onclick="selectCoachPrehabAthlete(${aid})" style="background:${isSelected ? 'var(--mv-blue)' : 'var(--mv-surface2)'};color:#fff;cursor:pointer;">
+                ✏️ Modifica
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function selectCoachPrehabAthlete(athId) {
+      coachSelectedPrehabAthleteId = athId;
+      const prehab = (typeof getPrehabByAthlete === 'function') ? getPrehabByAthlete(athId) : null;
+      if (!prehab) return;
+
+      coachCurrentPrehabProgram = JSON.parse(JSON.stringify(prehab));
+
+      renderCoachPrehabMasterTable();
+      renderCoachPrehabEditor();
+    }
+
+    function renderCoachPrehabEditor() {
+      const metaBox = document.getElementById('coachPrehabMetaBox');
+      const exList = document.getElementById('coachPrehabExercisesList');
+      const titleEl = document.getElementById('coachEditorTitle');
+      if (!metaBox || !exList) return;
+
+      const prog = coachCurrentPrehabProgram;
+      if (!prog) {
+        metaBox.innerHTML = '<div style="color:var(--mv-muted);padding:12px;">Nessuna atleta selezionata. Seleziona un\'atleta dalla tabella soprastante.</div>';
+        exList.innerHTML = '';
+        return;
+      }
+
+      if (titleEl) {
+        titleEl.innerHTML = `Modifica Prehab: <span style="color:var(--mv-amber);">#${prog.athNum} ${prog.athName}</span> (${prog.title})`;
+      }
+
+      const liveUrl = `../prehab.html?code=${prog.code}`;
+
+      metaBox.innerHTML = `
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:0.7rem;color:var(--mv-muted);text-transform:uppercase;font-weight:700;">Atleta Selezionata</div>
+            <div style="font-size:0.95rem;font-weight:800;color:#fff;">#${prog.athNum} ${prog.athName}</div>
+          </div>
+          <div>
+            <div style="font-size:0.7rem;color:var(--mv-muted);text-transform:uppercase;font-weight:700;">Codice Fisso Live</div>
+            <div style="font-size:0.95rem;font-weight:800;color:#38bdf8;">${prog.code}</div>
+          </div>
+          <div>
+            <div style="font-size:0.7rem;color:var(--mv-muted);text-transform:uppercase;font-weight:700;">Volume / Frequenza</div>
+            <input type="text" class="studio-input" value="${prog.volume || '2x'}" style="width:100px;font-size:0.8rem;padding:4px 8px;font-weight:700;color:var(--mv-amber);" 
+                   onchange="updateCoachPrehabField('volume', this.value)" />
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <a href="${liveUrl}" target="_blank" class="studio-btn-action" style="background:#1e3a8a;border-color:#3b82f6;color:#bfdbfe;text-decoration:none;font-weight:700;">
+            📱 Link Scheda: prehab.html?code=${prog.code} ↗
+          </a>
+        </div>
+      `;
+
+      exList.innerHTML = (prog.exercises || []).map((ex, exIdx) => `
+        <div class="studio-ex-card" style="background:#090f1d;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+            <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:240px;">
+              <span style="font-weight:800;color:var(--mv-muted);font-size:0.8rem;">${exIdx + 1}.</span>
+              <input type="text" class="studio-input" value="${ex.name || ''}" placeholder="Nome Esercizio Prehab..."
+                     style="flex:1;font-weight:700;color:#fff;font-size:0.88rem;"
+                     onchange="updateCoachPrehabExField(${exIdx}, 'name', this.value)" />
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <select class="studio-input" style="padding:4px 6px;font-size:0.75rem;" onchange="updateCoachPrehabExField(${exIdx}, 'statType', this.value)">
+                <option value="Reps" ${ex.statType === 'Reps' ? 'selected' : ''}>Reps</option>
+                <option value="Hold" ${ex.statType === 'Hold' ? 'selected' : ''}>Hold</option>
+                <option value="Sec" ${ex.statType === 'Sec' ? 'selected' : ''}>Sec</option>
+              </select>
+              <input type="text" class="studio-input" value="${ex.statVal || '8+8'}" placeholder="e.g. 8+8 o 30&quot;s" style="width:80px;text-align:center;font-weight:700;color:var(--mv-amber);"
+                     onchange="updateCoachPrehabExField(${exIdx}, 'statVal', this.value)" />
+              <button class="studio-btn-action" onclick="moveCoachPrehabExercise(${exIdx}, -1)" ${exIdx === 0 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;">⬆️</button>
+              <button class="studio-btn-action" onclick="moveCoachPrehabExercise(${exIdx}, 1)" ${exIdx === (prog.exercises || []).length - 1 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;">⬇️</button>
+              <button class="studio-btn-action studio-btn-delete" onclick="deleteCoachPrehabExercise(${exIdx})" style="cursor:pointer;">🗑️</button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.75rem;">
+            <div>
+              <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;">Istruzioni Esecuzione (How):</span>
+              <textarea class="studio-input" style="width:100%;height:44px;font-size:0.72rem;resize:vertical;" onchange="updateCoachPrehabExField(${exIdx}, 'how', this.value)">${ex.how || ''}</textarea>
+            </div>
+            <div>
+              <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;">Focus &amp; Sensazioni (Feel):</span>
+              <textarea class="studio-input" style="width:100%;height:44px;font-size:0.72rem;resize:vertical;" onchange="updateCoachPrehabExField(${exIdx}, 'feel', this.value)">${ex.feel || ''}</textarea>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateCoachPrehabField(field, val) {
+      if (coachCurrentPrehabProgram) {
+        coachCurrentPrehabProgram[field] = val;
+      }
+    }
+
+    function updateCoachPrehabExField(exIdx, field, val) {
+      if (coachCurrentPrehabProgram && coachCurrentPrehabProgram.exercises && coachCurrentPrehabProgram.exercises[exIdx]) {
+        coachCurrentPrehabProgram.exercises[exIdx][field] = val;
+      }
+    }
+
+    function addCoachPrehabExercise() {
+      if (!coachCurrentPrehabProgram) return;
+      if (!coachCurrentPrehabProgram.exercises) coachCurrentPrehabProgram.exercises = [];
+      coachCurrentPrehabProgram.exercises.push({
+        name: 'Nuovo Esercizio Prehab',
+        statType: 'Reps',
+        statVal: '8+8',
+        notes: '',
+        how: 'Descrizione esecuzione...',
+        feel: 'Attivazione muscolare...',
+        comp: 'Evitare compensi...'
+      });
+      renderCoachPrehabEditor();
+    }
+
+    function deleteCoachPrehabExercise(exIdx) {
+      if (!coachCurrentPrehabProgram || !coachCurrentPrehabProgram.exercises) return;
+      coachCurrentPrehabProgram.exercises.splice(exIdx, 1);
+      renderCoachPrehabEditor();
+    }
+
+    function moveCoachPrehabExercise(exIdx, dir) {
+      if (!coachCurrentPrehabProgram || !coachCurrentPrehabProgram.exercises) return;
+      const targetIdx = exIdx + dir;
+      if (targetIdx < 0 || targetIdx >= coachCurrentPrehabProgram.exercises.length) return;
+      const item = coachCurrentPrehabProgram.exercises.splice(exIdx, 1)[0];
+      coachCurrentPrehabProgram.exercises.splice(targetIdx, 0, item);
+      renderCoachPrehabEditor();
+    }
+
+    function saveCoachPrehabProgram() {
+      if (!coachCurrentPrehabProgram) return;
+      const progId = coachCurrentPrehabProgram.id;
+      if (typeof savePrehabProgram === 'function') {
+        savePrehabProgram(progId, coachCurrentPrehabProgram);
+      }
+      renderCoachPrehabMasterTable();
+      renderCoachPrehabEditor();
+      showCoachToast(`💾 Scheda Prehab per #${coachCurrentPrehabProgram.athNum} ${coachCurrentPrehabProgram.athName} salvata con successo!`);
+    }
+
+    function openSelectedPrehabLive() {
+      if (!coachCurrentPrehabProgram || !coachCurrentPrehabProgram.code) return;
+      window.open(`../prehab.html?code=${coachCurrentPrehabProgram.code}`, '_blank');
     }
 
         /* ==========================================
