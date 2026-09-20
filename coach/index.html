@@ -2693,7 +2693,7 @@
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=v318-studio-image-export-addblock', { scope: './' })
+        navigator.serviceWorker.register('sw-coach.js?v=v319-studio-role-adaptive-load-percent', { scope: './' })
           .then(reg => {
             reg.update();
             reg.addEventListener('updatefound', () => {
@@ -4629,9 +4629,15 @@
           blockOrder.push(blockTitle);
         }
 
-        const rawName = String(ex.Esercizio || ex.esercizio || ex.name || 'Esercizio');
-        const exName = rawName.replace(/^[0-9]+[A-Z]?\.\s*/, '').trim();
+        let rawName = String(ex.Esercizio || ex.esercizio || ex.name || 'Esercizio');
+        let exName = rawName.replace(/^[0-9]+[A-Z]?\.\s*/, '').trim();
         const setReps = String(ex['Set x Reps'] || ex.sets_reps || '3 x 5');
+        let notes = String(ex['Note Tecniche'] || ex.note || ex.notes || '');
+
+        if (athleteId === 'team' && /wrist roller|flessori ed estensori del polso|rotazioni polso|spanish squat|prone y-raise|landmine|single-arm cable/i.test(exName)) {
+          exName = '🎯 Lavoro Ruolo-Specifico (Polso / Tendine / Spalla / Landmine / Trazione)';
+          notes = 'Personalizzato per Ruolo (Palleggi: Polso | Centrali: Spanish Squat | Schiacciatrici: Y-Raise Spalla | Opposti: Landmine | Liberi: Cable Row)';
+        }
 
         let sets = 3;
         let reps = '5';
@@ -4673,7 +4679,9 @@
         }
 
         const tempo = String(ex.Tempo || ex.tempo || '2010').replace(/[`']/g, '');
-        const notes = String(ex['Note Tecniche'] || ex.note || ex.notes || '');
+        if (!notes) {
+          notes = String(ex['Note Tecniche'] || ex.note || ex.notes || '');
+        }
 
         let rest = liftType === 'squat' ? 90 : 75;
         const directRec = String(ex.Recupero || ex.recupero || ex.Rec || ex.rec || '');

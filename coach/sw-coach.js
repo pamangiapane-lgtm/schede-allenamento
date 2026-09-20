@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v315-studio-live-sync-prehab)
-const CACHE_NAME = 'coach-v318-studio-image-export-addblock';
+const CACHE_NAME = 'coach-v319-studio-role-adaptive-load-percent';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
