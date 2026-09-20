@@ -14227,7 +14227,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "55",
-        "Note": "Squat Parallelo 82.5% (4x3-3-2-2, rec. 90\" bloccato) + Floor Press DB + Lat Machine neutra 80%"
+        "Note": "Squat Parallelo 82.5% (4x3-3-2-2, rec. 90\" bloccato) + Floor Press DB + Lat Machine 80% + Alzate Posteriori 3x5"
       },
       {
         "Numero_Seduta": "W5-MerV",
@@ -14273,18 +14273,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -14323,11 +14323,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14527,18 +14527,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -14577,11 +14577,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14781,18 +14781,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -14831,11 +14831,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15035,18 +15035,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 jumps",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Pre-session readiness check on Chronojump mat. Measure peak height & symmetry."
+              "Note Tecniche": "3 maximal jumps on Chronojump contact mat. Measure peak jump height (cm) & neuromuscular readiness before lifting."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Line Pogo Hops in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15s intra-set rest. Ankle stiffness, contact time <200ms."
+              "Note Tecniche": "2 sets of 5+5 reactive hops on line. Minimal ground contact time (<200ms), ankle stiffness."
             },
             {
               "Blocco": "# Main",
@@ -15085,11 +15085,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row on 30° Incline Bench",
+              "Esercizio": "4B. Prone Rear Delt DB Raises on 30° Bench",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "Dumbbells only. 30° bench support, neutral grip, 1s scapular squeeze, 2s eccentric."
+              "Note Tecniche": "Prone on 30° incline bench, slight elbow bend, scapular retraction and posterior deltoid activation."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15289,18 +15289,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -15339,11 +15339,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15543,18 +15543,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -15593,11 +15593,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15797,18 +15797,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -15847,11 +15847,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16051,18 +16051,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -16101,11 +16101,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16305,18 +16305,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -16355,11 +16355,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16559,18 +16559,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -16609,11 +16609,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16813,18 +16813,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -16863,11 +16863,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -17067,18 +17067,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 2 salti",
+              "Set x Reps": "1 x 3 salti",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Baseline altezza e verifica prontezza neurale su pedana Chronojump."
+              "Note Tecniche": "3 salti massimali su pedana Chronojump all'ingresso in sala pesi. Misura altezza di picco (cm) e prontezza neurale."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Hops su Linea in Cluster",
-              "Set x Reps": "2 x (3+3+3)",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness caviglia, contatto <200ms."
+              "Note Tecniche": "2 serie da 5+5 balzi reattivi su linea. Contatto brevissimo (<200ms), massima stiffness caviglia-piede."
             },
             {
               "Blocco": "# Main",
@@ -17117,11 +17117,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Dumbbell Seal Row su panca 30°",
+              "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2011`",
-              "Note Tecniche": "SOLO MANUBRI (DB). Panca 30°, presa neutra, scapole serrate 1\" in chiusura, eccentrica 2\"."
+              "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -17324,15 +17324,15 @@ const WEEKS_DATA = {
               "Set x Reps": "1 x 3 jumps",
               "Carico (kg/RPE)": "Max",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "3 maximal jumps on Chronojump plate. Measure peak jump height (cm) & neuromuscular readiness before lifting."
+              "Note Tecniche": "3 maximal jumps on Chronojump contact mat. Measure peak jump height (cm) & neuromuscular readiness before lifting."
             },
             {
               "Blocco": "# Plyo",
               "Esercizio": "2A. Pogo Jump su Linea",
-              "Set x Reps": "2 x 4+4",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "BW",
               "Tempo": "`X`",
-              "Note Tecniche": "Reactive ankle stiffness, short ground contact time (<170ms), explosive vertical rebound."
+              "Note Tecniche": "2 sets of 5+5 reactive hops on line. Minimal ground contact time (<200ms), ankle stiffness."
             },
             {
               "Blocco": "# Main",
