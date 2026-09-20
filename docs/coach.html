@@ -958,6 +958,20 @@
     /* ==========================================
        STILI STUDIO PROGRAMMAZIONE (FASE 3)
        ========================================== */
+    #panel-studio {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    .studio-header-card,
+    .studio-block-card,
+    .studio-ex-card {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
     .studio-header-card {
       background: var(--mv-surface);
       border: 1px solid var(--mv-border);
@@ -985,16 +999,19 @@
       margin-bottom: 12px;
       padding-bottom: 8px;
       border-bottom: 1px solid rgba(255,255,255,0.06);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .studio-ex-card {
       background: #091222;
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 8px;
-      padding: 10px 12px;
+      padding: 12px;
       margin-bottom: 10px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       transition: all 0.15s ease;
     }
     .studio-ex-card:hover {
@@ -1004,11 +1021,13 @@
       background: #060a14;
       border: 1px solid var(--mv-border);
       color: #fff;
-      padding: 6px 10px;
+      padding: 6px 8px;
       border-radius: 6px;
       font-size: 0.8rem;
       font-weight: 600;
       outline: none;
+      box-sizing: border-box;
+      max-width: 100%;
     }
     .studio-input:focus {
       border-color: var(--mv-amber);
@@ -1017,15 +1036,17 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.12);
       color: #cbd5e1;
-      padding: 4px 8px;
+      padding: 5px 8px;
       border-radius: 6px;
       font-size: 0.72rem;
       font-weight: 700;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 4px;
       transition: all 0.15s ease;
+      flex-shrink: 0;
     }
     .studio-btn-action:hover {
       background: rgba(255,255,255,0.12);
@@ -1036,9 +1057,18 @@
       border-color: #ef4444;
       color: #fca5a5;
     }
+    @media (max-width: 640px) {
+      .studio-header-card, .studio-block-card, .studio-ex-card {
+        padding: 10px 12px;
+      }
+      .studio-input {
+        font-size: 0.75rem;
+        padding: 5px 6px;
+      }
+    }
 
   </style>
-  <script src="../src/core/sports-science-math.js"></script>
+  <script src="src/core/sports-science-math.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -1046,7 +1076,7 @@
   <!-- Top Coach Header -->
   <header class="coach-header">
     <div class="brand-wrap">
-      <img src="../logo.jpg" class="brand-logo" alt="Marsala Volley">
+      <img src="logo.jpg" class="brand-logo" alt="Marsala Volley">
       <div>
         <h1 class="brand-title">Coach MV</h1>
         <div class="brand-sub">S&C Command Center · Serie A2</div>
@@ -2300,54 +2330,54 @@
       
       <!-- Toolbar di Controllo Studio -->
       <div class="studio-header-card">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span style="font-size:1.4rem;">📝</span>
-            <div>
-              <h3 class="card-title" style="margin:0;font-size:1.05rem;">Studio Programmazione · Editor &amp; Modifica Sedute Live</h3>
-              <div style="font-size:0.72rem;color:var(--mv-muted);">Intervieni direttamente su esercizi, serie, reps, carichi %/kg, tempo e note per l'intera squadra o per la singola atleta.</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;width:100%;box-sizing:border-box;">
+          <div style="display:flex;align-items:center;gap:10px;flex:1 1 240px;min-width:0;">
+            <span style="font-size:1.4rem;flex-shrink:0;">📝</span>
+            <div style="min-width:0;">
+              <h3 class="card-title" style="margin:0;font-size:1.02rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Studio Programmazione · Editor &amp; Modifica Live</h3>
+              <div style="font-size:0.72rem;color:var(--mv-muted);word-break:break-word;">Modifica esercizi, serie, reps, carichi %/kg, tempo e note per l'intera squadra o singola atleta.</div>
             </div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
             <button class="btn-filt" onclick="previewSelectedAthleteCard()" style="background:#1e3a8a;border-color:#3b82f6;color:#bfdbfe;cursor:pointer;" title="Apri scheda atleta per verificare le modifiche in tempo reale">
-              📱 Vedi come Atleta ↗
+              📱 Vedi Atleta ↗
             </button>
             <button class="btn-filt" onclick="copyStudioSummaryWhatsApp()" style="background:#0f172a;border-color:var(--mv-border);color:#cbd5e1;cursor:pointer;">
-              📋 Copia WhatsApp
+              📋 WhatsApp
             </button>
             <button class="btn-filt" onclick="resetStudioToOfficialDataset()" style="background:#0f172a;border-color:var(--mv-border);color:#cbd5e1;cursor:pointer;" title="Ripristina valori originali del dataset">
               🔄 Ripristina
             </button>
-            <button class="btn-filt" onclick="saveStudioProgramToSupabase()" style="background:var(--mv-emerald);border-color:var(--mv-emerald);color:#042f2e;font-weight:800;cursor:pointer;padding:7px 16px;box-shadow:0 2px 8px rgba(16,185,129,0.35);">
-              💾 SALVA &amp; APPLICA ALL'APP
+            <button class="btn-filt" onclick="saveStudioProgramToSupabase()" style="background:var(--mv-emerald);border-color:var(--mv-emerald);color:#042f2e;font-weight:800;cursor:pointer;padding:7px 14px;box-shadow:0 2px 8px rgba(16,185,129,0.35);">
+              💾 SALVA &amp; APPLICA
             </button>
           </div>
         </div>
 
         <!-- Selettori: Microciclo, Seduta, Destinatario (Squadra o Singola Atleta) -->
-        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);">
-          <div style="display:flex;align-items:center;gap:6px;">
-            <label style="font-size:0.75rem;font-weight:700;color:var(--mv-muted);">Microciclo:</label>
-            <select id="studio-select-week" class="met-select" onchange="onStudioWeekChange()">
-              <option value="W5" selected>Settimana 5 (Picco Neurale RFD &amp; Overload)</option>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);width:100%;box-sizing:border-box;">
+          <div style="display:flex;align-items:center;gap:6px;flex:1 1 140px;min-width:0;">
+            <label style="font-size:0.75rem;font-weight:700;color:var(--mv-muted);flex-shrink:0;">Microciclo:</label>
+            <select id="studio-select-week" class="met-select" onchange="onStudioWeekChange()" style="flex:1;min-width:0;max-width:100%;">
+              <option value="W5" selected>Settimana 5 (Picco Neurale RFD)</option>
               <option value="W6">Settimana 6 (Tapering Volume -50%)</option>
               <option value="W4">Settimana 4 (VBT &amp; Picco Forza)</option>
               <option value="W3">Settimana 3 (Forza Pesante)</option>
             </select>
           </div>
 
-          <div style="display:flex;align-items:center;gap:6px;">
-            <label style="font-size:0.75rem;font-weight:700;color:var(--mv-muted);">Seduta:</label>
-            <select id="studio-select-session" class="met-select" onchange="onStudioSessionChange()">
-              <option value="S1" selected>Seduta 1 (Lunedì · Spinta / Squat)</option>
-              <option value="S2">Seduta 2 (Mercoledì · Potenza / Clean)</option>
-              <option value="S3">Seduta 3 (Venerdì · Cerniera / RDL)</option>
+          <div style="display:flex;align-items:center;gap:6px;flex:1 1 140px;min-width:0;">
+            <label style="font-size:0.75rem;font-weight:700;color:var(--mv-muted);flex-shrink:0;">Seduta:</label>
+            <select id="studio-select-session" class="met-select" onchange="onStudioSessionChange()" style="flex:1;min-width:0;max-width:100%;">
+              <option value="S1" selected>Seduta 1 (Lunedì · Spinta/Squat)</option>
+              <option value="S2">Seduta 2 (Mercoledì · Potenza/Clean)</option>
+              <option value="S3">Seduta 3 (Venerdì · Cerniera/RDL)</option>
             </select>
           </div>
 
-          <div style="display:flex;align-items:center;gap:6px;">
-            <label style="font-size:0.75rem;font-weight:800;color:var(--mv-amber);">Destinatario:</label>
-            <select id="studio-select-athlete" class="met-select" onchange="onStudioAthleteChange()" style="border-color:var(--mv-amber);color:#fff;font-weight:700;min-width:210px;">
+          <div style="display:flex;align-items:center;gap:6px;flex:1 1 200px;min-width:0;">
+            <label style="font-size:0.75rem;font-weight:800;color:var(--mv-amber);flex-shrink:0;">Destinatario:</label>
+            <select id="studio-select-athlete" class="met-select" onchange="onStudioAthleteChange()" style="border-color:var(--mv-amber);color:#fff;font-weight:700;flex:1;min-width:0;max-width:100%;">
               <option value="team" selected>👥 Tutta la Squadra (Master)</option>
               <option value="1">#1 Veronica Allasia (Palleggiatrice)</option>
               <option value="2">#2 Maria Marcuzzi (Centrale)</option>
@@ -2365,33 +2395,33 @@
             </select>
           </div>
 
-          <button class="studio-btn-action" onclick="addStudioBlock()" style="background:rgba(232,160,32,0.15);border-color:var(--mv-amber);color:var(--mv-amber);cursor:pointer;">
+          <button class="studio-btn-action" onclick="addStudioBlock()" style="background:rgba(232,160,32,0.15);border-color:var(--mv-amber);color:var(--mv-amber);cursor:pointer;flex-shrink:0;">
             ➕ Aggiungi Blocco
           </button>
 
-          <span id="studio-sync-badge" style="font-size:0.7rem;padding:4px 8px;border-radius:4px;background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.3);font-weight:700;margin-left:auto;">
+          <span id="studio-sync-badge" style="font-size:0.7rem;padding:4px 8px;border-radius:4px;background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.3);font-weight:700;word-break:break-word;">
             🟢 Sincronizzato con App Atlete
           </span>
         </div>
       </div>
 
       <!-- BANNER COMPATTO: STRATEGIA MICROCICLO, KPI & ORGANIZZAZIONE TURNI -->
-      <div id="studio-strategy-header-container">
+      <div id="studio-strategy-header-container" style="width:100%;max-width:100%;box-sizing:border-box;">
         <!-- Popolato dinamicamente da renderStudioStrategyHeader() -->
       </div>
 
       <!-- Container Dinamico Blocchi Esercizi Studio -->
-      <div id="studio-blocks-container" style="display:flex;flex-direction:column;gap:14px;margin-bottom:16px;">
+      <div id="studio-blocks-container" style="display:flex;flex-direction:column;gap:14px;margin-bottom:16px;width:100%;max-width:100%;box-sizing:border-box;">
         <!-- Popolato dinamicamente da renderStudioBlocks() -->
       </div>
 
       <!-- Barra di Salvataggio Inferiore Rapida -->
-      <div style="background:var(--mv-surface);border:1px solid var(--mv-border);border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
-        <div>
+      <div style="background:var(--mv-surface);border:1px solid var(--mv-border);border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;width:100%;box-sizing:border-box;">
+        <div style="min-width:0;flex:1 1 200px;">
           <strong style="color:#fff;font-size:0.9rem;">Pronto ad applicare le modifiche?</strong>
-          <div style="font-size:0.72rem;color:var(--mv-muted);">Salva per pubblicare istantaneamente le variazioni sull'app atlete.</div>
+          <div style="font-size:0.72rem;color:var(--mv-muted);word-break:break-word;">Salva per pubblicare istantaneamente le variazioni sull'app atlete.</div>
         </div>
-        <div style="display:flex;gap:8px;align-items:center;">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
           <button class="btn-filt" onclick="addStudioBlock()" style="background:rgba(232,160,32,0.15);border-color:var(--mv-amber);color:var(--mv-amber);cursor:pointer;">
             ➕ Nuovo Blocco
           </button>
@@ -2402,7 +2432,7 @@
       </div>
 
       <!-- Anteprima Deterministica Carichi Atlete in Tempo Reale -->
-      <div class="card-box" style="margin-bottom:16px;">
+      <div class="card-box" style="margin-bottom:16px;width:100%;box-sizing:border-box;overflow:hidden;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
           <div>
             <h3 class="card-title" style="margin:0;font-size:0.95rem;">⚡ Anteprima Carichi Deterministici (Tutte le 13 Atlete)</h3>
@@ -2413,8 +2443,8 @@
           </span>
         </div>
 
-        <div class="coach-tbl-wrap" style="max-height:380px;overflow-y:auto;">
-          <table class="coach-tbl" style="font-size:0.78rem;">
+        <div class="coach-tbl-wrap" style="max-height:380px;overflow-x:auto;overflow-y:auto;width:100%;max-width:100%;box-sizing:border-box;">
+          <table class="coach-tbl" style="font-size:0.78rem;width:100%;min-width:600px;">
             <thead>
               <tr style="background:#060a14;">
                 <th>#</th>
@@ -2437,7 +2467,7 @@
       </div>
 
       <!-- Gestione Eccezioni e Regole Individuali (Con Form Aggiunta) -->
-      <div class="card-box" style="margin-bottom:16px;">
+      <div class="card-box" style="margin-bottom:16px;width:100%;box-sizing:border-box;overflow:hidden;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
           <div>
             <h3 class="card-title" style="margin:0;font-size:0.95rem;">🛡️ Eccezioni &amp; Differenziazioni Individuali</h3>
@@ -2448,16 +2478,16 @@
           </span>
         </div>
 
-        <div id="studio-exceptions-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div id="studio-exceptions-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;width:100%;box-sizing:border-box;">
           <!-- Popolato dinamicamente da renderStudioExceptions() -->
         </div>
 
         <!-- Form Nuovo Inserimento Eccezione -->
-        <div style="background:#060a14;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;">
+        <div style="background:#060a14;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px 14px;width:100%;box-sizing:border-box;">
           <div style="font-size:0.78rem;font-weight:800;color:var(--mv-amber);margin-bottom:8px;display:flex;align-items:center;gap:6px;">
             <span>➕</span> <span>Assegna Nuova Eccezione / Variante Clinica</span>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:8px;align-items:end;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:8px;align-items:end;width:100%;box-sizing:border-box;">
             <div>
               <label style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;display:block;margin-bottom:3px;">Atleta Target:</label>
               <select id="studio-new-exc-ath" class="studio-input" style="width:100%;padding:5px 8px;">
@@ -2478,15 +2508,15 @@
             </div>
             <div>
               <label style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;display:block;margin-bottom:3px;">Condizione Trigger:</label>
-              <input type="text" id="studio-new-exc-trigger" class="studio-input" placeholder="es. Dolore Rotuleo DX / Jump Ban..." style="width:100%;" />
+              <input type="text" id="studio-new-exc-trigger" class="studio-input" placeholder="es. Dolore Rotuleo / Jump Ban..." style="width:100%;" />
             </div>
             <div>
               <label style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;display:block;margin-bottom:3px;">Esercizio Sostitutivo:</label>
-              <input type="text" id="studio-new-exc-subst" class="studio-input" placeholder="es. Safety Bar Squat / Step Up 40cm..." style="width:100%;" />
+              <input type="text" id="studio-new-exc-subst" class="studio-input" placeholder="es. Safety Bar Squat / Step Up..." style="width:100%;" />
             </div>
             <div>
               <label style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;display:block;margin-bottom:3px;">Note Cliniche:</label>
-              <input type="text" id="studio-new-exc-notes" class="studio-input" placeholder="es. Nessun dolore durante il carico..." style="width:100%;" />
+              <input type="text" id="studio-new-exc-notes" class="studio-input" placeholder="es. Nessun dolore al carico..." style="width:100%;" />
             </div>
             <div>
               <button class="btn-filt" onclick="addStudioExceptionFromForm()" style="background:var(--mv-amber);color:#000;font-weight:800;width:100%;padding:7px 10px;cursor:pointer;">
@@ -2663,7 +2693,7 @@
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('coach/sw-coach.js?v=v315-studio-live-sync-prehab', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('coach/sw-coach.js?v=v316-studio-responsive-fix', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
 
@@ -4711,21 +4741,21 @@
       const strat = STRATEGY_DATA[weekId] || STRATEGY_DATA['W5'];
 
       container.innerHTML = `
-        <div class="card-box" style="margin-bottom:16px;background:linear-gradient(135deg, #091224 0%, #0d1e3d 100%);border:1px solid rgba(59,130,246,0.35);">
+        <div class="card-box" style="margin-bottom:16px;background:linear-gradient(135deg, #091224 0%, #0d1e3d 100%);border:1px solid rgba(59,130,246,0.35);width:100%;box-sizing:border-box;">
           <!-- Top Manifesto Row -->
           <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
-            <div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <span style="font-size:1.2rem;">🎯</span>
+            <div style="min-width:0;flex:1 1 280px;">
+              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                <span style="font-size:1.2rem;flex-shrink:0;">🎯</span>
                 <span style="font-size:0.7rem;font-weight:800;color:#60a5fa;text-transform:uppercase;letter-spacing:0.5px;background:rgba(59,130,246,0.15);padding:2px 8px;border-radius:4px;border:1px solid rgba(59,130,246,0.3);">
                   ${strat.type}
                 </span>
                 <span style="font-size:0.75rem;color:var(--mv-muted);font-weight:600;">Seduta Attiva: <strong>${weekId} · ${sessId}</strong> · Destinatario: <strong style="color:var(--mv-amber);">${studioCurrentState.athleteId === 'team' ? 'Squadra' : 'Atleta #' + studioCurrentState.athleteId}</strong></span>
               </div>
-              <h3 style="margin:4px 0 0 0;font-size:1.05rem;font-weight:800;color:#fff;">${strat.title}</h3>
-              <p style="margin:4px 0 0 0;font-size:0.76rem;color:#cbd5e1;line-height:1.4;max-width:820px;">${strat.desc}</p>
+              <h3 style="margin:4px 0 0 0;font-size:1.02rem;font-weight:800;color:#fff;">${strat.title}</h3>
+              <p style="margin:4px 0 0 0;font-size:0.76rem;color:#cbd5e1;line-height:1.4;word-break:break-word;">${strat.desc}</p>
             </div>
-            <div style="display:flex;gap:6px;align-items:center;">
+            <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;">
               <span style="font-size:0.72rem;background:rgba(232,160,32,0.15);color:var(--mv-amber);padding:4px 10px;border-radius:6px;font-weight:700;border:1px solid rgba(232,160,32,0.3);">
                 ⚡ Formula Squat BW Attiva
               </span>
@@ -4733,44 +4763,44 @@
           </div>
 
           <!-- 4 KPI Badges Grid -->
-          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:8px;margin-bottom:12px;">
-            <div style="background:#060b16;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:8px;margin-bottom:12px;width:100%;box-sizing:border-box;">
+            <div style="background:#060b16;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;box-sizing:border-box;">
               <div style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;">Volume Programmato</div>
               <div style="font-size:0.88rem;font-weight:800;color:var(--mv-amber);margin-top:2px;">${strat.volume}</div>
             </div>
-            <div style="background:#060b16;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;">
+            <div style="background:#060b16;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;box-sizing:border-box;">
               <div style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;">Target VBT / Cut-Off</div>
               <div style="font-size:0.88rem;font-weight:800;color:#38bdf8;margin-top:2px;">${strat.vbt}</div>
             </div>
-            <div style="background:#060b16;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;">
+            <div style="background:#060b16;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;box-sizing:border-box;">
               <div style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;">Jump Budget / Pliometria</div>
               <div style="font-size:0.88rem;font-weight:800;color:#4ade80;margin-top:2px;">${strat.jumpBudget}</div>
             </div>
-            <div style="background:#060b16;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;">
+            <div style="background:#060b16;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;box-sizing:border-box;">
               <div style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;text-transform:uppercase;">Focus Neuromuscolare</div>
               <div style="font-size:0.88rem;font-weight:800;color:#f472b6;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" title="${strat.focus}">${strat.focus}</div>
             </div>
           </div>
 
           <!-- Organizzazione Turni Sala Pesi -->
-          <div style="background:#060b16;border:1px solid rgba(59,130,246,0.25);border-radius:6px;padding:10px 12px;">
+          <div style="background:#060b16;border:1px solid rgba(59,130,246,0.25);border-radius:6px;padding:10px 12px;width:100%;box-sizing:border-box;">
             <div style="font-size:0.72rem;font-weight:800;color:#93c5fd;margin-bottom:6px;display:flex;align-items:center;gap:6px;">
               <span>⏱️</span> <span>ORGANIZZAZIONE TURNI SALA PESI (Palazzetto Bellina)</span>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:10px;">
-              <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:6px;padding:8px 10px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:10px;width:100%;box-sizing:border-box;">
+              <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:6px;padding:8px 10px;box-sizing:border-box;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;flex-wrap:wrap;gap:4px;">
                   <strong style="color:var(--mv-amber);font-size:0.8rem;">Turno 1 · ${strat.turno1.time}</strong>
                   <span style="font-size:0.65rem;background:rgba(232,160,32,0.15);color:var(--mv-amber);padding:1px 6px;border-radius:4px;font-weight:700;">${strat.turno1.tag}</span>
                 </div>
-                <div style="font-size:0.72rem;color:#cbd5e1;">${strat.turno1.athletes}</div>
+                <div style="font-size:0.72rem;color:#cbd5e1;word-break:break-word;">${strat.turno1.athletes}</div>
               </div>
-              <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:6px;padding:8px 10px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;">
+              <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.2);border-radius:6px;padding:8px 10px;box-sizing:border-box;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;flex-wrap:wrap;gap:4px;">
                   <strong style="color:#34d399;font-size:0.8rem;">Turno 2 · ${strat.turno2.time}</strong>
                   <span style="font-size:0.65rem;background:rgba(16,185,129,0.15);color:#34d399;padding:1px 6px;border-radius:4px;font-weight:700;">${strat.turno2.tag}</span>
                 </div>
-                <div style="font-size:0.72rem;color:#cbd5e1;">${strat.turno2.athletes}</div>
+                <div style="font-size:0.72rem;color:#cbd5e1;word-break:break-word;">${strat.turno2.athletes}</div>
               </div>
             </div>
           </div>
@@ -4900,7 +4930,7 @@
 
       if (!studioCurrentState.blocks || studioCurrentState.blocks.length === 0) {
         container.innerHTML = `
-          <div style="background:#090f1d;border:1px dashed rgba(255,255,255,0.15);border-radius:8px;padding:24px;text-align:center;color:var(--mv-muted);">
+          <div style="background:#090f1d;border:1px dashed rgba(255,255,255,0.15);border-radius:8px;padding:24px;text-align:center;color:var(--mv-muted);width:100%;box-sizing:border-box;">
             Nessun blocco di allenamento presente per ${studioCurrentState.weekId} ${studioCurrentState.sessionId}.
             <div style="margin-top:10px;">
               <button class="btn-filt" onclick="resetStudioToOfficialDataset()" style="background:var(--mv-amber);color:#000;font-weight:800;cursor:pointer;">
@@ -4920,13 +4950,13 @@
       container.innerHTML = studioCurrentState.blocks.map((block, bIdx) => `
         <div class="studio-block-card">
           <div class="studio-block-head">
-            <div style="display:flex;align-items:center;gap:8px;flex:1;">
-              <span style="font-size:1.1rem;">📦</span>
+            <div style="display:flex;align-items:center;gap:8px;flex:1 1 220px;min-width:0;">
+              <span style="font-size:1.1rem;flex-shrink:0;">📦</span>
               <input type="text" class="studio-input" value="${block.name}" 
-                     style="font-size:0.92rem;font-weight:800;color:var(--mv-amber);flex:1;min-width:200px;" 
+                     style="font-size:0.92rem;font-weight:800;color:var(--mv-amber);flex:1;min-width:0;" 
                      onchange="updateStudioBlockName(${bIdx}, this.value)" />
             </div>
-            <div style="display:flex;gap:6px;align-items:center;">
+            <div style="display:flex;gap:6px;align-items:center;flex-shrink:0;">
               <button class="studio-btn-action" onclick="addStudioExercise(${bIdx})" style="cursor:pointer;background:rgba(56,189,248,0.15);border-color:#3b82f6;color:#7dd3fc;font-weight:700;">
                 ➕ Aggiungi Esercizio
               </button>
@@ -4936,37 +4966,37 @@
             </div>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;flex-direction:column;gap:10px;width:100%;box-sizing:border-box;">
             ${block.exercises.map((ex, exIdx) => {
               let calculatedKgBadge = '';
               const pct = parseFloat(ex.pct) || 0;
               if (pct > 0) {
                 if (ex.liftType === 'squat') {
                   const squatKg = Math.max(20, Math.round(((pct / 100) * (refBaselines.squat + refBw) - refBw) * 2) / 2);
-                  calculatedKgBadge = `<span style="font-size:0.7rem;color:#10b981;background:rgba(16,185,129,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(16,185,129,0.3);font-weight:700;">➔ ${squatKg} kg (Squat BW)</span>`;
+                  calculatedKgBadge = `<span style="font-size:0.7rem;color:#10b981;background:rgba(16,185,129,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(16,185,129,0.3);font-weight:700;white-space:nowrap;">➔ ${squatKg} kg (Squat BW)</span>`;
                 } else if (ex.liftType === 'floor_press') {
                   const dbKg = Math.round(((pct / 100 * refBaselines.bench) / 2) * 2) / 2;
-                  calculatedKgBadge = `<span style="font-size:0.7rem;color:#38bdf8;background:rgba(56,189,248,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(56,189,248,0.3);font-weight:700;">➔ ${dbKg}+${dbKg} kg (DB)</span>`;
+                  calculatedKgBadge = `<span style="font-size:0.7rem;color:#38bdf8;background:rgba(56,189,248,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(56,189,248,0.3);font-weight:700;white-space:nowrap;">➔ ${dbKg}+${dbKg} kg (DB)</span>`;
                 } else if (ex.liftType === 'rdl') {
                   const rdlKg = Math.round((pct / 100 * refBaselines.rdl) * 2) / 2;
-                  calculatedKgBadge = `<span style="font-size:0.7rem;color:#fde68a;background:rgba(232,160,32,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(232,160,32,0.3);font-weight:700;">➔ ${rdlKg} kg (RDL)</span>`;
+                  calculatedKgBadge = `<span style="font-size:0.7rem;color:#fde68a;background:rgba(232,160,32,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(232,160,32,0.3);font-weight:700;white-space:nowrap;">➔ ${rdlKg} kg (RDL)</span>`;
                 } else if (ex.liftType === 'clean') {
                   const cleanKg = Math.round((pct / 100 * refBaselines.clean) * 2) / 2;
-                  calculatedKgBadge = `<span style="font-size:0.7rem;color:#f472b6;background:rgba(244,114,182,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(244,114,182,0.3);font-weight:700;">➔ ${cleanKg} kg (Clean)</span>`;
+                  calculatedKgBadge = `<span style="font-size:0.7rem;color:#f472b6;background:rgba(244,114,182,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(244,114,182,0.3);font-weight:700;white-space:nowrap;">➔ ${cleanKg} kg (Clean)</span>`;
                 }
               }
 
               return `
-              <div class="studio-ex-card" style="background:#091222;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;">
+              <div class="studio-ex-card">
                 <!-- RIGA 1: Nome Esercizio + Quick Swap Dropdown + Azioni -->
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
-                  <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:240px;">
-                    <span style="font-weight:800;color:var(--mv-muted);font-size:0.8rem;">${exIdx + 1}.</span>
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;width:100%;box-sizing:border-box;">
+                  <div style="display:flex;align-items:center;gap:6px;flex:1 1 260px;min-width:0;max-width:100%;">
+                    <span style="font-weight:800;color:var(--mv-muted);font-size:0.8rem;flex-shrink:0;">${exIdx + 1}.</span>
                     <input type="text" class="studio-input" value="${ex.name}" placeholder="Nome Esercizio..."
-                           style="flex:1;font-weight:700;color:#fff;font-size:0.88rem;"
+                           style="flex:1 1 140px;min-width:0;font-weight:700;color:#fff;font-size:0.88rem;"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'name', this.value)" />
-                    <select class="studio-input" style="padding:4px 6px;font-size:0.72rem;color:var(--mv-amber);background:#060a14;max-width:150px;" onchange="applyStudioQuickSwap(${bIdx}, ${exIdx}, this.value)">
-                      <option value="">⚡ Sostituisci rapido...</option>
+                    <select class="studio-input" style="flex:0 1 140px;min-width:0;max-width:140px;padding:4px 6px;font-size:0.72rem;color:var(--mv-amber);background:#060a14;" onchange="applyStudioQuickSwap(${bIdx}, ${exIdx}, this.value)">
+                      <option value="">⚡ Quick Swap...</option>
                       <option value="Step Up and Down 40cm">Step Up & Down 40cm</option>
                       <option value="Sumo Deadlift con Bilanciere">Sumo Deadlift Bilanciere</option>
                       <option value="Trap Bar Deadlift">Trap Bar Deadlift</option>
@@ -4989,7 +5019,7 @@
                     </select>
                   </div>
 
-                  <div style="display:flex;gap:4px;align-items:center;">
+                  <div style="display:flex;gap:4px;align-items:center;flex-shrink:0;">
                     <button class="studio-btn-action" onclick="moveStudioExercise(${bIdx}, ${exIdx}, -1)" ${exIdx === 0 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;" title="Sposta su">⬆️</button>
                     <button class="studio-btn-action" onclick="moveStudioExercise(${bIdx}, ${exIdx}, 1)" ${exIdx === block.exercises.length - 1 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;" title="Sposta giù">⬇️</button>
                     <button class="studio-btn-action studio-btn-delete" onclick="deleteStudioExercise(${bIdx}, ${exIdx})" style="cursor:pointer;" title="Elimina esercizio">🗑️</button>
@@ -4997,31 +5027,31 @@
                 </div>
 
                 <!-- RIGA 2: Parametri Principali (Serie, Reps, % 1RM, Formula, Carico Calcolato) -->
-                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:0.75rem;margin-bottom:8px;">
-                  <div style="display:flex;align-items:center;gap:3px;">
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:0.75rem;width:100%;box-sizing:border-box;">
+                  <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Serie:</span>
-                    <input type="number" class="studio-input" value="${ex.sets}" style="width:50px;text-align:center;font-weight:700;color:#fff;"
+                    <input type="number" class="studio-input" value="${ex.sets}" style="width:48px;text-align:center;font-weight:700;color:#fff;"
                            oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'sets', this.value)" />
                   </div>
 
-                  <div style="display:flex;align-items:center;gap:3px;">
+                  <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Reps:</span>
-                    <input type="text" class="studio-input" value="${ex.reps}" placeholder="es. 8+8 o 4x3-3-2-2" style="width:90px;text-align:center;font-weight:700;color:var(--mv-amber);"
+                    <input type="text" class="studio-input" value="${ex.reps}" placeholder="es. 8+8 o 4x3-3-2-2" style="width:78px;text-align:center;font-weight:700;color:var(--mv-amber);"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'reps', this.value)" />
                   </div>
 
-                  <div style="display:flex;align-items:center;gap:3px;">
+                  <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">% 1RM:</span>
-                    <input type="number" step="0.5" class="studio-input" value="${ex.pct || 0}" style="width:65px;text-align:center;color:var(--mv-amber);font-weight:700;"
+                    <input type="number" step="0.5" class="studio-input" value="${ex.pct || 0}" style="width:56px;text-align:center;color:var(--mv-amber);font-weight:700;"
                            oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'pct', this.value)" />
                     <span style="color:var(--mv-muted);font-size:0.68rem;">%</span>
                   </div>
 
-                  <div style="display:flex;align-items:center;gap:3px;">
-                    <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Formula:</span>
-                    <select class="studio-input" style="padding:4px 6px;font-size:0.72rem;" onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'liftType', this.value)">
+                  <div style="display:flex;align-items:center;gap:3px;flex:1 1 150px;min-width:0;">
+                    <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;flex-shrink:0;">Formula:</span>
+                    <select class="studio-input" style="padding:4px 6px;font-size:0.72rem;flex:1;min-width:0;max-width:100%;" onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'liftType', this.value)">
                       <option value="squat" ${ex.liftType === 'squat' ? 'selected' : ''}>Squat (BW Formula)</option>
-                      <option value="floor_press" ${ex.liftType === 'floor_press' ? 'selected' : ''}>Floor Press (Manubri /2)</option>
+                      <option value="floor_press" ${ex.liftType === 'floor_press' ? 'selected' : ''}>Floor Press (DB /2)</option>
                       <option value="rdl" ${ex.liftType === 'rdl' ? 'selected' : ''}>RDL (Bilanciere)</option>
                       <option value="clean" ${ex.liftType === 'clean' ? 'selected' : ''}>Clean (Bilanciere)</option>
                       <option value="plyo" ${ex.liftType === 'plyo' ? 'selected' : ''}>Pliometria / Salto</option>
@@ -5029,26 +5059,28 @@
                     </select>
                   </div>
 
-                  ${calculatedKgBadge}
+                  <div style="flex-shrink:0;max-width:100%;">
+                    ${calculatedKgBadge}
+                  </div>
                 </div>
 
                 <!-- RIGA 3: Tempo TUT, Recupero Rest, Note Tecniche e Cues -->
-                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:0.75rem;">
-                  <div style="width:130px;display:flex;align-items:center;gap:4px;">
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:0.75rem;width:100%;box-sizing:border-box;">
+                  <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
                     <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;">Tempo:</span>
-                    <input type="text" class="studio-input" value="${ex.tempo || '2010'}" style="width:75px;font-size:0.75rem;font-family:monospace;"
+                    <input type="text" class="studio-input" value="${ex.tempo || '2010'}" style="width:68px;font-size:0.75rem;font-family:monospace;"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'tempo', this.value)" />
                   </div>
-                  <div style="width:120px;display:flex;align-items:center;gap:4px;">
+                  <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
                     <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;">Rec:</span>
-                    <input type="number" class="studio-input" value="${ex.rest || 90}" style="width:55px;font-size:0.75rem;text-align:center;"
+                    <input type="number" class="studio-input" value="${ex.rest || 90}" style="width:50px;font-size:0.75rem;text-align:center;"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'rest', this.value)" />
                     <span style="color:var(--mv-muted);font-size:0.68rem;">sec</span>
                   </div>
-                  <div style="flex:1;min-width:180px;display:flex;align-items:center;gap:4px;">
-                    <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;">Note/Cue:</span>
+                  <div style="flex:1 1 180px;min-width:0;display:flex;align-items:center;gap:4px;">
+                    <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;flex-shrink:0;">Note/Cue:</span>
                     <input type="text" class="studio-input" value="${ex.notes || ''}" placeholder="Note esecutive, target VBT o buffer..."
-                           style="flex:1;font-size:0.75rem;"
+                           style="flex:1;min-width:0;font-size:0.75rem;"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'notes', this.value)" />
                   </div>
                 </div>
