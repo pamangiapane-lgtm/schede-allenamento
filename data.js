@@ -14227,7 +14227,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "55",
-        "Note": "Squat Parallelo 85% (3x2, Enode 0.55-0.60 m/s con Formula BW) + Floor Press DB + Lat Machine neutra 80%"
+        "Note": "Squat Parallelo 82.5% (4x3-3-2-2, rec. 2'30\"-3'00\" ELAV) + Floor Press DB + Lat Machine neutra 80%"
       },
       {
         "Numero_Seduta": "W5-MerV",
@@ -14289,10 +14289,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (75.5 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (71.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -14540,10 +14540,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (80 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (75.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -14791,10 +14791,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (95.5 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (90.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -15042,10 +15042,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Parallel Back Squat (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (57.5 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (66.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°). Enode VBT: 0.55-0.60 m/s. Neural peak (only 6 total reps!). BW formula load."
+              "Note Tecniche": "4 sets (3, 3, 2, 2 reps) @ 82.5% with BW formula. ELAV rest 2'30\"-3'00\" for full neural & PCr recovery. ⚡ Target: 0.55-0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -15293,10 +15293,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (68 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (64.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -15544,10 +15544,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (58 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (54 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -15795,10 +15795,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (82 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (85.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -16046,10 +16046,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (77.5 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (73 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -16297,10 +16297,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (58 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (54.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -16548,10 +16548,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (80.5 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (74 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -16799,10 +16799,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (94 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (99.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -17050,10 +17050,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3A. Squat (Parallelo a 90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "85% (59.5 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (70.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Tetto massimo del ciclo. Enode: 0.55-0.60 m/s. Solo 6 reps totali! Parallelo a 90°. Carico formula BW."
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. Recupero ELAV 2'30\"-3'00\" per completo ripristino neurale e risintesi fosfageni. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
@@ -17301,10 +17301,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "1. Box 90°",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "82.5% (70.0 kg)",
+              "Set x Reps": "4 x 3, 3, 2, 2",
+              "Carico (kg/RPE)": "82.5% (86.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Squat to 90° box. Controlled descent, distinct stop on box (no bouncing), explosive upward drive. Neural peak."
+              "Note Tecniche": "4 sets (3, 3, 2, 2 reps) @ 82.5% with BW formula. ELAV rest 2'30\"-3'00\" for full neural & PCr recovery. ⚡ Target: 0.55-0.65 m/s, 🛑 Cutoff stop: 0.48 m/s."
             },
             {
               "Blocco": "# Main",
