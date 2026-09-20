@@ -955,16 +955,90 @@
     .met-zone-row:last-child {
       border-bottom: none;
     }
-    .met-zone-badge {
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-      white-space: nowrap;
+    /* ==========================================
+       STILI STUDIO PROGRAMMAZIONE (FASE 3)
+       ========================================== */
+    .studio-header-card {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .studio-block-card {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .studio-block-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .studio-ex-card {
+      background: #091222;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+    .studio-ex-card:hover {
+      border-color: rgba(232,160,32,0.4);
+    }
+    .studio-input {
+      background: #060a14;
+      border: 1px solid var(--mv-border);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      outline: none;
+    }
+    .studio-input:focus {
+      border-color: var(--mv-amber);
+    }
+    .studio-btn-action {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #cbd5e1;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .studio-btn-action:hover {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+    .studio-btn-delete:hover {
+      background: rgba(239,68,68,0.2);
+      border-color: #ef4444;
+      color: #fca5a5;
     }
 
   </style>
+  <script src="../src/core/sports-science-math.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -989,13 +1063,15 @@
       <button class="c-tab-btn" id="btn-tab-sedute" onclick="switchCoachTab('sedute', this)">
         <span>🏋️</span> <span>Sedute<span class="tab-txt-ext"> Pesi & Forza</span></span>
       </button>
+      <button class="c-tab-btn" id="btn-tab-studio" onclick="switchCoachTab('studio', this)">
+        <span>📝</span> <span>Studio<span class="tab-txt-ext"> Schede</span></span>
+      </button>
       <button class="c-tab-btn" id="btn-tab-campo" onclick="switchCoachTab('campo', this)">
         <span>🏐</span> <span>Campo<span class="tab-txt-ext"> S&C</span></span>
       </button>
       <button class="c-tab-btn" id="btn-tab-metodologia" onclick="switchCoachTab('metodologia', this)">
         <span>📐</span> <span>Parametri<span class="tab-txt-ext"> S&C</span></span>
       </button>
-
     </div>
   </div>
 
@@ -2215,9 +2291,117 @@
             Ogni salto con sovraccarico o pliometria ad alta intensità attinge allo stesso pool neuromuscolare dei salti tecnici sul parquet (attacchi, muri, float jump). Mantenere il Jump Budget della sala pesi entro i 15-25 impatti a inizio settimana e a ZERO assoluto a meno di 30 ore dalla gara (Strict Friday Jump Ban) azzera le tendinopatie rotulee.
           </div>
         </div>
-      </details>
-
     </div>
+
+    <!-- VISTA 5: STUDIO PROGRAMMAZIONE NO-CODE (FASE 3 - BUILDER VISUALE SEDUTE) -->
+    <div class="c-panel" id="panel-studio">
+      
+      <!-- Toolbar di Controllo Studio -->
+      <div class="studio-header-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:1.4rem;">📝</span>
+            <div>
+              <h3 class="card-title" style="margin:0;font-size:1.05rem;">Studio Programmazione Schede · No-Code Builder</h3>
+              <div style="font-size:0.72rem;color:var(--mv-muted);">Crea, modifica e pubblica sedute di squadra ed eccezioni individuali senza toccare codice</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+            <button class="btn-filt" onclick="copyStudioSummaryWhatsApp()" style="background:#1e3a8a;border-color:#3b82f6;color:#bfdbfe;cursor:pointer;">
+              📋 Copia WhatsApp Staff
+            </button>
+            <button class="btn-filt" onclick="saveStudioProgramToSupabase()" style="background:var(--mv-emerald);border-color:var(--mv-emerald);color:#042f2e;font-weight:800;cursor:pointer;">
+              💾 Salva &amp; Pubblica Seduta
+            </button>
+          </div>
+        </div>
+
+        <!-- Selettori Microciclo & Giorno Seduta -->
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <label style="font-size:0.75rem;font-weight:700;color:var(--mv-muted);">Microciclo:</label>
+            <select id="studio-select-week" class="met-select" onchange="onStudioWeekChange()">
+              <option value="W4" selected>Settimana 4 (VBT &amp; Picco Forza)</option>
+              <option value="W3">Settimana 3 (Forza Pesante)</option>
+              <option value="W2">Settimana 2 (Adattamento)</option>
+              <option value="W1">Settimana 1 (Pre-Season)</option>
+              <option value="W5">Settimana 5 (In-Season Round 1)</option>
+              <option value="W6">Settimana 6 (In-Season Round 2)</option>
+            </select>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:6px;">
+            <label style="font-size:0.75rem;font-weight:700;color:var(--mv-muted);">Seduta:</label>
+            <select id="studio-select-session" class="met-select" onchange="onStudioSessionChange()">
+              <option value="S1" selected>Seduta 1 (Lunedì · Squat VBT)</option>
+              <option value="S2">Seduta 2 (Mercoledì · Potenza &amp; Clean)</option>
+              <option value="S3">Seduta 3 (Venerdì · RDL Buffer 3 · Strict No Jump)</option>
+            </select>
+          </div>
+
+          <button class="studio-btn-action" onclick="addStudioBlock()" style="background:rgba(232,160,32,0.15);border-color:var(--mv-amber);color:var(--mv-amber);cursor:pointer;">
+            ➕ Aggiungi Blocco
+          </button>
+
+          <span id="studio-sync-badge" style="font-size:0.7rem;padding:3px 8px;border-radius:4px;background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.3);font-weight:700;margin-left:auto;">
+            🟢 Sincronizzato con App Atlete
+          </span>
+        </div>
+      </div>
+
+      <!-- Container Dinamico Blocchi Esercizi Studio -->
+      <div id="studio-blocks-container" style="display:flex;flex-direction:column;gap:14px;margin-bottom:16px;">
+        <!-- Popolato dinamicamente da renderStudioBlocks() -->
+      </div>
+
+      <!-- Anteprima Deterministica Carichi Atlete in Tempo Reale -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+          <div>
+            <h3 class="card-title" style="margin:0;font-size:0.95rem;">⚡ Anteprima Carichi Deterministici (Tutte le 13 Atlete)</h3>
+            <span style="font-size:0.7rem;color:var(--mv-muted);">I carichi si ricalcolano istantaneamente con la formula Squat con BW (@marsala/core-math)</span>
+          </div>
+          <span style="font-size:0.72rem;background:rgba(56,189,248,0.15);color:#7dd3fc;padding:3px 8px;border-radius:6px;font-weight:700;">
+            100% Determinismo Matematico
+          </span>
+        </div>
+
+        <div class="coach-tbl-wrap" style="max-height:360px;overflow-y:auto;">
+          <table class="coach-tbl" style="font-size:0.78rem;">
+            <thead>
+              <tr style="background:#060a14;">
+                <th>#</th>
+                <th>Atleta</th>
+                <th>Ruolo</th>
+                <th>Peso (BW)</th>
+                <th>Squat 1RM</th>
+                <th>Carico Bil. Squat</th>
+                <th>Floor Press DB</th>
+                <th>RDL / Stacco</th>
+                <th>Clean</th>
+                <th>Status / Note Eccezione</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-studio-preview-body">
+              <!-- Popolato dinamicamente da updateStudioLivePreview() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Gestione Eccezioni e Regole Individuali -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+          <div>
+            <h3 class="card-title" style="margin:0;font-size:0.95rem;">🛡️ Eccezioni &amp; Differenziazioni Individuali</h3>
+            <span style="font-size:0.7rem;color:var(--mv-muted);">Le variazioni personalizzate non sovrascrivono la scheda master della squadra</span>
+          </div>
+        </div>
+
+        <div id="studio-exceptions-list" style="display:flex;flex-direction:column;gap:8px;">
+          <!-- Popolato dinamicamente -->
+        </div>
+      </div>
 
     
     
@@ -2290,6 +2474,7 @@
   <script src="../prehab_db.js?v=1.0"></script>
   <script src="../data.js?v=20260917v299-rpe7-friday-loads"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../src/core/sports-science-math.js?v=1.0"></script>
   <script src="./supabase-client.js?v=2.1"></script>
   <script>if (!window.MV_SUPABASE) { const s = document.createElement('script'); s.src = '../supabase-client.js?v=2.1'; document.head.appendChild(s); }</script>
   <script>
@@ -2357,6 +2542,7 @@
       initWellnessUI();
       initPerfUI();
       initMethodologyUI();
+      try { initStudioUI(); } catch (e) {}
       try { renderReadinessRoster(); } catch (e) {}
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
@@ -2408,6 +2594,7 @@
       try { renderPerfAnalytics(); } catch (e) { console.error('[renderPerfAnalytics]', e); }
       try { renderFVChart(); } catch (e) { console.error('[renderFVChart]', e); }
       try { renderMethodologyAnalysis(); } catch (e) { console.error('[renderMethodologyAnalysis]', e); }
+      try { updateStudioLivePreview(); } catch (e) { console.error('[updateStudioLivePreview]', e); }
     }
 
     async function fetchLiveWellness() {
@@ -4177,6 +4364,475 @@
       } else if (tab === 'metodologia') {
         try { renderMethodologyAnalysis(); } catch (e) {}
         if (typeof methodologyChartInstance !== 'undefined' && methodologyChartInstance) methodologyChartInstance.resize();
+      } else if (tab === 'studio') {
+        try { initStudioUI(); } catch (e) { console.error('[initStudioUI]', e); }
+      }
+    }
+
+    /* =============================================================================
+       STUDIO PROGRAMMAZIONE NO-CODE CONTROLLER (FASE 3)
+       ============================================================================= */
+
+    let studioCurrentState = {
+      weekId: 'W4',
+      sessionId: 'S1',
+      blocks: [
+        {
+          id: 'B1',
+          name: 'BLOCCO 1 - ATTIVAZIONE / CORE / PREHAB',
+          tag: 'Attivazione',
+          exercises: [
+            { name: 'Core IAP (Deadbug con fitball)', sets: 3, reps: '8+8', pct: 0, liftType: 'generic', targetRole: 'ALL', tempo: '2-0-2-0', rest: 60, notes: 'Stabilità lombopelvica' },
+            { name: 'Short Foot / Arco Plantare + Band Mobilità Caviglia', sets: 3, reps: '10+10', pct: 0, liftType: 'generic', targetRole: 'ALL', tempo: 'Iso 3s', rest: 60, notes: 'Prehab podalico' }
+          ]
+        },
+        {
+          id: 'B2',
+          name: 'BLOCCO 2 - FORZA PRINCIPALE (VBT & SQUAT BW)',
+          tag: 'Forza Principale',
+          exercises: [
+            { name: 'Back Squat (Bilanciere)', sets: 4, reps: '4', pct: 82.5, liftType: 'squat', targetRole: 'ALL', tempo: '3-0-X-0', rest: 120, notes: 'VBT 0.55-0.70 m/s · Cut-off 10%' },
+            { name: 'Floor Press (Manubri)', sets: 3, reps: '5', pct: 75, liftType: 'floor_press', targetRole: 'ALL', tempo: '2-0-X-0', rest: 90, notes: 'Split manubri bilaterale' }
+          ]
+        },
+        {
+          id: 'B3',
+          name: 'BLOCCO 3 - POTENZA / RFD / TRASFERIMENTO',
+          tag: 'Potenza',
+          exercises: [
+            { name: 'Power Clean dal ginocchio', sets: 3, reps: '3', pct: 70, liftType: 'clean', targetRole: 'ALL', tempo: 'X', rest: 90, notes: 'Tripla estensione esplosiva' },
+            { name: 'Pogo Jumps Reattivi (Caviglia)', sets: 3, reps: '10', pct: 0, liftType: 'plyo', targetRole: 'ALL', tempo: 'SSC', rest: 60, notes: 'Stiffness tendine rotuleo' }
+          ]
+        },
+        {
+          id: 'B4',
+          name: 'BLOCCO 4 - ACCESSORI / CATENA POSTERIORE',
+          tag: 'Accessori',
+          exercises: [
+            { name: 'Stacchi Rumeni (RDL Bilanciere)', sets: 3, reps: '6', pct: 70, liftType: 'rdl', targetRole: 'ALL', tempo: '3-0-1-0', rest: 90, notes: 'Hinge anca controllato' },
+            { name: 'Lat Machine presa prona', sets: 3, reps: '6', pct: 70, liftType: 'generic', targetRole: 'ALL', tempo: '2-0-1-0', rest: 75, notes: 'Depressione scapolare' }
+          ]
+        }
+      ],
+      exceptions: [
+        { id: 1, athlete_id: 9, athlete_name: 'Nelly Ndwiga', condition_trigger: 'Rotazione Volume -20%', substitute_exercise: 'Safety Bar Squat / Step Up Box', notes: 'Gestione tendine rotuleo DX' },
+        { id: 2, athlete_id: 6, athlete_name: 'Gaia Biondi', condition_trigger: 'Strict Friday Jump Ban', substitute_exercise: 'Isometria polpaccio e caviglia', notes: 'Esclusione salti ad alto impatto venerdì pre-gara' },
+        { id: 3, athlete_id: 1, athlete_name: 'Veronica Allasia', condition_trigger: 'Supporto Monopodalico', substitute_exercise: 'Step Up Box 40cm manubri', notes: 'Instabilità caviglia DX + stress tibiale' }
+      ]
+    };
+
+    function initStudioUI() {
+      const weekSel = document.getElementById('studio-select-week');
+      const sessSel = document.getElementById('studio-select-session');
+      if (weekSel) studioCurrentState.weekId = weekSel.value;
+      if (sessSel) studioCurrentState.sessionId = sessSel.value;
+
+      // Carica eventuale cache salvata dal coach
+      const cacheKey = `coach_studio_session_${studioCurrentState.weekId}_${studioCurrentState.sessionId}`;
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) {
+        try {
+          const parsed = JSON.parse(cached);
+          if (parsed && parsed.blocks) {
+            studioCurrentState.blocks = parsed.blocks;
+            if (parsed.exceptions) studioCurrentState.exceptions = parsed.exceptions;
+          }
+        } catch (e) {}
+      }
+
+      renderStudioBlocks();
+      updateStudioLivePreview();
+      renderStudioExceptions();
+    }
+
+    function onStudioWeekChange() {
+      const weekSel = document.getElementById('studio-select-week');
+      if (weekSel) {
+        studioCurrentState.weekId = weekSel.value;
+        initStudioUI();
+      }
+    }
+
+    function onStudioSessionChange() {
+      const sessSel = document.getElementById('studio-select-session');
+      if (sessSel) {
+        studioCurrentState.sessionId = sessSel.value;
+        initStudioUI();
+      }
+    }
+
+    function renderStudioBlocks() {
+      const container = document.getElementById('studio-blocks-container');
+      if (!container) return;
+
+      container.innerHTML = studioCurrentState.blocks.map((block, bIdx) => `
+        <div class="studio-block-card">
+          <div class="studio-block-head">
+            <div style="display:flex;align-items:center;gap:8px;flex:1;">
+              <span style="font-size:1.1rem;">📦</span>
+              <input type="text" class="studio-input" value="${block.name}" 
+                     style="font-size:0.92rem;font-weight:800;color:var(--mv-amber);flex:1;min-width:200px;" 
+                     onchange="updateStudioBlockName(${bIdx}, this.value)" />
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <button class="studio-btn-action" onclick="addStudioExercise(${bIdx})" style="cursor:pointer;">
+                ➕ Aggiungi Esercizio
+              </button>
+              <button class="studio-btn-action studio-btn-delete" onclick="deleteStudioBlock(${bIdx})" title="Elimina Blocco" style="cursor:pointer;">
+                🗑️
+              </button>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            ${block.exercises.map((ex, exIdx) => `
+              <div class="studio-ex-card">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                  <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:240px;">
+                    <span style="font-weight:800;color:var(--mv-muted);font-size:0.75rem;">${exIdx + 1}.</span>
+                    <input type="text" class="studio-input" value="${ex.name}" placeholder="Nome Esercizio..."
+                           style="flex:1;font-weight:700;color:#fff;"
+                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'name', this.value)" />
+                  </div>
+
+                  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                    <div style="display:flex;align-items:center;gap:3px;">
+                      <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Set:</span>
+                      <input type="number" class="studio-input" value="${ex.sets}" style="width:50px;text-align:center;"
+                             oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'sets', this.value)" />
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:3px;">
+                      <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Reps:</span>
+                      <input type="text" class="studio-input" value="${ex.reps}" style="width:60px;text-align:center;"
+                             onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'reps', this.value)" />
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:3px;">
+                      <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">% 1RM:</span>
+                      <input type="number" step="0.5" class="studio-input" value="${ex.pct || 0}" style="width:65px;text-align:center;color:var(--mv-amber);"
+                             oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'pct', this.value)" />
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:3px;">
+                      <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Tipo:</span>
+                      <select class="studio-input" style="padding:5px 6px;" onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'liftType', this.value)">
+                        <option value="squat" ${ex.liftType === 'squat' ? 'selected' : ''}>Squat (BW Formula)</option>
+                        <option value="floor_press" ${ex.liftType === 'floor_press' ? 'selected' : ''}>Floor Press (Manubri /2)</option>
+                        <option value="rdl" ${ex.liftType === 'rdl' ? 'selected' : ''}>RDL (Bilanciere)</option>
+                        <option value="clean" ${ex.liftType === 'clean' ? 'selected' : ''}>Clean (Bilanciere)</option>
+                        <option value="plyo" ${ex.liftType === 'plyo' ? 'selected' : ''}>Pliometria / Salto</option>
+                        <option value="generic" ${ex.liftType === 'generic' ? 'selected' : ''}>Generico</option>
+                      </select>
+                    </div>
+
+                    <div style="display:flex;gap:4px;">
+                      <button class="studio-btn-action" onclick="moveStudioExercise(${bIdx}, ${exIdx}, -1)" ${exIdx === 0 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;">⬆️</button>
+                      <button class="studio-btn-action" onclick="moveStudioExercise(${bIdx}, ${exIdx}, 1)" ${exIdx === block.exercises.length - 1 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;">⬇️</button>
+                      <button class="studio-btn-action studio-btn-delete" onclick="deleteStudioExercise(${bIdx}, ${exIdx})" style="cursor:pointer;">🗑️</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:0.75rem;">
+                  <div style="flex:1;min-width:180px;display:flex;align-items:center;gap:4px;">
+                    <span style="color:var(--mv-muted);font-size:0.68rem;">Note/Cue:</span>
+                    <input type="text" class="studio-input" value="${ex.notes || ''}" placeholder="Note esecutive, target VBT o buffer..."
+                           style="flex:1;font-size:0.75rem;"
+                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'notes', this.value)" />
+                  </div>
+                  <div style="width:130px;display:flex;align-items:center;gap:4px;">
+                    <span style="color:var(--mv-muted);font-size:0.68rem;">Tempo:</span>
+                    <input type="text" class="studio-input" value="${ex.tempo || '3-0-X-0'}" style="width:75px;font-size:0.75rem;"
+                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'tempo', this.value)" />
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateStudioBlockName(bIdx, val) {
+      if (studioCurrentState.blocks[bIdx]) {
+        studioCurrentState.blocks[bIdx].name = val;
+      }
+    }
+
+    function updateStudioExerciseField(bIdx, exIdx, field, val) {
+      const b = studioCurrentState.blocks[bIdx];
+      if (!b || !b.exercises[exIdx]) return;
+      if (field === 'sets') b.exercises[exIdx].sets = parseInt(val, 10) || 1;
+      else if (field === 'pct') b.exercises[exIdx].pct = parseFloat(val) || 0;
+      else b.exercises[exIdx][field] = val;
+
+      updateStudioLivePreview();
+    }
+
+    function addStudioBlock() {
+      const nextNum = studioCurrentState.blocks.length + 1;
+      studioCurrentState.blocks.push({
+        id: `B${nextNum}`,
+        name: `BLOCCO ${nextNum} - NUOVO BLOCCO METODOLOGICO`,
+        tag: 'Accessori',
+        exercises: [
+          { name: 'Nuovo Esercizio', sets: 3, reps: '6', pct: 70, liftType: 'generic', targetRole: 'ALL', tempo: '2-0-1-0', rest: 75, notes: '' }
+        ]
+      });
+      renderStudioBlocks();
+      updateStudioLivePreview();
+    }
+
+    function deleteStudioBlock(bIdx) {
+      if (confirm(`Vuoi eliminare il blocco "${studioCurrentState.blocks[bIdx].name}"?`)) {
+        studioCurrentState.blocks.splice(bIdx, 1);
+        renderStudioBlocks();
+        updateStudioLivePreview();
+      }
+    }
+
+    function addStudioExercise(bIdx) {
+      const b = studioCurrentState.blocks[bIdx];
+      if (!b) return;
+      b.exercises.push({
+        name: 'Esercizio Aggiuntivo',
+        sets: 3,
+        reps: '5',
+        pct: 75,
+        liftType: 'generic',
+        targetRole: 'ALL',
+        tempo: '2-0-X-0',
+        rest: 90,
+        notes: ''
+      });
+      renderStudioBlocks();
+      updateStudioLivePreview();
+    }
+
+    function deleteStudioExercise(bIdx, exIdx) {
+      const b = studioCurrentState.blocks[bIdx];
+      if (!b) return;
+      b.exercises.splice(exIdx, 1);
+      renderStudioBlocks();
+      updateStudioLivePreview();
+    }
+
+    function moveStudioExercise(bIdx, exIdx, dir) {
+      const b = studioCurrentState.blocks[bIdx];
+      if (!b) return;
+      const targetIdx = exIdx + dir;
+      if (targetIdx < 0 || targetIdx >= b.exercises.length) return;
+      const item = b.exercises.splice(exIdx, 1)[0];
+      b.exercises.splice(targetIdx, 0, item);
+      renderStudioBlocks();
+      updateStudioLivePreview();
+    }
+
+    function updateStudioLivePreview() {
+      const tbody = document.getElementById('tbl-studio-preview-body');
+      if (!tbody) return;
+
+      const mathEngine = window.SportsScienceMath || (typeof SportsScienceMath !== 'undefined' ? SportsScienceMath : null);
+
+      // Trova percentuali assegnate nella seduta corrente
+      let squatPct = 80;
+      let floorPct = 75;
+      let rdlPct = 70;
+      let cleanPct = 70;
+
+      studioCurrentState.blocks.forEach(b => {
+        b.exercises.forEach(e => {
+          const t = String(e.liftType || '').toLowerCase();
+          const p = parseFloat(e.pct) || 0;
+          if (p > 0) {
+            if (t.includes('squat')) squatPct = p;
+            else if (t.includes('floor') || t.includes('bench')) floorPct = p;
+            else if (t.includes('rdl')) rdlPct = p;
+            else if (t.includes('clean')) cleanPct = p;
+          }
+        });
+      });
+
+      const athletes = (typeof ROSTER !== 'undefined' && Array.isArray(ROSTER)) ? ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff')) : [];
+
+      tbody.innerHTML = athletes.map(a => {
+        const aid = a.id;
+        const bw = (typeof BASELINE_WEIGHTS !== 'undefined' && BASELINE_WEIGHTS[aid]) ? BASELINE_WEIGHTS[aid] : (a.bw || 65.0);
+        const baselines = (typeof TRUE_BASELINES !== 'undefined' && TRUE_BASELINES[aid]) ? TRUE_BASELINES[aid] : { squat: 100, bench: 40, clean: 40, rdl: 60 };
+
+        let squatLoad = 0;
+        let floorLabel = '—';
+        let rdlLabel = '—';
+        let cleanLabel = '—';
+
+        if (mathEngine) {
+          squatLoad = mathEngine.calcSquatLoad(baselines.squat, bw, squatPct);
+          floorLabel = mathEngine.calcLiftLoad('floor', baselines.bench, floorPct).label;
+          rdlLabel = mathEngine.calcLiftLoad('rdl', baselines.rdl, rdlPct).label;
+          cleanLabel = mathEngine.calcLiftLoad('clean', baselines.clean, cleanPct).label;
+        } else {
+          squatLoad = Math.max(20, Math.round(((squatPct / 100) * (baselines.squat + bw) - bw) * 2) / 2);
+          const floorEach = Math.round(((floorPct / 100 * baselines.bench) / 2) * 2) / 2;
+          floorLabel = `${floorEach}+${floorEach} kg`;
+          rdlLabel = `${Math.round((rdlPct / 100 * baselines.rdl) * 2) / 2} kg`;
+          cleanLabel = `${Math.round((cleanPct / 100 * baselines.clean) * 2) / 2} kg`;
+        }
+
+        const exc = studioCurrentState.exceptions.find(e => e.athlete_id === aid);
+        let excHtml = '<span style="color:var(--mv-muted)">Master Team</span>';
+        if (exc) {
+          excHtml = `<strong style="color:var(--mv-amber);background:rgba(232,160,32,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(232,160,32,0.3);">${exc.condition_trigger}: ${exc.substitute_exercise}</strong>`;
+        }
+
+        return `
+          <tr>
+            <td style="font-weight:800;color:var(--mv-amber)">#${a.id}</td>
+            <td><strong style="color:#fff;">${a.name}</strong></td>
+            <td><span style="font-size:0.72rem;color:var(--mv-muted);">${a.role}</span></td>
+            <td><span style="color:#38bdf8;font-weight:700;">${bw} kg</span></td>
+            <td><span style="font-weight:700;">${baselines.squat} kg</span></td>
+            <td><strong style="color:#10b981;background:rgba(16,185,129,0.12);padding:2px 8px;border-radius:4px;border:1px solid rgba(16,185,129,0.3);">${squatLoad} kg</strong> <span style="font-size:0.68rem;color:var(--mv-muted);">(${squatPct}%)</span></td>
+            <td><span style="color:#cbd5e1;font-weight:700;">${floorLabel}</span> <span style="font-size:0.68rem;color:var(--mv-muted);">(${floorPct}%)</span></td>
+            <td><span style="color:#cbd5e1;font-weight:700;">${rdlLabel}</span></td>
+            <td><span style="color:#cbd5e1;font-weight:700;">${cleanLabel}</span></td>
+            <td>${excHtml}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderStudioExceptions() {
+      const container = document.getElementById('studio-exceptions-list');
+      if (!container) return;
+
+      if (studioCurrentState.exceptions.length === 0) {
+        container.innerHTML = `<div style="text-align:center;color:var(--mv-muted);font-size:0.8rem;padding:12px;">Nessuna eccezione individuale attiva. Tutta la squadra segue il programma master.</div>`;
+        return;
+      }
+
+      container.innerHTML = studioCurrentState.exceptions.map(exc => `
+        <div style="background:#091222;border:1px solid rgba(232,160,32,0.3);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-weight:800;color:#fff;font-size:0.88rem;display:flex;align-items:center;gap:6px;">
+              <span>🛡️</span> <span>#${exc.athlete_id} ${exc.athlete_name}</span>
+              <span style="font-size:0.7rem;color:var(--mv-amber);background:rgba(232,160,32,0.15);padding:2px 6px;border-radius:4px;font-weight:700;">${exc.condition_trigger}</span>
+            </div>
+            <div style="font-size:0.75rem;color:#cbd5e1;margin-top:2px;">
+              <strong>Sostituzione:</strong> ${exc.substitute_exercise} · <span style="color:var(--mv-muted);font-style:italic;">${exc.notes || ''}</span>
+            </div>
+          </div>
+          <button class="studio-btn-action studio-btn-delete" onclick="deleteStudioException(${exc.id})" style="cursor:pointer;">
+            Rimuovi
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function deleteStudioException(excId) {
+      studioCurrentState.exceptions = studioCurrentState.exceptions.filter(e => e.id !== excId);
+      renderStudioExceptions();
+      updateStudioLivePreview();
+      showCoachToast('🛡️ Eccezione individuale rimossa');
+    }
+
+    async function saveStudioProgramToSupabase() {
+      const badge = document.getElementById('studio-sync-badge');
+      if (badge) {
+        badge.textContent = '⏳ Salvataggio in corso...';
+        badge.style.background = 'rgba(232,160,32,0.2)';
+        badge.style.color = '#fde68a';
+      }
+
+      const weekId = studioCurrentState.weekId;
+      const sessId = `${weekId}_${studioCurrentState.sessionId}`;
+
+      // Salva in LocalStorage Cache
+      const cacheKey = `coach_studio_session_${weekId}_${studioCurrentState.sessionId}`;
+      localStorage.setItem(cacheKey, JSON.stringify(studioCurrentState));
+
+      // Sincronizza verso Supabase se disponibile
+      if (window.MV_SUPABASE && typeof window.MV_SUPABASE.saveExercisePrescription === 'function') {
+        try {
+          for (let bIdx = 0; bIdx < studioCurrentState.blocks.length; bIdx++) {
+            const block = studioCurrentState.blocks[bIdx];
+            for (let exIdx = 0; exIdx < block.exercises.length; exIdx++) {
+              const ex = block.exercises[exIdx];
+              await window.MV_SUPABASE.saveExercisePrescription({
+                id: `${sessId}_E${bIdx + 1}_${exIdx + 1}`,
+                session_id: sessId,
+                tenant_id: 'marsala_a2',
+                block_tag: block.name,
+                order_idx: (bIdx * 10) + (exIdx + 1),
+                exercise_name: ex.name,
+                lift_type: ex.liftType || 'generic',
+                sets: ex.sets || 3,
+                reps: String(ex.reps || '5'),
+                load_pct: ex.pct || 0,
+                tempo: ex.tempo || '3-0-X-0',
+                rest_sec: ex.rest || 90,
+                notes: ex.notes || null
+              });
+            }
+          }
+        } catch (err) {
+          console.warn('[Studio Supabase Save Warning]', err);
+        }
+      }
+
+      // Dual-run forward verso Google Sheets
+      if (typeof forwardToGoogleSheets === 'function') {
+        forwardToGoogleSheets({
+          foglio: 'Programmazione',
+          week: weekId,
+          session: studioCurrentState.sessionId,
+          blocks_count: studioCurrentState.blocks.length,
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      if (badge) {
+        badge.textContent = '🟢 Sincronizzato con App Atlete';
+        badge.style.background = 'rgba(16,185,129,0.15)';
+        badge.style.color = '#6ee7b7';
+      }
+
+      showCoachToast(`💾 Seduta ${weekId} ${studioCurrentState.sessionId} pubblicata con successo!`);
+    }
+
+    function copyStudioSummaryWhatsApp() {
+      const s = studioCurrentState;
+      let text = `🏐 *MARSALA VOLLEY S&C — ${s.weekId} ${s.sessionId}* 🏐\n`;
+      text += `📅 Programma Ufficiale Sala Pesi · Serie A2 2026/27\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+      s.blocks.forEach(b => {
+        text += `📦 *${b.name}*\n`;
+        b.exercises.forEach(e => {
+          const pctStr = e.pct > 0 ? ` @ ${e.pct}% 1RM` : '';
+          text += `• *${e.name}*: ${e.sets}x${e.reps}${pctStr} ${e.notes ? `(${e.notes})` : ''}\n`;
+        });
+        text += `\n`;
+      });
+
+      if (s.exceptions.length > 0) {
+        text += `🛡️ *ECCEZIONI INDIVIDUALI:*\n`;
+        s.exceptions.forEach(exc => {
+          text += `• *#${exc.athlete_id} ${exc.athlete_name}*: ${exc.condition_trigger} ➔ ${exc.substitute_exercise}\n`;
+        });
+        text += `\n`;
+      }
+
+      text += `━━━━━━━━━━━━━━━━━━━━━━\nCoach Command Center · Marsala Volley`;
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCoachToast('📋 Scheda Seduta copiata per WhatsApp Staff!');
+        }).catch(() => {
+          showCoachToast('⚠️ Impossibile copiare negli appunti');
+        });
+      } else {
+        showCoachToast('📋 Copia non supportata');
       }
     }
 

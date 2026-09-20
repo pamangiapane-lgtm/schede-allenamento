@@ -329,6 +329,94 @@ function sbSubscribeRealtime(onUpdate) {
   return channel;
 }
 
+async function sbFetchProgramWeek(weekId) {
+  const sb = getSb();
+  if (!sb) return { fallback: true, data: null };
+  try {
+    const { data: week, error: wErr } = await sb.from('program_weeks').select('*').eq('id', weekId).single();
+    if (wErr) throw wErr;
+    const { data: sessions, error: sErr } = await sb.from('session_templates').select('*').eq('week_id', weekId).order('session_num');
+    if (sErr) throw sErr;
+    return { success: true, week, sessions };
+  } catch (err) {
+    console.warn('[Supabase] Errore fetch program week:', err);
+    return { error: err };
+  }
+}
+
+async function sbFetchSessionPrescriptions(sessionId) {
+  const sb = getSb();
+  if (!sb) return { fallback: true, data: [] };
+  try {
+    const { data, error } = await sb.from('exercise_prescriptions').select('*').eq('session_id', sessionId).order('order_idx');
+    if (error) throw error;
+    return { success: true, data };
+  } catch (err) {
+    console.warn('[Supabase] Errore fetch prescriptions:', err);
+    return { error: err };
+  }
+}
+
+async function sbFetchSessionOverrides(sessionId, athleteId) {
+  const sb = getSb();
+  if (!sb) return { fallback: true, data: [] };
+  try {
+    let q = sb.from('session_overrides').select('*').eq('session_id', sessionId);
+    if (athleteId != null) {
+      q = q.or(`athlete_id.is.null,athlete_id.eq.${athleteId}`);
+    }
+    const { data, error } = await q;
+    if (error) throw error;
+    return { success: true, data };
+  } catch (err) {
+    console.warn('[Supabase] Errore fetch session overrides:', err);
+    return { error: err };
+  }
+}
+
+async function sbFetchAthleteExceptions(athleteId) {
+  const sb = getSb();
+  if (!sb) return { fallback: true, data: [] };
+  try {
+    let q = sb.from('athlete_individual_exceptions').select('*').eq('is_active', true);
+    if (athleteId != null) {
+      q = q.eq('athlete_id', athleteId);
+    }
+    const { data, error } = await q;
+    if (error) throw error;
+    return { success: true, data };
+  } catch (err) {
+    console.warn('[Supabase] Errore fetch athlete exceptions:', err);
+    return { error: err };
+  }
+}
+
+async function sbSaveExercisePrescription(prescription) {
+  const sb = getSb();
+  if (!sb) return { fallback: true };
+  try {
+    const { data, error } = await sb.from('exercise_prescriptions').upsert(prescription).select();
+    if (error) throw error;
+    return { success: true, data };
+  } catch (err) {
+    console.error('[Supabase] Errore save prescription:', err);
+    return { error: err };
+  }
+}
+
+async function sbSaveSessionOverride(override) {
+  const sb = getSb();
+  if (!sb) return { fallback: true };
+  try {
+    const { data, error } = await sb.from('session_overrides').insert(override).select();
+    if (error) throw error;
+    return { success: true, data };
+  } catch (err) {
+    console.error('[Supabase] Errore save session override:', err);
+    return { error: err };
+  }
+}
+
 // Esponi globalmente
 if (typeof window !== 'undefined') {
   window.MV_SUPABASE = {
@@ -341,6 +429,12 @@ if (typeof window !== 'undefined') {
     salvaSessionRating: sbSaveSessionRating,
     updateAthlete: sbUpdateAthlete,
     subscribeRealtime: sbSubscribeRealtime,
+    fetchProgramWeek: sbFetchProgramWeek,
+    fetchSessionPrescriptions: sbFetchSessionPrescriptions,
+    fetchSessionOverrides: sbFetchSessionOverrides,
+    fetchAthleteExceptions: sbFetchAthleteExceptions,
+    saveExercisePrescription: sbSaveExercisePrescription,
+    saveSessionOverride: sbSaveSessionOverride,
     flushOfflineQueue
   };
 }
