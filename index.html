@@ -5224,17 +5224,54 @@ function renderSessions() {
 
     // Collect and normalize exercises
     let rawList = [];
-    const sedObj = (athInd && (athInd[`${currentWeek.toLowerCase()}_sedute`] || athInd.w5_sedute || athInd.w6_sedute || athInd.w4_sedute || athInd.w3_sedute || athInd.sedute));
-    const sData = sedObj ? (sedObj[sNum] || sedObj[String(sNum)] || []) : [];
-    if (Array.isArray(sData)) {
-      if (sData.length > 0 && sData[0].items) {
-        sData.forEach(blk => {
-          (blk.items || []).forEach(it => {
-            rawList.push({ ...it, blocco: blk.blocco || blk.Blocco || '' });
+
+    // 1. Controlla prima se ci sono modifiche salvate dal Coach Studio (sia personali per l'atleta che per tutta la squadra)
+    let hasCoachOverride = false;
+    try {
+      const athOverrideKey = `coach_override_${currentWeek}_S${sNum}_ath_${currentAthlete.id}`;
+      const teamOverrideKey = `coach_override_${currentWeek}_S${sNum}`;
+      const savedAth = localStorage.getItem(athOverrideKey);
+      const savedTeam = localStorage.getItem(teamOverrideKey);
+      const overrideObj = savedAth ? JSON.parse(savedAth) : (savedTeam ? JSON.parse(savedTeam) : null);
+      if (overrideObj && Array.isArray(overrideObj.blocks) && overrideObj.blocks.length > 0) {
+        hasCoachOverride = true;
+        overrideObj.blocks.forEach(blk => {
+          (blk.exercises || []).forEach(ex => {
+            let loadStr = ex.carico || '';
+            if (!loadStr && ex.pct) {
+              loadStr = `${ex.pct}% 1RM`;
+            }
+            rawList.push({
+              Esercizio: ex.name,
+              'Set x Reps': `${ex.sets || 3}x${ex.reps || 5}`,
+              'Carico (kg/RPE)': loadStr,
+              Tempo: ex.tempo || '2010',
+              Recupero: ex.rest ? `${ex.rest}s` : '90s',
+              'Note Tecniche': ex.notes || '',
+              blocco: blk.name || blk.tag || 'Accessori',
+              liftType: ex.liftType || 'generic'
+            });
           });
         });
-      } else {
-        rawList = sData;
+      }
+    } catch (e) {
+      console.warn('[Coach Override Load Warning]', e);
+    }
+
+    // 2. Se nessun override attivo, carica dalla struttura dati standard WEEKS_DATA
+    if (!hasCoachOverride) {
+      const sedObj = (athInd && (athInd[`${currentWeek.toLowerCase()}_sedute`] || athInd.w5_sedute || athInd.w6_sedute || athInd.w4_sedute || athInd.w3_sedute || athInd.sedute));
+      const sData = sedObj ? (sedObj[sNum] || sedObj[String(sNum)] || []) : [];
+      if (Array.isArray(sData)) {
+        if (sData.length > 0 && sData[0].items) {
+          sData.forEach(blk => {
+            (blk.items || []).forEach(it => {
+              rawList.push({ ...it, blocco: blk.blocco || blk.Blocco || '' });
+            });
+          });
+        } else {
+          rawList = sData;
+        }
       }
     }
 
