@@ -14292,7 +14292,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (71.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -14325,7 +14325,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -14546,7 +14546,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (75.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -14579,7 +14579,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -14800,7 +14800,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (90.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -14833,7 +14833,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -15054,7 +15054,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (66.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 sets (3, 3, 2, 2 reps) @ 82.5% with BW formula. ⏱ Rest: 90s locked for all. ⚡ Target: 0.55-0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 sets (3, 3, 2, 2 reps) @ 82.5% with BW formula. ⏱ Rest: 90s locked for all. ⚡ Target: 0.55-0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -15308,7 +15308,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (64.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -15341,7 +15341,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -15562,7 +15562,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (54 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -15595,7 +15595,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -15816,7 +15816,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (85.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -15849,7 +15849,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -16070,7 +16070,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (73 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -16103,7 +16103,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -16324,7 +16324,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (54.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -16357,7 +16357,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -16578,7 +16578,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (74 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -16611,7 +16611,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -16832,7 +16832,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (99.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -16865,7 +16865,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -17086,7 +17086,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (70.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 serie (3, 3, 2, 2 reps) @ 82.5% con Formula BW. ⏱ Recupero: 90\" bloccato per tutte. ⚡ Target: 0.55–0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
@@ -17119,7 +17119,7 @@ const WEEKS_DATA = {
               "Blocco": "# Accessories",
               "Esercizio": "4B. Alzate Posteriori con Manubri su Panca 30°",
               "Set x Reps": "3 x 5",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "2-6 kg",
               "Tempo": "`2011`",
               "Note Tecniche": "Busto prono su panca 30°, gomiti leggermente flessi a 45°, retrazione scapolare controllata e attivazione deltoide posteriore/romboidi."
             },
@@ -17340,7 +17340,7 @@ const WEEKS_DATA = {
               "Set x Reps": "4 x 3, 3, 2, 2",
               "Carico (kg/RPE)": "82.5% (86.5 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "4 sets (3, 3, 2, 2 reps) @ 82.5% with BW formula. ⏱ Rest: 90s locked for all. ⚡ Target: 0.55-0.65 m/s, 🛑 Cutoff stop: 0.48 m/s.",
+              "Note Tecniche": "4 sets (3, 3, 2, 2 reps) @ 82.5% with BW formula. ⏱ Rest: 90s locked for all. ⚡ Target: 0.55-0.65 m/s, 🛑 Cutoff stop: 0.45 m/s.",
               "Recupero": "90\"",
               "recupero": "90\"",
               "Rec": "90\""
