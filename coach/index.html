@@ -10,10 +10,10 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Coach MV">
-  <link rel="apple-touch-icon" href="../icon-192.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="../icon-192.png">
-  <link rel="apple-touch-icon" sizes="512x512" href="../icon-512.png">
-  <link rel="manifest" href="manifest.json?v=20260901v3">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+  <link rel="manifest" href="manifest-coach.json?v=20260901v3">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -2038,8 +2038,10 @@
           <div style="display:flex;align-items:center;gap:4px;">
             <label style="font-size:0.72rem;color:var(--mv-muted);font-weight:700;">Settimana:</label>
             <select id="met-select-week" class="met-select" onchange="renderMethodologyAnalysis()">
-              <option value="W3" selected>W3 (Picco Forza Strutturale · Squillante MED)</option>
+              <option value="W5" selected>W5 (Picco Neurale RFD & Overload Pre-Campionato)</option>
+              <option value="W6">W6 (Tapering Finale & Massima Freschezza)</option>
               <option value="W4">W4 (Trasmutazione & Contrast Power)</option>
+              <option value="W3">W3 (Picco Forza Strutturale · Squillante MED)</option>
             </select>
           </div>
 
@@ -2471,12 +2473,12 @@
 
   </main>
 
-  <script src="../prehab_db.js?v=1.0"></script>
-  <script src="../data.js?v=20260917v299-rpe7-friday-loads"></script>
+  <script src="prehab_db.js?v=1.0"></script>
+  <script src="data.js?v=20260917v299-rpe7-friday-loads"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../src/core/sports-science-math.js?v=1.0"></script>
-  <script src="./supabase-client.js?v=2.1"></script>
-  <script>if (!window.MV_SUPABASE) { const s = document.createElement('script'); s.src = '../supabase-client.js?v=2.1'; document.head.appendChild(s); }</script>
+  <script src="src/core/sports-science-math.js?v=1.0"></script>
+  <script src="supabase-client.js?v=2.1"></script>
+  <script>if (!window.MV_SUPABASE) { const s = document.createElement('script'); s.src = 'supabase-client.js?v=2.1'; document.head.appendChild(s); }</script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -2547,7 +2549,7 @@
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=v300-studio-schede-builder', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('coach/sw-coach.js?v=v300-studio-schede-builder', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
 
@@ -8485,7 +8487,7 @@ function calculateMethodology(weekId, sedutaId, athleteId) {
       ath1RM = ath.baseline_1rm || (typeof TRUE_BASELINES !== 'undefined' && TRUE_BASELINES[aid]) || ath1RM;
     }
     const athData = weekObj && weekObj.atleti && weekObj.atleti[String(aid)];
-    const seduteObj = weekId === 'W4' ? (athData && athData.w4_sedute) : (athData && athData.w3_sedute);
+    const seduteObj = athData && (athData[`${weekId.toLowerCase()}_sedute`] || athData.w5_sedute || athData.w6_sedute || athData.w4_sedute || athData.w3_sedute || athData.sedute);
     if (seduteObj) {
       if (sedutaId === 'ALL') {
         ['1', '2', '3'].forEach(k => {

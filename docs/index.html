@@ -1409,8 +1409,8 @@
       <!-- TAB 2: SEDUTE DI ALLENAMENTO -->
       <div class="tab-panel" id="tab-sedute">
         <div class="week-switcher">
-          <button class="week-pill" data-week="W3" onclick="switchWeek('W3', this)">Week 3</button>
-          <button class="week-pill active" data-week="W4" onclick="switchWeek('W4', this)">Week 4</button>
+          <button class="week-pill active" data-week="W5" onclick="switchWeek('W5', this)">Week 5</button>
+          <button class="week-pill" data-week="W6" onclick="switchWeek('W6', this)">Week 6</button>
         </div>
         <div id="sessions-container"></div>
       </div>
@@ -2488,13 +2488,13 @@
     ];
 
     let currentAthlete = null;
-    let currentWeek = 'W4';
+    let currentWeek = 'W5';
     let isEN = false;
     let wellnessRatings = { sonno: null, fatica: null, dolori: null, stress: null, readiness: null };
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=v305-rir-to-rpe-conversion').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=v310-w5-w6-active').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
@@ -2515,7 +2515,7 @@
       }
 
       const urlWeek = urlParams.get('week');
-      if (urlWeek && ['W3', 'W4'].includes(urlWeek.toUpperCase())) {
+      if (urlWeek && ['W3', 'W4', 'W5', 'W6'].includes(urlWeek.toUpperCase())) {
         currentWeek = urlWeek.toUpperCase();
       }
       document.querySelectorAll('.week-pill').forEach(p => {
@@ -4435,6 +4435,7 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
   let prevWeekKey = null;
   if (currentWeek === 'W4') prevWeekKey = 'W3';
   else if (currentWeek === 'W5') prevWeekKey = 'W4';
+  else if (currentWeek === 'W6') prevWeekKey = 'W5';
   if (!prevWeekKey || !WEEKS_DATA[prevWeekKey]) return null;
 
   const prevWeekObj = WEEKS_DATA[prevWeekKey];
@@ -4442,7 +4443,7 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
   const prevAth = prevWeekObj.atleti && prevWeekObj.atleti[athIdStr];
   if (!prevAth) return null;
 
-  const prevSedObj = (prevWeekKey === 'W3') ? prevAth.w3_sedute : (prevAth.w4_sedute || prevAth.sedute);
+  const prevSedObj = (prevAth && (prevAth[`${prevWeekKey.toLowerCase()}_sedute`] || prevAth.w5_sedute || prevAth.w4_sedute || prevAth.w3_sedute || prevAth.sedute));
   if (!prevSedObj) return null;
 
   let sNum = 1;
@@ -5223,7 +5224,7 @@ function renderSessions() {
 
     // Collect and normalize exercises
     let rawList = [];
-    const sedObj = (currentWeek === 'W3') ? (athInd && athInd.w3_sedute) : (athInd && athInd.w4_sedute);
+    const sedObj = (athInd && (athInd[`${currentWeek.toLowerCase()}_sedute`] || athInd.w5_sedute || athInd.w6_sedute || athInd.w4_sedute || athInd.w3_sedute || athInd.sedute));
     const sData = sedObj ? (sedObj[sNum] || sedObj[String(sNum)] || []) : [];
     if (Array.isArray(sData)) {
       if (sData.length > 0 && sData[0].items) {

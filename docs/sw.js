@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v274-main-gambe-redesign)
-const CACHE_NAME = 'marsala-schede-v308-marcuzzi-prehab-and-ratings-isolation';
+// Service Worker App Marsala Volley (v310-w5-w6-active)
+const CACHE_NAME = 'marsala-schede-v310-w5-w6-active';
 
 const ASSETS_TO_CACHE = [
   './',

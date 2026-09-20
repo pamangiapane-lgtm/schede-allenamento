@@ -2038,8 +2038,10 @@
           <div style="display:flex;align-items:center;gap:4px;">
             <label style="font-size:0.72rem;color:var(--mv-muted);font-weight:700;">Settimana:</label>
             <select id="met-select-week" class="met-select" onchange="renderMethodologyAnalysis()">
-              <option value="W3" selected>W3 (Picco Forza Strutturale · Squillante MED)</option>
+              <option value="W5" selected>W5 (Picco Neurale RFD & Overload Pre-Campionato)</option>
+              <option value="W6">W6 (Tapering Finale & Massima Freschezza)</option>
               <option value="W4">W4 (Trasmutazione & Contrast Power)</option>
+              <option value="W3">W3 (Picco Forza Strutturale · Squillante MED)</option>
             </select>
           </div>
 
@@ -8485,7 +8487,7 @@ function calculateMethodology(weekId, sedutaId, athleteId) {
       ath1RM = ath.baseline_1rm || (typeof TRUE_BASELINES !== 'undefined' && TRUE_BASELINES[aid]) || ath1RM;
     }
     const athData = weekObj && weekObj.atleti && weekObj.atleti[String(aid)];
-    const seduteObj = weekId === 'W4' ? (athData && athData.w4_sedute) : (athData && athData.w3_sedute);
+    const seduteObj = athData && (athData[`${weekId.toLowerCase()}_sedute`] || athData.w5_sedute || athData.w6_sedute || athData.w4_sedute || athData.w3_sedute || athData.sedute);
     if (seduteObj) {
       if (sedutaId === 'ALL') {
         ['1', '2', '3'].forEach(k => {
