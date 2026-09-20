@@ -5305,10 +5305,10 @@ function renderSessions() {
       try {
         const overrideObj = JSON.parse(savedTeam);
         if (overrideObj && Array.isArray(overrideObj.blocks) && overrideObj.blocks.length > 0) {
-          const isSpecialClinicalAthlete = (currentAthlete.id === 14 || baseList.some(ex => /box squat|floor chest|powerbag|spanish squat/i.test(ex.Esercizio || ex.esercizio || '')));
+          const isNellyAthlete = (currentAthlete.id === 14 || /adamczewska|nelly/i.test(currentAthlete.name || ''));
 
-          if (isSpecialClinicalAthlete) {
-            // Per Nelly (#14) e atlete con prescrizioni ortopediche: manteniamo la scheda clinica integra
+          if (isNellyAthlete) {
+            // SOLO ED ESCLUSIVAMENTE per Nelly (#14): manteniamo la scheda personalizzata integra
             // Aggiorniamo chirurgicamente solo l'esercizio corrispondente modificato dal coach (es. Medball)
             rawList = baseList.map(item => {
               const origName = String(item.Esercizio || item.esercizio || item.name || '');
