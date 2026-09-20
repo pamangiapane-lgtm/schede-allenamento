@@ -1007,11 +1007,11 @@
       background: #091222;
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 10px;
+      padding: 9px 11px;
+      margin-bottom: 8px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 7px;
       transition: all 0.15s ease;
     }
     .studio-ex-card:hover {
@@ -1021,7 +1021,7 @@
       background: #060a14;
       border: 1px solid var(--mv-border);
       color: #fff;
-      padding: 6px 8px;
+      padding: 5px 8px;
       border-radius: 6px;
       font-size: 0.8rem;
       font-weight: 600;
@@ -1036,7 +1036,7 @@
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.12);
       color: #cbd5e1;
-      padding: 5px 8px;
+      padding: 4px 7px;
       border-radius: 6px;
       font-size: 0.72rem;
       font-weight: 700;
@@ -1058,12 +1058,16 @@
       color: #fca5a5;
     }
     @media (max-width: 640px) {
-      .studio-header-card, .studio-block-card, .studio-ex-card {
+      .studio-header-card, .studio-block-card {
         padding: 10px 12px;
+      }
+      .studio-ex-card {
+        padding: 8px 10px;
+        gap: 6px;
       }
       .studio-input {
         font-size: 0.75rem;
-        padding: 5px 6px;
+        padding: 4px 6px;
       }
     }
 
@@ -2693,7 +2697,7 @@
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=v316-studio-responsive-fix', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('sw-coach.js?v=v317-studio-ex-bar-fullwidth', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
 
@@ -4966,7 +4970,7 @@
             </div>
           </div>
 
-          <div style="display:flex;flex-direction:column;gap:10px;width:100%;box-sizing:border-box;">
+          <div style="display:flex;flex-direction:column;gap:8px;width:100%;box-sizing:border-box;">
             ${block.exercises.map((ex, exIdx) => {
               let calculatedKgBadge = '';
               const pct = parseFloat(ex.pct) || 0;
@@ -4988,15 +4992,12 @@
 
               return `
               <div class="studio-ex-card">
-                <!-- RIGA 1: Nome Esercizio + Quick Swap Dropdown + Azioni -->
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;width:100%;box-sizing:border-box;">
-                  <div style="display:flex;align-items:center;gap:6px;flex:1 1 260px;min-width:0;max-width:100%;">
-                    <span style="font-weight:800;color:var(--mv-muted);font-size:0.8rem;flex-shrink:0;">${exIdx + 1}.</span>
-                    <input type="text" class="studio-input" value="${ex.name}" placeholder="Nome Esercizio..."
-                           style="flex:1 1 140px;min-width:0;font-weight:700;color:#fff;font-size:0.88rem;"
-                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'name', this.value)" />
-                    <select class="studio-input" style="flex:0 1 140px;min-width:0;max-width:140px;padding:4px 6px;font-size:0.72rem;color:var(--mv-amber);background:#060a14;" onchange="applyStudioQuickSwap(${bIdx}, ${exIdx}, this.value)">
-                      <option value="">⚡ Quick Swap...</option>
+                <!-- RIGA 1: Header Esercizio: Numero + Quick Swap a sinistra, Bottoni Azione (⬆️ ⬇️ 🗑️) a destra -->
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;width:100%;box-sizing:border-box;">
+                  <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:0;">
+                    <span style="font-weight:800;color:var(--mv-amber);background:rgba(232,160,32,0.12);padding:2px 7px;border-radius:4px;font-size:0.75rem;border:1px solid rgba(232,160,32,0.3);flex-shrink:0;">#${exIdx + 1}</span>
+                    <select class="studio-input" style="flex:1;max-width:210px;min-width:130px;padding:3px 6px;font-size:0.72rem;color:var(--mv-amber);background:#060a14;height:26px;" onchange="applyStudioQuickSwap(${bIdx}, ${exIdx}, this.value)">
+                      <option value="">⚡ Sostituisci / Swap...</option>
                       <option value="Step Up and Down 40cm">Step Up & Down 40cm</option>
                       <option value="Sumo Deadlift con Bilanciere">Sumo Deadlift Bilanciere</option>
                       <option value="Trap Bar Deadlift">Trap Bar Deadlift</option>
@@ -5020,36 +5021,43 @@
                   </div>
 
                   <div style="display:flex;gap:4px;align-items:center;flex-shrink:0;">
-                    <button class="studio-btn-action" onclick="moveStudioExercise(${bIdx}, ${exIdx}, -1)" ${exIdx === 0 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;" title="Sposta su">⬆️</button>
-                    <button class="studio-btn-action" onclick="moveStudioExercise(${bIdx}, ${exIdx}, 1)" ${exIdx === block.exercises.length - 1 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;" title="Sposta giù">⬇️</button>
-                    <button class="studio-btn-action studio-btn-delete" onclick="deleteStudioExercise(${bIdx}, ${exIdx})" style="cursor:pointer;" title="Elimina esercizio">🗑️</button>
+                    <button class="studio-btn-action" onclick="moveStudioExercise(${bIdx}, ${exIdx}, -1)" ${exIdx === 0 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;padding:3px 6px;font-size:0.72rem;height:26px;" title="Sposta su">⬆️</button>
+                    <button class="studio-btn-action" onclick="moveStudioExercise(${bIdx}, ${exIdx}, 1)" ${exIdx === block.exercises.length - 1 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;padding:3px 6px;font-size:0.72rem;height:26px;" title="Sposta giù">⬇️</button>
+                    <button class="studio-btn-action studio-btn-delete" onclick="deleteStudioExercise(${bIdx}, ${exIdx})" style="cursor:pointer;padding:3px 6px;font-size:0.72rem;height:26px;" title="Elimina esercizio">🗑️</button>
                   </div>
                 </div>
 
-                <!-- RIGA 2: Parametri Principali (Serie, Reps, % 1RM, Formula, Carico Calcolato) -->
-                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:0.75rem;width:100%;box-sizing:border-box;">
+                <!-- RIGA 2: Nome Esercizio A LARGHEZZA INTERA (100% width, massimo spazio visivo e scroll orizzontale) -->
+                <div style="width:100%;box-sizing:border-box;">
+                  <input type="text" class="studio-input" value="${ex.name}" placeholder="Nome Esercizio..."
+                         style="width:100%;font-weight:700;color:#fff;font-size:0.86rem;padding:6px 10px;"
+                         onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'name', this.value)" />
+                </div>
+
+                <!-- RIGA 3: Parametri Principali (Serie, Reps, % 1RM, Formula, Carico Calcolato) -->
+                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:0.75rem;width:100%;box-sizing:border-box;">
                   <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Serie:</span>
-                    <input type="number" class="studio-input" value="${ex.sets}" style="width:48px;text-align:center;font-weight:700;color:#fff;"
+                    <input type="number" class="studio-input" value="${ex.sets}" style="width:44px;padding:4px 3px;text-align:center;font-weight:700;color:#fff;"
                            oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'sets', this.value)" />
                   </div>
 
                   <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Reps:</span>
-                    <input type="text" class="studio-input" value="${ex.reps}" placeholder="es. 8+8 o 4x3-3-2-2" style="width:78px;text-align:center;font-weight:700;color:var(--mv-amber);"
+                    <input type="text" class="studio-input" value="${ex.reps}" placeholder="es. 8+8" style="width:72px;padding:4px 4px;text-align:center;font-weight:700;color:var(--mv-amber);"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'reps', this.value)" />
                   </div>
 
                   <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">% 1RM:</span>
-                    <input type="number" step="0.5" class="studio-input" value="${ex.pct || 0}" style="width:56px;text-align:center;color:var(--mv-amber);font-weight:700;"
+                    <input type="number" step="0.5" class="studio-input" value="${ex.pct || 0}" style="width:52px;padding:4px 3px;text-align:center;color:var(--mv-amber);font-weight:700;"
                            oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'pct', this.value)" />
                     <span style="color:var(--mv-muted);font-size:0.68rem;">%</span>
                   </div>
 
-                  <div style="display:flex;align-items:center;gap:3px;flex:1 1 150px;min-width:0;">
+                  <div style="display:flex;align-items:center;gap:3px;flex:1 1 140px;min-width:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;flex-shrink:0;">Formula:</span>
-                    <select class="studio-input" style="padding:4px 6px;font-size:0.72rem;flex:1;min-width:0;max-width:100%;" onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'liftType', this.value)">
+                    <select class="studio-input" style="padding:4px 5px;font-size:0.72rem;flex:1;min-width:0;max-width:100%;" onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'liftType', this.value)">
                       <option value="squat" ${ex.liftType === 'squat' ? 'selected' : ''}>Squat (BW Formula)</option>
                       <option value="floor_press" ${ex.liftType === 'floor_press' ? 'selected' : ''}>Floor Press (DB /2)</option>
                       <option value="rdl" ${ex.liftType === 'rdl' ? 'selected' : ''}>RDL (Bilanciere)</option>
@@ -5064,23 +5072,23 @@
                   </div>
                 </div>
 
-                <!-- RIGA 3: Tempo TUT, Recupero Rest, Note Tecniche e Cues -->
-                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:0.75rem;width:100%;box-sizing:border-box;">
-                  <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
+                <!-- RIGA 4: Tempo TUT, Recupero Rest, Note Tecniche e Cues -->
+                <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:0.75rem;width:100%;box-sizing:border-box;">
+                  <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;">Tempo:</span>
-                    <input type="text" class="studio-input" value="${ex.tempo || '2010'}" style="width:68px;font-size:0.75rem;font-family:monospace;"
+                    <input type="text" class="studio-input" value="${ex.tempo || '2010'}" style="width:62px;padding:4px 4px;font-size:0.75rem;font-family:monospace;text-align:center;"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'tempo', this.value)" />
                   </div>
-                  <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
+                  <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;">Rec:</span>
-                    <input type="number" class="studio-input" value="${ex.rest || 90}" style="width:50px;font-size:0.75rem;text-align:center;"
+                    <input type="number" class="studio-input" value="${ex.rest || 90}" style="width:46px;padding:4px 3px;font-size:0.75rem;text-align:center;"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'rest', this.value)" />
-                    <span style="color:var(--mv-muted);font-size:0.68rem;">sec</span>
+                    <span style="color:var(--mv-muted);font-size:0.68rem;">s</span>
                   </div>
-                  <div style="flex:1 1 180px;min-width:0;display:flex;align-items:center;gap:4px;">
-                    <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;flex-shrink:0;">Note/Cue:</span>
+                  <div style="flex:1 1 160px;min-width:0;display:flex;align-items:center;gap:3px;">
+                    <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;flex-shrink:0;">Note:</span>
                     <input type="text" class="studio-input" value="${ex.notes || ''}" placeholder="Note esecutive, target VBT o buffer..."
-                           style="flex:1;min-width:0;font-size:0.75rem;"
+                           style="flex:1;min-width:0;font-size:0.75rem;padding:4px 6px;"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'notes', this.value)" />
                   </div>
                 </div>
@@ -5574,39 +5582,41 @@
       `;
 
       exList.innerHTML = (prog.exercises || []).map((ex, exIdx) => `
-        <div class="studio-ex-card" style="background:#090f1d;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:12px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
-            <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:240px;">
-              <span style="font-weight:800;color:var(--mv-muted);font-size:0.8rem;">${exIdx + 1}.</span>
-              <input type="text" class="studio-input" value="${ex.name || ''}" placeholder="Nome Esercizio Prehab..."
-                     style="flex:1;font-weight:700;color:#fff;font-size:0.88rem;"
-                     onchange="updateCoachPrehabExField(${exIdx}, 'name', this.value)" />
+        <div class="studio-ex-card" style="background:#090f1d;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:9px 11px;gap:7px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;width:100%;box-sizing:border-box;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-weight:800;color:var(--mv-amber);background:rgba(232,160,32,0.12);padding:2px 7px;border-radius:4px;font-size:0.75rem;border:1px solid rgba(232,160,32,0.3);flex-shrink:0;">#${exIdx + 1}</span>
             </div>
-            <div style="display:flex;gap:6px;align-items:center;">
-              <select class="studio-input" style="padding:4px 6px;font-size:0.75rem;" onchange="updateCoachPrehabExField(${exIdx}, 'statType', this.value)">
+            <div style="display:flex;gap:4px;align-items:center;">
+              <select class="studio-input" style="padding:3px 6px;font-size:0.72rem;height:26px;" onchange="updateCoachPrehabExField(${exIdx}, 'statType', this.value)">
                 <option value="Reps" ${ex.statType === 'Reps' ? 'selected' : ''}>Reps</option>
                 <option value="Hold" ${ex.statType === 'Hold' ? 'selected' : ''}>Hold</option>
                 <option value="Sec" ${ex.statType === 'Sec' ? 'selected' : ''}>Sec</option>
               </select>
-              <input type="text" class="studio-input" value="${ex.statVal || '8+8'}" placeholder="e.g. 8+8 o 30&quot;s" style="width:80px;text-align:center;font-weight:700;color:var(--mv-amber);"
+              <input type="text" class="studio-input" value="${ex.statVal || '8+8'}" placeholder="8+8" style="width:70px;text-align:center;font-weight:700;color:var(--mv-amber);height:26px;padding:3px 6px;font-size:0.75rem;"
                      onchange="updateCoachPrehabExField(${exIdx}, 'statVal', this.value)" />
-              <button class="studio-btn-action" onclick="moveCoachPrehabExercise(${exIdx}, -1)" ${exIdx === 0 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;">⬆️</button>
-              <button class="studio-btn-action" onclick="moveCoachPrehabExercise(${exIdx}, 1)" ${exIdx === (prog.exercises || []).length - 1 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;">⬇️</button>
-              <button class="studio-btn-action studio-btn-delete" onclick="deleteCoachPrehabExercise(${exIdx})" style="cursor:pointer;">🗑️</button>
+              <button class="studio-btn-action" onclick="moveCoachPrehabExercise(${exIdx}, -1)" ${exIdx === 0 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;padding:3px 6px;font-size:0.72rem;height:26px;" title="Sposta su">⬆️</button>
+              <button class="studio-btn-action" onclick="moveCoachPrehabExercise(${exIdx}, 1)" ${exIdx === (prog.exercises || []).length - 1 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;padding:3px 6px;font-size:0.72rem;height:26px;" title="Sposta giù">⬇️</button>
+              <button class="studio-btn-action studio-btn-delete" onclick="deleteCoachPrehabExercise(${exIdx})" style="cursor:pointer;padding:3px 6px;font-size:0.72rem;height:26px;" title="Elimina esercizio">🗑️</button>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:8px;font-size:0.75rem;margin-top:8px;">
+          <div style="width:100%;box-sizing:border-box;">
+            <input type="text" class="studio-input" value="${ex.name || ''}" placeholder="Nome Esercizio Prehab..."
+                   style="width:100%;font-weight:700;color:#fff;font-size:0.86rem;padding:6px 10px;"
+                   onchange="updateCoachPrehabExField(${exIdx}, 'name', this.value)" />
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:6px;font-size:0.75rem;">
             <div>
               <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;display:block;margin-bottom:2px;">📖 Istruzioni Esecuzione (How):</span>
-              <textarea class="studio-input" style="width:100%;height:48px;font-size:0.72rem;resize:vertical;" onchange="updateCoachPrehabExField(${exIdx}, 'how', this.value)">${ex.how || ''}</textarea>
+              <textarea class="studio-input" style="width:100%;height:44px;font-size:0.72rem;resize:vertical;" onchange="updateCoachPrehabExField(${exIdx}, 'how', this.value)">${ex.how || ''}</textarea>
             </div>
             <div>
               <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;display:block;margin-bottom:2px;">🎯 Focus &amp; Sensazioni (Feel):</span>
-              <textarea class="studio-input" style="width:100%;height:48px;font-size:0.72rem;resize:vertical;" onchange="updateCoachPrehabExField(${exIdx}, 'feel', this.value)">${ex.feel || ''}</textarea>
+              <textarea class="studio-input" style="width:100%;height:44px;font-size:0.72rem;resize:vertical;" onchange="updateCoachPrehabExField(${exIdx}, 'feel', this.value)">${ex.feel || ''}</textarea>
             </div>
             <div>
               <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;display:block;margin-bottom:2px;">⚠️ Compensi da Evitare (Comp):</span>
-              <textarea class="studio-input" style="width:100%;height:48px;font-size:0.72rem;resize:vertical;" onchange="updateCoachPrehabExField(${exIdx}, 'comp', this.value)">${ex.comp || ''}</textarea>
+              <textarea class="studio-input" style="width:100%;height:44px;font-size:0.72rem;resize:vertical;" onchange="updateCoachPrehabExField(${exIdx}, 'comp', this.value)">${ex.comp || ''}</textarea>
             </div>
           </div>
         </div>

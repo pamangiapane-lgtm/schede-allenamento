@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v315-studio-live-sync-prehab)
-const CACHE_NAME = 'coach-v316-studio-responsive-fix';
+const CACHE_NAME = 'coach-v317-studio-ex-bar-fullwidth';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
