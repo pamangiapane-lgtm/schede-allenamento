@@ -10,10 +10,10 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Coach MV">
-  <link rel="apple-touch-icon" href="../icon-192.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="../icon-192.png">
-  <link rel="apple-touch-icon" sizes="512x512" href="../icon-512.png">
-  <link rel="manifest" href="manifest.json?v=20260901v3">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+  <link rel="manifest" href="manifest-coach.json?v=20260901v3">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -300,6 +300,47 @@
     }
     .ath-info-name { font-weight: 800; font-size: 0.92rem; color: #fff; }
     .ath-info-role { font-size: 0.72rem; color: var(--mv-muted); }
+
+    /* Prescriptive S&C Engine (Pillar 5) */
+    .prescr-ath-chip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 7px 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .prescr-ath-chip:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-1px);
+    }
+    .prescr-badge-zscore {
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .prescr-badge-zscore.z-alert {
+      background: rgba(239,68,68,0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(239,68,68,0.5);
+    }
+    .prescr-badge-zscore.z-warn {
+      background: rgba(245,158,11,0.2);
+      color: #fde68a;
+      border: 1px solid rgba(245,158,11,0.5);
+    }
+    .prescr-badge-zscore.z-ok {
+      background: rgba(16,185,129,0.15);
+      color: #6ee7b7;
+      border: 1px solid rgba(16,185,129,0.3);
+    }
 
     /* Traffic Light Tag */
     .traffic-tag {
@@ -914,16 +955,90 @@
     .met-zone-row:last-child {
       border-bottom: none;
     }
-    .met-zone-badge {
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 0.68rem;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-      white-space: nowrap;
+    /* ==========================================
+       STILI STUDIO PROGRAMMAZIONE (FASE 3)
+       ========================================== */
+    .studio-header-card {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .studio-block-card {
+      background: var(--mv-surface);
+      border: 1px solid var(--mv-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .studio-block-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .studio-ex-card {
+      background: #091222;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.15s ease;
+    }
+    .studio-ex-card:hover {
+      border-color: rgba(232,160,32,0.4);
+    }
+    .studio-input {
+      background: #060a14;
+      border: 1px solid var(--mv-border);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      outline: none;
+    }
+    .studio-input:focus {
+      border-color: var(--mv-amber);
+    }
+    .studio-btn-action {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #cbd5e1;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+    .studio-btn-action:hover {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+    }
+    .studio-btn-delete:hover {
+      background: rgba(239,68,68,0.2);
+      border-color: #ef4444;
+      color: #fca5a5;
     }
 
   </style>
+  <script src="../src/core/sports-science-math.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -931,7 +1046,7 @@
   <!-- Top Coach Header -->
   <header class="coach-header">
     <div class="brand-wrap">
-      <img src="./logo.jpg" class="brand-logo" alt="Marsala Volley">
+      <img src="../logo.jpg" class="brand-logo" alt="Marsala Volley">
       <div>
         <h1 class="brand-title">Coach MV</h1>
         <div class="brand-sub">S&C Command Center · Serie A2</div>
@@ -947,6 +1062,9 @@
       </button>
       <button class="c-tab-btn" id="btn-tab-sedute" onclick="switchCoachTab('sedute', this)">
         <span>🏋️</span> <span>Sedute<span class="tab-txt-ext"> Pesi & Forza</span></span>
+      </button>
+      <button class="c-tab-btn" id="btn-tab-studio" onclick="switchCoachTab('studio', this)">
+        <span>📝</span> <span>Studio<span class="tab-txt-ext"> Schede</span></span>
       </button>
       <button class="c-tab-btn" id="btn-tab-campo" onclick="switchCoachTab('campo', this)">
         <span>🏐</span> <span>Campo<span class="tab-txt-ext"> S&C</span></span>
@@ -1002,6 +1120,81 @@
         <div class="alert-list" id="alert-banner-list">
           <div style="font-size:0.8rem;color:#cbd5e1">Verifica segnalazioni in corso...</div>
         </div>
+      </div>
+
+      <!-- MODULO PRESCRIZIONE S&C & HOOPER Z-SCORE (PILLAR 5: DECISION INTELLIGENCE) -->
+      <div class="card-box" id="prescriptive-sc-box" style="margin-bottom:14px;padding:14px 16px;background:linear-gradient(145deg, #0c1830 0%, #081020 100%);border:1px solid #1f365d;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.4);">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:10px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:1.15rem;">🎯</span>
+              <h3 class="card-title" style="margin:0;font-size:1.02rem;color:#f8fafc;letter-spacing:0.3px;">Prescrizione S&C & Hooper Z-Score</h3>
+              <span style="font-size:0.68rem;font-weight:700;padding:2px 7px;background:rgba(232,160,32,0.18);color:#fde68a;border:1px solid rgba(232,160,32,0.4);border-radius:6px;text-transform:uppercase;">Pillar 5 Prescriptive</span>
+            </div>
+            <div style="font-size:0.72rem;color:var(--mv-muted);margin-top:2px;">Analisi scostamento individuale (Z-Score longitudinali) & direttive pesi/campo</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <button id="btn-copy-prescriptive-staff" onclick="copyPrescriptiveStaffSummary()" class="btn-filt" style="background:#1e3a8a;border-color:#3b82f6;color:#bfdbfe;font-weight:700;display:inline-flex;align-items:center;gap:5px;cursor:pointer;padding:6px 12px;border-radius:6px;" title="Copia riassunto formattato per WhatsApp Staff">
+              <span>📋</span> <span>Copia Sintesi Staff</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 3-COLONNE PRESCRIZIONE S&C -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:10px;" id="prescriptive-sc-grid">
+          <!-- 🔴 ADATTAMENTO CLINICO -->
+          <div style="background:#130b12;border:1px solid rgba(239,68,68,0.35);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-weight:800;font-size:0.82rem;color:#fca5a5;display:flex;align-items:center;gap:5px;">
+                <span>🔴</span> ADATTAMENTO / SCARICO
+              </span>
+              <span class="traffic-tag red" id="prescr-count-red" style="font-size:0.68rem;">0 atlete</span>
+            </div>
+            <div style="font-size:0.7rem;color:#94a3b8;line-height:1.35;margin-bottom:8px;background:rgba(0,0,0,0.25);padding:6px 8px;border-radius:6px;">
+              🛡️ <strong>Protocollo:</strong> Isometrie tendinee Cook/Purdam, divieto impatti/drop jump, scarico volumetrico -40%, valutazione fisio.
+            </div>
+            <div id="prescr-list-red" style="display:flex;flex-direction:column;gap:5px;flex:1;">
+              <div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;">Nessuna atleta in fascia rossa</div>
+            </div>
+          </div>
+
+          <!-- 🟡 RPE MODULATO -->
+          <div style="background:#16120b;border:1px solid rgba(245,158,11,0.35);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-weight:800;font-size:0.82rem;color:#fde68a;display:flex;align-items:center;gap:5px;">
+                <span>🟡</span> RPE MODULATO (-10%)
+              </span>
+              <span class="traffic-tag yellow" id="prescr-count-yellow" style="font-size:0.68rem;">0 atlete</span>
+            </div>
+            <div style="font-size:0.7rem;color:#94a3b8;line-height:1.35;margin-bottom:8px;background:rgba(0,0,0,0.25);padding:6px 8px;border-radius:6px;">
+              ⚡ <strong>Protocollo:</strong> -10% carichi 1RM o -1 serie sui fondamentali. Velocity loss cutoff 10% (Badillo VBT). Taglio 20% salti ripetuti.
+            </div>
+            <div id="prescr-list-yellow" style="display:flex;flex-direction:column;gap:5px;flex:1;">
+              <div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;">Nessuna atleta in moderazione</div>
+            </div>
+          </div>
+
+          <!-- 🟢 CARICO PIENO -->
+          <div style="background:#091512;border:1px solid rgba(16,185,129,0.35);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <span style="font-weight:800;font-size:0.82rem;color:#6ee7b7;display:flex;align-items:center;gap:5px;">
+                <span>🟢</span> CARICO PIENO 100%
+              </span>
+              <span class="traffic-tag green" id="prescr-count-green" style="font-size:0.68rem;">0 atlete</span>
+            </div>
+            <div style="font-size:0.7rem;color:#94a3b8;line-height:1.35;margin-bottom:8px;background:rgba(0,0,0,0.25);padding:6px 8px;border-radius:6px;">
+              🚀 <strong>Protocollo:</strong> 100% carico programmato da tabella 1RM. Pliometria reattiva completa, piena spinta neuromuscolare.
+            </div>
+            <div id="prescr-list-green" style="display:flex;flex-direction:column;gap:5px;flex:1;">
+              <div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;">Calcolo in corso...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Z-SCORE OUTLIER HIGHLIGHT BANNER -->
+        <div id="prescr-zscore-callouts" style="margin-top:10px;display:none;background:#090f1d;border:1px dashed #3b82f6;border-radius:8px;padding:8px 12px;font-size:0.75rem;"></div>
+        <!-- IN ATTESA DI CHECK-IN BANNER -->
+        <div id="prescr-missing-banner" style="margin-top:6px;font-size:0.72rem;display:none;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:6px;padding:5px 10px;"></div>
       </div>
 
       <!-- MODULO GRAFICO WELLNESS DEDICATO (QUESTIONARIO SQUADRA) -->
@@ -2098,10 +2291,179 @@
             Ogni salto con sovraccarico o pliometria ad alta intensità attinge allo stesso pool neuromuscolare dei salti tecnici sul parquet (attacchi, muri, float jump). Mantenere il Jump Budget della sala pesi entro i 15-25 impatti a inizio settimana e a ZERO assoluto a meno di 30 ore dalla gara (Strict Friday Jump Ban) azzera le tendinopatie rotulee.
           </div>
         </div>
-      </details>
-
     </div>
 
+    <!-- VISTA 5: STUDIO PROGRAMMAZIONE NO-CODE (FASE 3 - BUILDER VISUALE SEDUTE) -->
+    <div class="c-panel" id="panel-studio">
+      
+      <!-- Toolbar di Controllo Studio -->
+      <div class="studio-header-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:1.4rem;">📝</span>
+            <div>
+              <h3 class="card-title" style="margin:0;font-size:1.05rem;">Studio Programmazione Schede · No-Code Builder</h3>
+              <div style="font-size:0.72rem;color:var(--mv-muted);">Crea, modifica e pubblica sedute di squadra ed eccezioni individuali senza toccare codice</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+            <button class="btn-filt" onclick="copyStudioSummaryWhatsApp()" style="background:#1e3a8a;border-color:#3b82f6;color:#bfdbfe;cursor:pointer;">
+              📋 Copia WhatsApp Staff
+            </button>
+            <button class="btn-filt" onclick="saveStudioProgramToSupabase()" style="background:var(--mv-emerald);border-color:var(--mv-emerald);color:#042f2e;font-weight:800;cursor:pointer;">
+              💾 Salva &amp; Pubblica Seduta
+            </button>
+          </div>
+        </div>
+
+        <!-- Selettori Microciclo & Giorno Seduta -->
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <label style="font-size:0.75rem;font-weight:700;color:var(--mv-muted);">Microciclo:</label>
+            <select id="studio-select-week" class="met-select" onchange="onStudioWeekChange()">
+              <option value="W4" selected>Settimana 4 (VBT &amp; Picco Forza)</option>
+              <option value="W3">Settimana 3 (Forza Pesante)</option>
+              <option value="W2">Settimana 2 (Adattamento)</option>
+              <option value="W1">Settimana 1 (Pre-Season)</option>
+              <option value="W5">Settimana 5 (In-Season Round 1)</option>
+              <option value="W6">Settimana 6 (In-Season Round 2)</option>
+            </select>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:6px;">
+            <label style="font-size:0.75rem;font-weight:700;color:var(--mv-muted);">Seduta:</label>
+            <select id="studio-select-session" class="met-select" onchange="onStudioSessionChange()">
+              <option value="S1" selected>Seduta 1 (Lunedì · Squat VBT)</option>
+              <option value="S2">Seduta 2 (Mercoledì · Potenza &amp; Clean)</option>
+              <option value="S3">Seduta 3 (Venerdì · RDL Buffer 3 · Strict No Jump)</option>
+            </select>
+          </div>
+
+          <button class="studio-btn-action" onclick="addStudioBlock()" style="background:rgba(232,160,32,0.15);border-color:var(--mv-amber);color:var(--mv-amber);cursor:pointer;">
+            ➕ Aggiungi Blocco
+          </button>
+
+          <span id="studio-sync-badge" style="font-size:0.7rem;padding:3px 8px;border-radius:4px;background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.3);font-weight:700;margin-left:auto;">
+            🟢 Sincronizzato con App Atlete
+          </span>
+        </div>
+      </div>
+
+      <!-- Container Dinamico Blocchi Esercizi Studio -->
+      <div id="studio-blocks-container" style="display:flex;flex-direction:column;gap:14px;margin-bottom:16px;">
+        <!-- Popolato dinamicamente da renderStudioBlocks() -->
+      </div>
+
+      <!-- Anteprima Deterministica Carichi Atlete in Tempo Reale -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+          <div>
+            <h3 class="card-title" style="margin:0;font-size:0.95rem;">⚡ Anteprima Carichi Deterministici (Tutte le 13 Atlete)</h3>
+            <span style="font-size:0.7rem;color:var(--mv-muted);">I carichi si ricalcolano istantaneamente con la formula Squat con BW (@marsala/core-math)</span>
+          </div>
+          <span style="font-size:0.72rem;background:rgba(56,189,248,0.15);color:#7dd3fc;padding:3px 8px;border-radius:6px;font-weight:700;">
+            100% Determinismo Matematico
+          </span>
+        </div>
+
+        <div class="coach-tbl-wrap" style="max-height:360px;overflow-y:auto;">
+          <table class="coach-tbl" style="font-size:0.78rem;">
+            <thead>
+              <tr style="background:#060a14;">
+                <th>#</th>
+                <th>Atleta</th>
+                <th>Ruolo</th>
+                <th>Peso (BW)</th>
+                <th>Squat 1RM</th>
+                <th>Carico Bil. Squat</th>
+                <th>Floor Press DB</th>
+                <th>RDL / Stacco</th>
+                <th>Clean</th>
+                <th>Status / Note Eccezione</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-studio-preview-body">
+              <!-- Popolato dinamicamente da updateStudioLivePreview() -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Gestione Eccezioni e Regole Individuali -->
+      <div class="card-box" style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+          <div>
+            <h3 class="card-title" style="margin:0;font-size:0.95rem;">🛡️ Eccezioni &amp; Differenziazioni Individuali</h3>
+            <span style="font-size:0.7rem;color:var(--mv-muted);">Le variazioni personalizzate non sovrascrivono la scheda master della squadra</span>
+          </div>
+        </div>
+
+        <div id="studio-exceptions-list" style="display:flex;flex-direction:column;gap:8px;">
+          <!-- Popolato dinamicamente -->
+        </div>
+      </div>
+
+    
+    
+
+        <!-- Master Table -->
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+          <table style="width:100%;border-collapse:collapse;font-size:0.82rem;text-align:left;">
+            <thead>
+              <tr style="border-bottom:2px solid var(--mv-border);background:#060a14;">
+                <th style="padding:10px 12px;color:var(--mv-muted);text-transform:uppercase;font-size:0.7rem;font-weight:800;">Atleta</th>
+                <th style="padding:10px 12px;color:var(--mv-muted);text-transform:uppercase;font-size:0.7rem;font-weight:800;">Focus Clinico / Anamnesi</th>
+                <th style="padding:10px 12px;color:var(--mv-muted);text-transform:uppercase;font-size:0.7rem;font-weight:800;">Seduta Assegnata</th>
+                <th style="padding:10px 12px;color:var(--mv-muted);text-transform:uppercase;font-size:0.7rem;font-weight:800;text-align:center;">Link Fisso</th>
+                <th style="padding:10px 12px;color:var(--mv-muted);text-transform:uppercase;font-size:0.7rem;font-weight:800;text-align:right;">Azioni</th>
+              </tr>
+            </thead>
+            <tbody id="coachPrehabMasterTableBody">
+              <!-- Popolato via JS con tutte le 13 atlete -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 2. EDITOR DETTAGLIATO DELLA SEDUTA SELEZIONATA -->
+      <div class="method-card" id="coachPrehabEditorCard" style="margin-bottom:18px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--mv-border);padding-bottom:12px;margin-bottom:14px;">
+          <div>
+            <div style="font-size:1rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px;">
+              <span>⚙️</span> <span id="coachEditorTitle">Modifica Seduta Atleta</span>
+            </div>
+            <div style="font-size:0.78rem;color:var(--mv-muted);margin-top:2px;">
+              Modifica esercizi, serie, reps o cues. Quando salvi, il link dell'atleta si aggiorna automaticamente.
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="btn-filt" style="background:#1e3a8a;color:#fff;" onclick="openSelectedPrehabLive()">
+              🔗 Apri Scheda Live ↗
+            </button>
+            <button class="btn-filt" style="background:var(--mv-emerald);color:#042f2e;font-weight:800;padding:6px 16px;" onclick="saveCoachPrehabProgram()">
+              💾 Salva Modifiche
+            </button>
+          </div>
+        </div>
+
+        <!-- Box Metadati Atleta -->
+        <div id="coachPrehabMetaBox" style="background:#060a14;border:1px solid var(--mv-border);border-radius:8px;padding:12px 14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <!-- Popolato via JS -->
+        </div>
+
+        <!-- Lista Esercizi della Seduta -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+          <div style="font-size:0.88rem;font-weight:800;color:#fff;">Esercizi Inclusi nella Seduta</div>
+          <button class="btn-filt" style="background:var(--mv-surface2);color:#fff;" onclick="addCoachPrehabExercise()">
+            ➕ Aggiungi Esercizio
+          </button>
+        </div>
+
+        <div id="coachPrehabExercisesList" style="display:flex;flex-direction:column;gap:12px;">
+          <!-- Popolato via JS -->
+        </div>
+      </div>
+    </div>
     <footer class="app-footer">
       <div>Marsala Volley · Preparazione Fisica Serie A2</div>
       <div style="color:var(--mv-amber);margin-top:2px;">Coach Command Center v2026.4</div>
@@ -2109,9 +2471,12 @@
 
   </main>
 
-  <script src="./data.js?v=20260917v299-rpe7-friday-loads"></script>
+  <script src="prehab_db.js?v=1.0"></script>
+  <script src="data.js?v=20260917v299-rpe7-friday-loads"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./supabase-client.js?v=2.1"></script>
+  <script src="src/core/sports-science-math.js?v=1.0"></script>
+  <script src="supabase-client.js?v=2.1"></script>
+  <script>if (!window.MV_SUPABASE) { const s = document.createElement('script'); s.src = 'supabase-client.js?v=2.1'; document.head.appendChild(s); }</script>
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbyxLzbnm_LcBDYrB1_hBdCD6HxvOxA7__lXHe7_xmbe2kynoGNA_oDDh954zR3RIzr9/exec';
     const TOKEN   = 'mv26-prd-3xF7wNqK';
@@ -2177,13 +2542,32 @@
       initWellnessUI();
       initPerfUI();
       initMethodologyUI();
+      try { initStudioUI(); } catch (e) {}
       try { renderReadinessRoster(); } catch (e) {}
       try { renderSedutePanel(); } catch (e) {}
       try { render1RMTable(); } catch (e) {}
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw-coach.js?v=v299-rpe7-friday-loads', { scope: './' }).then(reg => reg.update()).catch(() => {});
+        navigator.serviceWorker.register('coach/sw-coach.js?v=v300-studio-schede-builder', { scope: './' }).then(reg => reg.update()).catch(() => {});
       }
       await refreshAllCoachData();
+
+      // Auto-refresh periodico continuo ogni 15 secondi per TUTTI i pannelli
+      if (!window._coachAutoRefreshTimer) {
+        window._coachAutoRefreshTimer = setInterval(() => {
+          refreshAllCoachData();
+        }, 15000);
+      }
+
+      // Refresh istantaneo al cambio di visibilità / focus finestra
+      if (!window._coachVisibilityBound) {
+        window._coachVisibilityBound = true;
+        document.addEventListener('visibilitychange', () => {
+          if (!document.hidden) refreshAllCoachData();
+        });
+        window.addEventListener('focus', () => {
+          refreshAllCoachData();
+        });
+      }
     }
 
     async function refreshAllCoachData() {
@@ -2200,6 +2584,7 @@
       if (clockEl) clockEl.textContent = `Ultimo agg: ${new Date().toLocaleTimeString('it-IT')}`;
 
       try { renderReadinessRoster(); } catch (e) { console.error('[renderReadinessRoster]', e); }
+      try { renderPrescriptiveSCEngine(); } catch (e) { console.error('[renderPrescriptiveSCEngine]', e); }
       try { renderSedutePanel(); } catch (e) { console.error('[renderSedutePanel]', e); }
       try { render1RMTable(); } catch (e) { console.error('[render1RMTable]', e); }
       try { renderVBTTable(); } catch (e) { console.error('[renderVBTTable]', e); }
@@ -2209,6 +2594,7 @@
       try { renderPerfAnalytics(); } catch (e) { console.error('[renderPerfAnalytics]', e); }
       try { renderFVChart(); } catch (e) { console.error('[renderFVChart]', e); }
       try { renderMethodologyAnalysis(); } catch (e) { console.error('[renderMethodologyAnalysis]', e); }
+      try { updateStudioLivePreview(); } catch (e) { console.error('[updateStudioLivePreview]', e); }
     }
 
     async function fetchLiveWellness() {
@@ -2519,6 +2905,7 @@
         let tData = null;
         let sData = null;
         let aData = null;
+        let jData = null;
 
         const sb = (window.MV_SUPABASE && typeof window.MV_SUPABASE.getSb === 'function') ? window.MV_SUPABASE.getSb() : null;
         if (sb) {
@@ -2527,17 +2914,18 @@
             try {
               window.MV_SUPABASE.subscribeRealtime((type, payload) => {
                 console.log('[Realtime Push]', type, payload);
-                fetchLiveWellness().then(() => fetchLiveProgressi());
+                refreshAllCoachData();
               });
             } catch(e) {}
           }
 
-          // Fetch parallelo resiliente con Promise.allSettled (così un errore isolato non blocca gli altri)
+          // Fetch parallelo resiliente con Promise.allSettled (session_ratings, training_sets, athletes, jump_tests)
           try {
             const results = await Promise.allSettled([
               sb.from('session_ratings').select('*').order('date', { ascending: false }).limit(300),
               sb.from('training_sets').select('*').order('date', { ascending: false }).limit(350),
-              sb.from('athletes').select('*')
+              sb.from('athletes').select('*'),
+              sb.from('jump_tests').select('*').order('test_date', { ascending: false }).limit(200)
             ]);
 
             if (results[0].status === 'fulfilled' && results[0].value && !results[0].value.error && results[0].value.data) {
@@ -2548,6 +2936,9 @@
             }
             if (results[2].status === 'fulfilled' && results[2].value && !results[2].value.error && results[2].value.data) {
               aData = results[2].value.data;
+            }
+            if (results[3].status === 'fulfilled' && results[3].value && !results[3].value.error && results[3].value.data) {
+              jData = results[3].value.data;
             }
           } catch(sbErr) {
             console.warn('[Coach Supabase Fetch Error, trying direct REST]', sbErr);
@@ -2563,6 +2954,29 @@
         }
         if (!aData || aData.length === 0) {
           aData = await directSupabaseFetch('athletes', 'select=*');
+        }
+        if (!jData || jData.length === 0) {
+          jData = await directSupabaseFetch('jump_tests', 'select=*&order=test_date.desc&limit=200');
+        }
+
+        if (jData && jData.length > 0) {
+          jData.forEach(j => {
+            const hVal = j.best_height_cm || j.avg_height_cm;
+            if (hVal != null && hVal > 0) {
+              const isDrop = String(j.jump_type || '').toUpperCase().includes('DJ');
+              rows.push({
+                ID_Giocatrice: j.athlete_id,
+                N_Seduta: isDrop ? 'Drop Jump' : 'CMJ Test',
+                Esercizio: isDrop ? 'Drop Jump (Chronojump)' : 'CMJ (Chronojump)',
+                Valore: `${hVal} cm`,
+                Kg_Usati: '',
+                Reps_Fatte: '',
+                Data: j.test_date,
+                Note_Atleta: j.max_rsi ? `RSI: ${j.max_rsi}${j.best_tc_s ? ` | Tc: ${j.best_tc_s}s` : ''}` : '',
+                Timestamp: j.created_at || j.test_date
+              });
+            }
+          });
         }
 
         if (tData && tData.length > 0) {
@@ -2795,8 +3209,6 @@
           // 2. TEST NEUROMUSCOLARE CMJ (Pedana Chronojump)
           const isCmj = ex.includes('cmj') || ex.includes('chronojump');
           if (isCmj) {
-            // Gaia Biondi (#6) non ha effettuato il test CMJ: scarta qualsiasi residuo spurio
-            if (aid === 6) return;
 
             let cleanHeight = valStr;
             const hMatch = cleanHeight.replace(',', '.').match(/\d+(?:\.\d+)?/);
@@ -3298,7 +3710,7 @@
               logoImg.onload = res;
               logoImg.onerror = res;
               const exLogo = document.querySelector('.brand-logo');
-              logoImg.src = exLogo ? exLogo.src : './logo.jpg';
+              logoImg.src = exLogo ? exLogo.src : '../logo.jpg';
             });
             if (logoImg.naturalWidth > 0) {
               ctx.drawImage(logoImg, 45, 28, 130, 130);
@@ -3931,17 +4343,496 @@
       const targetPanel = document.getElementById(`panel-${tab}`);
       if (targetPanel) targetPanel.classList.add('active');
 
-      // Ridimensiona i grafici per render perfetto dopo il tab switch
+      // Re-render immediato e ridimensionamento grafici per render perfetto dopo il tab switch
       if (tab === 'readiness') {
+        try { renderReadinessRoster(); } catch (e) {}
+        try { renderPrescriptiveSCEngine(); } catch (e) {}
+        try { renderWellnessAnalytics(); } catch (e) {}
         if (wellnessChartInstance) wellnessChartInstance.resize();
         if (microcycleChartInstance) microcycleChartInstance.resize();
       } else if (tab === 'sedute') {
+        try { renderSedutePanel(); } catch (e) {}
+        try { render1RMTable(); } catch (e) {}
+        try { renderVBTTable(); } catch (e) {}
+        try { renderCMJTable(); } catch (e) {}
+        try { renderCustomLoadsTable(); } catch (e) {}
+        try { renderPerfAnalytics(); } catch (e) {}
+        try { renderFVChart(); } catch (e) {}
         if (perfChartInstance) perfChartInstance.resize();
-      if (fvVbtChartInstance) fvVbtChartInstance.resize();
+        if (fvVbtChartInstance) fvVbtChartInstance.resize();
         if (vbtScatterChartInstance) vbtScatterChartInstance.resize();
       } else if (tab === 'metodologia') {
+        try { renderMethodologyAnalysis(); } catch (e) {}
         if (typeof methodologyChartInstance !== 'undefined' && methodologyChartInstance) methodologyChartInstance.resize();
-        renderMethodologyAnalysis();
+      } else if (tab === 'studio') {
+        try { initStudioUI(); } catch (e) { console.error('[initStudioUI]', e); }
+      }
+    }
+
+    /* =============================================================================
+       STUDIO PROGRAMMAZIONE NO-CODE CONTROLLER (FASE 3)
+       ============================================================================= */
+
+    let studioCurrentState = {
+      weekId: 'W4',
+      sessionId: 'S1',
+      blocks: [
+        {
+          id: 'B1',
+          name: 'BLOCCO 1 - ATTIVAZIONE / CORE / PREHAB',
+          tag: 'Attivazione',
+          exercises: [
+            { name: 'Core IAP (Deadbug con fitball)', sets: 3, reps: '8+8', pct: 0, liftType: 'generic', targetRole: 'ALL', tempo: '2-0-2-0', rest: 60, notes: 'Stabilità lombopelvica' },
+            { name: 'Short Foot / Arco Plantare + Band Mobilità Caviglia', sets: 3, reps: '10+10', pct: 0, liftType: 'generic', targetRole: 'ALL', tempo: 'Iso 3s', rest: 60, notes: 'Prehab podalico' }
+          ]
+        },
+        {
+          id: 'B2',
+          name: 'BLOCCO 2 - FORZA PRINCIPALE (VBT & SQUAT BW)',
+          tag: 'Forza Principale',
+          exercises: [
+            { name: 'Back Squat (Bilanciere)', sets: 4, reps: '4', pct: 82.5, liftType: 'squat', targetRole: 'ALL', tempo: '3-0-X-0', rest: 120, notes: 'VBT 0.55-0.70 m/s · Cut-off 10%' },
+            { name: 'Floor Press (Manubri)', sets: 3, reps: '5', pct: 75, liftType: 'floor_press', targetRole: 'ALL', tempo: '2-0-X-0', rest: 90, notes: 'Split manubri bilaterale' }
+          ]
+        },
+        {
+          id: 'B3',
+          name: 'BLOCCO 3 - POTENZA / RFD / TRASFERIMENTO',
+          tag: 'Potenza',
+          exercises: [
+            { name: 'Power Clean dal ginocchio', sets: 3, reps: '3', pct: 70, liftType: 'clean', targetRole: 'ALL', tempo: 'X', rest: 90, notes: 'Tripla estensione esplosiva' },
+            { name: 'Pogo Jumps Reattivi (Caviglia)', sets: 3, reps: '10', pct: 0, liftType: 'plyo', targetRole: 'ALL', tempo: 'SSC', rest: 60, notes: 'Stiffness tendine rotuleo' }
+          ]
+        },
+        {
+          id: 'B4',
+          name: 'BLOCCO 4 - ACCESSORI / CATENA POSTERIORE',
+          tag: 'Accessori',
+          exercises: [
+            { name: 'Stacchi Rumeni (RDL Bilanciere)', sets: 3, reps: '6', pct: 70, liftType: 'rdl', targetRole: 'ALL', tempo: '3-0-1-0', rest: 90, notes: 'Hinge anca controllato' },
+            { name: 'Lat Machine presa prona', sets: 3, reps: '6', pct: 70, liftType: 'generic', targetRole: 'ALL', tempo: '2-0-1-0', rest: 75, notes: 'Depressione scapolare' }
+          ]
+        }
+      ],
+      exceptions: [
+        { id: 1, athlete_id: 9, athlete_name: 'Nelly Ndwiga', condition_trigger: 'Rotazione Volume -20%', substitute_exercise: 'Safety Bar Squat / Step Up Box', notes: 'Gestione tendine rotuleo DX' },
+        { id: 2, athlete_id: 6, athlete_name: 'Gaia Biondi', condition_trigger: 'Strict Friday Jump Ban', substitute_exercise: 'Isometria polpaccio e caviglia', notes: 'Esclusione salti ad alto impatto venerdì pre-gara' },
+        { id: 3, athlete_id: 1, athlete_name: 'Veronica Allasia', condition_trigger: 'Supporto Monopodalico', substitute_exercise: 'Step Up Box 40cm manubri', notes: 'Instabilità caviglia DX + stress tibiale' }
+      ]
+    };
+
+    function initStudioUI() {
+      const weekSel = document.getElementById('studio-select-week');
+      const sessSel = document.getElementById('studio-select-session');
+      if (weekSel) studioCurrentState.weekId = weekSel.value;
+      if (sessSel) studioCurrentState.sessionId = sessSel.value;
+
+      // Carica eventuale cache salvata dal coach
+      const cacheKey = `coach_studio_session_${studioCurrentState.weekId}_${studioCurrentState.sessionId}`;
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) {
+        try {
+          const parsed = JSON.parse(cached);
+          if (parsed && parsed.blocks) {
+            studioCurrentState.blocks = parsed.blocks;
+            if (parsed.exceptions) studioCurrentState.exceptions = parsed.exceptions;
+          }
+        } catch (e) {}
+      }
+
+      renderStudioBlocks();
+      updateStudioLivePreview();
+      renderStudioExceptions();
+    }
+
+    function onStudioWeekChange() {
+      const weekSel = document.getElementById('studio-select-week');
+      if (weekSel) {
+        studioCurrentState.weekId = weekSel.value;
+        initStudioUI();
+      }
+    }
+
+    function onStudioSessionChange() {
+      const sessSel = document.getElementById('studio-select-session');
+      if (sessSel) {
+        studioCurrentState.sessionId = sessSel.value;
+        initStudioUI();
+      }
+    }
+
+    function renderStudioBlocks() {
+      const container = document.getElementById('studio-blocks-container');
+      if (!container) return;
+
+      container.innerHTML = studioCurrentState.blocks.map((block, bIdx) => `
+        <div class="studio-block-card">
+          <div class="studio-block-head">
+            <div style="display:flex;align-items:center;gap:8px;flex:1;">
+              <span style="font-size:1.1rem;">📦</span>
+              <input type="text" class="studio-input" value="${block.name}" 
+                     style="font-size:0.92rem;font-weight:800;color:var(--mv-amber);flex:1;min-width:200px;" 
+                     onchange="updateStudioBlockName(${bIdx}, this.value)" />
+            </div>
+            <div style="display:flex;gap:6px;align-items:center;">
+              <button class="studio-btn-action" onclick="addStudioExercise(${bIdx})" style="cursor:pointer;">
+                ➕ Aggiungi Esercizio
+              </button>
+              <button class="studio-btn-action studio-btn-delete" onclick="deleteStudioBlock(${bIdx})" title="Elimina Blocco" style="cursor:pointer;">
+                🗑️
+              </button>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            ${block.exercises.map((ex, exIdx) => `
+              <div class="studio-ex-card">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                  <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:240px;">
+                    <span style="font-weight:800;color:var(--mv-muted);font-size:0.75rem;">${exIdx + 1}.</span>
+                    <input type="text" class="studio-input" value="${ex.name}" placeholder="Nome Esercizio..."
+                           style="flex:1;font-weight:700;color:#fff;"
+                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'name', this.value)" />
+                  </div>
+
+                  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+                    <div style="display:flex;align-items:center;gap:3px;">
+                      <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Set:</span>
+                      <input type="number" class="studio-input" value="${ex.sets}" style="width:50px;text-align:center;"
+                             oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'sets', this.value)" />
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:3px;">
+                      <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Reps:</span>
+                      <input type="text" class="studio-input" value="${ex.reps}" style="width:60px;text-align:center;"
+                             onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'reps', this.value)" />
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:3px;">
+                      <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">% 1RM:</span>
+                      <input type="number" step="0.5" class="studio-input" value="${ex.pct || 0}" style="width:65px;text-align:center;color:var(--mv-amber);"
+                             oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'pct', this.value)" />
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:3px;">
+                      <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Tipo:</span>
+                      <select class="studio-input" style="padding:5px 6px;" onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'liftType', this.value)">
+                        <option value="squat" ${ex.liftType === 'squat' ? 'selected' : ''}>Squat (BW Formula)</option>
+                        <option value="floor_press" ${ex.liftType === 'floor_press' ? 'selected' : ''}>Floor Press (Manubri /2)</option>
+                        <option value="rdl" ${ex.liftType === 'rdl' ? 'selected' : ''}>RDL (Bilanciere)</option>
+                        <option value="clean" ${ex.liftType === 'clean' ? 'selected' : ''}>Clean (Bilanciere)</option>
+                        <option value="plyo" ${ex.liftType === 'plyo' ? 'selected' : ''}>Pliometria / Salto</option>
+                        <option value="generic" ${ex.liftType === 'generic' ? 'selected' : ''}>Generico</option>
+                      </select>
+                    </div>
+
+                    <div style="display:flex;gap:4px;">
+                      <button class="studio-btn-action" onclick="moveStudioExercise(${bIdx}, ${exIdx}, -1)" ${exIdx === 0 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;">⬆️</button>
+                      <button class="studio-btn-action" onclick="moveStudioExercise(${bIdx}, ${exIdx}, 1)" ${exIdx === block.exercises.length - 1 ? 'disabled style="opacity:0.3;"' : ''} style="cursor:pointer;">⬇️</button>
+                      <button class="studio-btn-action studio-btn-delete" onclick="deleteStudioExercise(${bIdx}, ${exIdx})" style="cursor:pointer;">🗑️</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:0.75rem;">
+                  <div style="flex:1;min-width:180px;display:flex;align-items:center;gap:4px;">
+                    <span style="color:var(--mv-muted);font-size:0.68rem;">Note/Cue:</span>
+                    <input type="text" class="studio-input" value="${ex.notes || ''}" placeholder="Note esecutive, target VBT o buffer..."
+                           style="flex:1;font-size:0.75rem;"
+                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'notes', this.value)" />
+                  </div>
+                  <div style="width:130px;display:flex;align-items:center;gap:4px;">
+                    <span style="color:var(--mv-muted);font-size:0.68rem;">Tempo:</span>
+                    <input type="text" class="studio-input" value="${ex.tempo || '3-0-X-0'}" style="width:75px;font-size:0.75rem;"
+                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'tempo', this.value)" />
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateStudioBlockName(bIdx, val) {
+      if (studioCurrentState.blocks[bIdx]) {
+        studioCurrentState.blocks[bIdx].name = val;
+      }
+    }
+
+    function updateStudioExerciseField(bIdx, exIdx, field, val) {
+      const b = studioCurrentState.blocks[bIdx];
+      if (!b || !b.exercises[exIdx]) return;
+      if (field === 'sets') b.exercises[exIdx].sets = parseInt(val, 10) || 1;
+      else if (field === 'pct') b.exercises[exIdx].pct = parseFloat(val) || 0;
+      else b.exercises[exIdx][field] = val;
+
+      updateStudioLivePreview();
+    }
+
+    function addStudioBlock() {
+      const nextNum = studioCurrentState.blocks.length + 1;
+      studioCurrentState.blocks.push({
+        id: `B${nextNum}`,
+        name: `BLOCCO ${nextNum} - NUOVO BLOCCO METODOLOGICO`,
+        tag: 'Accessori',
+        exercises: [
+          { name: 'Nuovo Esercizio', sets: 3, reps: '6', pct: 70, liftType: 'generic', targetRole: 'ALL', tempo: '2-0-1-0', rest: 75, notes: '' }
+        ]
+      });
+      renderStudioBlocks();
+      updateStudioLivePreview();
+    }
+
+    function deleteStudioBlock(bIdx) {
+      if (confirm(`Vuoi eliminare il blocco "${studioCurrentState.blocks[bIdx].name}"?`)) {
+        studioCurrentState.blocks.splice(bIdx, 1);
+        renderStudioBlocks();
+        updateStudioLivePreview();
+      }
+    }
+
+    function addStudioExercise(bIdx) {
+      const b = studioCurrentState.blocks[bIdx];
+      if (!b) return;
+      b.exercises.push({
+        name: 'Esercizio Aggiuntivo',
+        sets: 3,
+        reps: '5',
+        pct: 75,
+        liftType: 'generic',
+        targetRole: 'ALL',
+        tempo: '2-0-X-0',
+        rest: 90,
+        notes: ''
+      });
+      renderStudioBlocks();
+      updateStudioLivePreview();
+    }
+
+    function deleteStudioExercise(bIdx, exIdx) {
+      const b = studioCurrentState.blocks[bIdx];
+      if (!b) return;
+      b.exercises.splice(exIdx, 1);
+      renderStudioBlocks();
+      updateStudioLivePreview();
+    }
+
+    function moveStudioExercise(bIdx, exIdx, dir) {
+      const b = studioCurrentState.blocks[bIdx];
+      if (!b) return;
+      const targetIdx = exIdx + dir;
+      if (targetIdx < 0 || targetIdx >= b.exercises.length) return;
+      const item = b.exercises.splice(exIdx, 1)[0];
+      b.exercises.splice(targetIdx, 0, item);
+      renderStudioBlocks();
+      updateStudioLivePreview();
+    }
+
+    function updateStudioLivePreview() {
+      const tbody = document.getElementById('tbl-studio-preview-body');
+      if (!tbody) return;
+
+      const mathEngine = window.SportsScienceMath || (typeof SportsScienceMath !== 'undefined' ? SportsScienceMath : null);
+
+      // Trova percentuali assegnate nella seduta corrente
+      let squatPct = 80;
+      let floorPct = 75;
+      let rdlPct = 70;
+      let cleanPct = 70;
+
+      studioCurrentState.blocks.forEach(b => {
+        b.exercises.forEach(e => {
+          const t = String(e.liftType || '').toLowerCase();
+          const p = parseFloat(e.pct) || 0;
+          if (p > 0) {
+            if (t.includes('squat')) squatPct = p;
+            else if (t.includes('floor') || t.includes('bench')) floorPct = p;
+            else if (t.includes('rdl')) rdlPct = p;
+            else if (t.includes('clean')) cleanPct = p;
+          }
+        });
+      });
+
+      const athletes = (typeof ROSTER !== 'undefined' && Array.isArray(ROSTER)) ? ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff')) : [];
+
+      tbody.innerHTML = athletes.map(a => {
+        const aid = a.id;
+        const bw = (typeof BASELINE_WEIGHTS !== 'undefined' && BASELINE_WEIGHTS[aid]) ? BASELINE_WEIGHTS[aid] : (a.bw || 65.0);
+        const baselines = (typeof TRUE_BASELINES !== 'undefined' && TRUE_BASELINES[aid]) ? TRUE_BASELINES[aid] : { squat: 100, bench: 40, clean: 40, rdl: 60 };
+
+        let squatLoad = 0;
+        let floorLabel = '—';
+        let rdlLabel = '—';
+        let cleanLabel = '—';
+
+        if (mathEngine) {
+          squatLoad = mathEngine.calcSquatLoad(baselines.squat, bw, squatPct);
+          floorLabel = mathEngine.calcLiftLoad('floor', baselines.bench, floorPct).label;
+          rdlLabel = mathEngine.calcLiftLoad('rdl', baselines.rdl, rdlPct).label;
+          cleanLabel = mathEngine.calcLiftLoad('clean', baselines.clean, cleanPct).label;
+        } else {
+          squatLoad = Math.max(20, Math.round(((squatPct / 100) * (baselines.squat + bw) - bw) * 2) / 2);
+          const floorEach = Math.round(((floorPct / 100 * baselines.bench) / 2) * 2) / 2;
+          floorLabel = `${floorEach}+${floorEach} kg`;
+          rdlLabel = `${Math.round((rdlPct / 100 * baselines.rdl) * 2) / 2} kg`;
+          cleanLabel = `${Math.round((cleanPct / 100 * baselines.clean) * 2) / 2} kg`;
+        }
+
+        const exc = studioCurrentState.exceptions.find(e => e.athlete_id === aid);
+        let excHtml = '<span style="color:var(--mv-muted)">Master Team</span>';
+        if (exc) {
+          excHtml = `<strong style="color:var(--mv-amber);background:rgba(232,160,32,0.12);padding:2px 6px;border-radius:4px;border:1px solid rgba(232,160,32,0.3);">${exc.condition_trigger}: ${exc.substitute_exercise}</strong>`;
+        }
+
+        return `
+          <tr>
+            <td style="font-weight:800;color:var(--mv-amber)">#${a.id}</td>
+            <td><strong style="color:#fff;">${a.name}</strong></td>
+            <td><span style="font-size:0.72rem;color:var(--mv-muted);">${a.role}</span></td>
+            <td><span style="color:#38bdf8;font-weight:700;">${bw} kg</span></td>
+            <td><span style="font-weight:700;">${baselines.squat} kg</span></td>
+            <td><strong style="color:#10b981;background:rgba(16,185,129,0.12);padding:2px 8px;border-radius:4px;border:1px solid rgba(16,185,129,0.3);">${squatLoad} kg</strong> <span style="font-size:0.68rem;color:var(--mv-muted);">(${squatPct}%)</span></td>
+            <td><span style="color:#cbd5e1;font-weight:700;">${floorLabel}</span> <span style="font-size:0.68rem;color:var(--mv-muted);">(${floorPct}%)</span></td>
+            <td><span style="color:#cbd5e1;font-weight:700;">${rdlLabel}</span></td>
+            <td><span style="color:#cbd5e1;font-weight:700;">${cleanLabel}</span></td>
+            <td>${excHtml}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderStudioExceptions() {
+      const container = document.getElementById('studio-exceptions-list');
+      if (!container) return;
+
+      if (studioCurrentState.exceptions.length === 0) {
+        container.innerHTML = `<div style="text-align:center;color:var(--mv-muted);font-size:0.8rem;padding:12px;">Nessuna eccezione individuale attiva. Tutta la squadra segue il programma master.</div>`;
+        return;
+      }
+
+      container.innerHTML = studioCurrentState.exceptions.map(exc => `
+        <div style="background:#091222;border:1px solid rgba(232,160,32,0.3);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="font-weight:800;color:#fff;font-size:0.88rem;display:flex;align-items:center;gap:6px;">
+              <span>🛡️</span> <span>#${exc.athlete_id} ${exc.athlete_name}</span>
+              <span style="font-size:0.7rem;color:var(--mv-amber);background:rgba(232,160,32,0.15);padding:2px 6px;border-radius:4px;font-weight:700;">${exc.condition_trigger}</span>
+            </div>
+            <div style="font-size:0.75rem;color:#cbd5e1;margin-top:2px;">
+              <strong>Sostituzione:</strong> ${exc.substitute_exercise} · <span style="color:var(--mv-muted);font-style:italic;">${exc.notes || ''}</span>
+            </div>
+          </div>
+          <button class="studio-btn-action studio-btn-delete" onclick="deleteStudioException(${exc.id})" style="cursor:pointer;">
+            Rimuovi
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function deleteStudioException(excId) {
+      studioCurrentState.exceptions = studioCurrentState.exceptions.filter(e => e.id !== excId);
+      renderStudioExceptions();
+      updateStudioLivePreview();
+      showCoachToast('🛡️ Eccezione individuale rimossa');
+    }
+
+    async function saveStudioProgramToSupabase() {
+      const badge = document.getElementById('studio-sync-badge');
+      if (badge) {
+        badge.textContent = '⏳ Salvataggio in corso...';
+        badge.style.background = 'rgba(232,160,32,0.2)';
+        badge.style.color = '#fde68a';
+      }
+
+      const weekId = studioCurrentState.weekId;
+      const sessId = `${weekId}_${studioCurrentState.sessionId}`;
+
+      // Salva in LocalStorage Cache
+      const cacheKey = `coach_studio_session_${weekId}_${studioCurrentState.sessionId}`;
+      localStorage.setItem(cacheKey, JSON.stringify(studioCurrentState));
+
+      // Sincronizza verso Supabase se disponibile
+      if (window.MV_SUPABASE && typeof window.MV_SUPABASE.saveExercisePrescription === 'function') {
+        try {
+          for (let bIdx = 0; bIdx < studioCurrentState.blocks.length; bIdx++) {
+            const block = studioCurrentState.blocks[bIdx];
+            for (let exIdx = 0; exIdx < block.exercises.length; exIdx++) {
+              const ex = block.exercises[exIdx];
+              await window.MV_SUPABASE.saveExercisePrescription({
+                id: `${sessId}_E${bIdx + 1}_${exIdx + 1}`,
+                session_id: sessId,
+                tenant_id: 'marsala_a2',
+                block_tag: block.name,
+                order_idx: (bIdx * 10) + (exIdx + 1),
+                exercise_name: ex.name,
+                lift_type: ex.liftType || 'generic',
+                sets: ex.sets || 3,
+                reps: String(ex.reps || '5'),
+                load_pct: ex.pct || 0,
+                tempo: ex.tempo || '3-0-X-0',
+                rest_sec: ex.rest || 90,
+                notes: ex.notes || null
+              });
+            }
+          }
+        } catch (err) {
+          console.warn('[Studio Supabase Save Warning]', err);
+        }
+      }
+
+      // Dual-run forward verso Google Sheets
+      if (typeof forwardToGoogleSheets === 'function') {
+        forwardToGoogleSheets({
+          foglio: 'Programmazione',
+          week: weekId,
+          session: studioCurrentState.sessionId,
+          blocks_count: studioCurrentState.blocks.length,
+          timestamp: new Date().toISOString()
+        });
+      }
+
+      if (badge) {
+        badge.textContent = '🟢 Sincronizzato con App Atlete';
+        badge.style.background = 'rgba(16,185,129,0.15)';
+        badge.style.color = '#6ee7b7';
+      }
+
+      showCoachToast(`💾 Seduta ${weekId} ${studioCurrentState.sessionId} pubblicata con successo!`);
+    }
+
+    function copyStudioSummaryWhatsApp() {
+      const s = studioCurrentState;
+      let text = `🏐 *MARSALA VOLLEY S&C — ${s.weekId} ${s.sessionId}* 🏐\n`;
+      text += `📅 Programma Ufficiale Sala Pesi · Serie A2 2026/27\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+      s.blocks.forEach(b => {
+        text += `📦 *${b.name}*\n`;
+        b.exercises.forEach(e => {
+          const pctStr = e.pct > 0 ? ` @ ${e.pct}% 1RM` : '';
+          text += `• *${e.name}*: ${e.sets}x${e.reps}${pctStr} ${e.notes ? `(${e.notes})` : ''}\n`;
+        });
+        text += `\n`;
+      });
+
+      if (s.exceptions.length > 0) {
+        text += `🛡️ *ECCEZIONI INDIVIDUALI:*\n`;
+        s.exceptions.forEach(exc => {
+          text += `• *#${exc.athlete_id} ${exc.athlete_name}*: ${exc.condition_trigger} ➔ ${exc.substitute_exercise}\n`;
+        });
+        text += `\n`;
+      }
+
+      text += `━━━━━━━━━━━━━━━━━━━━━━\nCoach Command Center · Marsala Volley`;
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => {
+          showCoachToast('📋 Scheda Seduta copiata per WhatsApp Staff!');
+        }).catch(() => {
+          showCoachToast('⚠️ Impossibile copiare negli appunti');
+        });
+      } else {
+        showCoachToast('📋 Copia non supportata');
       }
     }
 
@@ -4407,6 +5298,356 @@
         `;
       }).join('');
     }
+      // Calcolo e Render Prescrizione S&C Hooper Z-Score (Pillar 5)
+      try { renderPrescriptiveSCEngine(); } catch (e) { console.error('[renderPrescriptiveSCEngine]', e); }
+
+    // ── MOTORE PRESCRITTIVO S&C & HOOPER Z-SCORE (PILLAR 5: DECISION INTELLIGENCE) ──
+    window._lastPrescriptiveSummary = null;
+
+    function computeAthleteHooperStats(aid) {
+      const records = (typeof rawWellnessRecords !== 'undefined' ? rawWellnessRecords : []).filter(r => r.aid === aid);
+      const now = new Date();
+      const todayStr = now.toISOString().slice(0, 10);
+      const localTodayStr = now.toLocaleDateString('sv-SE');
+
+      const prior = records.filter(r => r.date < todayStr && r.date < localTodayStr);
+      const sample = prior.length >= 3 ? prior : records;
+
+      const getVals = (metric) => sample.map(r => r[metric]).filter(v => v !== null && v !== undefined && !isNaN(v) && v !== '');
+
+      const calcMeanStd = (vals, defaultMean) => {
+        if (!vals || vals.length === 0) return { mean: defaultMean, std: 1.0, count: 0 };
+        const mean = vals.reduce((a, b) => a + Number(b), 0) / vals.length;
+        if (vals.length < 3) return { mean, std: 1.0, count: vals.length };
+        const variance = vals.reduce((acc, v) => acc + Math.pow(Number(v) - mean, 2), 0) / (vals.length - 1);
+        const std = Math.sqrt(variance);
+        return { mean, std: Math.max(std, 0.75), count: vals.length };
+      };
+
+      return {
+        readiness: calcMeanStd(getVals('readiness'), 7.0),
+        fatica: calcMeanStd(getVals('fatica'), 7.0), // 10 = max vitalità
+        dolori: calcMeanStd(getVals('dolori'), 2.0),
+        sonno: calcMeanStd(getVals('sonno'), 7.0)
+      };
+    }
+
+    function evaluateAthletePrescriptiveSC(ath, w, stats) {
+      if (!w || !w.isToday) {
+        return {
+          status: 'missing',
+          ath,
+          zScores: {},
+          reasons: ['In attesa del questionario mattutino'],
+          directive: 'Attendere check-in prima di impostare carichi.'
+        };
+      }
+
+      const zScores = {};
+      if (w.readiness !== null && stats.readiness.count >= 3) {
+        zScores.readiness = (w.readiness - stats.readiness.mean) / stats.readiness.std;
+      }
+      if (w.fatica !== null && stats.fatica.count >= 3) {
+        zScores.fatica = (w.fatica - stats.fatica.mean) / stats.fatica.std;
+      }
+      if (w.dolori !== null && stats.dolori.count >= 3) {
+        zScores.dolori = (w.dolori - stats.dolori.mean) / stats.dolori.std;
+      }
+      if (w.sonno !== null && stats.sonno.count >= 3) {
+        zScores.sonno = (w.sonno - stats.sonno.mean) / stats.sonno.std;
+      }
+
+      const clinicalKeywords = ['ginocchio', 'tendin', 'rotuleo', 'spalla', 'fitta', 'infiamma', 'caviglia', 'bloccata', 'schiena', 'contratt', 'tallone', 'fascite'];
+      const noteStr = (w.note || '').toLowerCase();
+      const hasClinicalNote = clinicalKeywords.some(kw => noteStr.includes(kw));
+
+      const redReasons = [];
+      const yellowReasons = [];
+
+      // Criteri Rossi: Dolore acuto elevato (≥7) O dolore con spike significativo O readiness critica (≤4) O nota clinica
+      if (w.dolori !== null && w.dolori >= 7) redReasons.push(`Dolori acuti VAS ${w.dolori}/10`);
+      if (w.dolori !== null && w.dolori >= 5 && zScores.dolori !== undefined && zScores.dolori >= 2.0) {
+        redReasons.push(`Spike dolore acuto (+${zScores.dolori.toFixed(1)}σ)`);
+      }
+      if (w.readiness !== null && w.readiness <= 4) redReasons.push(`Readiness critica ${w.readiness}/10`);
+      if (hasClinicalNote) redReasons.push(`Sintomo clinico: "${w.note}"`);
+
+      if (redReasons.length > 0) {
+        return {
+          status: 'red',
+          ath,
+          w,
+          zScores,
+          reasons: redReasons,
+          directive: 'Scarico volumetrico -40%, isometrie Cook/Purdam, divieto drop jump/impatti. Valutazione fisio.'
+        };
+      }
+
+      // Criteri Gialli: RPE Modulato
+      if (w.readiness !== null && w.readiness <= 6) yellowReasons.push(`Readiness ${w.readiness}/10`);
+      if (zScores.readiness !== undefined && zScores.readiness <= -1.4) yellowReasons.push(`Drop readiness (${zScores.readiness.toFixed(1)}σ)`);
+      if (w.fatica !== null && w.fatica <= 5) yellowReasons.push(`Bassa energia (${w.fatica}/10)`);
+      if (zScores.fatica !== undefined && zScores.fatica <= -1.4) yellowReasons.push(`Fatica sistemica (${zScores.fatica.toFixed(1)}σ)`);
+      if (w.dolori !== null && w.dolori >= 4) yellowReasons.push(`Fastidio muscolare (${w.dolori}/10)`);
+      if (zScores.dolori !== undefined && zScores.dolori >= 1.4) yellowReasons.push(`Indolenzimento anomalo (+${zScores.dolori.toFixed(1)}σ)`);
+      if (w.sonno !== null && w.sonno <= 5) yellowReasons.push(`Deficit sonno (${w.sonno}/10)`);
+      if (w.note && w.note.trim().length > 0) yellowReasons.push(`Nota: "${w.note}"`);
+
+      if (yellowReasons.length > 0) {
+        return {
+          status: 'yellow',
+          ath,
+          w,
+          zScores,
+          reasons: yellowReasons,
+          directive: '-10% carichi target 1RM o -1 serie pesanti. Velocity loss cutoff 10% (Badillo). Taglio 20% salti.'
+        };
+      }
+
+      // Criteri Verdi: 100% Carico Pieno
+      return {
+        status: 'green',
+        ath,
+        w,
+        zScores,
+        reasons: ['Tutti i marker ottimali'],
+        directive: '100% carichi da tabella 1RM, pliometria reattiva completa, piena spinta neurale.'
+      };
+    }
+
+    function renderPrescriptiveSCEngine() {
+      const box = document.getElementById('prescriptive-sc-box');
+      if (!box) return;
+
+      const ATHLETES = ROSTER.filter(a => a.id !== 99 && !a.role.toLowerCase().includes('staff'));
+
+      const evaluated = ATHLETES.map(a => {
+        const w = liveWellnessData[a.id];
+        const stats = computeAthleteHooperStats(a.id);
+        return evaluateAthletePrescriptiveSC(a, w, stats);
+      });
+
+      const redList = evaluated.filter(e => e.status === 'red');
+      const yellowList = evaluated.filter(e => e.status === 'yellow');
+      const greenList = evaluated.filter(e => e.status === 'green');
+      const missingList = evaluated.filter(e => e.status === 'missing');
+
+      // Update counters
+      const countRedEl = document.getElementById('prescr-count-red');
+      const countYelEl = document.getElementById('prescr-count-yellow');
+      const countGrnEl = document.getElementById('prescr-count-green');
+      if (countRedEl) countRedEl.textContent = `${redList.length} atlete`;
+      if (countYelEl) countYelEl.textContent = `${yellowList.length} atlete`;
+      if (countGrnEl) countGrnEl.textContent = `${greenList.length} atlete`;
+
+      // Helper per render chip atleta
+      const renderChips = (list, isGreen = false) => {
+        if (list.length === 0) {
+          return `<div style="font-size:0.75rem;color:var(--mv-muted);font-style:italic;padding:4px 0;">${isGreen ? 'Nessuna atleta a pieno carico' : 'Nessuna atleta in questa fascia'}</div>`;
+        }
+        return list.map(item => {
+          const a = item.ath;
+          const w = item.w;
+          const z = item.zScores || {};
+
+          let badgeHtml = '';
+          if (z.dolori !== undefined && z.dolori >= 1.4) {
+            badgeHtml += `<span class="prescr-badge-zscore z-alert" title="Scostamento Dolore rispetto a baseline">Dolori +${z.dolori.toFixed(1)}σ</span> `;
+          }
+          if (z.readiness !== undefined && z.readiness <= -1.4) {
+            badgeHtml += `<span class="prescr-badge-zscore z-warn" title="Scostamento Readiness rispetto a baseline">Ready ${z.readiness.toFixed(1)}σ</span> `;
+          }
+          if (z.fatica !== undefined && z.fatica <= -1.4) {
+            badgeHtml += `<span class="prescr-badge-zscore z-warn" title="Scostamento Energia rispetto a baseline">Energia ${z.fatica.toFixed(1)}σ</span> `;
+          }
+
+          const reasonTooltip = item.reasons.join(' · ');
+
+          return `
+            <div class="prescr-ath-chip" onclick="openAthleteDossier(${a.id})" title="Clicca per aprire Dossier: ${reasonTooltip}">
+              <div style="display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;">
+                <span style="font-size:0.75rem;font-weight:800;color:var(--mv-amber);">#${a.id}</span>
+                <span style="font-size:0.78rem;font-weight:700;color:#fff;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;">${a.name}</span>
+                <span style="font-size:0.68rem;color:var(--mv-muted);">(${a.role})</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
+                ${badgeHtml}
+                ${w && w.readiness !== null ? `<span style="font-size:0.72rem;font-weight:800;color:#94a3b8;">${w.readiness}/10</span>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      };
+
+      const elListRed = document.getElementById('prescr-list-red');
+      const elListYel = document.getElementById('prescr-list-yellow');
+      const elListGrn = document.getElementById('prescr-list-green');
+      if (elListRed) elListRed.innerHTML = renderChips(redList, false);
+      if (elListYel) elListYel.innerHTML = renderChips(yellowList, false);
+      if (elListGrn) elListGrn.innerHTML = renderChips(greenList, true);
+
+      // Z-Score Callouts banner
+      const calloutEl = document.getElementById('prescr-zscore-callouts');
+      if (calloutEl) {
+        const significantOutliers = [];
+        evaluated.forEach(e => {
+          if (!e.w) return;
+          const z = e.zScores || {};
+          if (z.dolori !== undefined && z.dolori >= 1.5) {
+            significantOutliers.push(`<strong>#${e.ath.id} ${e.ath.name}</strong>: picco dolori acuto (+${z.dolori.toFixed(1)}σ vs storico)`);
+          }
+          if (z.readiness !== undefined && z.readiness <= -1.5) {
+            significantOutliers.push(`<strong>#${e.ath.id} ${e.ath.name}</strong>: calo readiness significativo (${z.readiness.toFixed(1)}σ vs storico)`);
+          }
+        });
+
+        if (significantOutliers.length > 0) {
+          calloutEl.style.display = 'block';
+          calloutEl.innerHTML = `
+            <div style="display:flex;align-items:center;gap:6px;color:#93c5fd;font-weight:700;margin-bottom:4px;">
+              <span>📈</span> <span>Alert Scostamento Individuale Hooper (Deviazione Standard &gt; 1.5σ):</span>
+            </div>
+            <div style="color:#cbd5e1;line-height:1.4;">${significantOutliers.join(' · ')}</div>
+          `;
+        } else {
+          calloutEl.style.display = 'none';
+        }
+      }
+
+      // Banner Atlete in Attesa di Check-in
+      const missingBannerEl = document.getElementById('prescr-missing-banner');
+      if (missingBannerEl) {
+        if (missingList.length > 0) {
+          missingBannerEl.style.display = 'block';
+          const missingNames = missingList.map(m => `#${m.ath.id} ${m.ath.name.split(' ').pop()}`).join(', ');
+          missingBannerEl.innerHTML = `<span style="color:#fbbf24;font-weight:700;">⏳ In attesa del questionario odierno (${missingList.length} atlete):</span> <span style="color:#cbd5e1;margin-left:4px;">${missingNames}</span>`;
+        } else {
+          missingBannerEl.style.display = 'none';
+        }
+      }
+
+      // Prepara sommario per copia WhatsApp
+      let totalReadiness = 0;
+      let readinessCount = 0;
+      const notesList = [];
+
+      ATHLETES.forEach(a => {
+        const w = liveWellnessData[a.id];
+        if (w && w.isToday) {
+          if (w.readiness !== null) {
+            totalReadiness += w.readiness;
+            readinessCount++;
+          }
+          if (w.note && w.note.trim().length > 0) {
+            notesList.push({ id: a.id, name: a.name, note: w.note.trim() });
+          }
+        }
+      });
+
+      const avgReadiness = readinessCount > 0 ? Math.round((totalReadiness / readinessCount) * 10) : 0;
+
+      window._lastPrescriptiveSummary = {
+        date: new Date().toISOString().slice(0, 10),
+        totalCount: ATHLETES.length,
+        completedCount: ATHLETES.length - missingList.length,
+        avgReadiness,
+        red: redList,
+        yellow: yellowList,
+        green: greenList,
+        missing: missingList.map(m => m.ath),
+        notes: notesList
+      };
+    }
+
+    function copyPrescriptiveStaffSummary() {
+      if (!window._lastPrescriptiveSummary) {
+        alert('Nessun dato di prescrizione disponibile da copiare.');
+        return;
+      }
+      const s = window._lastPrescriptiveSummary;
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      const capitalizedDate = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+
+      const lines = [
+        `🏐 *MARSALA VOLLEY A2 — REPORT S&C & WELLNESS*`,
+        `📅 *${capitalizedDate}*`,
+        `👥 *Presenze:* ${s.completedCount}/${s.totalCount} compilate | Readiness: *${s.avgReadiness}%* ${s.avgReadiness >= 75 ? '🟢' : (s.avgReadiness >= 60 ? '🟡' : '🔴')}
+`
+      ];
+
+      if (s.red.length > 0) {
+        lines.push(`🚨 *ADATTAMENTO CLINICO / SCARICO (🔴 ${s.red.length} atlete):*`);
+        s.red.forEach(item => {
+          lines.push(`• *#${item.ath.id} ${item.ath.name}* (${item.ath.role}):`);
+          lines.push(`  - Motivo: ${item.reasons.join(', ')}`);
+          lines.push(`  - Direttiva S&C: ${item.directive}`);
+        });
+        lines.push('');
+      } else {
+        lines.push(`🚨 *ADATTAMENTO CLINICO (🔴 0 atlete):* Nessuna atleta a rischio elevato.
+`);
+      }
+
+      if (s.yellow.length > 0) {
+        lines.push(`⚠️ *RPE MODULATO -10% (🟡 ${s.yellow.length} atlete):*`);
+        s.yellow.forEach(item => {
+          lines.push(`• *#${item.ath.id} ${item.ath.name}* (${item.ath.role}): ${item.reasons.join(' · ')}`);
+          lines.push(`  ↳ Direttiva: ${item.directive}`);
+        });
+        lines.push('');
+      } else {
+        lines.push(`⚠️ *RPE MODULATO (🟡 0 atlete):* Tutte le atlete in carico pieno.
+`);
+      }
+
+      lines.push(`✅ *CARICO PIENO 100% (🟢 ${s.green.length} atlete):*`);
+      if (s.green.length > 0) {
+        const greenNames = s.green.map(item => `#${item.ath.id} ${item.ath.name.split(' ').pop()}`).join(', ');
+        lines.push(`• ${greenNames} -> Carico 100% 1RM, pliometria piena.
+`);
+      }
+
+      if (s.notes.length > 0) {
+        lines.push(`💬 *NOTE CLINICHE / ATLETE:*`);
+        s.notes.forEach(n => {
+          lines.push(`• *#${n.id} ${n.name}:* "${n.note}"`);
+        });
+        lines.push('');
+      }
+
+      if (s.missing.length > 0) {
+        const missingNames = s.missing.map(a => `#${a.id} ${a.name}`).join(', ');
+        lines.push(`⏳ *Non ancora compilato (${s.missing.length}):* ${missingNames}
+`);
+      }
+
+      lines.push(`_Report Prescrittivo generato da Coach Cockpit MV_`);
+
+      const fullText = lines.join('\n');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullText).then(() => {
+          const btn = document.getElementById('btn-copy-prescriptive-staff');
+          if (btn) {
+            const orig = btn.innerHTML;
+            btn.innerHTML = `<span>✓</span> <span>Copiato!</span>`;
+            btn.style.background = 'var(--mv-emerald)';
+            btn.style.borderColor = '#10b981';
+            btn.style.color = '#071226';
+            setTimeout(() => {
+              btn.innerHTML = orig;
+              btn.style.background = '#1e3a8a';
+              btn.style.borderColor = '#3b82f6';
+              btn.style.color = '#bfdbfe';
+            }, 2500);
+          }
+        }).catch(() => {
+          prompt('Copia manualmente il report:', fullText);
+        });
+      } else {
+        prompt('Copia manualmente il report:', fullText);
+      }
+    }
 
     function renderSedutePanel() {
       const now = new Date();
@@ -4863,22 +6104,104 @@ function openAthleteDossier(aid) {
     }).join('');
   }
 
-  // Storico Recente
+  // Baseline Storica & Z-Scores Hooper (Pillar 5)
+  const zBox = document.getElementById('dossier-zscore-stats');
+  if (zBox) {
+    const stats = computeAthleteHooperStats(aid);
+    const zReady = (w && w.readiness !== null && stats.readiness.count >= 3)
+      ? ((w.readiness - stats.readiness.mean) / stats.readiness.std) : null;
+    const zFatica = (w && w.fatica !== null && stats.fatica.count >= 3)
+      ? ((w.fatica - stats.fatica.mean) / stats.fatica.std) : null;
+    const zDolori = (w && w.dolori !== null && stats.dolori.count >= 3)
+      ? ((w.dolori - stats.dolori.mean) / stats.dolori.std) : null;
+    const zSonno = (w && w.sonno !== null && stats.sonno.count >= 3)
+      ? ((w.sonno - stats.sonno.mean) / stats.sonno.std) : null;
+
+    zBox.innerHTML = `
+      <div style="font-size:0.68rem;font-weight:800;color:var(--mv-cyan);text-transform:uppercase;margin-bottom:6px;display:flex;justify-content:space-between;">
+        <span>📊 Baseline Personale Hooper (${stats.readiness.count} rilevazioni storiche)</span>
+        <span>${w && w.isToday ? '⚡ Scostamento Z-Score Oggi' : ''}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));gap:6px;">
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 8px;">
+          <div style="color:var(--mv-muted);font-size:0.62rem;">Readiness (Media ± σ)</div>
+          <div style="font-weight:800;color:#fff;font-size:0.85rem;">${stats.readiness.mean.toFixed(1)} ± ${stats.readiness.std.toFixed(1)}</div>
+          ${zReady !== null ? `<div style="font-size:0.7rem;font-weight:800;color:${zReady <= -1.4 ? '#fca5a5' : '#6ee7b7'};margin-top:2px;">Z: ${zReady > 0 ? '+' : ''}${zReady.toFixed(1)}σ ${zReady <= -1.4 ? '⚠️' : '✅'}</div>` : ''}
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 8px;">
+          <div style="color:var(--mv-muted);font-size:0.62rem;">Energia (Media ± σ)</div>
+          <div style="font-weight:800;color:#fff;font-size:0.85rem;">${stats.fatica.mean.toFixed(1)} ± ${stats.fatica.std.toFixed(1)}</div>
+          ${zFatica !== null ? `<div style="font-size:0.7rem;font-weight:800;color:${zFatica <= -1.4 ? '#fca5a5' : '#6ee7b7'};margin-top:2px;">Z: ${zFatica > 0 ? '+' : ''}${zFatica.toFixed(1)}σ ${zFatica <= -1.4 ? '⚠️' : '✅'}</div>` : ''}
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 8px;">
+          <div style="color:var(--mv-muted);font-size:0.62rem;">Dolori (Media ± σ)</div>
+          <div style="font-weight:800;color:#fff;font-size:0.85rem;">${stats.dolori.mean.toFixed(1)} ± ${stats.dolori.std.toFixed(1)}</div>
+          ${zDolori !== null ? `<div style="font-size:0.7rem;font-weight:800;color:${zDolori >= 1.4 ? '#fca5a5' : '#6ee7b7'};margin-top:2px;">Z: ${zDolori > 0 ? '+' : ''}${zDolori.toFixed(1)}σ ${zDolori >= 1.4 ? '🔴' : '✅'}</div>` : ''}
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:6px 8px;">
+          <div style="color:var(--mv-muted);font-size:0.62rem;">Sonno (Media ± σ)</div>
+          <div style="font-weight:800;color:#fff;font-size:0.85rem;">${stats.sonno.mean.toFixed(1)} ± ${stats.sonno.std.toFixed(1)}</div>
+          ${zSonno !== null ? `<div style="font-size:0.7rem;font-weight:800;color:${zSonno <= -1.4 ? '#fca5a5' : '#6ee7b7'};margin-top:2px;">Z: ${zSonno > 0 ? '+' : ''}${zSonno.toFixed(1)}σ ${zSonno <= -1.4 ? '⚠️' : '✅'}</div>` : ''}
+        </div>
+      </div>
+    `;
+  }
+
+  // Ultima Seduta Pesi & sRPE (Pillar 4/5)
+  const sessBox = document.getElementById('dossier-session-box');
+  if (sessBox) {
+    if (sess) {
+      const rpeCol = getRPEColor(sess.rpe);
+      const fatCol = getFatigueColor(sess.fat);
+      sessBox.style.display = 'block';
+      sessBox.innerHTML = `
+        <div style="font-size:0.72rem;font-weight:800;color:var(--mv-muted);text-transform:uppercase;margin-bottom:6px;letter-spacing:0.5px;display:flex;justify-content:space-between;align-items:center;">
+          <span>🏋️ Seduta Sala Pesi (${sess.session || 'Recente'})</span>
+          <span style="font-size:0.68rem;color:${sess.isToday ? '#6ee7b7' : 'var(--mv-muted)'};font-weight:700;">${sess.isToday ? '🟢 Oggi (' + sess.date + ')' : sess.date}</span>
+        </div>
+        <div style="background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 12px;font-size:0.8rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <div>
+              <span style="color:var(--mv-muted)">sRPE Foster:</span> <strong style="color:${rpeCol};font-size:0.9rem;">${sess.rpe !== null && sess.rpe !== undefined ? sess.rpe + '/10' : '—'}</strong>
+              <span style="color:var(--mv-muted);margin:0 6px;">·</span>
+              <span style="color:var(--mv-muted)">Fatica Seduta:</span> <strong style="color:${fatCol};font-size:0.9rem;">${sess.fat !== null && sess.fat !== undefined ? sess.fat + '/10' : '—'}</strong>
+            </div>
+            ${sess.durata ? `<div><span style="color:var(--mv-muted)">Durata:</span> <strong style="color:#fff;">${sess.durata} min</strong></div>` : ''}
+          </div>
+          ${sess.note ? `<div style="font-size:0.72rem;color:#fde68a;font-style:italic;margin-top:6px;border-top:1px dashed rgba(255,255,255,0.08);padding-top:4px;">💬 "${sess.note}"</div>` : ''}
+        </div>
+      `;
+    } else {
+      sessBox.style.display = 'none';
+    }
+  }
+
+  // Storico Recente Completo (tutte le 5 metriche + Note)
   const historyList = document.getElementById('dossier-recent-history');
   if (historyList) {
-    const athRecords = rawWellnessRecords.filter(r => r.aid === aid).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 6);
+    const athRecords = rawWellnessRecords.filter(r => r.aid === aid).sort((a,b) => b.date.localeCompare(a.date)).slice(0, 15);
     if (athRecords.length === 0) {
       historyList.innerHTML = `<div style="font-size:0.75rem;color:var(--mv-muted);text-align:center;padding:10px;">Nessuna registrazione recente in archivio.</div>`;
     } else {
-      historyList.innerHTML = athRecords.map(r => `
+      historyList.innerHTML = athRecords.map(r => {
+        const enStr = (r.fatica !== null && r.fatica !== undefined) ? `${r.fatica}/10` : '—';
+        const strStr = (r.stress !== null && r.stress !== undefined) ? `${r.stress}/10` : '—';
+        return `
         <div style="font-size:0.75rem;background:#091222;border:1px solid rgba(255,255,255,0.04);border-radius:6px;padding:6px 10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
           <div>
             <strong style="color:#fff;">${r.date}</strong>
-            <span style="color:var(--mv-muted);margin-left:6px;">Readiness: <strong style="color:var(--mv-amber)">${r.readiness !== null ? r.readiness : '—'}/10</strong> · Sonno: <strong style="color:#93c5fd">${r.sonno !== null ? r.sonno : '—'}/10</strong> · Dolori: <strong style="color:#fca5a5">${r.dolori !== null ? r.dolori : '—'}/10</strong></span>
+            <span style="color:var(--mv-muted);margin-left:6px;">
+              Ready: <strong style="color:var(--mv-amber)">${r.readiness !== null ? r.readiness : '—'}/10</strong> · 
+              Energia: <strong style="color:#6ee7b7">${enStr}</strong> · 
+              Sonno: <strong style="color:#93c5fd">${r.sonno !== null ? r.sonno : '—'}/10</strong> · 
+              Dolori: <strong style="color:#fca5a5">${r.dolori !== null ? r.dolori : '—'}/10</strong> · 
+              Stress: <strong style="color:#d8b4fe">${strStr}</strong>
+            </span>
           </div>
-          ${r.note ? `<span style="color:#fde68a;font-style:italic;font-size:0.72rem;">💬 "${r.note.slice(0, 35)}${r.note.length > 35 ? '...' : ''}"</span>` : ''}
+          ${r.note ? `<span style="color:#fde68a;font-style:italic;font-size:0.72rem;">💬 "${r.note}"</span>` : ''}
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
   }
 
@@ -4896,7 +6219,7 @@ function openAthleteDossier(aid) {
 
   const btnPwa = document.getElementById('dossier-btn-pwa');
   if (btnPwa) {
-    btnPwa.href = `./?id=${aid}`;
+    btnPwa.href = `../?id=${aid}`;
   }
 
   const modal = document.getElementById('athlete-dossier-modal');
@@ -7283,10 +8606,13 @@ function calculateMethodology(weekId, sedutaId, athleteId) {
       kg = parseFloat(mKgSingle[1]);
     }
 
-    // Fallback euristico se atleta è team e il carico è descrittivo (es. "Dinamico", "Medio", target in note)
-    if (kg === 0 && athleteId === 'team') {
-      const mPctInNote = notesStr.match(/(\d+(?:\.\d+)?)\s*%/i) || exName.match(/(\d+(?:\.\d+)?)\s*%/i);
+    // Fallback euristico se il carico è non valorizzato (es. blueprint team o esercizio descrittivo)
+    if (kg === 0) {
+      // Ignora percentuali che si riferiscono a "velocity loss" (es. -10% drop VBT)
+      const cleanNoteForPct = notesStr.replace(/[-–]?\s*\d+\s*%\s*(?:velocity|loss|drop|cutoff|cut-off)/gi, '');
+      const mPctInNote = cleanNoteForPct.match(/(\d+(?:\.\d+)?)\s*%/i) || exName.match(/(\d+(?:\.\d+)?)\s*%/i);
       const mKgInNote = notesStr.match(/target\s*(\d+(?:\.\d+)?)\s*k/i) || notesStr.match(/(\d+(?:\.\d+)?)\s*kg/i);
+      
       if (mPctInNote) {
         const pctVal = parseFloat(mPctInNote[1]);
         mainLiftsPcts.push(pctVal);
@@ -7294,25 +8620,60 @@ function calculateMethodology(weekId, sedutaId, athleteId) {
         if (/squat/i.test(exName)) {
           kg = Math.max(20, Math.round((pct * (ath1RM.squat + athBw)) - athBw));
           computedLoadLabel = `${pctVal}% (${kg} kg bilanciere)`;
+        } else if (/bench|floor/i.test(exName)) {
+          const each = Math.round((pct * ath1RM.bench) / 2);
+          kg = each * 2;
+          computedLoadLabel = `${pctVal}% (${each}+${each} kg)`;
         } else if (/clean/i.test(exName)) {
           kg = Math.round(pct * ath1RM.clean);
           computedLoadLabel = `${pctVal}% (${kg} kg)`;
         }
       } else if (mKgInNote) {
         kg = parseFloat(mKgInNote[1]);
-        computedLoadLabel = `${kg} kg (Target Team)`;
+        computedLoadLabel = `${kg} kg (Target)`;
+      } else if (/floor|bench/i.test(exName)) {
+        // Floor Press DB: 70% 1RM Bench -> 28 kg totali (14+14 kg manubri)
+        const each = Math.round((0.70 * ath1RM.bench) / 2);
+        kg = each * 2;
+        computedLoadLabel = `70% (${each}+${each} kg manubri)`;
+      } else if (/lat/i.test(exName)) {
+        // Lat Machine: 70% 1RM Lat
+        kg = Math.round(0.70 * ath1RM.lat);
+        computedLoadLabel = `70% (${kg} kg)`;
+      } else if (/row/i.test(exName)) {
+        // Seal Row / DB Row: 70% 1RM Row -> 30 kg (15+15 kg)
+        const each = Math.round((0.70 * ath1RM.row) / 2);
+        kg = each * 2;
+        computedLoadLabel = `70% (${each}+${each} kg manubri)`;
+      } else if (/split/i.test(exName)) {
+        // Split Squat bulgaro: ~30% BW manubri (es. 10+10 kg = 20 kg)
+        const each = Math.round((0.30 * athBw) / 2);
+        kg = each * 2;
+        computedLoadLabel = `DB (${each}+${each} kg)`;
+      } else if (/half squat/i.test(exName)) {
+        kg = Math.max(20, Math.round(0.75 * (ath1RM.squat + athBw) - athBw));
+        computedLoadLabel = `75% (${kg} kg)`;
+      } else if (/squat/i.test(exName)) {
+        // Squat W3 75% 1RM standard
+        const targetPct = (weekId === 'W4') ? 0.80 : 0.75;
+        kg = Math.max(20, Math.round(targetPct * (ath1RM.squat + athBw) - athBw));
+        computedLoadLabel = `${Math.round(targetPct*100)}% (${kg} kg bilanciere)`;
+        mainLiftsPcts.push(targetPct * 100);
       } else if (/clean|powerbag/i.test(exName)) {
         kg = 35; // Standard team powerbag
         computedLoadLabel = '35 kg (Powerbag Team)';
-      } else if (/half squat/i.test(exName)) {
-        kg = Math.max(20, Math.round(0.70 * (ath1RM.squat + athBw) - athBw));
-        computedLoadLabel = `70% (${kg} kg)`;
       } else if (/landmine/i.test(exName)) {
         kg = 15;
         computedLoadLabel = '15 kg (Landmine)';
       } else if (/rdl|stacco/i.test(exName)) {
         kg = Math.round(0.70 * ath1RM.rdl);
         computedLoadLabel = `70% (${kg} kg)`;
+      } else if (/deadbug/i.test(exName)) {
+        kg = 5; // Sovraccarico fitball/KB
+        computedLoadLabel = '5 kg (Fitball/KB)';
+      } else if (/medball/i.test(exName)) {
+        kg = 4; // Palla medica 4 kg
+        computedLoadLabel = '4 kg (Medball)';
       }
     }
 
@@ -7327,10 +8688,10 @@ function calculateMethodology(weekId, sedutaId, athleteId) {
     else if (tempoStr.includes('X') || tempoStr.includes('RFD')) repSec = 1.2;
     totalSecondsTUT += (sets * reps * repSec);
 
-    // Ripartizione per distretto corporeo
-    if (/squat|rdl|stacco|split|glute|lunge/i.test(exName)) {
+    // Ripartizione accurata per distretto corporeo
+    if (/squat|rdl|stacco|split|glute|lunge|hip|affondi|polpacci|calf/i.test(exName)) {
       lowerTonnage += exTonnage;
-    } else if (/press|bench|lat|row|clean|pulley|pullover/i.test(exName)) {
+    } else if (/press|bench|floor|lat|row|clean|pulley|pullover|military|push|trazioni|medball|chest pass/i.test(exName)) {
       upperTonnage += exTonnage;
     } else {
       accessTonnage += exTonnage;
@@ -7347,11 +8708,11 @@ function calculateMethodology(weekId, sedutaId, athleteId) {
     let vbtTarget = 'TUT Controllato';
     let zoneBadge = '<span class="met-zone-badge" style="background:rgba(16,185,129,0.2);color:#6ee7b7;border:1px solid rgba(16,185,129,0.35);">Strutturale</span>';
 
-    if (/squat/i.test(exName) && loadStr.includes('80%')) {
+    if (/squat/i.test(exName) && (loadStr.includes('80%') || computedLoadLabel.includes('80%'))) {
       zone = 'max_strength';
       vbtTarget = '0.50 – 0.60 m/s';
       zoneBadge = '<span class="met-zone-badge" style="background:rgba(239,68,68,0.2);color:#fca5a5;border:1px solid rgba(239,68,68,0.35);">Forza Max</span>';
-    } else if (/squat/i.test(exName) || /rdl/i.test(exName)) {
+    } else if (/squat|rdl|split|floor|bench|lat|row/i.test(exName) && kg >= 20) {
       zone = 'strength_speed';
       vbtTarget = (weekId === 'W4') ? '0.65 – 0.75 m/s' : '0.60 – 0.65 m/s';
       zoneBadge = '<span class="met-zone-badge" style="background:rgba(245,158,11,0.2);color:#fde68a;border:1px solid rgba(245,158,11,0.35);">Strength-Speed</span>';
@@ -7918,7 +9279,12 @@ Marsala Volley S&C Command Center`;
           <div id="dossier-today-notes-box" style="font-size:0.75rem;color:#cbd5e1;background:#091222;border:1px solid rgba(255,255,255,0.06);border-radius:6px;padding:8px 10px;line-height:1.4;">
             <!-- Note di oggi -->
           </div>
+          <!-- Baseline Storica & Z-Scores Hooper -->
+          <div id="dossier-zscore-stats" style="margin-top:8px;"></div>
         </div>
+
+        <!-- Ultima Seduta Pesi & sRPE -->
+        <div id="dossier-session-box" style="background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;display:none;"></div>
 
         <!-- Scheda Massimali 1RM & Ratio BW -->
         <div style="background:#060a14;border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;">

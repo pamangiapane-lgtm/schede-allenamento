@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v270-update-baseline-weights-14sept)
-const CACHE_NAME = 'coach-v299-rpe7-friday-loads';
+const CACHE_NAME = 'coach-v300-studio-schede-builder';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
