@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v320-singularity-nelly-protect)
-const CACHE_NAME = 'marsala-schede-v320-singularity-nelly-protect';
+// Service Worker App Marsala Volley (v321-studio-save-sync-fix)
+const CACHE_NAME = 'marsala-schede-v321-studio-save-sync-fix';
 
 const ASSETS_TO_CACHE = [
   './',

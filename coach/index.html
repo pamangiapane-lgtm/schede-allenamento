@@ -5057,6 +5057,7 @@
                 <div style="width:100%;box-sizing:border-box;">
                   <input type="text" class="studio-input" value="${ex.name}" placeholder="Nome Esercizio..."
                          style="width:100%;font-weight:700;color:#fff;font-size:0.86rem;padding:6px 10px;"
+                         oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'name', this.value)"
                          onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'name', this.value)" />
                 </div>
 
@@ -5065,19 +5066,22 @@
                   <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Serie:</span>
                     <input type="number" class="studio-input" value="${ex.sets}" style="width:44px;padding:4px 3px;text-align:center;font-weight:700;color:#fff;"
-                           oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'sets', this.value)" />
+                           oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'sets', this.value)"
+                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'sets', this.value)" />
                   </div>
 
                   <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">Reps:</span>
                     <input type="text" class="studio-input" value="${ex.reps}" placeholder="es. 8+8" style="width:72px;padding:4px 4px;text-align:center;font-weight:700;color:var(--mv-amber);"
+                           oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'reps', this.value)"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'reps', this.value)" />
                   </div>
 
                   <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="font-size:0.68rem;color:var(--mv-muted);font-weight:700;">% 1RM:</span>
                     <input type="number" step="0.5" class="studio-input" value="${ex.pct || 0}" style="width:52px;padding:4px 3px;text-align:center;color:var(--mv-amber);font-weight:700;"
-                           oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'pct', this.value)" />
+                           oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'pct', this.value)"
+                           onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'pct', this.value)" />
                     <span style="color:var(--mv-muted);font-size:0.68rem;">%</span>
                   </div>
 
@@ -5103,11 +5107,13 @@
                   <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;">Tempo:</span>
                     <input type="text" class="studio-input" value="${ex.tempo || '2010'}" style="width:62px;padding:4px 4px;font-size:0.75rem;font-family:monospace;text-align:center;"
+                           oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'tempo', this.value)"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'tempo', this.value)" />
                   </div>
                   <div style="display:flex;align-items:center;gap:3px;flex-shrink:0;">
                     <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;">Rec:</span>
                     <input type="number" class="studio-input" value="${ex.rest || 90}" style="width:46px;padding:4px 3px;font-size:0.75rem;text-align:center;"
+                           oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'rest', this.value)"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'rest', this.value)" />
                     <span style="color:var(--mv-muted);font-size:0.68rem;">s</span>
                   </div>
@@ -5115,6 +5121,7 @@
                     <span style="color:var(--mv-muted);font-size:0.68rem;font-weight:700;flex-shrink:0;">Note:</span>
                     <input type="text" class="studio-input" value="${ex.notes || ''}" placeholder="Note esecutive, target VBT o buffer..."
                            style="flex:1;min-width:0;font-size:0.75rem;padding:4px 6px;"
+                           oninput="updateStudioExerciseField(${bIdx}, ${exIdx}, 'notes', this.value)"
                            onchange="updateStudioExerciseField(${bIdx}, ${exIdx}, 'notes', this.value)" />
                   </div>
                 </div>
@@ -5147,6 +5154,47 @@
       else b.exercises[exIdx][field] = val;
 
       updateStudioLivePreview();
+    }
+
+    function syncStudioDOMToState() {
+      const container = document.getElementById('studio-blocks-container');
+      if (!container || !studioCurrentState.blocks) return;
+      const blockCards = container.querySelectorAll('.studio-block-card');
+      blockCards.forEach((bCard, bIdx) => {
+        if (!studioCurrentState.blocks[bIdx]) return;
+        const bNameInput = bCard.querySelector('.studio-block-head input.studio-input');
+        if (bNameInput) studioCurrentState.blocks[bIdx].name = bNameInput.value.trim();
+
+        const exCards = bCard.querySelectorAll('.studio-ex-card');
+        exCards.forEach((exCard, exIdx) => {
+          if (!studioCurrentState.blocks[bIdx].exercises[exIdx]) return;
+          const exObj = studioCurrentState.blocks[bIdx].exercises[exIdx];
+
+          const nameInput = exCard.querySelector('input[placeholder="Nome Esercizio..."]');
+          if (nameInput) exObj.name = nameInput.value.trim();
+
+          const setsInput = exCard.querySelector('input[oninput*="sets"]');
+          if (setsInput) exObj.sets = parseInt(setsInput.value, 10) || 1;
+
+          const repsInput = exCard.querySelector('input[placeholder*="8+8"]');
+          if (repsInput) exObj.reps = repsInput.value.trim();
+
+          const pctInput = exCard.querySelector('input[oninput*="pct"]');
+          if (pctInput) exObj.pct = parseFloat(pctInput.value) || 0;
+
+          const formulaSelect = exCard.querySelector('select[onchange*="liftType"]');
+          if (formulaSelect) exObj.liftType = formulaSelect.value;
+
+          const tempoInput = exCard.querySelector('input[onchange*="tempo"], input[oninput*="tempo"]');
+          if (tempoInput) exObj.tempo = tempoInput.value.trim();
+
+          const restInput = exCard.querySelector('input[onchange*="rest"], input[oninput*="rest"]');
+          if (restInput) exObj.rest = parseInt(restInput.value, 10) || 90;
+
+          const notesInput = exCard.querySelector('input[placeholder*="Note esecutive"]');
+          if (notesInput) exObj.notes = notesInput.value.trim();
+        });
+      });
     }
 
     function addStudioBlock() {
@@ -5209,8 +5257,9 @@
       if (!b) return;
       const targetIdx = exIdx + dir;
       if (targetIdx < 0 || targetIdx >= b.exercises.length) return;
-      const item = b.exercises.splice(exIdx, 1)[0];
-      b.exercises.splice(targetIdx, 0, item);
+      const temp = b.exercises[exIdx];
+      b.exercises[exIdx] = b.exercises[targetIdx];
+      b.exercises[targetIdx] = temp;
       renderStudioBlocks();
       updateStudioLivePreview();
     }
@@ -5372,6 +5421,10 @@
     }
 
     async function saveStudioProgramToSupabase() {
+      // 1. Scansione forzata e sincronizzazione dello stato dai campi DOM
+      syncStudioDOMToState();
+      updateStudioLivePreview();
+
       const badge = document.getElementById('studio-sync-badge');
       if (badge) {
         badge.textContent = '⏳ Salvataggio in corso...';
@@ -5379,20 +5432,27 @@
         badge.style.color = '#fde68a';
       }
 
-      const weekId = studioCurrentState.weekId;
-      const sessId = studioCurrentState.sessionId;
+      const weekId = studioCurrentState.weekId || 'W5';
+      const sessId = studioCurrentState.sessionId || 'S1';
       const athId = studioCurrentState.athleteId || 'team';
       const sNum = sessId.replace(/[^0-9]/g, '') || '1';
 
-      // Salva nella memoria locale per le app atlete
+      // 2. Salva nella memoria locale per le app atlete e coach
       const stateToSave = JSON.stringify(studioCurrentState);
       if (athId === 'team') {
         localStorage.setItem(`coach_override_${weekId}_S${sNum}`, stateToSave);
+        localStorage.setItem(`coach_override_${weekId}_${sessId}`, stateToSave);
         localStorage.setItem(`coach_studio_session_${weekId}_${sessId}`, stateToSave);
       } else {
         localStorage.setItem(`coach_override_${weekId}_S${sNum}_ath_${athId}`, stateToSave);
+        localStorage.setItem(`coach_override_${weekId}_${sessId}_ath_${athId}`, stateToSave);
         localStorage.setItem(`coach_studio_session_${weekId}_${sessId}_ath_${athId}`, stateToSave);
       }
+
+      // 3. Notifica eventi locali di aggiornamento
+      try {
+        window.dispatchEvent(new Event('storage'));
+      } catch (e) {}
 
       // Sincronizza verso Supabase se disponibile
       if (window.MV_SUPABASE && typeof window.MV_SUPABASE.saveExercisePrescription === 'function') {

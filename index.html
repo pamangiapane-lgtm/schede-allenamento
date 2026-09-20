@@ -5242,8 +5242,14 @@ function renderSessions() {
     // 2. Controlla se ci sono modifiche salvate dal Coach Studio
     const athOverrideKey = `coach_override_${currentWeek}_S${sNum}_ath_${currentAthlete.id}`;
     const teamOverrideKey = `coach_override_${currentWeek}_S${sNum}`;
-    const savedAth = localStorage.getItem(athOverrideKey);
-    const savedTeam = localStorage.getItem(teamOverrideKey);
+    const savedAth = localStorage.getItem(athOverrideKey) ||
+                     localStorage.getItem(`coach_override_${currentWeek}_${sed.Numero_Seduta}_ath_${currentAthlete.id}`) ||
+                     localStorage.getItem(`coach_studio_session_${currentWeek}_S${sNum}_ath_${currentAthlete.id}`) ||
+                     localStorage.getItem(`coach_studio_session_${currentWeek}_${sed.Numero_Seduta}_ath_${currentAthlete.id}`);
+    const savedTeam = localStorage.getItem(teamOverrideKey) ||
+                      localStorage.getItem(`coach_override_${currentWeek}_${sed.Numero_Seduta}`) ||
+                      localStorage.getItem(`coach_studio_session_${currentWeek}_S${sNum}`) ||
+                      localStorage.getItem(`coach_studio_session_${currentWeek}_${sed.Numero_Seduta}`);
 
     const ROLE_EX_MAP = {
       'palleggiatrice': {
@@ -5281,7 +5287,7 @@ function renderSessions() {
           rawList = [];
           overrideObj.blocks.forEach(blk => {
             (blk.exercises || []).forEach(ex => {
-              let loadStr = ex.carico || (ex.pct ? `${ex.pct}% 1RM` : '');
+              let loadStr = ex.carico || (ex.pct ? `${ex.pct}%` : '');
               rawList.push({
                 Esercizio: ex.name,
                 'Set x Reps': `${ex.sets || 3}x${ex.reps || 5}`,
@@ -5327,7 +5333,7 @@ function renderSessions() {
                       ...item,
                       Esercizio: ex.name,
                       'Set x Reps': `${ex.sets || 3}x${ex.reps || 5}`,
-                      'Carico (kg/RPE)': ex.carico || (ex.pct ? `${ex.pct}% 1RM` : item['Carico (kg/RPE)']),
+                      'Carico (kg/RPE)': ex.carico || (ex.pct ? `${ex.pct}%` : item['Carico (kg/RPE)']),
                       Tempo: ex.tempo || item.Tempo || '2010',
                       Recupero: ex.rest ? `${ex.rest}s` : (item.Recupero || '90s'),
                       'Note Tecniche': ex.notes || item['Note Tecniche'] || '',
@@ -5353,7 +5359,7 @@ function renderSessions() {
                 let exName = ex.name;
                 let sets = ex.sets || 3;
                 let reps = ex.reps || '5';
-                let loadStr = ex.carico || (ex.pct ? `${ex.pct}% 1RM` : '');
+                let loadStr = ex.carico || (ex.pct ? `${ex.pct}%` : '');
                 let tempo = ex.tempo || '2010';
                 let rest = ex.rest ? `${ex.rest}s` : '90s';
                 let notes = ex.notes || '';
@@ -6914,6 +6920,16 @@ function renderSessions() {
       if (btn) btn.innerHTML = '▶ AVVIA';
       updateEmomDisplay();
     }
+
+    window.addEventListener('storage', (e) => {
+      if (!e.key || e.key.includes('coach_override') || e.key.includes('coach_studio')) {
+        if (typeof renderSessions === 'function') renderSessions();
+      }
+    });
+
+    window.addEventListener('focus', () => {
+      if (typeof renderSessions === 'function') renderSessions();
+    });
 
     window.addEventListener('DOMContentLoaded', init);
   </script>
