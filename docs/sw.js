@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v313-caserta-step-up-prehab)
-const CACHE_NAME = 'marsala-schede-v313-caserta-step-up-prehab';
+// Service Worker App Marsala Volley (v314-caserta-step-up-2x)
+const CACHE_NAME = 'marsala-schede-v314-caserta-step-up-2x';
 
 const ASSETS_TO_CACHE = [
   './',

@@ -792,7 +792,7 @@ const PREHAB_DEFAULT_PROGRAMS = {
     "athNum": 13,
     "athName": "Giulia Caserta",
     "flags": "Butt wink >110°, spalla SX anteposta",
-    "volume": "3x",
+    "volume": "2x",
     "exercises": [
       {
         "name": "Step Up and Down",
