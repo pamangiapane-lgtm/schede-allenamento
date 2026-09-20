@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v315-studio-live-sync-prehab)
-const CACHE_NAME = 'coach-v319-studio-role-adaptive-load-percent';
+const CACHE_NAME = 'coach-v320-studio-singularity-nelly-protect';
 
 self.addEventListener('install', event => {
   self.skipWaiting();

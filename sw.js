@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (v319-role-adaptive-percent)
-const CACHE_NAME = 'marsala-schede-v319-role-adaptive-percent';
+// Service Worker App Marsala Volley (v320-singularity-nelly-protect)
+const CACHE_NAME = 'marsala-schede-v320-singularity-nelly-protect';
 
 const ASSETS_TO_CACHE = [
   './',

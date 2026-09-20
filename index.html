@@ -5223,116 +5223,178 @@ function renderSessions() {
     checkSilentSessionStart(sNum);
     const isFriday = (sNum === 3 || (sed.Giorno && sed.Giorno.toLowerCase().includes('ven')));
 
-    // Collect and normalize exercises
-    let rawList = [];
-
-    // 1. Controlla prima se ci sono modifiche salvate dal Coach Studio (sia personali per l'atleta che per tutta la squadra)
-    let hasCoachOverride = false;
-    try {
-      const athOverrideKey = `coach_override_${currentWeek}_S${sNum}_ath_${currentAthlete.id}`;
-      const teamOverrideKey = `coach_override_${currentWeek}_S${sNum}`;
-      const savedAth = localStorage.getItem(athOverrideKey);
-      const savedTeam = localStorage.getItem(teamOverrideKey);
-      const overrideObj = savedAth ? JSON.parse(savedAth) : (savedTeam ? JSON.parse(savedTeam) : null);
-      if (overrideObj && Array.isArray(overrideObj.blocks) && overrideObj.blocks.length > 0) {
-        hasCoachOverride = true;
-
-        const isTeamLevelOverride = !savedAth && !!savedTeam;
-        const roleStr = String(currentAthlete.role || '').toLowerCase();
-        
-        const ROLE_EX_MAP = {
-          'palleggiatrice': {
-            '1': { name: 'Wrist Roller per il Palleggio', sets: 2, reps: '12', carico: '4 kg', tempo: '2012', notes: 'Rinforzo flessori/estensori polso per il palleggio' },
-            '2': { name: 'Flessori ed Estensori del Polso con Manubri', sets: 2, reps: '15', carico: '3 kg', tempo: '2011', notes: 'Flessori ed estensori del polso per il tocco' },
-            '3': { name: 'Rotazioni Polso con Disco / Prono-Supinazione', sets: 2, reps: '12', carico: '2.5 kg', tempo: '2010', notes: 'Stabilità polso e pronosupinazione per palleggio' }
-          },
-          'centrale': {
-            '1': { name: 'Spanish Squat Isometrico (Tendine Rotuleo)', sets: 2, reps: '45"', carico: 'Miniband', tempo: 'Isometrico', notes: 'Tutela tendinopatia rotulea e stabilità del ginocchio' },
-            '2': { name: 'Polpacci & Caviglia Isometrico al Muro', sets: 2, reps: '45"', carico: 'BW', tempo: 'Isometrico', notes: 'Stiffness e reattività elastica a muro' },
-            '3': { name: 'Tibiale Anteriore & Arco Plantare con Elastico', sets: 2, reps: '15', carico: 'Elastico', tempo: '2010', notes: 'Rinforzo tibiale e stabilità caviglia post-salto' }
-          },
-          'schiacciatrice': {
-            '1': { name: "Prone Y-Raise Spalla d'Attacco DX", sets: 2, reps: '8', carico: '3+3 kg', tempo: '2012', notes: "Fissatori scapolari e cuffia rotatori per la spalla dominante" },
-            '2': { name: 'Extrarotatori Spalla al Cavo / Elastico', sets: 2, reps: '10', carico: '2-3 kg', tempo: '2012', notes: 'Controllo eccentrico decelerazione braccio d\'attacco' },
-            '3': { name: 'Serratus Wall Slide con Foam Roller', sets: 2, reps: '8', carico: 'BW', tempo: '2012', notes: 'Attivazione dentato anteriore e tilt posteriore scapola' }
-          },
-          'opposto': {
-            '1': { name: 'Landmine Rotational Press (Spalla/Braccio Opposto)', sets: 2, reps: '6+6', carico: '10-15 kg', tempo: '2010', notes: "Trasferimento catena cinetica diagonale per l'attacco" },
-            '2': { name: 'Face Pull con Rotazione Esterna', sets: 2, reps: '12', carico: '10 kg', tempo: '2012', notes: 'Cuffia posteriore e stabilizzazione cingolo scapolare' },
-            '3': { name: 'Extrarotatori 90/90 con Manubrio', sets: 2, reps: '10', carico: '3 kg', tempo: '2012', notes: "Controllo rotatori esterni spalla d'attacco" }
-          },
-          'libero': {
-            '1': { name: 'Single-Arm Cable Row (Trazione Asimmetrica)', sets: 2, reps: '8+8', carico: '15-20 kg', tempo: '2011', notes: 'Trazione funzionale asimmetrica senza carico assiale' },
-            '2': { name: 'Mobilità Anca 90/90 + Lift Off', sets: 2, reps: '6+6', carico: 'BW', tempo: '2012', notes: 'Mobilità rotazionale e reattività per la difesa bassa' },
-            '3': { name: 'Lateral Band Walk a Ginocchia Flesse', sets: 2, reps: '10+10', carico: 'Miniband', tempo: '2010', notes: 'Stiffness gluteo medio e stabilità negli scivolamenti' }
-          }
-        };
-
-        const targetRoleKey = roleStr.includes('palleg') ? 'palleggiatrice' :
-                              roleStr.includes('centr') ? 'centrale' :
-                              roleStr.includes('schiac') ? 'schiacciatrice' :
-                              roleStr.includes('opp') ? 'opposto' :
-                              roleStr.includes('lib') ? 'libero' : null;
-
-        overrideObj.blocks.forEach(blk => {
-          (blk.exercises || []).forEach(ex => {
-            let exName = ex.name;
-            let sets = ex.sets || 3;
-            let reps = ex.reps || '5';
-            let loadStr = ex.carico || (ex.pct ? `${ex.pct}% 1RM` : '');
-            let tempo = ex.tempo || '2010';
-            let rest = ex.rest ? `${ex.rest}s` : '90s';
-            let notes = ex.notes || '';
-
-            // Se l'override è a livello di squadra e incontra un esercizio per ruolo, adatta al ruolo reale dell'atleta
-            if (isTeamLevelOverride && targetRoleKey && ROLE_EX_MAP[targetRoleKey]) {
-              const isRoleAccessory = /wrist roller|flessori ed estensori|flessori e estensori|rotazioni polso|spanish squat|polpacci & caviglia|tibiale anteriore|prone y-raise|extrarotatori|serratus wall|landmine rotational|face pull|single-arm cable row|mobilità anca 90\/90|lateral band walk|ruolo-specifico|lavoro ruolo/i.test(exName);
-              if (isRoleAccessory) {
-                const sessKey = String(sNum);
-                const roleEx = ROLE_EX_MAP[targetRoleKey][sessKey] || ROLE_EX_MAP[targetRoleKey]['1'];
-                if (roleEx) {
-                  exName = roleEx.name;
-                  sets = roleEx.sets;
-                  reps = roleEx.reps;
-                  loadStr = roleEx.carico;
-                  tempo = roleEx.tempo;
-                  notes = roleEx.notes;
-                }
-              }
-            }
-
-            rawList.push({
-              Esercizio: exName,
-              'Set x Reps': `${sets}x${reps}`,
-              'Carico (kg/RPE)': loadStr,
-              Tempo: tempo,
-              Recupero: rest,
-              'Note Tecniche': notes,
-              blocco: blk.name || blk.tag || 'Accessori',
-              liftType: ex.liftType || 'generic'
-            });
+    // 1. Carica la struttura dati standard dell'atleta da WEEKS_DATA / data.js
+    let baseList = [];
+    const sedObj = (athInd && (athInd[`${currentWeek.toLowerCase()}_sedute`] || athInd.w5_sedute || athInd.w6_sedute || athInd.w4_sedute || athInd.w3_sedute || athInd.sedute));
+    const sData = sedObj ? (sedObj[sNum] || sedObj[String(sNum)] || []) : [];
+    if (Array.isArray(sData)) {
+      if (sData.length > 0 && sData[0].items) {
+        sData.forEach(blk => {
+          (blk.items || []).forEach(it => {
+            baseList.push({ ...it, blocco: blk.blocco || blk.Blocco || '' });
           });
         });
+      } else {
+        baseList = sData.map(it => ({ ...it }));
       }
-    } catch (e) {
-      console.warn('[Coach Override Load Warning]', e);
     }
 
-    // 2. Se nessun override attivo, carica dalla struttura dati standard WEEKS_DATA
-    if (!hasCoachOverride) {
-      const sedObj = (athInd && (athInd[`${currentWeek.toLowerCase()}_sedute`] || athInd.w5_sedute || athInd.w6_sedute || athInd.w4_sedute || athInd.w3_sedute || athInd.sedute));
-      const sData = sedObj ? (sedObj[sNum] || sedObj[String(sNum)] || []) : [];
-      if (Array.isArray(sData)) {
-        if (sData.length > 0 && sData[0].items) {
-          sData.forEach(blk => {
-            (blk.items || []).forEach(it => {
-              rawList.push({ ...it, blocco: blk.blocco || blk.Blocco || '' });
+    // 2. Controlla se ci sono modifiche salvate dal Coach Studio
+    const athOverrideKey = `coach_override_${currentWeek}_S${sNum}_ath_${currentAthlete.id}`;
+    const teamOverrideKey = `coach_override_${currentWeek}_S${sNum}`;
+    const savedAth = localStorage.getItem(athOverrideKey);
+    const savedTeam = localStorage.getItem(teamOverrideKey);
+
+    const ROLE_EX_MAP = {
+      'palleggiatrice': {
+        '1': { name: 'Wrist Roller per il Palleggio', sets: 2, reps: '12', carico: '4 kg', tempo: '2012', notes: 'Rinforzo flessori/estensori polso per il palleggio' },
+        '2': { name: 'Flessori ed Estensori del Polso con Manubri', sets: 2, reps: '15', carico: '3 kg', tempo: '2011', notes: 'Flessori ed estensori del polso per il tocco' },
+        '3': { name: 'Rotazioni Polso con Disco / Prono-Supinazione', sets: 2, reps: '12', carico: '2.5 kg', tempo: '2010', notes: 'Stabilità polso e pronosupinazione per palleggio' }
+      },
+      'centrale': {
+        '1': { name: 'Spanish Squat Isometrico (Tendine Rotuleo)', sets: 2, reps: '45"', carico: 'Miniband', tempo: 'Isometrico', notes: 'Tutela tendinopatia rotulea e stabilità del ginocchio' },
+        '2': { name: 'Polpacci & Caviglia Isometrico al Muro', sets: 2, reps: '45"', carico: 'BW', tempo: 'Isometrico', notes: 'Stiffness e reattività elastica a muro' },
+        '3': { name: 'Tibiale Anteriore & Arco Plantare con Elastico', sets: 2, reps: '15', carico: 'Elastico', tempo: '2010', notes: 'Rinforzo tibiale e stabilità caviglia post-salto' }
+      },
+      'schiacciatrice': {
+        '1': { name: "Prone Y-Raise Spalla d'Attacco DX", sets: 2, reps: '8', carico: '3+3 kg', tempo: '2012', notes: "Fissatori scapolari e cuffia rotatori per la spalla dominante" },
+        '2': { name: 'Extrarotatori Spalla al Cavo / Elastico', sets: 2, reps: '10', carico: '2-3 kg', tempo: '2012', notes: 'Controllo eccentrico decelerazione braccio d\'attacco' },
+        '3': { name: 'Serratus Wall Slide con Foam Roller', sets: 2, reps: '8', carico: 'BW', tempo: '2012', notes: 'Attivazione dentato anteriore e tilt posteriore scapola' }
+      },
+      'opposto': {
+        '1': { name: 'Landmine Rotational Press (Spalla/Braccio Opposto)', sets: 2, reps: '6+6', carico: '10-15 kg', tempo: '2010', notes: "Trasferimento catena cinetica diagonale per l'attacco" },
+        '2': { name: 'Face Pull con Rotazione Esterna', sets: 2, reps: '12', carico: '10 kg', tempo: '2012', notes: 'Cuffia posteriore e stabilizzazione cingolo scapolare' },
+        '3': { name: 'Extrarotatori 90/90 con Manubrio', sets: 2, reps: '10', carico: '3 kg', tempo: '2012', notes: "Controllo rotatori esterni spalla d'attacco" }
+      },
+      'libero': {
+        '1': { name: 'Single-Arm Cable Row (Trazione Asimmetrica)', sets: 2, reps: '8+8', carico: '15-20 kg', tempo: '2011', notes: 'Trazione funzionale asimmetrica senza carico assiale' },
+        '2': { name: 'Mobilità Anca 90/90 + Lift Off', sets: 2, reps: '6+6', carico: 'BW', tempo: '2012', notes: 'Mobilità rotazionale e reattività per la difesa bassa' },
+        '3': { name: 'Lateral Band Walk a Ginocchia Flesse', sets: 2, reps: '10+10', carico: 'Miniband', tempo: '2010', notes: 'Stiffness gluteo medio e stabilità negli scivolamenti' }
+      }
+    };
+
+    if (savedAth) {
+      // OVERRIDE INDIVIDUALE: L'allenatore ha salvato specificamente per questa atleta
+      try {
+        const overrideObj = JSON.parse(savedAth);
+        if (overrideObj && Array.isArray(overrideObj.blocks) && overrideObj.blocks.length > 0) {
+          rawList = [];
+          overrideObj.blocks.forEach(blk => {
+            (blk.exercises || []).forEach(ex => {
+              let loadStr = ex.carico || (ex.pct ? `${ex.pct}% 1RM` : '');
+              rawList.push({
+                Esercizio: ex.name,
+                'Set x Reps': `${ex.sets || 3}x${ex.reps || 5}`,
+                'Carico (kg/RPE)': loadStr,
+                Tempo: ex.tempo || '2010',
+                Recupero: ex.rest ? `${ex.rest}s` : '90s',
+                'Note Tecniche': ex.notes || '',
+                blocco: blk.name || blk.tag || 'Accessori',
+                liftType: ex.liftType || 'generic'
+              });
             });
           });
-        } else {
-          rawList = sData;
         }
+      } catch (e) {
+        rawList = baseList;
       }
+    } else if (savedTeam) {
+      // OVERRIDE DI SQUADRA (GRANULARE / SINGOLARITÀ):
+      // Se l'atleta è Nelly (#14) o ha una scheda clinica personalizzata (es. Box Squat, Floor Chest Press, ecc.)
+      // NON sovrascrivere l'intera scheda, ma applica solo la singolarità modificata dal coach (es. Medball o core)
+      try {
+        const overrideObj = JSON.parse(savedTeam);
+        if (overrideObj && Array.isArray(overrideObj.blocks) && overrideObj.blocks.length > 0) {
+          const isSpecialClinicalAthlete = (currentAthlete.id === 14 || baseList.some(ex => /box squat|floor chest|powerbag|spanish squat/i.test(ex.Esercizio || ex.esercizio || '')));
+
+          if (isSpecialClinicalAthlete) {
+            // Per Nelly (#14) e atlete con prescrizioni ortopediche: manteniamo la scheda clinica integra
+            // Aggiorniamo chirurgicamente solo l'esercizio corrispondente modificato dal coach (es. Medball)
+            rawList = baseList.map(item => {
+              const origName = String(item.Esercizio || item.esercizio || item.name || '');
+              for (const blk of overrideObj.blocks) {
+                for (const ex of (blk.exercises || [])) {
+                  const exName = String(ex.name || '');
+                  const isMatch = (origName.toLowerCase().trim() === exName.toLowerCase().trim()) ||
+                    (/medball|ball throw|chest pass/i.test(origName) && /medball|ball throw|chest pass/i.test(exName));
+                  
+                  // Proteggi sempre i BAN clinici (Box Squat, Floor Press, Powerbag Clean)
+                  const isProtectedBan = (/squat/i.test(origName) && !/box squat/i.test(exName)) ||
+                                         (/clean/i.test(origName) && /bilanciere/i.test(exName) && /powerbag/i.test(origName));
+
+                  if (isMatch && !isProtectedBan) {
+                    return {
+                      ...item,
+                      Esercizio: ex.name,
+                      'Set x Reps': `${ex.sets || 3}x${ex.reps || 5}`,
+                      'Carico (kg/RPE)': ex.carico || (ex.pct ? `${ex.pct}% 1RM` : item['Carico (kg/RPE)']),
+                      Tempo: ex.tempo || item.Tempo || '2010',
+                      Recupero: ex.rest ? `${ex.rest}s` : (item.Recupero || '90s'),
+                      'Note Tecniche': ex.notes || item['Note Tecniche'] || '',
+                      liftType: ex.liftType || item.liftType || 'generic'
+                    };
+                  }
+                }
+              }
+              return item;
+            });
+          } else {
+            // Per le altre atlete della squadra: applica i blocchi squadra adattando il lavoro per ruolo
+            rawList = [];
+            const roleStr = String(currentAthlete.role || '').toLowerCase();
+            const targetRoleKey = roleStr.includes('palleg') ? 'palleggiatrice' :
+                                  roleStr.includes('centr') ? 'centrale' :
+                                  roleStr.includes('schiac') ? 'schiacciatrice' :
+                                  roleStr.includes('opp') ? 'opposto' :
+                                  roleStr.includes('lib') ? 'libero' : null;
+
+            overrideObj.blocks.forEach(blk => {
+              (blk.exercises || []).forEach(ex => {
+                let exName = ex.name;
+                let sets = ex.sets || 3;
+                let reps = ex.reps || '5';
+                let loadStr = ex.carico || (ex.pct ? `${ex.pct}% 1RM` : '');
+                let tempo = ex.tempo || '2010';
+                let rest = ex.rest ? `${ex.rest}s` : '90s';
+                let notes = ex.notes || '';
+
+                if (targetRoleKey && ROLE_EX_MAP[targetRoleKey]) {
+                  const isRoleAccessory = /wrist roller|flessori ed estensori|flessori e estensori|rotazioni polso|spanish squat|polpacci & caviglia|tibiale anteriore|prone y-raise|extrarotatori|serratus wall|landmine rotational|face pull|single-arm cable row|mobilità anca 90\/90|lateral band walk|ruolo-specifico|lavoro ruolo/i.test(exName);
+                  if (isRoleAccessory) {
+                    const sessKey = String(sNum);
+                    const roleEx = ROLE_EX_MAP[targetRoleKey][sessKey] || ROLE_EX_MAP[targetRoleKey]['1'];
+                    if (roleEx) {
+                      exName = roleEx.name;
+                      sets = roleEx.sets;
+                      reps = roleEx.reps;
+                      loadStr = roleEx.carico;
+                      tempo = roleEx.tempo;
+                      notes = roleEx.notes;
+                    }
+                  }
+                }
+
+                rawList.push({
+                  Esercizio: exName,
+                  'Set x Reps': `${sets}x${reps}`,
+                  'Carico (kg/RPE)': loadStr,
+                  Tempo: tempo,
+                  Recupero: rest,
+                  'Note Tecniche': notes,
+                  blocco: blk.name || blk.tag || 'Accessori',
+                  liftType: ex.liftType || 'generic'
+                });
+              });
+            });
+          }
+        } else {
+          rawList = baseList;
+        }
+      } catch (e) {
+        rawList = baseList;
+      }
+    } else {
+      rawList = baseList;
     }
 
     const normalizedList = rawList.map(raw => normalizeExercise(raw, currentWeek));
