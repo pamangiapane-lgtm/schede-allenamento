@@ -1,5 +1,5 @@
 // Service Worker Coach Command Center (v315-studio-live-sync-prehab)
-const CACHE_NAME = 'coach-v325-campo-w5-w6';
+const CACHE_NAME = 'coach-v326-campo-w5-w6';
 
 self.addEventListener('install', event => {
   self.skipWaiting();
