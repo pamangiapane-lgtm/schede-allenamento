@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (v323-studio-sync-cloud)
-const CACHE_NAME = 'marsala-schede-v323-studio-sync-cloud';
+// Service Worker App Marsala Volley (v327-w5-s2-squat3x3)
+const CACHE_NAME = 'marsala-schede-v327-w5-s2-squat3x3';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260917v299-rpe7-friday-loads',
+  './data.js?v=20260922v327-w5-s2-squat3x3',
   './supabase-client.js?v=2.0',
 
   './logo.jpg',

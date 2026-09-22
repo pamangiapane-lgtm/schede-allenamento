@@ -593,89 +593,68 @@ const WEEKS_DATA = {
           "fase": "Mattina",
           "nome": "Seduta 2 — Spinta Verticale & Trazione Orizzontale",
           "durata": "50-52 min",
-          "focus": "Clean/Powerbag + Half Squat Dinamico + Landmine/Push Press ↔ Single DB Row",
+          "focus": "Clean/Powerbag + Squat Dinamico 3x3 VBT + Landmine Press ↔ Single DB Row",
           "esercizi": [
             {
               "Blocco": "# Prehab",
-              "Esercizio": "1A. Spiderman Lunge con apertura toracica",
-              "Set x Reps": "2 x 6 /lato",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Allungamento flessori anca e mobilità torace"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1B. Prone YTWL / Banded Face Pull",
-              "Set x Reps": "2 x 8 per lettera",
-              "Tempo": "`1012`",
-              "Note Tecniche": "Fissatori della scapola e cuffia dei rotatori"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1C. Calf Raise su step con sosta 2\" in alto",
-              "Set x Reps": "2 x 10 /lato",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Controllo retropiede e asse del calcagno"
-            },
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1D. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 3 balzi",
+              "Esercizio": "1B. Chronojump CMJ Readiness Test",
+              "Set x Reps": "1 x 3 salti",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 25 cm (target RSI >1.80)"
+              "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta"
             },
             {
               "Blocco": "# Plyo",
-              "Esercizio": "2A. Drop Jump da Box",
-              "Set x Reps": "2 x 4",
+              "Esercizio": "2A. Drop Jump da Box (30cm) in Cluster",
+              "Set x Reps": "3 x 2 x (1+1)",
               "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop da box 25-30 cm: rimbalzo verticale immediato (<200ms). Stiffness caviglia"
+              "Note Tecniche": "Drop da box 30cm in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms"
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "3 x 3",
+              "Esercizio": "3A. Power Clean / Powerbag Clean",
+              "Set x Reps": "4 x 2",
               "Tempo": "`X`",
-              "Note Tecniche": "Bilanciere standard per squadra (Powerbag per *Sassolini, Biondi, Adamczewska*)"
+              "Note Tecniche": "Doppie singole a tutta velocità di tirata (Powerbag per atlete con vincoli)"
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3B. Squat Parallelo (max 0.65 m/s)",
-              "Set x Reps": "4 x 3 @ 80% (\"6-7\")",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Parallelo femore-tibia (~90°). Discesa controllata 2\", stop secco al parallelo, salita a max intenzione (Target Enode max 0.65 m/s). Stop rule VL 10%"
+              "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+              "Set x Reps": "3 x 3 @ 65%",
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW"
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3C. Half Kneeling Landmine Press (o KB Press)",
-              "Set x Reps": "3 x 4+4",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Piano scapolare a 30°, traiettoria diagonale 45° salva-spalla a RPE 8, gluteo a terra serrato"
+              "Esercizio": "3C. Half-Kneeling Landmine Press",
+              "Set x Reps": "3 x 4+4 @ 75-80% (\"5\")",
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato"
             },
             {
               "Blocco": "# Main",
-              "Esercizio": "3D. Alzate Laterali con Manubri",
-              "Set x Reps": "3 x 8-10 @ RPE 8",
-              "Tempo": "`2011`",
-              "Note Tecniche": "In piedi o sedute, busto leggermente flesso, abduzione sul piano scapolare (30° ant.) fino ad altezza spalle. No slancio (sostituisce DB Row)"
+              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+              "Set x Reps": "3 x 4+4 @ RPE 8",
+              "Tempo": "`1011`",
+              "Note Tecniche": "Trazione pesante a gomito stretto, retrazione 1\" in chiusura"
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Manubrio (Ipsilaterale)",
+              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
               "Set x Reps": "2 x 4+4",
               "Tempo": "`2010`",
-              "Note Tecniche": "Carico ipsilaterale, cerniera d'anca pura, bacino allineato senza torsione, RPE 6"
+              "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino allineato, RPE 7"
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull con Elastico",
-              "Set x Reps": "2 x 10",
+              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+              "Set x Reps": "2 x 8",
               "Tempo": "`2012`",
-              "Note Tecniche": "Elastico ad altezza occhi, trazione con extrarotazione, pollici ruotati indietro"
+              "Note Tecniche": "Elastico/cavo ad altezza occhi, trazione con extrarotazione, pollici ruotati indietro"
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press in piedi con elastico",
-              "Set x Reps": "2 x 6+6",
+              "Esercizio": "5A. Pallof Press dinamico con step",
+              "Set x Reps": "2 x 5+5",
               "Tempo": "`1111`",
               "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido a RPE 8"
             },
@@ -684,7 +663,7 @@ const WEEKS_DATA = {
               "Esercizio": "5B. Rotational Medball Throw contro muro",
               "Set x Reps": "3 x 3+3",
               "Tempo": "`X`",
-              "Note Tecniche": "Palla 3-4 kg, trasferimento forza bacino-tronco con rilascio massimale"
+              "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale"
             }
           ]
         },
@@ -14355,94 +14334,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (34 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (43 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Wrist Roller per il Palleggio",
-              "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "5 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Flessori ed estensori del polso"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump da Box (20-25cm) in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Power Clean con Bilanciere",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "28.0 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (43.0 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 100kg, BW 62.7kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -14609,94 +14580,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (30 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (45 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Heel Raise zavorrato per Centrali",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "+10 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Rinforzo tendine d'Achille e tricipite surale per atterraggi a muro"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump da Box (30cm) in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Power Clean con Bilanciere",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "30.0 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (45.0 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 106kg, BW 67.7kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -14863,94 +14826,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (51 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (56 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Extrarotazione cavo a 90°",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Decelerazione eccentrica cuffia dei rotatori per spalla dominante"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump da Box (30cm) in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Powerbag Clean to Chest",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "15-20 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (56.0 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 125kg, BW 72.6kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -15117,94 +15072,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Chronojump RSI/RFD Profiling",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm on Chronojump plate (RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops in Cluster (30cm)",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15s intra-set rest. Maximal reversal stiffness, ground contact <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Barbell Power Clean",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (42.5 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Fast double pulls, powerful triple extension, high turnover."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Dynamic Half Squat (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (27 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pure concentric acceleration. BW formula load."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Explosive press in scapular plane at 45°, ipsilateral knee down."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row on Bench",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Heavy single-arm row with high velocity, tight elbow."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL with Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Contralateral load, pure hip hinge, square pelvis."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Cable Face Pull with External Rotation",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Thumbs back, rope to eye-level, posterior cuff strengthening."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Dynamic Pallof Press with Lateral Step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Dynamic anti-rotation lockout, strict upright torso."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw against wall",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Explosive hip loading and violent pelvic snap before arms. Kinetic transfer."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Cable 90° External Rotation",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Eccentric rotator cuff decelerator for attacking shoulder"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump da Box (30cm) in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Power Clean con Bilanciere",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "30.0 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (37.5 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 96kg, BW 71.4kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -15371,94 +15318,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (30 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (39 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Copenhagen Plank per Liberi",
-              "Set x Reps": "2 x 15\"/lato",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Isometrico",
-              "Note Tecniche": "Adduttori e catena mediale per stabilità nei cambi senso"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump Basso (20cm) / Scivolamento in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Powerbag Clean to Chest",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "15.0 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (39.0 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 90kg, BW 56.0kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -15625,94 +15564,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (38.5 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (28 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Heel Raise zavorrato per Centrali",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "+10 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Rinforzo tendine d'Achille e tricipite surale per atterraggi a muro"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump da Box Basso (20-25cm) in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Powerbag Clean to Chest",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "15-20 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (28.0 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 80kg, BW 67.9kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -15879,94 +15810,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (38.5 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (44.5 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Extrarotazione cavo a 90°",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Decelerazione eccentrica cuffia dei rotatori per spalla dominante"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump da Box (30cm) in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Power Clean con Bilanciere",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "35.0 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (51.0 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 120kg, BW 77.0kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -16133,94 +16056,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (42.5 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (40.5 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Extrarotazione cavo a 90°",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Decelerazione eccentrica cuffia dei rotatori per spalla dominante"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump da Box (30cm) in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Power Clean con Bilanciere",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "32.5 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (40.5 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 105kg, BW 79.2kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -16387,94 +16302,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (38.5 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (29 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Extrarotazione cavo a 90°",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "RPE 7",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Decelerazione eccentrica cuffia dei rotatori per spalla dominante"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump da Box (30cm) in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Power Clean con Bilanciere",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "30.0 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (29.0 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 80kg, BW 66.3kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -16641,94 +16548,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (30 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (47.5 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Copenhagen Plank per Liberi",
-              "Set x Reps": "2 x 15\"/lato",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "Isometrico",
-              "Note Tecniche": "Adduttori e catena mediale per stabilità nei cambi senso"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump Basso (20cm) / Scivolamento in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Powerbag Clean to Chest",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "15.0 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (45.5 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 102kg, BW 59.3kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -16895,94 +16794,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (38.5 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (57 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Wrist Roller per il Palleggio",
-              "Set x Reps": "2 x 10",
-              "Carico (kg/RPE)": "5 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Flessori ed estensori del polso"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump da Box (30cm) in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Power Clean con Bilanciere",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "32.5 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (65.0 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 134kg, BW 63.1kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -17149,94 +17040,86 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Prehab",
-              "Esercizio": "1A. Profilazione Chronojump RSI/RFD",
-              "Set x Reps": "2 x 2 balzi",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop Jump 30cm su pedana Chronojump (target RSI >1.80)."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Hurdle Hops (Ostacoli 30cm) in Cluster",
-              "Set x Reps": "2 x (2+2+2)",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "15\" pausa intra-set. Stiffness d'inversione massima, contatto <200ms."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3A. Power Clean con Bilanciere",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "85% (34 kg)",
-              "Tempo": "`X`",
-              "Note Tecniche": "Doppie singole a tutta velocità di tirata e tripla estensione potente."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3B. Half Squat Dinamico (90°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65% (27.5 kg)",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico formula BW."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3C. Half-Kneeling Landmine Press",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`10X0`",
-              "Note Tecniche": "Spinta violenta sul piano scapolare a 45°, ginocchio omolaterale a terra."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
-              "Set x Reps": "3 x 4+4",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Trazione pesante a gomito stretto ad alta velocità."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4A. Single-Leg RDL con Kettlebell",
-              "Set x Reps": "2 x 3+3",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Carico controlaterale, cerniera d'anca pura, bacino squadrato."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Pollici indietro, fune agli occhi, rinforzo cuffia posteriore."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5A. Pallof Press dinamico con step",
-              "Set x Reps": "2 x 5+5",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Blocco anti-rotazione dinamica con passo laterale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "5B. Rotational Medball Throw contro muro",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Caricamento d'anca e rotazione violenta del bacino prima delle braccia. Transfer rotazionale."
-            },
-            {
-              "Blocco": "# Core+Trans.",
-              "Esercizio": "Heel Raise zavorrato per Centrali",
-              "Set x Reps": "2 x 8",
-              "Carico (kg/RPE)": "+10 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Rinforzo tendine d'Achille e tricipite surale per atterraggi a muro"
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1B. Chronojump CMJ Readiness Test",
+                                  "Set x Reps": "1 x 3 salti",
+                                  "Carico (kg/RPE)": "Max",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Baseline altezza e verifica readiness pre-seduta."
+                      },
+                      {
+                                  "Blocco": "# Plyo",
+                                  "Esercizio": "2A. Drop Jump da Box (30cm) in Cluster",
+                                  "Set x Reps": "3 x 2 x (1+1)",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`Max RFD`",
+                                  "Note Tecniche": "Drop box in cluster: 15\" intra-set. Stiffness caviglia e contatto <200ms."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3A. Power Clean con Bilanciere",
+                                  "Set x Reps": "4 x 2",
+                                  "Carico (kg/RPE)": "30.0 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Doppie singole a tutta velocità di tirata ed estensione tripla potente."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3B. Squat Dinamico (Parallelo a 90°)",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "65% (39.0 kg)",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Enode VBT >0.80 m/s. Pura accelerazione concentrica. Carico con formula BW (1RM 102kg, BW 78.0kg)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3C. Half-Kneeling Landmine Press",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "75-80% (\"5\")",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Spinta esplosiva sul piano scapolare (30°), gluteo a terra serrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3D. Single-Arm Dumbbell Row su panca",
+                                  "Set x Reps": "3 x 4+4",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1011`",
+                                  "Note Tecniche": "Trazione pesante a gomito stretto, retrazione scapolare 1\" in chiusura."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4A. Single-Leg RDL con Kettlebell",
+                                  "Set x Reps": "2 x 4+4",
+                                  "Carico (kg/RPE)": "Medio-alto",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Cerniera d'anca monopodalica stabile, bacino squadrato (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Accessories",
+                                  "Esercizio": "4B. Face Pull al cavo alto con extrarotazione",
+                                  "Set x Reps": "2 x 8",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`2012`",
+                                  "Note Tecniche": "Rinforzo cuffia posteriore e rotatori esterni (mantenuto volume W4)."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5A. Pallof Press dinamico con step",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "Medio",
+                                  "Tempo": "`1111`",
+                                  "Note Tecniche": "Anti-rotazione pura con elastico o cavo, tronco solido."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "5B. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3+3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Palla 3 kg, trasferimento forza bacino-tronco con rilascio massimale."
+                      }
           ],
           "3": [
             {
@@ -17403,94 +17286,102 @@ const WEEKS_DATA = {
             }
           ],
           "2": [
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "1A. Chronojump CMJ Readiness Test",
-              "Set x Reps": "1 x 3 jumps",
-              "Carico (kg/RPE)": "Max",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Pre-session readiness check on Chronojump contact mat."
-            },
-            {
-              "Blocco": "# Plyo",
-              "Esercizio": "2A. Drop Jump from Box (25-30cm)",
-              "Set x Reps": "2 x 4",
-              "Carico (kg/RPE)": "BW",
-              "Tempo": "`Max RFD`",
-              "Note Tecniche": "Drop from 25-30cm box, stiff ankle contact, minimal ground contact (<200ms), maximal rebound."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "1. Power Clean with Barbell",
-              "Set x Reps": "4 x 2",
-              "Carico (kg/RPE)": "35.0 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Triple extension, fast turnover into quarter squat catch, powerful explosive intent."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "2. Box Squat (70°-80°)",
-              "Set x Reps": "3 x 2",
-              "Carico (kg/RPE)": "65-70 kg",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Dynamic power squat to box, 65-70 kg, fast acceleration off the box."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "3. Pull Over",
-              "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "14-16 kg",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Flat bench pullover, ribcage stretch, lats contraction."
-            },
-            {
-              "Blocco": "# Main",
-              "Esercizio": "4. One hand DB row",
-              "Set x Reps": "3 x 4 /side",
-              "Carico (kg/RPE)": "18-20 kg",
-              "Tempo": "`1011`",
-              "Note Tecniche": "Explosive single-arm row, strict elbow drive."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "5. Standing calf raises",
-              "Set x Reps": "2 x 6",
-              "Carico (kg/RPE)": "+15 kg",
-              "Tempo": "`2012`",
-              "Note Tecniche": "Full dorsiflexion stretch, high plantarflexion hold."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "6. Lat pull down front",
-              "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "25-30 kg",
-              "Tempo": "`2011`",
-              "Note Tecniche": "Clean frontal pulldown."
-            },
-            {
-              "Blocco": "# Accessories",
-              "Esercizio": "7. Dumbbell Chest Press",
-              "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "12-14 kg",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Flat bench DB press, elbows at 45°, powerful concentric drive."
-            },
-            {
-              "Blocco": "# Power & Core",
-              "Esercizio": "8. Rotational Medball Throw against wall",
-              "Set x Reps": "3 x 3+3",
-              "Carico (kg/RPE)": "3 kg",
-              "Tempo": "`X`",
-              "Note Tecniche": "Side stance, explosive hip rotational snap before arm extension. Attack transfer."
-            },
-            {
-              "Blocco": "# Power & Core",
-              "Esercizio": "9. Standing Pallof Press",
-              "Set x Reps": "2 x 6+6",
-              "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`1111`",
-              "Note Tecniche": "Cable or band anti-rotation hold, 1s pause at full arm extension."
-            }
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "1. Stiff leg deadlift",
+                                  "Set x Reps": "2 x 5",
+                                  "Carico (kg/RPE)": "35.0 kg",
+                                  "Tempo": "`3010`",
+                                  "Note Tecniche": "Cerniera d'anca pura con eccentrica 3\", allungamento controllato ed attivazione femorale."
+                      },
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "2a. Twists with BB - sitting pos",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "30 - 40 kg (o BB scarico)",
+                                  "Tempo": "`Controlled`",
+                                  "Note Tecniche": "In superset con 2b. Bacino bloccato su panca, rotazione controllata del tronco."
+                      },
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "2b. One leg deadlift DB",
+                                  "Set x Reps": "2 x 5+5",
+                                  "Carico (kg/RPE)": "12 - 14 kg",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "In superset con 2a. Manubrio controlaterale, ginocchio morbido, stabilità monopodalica e Short Foot."
+                      },
+                      {
+                                  "Blocco": "# Prehab",
+                                  "Esercizio": "3. KB squat",
+                                  "Set x Reps": "2 x 6",
+                                  "Carico (kg/RPE)": "14.0 kg",
+                                  "Tempo": "`3010`",
+                                  "Note Tecniche": "Goblet squat con KB: eccentrica 3\", mobilità profonda anca e busto eretto."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "1. Box Squat (85°-90°)",
+                                  "Set x Reps": "3 x 5, 4, 3",
+                                  "Carico (kg/RPE)": "65% (53.5 kg)",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Tocco controllato del box, spinta concentrica potente (Formula BW)."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "2. Pull Over su panca",
+                                  "Set x Reps": "3 x 5, 4, 3",
+                                  "Carico (kg/RPE)": "RPE 7",
+                                  "Tempo": "`2010`",
+                                  "Note Tecniche": "Apertura cassa toracica e allungamento gran dorsale a gomiti morbidi."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "3. One hand DB row",
+                                  "Set x Reps": "3 x 5, 4, 3 /lato",
+                                  "Carico (kg/RPE)": "RPE 8",
+                                  "Tempo": "`1030`",
+                                  "Note Tecniche": "Rematore singolo su panca con 3\" tenuta isometrica in retrazione scapolare."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "4. Calf Rises - standing pos",
+                                  "Set x Reps": "3 x 5",
+                                  "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
+                                  "Tempo": "`1020`",
+                                  "Note Tecniche": "Polpacci in piedi, 2\" fermo isometrico al picco di contrazione."
+                      },
+                      {
+                                  "Blocco": "# Main",
+                                  "Esercizio": "5. Lat pull down - front",
+                                  "Set x Reps": "3 x 6",
+                                  "Carico (kg/RPE)": "\"12\" - \"10\" - \"8\"",
+                                  "Tempo": "`1030`",
+                                  "Note Tecniche": "Trazione frontale allo sterno, 3\" di fermo al petto, spalle depresse."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "1. Power Clean con Bilanciere",
+                                  "Set x Reps": "3 x 4",
+                                  "Carico (kg/RPE)": "35.0 kg",
+                                  "Tempo": "`10X0`",
+                                  "Note Tecniche": "Power clean con arrivo reattivo in 1/4 squat."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "2. Rotational Medball Throw contro muro",
+                                  "Set x Reps": "3 x 3",
+                                  "Carico (kg/RPE)": "3 kg",
+                                  "Tempo": "`X`",
+                                  "Note Tecniche": "Lancio esplosivo medball con massima accelerazione braccia/bacino."
+                      },
+                      {
+                                  "Blocco": "# Core+Trans.",
+                                  "Esercizio": "3. Abdominals - Deadbug / Plank",
+                                  "Set x Reps": "2 x 8+8 / 20\"",
+                                  "Carico (kg/RPE)": "BW",
+                                  "Tempo": "`2020`",
+                                  "Note Tecniche": "Deadbug o Plank dinamico per stabilità anteriore e anti-rotazione."
+                      }
           ],
           "3": [
             {
