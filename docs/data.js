@@ -258,8 +258,8 @@ const ROSTER = [
       "Lat Machine": 40.0,
       "Military Press": 20.0,
       "Row BB": 60.0,
-      "Squat / Step Up": 135.0,
-      "Stacchi Rumeni": 105.0
+      "Squat / Step Up": 105.0,
+      "Stacchi Rumeni": 60.0
 },
     "offseason_sessions": 0,
     "turno": "🔴 TURNO 2 (09:30 – 10:25) — \"Heavy, Power & Jumpers\" (Postazione Rack 2 con Dodi, Caserta e Adamczewska)",

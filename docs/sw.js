@@ -1,10 +1,10 @@
 // Service Worker App Marsala Volley (v328-live-1rm-aligned)
-const CACHE_NAME = 'marsala-schede-v328-live-1rm-aligned';
+const CACHE_NAME = 'marsala-schede-v329-live-1rm-locked-ssot';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260922v328-live-1rm-aligned',
+  './data.js?v=20260922v329-live-1rm-locked-ssot',
   './supabase-client.js?v=2.0',
 
   './logo.jpg',
