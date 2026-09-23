@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (marsala-schede-v335-w5-s3-volume-w4)
-const CACHE_NAME = 'marsala-schede-v335-w5-s3-volume-w4';
+// Service Worker App Marsala Volley (marsala-schede-v336-w5-s3-3x6-pulley-bridge)
+const CACHE_NAME = 'marsala-schede-v336-w5-s3-3x6-pulley-bridge';
 
 const ASSETS_TO_CACHE = [
   './',

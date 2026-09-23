@@ -14223,7 +14223,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "40",
-        "Note": "RDL Bilanciere 2x3 @ 65% (Buffer 3-4 tassativo) + Pulley 2x6 + Glute Bridge 2x6 + Pullover 2x8 (Volume W4) · STRICT FRIDAY JUMP BAN"
+        "Note": "RDL Bilanciere 2x3 @ 65% (Buffer 3-4 tassativo) + Pulley 3x6 + Glute Bridge 3x6 + Pullover 2x8 · STRICT FRIDAY JUMP BAN"
       }
     ],
     "programma_squadra": {
@@ -14432,18 +14432,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -14451,7 +14451,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14459,7 +14459,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14467,7 +14467,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14678,18 +14678,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -14697,7 +14697,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14705,7 +14705,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14713,7 +14713,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14924,18 +14924,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -14943,7 +14943,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14951,7 +14951,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14959,7 +14959,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15170,18 +15170,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Seated Cable Row Neutral Grip",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Clean horizontal pull to navel, 1s scapular hold (W4 volume 2x6)."
+              "Note Tecniche": "Clean horizontal pull to navel, 1s scapular hold (3 sets x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Barbell Glute Bridge",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2s isometric hold in hip extension, push from heels (W4 volume 2x6)."
+              "Note Tecniche": "2s isometric hold in hip extension, push from heels (3 sets x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -15189,7 +15189,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Chest opening and controlled lat stretch (W4 volume 2x8)."
+              "Note Tecniche": "Chest opening and controlled lat stretch (2 sets x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15197,7 +15197,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Solid lumbar anti-extension (lower back glued to floor, W4 volume 2x6+6)."
+              "Note Tecniche": "Solid lumbar anti-extension (lower back glued to floor, 2 sets x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15205,7 +15205,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Upright posture, scapular stability, solid grip (W4 volume 2x20m)."
+              "Note Tecniche": "Upright posture, scapular stability, solid grip (2 sets x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15416,18 +15416,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -15435,7 +15435,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15443,7 +15443,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15451,7 +15451,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15662,18 +15662,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -15681,7 +15681,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15689,7 +15689,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15697,7 +15697,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15908,18 +15908,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -15927,7 +15927,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15935,7 +15935,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15943,7 +15943,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16154,18 +16154,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -16173,7 +16173,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16181,7 +16181,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16189,7 +16189,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16400,18 +16400,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -16419,7 +16419,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16427,7 +16427,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16435,7 +16435,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16646,18 +16646,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -16665,7 +16665,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16673,7 +16673,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16681,7 +16681,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16892,18 +16892,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -16911,7 +16911,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16919,7 +16919,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16927,7 +16927,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -17138,18 +17138,18 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Accessories",
@@ -17157,7 +17157,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (2 serie x 8 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -17165,7 +17165,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, 2 serie x 6+6 reps)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -17173,7 +17173,7 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (2 serie x 20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -17400,10 +17400,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3. Barbell Hip Thrust / Glute Bridge",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "3 x 6",
               "Carico (kg/RPE)": "40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2s maximal isometric glute lock at top, submaximal load (volume W4 2x6)."
+              "Note Tecniche": "2s maximal isometric glute lock at top, submaximal load (3 serie x 6 reps)."
             },
             {
               "Blocco": "# Main",
