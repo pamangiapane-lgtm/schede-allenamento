@@ -1546,7 +1546,7 @@
   </main>
 
   <script src="prehab_db.js?v=1.0"></script>
-  <script src="data.js?v=20260923v342-w5-s3-farmer-monolateral"></script>
+  <script src="data.js?v=20260923v343-w5-s3-deadbug-rdl-range"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="src/core/sports-science-math.js?v=1.0"></script>
   <script src="supabase-client.js?v=2.0"></script>
@@ -2494,7 +2494,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=20260923v342-w5-s3-farmer-monolateral').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=20260923v343-w5-s3-deadbug-rdl-range').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
@@ -4037,6 +4037,9 @@ function getExercise1RMData(exName, rawCarico, athlete, week) {
   // Se è specificato un RPE puro senza %, non sovrascrivere con carichi 1RM
   if (cStr.includes('rpe') && !cStr.includes('%')) return null;
 
+  // Se il carico contiene gia un range esplicito con kg (es. "da 65 a 75% (39-45 kg)" o "65-75% (39-45 kg)") lascia al parser nativo
+  if (/\([^)]*kg[^)]*\)/i.test(cStr) && (cStr.includes('-') || cStr.includes(' a '))) return null;
+
   // Gli esercizi a gamba singola non devono ereditare l'1RM bipodalico
   if (low.includes('single-leg') || low.includes('one leg') || low.includes('1-leg') || low.includes('ipsilaterale') || low.includes('split')) return null;
 
@@ -4964,7 +4967,7 @@ const ATHLETE_VBT_LIMITS = {
           intensitaVal = `${rmData.targetKg} kg`;
         }
       } else {
-        const mPct = (carico || '').match(/^(\d+(?:[.,]\d+)?)%\s*\(([^)]+)\)/);
+        const mPct = (carico || '').match(/^((?:da\s+)?\d+(?:[.,]\d+)?(?:\s*(?:[-–]|a|% a)\s*\d+(?:[.,]\d+)?)?)%\s*\(([^)]+)\)/i);
         if (mPct) {
           intensitaLbl = `${mPct[1]}%`;
           intensitaVal = escapeHtml(mPct[2]);

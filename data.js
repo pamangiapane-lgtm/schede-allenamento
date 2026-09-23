@@ -14223,7 +14223,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "40",
-        "Note": "RDL Bilanciere 3x4 @ 65% (Buffer 3-4 tassativo) + Pulley 3x6 RPE 8 + Glute Bridge 3x6 RPE 8 + Push Press DB 2x6 RPE 8 · STRICT FRIDAY JUMP BAN"
+        "Note": "RDL Bilanciere 3x4 @ da 65 a 75% (Buffer 3-4 tassativo) + Pulley 3x6 RPE 8 + Glute Bridge 3x6 RPE 8 + Push Press DB 2x6 RPE 8 + Deadbug 2x5+5 RPE 8 · STRICT FRIDAY JUMP BAN"
       }
     ],
     "programma_squadra": {
@@ -14425,7 +14425,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (39 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (39-45 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -14456,7 +14456,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."
@@ -14671,7 +14671,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (26 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (26-30 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -14702,7 +14702,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."
@@ -14917,7 +14917,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (45.5 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (45.5-52.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -14948,7 +14948,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."
@@ -15163,7 +15163,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift (Barbell RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (36 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (36-41.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Pure hip hinge, barbell close to thighs. **Buffer 3-4 strict**. No hamstring fatigue."
             },
@@ -15194,15 +15194,15 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug with KB overhead",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Solid lumbar anti-extension, lower back glued to floor (suggested 4-6 kg)."
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Single Dumbbell Farmer March (Suitcase Carry)",
-              "Set x Reps": "2 x 20m /side",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marching",
               "Note Tecniche": "Single dumbbell on one side (Suitcase carry), strict upright posture, zero lateral flexion, controlled 20m walk per side. RPE 8."
@@ -15409,7 +15409,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (32.5 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (32.5-37.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -15440,7 +15440,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."
@@ -15655,7 +15655,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (32.5 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (32.5-37.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -15686,7 +15686,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."
@@ -15901,7 +15901,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (52 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (52-60 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -15932,7 +15932,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."
@@ -16147,7 +16147,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (39 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (39-45 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -16178,7 +16178,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."
@@ -16393,7 +16393,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (52 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (52-60 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -16424,7 +16424,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."
@@ -16639,7 +16639,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (37.5 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (37.5-43.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -16670,7 +16670,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."
@@ -16885,7 +16885,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (57 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (57-66 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -16916,7 +16916,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."
@@ -17131,7 +17131,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "65% (59 kg)",
+              "Carico (kg/RPE)": "da 65 a 75% (59-68.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -17162,7 +17162,7 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 6+6",
+              "Set x Reps": "2 x 5+5",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "`2020`",
               "Note Tecniche": "Anti-estensione lombare solida, lombare incollata al suolo (suggerito 4-6 kg)."

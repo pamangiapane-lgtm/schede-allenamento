@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (marsala-schede-v342-w5-s3-farmer-monolateral)
-const CACHE_NAME = 'marsala-schede-v342-w5-s3-farmer-monolateral';
+// Service Worker App Marsala Volley (marsala-schede-v343-w5-s3-deadbug-rdl-range)
+const CACHE_NAME = 'marsala-schede-v343-w5-s3-deadbug-rdl-range';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260923v342-w5-s3-farmer-monolateral',
+  './data.js?v=20260923v343-w5-s3-deadbug-rdl-range',
   './supabase-client.js?v=2.0',
 
   './logo.jpg',
