@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (marsala-schede-v334-purge-w5-overrides)
-const CACHE_NAME = 'marsala-schede-v334-purge-w5-overrides';
+// Service Worker App Marsala Volley (marsala-schede-v335-w5-s3-volume-w4)
+const CACHE_NAME = 'marsala-schede-v335-w5-s3-volume-w4';
 
 const ASSETS_TO_CACHE = [
   './',

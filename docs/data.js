@@ -14223,7 +14223,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "40",
-        "Note": "RDL Bilanciere 2x3 @ 65% (Buffer 3-4 tassativo) + Pulley decompressivo · STRICT FRIDAY JUMP BAN"
+        "Note": "RDL Bilanciere 2x3 @ 65% (Buffer 3-4 tassativo) + Pulley 2x6 + Glute Bridge 2x6 + Pullover 2x8 (Volume W4) · STRICT FRIDAY JUMP BAN"
       }
     ],
     "programma_squadra": {
@@ -14432,42 +14432,42 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14678,42 +14678,42 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14924,42 +14924,42 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15157,55 +15157,55 @@ const WEEKS_DATA = {
               "Set x Reps": "2 x 20\"",
               "Carico (kg/RPE)": "BW parziale",
               "Tempo": "Decompressivo",
-              "Note Tecniche": "Total spinal decompression and axial relief."
+              "Note Tecniche": "Total axial decompression and shoulder mobility."
             },
             {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift (Barbell RDL)",
               "Set x Reps": "2 x 3",
-              "Carico (kg/RPE)": "65% (39 kg)",
+              "Carico (kg/RPE)": "65% (36 kg)",
               "Tempo": "`2010`",
-              "Note Tecniche": "Pure hip hinge, barbell close to thighs. Strict RIR 3-4 (no hamstring fatigue)."
+              "Note Tecniche": "Pure hip hinge, barbell close to thighs. **Buffer 3-4 strict**. No hamstring fatigue."
             },
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Seated Cable Row Neutral Grip",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Clean horizontal pull towards navel, 1s scapular retraction."
+              "Note Tecniche": "Clean horizontal pull to navel, 1s scapular hold (W4 volume 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Barbell Glute Bridge",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2s peak isometric glute squeeze at full hip extension."
+              "Note Tecniche": "2s isometric hold in hip extension, push from heels (W4 volume 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover on Flat Bench",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Ribcage opening and controlled lat stretch."
+              "Note Tecniche": "Chest opening and controlled lat stretch (W4 volume 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug with KB overhead",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Solid anti-extension hold, lower back glued to floor."
+              "Note Tecniche": "Solid lumbar anti-extension (lower back glued to floor, W4 volume 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Bilateral Dumbbell Farmer March",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Posture, scapular stiffness, solid grip."
+              "Note Tecniche": "Upright posture, scapular stability, solid grip (W4 volume 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15213,7 +15213,7 @@ const WEEKS_DATA = {
               "Set x Reps": "-",
               "Carico (kg/RPE)": "-",
               "Tempo": "-",
-              "Note Tecniche": "ZERO JUMPS. Fresh legs and maximal elasticity for Saturday main test match."
+              "Note Tecniche": "ZERO JUMPS. Maximum neural reactivity and fresh legs for Saturday test match."
             }
           ]
         }
@@ -15409,49 +15409,49 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
-              "Carico (kg/RPE)": "65% (36 kg)",
+              "Carico (kg/RPE)": "65% (32.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15655,49 +15655,49 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
-              "Carico (kg/RPE)": "65% (39 kg)",
+              "Carico (kg/RPE)": "65% (32.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15901,49 +15901,49 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
-              "Carico (kg/RPE)": "65% (39 kg)",
+              "Carico (kg/RPE)": "65% (52 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16147,49 +16147,49 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
-              "Carico (kg/RPE)": "65% (42.5 kg)",
+              "Carico (kg/RPE)": "65% (39 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16393,49 +16393,49 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
-              "Carico (kg/RPE)": "65% (42.5 kg)",
+              "Carico (kg/RPE)": "65% (52 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16639,49 +16639,49 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
-              "Carico (kg/RPE)": "65% (32.5 kg)",
+              "Carico (kg/RPE)": "65% (37.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16885,49 +16885,49 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
-              "Carico (kg/RPE)": "65% (42.5 kg)",
+              "Carico (kg/RPE)": "65% (57 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -17131,49 +17131,49 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "2 x 3",
-              "Carico (kg/RPE)": "65% (39 kg)",
+              "Carico (kg/RPE)": "65% (59 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
             {
               "Blocco": "# Main",
               "Esercizio": "2B. Pulley Basso al Cavo Presa Parallela",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "`2011`",
-              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\"."
+              "Note Tecniche": "Trazione orizzontale pulita verso l'ombelico, retrazione scapolare 1\" (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3A. Glute Bridge con bilanciere a terra",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "35-40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni."
+              "Note Tecniche": "2\" fermo isometrico in estensione anca, spinta dai talloni (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
               "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 6",
+              "Set x Reps": "2 x 8",
               "Carico (kg/RPE)": "8-10 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale."
+              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (volume W4 2x8)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4A. Deadbug con sovraccarico KB",
-              "Set x Reps": "2 x 5+5",
+              "Set x Reps": "2 x 6+6",
               "Carico (kg/RPE)": "4-6 kg",
               "Tempo": "`2020`",
-              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo)."
+              "Note Tecniche": "Anti-estensione lombare solida (lombare incollata al suolo, volume W4 2x6+6)."
             },
             {
               "Blocco": "# Core+Trans.",
               "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 15m",
+              "Set x Reps": "2 x 20m",
               "Carico (kg/RPE)": "RPE 7",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -17400,10 +17400,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "3. Barbell Hip Thrust / Glute Bridge",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "40 kg",
               "Tempo": "`2012`",
-              "Note Tecniche": "2s maximal isometric glute lock at top, submaximal load."
+              "Note Tecniche": "2s maximal isometric glute lock at top, submaximal load (volume W4 2x6)."
             },
             {
               "Blocco": "# Main",
@@ -17416,10 +17416,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Main",
               "Esercizio": "5. Dumbbell Shoulder Press",
-              "Set x Reps": "2 x 5",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "8+8 kg",
               "Tempo": "`2010`",
-              "Note Tecniche": "Seated or standing, scapular plane pressing."
+              "Note Tecniche": "Seated or standing, scapular plane pressing (volume W4 2x6)."
             },
             {
               "Blocco": "# Accessories",
@@ -17448,10 +17448,10 @@ const WEEKS_DATA = {
             {
               "Blocco": "# Core & Recovery",
               "Esercizio": "9. Single DB Farmer march (Suitcase carry)",
-              "Set x Reps": "2 x 15m /side",
+              "Set x Reps": "2 x 20m /side",
               "Carico (kg/RPE)": "12 kg",
               "Tempo": "Marching",
-              "Note Tecniche": "High-knee marching, strict anti-lateral flexion, strong grip."
+              "Note Tecniche": "High-knee marching, strict anti-lateral flexion, strong grip (volume W4 2x20m)."
             },
             {
               "Blocco": "# Core & Recovery",
