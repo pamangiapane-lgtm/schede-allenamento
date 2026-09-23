@@ -1,5 +1,5 @@
-// Service Worker App Marsala Volley (marsala-schede-v337-w5-s3-maxload-rpe8)
-const CACHE_NAME = 'marsala-schede-v337-w5-s3-maxload-rpe8';
+// Service Worker App Marsala Volley (marsala-schede-v338-w5-s3-pure-rpe8)
+const CACHE_NAME = 'marsala-schede-v338-w5-s3-pure-rpe8';
 
 const ASSETS_TO_CACHE = [
   './',
