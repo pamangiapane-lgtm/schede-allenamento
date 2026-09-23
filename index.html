@@ -1546,7 +1546,7 @@
   </main>
 
   <script src="prehab_db.js?v=1.0"></script>
-  <script src="data.js?v=20260923v336-w5-s3-3x6-pulley-bridge"></script>
+  <script src="data.js?v=20260923v337-w5-s3-maxload-rpe8"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="src/core/sports-science-math.js?v=1.0"></script>
   <script src="supabase-client.js?v=2.0"></script>
@@ -2494,7 +2494,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=20260923v336-w5-s3-3x6-pulley-bridge').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=20260923v337-w5-s3-maxload-rpe8').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
@@ -4576,6 +4576,21 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
   let rpe = '';
   let reps = '';
   let vbt = '';
+
+  let allCandidateLoads = [];
+
+  // Helper to parse numeric weight from a string
+  function parseLoadNumber(str) {
+    if (!str) return 0;
+    const s = String(str).replace(',', '.');
+    const mDb = s.match(/(\d+(?:\.\d+)?)\s*\+\s*(\d+(?:\.\d+)?)/);
+    if (mDb) return parseFloat(mDb[1]) + parseFloat(mDb[2]);
+    const mRange = s.match(/(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)/);
+    if (mRange) return parseFloat(mRange[2]);
+    const mSingle = s.match(/(\d+(?:\.\d+)?)/);
+    if (mSingle) return parseFloat(mSingle[1]);
+    return 0;
+  }
 
   // 1. Search in confirmed historical datasets (W4_S1, W3_S2, W3_S1, W3_S3)
   const confirmedSources = [
