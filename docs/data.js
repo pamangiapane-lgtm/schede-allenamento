@@ -14463,11 +14463,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14709,11 +14709,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14955,11 +14955,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15201,11 +15201,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Bilateral Dumbbell Farmer March",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Single Dumbbell Farmer March (Suitcase Carry)",
+              "Set x Reps": "2 x 20m /side",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "Marcia",
-              "Note Tecniche": "Upright posture, scapular stability, solid grip."
+              "Tempo": "Marching",
+              "Note Tecniche": "Single dumbbell on one side (Suitcase carry), strict upright posture, zero lateral flexion, controlled 20m walk per side. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15447,11 +15447,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15693,11 +15693,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15939,11 +15939,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16185,11 +16185,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16431,11 +16431,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16677,11 +16677,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16923,11 +16923,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -17169,11 +17169,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Core+Trans.",
-              "Esercizio": "4B. Farmer March con manubri bilaterali",
-              "Set x Reps": "2 x 20m",
+              "Esercizio": "4B. Farmer March Monolaterale con Manubrio (Suitcase Carry)",
+              "Set x Reps": "2 x 20m / lato",
               "Carico (kg/RPE)": "RPE 8",
               "Tempo": "Marcia",
-              "Note Tecniche": "Postura eretta, stabilità scapolare e presa solida."
+              "Note Tecniche": "Manubrio singolo su un lato (Suitcase carry), tronco eretto senza inclinazione laterale (anti-flessione pura), marcia controllata 20m a lato. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
