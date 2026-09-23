@@ -1,10 +1,10 @@
-// Service Worker App Marsala Volley (marsala-schede-v338-w5-s3-pure-rpe8)
-const CACHE_NAME = 'marsala-schede-v338-w5-s3-pure-rpe8';
+// Service Worker App Marsala Volley (marsala-schede-v339-w5-s3-3x6-purge-overrides)
+const CACHE_NAME = 'marsala-schede-v339-w5-s3-3x6-purge-overrides';
 
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './data.js?v=20260923v334-purge-w5-overrides',
+  './data.js?v=20260923v339-w5-s3-3x6-purge-overrides',
   './supabase-client.js?v=2.0',
 
   './logo.jpg',

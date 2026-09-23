@@ -1546,7 +1546,7 @@
   </main>
 
   <script src="prehab_db.js?v=1.0"></script>
-  <script src="data.js?v=20260923v338-w5-s3-pure-rpe8"></script>
+  <script src="data.js?v=20260923v339-w5-s3-3x6-purge-overrides"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="src/core/sports-science-math.js?v=1.0"></script>
   <script src="supabase-client.js?v=2.0"></script>
@@ -2494,7 +2494,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=20260923v338-w5-s3-pure-rpe8').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=20260923v339-w5-s3-3x6-purge-overrides').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
@@ -2523,6 +2523,7 @@
       });
 
       if (currentAthlete && currentAthlete.id) {
+        sanitizeAthleteLocalStorage(currentAthlete.id);
         applyConfirmedW3S1Data(currentAthlete.id);
         applyConfirmedW3S2Data(currentAthlete.id);
         applyConfirmedW3S3Data(currentAthlete.id);
@@ -4529,6 +4530,8 @@ function getMovementType(name) {
   if (/glute bridge|hip thrust/i.test(n)) return 'glute_bridge';
   if (/alzate laterali|lateral raise/i.test(n) && !/lat machine/i.test(n)) return 'alzate_laterali';
   if (/alzate posteriori|trap-3|y-raise|deltoide posteriore/i.test(n)) return 'alzate_posteriori';
+  if (/shoulder press|military|lento avanti/i.test(n)) return 'shoulder_press';
+  if (/farmer|suitcase|carry|trasporto/i.test(n)) return 'farmer_march';
   if (/face pull|extrarotazion|rotatori/i.test(n)) return 'face_pull';
   if (/pallof/i.test(n)) return 'pallof';
   if (/rotational|rotazion.*medball|medball.*rotazion/i.test(n)) return 'rotational_medball';
@@ -4537,6 +4540,8 @@ function getMovementType(name) {
   if (/split squat|bulgarian/i.test(n)) return 'split_squat';
   if (/heel raise|calf raise|polpacci|soleus/i.test(n)) return 'heel_raise';
   if (/deadbug/i.test(n)) return 'deadbug';
+  if (/nordic|nordic curl/i.test(n)) return 'nordic_curl';
+  if (/wall squat|isometric wall/i.test(n)) return 'wall_squat';
   if (/pogo/i.test(n)) return 'pogo';
   if (/drop jump/i.test(n)) return 'drop_jump';
   if (/cmj|readiness/i.test(n)) return 'cmj';
@@ -4576,8 +4581,7 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
   let rpe = '';
   let reps = '';
   let vbt = '';
-
-  let allCandidateLoads = [];
+  let isMax = false;
 
   // Helper to parse numeric weight from a string
   function parseLoadNumber(str) {
@@ -4592,8 +4596,11 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
     return 0;
   }
 
-  // 1. Search in confirmed historical datasets (W4_S1, W3_S2, W3_S1, W3_S3)
+  let candidates = [];
+
+  // 1. Search in confirmed historical datasets (W4_S2, W4_S1, W3_S2, W3_S1, W3_S3)
   const confirmedSources = [
+    { week: 'W4', s: 'S2', data: (typeof W4_S2_CONFIRMED_DATA !== 'undefined') ? W4_S2_CONFIRMED_DATA[athId] : null },
     { week: 'W4', s: 'S1', data: (typeof W4_S1_CONFIRMED_DATA !== 'undefined') ? W4_S1_CONFIRMED_DATA[athId] : null },
     { week: 'W3', s: 'S2', data: (typeof W3_S2_CONFIRMED_DATA !== 'undefined') ? W3_S2_CONFIRMED_DATA[athId] : null },
     { week: 'W3', s: 'S1', data: (typeof W3_S1_CONFIRMED_DATA !== 'undefined') ? W3_S1_CONFIRMED_DATA[athId] : null },
@@ -4608,93 +4615,123 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
         const kType = getMovementType(k);
         const kNorm = normalizeKey(k);
         if ((targetType && kType === targetType) || (tNorm === kNorm)) {
-          foundVal = val.trim();
-          foundWeek = src.week;
-          prevExName = k;
-          isManual = true;
-          break;
+          const numKg = parseLoadNumber(val);
+          candidates.push({
+            val: val.trim(),
+            kg: numKg,
+            week: src.week,
+            exName: k,
+            isManual: true,
+            weightOrder: 3
+          });
         }
       }
     }
-    if (foundVal) break;
     if (isCmj && src.data.cmj) {
-      foundVal = src.data.cmj;
-      foundWeek = src.week;
-      prevExName = 'CMJ Test Chronojump';
-      isManual = true;
-      break;
+      candidates.push({
+        val: src.data.cmj,
+        kg: parseFloat(src.data.cmj) || 0,
+        week: src.week,
+        exName: 'CMJ Test Chronojump',
+        isManual: true,
+        weightOrder: 3
+      });
     }
   }
 
-  // 2. Check localStorage if not found in confirmed datasets
-  if (!foundVal) {
-    try {
-      const weeksToCheck = ['W4', 'W3'];
-      for (const w of weeksToCheck) {
-        const k1 = localStorage.getItem(`mv_load_${athId}_${w}_${sed ? sed.Numero_Seduta : ''}_${exName}`);
-        const k2 = localStorage.getItem(`mv_load_${athId}_${w}_${sNum}_${exName}`);
-        const k3 = localStorage.getItem(`mv_load_${athId}_${w}_${exName}`);
-        const val = k1 || k2 || k3;
-        if (val && val.trim() && !val.toLowerCase().includes('rpe')) {
-          foundVal = val.trim();
-          foundWeek = w;
-          isManual = true;
-          break;
+  // 2. Check localStorage
+  try {
+    const allKeys = Object.keys(localStorage);
+    for (const k of allKeys) {
+      if (k.startsWith(`mv_load_${athId}_`)) {
+        const rawVal = localStorage.getItem(k);
+        if (rawVal && rawVal.trim() && !rawVal.toLowerCase().includes('rpe')) {
+          const kClean = k.replace(`mv_load_${athId}_`, '').replace(/^W[1-9]_[1-3]_/, '');
+          const kType = getMovementType(kClean);
+          if ((targetType && kType === targetType) || (tNorm === normalizeKey(kClean))) {
+            const wGuess = k.includes('_W4_') ? 'W4' : (k.includes('_W3_') ? 'W3' : 'W4');
+            const numKg = parseLoadNumber(rawVal);
+            candidates.push({
+              val: rawVal.trim(),
+              kg: numKg,
+              week: wGuess,
+              exName: kClean,
+              isManual: true,
+              weightOrder: 4
+            });
+          }
         }
       }
-      if (!foundVal) {
-        const allKeys = Object.keys(localStorage);
-        for (const k of allKeys) {
-          if (k.startsWith(`mv_load_${athId}_`)) {
-            const rawVal = localStorage.getItem(k);
-            if (rawVal && rawVal.trim() && !rawVal.toLowerCase().includes('rpe')) {
-              const kClean = k.replace(`mv_load_${athId}_`, '').replace(/^W[1-9]_[1-3]_/, '');
-              if (targetType && getMovementType(kClean) === targetType) {
-                foundVal = rawVal.trim();
-                foundWeek = k.includes('_W4_') ? 'W4' : (k.includes('_W3_') ? 'W3' : 'W4');
-                isManual = true;
-                prevExName = kClean;
-                break;
+    }
+  } catch (e) {}
+
+  // 3. Fallback: check WEEKS_DATA for prescribed load of previous weeks
+  if (typeof WEEKS_DATA !== 'undefined') {
+    const prevWeeks = (currentWeek === 'W5') ? ['W4', 'W3'] : (currentWeek === 'W6' ? ['W5', 'W4', 'W3'] : ['W3']);
+    for (const pw of prevWeeks) {
+      const pObj = WEEKS_DATA[pw];
+      if (pObj && pObj.atleti && pObj.atleti[athId]) {
+        const pAth = pObj.atleti[athId];
+        const prevSedObj = pAth[`${pw.toLowerCase()}_sedute`] || pAth.w5_sedute || pAth.w4_sedute || pAth.w3_sedute || pAth.sedute;
+        if (prevSedObj) {
+          const allSed = [
+            ...(prevSedObj['1'] || prevSedObj[1] || []),
+            ...(prevSedObj['2'] || prevSedObj[2] || []),
+            ...(prevSedObj['3'] || prevSedObj[3] || [])
+          ];
+          for (const c of allSed) {
+            const cName = c.Esercizio || c.exName || '';
+            const cType = getMovementType(cName);
+            if ((targetType && cType === targetType) || (tNorm === normalizeKey(cName))) {
+              const rawC = c['Carico (kg/RPE)'] || c.carico || '';
+              const kgMatch = rawC.match(/\(([^)]+kg)\)/i);
+              let cVal = '';
+              if (kgMatch) {
+                cVal = kgMatch[1].trim();
+              } else if (!rawC.toLowerCase().includes('rpe') && !rawC.toLowerCase().includes('medio')) {
+                cVal = rawC.replace(/\["[^"]+"\]/g, '').replace(/\("[^"]+"\)/g, '').trim();
+              }
+              if (cVal) {
+                candidates.push({
+                  val: cVal,
+                  kg: parseLoadNumber(cVal),
+                  week: pw,
+                  exName: cName,
+                  isManual: false,
+                  reps: (c['Set x Reps'] || c.reps || '').replace(/\s*x\s*/gi, 'x').trim(),
+                  weightOrder: 1
+                });
               }
             }
           }
         }
       }
-    } catch (e) {}
+    }
   }
 
-  // 3. Fallback: check WEEKS_DATA for prescribed load of previous week
-  if (!foundVal && typeof WEEKS_DATA !== 'undefined') {
-    const prevWeekKey = (currentWeek === 'W5') ? 'W4' : (currentWeek === 'W6' ? 'W5' : 'W3');
-    foundWeek = prevWeekKey;
-    const prevWeekObj = WEEKS_DATA[prevWeekKey];
-    if (prevWeekObj && prevWeekObj.atleti && prevWeekObj.atleti[athId]) {
-      const prevAth = prevWeekObj.atleti[athId];
-      const prevSedObj = prevAth[`${prevWeekKey.toLowerCase()}_sedute`] || prevAth.w5_sedute || prevAth.w4_sedute || prevAth.w3_sedute || prevAth.sedute;
-      if (prevSedObj) {
-        const sameSed = prevSedObj[sNum] || prevSedObj[String(sNum)] || [];
-        const allSed = [
-          ...(prevSedObj['1'] || prevSedObj[1] || []),
-          ...(prevSedObj['2'] || prevSedObj[2] || []),
-          ...(prevSedObj['3'] || prevSedObj[3] || [])
-        ];
-        for (const c of [...sameSed, ...allSed]) {
-          const cName = c.Esercizio || c.exName || '';
-          const cType = getMovementType(cName);
-          if ((targetType && cType === targetType) || (tNorm === normalizeKey(cName))) {
-            const rawC = c['Carico (kg/RPE)'] || c.carico || '';
-            const kgMatch = rawC.match(/\(([^)]+kg)\)/i);
-            if (kgMatch) {
-              foundVal = kgMatch[1].trim();
-            } else if (!rawC.toLowerCase().includes('rpe') && !rawC.toLowerCase().includes('medio')) {
-              foundVal = rawC.replace(/\["[^"]+"\]/g, '').replace(/\("[^"]+"\)/g, '').trim();
-            }
-            prevExName = cName;
-            reps = (c['Set x Reps'] || c.reps || '').replace(/\s*x\s*/gi, 'x').trim();
-            break;
-          }
-        }
-      }
+  // Pick best candidate
+  if (candidates.length > 0) {
+    if (!isJump) {
+      candidates.sort((a, b) => {
+        if (b.kg !== a.kg) return b.kg - a.kg;
+        if (b.isManual !== a.isManual) return (b.isManual ? 1 : 0) - (a.isManual ? 1 : 0);
+        return b.weightOrder - a.weightOrder;
+      });
+      const best = candidates[0];
+      foundVal = best.val;
+      foundWeek = best.week;
+      isManual = best.isManual;
+      prevExName = best.exName;
+      reps = best.reps || '';
+      isMax = (best.kg > 0);
+    } else {
+      candidates.sort((a, b) => (b.kg || 0) - (a.kg || 0));
+      const best = candidates[0];
+      foundVal = best.val;
+      foundWeek = best.week;
+      isManual = best.isManual;
+      prevExName = best.exName;
+      reps = best.reps || '';
     }
   }
 
@@ -4730,7 +4767,8 @@ function getPreviousWeekExerciseRef(athlete, currentWeek, sed, exName) {
     reps,
     vbt,
     isSquat,
-    prevExName
+    prevExName,
+    isMax
   };
 }
 
@@ -4879,9 +4917,10 @@ const ATHLETE_VBT_LIMITS = {
       }
 
       // Rendering standard per carichi
-      const loadLbl = ref.isManual 
-        ? (isEN ? 'Last load moved:' : 'Spostato ultima volta:') 
-        : (isEN ? 'Prescribed load:' : 'Carico previsto:');
+      let loadLbl = isEN ? 'Max Logged Load:' : 'Carico Max Segnato:';
+      if (!ref.isManual && !ref.isMax) {
+        loadLbl = isEN ? 'Prescribed load:' : 'Carico previsto:';
+      }
       const targetLbl = isEN ? 'Target:' : 'Previsto:';
       const speedLbl = isEN ? 'Speed:' : 'Velocità:';
       const repsLbl = 'Reps:';
@@ -4928,6 +4967,12 @@ const ATHLETE_VBT_LIMITS = {
         if (mPct) {
           intensitaLbl = `${mPct[1]}%`;
           intensitaVal = escapeHtml(mPct[2]);
+        } else if (/rpe\s*8/i.test(carico || '')) {
+          intensitaLbl = 'RPE';
+          intensitaVal = 'RPE 8';
+        } else if (/rpe/i.test(carico || '')) {
+          intensitaLbl = 'RPE';
+          intensitaVal = escapeHtml(carico.trim());
         } else {
           intensitaVal = escapeHtml(carico || 'BW');
           intensitaLbl = '%';
@@ -4981,7 +5026,8 @@ const ATHLETE_VBT_LIMITS = {
         (rmData && (rmData.targetKg > 0 || rmData.eachKg > 0)) ||
         (carico && /\d+\s*kg/i.test(carico))
       );
-      if (rmData && rmData.targetText && !lowName.includes('squat') && !isLoadAlreadyInIntensity) {
+      const isRpeOnly = (/rpe\s*8/i.test(carico || '') || /rpe/i.test(carico || ''));
+      if (rmData && rmData.targetText && !lowName.includes('squat') && !isLoadAlreadyInIntensity && !isRpeOnly) {
         calcTargetBoxHtml = `
           <div style="font-size:0.75rem; color:var(--mv-amber); background:rgba(245,158,11,0.08); border-left:3px solid var(--mv-amber); padding:6px 10px; border-radius:4px; margin-top:8px;">
             🎯 <strong>${isEN ? 'Target Load:' : 'Carico Calcolato:'}</strong> ${escapeHtml(rmData.targetText)}
@@ -5261,7 +5307,20 @@ function renderSessions() {
       }
     }
 
-    // 2. Controlla se ci sono modifiche salvate dal Coach Studio
+    // 2. Controlla se ci sono modifiche salvate dal Coach Studio (con auto-purge per W5 per garantire allineamento a data.js)
+    if (currentWeek === 'W5') {
+      try {
+        localStorage.removeItem(`coach_override_W5_S${sNum}_ath_${currentAthlete.id}`);
+        localStorage.removeItem(`coach_override_W5_S${sNum}`);
+        localStorage.removeItem(`coach_override_W5_${sed.Numero_Seduta}_ath_${currentAthlete.id}`);
+        localStorage.removeItem(`coach_override_W5_${sed.Numero_Seduta}`);
+        localStorage.removeItem(`coach_studio_session_W5_S${sNum}_ath_${currentAthlete.id}`);
+        localStorage.removeItem(`coach_studio_session_W5_S${sNum}`);
+        localStorage.removeItem(`coach_studio_session_W5_${sed.Numero_Seduta}_ath_${currentAthlete.id}`);
+        localStorage.removeItem(`coach_studio_session_W5_${sed.Numero_Seduta}`);
+      } catch(e) {}
+    }
+
     const athOverrideKey = `coach_override_${currentWeek}_S${sNum}_ath_${currentAthlete.id}`;
     const teamOverrideKey = `coach_override_${currentWeek}_S${sNum}`;
     const savedAth = localStorage.getItem(athOverrideKey) ||
