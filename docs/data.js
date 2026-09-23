@@ -14223,7 +14223,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "40",
-        "Note": "RDL Bilanciere 3x4 @ 65% (Buffer 3-4 tassativo) + Pulley 3x6 RPE 8 + Glute Bridge 3x6 RPE 8 + Pullover 2x8 RPE 8 · STRICT FRIDAY JUMP BAN"
+        "Note": "RDL Bilanciere 3x4 @ 65% (Buffer 3-4 tassativo) + Pulley 3x6 RPE 8 + Glute Bridge 3x6 RPE 8 + Push Press DB 2x6 RPE 8 · STRICT FRIDAY JUMP BAN"
       }
     ],
     "programma_squadra": {
@@ -14447,11 +14447,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14693,11 +14693,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -14939,11 +14939,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15185,11 +15185,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover on Flat Bench",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Dumbbell Push Press",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Chest opening and controlled lat stretch (suggested 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "10-15 cm knee dip, explosive hip extension and powerful overhead vertical press with dumbbells. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15431,11 +15431,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15677,11 +15677,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -15923,11 +15923,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16169,11 +16169,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16415,11 +16415,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16661,11 +16661,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -16907,11 +16907,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",
@@ -17153,11 +17153,11 @@ const WEEKS_DATA = {
             },
             {
               "Blocco": "# Accessories",
-              "Esercizio": "3B. Dumbbell Pullover su panca piana",
-              "Set x Reps": "2 x 8",
+              "Esercizio": "3B. Push Press con Manubri",
+              "Set x Reps": "2 x 6",
               "Carico (kg/RPE)": "RPE 8",
-              "Tempo": "`2010`",
-              "Note Tecniche": "Apertura cassa toracica e allungamento controllato del gran dorsale (suggerito 8-10 kg)."
+              "Tempo": "`10X0`",
+              "Note Tecniche": "Dip 10-15 cm con le ginocchia, estensione d'anca esplosiva e spinta verticale potente sopra la testa. RPE 8."
             },
             {
               "Blocco": "# Core+Trans.",

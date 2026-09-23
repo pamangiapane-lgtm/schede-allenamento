@@ -1546,7 +1546,7 @@
   </main>
 
   <script src="prehab_db.js?v=1.0"></script>
-  <script src="data.js?v=20260923v340-w5-s3-rdl-3x4"></script>
+  <script src="data.js?v=20260923v341-w5-s3-push-press"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="src/core/sports-science-math.js?v=1.0"></script>
   <script src="supabase-client.js?v=2.0"></script>
@@ -2494,7 +2494,7 @@
 
     async function init() {
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js?v=20260923v340-w5-s3-rdl-3x4').then(reg => {
+        navigator.serviceWorker.register('sw.js?v=20260923v341-w5-s3-push-press').then(reg => {
           reg.update().catch(() => {});
         }).catch(() => {});
       }
@@ -4530,6 +4530,7 @@ function getMovementType(name) {
   if (/glute bridge|hip thrust/i.test(n)) return 'glute_bridge';
   if (/alzate laterali|lateral raise/i.test(n) && !/lat machine/i.test(n)) return 'alzate_laterali';
   if (/alzate posteriori|trap-3|y-raise|deltoide posteriore/i.test(n)) return 'alzate_posteriori';
+  if (/push press|push-press/i.test(n)) return 'push_press';
   if (/shoulder press|military|lento avanti/i.test(n)) return 'shoulder_press';
   if (/farmer|suitcase|carry|trasporto/i.test(n)) return 'farmer_march';
   if (/face pull|extrarotazion|rotatori/i.test(n)) return 'face_pull';
