@@ -1214,7 +1214,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -1689,7 +1689,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -2164,7 +2164,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -2639,7 +2639,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Bar Hang with Feet Support",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "Partial BW",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressive",
               "Note Tecniche": "Total lumbar and spinal decompression"
             },
@@ -3114,7 +3114,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -3589,7 +3589,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -4064,7 +4064,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -4539,7 +4539,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -5014,7 +5014,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -5497,7 +5497,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -5972,7 +5972,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -6447,7 +6447,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -8015,7 +8015,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -8506,7 +8506,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -8997,7 +8997,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -9488,7 +9488,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Bar Hang with Feet Support",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "Partial BW",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressive",
               "Note Tecniche": "Total lumbar and spinal decompression"
             },
@@ -9979,7 +9979,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -10470,7 +10470,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -10961,7 +10961,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -11452,7 +11452,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -11943,7 +11943,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -12442,7 +12442,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -12933,7 +12933,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -13424,7 +13424,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "3 x 30\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare"
             },
@@ -14417,7 +14417,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -14663,7 +14663,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -14909,7 +14909,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -15155,7 +15155,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang on pull-up bar (feet supported)",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Total axial decompression and shoulder mobility."
             },
@@ -15401,7 +15401,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -15647,7 +15647,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -15893,7 +15893,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -16139,7 +16139,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -16385,7 +16385,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -16631,7 +16631,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -16877,7 +16877,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -17123,7 +17123,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "1A. Passive Hang alla sbarra con appoggio piedi",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Scarico totale del rachide lombare e decompressione assiale."
             },
@@ -17393,7 +17393,7 @@ const WEEKS_DATA = {
               "Blocco": "# Prehab",
               "Esercizio": "2. Passive Hang on pull-up bar (feet supported)",
               "Set x Reps": "2 x 20\"",
-              "Carico (kg/RPE)": "BW parziale",
+              "Carico (kg/RPE)": "BW",
               "Tempo": "Decompressivo",
               "Note Tecniche": "Total axial decompression and shoulder mobility."
             },
