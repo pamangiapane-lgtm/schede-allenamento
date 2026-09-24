@@ -14223,7 +14223,7 @@ const WEEKS_DATA = {
         "Fase": "Mattina",
         "Luogo": "Palestra",
         "Durata_min": "40",
-        "Note": "RDL Bilanciere 3x4 @ RPE 8 (Buffer 3-4 tassativo) + Pulley 3x6 @ RPE 8 + Glute Bridge 3x6 @ RPE 8 + Push Press DB 2x6 @ RPE 8 + Deadbug 2x5+5 @ RPE 8 + Farmer March Monolaterale 2x20m/lato @ RPE 8 · STRICT FRIDAY JUMP BAN: 0 salti."
+        "Note": "RDL Bilanciere 3x4 @ da 65 a 75% (Buffer 3-4 tassativo) + Pulley 3x6 RPE 8 + Glute Bridge 3x6 RPE 8 + Push Press DB 2x6 RPE 8 + Deadbug 2x5+5 RPE 8 · STRICT FRIDAY JUMP BAN"
       }
     ],
     "programma_squadra": {
@@ -14425,7 +14425,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (39-45 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -14671,7 +14671,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (26-30 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -14917,7 +14917,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (45.5-52.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -15163,7 +15163,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift (Barbell RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (36-41.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Pure hip hinge, barbell close to thighs. **Buffer 3-4 strict**. No hamstring fatigue."
             },
@@ -15409,7 +15409,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (32.5-37.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -15655,7 +15655,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (32.5-37.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -15901,7 +15901,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (52-60 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -16147,7 +16147,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (39-45 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -16393,7 +16393,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (52-60 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -16639,7 +16639,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (37.5-43.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -16885,7 +16885,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (57-66 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -17131,7 +17131,7 @@ const WEEKS_DATA = {
               "Blocco": "# Main",
               "Esercizio": "2A. Romanian Deadlift con Bilanciere (RDL)",
               "Set x Reps": "3 x 4",
-              "Carico (kg/RPE)": "RPE 8",
+              "Carico (kg/RPE)": "da 65 a 75% (59-68.5 kg)",
               "Tempo": "`2010`",
               "Note Tecniche": "Cerniera d'anca pura, bilanciere aderente alle cosce. **Buffer 3-4 tassativo**. No acido lattico femorale."
             },
@@ -19230,3 +19230,5 @@ const WEEKS_DATA = {
     }
   }
 };
+
+module.exports = { ROSTER, WEEKS_DATA };
